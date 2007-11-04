@@ -44,11 +44,13 @@ namespace SmartApp
                 string strName = m_IniFile.GetValue(strSection, Cste.STR_FILE_DESC_NAME);
                 string strCommType = m_IniFile.GetValue(strSection, Cste.STR_FILE_DESC_COMM);
                 string strCommParam = m_IniFile.GetValue(strSection, Cste.STR_FILE_DESC_ADDR);
-                if (!string.IsNullOrEmpty(strName)
-                    && !string.IsNullOrEmpty(strCommType)
+                if (!string.IsNullOrEmpty(strCommType)
                     && !string.IsNullOrEmpty(strCommParam)
                     )
                 {
+                    if (string.IsNullOrEmpty(strName))
+                        strName = "";
+
                     AddCommToDataGrid(strName, strCommType, strCommParam, strSection);
                 }
             }
@@ -172,7 +174,8 @@ namespace SmartApp
                 if (string.IsNullOrEmpty(Type)
                     || string.IsNullOrEmpty(Param))
                     continue;
-
+                if (string.IsNullOrEmpty(Name))
+                    Name = "";
                 m_IniFile.SetValue(strSection, Cste.STR_FILE_DESC_NAME, Name);
                 m_IniFile.SetValue(strSection, Cste.STR_FILE_DESC_COMM, Type);
                 m_IniFile.SetValue(strSection, Cste.STR_FILE_DESC_ADDR, Param);

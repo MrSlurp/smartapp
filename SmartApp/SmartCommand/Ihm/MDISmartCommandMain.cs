@@ -437,11 +437,12 @@ namespace SmartApp
                 string strName = m_CommConfigPage.IniFile.GetValue(strSection, Cste.STR_FILE_DESC_NAME);
                 string strCommType = m_CommConfigPage.IniFile.GetValue(strSection, Cste.STR_FILE_DESC_COMM);
                 string strCommParam = m_CommConfigPage.IniFile.GetValue(strSection, Cste.STR_FILE_DESC_ADDR);
-                if (!string.IsNullOrEmpty(strName)
-                    && !string.IsNullOrEmpty(strCommType)
+                if (!string.IsNullOrEmpty(strCommType)
                     && !string.IsNullOrEmpty(strCommParam)
                     )
                 {
+                    if (string.IsNullOrEmpty(strName))
+                        strName = string.Format("Connection {0}", i);
                     AddStringToCombo(strName, strCommType, strCommParam, strSection);
                 }
             }
