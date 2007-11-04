@@ -1,0 +1,564 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5A8BD31D-5E4E-4891-9351-DD3119CB6BC9}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SmartApp</RootNamespace>
+    <AssemblyName>SmartApp</AssemblyName>
+    <ApplicationIcon>SmartApp.ico</ApplicationIcon>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <SignManifests>false</SignManifests>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationVersion>1.0.1.0</ApplicationVersion>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Prod\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\Prod\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug Cmd|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\Prod\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\AboutForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\AboutForm.Designer.cs">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\IniFileParser.cs" />
+    <Compile Include="Common\LaunchArgParser.cs" />
+    <Compile Include="Common\Scripts\Executer.cs" />
+    <Compile Include="SmartCommand\AppEventLog\AppEventLogForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmartCommand\AppEventLog\AppEventLogForm.Designer.cs">
+      <DependentUpon>AppEventLogForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartCommand\AppEventLog\LogEvent.cs" />
+    <Compile Include="SmartCommand\Comm\BaseComm.cs" />
+    <Compile Include="SmartCommand\Comm\BTComm.cs" />
+    <Compile Include="SmartCommand\Comm\EthernetComm.cs" />
+    <Compile Include="SmartCommand\Comm\HttpComm.cs" />
+    <Compile Include="SmartCommand\Comm\SerialComm.cs" />
+    <Compile Include="SmartCommand\Controls\BaseControl.cs" />
+    <Compile Include="SmartCommand\Controls\ButtonControl.cs" />
+    <Compile Include="SmartCommand\Controls\CheckControl.cs" />
+    <Compile Include="SmartCommand\Controls\ComboControl.cs" />
+    <Compile Include="SmartCommand\Controls\SliderControl.cs" />
+    <Compile Include="SmartCommand\Controls\StaticControl.cs" />
+    <Compile Include="SmartCommand\Controls\UpDownControl.cs" />
+    <Compile Include="SmartCommand\Ihm\CommConfiguration.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmartCommand\Ihm\CommConfiguration.Designer.cs">
+      <DependentUpon>CommConfiguration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartCommand\Ihm\DynamicPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmartCommand\Ihm\DynamicPanel.Designer.cs">
+      <DependentUpon>DynamicPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartCommand\Ihm\DynamicPanelForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmartCommand\Ihm\DynamicPanelForm.Designer.cs">
+      <DependentUpon>DynamicPanelForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartCommand\Ihm\MDISmartCommandMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmartCommand\Ihm\MDISmartCommandMain.Designer.cs">
+      <DependentUpon>MDISmartCommandMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartCommand\Ihm\OptionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmartCommand\Ihm\OptionForm.Designer.cs">
+      <DependentUpon>OptionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartCommand\Ihm\WaitOpenCommForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmartCommand\Ihm\WaitOpenCommForm.Designer.cs">
+      <DependentUpon>WaitOpenCommForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\AppMessages.cs" />
+    <Compile Include="Common\Datas\BaseObject.cs" />
+    <Compile Include="Common\Datas\BTControl.cs">
+    </Compile>
+    <Compile Include="Common\Datas\BTScreen.cs" />
+    <Compile Include="Common\Datas\BTTimer.cs" />
+    <Compile Include="Common\Datas\Data.cs" />
+    <Compile Include="Common\Datas\Function.cs" />
+    <Compile Include="Common\Datas\Logger.cs" />
+    <Compile Include="Defines.cs" />
+    <Compile Include="Common\Datas\Trame.cs" />
+    <Compile Include="Common\Gestionnaires\BaseGest.cs" />
+    <Compile Include="Common\Gestionnaires\BaseGestGroup.cs" />
+    <Compile Include="Common\Gestionnaires\GestControl.cs" />
+    <Compile Include="Common\Gestionnaires\GestData.cs" />
+    <Compile Include="Common\Gestionnaires\GestFunction.cs" />
+    <Compile Include="Common\Gestionnaires\GestLogger.cs" />
+    <Compile Include="Common\Gestionnaires\GestScreen.cs" />
+    <Compile Include="Common\Gestionnaires\GestTimer.cs" />
+    <Compile Include="Common\Gestionnaires\GestTrame.cs" />
+    <Compile Include="Common\BTDoc.cs" />
+    <Compile Include="SmartConfig\Ihm\ConfigurationForm\DataForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ConfigurationForm\DataForm.Designer.cs">
+      <DependentUpon>DataForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ConfigurationForm\DesignerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ConfigurationForm\DesignerForm.Designer.cs">
+      <DependentUpon>DesignerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ConfigurationForm\FrameForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ConfigurationForm\FrameForm.Designer.cs">
+      <DependentUpon>FrameForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Designer\ControlPainter.cs" />
+    <Compile Include="SmartConfig\Ihm\Designer\DragItemPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Designer\DragItemPanel.Designer.cs">
+      <DependentUpon>DragItemPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Designer\InteractiveControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Designer\InteractiveControl.Designer.cs">
+      <DependentUpon>InteractiveControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Designer\InteractiveControlContainer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Designer\InteractiveControlContainer.Designer.cs">
+      <DependentUpon>InteractiveControlContainer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Designer\MoveButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Designer\ResizeButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\MDISmartConfigMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\MDISmartConfigMain.Designer.cs">
+      <DependentUpon>MDISmartConfigMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\FramePropertiesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\FramePropertiesControl.Designer.cs">
+      <DependentUpon>FramePropertiesControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\LoggerPropertiesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\LoggerPropertiesControl.Designer.cs">
+      <DependentUpon>LoggerPropertiesControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\ScreenItemPropertiesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\ScreenItemPropertiesControl.Designer.cs">
+      <DependentUpon>ScreenItemPropertiesControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ConfigurationForm\ProgramForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ConfigurationForm\ProgramForm.Designer.cs">
+      <DependentUpon>ProgramForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\DataPropertiesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\DataPropertiesControl.Designer.cs">
+      <DependentUpon>DataPropertiesControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\ScreenPropertiesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\ScreenPropertiesControl.Designer.cs">
+      <DependentUpon>ScreenPropertiesControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Designer\ScreenPropPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Designer\ScreenPropPanel.Designer.cs">
+      <DependentUpon>ScreenPropPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\FunctionPropertiesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\FunctionPropertiesControl.Designer.cs">
+      <DependentUpon>FunctionPropertiesControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\TimerPropertiesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\TimerPropertiesControl.Designer.cs">
+      <DependentUpon>TimerPropertiesControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\UtilsClasses.cs" />
+    <Compile Include="SmartConfig\Ihm\ProgItemPanels\FunctionPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ProgItemPanels\FunctionPanel.Designer.cs">
+      <DependentUpon>FunctionPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ProgItemPanels\LoggerPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ProgItemPanels\LoggerPanel.Designer.cs">
+      <DependentUpon>LoggerPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ProgItemPanels\TimerPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ProgItemPanels\TimerPanel.Designer.cs">
+      <DependentUpon>TimerPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\Scripts\Parser.cs" />
+    <Compile Include="SmartConfig\Ihm\Scripts\ScriptControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Scripts\ScriptControl.Designer.cs">
+      <DependentUpon>ScriptControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Scripts\ScriptEditordialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Scripts\ScriptEditordialog.Designer.cs">
+      <DependentUpon>ScriptEditordialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\VariousFormAndControls\SymbolTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\VariousFormAndControls\SymbolTextBox.Designer.cs">
+      <DependentUpon>SymbolTextBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\VariousFormAndControls\ChangeListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\VariousFormAndControls\ChangeListForm.Designer.cs">
+      <DependentUpon>ChangeListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\VariousFormAndControls\ManageGroupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\VariousFormAndControls\ManageGroupForm.Designer.cs">
+      <DependentUpon>ManageGroupForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Common\AboutForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartCommand\AppEventLog\AppEventLogForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>AppEventLogForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartCommand\Ihm\CommConfiguration.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>CommConfiguration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartCommand\Ihm\DynamicPanel.resx">
+      <DependentUpon>DynamicPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartCommand\Ihm\DynamicPanelForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>DynamicPanelForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartCommand\Ihm\MDISmartCommandMain.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MDISmartCommandMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartCommand\Ihm\OptionForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>OptionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartCommand\Ihm\WaitOpenCommForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>WaitOpenCommForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\ConfigurationForm\DataForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>DataForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\ConfigurationForm\DesignerForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>DesignerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\ConfigurationForm\FrameForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FrameForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\ConfigurationForm\ProgramForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ProgramForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\Designer\DragItemPanel.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>DragItemPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\Designer\InteractiveControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>InteractiveControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\Designer\InteractiveControlContainer.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>InteractiveControlContainer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\MDISmartConfigMain.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MDISmartConfigMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\ObjectPropertiesControls\FramePropertiesControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FramePropertiesControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\ObjectPropertiesControls\FunctionPropertiesControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FunctionPropertiesControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\ObjectPropertiesControls\LoggerPropertiesControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>LoggerPropertiesControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\ObjectPropertiesControls\ScreenItemPropertiesControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ScreenItemPropertiesControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\ObjectPropertiesControls\DataPropertiesControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>DataPropertiesControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\ObjectPropertiesControls\ScreenPropertiesControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ScreenPropertiesControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\Designer\ScreenPropPanel.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ScreenPropPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\ObjectPropertiesControls\TimerPropertiesControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>TimerPropertiesControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\ProgItemPanels\FunctionPanel.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FunctionPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\ProgItemPanels\LoggerPanel.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>LoggerPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\ProgItemPanels\TimerPanel.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>TimerPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\Scripts\ScriptControl.resx">
+      <DependentUpon>ScriptControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\Scripts\ScriptEditordialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ScriptEditordialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\VariousFormAndControls\ChangeListForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ChangeListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\VariousFormAndControls\ManageGroupForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ManageGroupForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\Wizards\M3SLWizard\WizardSLForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>WizardSLForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\Wizards\TCPModbusWizard\WizardTcpModbusForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>WizardTcpModbusForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\WizardFrameGenerator.cs" />
+    <Compile Include="SmartConfig\Ihm\Wizards\M3SLWizard\WizardSLForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Wizards\M3SLWizard\WizardSLForm.Designer.cs">
+      <DependentUpon>WizardSLForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Wizards\TCPModbusWizard\WizardTcpModbusForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Wizards\TCPModbusWizard\WizardTcpModbusForm.Designer.cs">
+      <DependentUpon>WizardTcpModbusForm.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SmartConfig\Res\UpDownBtn.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SmartConfig\Res\BottomLeftBtn.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SmartConfig\Res\BottomRightBtn.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SmartConfig\Res\CheckBox.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SmartConfig\Res\ColorTourComboUpDownNum.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SmartConfig\Res\DownBtn.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SmartConfig\Res\LeftBtn.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SmartConfig\Res\RadioBtn.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SmartConfig\Res\RightBtn.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SmartConfig\Res\SliderBar.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SmartConfig\Res\SliderCursor.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SmartConfig\Res\TopBtn.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SmartConfig\Res\TopLeftBtn.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SmartConfig\Res\TopRightBtn.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SmartConfig\Res\DropBtn.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SmartConfig\Res\move.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SmartConfig\Res\Toolbar\MakeSameHeight.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SmartConfig\Res\Toolbar\AlignLeft.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SmartConfig\Res\Toolbar\AlignTop.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SmartConfig\Res\Toolbar\MakeSameWidth.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SmartConfig\Res\Toolbar\MakeSameBoth.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SmartConfig\Res\CxnOn.bmp" />
+    <None Include="SmartConfig\Res\CxnOff.bmp" />
+    <None Include="SmartConfig\Res\PresAssData.bmp" />
+    <Content Include="SmartApp.ico" />
+    <None Include="app.config" />
+    <None Include="SmartConfig\Res\WizRes\SLO3.bmp" />
+    <None Include="SmartConfig\Res\WizRes\SLI2.bmp" />
+    <None Include="SmartConfig\Res\WizRes\SLI3.bmp" />
+    <None Include="SmartConfig\Res\WizRes\SLO1.bmp" />
+    <None Include="SmartConfig\Res\WizRes\SLO2.bmp" />
+    <None Include="SmartConfig\Res\WizRes\SLI1.bmp" />
+    <None Include="SmartConfig\Res\Toolbar\ArrangeDown.bmp" />
+    <None Include="SmartConfig\Res\Toolbar\ArrangeAcross.bmp" />
+    <Content Include="ToDo.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

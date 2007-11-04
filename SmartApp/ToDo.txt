@@ -1,0 +1,33 @@
+/*********************************************/
+				SmartConfig
+/*********************************************/
+erreurs a traiter:
+- Double affichage d'un message d'erreur lorsque la donnée associée n'est pas valide et qu'on clique sur un control
+ présent dans le designer
+- mettre la la fenêtre au premier plan si les données ne sont pas valide et qu'on la quitte en cliquant sur une autre fenêtre;
+- faire une vrai associationfichier App dans la BDR...voir classe trouvée sur le net
+- Rafraichissement image de fond des ecrans dès que valeur modifiée non, => engage la modif de l'objet
+
+- passage en mode stop du bouton si la connexion est fermée ==> To test
+options 
+  - Dossier de travaille
+ 
+/*********************************************/
+				SmartCommand
+/*********************************************/
+
+reprise de l'existant de BT Command:
+	- Data watch 
+
+nouveau:
+	- frame watch?	
+	- loguer les trames en cas d'erreur
+		
+Afficher la données associée en tool tip
+
+EVO
+Crée des séparateur graphiques pour les ecrans
+Insérer une version simplifiée de la AGauge avec une fenêtre pour la configurer
+Idées en plus
+MultiDocument pour SmartCmd:
+Une fenêtre qui gère tout les documents avec leur connexion respectives et qui affcihent leurs états
