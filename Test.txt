@@ -1,0 +1,67 @@
+test de l'application
+
+Smart Config
+
+Data window
+vérfier la création de données
+les différents paramètres d'une donnée
+le redimensionnement de la fenêtre
+la management des groupes
+le système de groupe en général
+
+Frame window
+Création
+paramètres
+arrangement / ajout / supression des données
+
+Screen window
+création
+paramètres des écrans
+paramètres des controls
+ajout/supression de control
+selection
+arrangement de control divers
+scripts
+modification d'un symbol utilisé dans les scripts
+le redimensionnement de la fenêtre
+
+Timer
+scripts
+modification d'un symbol utilisé dans les scripts
+le redimensionnement de la fenêtre
+
+Loggers
+scripts
+modification d'un symbol utilisé dans les scripts
+Ajouter l'option autostart
+le redimensionnement de la fenêtre
+
+Function
+scripts
+modification d'un symbol utilisé dans les scripts
+le redimensionnement de la fenêtre
+
+SmartCommand
+ouverture d'un fichier
+execution des fonction
+execution des timers
+execution des loggers
+gestion de l'option autostart
+
+execution des script
+trames
+	- fonction send
+	- fonction recieve
+fonction
+logger
+	- fonction start 
+	- fonction stop
+	- fonction clear
+timers
+	- fonction start
+	- fonction stop
+
+gestion des options
+	- mémo des dernier params de comm utilisés
+	- utilisation de log dir
+	
