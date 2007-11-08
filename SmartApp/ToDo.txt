@@ -31,3 +31,21 @@ Insérer une version simplifiée de la AGauge avec une fenêtre pour la configurer
 Idées en plus
 MultiDocument pour SmartCmd:
 Une fenêtre qui gère tout les documents avec leur connexion respectives et qui affcihent leurs états
+
+
+passage des tests
+
+IPR 0001: lors de sa première utilisation, l'auto completion list n'est pas sur fond gris
+OK
+IPR 0002: si la completion liste est visible, l'appuis sur entrée devrai ajouter la ligne selectionnée
+OK
+IPR 0003: lors de l'appuis sur le touche haut, on devrai prendre le focus sur l'auto completion list
+OK
+IPR 0004: crash lors de la supression d'un caractère dans le mot clé
+OK
+IPR 0005: crash lors de l'utilisation de l'auto completion dans le début d'une ligne complète
+OK
+IPR 0006: si on sauvegarde alors que des données n'ont pas été validée (OnValidating()), ces données sont perdues (vu dans fonction, description perdue)
+IPR 0007: après l'édition d'un script, le document n'apparait pas modifié
+OK
+IPR 0008: si le curseur est entre deux points consécutifs, ca écrase le texte après 

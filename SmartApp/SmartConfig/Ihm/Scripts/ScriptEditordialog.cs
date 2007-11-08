@@ -99,6 +99,7 @@ namespace SmartApp.Scripts
         private void m_BtnOK_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.OK;
+            m_Document.Modified = true;
             this.Close();
         }
 
@@ -122,12 +123,15 @@ namespace SmartApp.Scripts
             int posCarret = m_EditScript.SelectionStart;
             RichTextBoxSelectionTypes oldval = m_EditScript.SelectionType;
             m_EditScript.Text = m_EditScript.Text.ToUpper();
+            
             int CarretLine = m_EditScript.GetLineFromCharIndex(posCarret);
+            m_EditScript.SelectionStart = posCarret;
             int carretPosOnLine = posCarret - m_EditScript.GetFirstCharIndexOfCurrentLine();
             if (CarretLine > m_EditScript.Lines.Length - 1)
                 return;
             string line = m_EditScript.Lines[CarretLine];
             int indexOfPoint = line.LastIndexOf('.');
+            //la selection du texte se fait: entre le premier point en partant de la gauche du curseur, et le curseur
             if (indexOfPoint < 0)
             {
                 m_EditScript.SelectionStart = ((posCarret - line.Length) > 0)? (posCarret - line.Length) : 0;
@@ -135,7 +139,8 @@ namespace SmartApp.Scripts
             }
             else
             {
-                m_EditScript.SelectionStart = posCarret - (line.Length - (indexOfPoint + 1));
+                int selectionStart = posCarret - (line.Length - (indexOfPoint + 1));
+                m_EditScript.SelectionStart = selectionStart > 0 ? selectionStart : 0;
                 m_EditScript.SelectionLength = line.Length - indexOfPoint;
             }
             string SelectedText = m_EditScript.SelectedText;
@@ -221,10 +226,20 @@ namespace SmartApp.Scripts
         //*****************************************************************************************************
         private void OnEditScriptKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Down && m_AutoComplListBox.Visible)
+            if ((e.KeyCode == Keys.Down || e.KeyCode == Keys.Up) && m_AutoComplListBox.Visible)
             {
                 m_AutoComplListBox.Focus();
                 m_AutoComplListBox.BackColor = SystemColors.Window;
+                e.Handled = true;
+            }
+            else if (e.KeyCode == Keys.Enter && m_AutoComplListBox.Visible)
+            {
+                DoInsertAutoCompleteString();
+                e.Handled = true;
+            }
+            else if (e.KeyCode == Keys.Escape && m_AutoComplListBox.Visible)
+            {
+                m_AutoComplListBox.Visible = false;
             }
         }
 
@@ -237,6 +252,11 @@ namespace SmartApp.Scripts
             if (e.KeyCode == Keys.Enter)
             {
                 DoInsertAutoCompleteString();
+            }
+            else if (e.KeyCode == Keys.Escape && m_AutoComplListBox.Visible)
+            {
+                m_AutoComplListBox.Visible = false;
+                m_EditScript.Focus();
             }
         }
         #endregion
@@ -291,25 +311,66 @@ namespace SmartApp.Scripts
             // selectionner le mot en cour, et remplacer par le texte de la list box
             int posCarret = m_EditScript.SelectionStart;
             int CarretLine = m_EditScript.GetLineFromCharIndex(posCarret);
-            int carretPosOnLine = posCarret - m_EditScript.GetFirstCharIndexOfCurrentLine();
+            m_EditScript.SelectionStart = posCarret;
+            int posFirstCharOfLine = m_EditScript.GetFirstCharIndexOfCurrentLine();
+            int carretPosOnLine = posCarret - posFirstCharOfLine;
             string line = m_EditScript.Lines[CarretLine];
-            int indexOfPoint = line.LastIndexOf('.');
-            if (indexOfPoint < 0)
+            List<int> listPointPos = new List<int>();
+            int PosPoint = 0;
+            while (PosPoint != -1 && line.Length > 0)
             {
-                m_EditScript.SelectionStart = ((posCarret - line.Length) > 0) ? (posCarret - line.Length) : 0;
+                PosPoint = line.IndexOf('.', PosPoint + 1);
+                if (PosPoint != -1)
+                    listPointPos.Add(PosPoint);
+            }
+            int finalCarretPos = m_EditScript.Text.Length;
+            int CarretIsAfterPointAt = -1; // indique après quel point se situe le chariot
+            int CarretIsBeforePointAt = int.MaxValue; // indique avant quel point se situe le chariot
+            //les points sont classés par ordre d'apparition de gauche a droite
+            for (int i = 0; i < listPointPos.Count; i++)
+            {
+                if (CarretIsAfterPointAt < listPointPos[i] && carretPosOnLine > listPointPos[i])
+                    CarretIsAfterPointAt = listPointPos[i];
+                if (CarretIsBeforePointAt > listPointPos[i] && carretPosOnLine < listPointPos[i])
+                    CarretIsBeforePointAt = listPointPos[i];
+            }
+            // le curseur est entre deux point dont on a les coordonnées sur la ligne courante,
+            // on selectionne entre ces deux points
+            if (CarretIsAfterPointAt != -1 && CarretIsBeforePointAt != int.MaxValue)
+            {
+                Console.WriteLine("entre deux points");
+                m_EditScript.SelectionStart = posFirstCharOfLine + (CarretIsAfterPointAt+1);
+                m_EditScript.SelectionLength = CarretIsBeforePointAt - (CarretIsAfterPointAt+1);
+            }
+            //Le chariot est après le dernier point
+            else if (CarretIsAfterPointAt != -1 && CarretIsBeforePointAt == int.MaxValue)
+            {
+                Console.WriteLine("après dernier point");
+                m_EditScript.SelectionStart = posFirstCharOfLine + (CarretIsAfterPointAt+1); // +1 car après le point
+                m_EditScript.SelectionLength = line.Length - (CarretIsAfterPointAt+1);// dela fin jusqu'au point
+            }
+            // le chariot se trouve avant le premier point
+            else if (CarretIsAfterPointAt == -1 && CarretIsBeforePointAt != int.MaxValue)
+            {
+                Console.WriteLine("avant premier point");
+                m_EditScript.SelectionStart = posFirstCharOfLine;
+                m_EditScript.SelectionLength = CarretIsBeforePointAt;
+            }
+            // pas de points
+            else if (CarretIsAfterPointAt == -1 && CarretIsBeforePointAt == int.MaxValue)
+            {
+                Console.WriteLine("pas de points sur la ligne");
+                m_EditScript.SelectionStart = posFirstCharOfLine;
                 m_EditScript.SelectionLength = line.Length;
             }
             else
-            {
-                m_EditScript.SelectionStart = posCarret - (line.Length - (indexOfPoint + 1));
-                m_EditScript.SelectionLength = line.Length - indexOfPoint;
-            }
+                System.Diagnostics.Debug.Assert(false);
             m_EditScript.SelectedText = strClicked;
             m_AutoComplListBox.Hide();
             m_AutoComplListBox.BackColor = SystemColors.Control;
             m_EditScript.Focus();
             m_EditScript.SelectionLength = 0;
-            m_EditScript.SelectionStart = m_EditScript.Text.Length;
+            //m_EditScript.SelectionStart = finalCarretPos;
         }
         #endregion
 

@@ -69,6 +69,7 @@ namespace SmartApp.Scripts
             // 
             // m_AutoComplListBox
             // 
+            this.m_AutoComplListBox.BackColor = System.Drawing.SystemColors.Control;
             this.m_AutoComplListBox.FormattingEnabled = true;
             this.m_AutoComplListBox.HorizontalScrollbar = true;
             this.m_AutoComplListBox.Location = new System.Drawing.Point(408, 2);
