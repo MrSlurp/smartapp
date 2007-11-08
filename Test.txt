@@ -65,3 +65,6 @@ gestion des options
 	- mémo des dernier params de comm utilisés
 	- utilisation de log dir
 	
+	
+SCRIPT GENERAL
+tester les lignes vide et edition, sauvegarde, relecture
