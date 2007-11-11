@@ -116,7 +116,7 @@ namespace SmartApp.Ihm.ProgItemPanels
                 ListViewItem lviData = m_listView.Items[i];
                 BTTimer Fc = (BTTimer)lviData.Tag;
                 lviData.Text = Fc.Symbol;
-                lviData.SubItems[0].Text = Fc.Period.ToString();
+                lviData.SubItems[1].Text = Fc.Period.ToString();
             }
         }
         #endregion

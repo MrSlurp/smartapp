@@ -147,6 +147,19 @@ namespace SmartApp.Ihm
             }
         }
 
+        public bool AutoStart
+        {
+            get
+            {
+                return m_chkAutoStart.Checked;
+            }
+            set
+            {
+                m_chkAutoStart.Checked = value;
+            }
+        }
+
+
         //*****************************************************************************************************
         // Description:
         // Return: /
@@ -224,12 +237,15 @@ namespace SmartApp.Ihm
             if (m_Timer.Period != this.Period)
                 bDataPropChange |= true;
 
+            if (m_Timer.AutoStart != this.AutoStart)
+                bDataPropChange |= true;
 
             if (bDataPropChange)
             {
                 m_Timer.Description = this.Description;
                 m_Timer.Symbol = this.Symbol;
                 m_Timer.Period = this.Period;
+                m_Timer.AutoStart = this.AutoStart;
                 Doc.Modified = true;
             }
             if (bDataPropChange && TimerPropChange != null)

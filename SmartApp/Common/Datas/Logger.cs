@@ -23,6 +23,8 @@ namespace SmartApp.Datas
         string m_strFileName;
         // période de l'auto logger
         int m_iPeriod;
+
+        private bool m_bAutoStart = false;
         #endregion
 
         #region donnée spécifiques aux fonctionement en mode Command
@@ -96,6 +98,17 @@ namespace SmartApp.Datas
             }
         }
 
+        public bool AutoStart
+        {
+            get
+            {
+                return m_bAutoStart;
+            }
+            set
+            {
+                m_bAutoStart = value;
+            }
+        }
         #endregion
 
         #region constructeurs
@@ -143,6 +156,10 @@ namespace SmartApp.Datas
                 m_ListStrDatas.Add(SymbAttr.Value);
             }
 
+            XmlNode AutoStartAttrib = Node.Attributes.GetNamedItem(XML_CF_ATTRIB.AutoStart.ToString());
+            if (AutoStartAttrib != null)
+                m_bAutoStart = bool.Parse(AutoStartAttrib.Value);
+
             return bRet;
         }
 
@@ -157,12 +174,15 @@ namespace SmartApp.Datas
             XmlAttribute LoggerTypeAttrib = XmlDoc.CreateAttribute(XML_CF_ATTRIB.LoggerType.ToString());
             XmlAttribute PeriodAttrib = XmlDoc.CreateAttribute(XML_CF_ATTRIB.Period.ToString());
             XmlAttribute FileNameAttrib = XmlDoc.CreateAttribute(XML_CF_ATTRIB.FileName.ToString());
+            XmlAttribute AutoStartAttrib = XmlDoc.CreateAttribute(XML_CF_ATTRIB.AutoStart.ToString());
             PeriodAttrib.Value = m_iPeriod.ToString();
             LoggerTypeAttrib.Value = m_LogType;
             FileNameAttrib.Value = m_strFileName;
+            AutoStartAttrib.Value = m_bAutoStart.ToString(); 
             Node.Attributes.Append(PeriodAttrib);
             Node.Attributes.Append(LoggerTypeAttrib);
             Node.Attributes.Append(FileNameAttrib);
+            Node.Attributes.Append(AutoStartAttrib);
 
             XmlNode NodeDataList = XmlDoc.CreateElement(XML_CF_TAG.DataList.ToString());
             Node.AppendChild(NodeDataList);
@@ -270,7 +290,7 @@ namespace SmartApp.Datas
                 {
 
                     case MESSAGE.MESS_CMD_RUN:
-                        if (m_LogType == LOGGER_TYPE.AUTO.ToString())
+                        if (m_LogType == LOGGER_TYPE.AUTO.ToString() && m_bAutoStart)
                         {
                             string fileFullPath = m_strLogFilePath + @"\" + m_strFileName;
                             m_FileWriter = new StreamWriter(File.Open(fileFullPath, FileMode.Append));
@@ -293,6 +313,7 @@ namespace SmartApp.Datas
         }
         #endregion
 
+        #region fonction d'execution en mode Command
         //*****************************************************************************************************
         // Description: démarre le logger si il est en mode auto
         // Return: /
@@ -415,7 +436,7 @@ namespace SmartApp.Datas
                 string fileFullPath = m_strLogFilePath + @"\" + m_strFileName;
                 try
                 {
-                    m_FileWriter = new StreamWriter(File.Open(fileFullPath, FileMode.Append));
+                    m_FileWriter = new StreamWriter(File.Open(fileFullPath, FileMode.Truncate));
                 }
                 catch (Exception )
                 {
@@ -483,5 +504,6 @@ namespace SmartApp.Datas
             if (m_bTimerActive)
                 m_Timer.Start();
         }
+        #endregion
     }
 }

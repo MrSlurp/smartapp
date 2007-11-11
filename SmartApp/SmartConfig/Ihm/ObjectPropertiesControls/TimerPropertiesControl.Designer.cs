@@ -38,6 +38,7 @@ namespace SmartApp.Ihm
             this.m_NumPeriod = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.m_chkAutoStart = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.m_NumPeriod)).BeginInit();
             this.SuspendLayout();
             // 
@@ -109,7 +110,7 @@ namespace SmartApp.Ihm
             // 
             // m_NumPeriod
             // 
-            this.m_NumPeriod.Location = new System.Drawing.Point(6, 130);
+            this.m_NumPeriod.Location = new System.Drawing.Point(209, 91);
             this.m_NumPeriod.Name = "m_NumPeriod";
             this.m_NumPeriod.Size = new System.Drawing.Size(120, 20);
             this.m_NumPeriod.TabIndex = 25;
@@ -117,7 +118,7 @@ namespace SmartApp.Ihm
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 114);
+            this.label1.Location = new System.Drawing.Point(206, 75);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(66, 13);
             this.label1.TabIndex = 24;
@@ -126,17 +127,28 @@ namespace SmartApp.Ihm
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(132, 132);
+            this.label5.Location = new System.Drawing.Point(335, 93);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(20, 13);
             this.label5.TabIndex = 26;
             this.label5.Text = "ms";
+            // 
+            // m_chkAutoStart
+            // 
+            this.m_chkAutoStart.AutoSize = true;
+            this.m_chkAutoStart.Location = new System.Drawing.Point(6, 124);
+            this.m_chkAutoStart.Name = "m_chkAutoStart";
+            this.m_chkAutoStart.Size = new System.Drawing.Size(73, 17);
+            this.m_chkAutoStart.TabIndex = 27;
+            this.m_chkAutoStart.Text = "Auto Start";
+            this.m_chkAutoStart.UseVisualStyleBackColor = true;
             // 
             // TimerPropertiesControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(this.m_chkAutoStart);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.m_NumPeriod);
             this.Controls.Add(this.label1);
@@ -168,5 +180,6 @@ namespace SmartApp.Ihm
         private System.Windows.Forms.NumericUpDown m_NumPeriod;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.CheckBox m_chkAutoStart;
     }
 }

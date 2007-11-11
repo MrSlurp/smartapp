@@ -42,6 +42,7 @@ namespace SmartApp.Ihm
             this.m_textSymbol = new SmartApp.Ihm.SymbolTextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.m_chkAutoStart = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.m_LoggerPeriod)).BeginInit();
             this.SuspendLayout();
             // 
@@ -97,7 +98,7 @@ namespace SmartApp.Ihm
             // m_txtFileName
             // 
             this.m_txtFileName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.m_txtFileName.Location = new System.Drawing.Point(3, 244);
+            this.m_txtFileName.Location = new System.Drawing.Point(3, 270);
             this.m_txtFileName.Name = "m_txtFileName";
             this.m_txtFileName.Size = new System.Drawing.Size(137, 20);
             this.m_txtFileName.TabIndex = 18;
@@ -114,7 +115,7 @@ namespace SmartApp.Ihm
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 228);
+            this.label3.Location = new System.Drawing.Point(3, 254);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(84, 13);
             this.label3.TabIndex = 14;
@@ -166,7 +167,7 @@ namespace SmartApp.Ihm
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(143, 246);
+            this.label4.Location = new System.Drawing.Point(143, 272);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(27, 13);
             this.label4.TabIndex = 24;
@@ -181,11 +182,22 @@ namespace SmartApp.Ihm
             this.label5.TabIndex = 24;
             this.label5.Text = "ms";
             // 
+            // m_chkAutoStart
+            // 
+            this.m_chkAutoStart.AutoSize = true;
+            this.m_chkAutoStart.Location = new System.Drawing.Point(3, 230);
+            this.m_chkAutoStart.Name = "m_chkAutoStart";
+            this.m_chkAutoStart.Size = new System.Drawing.Size(73, 17);
+            this.m_chkAutoStart.TabIndex = 28;
+            this.m_chkAutoStart.Text = "Auto Start";
+            this.m_chkAutoStart.UseVisualStyleBackColor = true;
+            // 
             // LoggerPropertiesControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(this.m_chkAutoStart);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.m_LoggerPeriod);
@@ -224,5 +236,6 @@ namespace SmartApp.Ihm
         private System.Windows.Forms.ColumnHeader m_colDataSymb;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.CheckBox m_chkAutoStart;
     }
 }

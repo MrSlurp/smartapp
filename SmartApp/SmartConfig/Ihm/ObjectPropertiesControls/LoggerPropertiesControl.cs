@@ -200,6 +200,18 @@ namespace SmartApp.Ihm
                     this.m_cboLogType.SelectedValue = (string)value;
             }
         }
+
+        public bool AutoStart
+        {
+            get
+            {
+                return m_chkAutoStart.Checked;
+            }
+            set
+            {
+                m_chkAutoStart.Checked = value;
+            }
+        }
         #endregion
 
         #region validation des données
@@ -275,6 +287,9 @@ namespace SmartApp.Ihm
             if (m_Logger.LogFile != this.LogFile)
                 bDataPropChange |= true;
 
+            if (m_Logger.AutoStart != this.AutoStart)
+                bDataPropChange |= true;
+
             if (bDataPropChange)
             {
                 m_Logger.Description = this.Description;
@@ -282,6 +297,7 @@ namespace SmartApp.Ihm
                 m_Logger.LogType = this.LogType;
                 m_Logger.Period = this.Period;
                 m_Logger.LogFile = this.LogFile;
+                m_Logger.AutoStart = this.AutoStart;
                 Doc.Modified = true;
             }
             

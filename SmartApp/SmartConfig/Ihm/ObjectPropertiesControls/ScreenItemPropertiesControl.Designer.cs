@@ -99,7 +99,7 @@ namespace SmartApp.Ihm
             this.m_checkScreenEvent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.m_checkScreenEvent.AutoSize = true;
-            this.m_checkScreenEvent.Location = new System.Drawing.Point(3, 274);
+            this.m_checkScreenEvent.Location = new System.Drawing.Point(7, 252);
             this.m_checkScreenEvent.Name = "m_checkScreenEvent";
             this.m_checkScreenEvent.Size = new System.Drawing.Size(113, 17);
             this.m_checkScreenEvent.TabIndex = 9;
@@ -111,12 +111,13 @@ namespace SmartApp.Ihm
             this.m_checkReadOnly.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.m_checkReadOnly.AutoSize = true;
-            this.m_checkReadOnly.Location = new System.Drawing.Point(3, 251);
+            this.m_checkReadOnly.Location = new System.Drawing.Point(7, 275);
             this.m_checkReadOnly.Name = "m_checkReadOnly";
             this.m_checkReadOnly.Size = new System.Drawing.Size(76, 17);
             this.m_checkReadOnly.TabIndex = 10;
             this.m_checkReadOnly.Text = "Read Only";
             this.m_checkReadOnly.UseVisualStyleBackColor = true;
+            this.m_checkReadOnly.Visible = false;
             // 
             // m_EditText
             // 

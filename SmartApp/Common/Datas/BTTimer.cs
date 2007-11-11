@@ -15,6 +15,8 @@ namespace SmartApp.Datas
         private StringCollection m_ScriptLines = new StringCollection();
         // période du timer
         int m_iPeriod = 1000;
+
+        private bool m_bAutoStart = true;
         #endregion
 
         #region donnée spécifiques aux fonctionement en mode Command
@@ -24,7 +26,6 @@ namespace SmartApp.Datas
         // executer de script du document
         ScriptExecuter m_Executer = null;
         #endregion
-
 
         #region propriétées de la classe
         //*****************************************************************************************************
@@ -68,7 +69,18 @@ namespace SmartApp.Datas
 
             }
         }
-        #endregion
+
+        public bool AutoStart
+        {
+            get
+            {
+                return m_bAutoStart;
+            }
+            set
+            {
+                m_bAutoStart = value;
+            }
+        }
 
         //*****************************************************************************************************
         // Description: accesseur de l'executeur de script
@@ -85,6 +97,7 @@ namespace SmartApp.Datas
                 m_Executer = value;
             }
         }
+        #endregion
 
         #region ReadIn / WriteOut
         //*****************************************************************************************************
@@ -110,6 +123,10 @@ namespace SmartApp.Datas
                     m_ScriptLines.Add(Node.ChildNodes[i].FirstChild.Value);
                 }
             }
+            XmlNode AutoStartAttrib = Node.Attributes.GetNamedItem(XML_CF_ATTRIB.AutoStart.ToString());
+            if (AutoStartAttrib != null)
+                m_bAutoStart = bool.Parse(AutoStartAttrib.Value);
+
             return bRet;
         }
 
@@ -122,8 +139,11 @@ namespace SmartApp.Datas
             base.WriteOut(XmlDoc, Node);
             // on écrit la période
             XmlAttribute AttrPeriod = XmlDoc.CreateAttribute(XML_CF_ATTRIB.Period.ToString());
+            XmlAttribute AutoStartAttrib = XmlDoc.CreateAttribute(XML_CF_ATTRIB.AutoStart.ToString());
             AttrPeriod.Value = m_iPeriod.ToString();
+            AutoStartAttrib.Value = m_bAutoStart.ToString();
             Node.Attributes.Append(AttrPeriod);
+            Node.Attributes.Append(AutoStartAttrib);
             // et le script
             for (int i = 0; i < m_ScriptLines.Count; i++)
             {
@@ -169,7 +189,8 @@ namespace SmartApp.Datas
                 switch (Mess)
                 {
                     case MESSAGE.MESS_CMD_RUN:
-                        this.StartTimer();
+                        if (m_bAutoStart)
+                            this.StartTimer();
                         break;
                     case MESSAGE.MESS_CMD_STOP:
                         this.StopTimer();
@@ -247,6 +268,7 @@ namespace SmartApp.Datas
 
         #endregion
 
+        #region fonction d'execution en mode Command
         //*****************************************************************************************************
         // Description: démmare le Timer
         // Return: /
@@ -280,6 +302,6 @@ namespace SmartApp.Datas
                 m_Timer.Start();
             }
         }
-
+        #endregion
     }
 }

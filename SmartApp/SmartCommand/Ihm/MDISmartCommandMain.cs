@@ -15,6 +15,7 @@ namespace SmartApp
 {
     public partial class MDISmartCommandMain : Form
     {
+        private VariableForm m_VariableForm;
         private BTDoc m_Document = null;
         private static AppEventLogForm m_EventLog = new AppEventLogForm();
         CommConfiguration m_CommConfigPage = new CommConfiguration();
@@ -246,6 +247,14 @@ namespace SmartApp
                     SetTypeComeAndParamFromCbo();
                 }
             }
+            if (m_VariableForm != null)
+            {
+                m_VariableForm.Hide();
+                m_VariableForm = null;
+            }
+            m_VariableForm = new VariableForm(m_Document.GestData);
+            m_VariableForm.MdiParent = this;
+            m_VariableForm.Show();
             return true;
         }
 
@@ -308,6 +317,11 @@ namespace SmartApp
             m_tsBtnStartStop.Enabled = false;
             UpdateToolBarCxnItemState();
             m_FormList.Clear();
+            if (m_VariableForm != null)
+            {
+                m_VariableForm.Hide();
+                m_VariableForm = null;
+            }
 
             return true;
         }

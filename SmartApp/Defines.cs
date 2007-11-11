@@ -133,6 +133,7 @@ namespace SmartApp
         Period,
         FileName,
         ReadOnly,
+        AutoStart,
     }
 
     /// <summary>

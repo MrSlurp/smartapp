@@ -117,6 +117,12 @@
     <Compile Include="SmartCommand\Ihm\OptionForm.Designer.cs">
       <DependentUpon>OptionForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SmartCommand\Ihm\VariableForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmartCommand\Ihm\VariableForm.Designer.cs">
+      <DependentUpon>VariableForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="SmartCommand\Ihm\WaitOpenCommForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -326,6 +332,10 @@
     <EmbeddedResource Include="SmartCommand\Ihm\OptionForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>OptionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartCommand\Ihm\VariableForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>VariableForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SmartCommand\Ihm\WaitOpenCommForm.resx">
       <SubType>Designer</SubType>
@@ -549,9 +559,6 @@
       <ProductName>.NET Framework 2.0</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
