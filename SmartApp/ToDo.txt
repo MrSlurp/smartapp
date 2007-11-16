@@ -51,8 +51,8 @@ IPR 0007: après l'édition d'un script, le document n'apparait pas modifié
 OK
 IPR 0008: si le curseur est entre deux points consécutifs, ca écrase le texte après 
 IPR 0009: Cacher l'option read Only pour les controls (a dev plus tard
-IPR 0009: problèmes divers sur l'uato completion: si on a plusieur lignes, si utilisée au milieu ou au début d'un ligne
+OK
+IPR 0009: problèmes divers sur l'auto completion: si on a plusieur lignes, si utilisée au milieu ou au début d'un ligne
 OK
 IPR 0010: il devrait y avoir une option démarrage auto pour les timers et les loggers
-OK == > A tester en édition
-IPR 0011: Crash si chargement d'un fichier vide
+OK == > A tester en édition ==>OK
