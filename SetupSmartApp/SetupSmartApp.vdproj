@@ -145,6 +145,20 @@
     {
         "CustomAction"
         {
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_4FBE19DC2FBC4FFDB70B8153E221F710"
+            {
+            "Name" = "8:Primary output from SmartApp (Active)"
+            "Condition" = "8:"
+            "Object" = "8:_DD25E0EABC9242738A862943884CD443"
+            "FileType" = "3:2"
+            "InstallAction" = "3:2"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:1"
+            "Identifier" = "8:_B507DAE9_0E24_47A8_A7E5_6DA3463EE7E6"
+            "InstallerClass" = "11:FALSE"
+            "CustomActionData" = "8:"
+            }
         }
         "DefaultFeature"
         {
@@ -331,6 +345,36 @@
         }
         "FileType"
         {
+            "{5EB83D71-FA18-4901-BE56-DE22E13CC478}:_56350FC4A20B4EA896374AE973F0E21E"
+            {
+            "Name" = "8:SmartApp Files"
+            "Description" = "8:Smart Application configuration file"
+            "Extensions" = "8:.saf"
+            "MIME" = "8:"
+            "Icon" = "8:_BBA9DD287AE2424997541E39A61EC2A6"
+            "IconIndex" = "3:0"
+                "Command"
+                {
+                "Command" = "8:_DD25E0EABC9242738A862943884CD443"
+                }
+                "Verbs"
+                {
+                    "{95C0C507-CBF0-42B8-B119-07219E384A4A}:_06C85FC1D1EA4211A664C2FFF5630CB9"
+                    {
+                    "Command" = "8:&Start With Smart Command"
+                    "Verb" = "8:Start in Smart Comand"
+                    "Arguments" = "8:-cmd \"%1\""
+                    "Order" = "3:1"
+                    }
+                    "{95C0C507-CBF0-42B8-B119-07219E384A4A}:_3CFF0BE9CBB946C39C567D0689180D79"
+                    {
+                    "Command" = "8:&Open With Smart Config"
+                    "Verb" = "8:Open in Smart Config"
+                    "Arguments" = "8:-cfg \"%1\""
+                    "Order" = "3:0"
+                    }
+                }
+            }
         }
         "Folder"
         {
@@ -384,7 +428,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Smart Application"
         "ProductCode" = "8:{B004E9A8-AC4C-4033-A72A-7828ACA247D7}"
-        "PackageCode" = "8:{D327B871-FEB1-4F34-81BF-73206346F857}"
+        "PackageCode" = "8:{81F4CF82-6182-48E6-BFA4-10CD00E95865}"
         "UpgradeCode" = "8:{D5DB5027-D729-4E56-87EB-273CB32671B6}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
@@ -483,6 +527,48 @@
             {
                 "Keys"
                 {
+                    "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_B11382F210F143D3804A69E3044DEA94"
+                    {
+                    "Name" = "8:.saf"
+                    "Condition" = "8:"
+                    "AlwaysCreate" = "11:FALSE"
+                    "DeleteAtUninstall" = "11:FALSE"
+                    "Transitive" = "11:FALSE"
+                        "Keys"
+                        {
+                            "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_C2C815D5EC2F468FB4A1CAD82EEC2068"
+                            {
+                            "Name" = "8:shell"
+                            "Condition" = "8:"
+                            "AlwaysCreate" = "11:FALSE"
+                            "DeleteAtUninstall" = "11:FALSE"
+                            "Transitive" = "11:FALSE"
+                                "Keys"
+                                {
+                                    "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_D7ADC17F503348778F1D1902C428CE81"
+                                    {
+                                    "Name" = "8:Smart App"
+                                    "Condition" = "8:"
+                                    "AlwaysCreate" = "11:FALSE"
+                                    "DeleteAtUninstall" = "11:FALSE"
+                                    "Transitive" = "11:FALSE"
+                                        "Keys"
+                                        {
+                                        }
+                                        "Values"
+                                        {
+                                        }
+                                    }
+                                }
+                                "Values"
+                                {
+                                }
+                            }
+                        }
+                        "Values"
+                        {
+                        }
+                    }
                 }
             }
             "HKU"
@@ -669,8 +755,8 @@
                             "Type" = "3:3"
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
-                            "Setting" = "3:1"
-                            "Value" = "8:#1202"
+                            "Setting" = "3:2"
+                            "Value" = "8:This development is realized totally outside of any professional activities and with no support of Crouzet. Crouzet or developer can’t be responsible for any damages or miss-functioning that occur through the use of this free software witch is developed only under privates activities."
                             "DefaultValue" = "8:#1202"
                             "UsePlugInResources" = "11:TRUE"
                             }
@@ -783,8 +869,8 @@
                             "Type" = "3:3"
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
-                            "Setting" = "3:1"
-                            "Value" = "8:#1202"
+                            "Setting" = "3:2"
+                            "Value" = "8:This development is realized totally outside of any professional activities and with no support of Crouzet. Crouzet or developer can’t be responsible for any damages or miss-functioning that occur through the use of this free software witch is developed only under privates activities."
                             "DefaultValue" = "8:#1202"
                             "UsePlugInResources" = "11:TRUE"
                             }
@@ -932,7 +1018,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_DD25E0EABC9242738A862943884CD443"
             {
-            "SourcePath" = "8:..\\SmartApp\\obj\\Release\\SmartApp.exe"
+            "SourcePath" = "8:..\\SmartApp\\obj\\Debug Cmd\\SmartApp.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8421F5FDC69F48CA8248FC20B9EEBC38"
