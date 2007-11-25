@@ -218,12 +218,12 @@ namespace SmartApp.Ihm
                 {
                     if (GestData.RemoveObj((BaseObject)lviData.Tag))
                     {
-                        m_listViewData.Items.Remove(lviData);
+                        //m_listViewData.Items.Remove(lviData);
                         if (m_DataPropertyPage.Data == (Data)lviData.Tag)
                         {
                             m_DataPropertyPage.Data = null;
-                            InitListViewFromGroup();
                         }
+                        InitListViewFromGroup();
                     }
                 }
             }
@@ -258,6 +258,7 @@ namespace SmartApp.Ihm
             string strGroupName = (string)m_cboGroups.SelectedValue;
             GestData.AddObjAtGroup(NewDat, strGroupName);
             InitListViewFromGroup();
+            m_Document.Modified = true;
         }
 
         //*****************************************************************************************************

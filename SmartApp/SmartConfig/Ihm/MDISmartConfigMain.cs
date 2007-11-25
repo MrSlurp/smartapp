@@ -33,6 +33,7 @@ namespace SmartApp.Ihm
             m_DesignForm.MdiParent = this;
             m_FrameForm.MdiParent = this;
             m_ProgForm.MdiParent = this;
+            UpdateFileCommand(null, null);
         }
         //*****************************************************************************************************
         // Description: constructeur ouvrant le fichier passé en paramètre dès la fin de l'initialisation
@@ -46,6 +47,7 @@ namespace SmartApp.Ihm
             m_DesignForm.MdiParent = this;
             m_FrameForm.MdiParent = this;
             m_ProgForm.MdiParent = this;
+            UpdateFileCommand(null, null);
             OpenDoc(FileName);
         }
 
@@ -83,7 +85,7 @@ namespace SmartApp.Ihm
         //*****************************************************************************************************
         private void ToolBarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            toolStrip.Visible = toolBarToolStripMenuItem.Checked;
+            m_toolStrip.Visible = m_toolBarToolStripMenuItem.Checked;
         }
 
         //*****************************************************************************************************
@@ -92,7 +94,7 @@ namespace SmartApp.Ihm
         //*****************************************************************************************************
         private void StatusBarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            statusStrip.Visible = statusBarToolStripMenuItem.Checked;
+            statusStrip.Visible = m_statusBarToolStripMenuItem.Checked;
         }
         #endregion
 
@@ -179,6 +181,7 @@ namespace SmartApp.Ihm
                 OpenDocument(m_Document);
                 // on ne donne pas de nom au document, comme ca on peux savoir qu'il n'a jamais été sauvé
                 m_strDocumentName = "Untitled.scf";
+                UpdateTitle();
             }
             else
             {
@@ -200,6 +203,7 @@ namespace SmartApp.Ihm
                     OpenDocument(m_Document);
                     // on ne donne pas de nom au document, comme ca on peux savoir qu'il n'a jamais été sauvé
                     m_strDocumentName = "Untitled.scf";
+                    UpdateTitle();
                 }
             }
         }
@@ -314,8 +318,8 @@ namespace SmartApp.Ihm
         private bool OpenDoc(string strFullFileName)
         {
             m_Document = new BTDoc();
-            m_Document.UpdateDocumentFrame += new NeedRefreshHMI(OnNeedUpdateHMI);
-            m_Document.OnDocumentModified += new DocumentModifiedEvent(UpdateModifiedFlag);
+            //m_Document.UpdateDocumentFrame += new NeedRefreshHMI(OnNeedUpdateHMI);
+            //m_Document.OnDocumentModified += new DocumentModifiedEvent(UpdateModifiedFlag);
             if (m_Document.ReadConfigDocument(strFullFileName))
             {
                 if (OpenDocument(m_Document))
@@ -352,10 +356,13 @@ namespace SmartApp.Ihm
             m_FrameForm.Show();
             m_ProgForm.Show();
 
-            windowsMenu.Enabled = true;
+            m_windowsMenu.Enabled = true;
             m_jumpTotCmdMenuItem.Enabled = true;
             m_MenuItemM3SLWiz.Enabled = true;
             m_MenuItemTCPMBWiz.Enabled = true;
+            m_Document.UpdateDocumentFrame += new NeedRefreshHMI(OnNeedUpdateHMI);
+            m_Document.OnDocumentModified += new DocumentModifiedEvent(UpdateModifiedFlag);
+            UpdateFileCommand(null, null);
             UpdateTitle();
             return true;
         }
@@ -371,11 +378,12 @@ namespace SmartApp.Ihm
             m_DesignForm.Hide();
             m_FrameForm.Hide();
             m_ProgForm.Hide();
-            windowsMenu.Enabled = false;
+            m_windowsMenu.Enabled = false;
             m_jumpTotCmdMenuItem.Enabled = false;
             m_MenuItemM3SLWiz.Enabled = false;
             m_MenuItemTCPMBWiz.Enabled = false;
             m_Document = null;
+            UpdateFileCommand(null, null);
             return true;
         }
         #endregion
@@ -565,6 +573,24 @@ namespace SmartApp.Ihm
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AboutForm.ShowAbout();
+        }
+
+        private void UpdateFileCommand(object sender, EventArgs e)
+        {
+            if (m_Document == null)
+            {
+                m_saveToolStripMenuItem.Enabled = false;
+                m_saveToolStripButton.Enabled = false;
+                m_saveAsToolStripMenuItem.Enabled = false;
+                m_MenuItemClose.Enabled = false;
+            }
+            else
+            {
+                m_saveToolStripMenuItem.Enabled = true;
+                m_saveToolStripButton.Enabled = true;
+                m_saveAsToolStripMenuItem.Enabled = true;
+                m_MenuItemClose.Enabled = true;
+            }
         }
     }
 }

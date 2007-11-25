@@ -1,45 +1,4 @@
-test de l'application
-
-Smart Config
-
-Data window
-vérfier la création de données
-les différents paramètres d'une donnée
-le redimensionnement de la fenêtre
-la management des groupes
-le système de groupe en général
-
-Frame window
-Création
-paramètres
-arrangement / ajout / supression des données
-
-Screen window
-création
-paramètres des écrans
-paramètres des controls
-ajout/supression de control
-selection
-arrangement de control divers
-scripts
-modification d'un symbol utilisé dans les scripts
-le redimensionnement de la fenêtre
-
-Timer
-scripts
-modification d'un symbol utilisé dans les scripts
-le redimensionnement de la fenêtre
-
-Loggers
-scripts
-modification d'un symbol utilisé dans les scripts
-Ajouter l'option autostart
-le redimensionnement de la fenêtre
-
-Function
-scripts
-modification d'un symbol utilisé dans les scripts
-le redimensionnement de la fenêtre
+tests de l'application
 
 SmartCommand
 ouverture d'un fichier
@@ -68,3 +27,86 @@ gestion des options
 	
 SCRIPT GENERAL
 tester les lignes vide et edition, sauvegarde, relecture
+
+
+Smart Config
+Test 1. Ihm Lors de l'ouverture (sans doc)
+1.1 menu file 
+	new et open sont dispo
+	le menu save et save as sont grisés
+	le menu fermer est grisé
+	Commande exit dispo
+	
+1.2 menu tool:
+	tout est grisé
+	
+1.3 menu view: 
+	seul les tool bar et la bar de status apparaissent dans le menu
+	
+1.4 menu help
+	seul la commande about est dispo
+
+1.5 Toolbar
+	pas de commande d'aide (pas d'aide en ligne)
+	la commande save est grisée
+
+Test 2. Ihm Lors de l'ouverture (avec doc)
+2.1 menu file 
+	new et open sont dispo
+	le menu save et save as sont dispo
+	le menu fermer est dispo
+	Commande exit dispo
+	
+2.2 menu tool:
+	rien n'est grisé
+	
+2.3 menu view: 
+	la tool bar et la bar de status apparaissent dans le menu ainsi que les autres fenêtres
+	
+2.4 menu help
+	seul la commande about est dispo
+
+2.5 Toolbar
+	pas de commande d'aide (pas d'aide en ligne)
+	la commande save est dispo
+	
+Test 3. Data window
+	vérfier la création de données
+	les différents paramètres d'une donnée
+	le redimensionnement de la fenêtre
+	la management des groupes
+	le système de groupe en général
+	
+Test 4. Screen window
+	création
+	paramètres des écrans
+	paramètres des controls
+	ajout/supression de control
+	selection
+	arrangement de control divers
+	scripts
+
+Test 5. Frame window
+	Création
+	paramètres
+	arrangement / ajout / supression des données
+
+Test 6. Timer
+	scripts
+	modification d'un symbol utilisé dans les scripts
+	le redimensionnement de la fenêtre
+
+Test 7. Loggers
+	fonctions scripts
+	modification d'un symbol utilisé dans les scripts
+	Ajouter l'option autostart
+	le redimensionnement de la fenêtre
+
+Test 8. Function
+	scripts
+	modification d'un symbol utilisé dans les scripts
+	le redimensionnement de la fenêtre
+
+Test 9. de manière générale
+	modification d'un symbol utilisé dans les scripts
+	le redimensionnement de la fenêtre

@@ -194,6 +194,7 @@ namespace SmartApp.Ihm.ProgItemPanels
             Logger Scr = new Logger();
             Scr.Symbol = strNewSymb;
             this.GestLogger.AddObj(Scr);
+            m_Document.Modified = true;
             InitListView();
         }
         

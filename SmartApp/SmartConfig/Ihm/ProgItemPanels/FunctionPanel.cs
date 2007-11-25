@@ -191,6 +191,7 @@ namespace SmartApp.Ihm.ProgItemPanels
             Function Scr = new Function();
             Scr.Symbol = strNewSymb;
             this.GestFunction.AddObj(Scr);
+            m_Document.Modified = true;
             InitListView();
         }
 

@@ -145,20 +145,6 @@
     {
         "CustomAction"
         {
-            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_4FBE19DC2FBC4FFDB70B8153E221F710"
-            {
-            "Name" = "8:Primary output from SmartApp (Active)"
-            "Condition" = "8:"
-            "Object" = "8:_DD25E0EABC9242738A862943884CD443"
-            "FileType" = "3:2"
-            "InstallAction" = "3:2"
-            "Arguments" = "8:"
-            "EntryPoint" = "8:"
-            "Sequence" = "3:1"
-            "Identifier" = "8:_B507DAE9_0E24_47A8_A7E5_6DA3463EE7E6"
-            "InstallerClass" = "11:FALSE"
-            "CustomActionData" = "8:"
-            }
         }
         "DefaultFeature"
         {
@@ -428,7 +414,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Smart Application"
         "ProductCode" = "8:{B004E9A8-AC4C-4033-A72A-7828ACA247D7}"
-        "PackageCode" = "8:{81F4CF82-6182-48E6-BFA4-10CD00E95865}"
+        "PackageCode" = "8:{4DD31360-2DF8-452F-A7AE-A6AEA61CB4A0}"
         "UpgradeCode" = "8:{D5DB5027-D729-4E56-87EB-273CB32671B6}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
@@ -531,7 +517,7 @@
                     {
                     "Name" = "8:.saf"
                     "Condition" = "8:"
-                    "AlwaysCreate" = "11:FALSE"
+                    "AlwaysCreate" = "11:TRUE"
                     "DeleteAtUninstall" = "11:FALSE"
                     "Transitive" = "11:FALSE"
                         "Keys"
@@ -540,20 +526,34 @@
                             {
                             "Name" = "8:shell"
                             "Condition" = "8:"
-                            "AlwaysCreate" = "11:FALSE"
+                            "AlwaysCreate" = "11:TRUE"
                             "DeleteAtUninstall" = "11:FALSE"
                             "Transitive" = "11:FALSE"
                                 "Keys"
                                 {
                                     "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_D7ADC17F503348778F1D1902C428CE81"
                                     {
-                                    "Name" = "8:Smart App"
+                                    "Name" = "8:SmartApp"
                                     "Condition" = "8:"
-                                    "AlwaysCreate" = "11:FALSE"
+                                    "AlwaysCreate" = "11:TRUE"
                                     "DeleteAtUninstall" = "11:FALSE"
                                     "Transitive" = "11:FALSE"
                                         "Keys"
                                         {
+                                            "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_7D03015F843F4ED798CE558D8AA1182D"
+                                            {
+                                            "Name" = "8:command"
+                                            "Condition" = "8:"
+                                            "AlwaysCreate" = "11:FALSE"
+                                            "DeleteAtUninstall" = "11:FALSE"
+                                            "Transitive" = "11:FALSE"
+                                                "Keys"
+                                                {
+                                                }
+                                                "Values"
+                                                {
+                                                }
+                                            }
                                         }
                                         "Values"
                                         {
@@ -1018,7 +1018,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_DD25E0EABC9242738A862943884CD443"
             {
-            "SourcePath" = "8:..\\SmartApp\\obj\\Debug Cmd\\SmartApp.exe"
+            "SourcePath" = "8:..\\SmartApp\\obj\\Release\\SmartApp.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8421F5FDC69F48CA8248FC20B9EEBC38"

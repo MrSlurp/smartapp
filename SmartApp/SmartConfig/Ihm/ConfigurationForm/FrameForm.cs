@@ -269,6 +269,7 @@ namespace SmartApp.Ihm
             this.GestTrame.AddObj(Scr);
             InitListViewFrame();
             InitListViewFrameData();
+            m_Document.Modified = true;
         }
 
         //*****************************************************************************************************

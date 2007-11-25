@@ -209,6 +209,7 @@ namespace SmartApp.Ihm
             BTScreen Scr = new BTScreen();
             Scr.Symbol = strNewSymb;
             this.GestScreen.AddObj(Scr);
+            m_Document.Modified = true;
             InitListView();
         }
     }

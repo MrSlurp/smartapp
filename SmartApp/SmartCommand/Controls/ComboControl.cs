@@ -66,6 +66,7 @@ namespace SmartApp.Controls
                 }
 
                 ((ComboBox)m_Ctrl).SelectedIndexChanged += new System.EventHandler(this.OnControlEvent);
+                ((ComboBox)m_Ctrl).DropDownStyle = ComboBoxStyle.DropDownList;
             }
         }
 

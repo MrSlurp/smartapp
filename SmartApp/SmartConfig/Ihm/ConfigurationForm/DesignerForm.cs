@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Text;
+using System.IO;
 using System.Windows.Forms;
 using SmartApp.Ihm.Designer;
 using SmartApp.Gestionnaires;
@@ -326,9 +327,13 @@ namespace SmartApp.Ihm
             m_InteractiveControlContainer.AllowDrop = true;
             try
             {
-                Bitmap imgBack = new Bitmap(m_Currentscreen.BackPictureFile);
-                imgBack.MakeTransparent(Cste.TransparencyColor);
-                m_InteractiveControlContainer.ScreenBckImage = imgBack;
+                if (!string.IsNullOrEmpty(m_Currentscreen.BackPictureFile)
+                    && File.Exists(m_Currentscreen.BackPictureFile))
+                {
+                    Bitmap imgBack = new Bitmap(m_Currentscreen.BackPictureFile);
+                    imgBack.MakeTransparent(Cste.TransparencyColor);
+                    m_InteractiveControlContainer.ScreenBckImage = imgBack;
+                }
             }
             catch (Exception )
             {

@@ -193,6 +193,7 @@ namespace SmartApp.Ihm.ProgItemPanels
             BTTimer Scr = new BTTimer();
             Scr.Symbol = strNewSymb;
             this.GestTimer.AddObj(Scr);
+            m_Document.Modified = true;
             InitListView();
         }
 
