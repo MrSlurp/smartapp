@@ -24,7 +24,7 @@ namespace SmartApp.Ihm
         #endregion
 
         #region events
-        public event TramePropertiesChange DataPropertiesChanged;
+        public event TramePropertiesChange FramePropertiesChanged;
         public event CurrentDataListChanged DataListChange;
         public event BeforeCurrentDataListChange BeforeDataListChange;
         #endregion
@@ -415,8 +415,8 @@ namespace SmartApp.Ihm
                 Doc.Modified = true;
             }
 
-            if (bChange && DataPropertiesChanged != null)
-                DataPropertiesChanged(dt);
+            if (bChange && FramePropertiesChanged != null)
+                FramePropertiesChanged(dt);
             return true;
         }
 

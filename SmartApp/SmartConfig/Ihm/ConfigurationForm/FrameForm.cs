@@ -32,6 +32,12 @@ namespace SmartApp.Ihm
             InitializeComponent();
             m_PanelFrameProp.BeforeDataListChange += new BeforeCurrentDataListChange(OnTrameDataListWillChange);
             m_PanelFrameProp.DataListChange += new CurrentDataListChanged(OnTrameDataListChanged);
+            m_PanelFrameProp.FramePropertiesChanged += new TramePropertiesChange(FramePropertiesChanged);
+        }
+
+        void FramePropertiesChanged(Trame Trame)
+        {
+            UpdateListView();
         }
 
         //*****************************************************************************************************
@@ -287,7 +293,12 @@ namespace SmartApp.Ihm
                 if (lviData != null)
                 {
                     if (!((Data)lviData.Tag).Symbol.EndsWith(Cste.STR_SUFFIX_CTRLDATA))
+                    {
                         m_ListViewFrameData.Items.Remove(lviData);
+                        UpdateFrameDataListFromListView();
+                        UpdateListView();
+                        m_Document.Modified = true;
+                    }
                     else
                         MessageBox.Show("You can't remove frame control data");
                 }
@@ -399,6 +410,8 @@ namespace SmartApp.Ihm
                         m_ListViewFrameData.Items.Insert(lviAtCursor.Index, LvFoundItem);
                     else
                         m_ListViewFrameData.Items.Add(LvFoundItem);
+                    m_Document.Modified = true;
+                    UpdateListView();
                 }
                 else
                 {
@@ -416,9 +429,12 @@ namespace SmartApp.Ihm
                         m_ListViewFrameData.Items.Insert(lviAtCursor.Index, lviData);
                     else
                         m_ListViewFrameData.Items.Add(lviData);
+                    m_Document.Modified = true;
+                    UpdateListView();
                 }
             }
             UpdateListViewFrameData();
+            UpdateFrameDataListFromListView();
         }
 
         //*****************************************************************************************************

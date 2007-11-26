@@ -331,7 +331,16 @@ namespace SmartApp.Scripts
             string[] strTab = line.Split('.');
             if (iTokenIndex < strTab.Length)
             {
-                return strTab[iTokenIndex];
+                // cas des fonction, il peux y avoir des parenthèses a la fin qu'il faut enlever
+                string strTemp = strTab[iTokenIndex];
+                int posOpenParenthese = strTemp.LastIndexOf('(');
+                if (posOpenParenthese != -1)
+                    strTemp = strTemp.Remove(posOpenParenthese);
+
+                string strTok = strTemp;
+                strTok = strTok.Trim();
+
+                return strTok;
             }
             return "";
 

@@ -33,15 +33,9 @@ namespace SmartApp.Ihm
             this.m_MainSplitterContainer = new System.Windows.Forms.SplitContainer();
             this.m_tabCTrlConfig = new System.Windows.Forms.TabControl();
             this.m_TabScreen = new System.Windows.Forms.TabPage();
-            this.m_PanelScreenListAndProp = new SmartApp.Ihm.ScreenPropPanel();
             this.m_TabTools = new System.Windows.Forms.TabPage();
-            this.m_panelToolDragItem = new SmartApp.Ihm.Designer.DragItemPanel();
             this.m_TabItemOption = new System.Windows.Forms.TabPage();
-            this.m_PanelControlProperties = new SmartApp.Ihm.ScreenItemPropertiesControl();
             this.m_TabScript = new System.Windows.Forms.TabPage();
-            this.m_PanelScreenInitScript = new SmartApp.Ihm.ScriptControl();
-            this.m_PanelScreenEventScript = new SmartApp.Ihm.ScriptControl();
-            this.m_PanelCtrlEventScript = new SmartApp.Ihm.ScriptControl();
             this.m_splitterDesigner_Tool = new System.Windows.Forms.SplitContainer();
             this.m_LabelSelectedScreen = new System.Windows.Forms.Label();
             this.m_toolStripDesignLayout = new System.Windows.Forms.ToolStrip();
@@ -54,6 +48,12 @@ namespace SmartApp.Ihm
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.m_toolBtnArrangeAcross = new System.Windows.Forms.ToolStripButton();
             this.m_toolBtnArrangeDown = new System.Windows.Forms.ToolStripButton();
+            this.m_PanelScreenListAndProp = new SmartApp.Ihm.ScreenPropPanel();
+            this.m_panelToolDragItem = new SmartApp.Ihm.Designer.DragItemPanel();
+            this.m_PanelControlProperties = new SmartApp.Ihm.ScreenItemPropertiesControl();
+            this.m_PanelScreenInitScript = new SmartApp.Ihm.ScriptControl();
+            this.m_PanelScreenEventScript = new SmartApp.Ihm.ScriptControl();
+            this.m_PanelCtrlEventScript = new SmartApp.Ihm.ScriptControl();
             this.m_InteractiveControlContainer = new SmartApp.Ihm.Designer.InteractiveControlContainer();
             this.m_MainSplitterContainer.Panel1.SuspendLayout();
             this.m_MainSplitterContainer.Panel2.SuspendLayout();
@@ -130,16 +130,6 @@ namespace SmartApp.Ihm
             this.m_TabScreen.Text = "Screens";
             this.m_TabScreen.UseVisualStyleBackColor = true;
             // 
-            // m_PanelScreenListAndProp
-            // 
-            this.m_PanelScreenListAndProp.BackColor = System.Drawing.Color.Transparent;
-            this.m_PanelScreenListAndProp.Doc = null;
-            this.m_PanelScreenListAndProp.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.m_PanelScreenListAndProp.Location = new System.Drawing.Point(3, 3);
-            this.m_PanelScreenListAndProp.Name = "m_PanelScreenListAndProp";
-            this.m_PanelScreenListAndProp.Size = new System.Drawing.Size(275, 515);
-            this.m_PanelScreenListAndProp.TabIndex = 0;
-            // 
             // m_TabTools
             // 
             this.m_TabTools.Controls.Add(this.m_panelToolDragItem);
@@ -150,16 +140,6 @@ namespace SmartApp.Ihm
             this.m_TabTools.TabIndex = 1;
             this.m_TabTools.Text = "Tools";
             this.m_TabTools.UseVisualStyleBackColor = true;
-            // 
-            // m_panelToolDragItem
-            // 
-            this.m_panelToolDragItem.BackColor = System.Drawing.Color.Transparent;
-            this.m_panelToolDragItem.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.m_panelToolDragItem.Location = new System.Drawing.Point(3, 3);
-            this.m_panelToolDragItem.Margin = new System.Windows.Forms.Padding(0);
-            this.m_panelToolDragItem.Name = "m_panelToolDragItem";
-            this.m_panelToolDragItem.Size = new System.Drawing.Size(275, 515);
-            this.m_panelToolDragItem.TabIndex = 1;
             // 
             // m_TabItemOption
             // 
@@ -172,25 +152,6 @@ namespace SmartApp.Ihm
             this.m_TabItemOption.TabIndex = 0;
             this.m_TabItemOption.Text = "Control Options";
             this.m_TabItemOption.UseVisualStyleBackColor = true;
-            // 
-            // m_PanelControlProperties
-            // 
-            this.m_PanelControlProperties.AssociateData = "";
-            this.m_PanelControlProperties.BackColor = System.Drawing.Color.Transparent;
-            this.m_PanelControlProperties.BTControl = null;
-            this.m_PanelControlProperties.Description = "";
-            this.m_PanelControlProperties.Doc = null;
-            this.m_PanelControlProperties.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.m_PanelControlProperties.GestControl = null;
-            this.m_PanelControlProperties.IsReadOnly = false;
-            this.m_PanelControlProperties.Location = new System.Drawing.Point(3, 3);
-            this.m_PanelControlProperties.Margin = new System.Windows.Forms.Padding(0);
-            this.m_PanelControlProperties.Name = "m_PanelControlProperties";
-            this.m_PanelControlProperties.Size = new System.Drawing.Size(275, 515);
-            this.m_PanelControlProperties.Symbol = "";
-            this.m_PanelControlProperties.TabIndex = 1;
-            this.m_PanelControlProperties.Txt = "";
-            this.m_PanelControlProperties.UseScreenEvent = false;
             // 
             // m_TabScript
             // 
@@ -205,51 +166,6 @@ namespace SmartApp.Ihm
             this.m_TabScript.TabIndex = 1;
             this.m_TabScript.Text = "Item Script";
             this.m_TabScript.UseVisualStyleBackColor = true;
-            // 
-            // m_PanelScreenInitScript
-            // 
-            this.m_PanelScreenInitScript.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_PanelScreenInitScript.BackColor = System.Drawing.Color.Transparent;
-            this.m_PanelScreenInitScript.Doc = null;
-            this.m_PanelScreenInitScript.InitScriptableItem = null;
-            this.m_PanelScreenInitScript.Location = new System.Drawing.Point(7, 7);
-            this.m_PanelScreenInitScript.Name = "m_PanelScreenInitScript";
-            this.m_PanelScreenInitScript.ScriptableItem = null;
-            this.m_PanelScreenInitScript.ScriptLines = new string[0];
-            this.m_PanelScreenInitScript.Size = new System.Drawing.Size(268, 151);
-            this.m_PanelScreenInitScript.TabIndex = 0;
-            this.m_PanelScreenInitScript.Title = "Title";
-            // 
-            // m_PanelScreenEventScript
-            // 
-            this.m_PanelScreenEventScript.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_PanelScreenEventScript.BackColor = System.Drawing.Color.Transparent;
-            this.m_PanelScreenEventScript.Doc = null;
-            this.m_PanelScreenEventScript.InitScriptableItem = null;
-            this.m_PanelScreenEventScript.Location = new System.Drawing.Point(7, 164);
-            this.m_PanelScreenEventScript.Name = "m_PanelScreenEventScript";
-            this.m_PanelScreenEventScript.ScriptableItem = null;
-            this.m_PanelScreenEventScript.ScriptLines = new string[0];
-            this.m_PanelScreenEventScript.Size = new System.Drawing.Size(268, 151);
-            this.m_PanelScreenEventScript.TabIndex = 0;
-            this.m_PanelScreenEventScript.Title = "Title";
-            // 
-            // m_PanelCtrlEventScript
-            // 
-            this.m_PanelCtrlEventScript.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_PanelCtrlEventScript.BackColor = System.Drawing.Color.Transparent;
-            this.m_PanelCtrlEventScript.Doc = null;
-            this.m_PanelCtrlEventScript.InitScriptableItem = null;
-            this.m_PanelCtrlEventScript.Location = new System.Drawing.Point(7, 321);
-            this.m_PanelCtrlEventScript.Name = "m_PanelCtrlEventScript";
-            this.m_PanelCtrlEventScript.ScriptableItem = null;
-            this.m_PanelCtrlEventScript.ScriptLines = new string[0];
-            this.m_PanelCtrlEventScript.Size = new System.Drawing.Size(268, 151);
-            this.m_PanelCtrlEventScript.TabIndex = 0;
-            this.m_PanelCtrlEventScript.Title = "Title";
             // 
             // m_splitterDesigner_Tool
             // 
@@ -387,6 +303,90 @@ namespace SmartApp.Ihm
             this.m_toolBtnArrangeDown.Size = new System.Drawing.Size(23, 22);
             this.m_toolBtnArrangeDown.Text = "Make vertical spacing equal";
             this.m_toolBtnArrangeDown.Click += new System.EventHandler(this.m_toolBtnArrangeDown_Click);
+            // 
+            // m_PanelScreenListAndProp
+            // 
+            this.m_PanelScreenListAndProp.BackColor = System.Drawing.Color.Transparent;
+            this.m_PanelScreenListAndProp.Doc = null;
+            this.m_PanelScreenListAndProp.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.m_PanelScreenListAndProp.Location = new System.Drawing.Point(3, 3);
+            this.m_PanelScreenListAndProp.Name = "m_PanelScreenListAndProp";
+            this.m_PanelScreenListAndProp.Size = new System.Drawing.Size(275, 515);
+            this.m_PanelScreenListAndProp.TabIndex = 0;
+            // 
+            // m_panelToolDragItem
+            // 
+            this.m_panelToolDragItem.BackColor = System.Drawing.Color.Transparent;
+            this.m_panelToolDragItem.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.m_panelToolDragItem.Location = new System.Drawing.Point(3, 3);
+            this.m_panelToolDragItem.Margin = new System.Windows.Forms.Padding(0);
+            this.m_panelToolDragItem.Name = "m_panelToolDragItem";
+            this.m_panelToolDragItem.Size = new System.Drawing.Size(275, 515);
+            this.m_panelToolDragItem.TabIndex = 1;
+            // 
+            // m_PanelControlProperties
+            // 
+            this.m_PanelControlProperties.AssociateData = "";
+            this.m_PanelControlProperties.BackColor = System.Drawing.Color.Transparent;
+            this.m_PanelControlProperties.BTControl = null;
+            this.m_PanelControlProperties.Description = "";
+            this.m_PanelControlProperties.Doc = null;
+            this.m_PanelControlProperties.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.m_PanelControlProperties.GestControl = null;
+            this.m_PanelControlProperties.IsReadOnly = false;
+            this.m_PanelControlProperties.Location = new System.Drawing.Point(3, 3);
+            this.m_PanelControlProperties.Margin = new System.Windows.Forms.Padding(0);
+            this.m_PanelControlProperties.Name = "m_PanelControlProperties";
+            this.m_PanelControlProperties.Size = new System.Drawing.Size(275, 515);
+            this.m_PanelControlProperties.Symbol = "";
+            this.m_PanelControlProperties.TabIndex = 1;
+            this.m_PanelControlProperties.Txt = "";
+            this.m_PanelControlProperties.UseScreenEvent = false;
+            // 
+            // m_PanelScreenInitScript
+            // 
+            this.m_PanelScreenInitScript.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_PanelScreenInitScript.BackColor = System.Drawing.Color.Transparent;
+            this.m_PanelScreenInitScript.Doc = null;
+            this.m_PanelScreenInitScript.InitScriptableItem = null;
+            this.m_PanelScreenInitScript.Location = new System.Drawing.Point(7, 7);
+            this.m_PanelScreenInitScript.Name = "m_PanelScreenInitScript";
+            this.m_PanelScreenInitScript.ScriptableItem = null;
+            this.m_PanelScreenInitScript.ScriptLines = new string[0];
+            this.m_PanelScreenInitScript.Size = new System.Drawing.Size(268, 151);
+            this.m_PanelScreenInitScript.TabIndex = 0;
+            this.m_PanelScreenInitScript.Title = "Title";
+            // 
+            // m_PanelScreenEventScript
+            // 
+            this.m_PanelScreenEventScript.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_PanelScreenEventScript.BackColor = System.Drawing.Color.Transparent;
+            this.m_PanelScreenEventScript.Doc = null;
+            this.m_PanelScreenEventScript.InitScriptableItem = null;
+            this.m_PanelScreenEventScript.Location = new System.Drawing.Point(7, 164);
+            this.m_PanelScreenEventScript.Name = "m_PanelScreenEventScript";
+            this.m_PanelScreenEventScript.ScriptableItem = null;
+            this.m_PanelScreenEventScript.ScriptLines = new string[0];
+            this.m_PanelScreenEventScript.Size = new System.Drawing.Size(268, 151);
+            this.m_PanelScreenEventScript.TabIndex = 0;
+            this.m_PanelScreenEventScript.Title = "Title";
+            // 
+            // m_PanelCtrlEventScript
+            // 
+            this.m_PanelCtrlEventScript.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_PanelCtrlEventScript.BackColor = System.Drawing.Color.Transparent;
+            this.m_PanelCtrlEventScript.Doc = null;
+            this.m_PanelCtrlEventScript.InitScriptableItem = null;
+            this.m_PanelCtrlEventScript.Location = new System.Drawing.Point(7, 321);
+            this.m_PanelCtrlEventScript.Name = "m_PanelCtrlEventScript";
+            this.m_PanelCtrlEventScript.ScriptableItem = null;
+            this.m_PanelCtrlEventScript.ScriptLines = new string[0];
+            this.m_PanelCtrlEventScript.Size = new System.Drawing.Size(268, 151);
+            this.m_PanelCtrlEventScript.TabIndex = 0;
+            this.m_PanelCtrlEventScript.Title = "Title";
             // 
             // m_InteractiveControlContainer
             // 

@@ -496,6 +496,7 @@ namespace SmartApp.Datas
                     if (((MessAskDelete)obj).TypeOfItem == typeof(Trame)
                         || ((MessAskDelete)obj).TypeOfItem == typeof(Function)
                         || ((MessAskDelete)obj).TypeOfItem == typeof(Logger)
+                        || ((MessAskDelete)obj).TypeOfItem == typeof(BTTimer)
                         )
                     {
                         MessAskDelete MessParam = (MessAskDelete)obj;
@@ -514,6 +515,7 @@ namespace SmartApp.Datas
                     if (((MessDeleted)obj).TypeOfItem == typeof(Trame)
                         || ((MessDeleted)obj).TypeOfItem == typeof(Function)
                         || ((MessDeleted)obj).TypeOfItem == typeof(Logger)
+                        || ((MessDeleted)obj).TypeOfItem == typeof(BTTimer)
                         )
                     {
                         MessDeleted MessParam = (MessDeleted)obj;
@@ -531,6 +533,7 @@ namespace SmartApp.Datas
                     if (((MessItemRenamed)obj).TypeOfItem == typeof(Trame)
                         || ((MessItemRenamed)obj).TypeOfItem == typeof(Function)
                         || ((MessItemRenamed)obj).TypeOfItem == typeof(Logger)
+                        || ((MessItemRenamed)obj).TypeOfItem == typeof(BTTimer)
                         )
                     {
                         MessItemRenamed MessParam = (MessItemRenamed)obj;
@@ -539,7 +542,7 @@ namespace SmartApp.Datas
                             string stritem = SmartApp.Scripts.ScriptParser.GetLineToken(Script[i], SmartApp.Scripts.ScriptParser.INDEX_TOKEN_SYMBOL);
                             if (stritem == MessParam.OldItemSymbol)
                             {
-                                Script[i].Replace(MessParam.OldItemSymbol, MessParam.NewItemSymbol);
+                                Script[i] = Script[i].Replace(MessParam.OldItemSymbol, MessParam.NewItemSymbol);
                             }
                         }
                     }

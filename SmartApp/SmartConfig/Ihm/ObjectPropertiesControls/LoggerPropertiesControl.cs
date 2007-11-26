@@ -429,10 +429,13 @@ namespace SmartApp.Ihm
             if (this.LogType == LOGGER_TYPE.AUTO.ToString())
             {
                 m_LoggerPeriod.Enabled = true;
+                m_chkAutoStart.Enabled = true;
             }
             else
             {
                 m_LoggerPeriod.Enabled = false;
+                m_chkAutoStart.Enabled = false;
+                m_chkAutoStart.Checked = false;
             }
         }
         #endregion
