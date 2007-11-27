@@ -173,14 +173,17 @@ namespace SmartApp
         //*****************************************************************************************************      
         void OnCommStateChange()
         {
-            if (this.InvokeRequired)
+            if (m_Document != null)
             {
-                SmartApp.Comm.CommOpenedStateChange AsyncCall = new SmartApp.Comm.CommOpenedStateChange(AsyncUpdater);
-                this.Invoke(AsyncCall);
-            }
-            else
-            {
-                AsyncUpdater();
+                if (this.InvokeRequired)
+                {
+                    SmartApp.Comm.CommOpenedStateChange AsyncCall = new SmartApp.Comm.CommOpenedStateChange(AsyncUpdater);
+                    this.Invoke(AsyncCall);
+                }
+                else
+                {
+                    AsyncUpdater();
+                }
             }
         }
 
@@ -302,9 +305,8 @@ namespace SmartApp
                     m_IniFile.SetValue(m_Document.FileName, Cste.STR_FILE_DESC_ADDR, strCommParam);
                 }
                 m_Document.TraiteMessage(MESSAGE.MESS_CMD_STOP, null);
-                m_Document.CloseDocumentComm();
                 m_Document.DetachCommEventHandler(OnCommStateChange);
-
+                m_Document.CloseDocumentComm();
             }
             m_Document = null;
 
@@ -352,6 +354,7 @@ namespace SmartApp
         {
             if (m_Document != null)
             {
+
                 this.CloseDoc();
             }
         }

@@ -233,6 +233,13 @@ namespace SmartApp.Scripts
         {
             BTTimer tm = (BTTimer)m_Document.GestTimer.GetFromSymbol(TimerSymbol);
             tm.StartTimer();
+            if (tm != null)
+                tm.StartTimer();
+            else
+            {
+                LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format("Unknown Timer {0}", TimerSymbol));
+                MDISmartCommandMain.EventLogger.AddLogEvent(log);
+            }
         }
 
         //*****************************************************************************************************
@@ -242,7 +249,13 @@ namespace SmartApp.Scripts
         protected void ExecuteStopTimer(string TimerSymbol)
         {
             BTTimer tm = (BTTimer)m_Document.GestTimer.GetFromSymbol(TimerSymbol);
-            tm.StopTimer();
+            if (tm != null)
+                tm.StopTimer();
+            else
+            {
+                LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format("Unknown Timer {0}", TimerSymbol));
+                MDISmartCommandMain.EventLogger.AddLogEvent(log);
+            }
         }
 
         #endregion
@@ -294,15 +307,22 @@ namespace SmartApp.Scripts
         protected void ExecuteSendFrame(string FrameSymbol)
         {
             Trame TrameToSend = (Trame)m_Document.GestTrame.GetFromSymbol(FrameSymbol);
-            Byte[] buffer = TrameToSend.CreateTrameToSend();
-            if (m_Document.m_Comm.IsOpen)
+            if (TrameToSend != null)
             {
-                //Console.WriteLine("{1} Trame Envoyé {0}", FrameSymbol, DateTime.Now.ToLongTimeString() + ":" + DateTime.Now.Millisecond);
-                m_Document.m_Comm.SendData(buffer);
+                Byte[] buffer = TrameToSend.CreateTrameToSend();
+                if (m_Document.m_Comm.IsOpen)
+                {
+                    m_Document.m_Comm.SendData(buffer);
+                }
+                else
+                {
+                    LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format("Trying sending frame {0} while connection is closed", TrameToSend.Symbol));
+                    MDISmartCommandMain.EventLogger.AddLogEvent(log);
+                }
             }
             else
             {
-                LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format("Trying sending frame {0} while connection is closed", TrameToSend.Symbol));
+                LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format("Unknown Timer {0}", FrameSymbol));
                 MDISmartCommandMain.EventLogger.AddLogEvent(log);
             }
         }
@@ -314,46 +334,52 @@ namespace SmartApp.Scripts
         protected void ExecuteRecieveFrame(string FrameSymbol)
         {
             Trame TrameToRecieve = (Trame)m_Document.GestTrame.GetFromSymbol(FrameSymbol);
-            if (m_Document.m_Comm.IsOpen)
+            if (TrameToRecieve != null)
             {
-                byte[] FrameHeader = TrameToRecieve.FrameHeader;
-                int ConvertedSize = TrameToRecieve.GetConvertedTrameSizeInByte();
-                //Console.WriteLine("{1} Trame En attente de récéption {0}", FrameSymbol, DateTime.Now.ToLongTimeString() + ":" + DateTime.Now.Millisecond);
-                m_bIsWaiting = true;
-                if (!m_Document.m_Comm.WaitTrameRecieved(ConvertedSize, FrameHeader))
+                if (m_Document.m_Comm.IsOpen)
                 {
+                    byte[] FrameHeader = TrameToRecieve.FrameHeader;
+                    int ConvertedSize = TrameToRecieve.GetConvertedTrameSizeInByte();
+                    m_bIsWaiting = true;
+                    if (!m_Document.m_Comm.WaitTrameRecieved(ConvertedSize, FrameHeader))
+                    {
+                        m_bIsWaiting = false;
+                        //indiquer qu'une trame n'a pas été recu
+                        // et demander a l'utilisateur si il souhaite continuer l'execution des actions
+                        // si il ne veux pas, remonter au parent qu'il doit arrèter les actions
+                        //COMM_ERROR Err = m_Doc.m_Comm.ErrorCode;
+                        string strmess = string.Format("Message {0} have not been recieved (Timeout)", TrameToRecieve.Symbol);
+                        LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, strmess);
+                        MDISmartCommandMain.EventLogger.AddLogEvent(log);
+                        return;
+                    }
                     m_bIsWaiting = false;
-                    //indiquer qu'une trame n'a pas été recu
-                    // et demander a l'utilisateur si il souhaite continuer l'execution des actions
-                    // si il ne veux pas, remonter au parent qu'il doit arrèter les actions
-                    //COMM_ERROR Err = m_Doc.m_Comm.ErrorCode;
-                    string strmess = string.Format("Message {0} have not been recieved (Timeout)", TrameToRecieve.Symbol);
-                    LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, strmess); 
-                    MDISmartCommandMain.EventLogger.AddLogEvent(log);
-                    return;
-                }
-                m_bIsWaiting = false;
-                byte[] buffer = m_Document.m_Comm.GetRecievedData(ConvertedSize, FrameHeader);
-                if (buffer == null || !TrameToRecieve.TreatRecieveTrame(buffer))
-                {
-                    string strmess;
+                    byte[] buffer = m_Document.m_Comm.GetRecievedData(ConvertedSize, FrameHeader);
+                    if (buffer == null || !TrameToRecieve.TreatRecieveTrame(buffer))
+                    {
+                        string strmess;
 
-                    if (buffer == null)
-                        strmess = string.Format("Error reading message {0} (Recieved frame is not the one expected)", TrameToRecieve.Symbol);
+                        if (buffer == null)
+                            strmess = string.Format("Error reading message {0} (Recieved frame is not the one expected)", TrameToRecieve.Symbol);
+                        else
+                            strmess = string.Format("Error reading message {0}", TrameToRecieve.Symbol);
+                        LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, strmess);
+                        MDISmartCommandMain.EventLogger.AddLogEvent(log);
+                    }
                     else
-                        strmess = string.Format("Error reading message {0}", TrameToRecieve.Symbol);
-                    LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, strmess);
-                    MDISmartCommandMain.EventLogger.AddLogEvent(log);
+                    {
+                        //Console.WriteLine("{1} Trame Lue {0}", FrameSymbol, DateTime.Now.ToLongTimeString() + ":" + DateTime.Now.Millisecond);
+                    }
                 }
                 else
                 {
-                    //Console.WriteLine("{1} Trame Lue {0}", FrameSymbol, DateTime.Now.ToLongTimeString() + ":" + DateTime.Now.Millisecond);
+                    LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format("Trying reading frame {0} while connection is closed", TrameToRecieve.Symbol));
+                    MDISmartCommandMain.EventLogger.AddLogEvent(log);
                 }
-
             }
             else
             {
-                LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format("Trying reading frame {0} while connection is closed", TrameToRecieve.Symbol));
+                LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format("Unknown Timer {0}", FrameSymbol));
                 MDISmartCommandMain.EventLogger.AddLogEvent(log);
             }
         }
@@ -413,7 +439,13 @@ namespace SmartApp.Scripts
         protected void ExecuteClearLogger(string LoggerSymbol)
         {
             Logger log = (Logger)m_Document.GestLogger.GetFromSymbol(LoggerSymbol);
-            log.ClearLog();
+            if (log != null)
+                log.ClearLog();
+            else
+            {
+                LogEvent logEvent = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format("Unknown Logger {0}", LoggerSymbol));
+                MDISmartCommandMain.EventLogger.AddLogEvent(logEvent);
+            }
         }
 
         //*****************************************************************************************************
@@ -423,7 +455,13 @@ namespace SmartApp.Scripts
         protected void ExecuteLogLogger(string LoggerSymbol)
         {
             Logger log = (Logger)m_Document.GestLogger.GetFromSymbol(LoggerSymbol);
-            log.LogData();
+            if (log != null)
+                log.LogData();
+            else
+            {
+                LogEvent logEvent = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format("Unknown Logger {0}", LoggerSymbol));
+                MDISmartCommandMain.EventLogger.AddLogEvent(logEvent);
+            }
         }
 
         //*****************************************************************************************************
@@ -433,7 +471,13 @@ namespace SmartApp.Scripts
         protected void ExecuteStartAutoLogger(string LoggerSymbol)
         {
             Logger log = (Logger)m_Document.GestLogger.GetFromSymbol(LoggerSymbol);
-            log.StartAutoLogger();
+            if (log != null)
+                log.StartAutoLogger();
+            else
+            {
+                LogEvent logEvent = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format("Unknown Logger {0}", LoggerSymbol));
+                MDISmartCommandMain.EventLogger.AddLogEvent(logEvent);
+            }
         }
 
         //*****************************************************************************************************
@@ -443,7 +487,13 @@ namespace SmartApp.Scripts
         protected void ExecuteStopAutoLogger(string LoggerSymbol)
         {
             Logger log = (Logger)m_Document.GestLogger.GetFromSymbol(LoggerSymbol);
-            log.StopAutoLogger();
+            if (log != null)
+                log.StopAutoLogger();
+            else
+            {
+                LogEvent logEvent = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format("Unknown Logger {0}", LoggerSymbol));
+                MDISmartCommandMain.EventLogger.AddLogEvent(logEvent);
+            }
         }
 
         #endregion
