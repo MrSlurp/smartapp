@@ -526,7 +526,20 @@ namespace SmartApp.Ihm
         //*****************************************************************************************************      
         private void m_MenuItemClose_Click(object sender, EventArgs e)
         {
-            this.CloseDoc();
+            if (m_Document != null && m_Document.Modified)
+            {
+                DialogResult res = MessageBox.Show("File Have been modified\nDo you want to save it?", "Warning",
+                                                    MessageBoxButtons.YesNoCancel);
+                if (res == DialogResult.Yes)
+                {
+                    DoSaveDocument();
+                }
+                if (res == DialogResult.Cancel)
+                {
+                    return;
+                }
+                this.CloseDoc();
+            }
         }
 
         //*****************************************************************************************************

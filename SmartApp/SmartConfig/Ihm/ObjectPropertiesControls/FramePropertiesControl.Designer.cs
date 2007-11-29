@@ -217,7 +217,7 @@ namespace SmartApp.Ihm
             this.m_textSymbol.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.m_textSymbol.Location = new System.Drawing.Point(3, 95);
             this.m_textSymbol.Name = "m_textSymbol";
-            this.m_textSymbol.Size = new System.Drawing.Size(200, 20);
+            this.m_textSymbol.Size = new System.Drawing.Size(331, 20);
             this.m_textSymbol.TabIndex = 8;
             // 
             // m_richTextDesc

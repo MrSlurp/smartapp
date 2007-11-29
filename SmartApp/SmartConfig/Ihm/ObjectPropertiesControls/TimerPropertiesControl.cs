@@ -93,7 +93,7 @@ namespace SmartApp.Ihm
         public TimerPropertiesControl()
         {
             InitializeComponent();
-            m_NumPeriod.Minimum = 50;
+            m_NumPeriod.Minimum = 20;
             m_NumPeriod.Maximum = 3600000;
         }
         #endregion

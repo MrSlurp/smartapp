@@ -60,15 +60,15 @@ namespace SmartApp.Ihm.Wizards
             if (((TCPMODBUS_REG_TYPE)m_cboFrameType.SelectedValue) == TCPMODBUS_REG_TYPE.OUTPUT_REGISTER)
             {
                 m_TabCboOrderType = new CComboData[1];
-                m_TabCboOrderType[0] = new CComboData("Read multiple resgister", MODBUS_ORDER_TYPE.READ_HOLDING_REGISTER);
+                m_TabCboOrderType[0] = new CComboData("Read Holding resgister(s)", MODBUS_ORDER_TYPE.READ_HOLDING_REGISTER);
                 m_cboReadWrite.SelectedValue = MODBUS_ORDER_TYPE.READ_HOLDING_REGISTER;
             }
             else
             {
                 m_TabCboOrderType = new CComboData[3];
                 m_TabCboOrderType[0] = new CComboData("Write simple resgister", MODBUS_ORDER_TYPE.WRITE_SINGLE_REGISTER);
-                m_TabCboOrderType[1] = new CComboData("Write multiple resgister", MODBUS_ORDER_TYPE.WRITE_MULTIPLE_REGISTER);
-                m_TabCboOrderType[2] = new CComboData("Read Holding resgister", MODBUS_ORDER_TYPE.READ_HOLDING_REGISTER);
+                m_TabCboOrderType[1] = new CComboData("Write multiple resgisters", MODBUS_ORDER_TYPE.WRITE_MULTIPLE_REGISTER);
+                m_TabCboOrderType[2] = new CComboData("Read Holding resgister(s)", MODBUS_ORDER_TYPE.READ_HOLDING_REGISTER);
             }
             m_cboReadWrite.DisplayMember = "DisplayedString";
             m_cboReadWrite.ValueMember = "Object";

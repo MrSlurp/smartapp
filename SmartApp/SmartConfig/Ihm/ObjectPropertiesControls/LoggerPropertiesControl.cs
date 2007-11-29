@@ -141,7 +141,7 @@ namespace SmartApp.Ihm
             m_cboLogType.DataSource = m_TabCboLogType;
             m_cboLogType.SelectedIndex = 0;
 
-            m_LoggerPeriod.Minimum = 50;
+            m_LoggerPeriod.Minimum = 20;
             m_LoggerPeriod.Maximum = 3600000;
 
             m_txtFileName.CharacterCasing = CharacterCasing.Normal;

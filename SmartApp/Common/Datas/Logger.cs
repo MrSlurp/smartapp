@@ -324,8 +324,8 @@ namespace SmartApp.Datas
             {
                 if (m_bTimerActive)
                 {
-                    LogEvent log = new LogEvent(LOG_EVENT_TYPE.INFO, string.Format("{0} Trying to start an already started auto logger", Symbol));
-                    MDISmartCommandMain.EventLogger.AddLogEvent(log);
+                    //LogEvent log = new LogEvent(LOG_EVENT_TYPE.INFO, string.Format("{0} Trying to start an already started auto logger", Symbol));
+                    //MDISmartCommandMain.EventLogger.AddLogEvent(log);
                 }
                 m_Timer.Start();
                 m_bTimerActive = true;
@@ -349,8 +349,8 @@ namespace SmartApp.Datas
             {
                 if (!m_bTimerActive)
                 {
-                    LogEvent log = new LogEvent(LOG_EVENT_TYPE.INFO, string.Format("{0} Trying to stop an already stopped auto logger", Symbol));
-                    MDISmartCommandMain.EventLogger.AddLogEvent(log);
+                    //LogEvent log = new LogEvent(LOG_EVENT_TYPE.INFO, string.Format("{0} Trying to stop an already stopped auto logger", Symbol));
+                    //MDISmartCommandMain.EventLogger.AddLogEvent(log);
                 }
                 m_Timer.Stop();
                 m_bTimerActive = false;
