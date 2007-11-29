@@ -314,7 +314,9 @@ namespace SmartApp.Scripts
             m_EditScript.SelectionStart = posCarret;
             int posFirstCharOfLine = m_EditScript.GetFirstCharIndexOfCurrentLine();
             int carretPosOnLine = posCarret - posFirstCharOfLine;
-            string line = m_EditScript.Lines[CarretLine];
+            string line = "";
+            if (m_EditScript.Lines.Length != 0)
+                line = m_EditScript.Lines[CarretLine];
             List<int> listPointPos = new List<int>();
             int PosPoint = 0;
             while (PosPoint != -1 && line.Length > 0)

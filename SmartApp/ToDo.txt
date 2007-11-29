@@ -50,3 +50,5 @@ IPR 0009: problèmes divers sur l'auto completion: si on a plusieur lignes, si ut
 OK
 IPR 0010: il devrait y avoir une option démarrage auto pour les timers et les loggers
 OK == > A tester en édition ==>OK
+
+IPR 0011: pas de modif de doc enregistré sur utilisation des wizards
