@@ -11,7 +11,7 @@ using SmartApp.Datas;
 
 namespace SmartApp.Ihm
 {
-    public delegate void AsyncUpdateHMI();
+    public delegate void AsyncUpdateHMI(MessNeedUpdate Mess);
 
     public partial class FrameForm : Form
     {

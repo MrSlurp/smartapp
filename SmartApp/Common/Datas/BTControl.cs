@@ -375,77 +375,10 @@ namespace SmartApp.Datas
                     break;
             }
             // mais l'objet peux aussi être utilisé dans le script
-            ScriptTraiteMessage(Mess, m_ScriptLines, obj);
+            ScriptTraiteMessage(this, Mess, m_ScriptLines, obj);
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        protected void ScriptTraiteMessage(MESSAGE Mess, StringCollection Script, object obj)
-        {
-            switch (Mess)
-            {
-                // message de requête sur les conséquence d'une supression
-                case MESSAGE.MESS_ASK_ITEM_DELETE:
-                    if (((MessAskDelete)obj).TypeOfItem == typeof(Trame)
-                        || ((MessAskDelete)obj).TypeOfItem == typeof(Function)
-                        || ((MessAskDelete)obj).TypeOfItem == typeof(Logger)
-                        || ((MessAskDelete)obj).TypeOfItem == typeof(BTTimer)
-                        )
-                    {
-                        MessAskDelete MessParam = (MessAskDelete)obj;
-                        for (int i = 0; i < Script.Count; i++)
-                        {
-                            string stritem = SmartApp.Scripts.ScriptParser.GetLineToken(Script[i], SmartApp.Scripts.ScriptParser.INDEX_TOKEN_SYMBOL);
-                            if (stritem == MessParam.WantDeletetItemSymbol)
-                            {
-                                string strMess = string.Format("Control {0} Script: Line {1} will be removed", Symbol, i + 1);
-                                MessParam.ListStrReturns.Add(strMess);
-                            }
-                        }
-                    }
-                    break;
-                // message de supression
-                case MESSAGE.MESS_ITEM_DELETED:
-                    if (((MessDeleted)obj).TypeOfItem == typeof(Trame)
-                        || ((MessDeleted)obj).TypeOfItem == typeof(Function)
-                        || ((MessDeleted)obj).TypeOfItem == typeof(Logger)
-                        || ((MessDeleted)obj).TypeOfItem == typeof(BTTimer)
-                        )
-                    {
-                        MessDeleted MessParam = (MessDeleted)obj;
-                        for (int i = 0; i < Script.Count; i++)
-                        {
-                            string stritem = SmartApp.Scripts.ScriptParser.GetLineToken(Script[i], SmartApp.Scripts.ScriptParser.INDEX_TOKEN_SYMBOL);
-                            if (stritem == MessParam.DeletetedItemSymbol)
-                            {
-                                Script.RemoveAt(i);
-                            }
-                        }
-                    }
-                    break;
-                // message de renomage
-                case MESSAGE.MESS_ITEM_RENAMED:
-                    if (((MessItemRenamed)obj).TypeOfItem == typeof(Trame)
-                        || ((MessItemRenamed)obj).TypeOfItem == typeof(Function)
-                        || ((MessItemRenamed)obj).TypeOfItem == typeof(Logger)
-                        || ((MessItemRenamed)obj).TypeOfItem == typeof(BTTimer)
-                        )
-                    {
-                        MessItemRenamed MessParam = (MessItemRenamed)obj;
-                        for (int i = 0; i < Script.Count; i++)
-                        {
-                            string stritem = SmartApp.Scripts.ScriptParser.GetLineToken(Script[i], SmartApp.Scripts.ScriptParser.INDEX_TOKEN_SYMBOL);
-                            if (stritem == MessParam.OldItemSymbol)
-                            {
-                                Script[i] = Script[i].Replace(MessParam.OldItemSymbol, MessParam.NewItemSymbol);
-                            }
-                        }
-                    }
-                    break;
-            }
-        }
+
         #endregion
     }
 }

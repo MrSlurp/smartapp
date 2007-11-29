@@ -37,6 +37,7 @@ namespace SmartApp.Ihm
             // 
             // m_BtnOK
             // 
+            this.m_BtnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.m_BtnOK.Location = new System.Drawing.Point(13, 231);
             this.m_BtnOK.Name = "m_BtnOK";
             this.m_BtnOK.Size = new System.Drawing.Size(116, 23);
@@ -47,6 +48,8 @@ namespace SmartApp.Ihm
             // 
             // m_BtnCancel
             // 
+            this.m_BtnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.m_BtnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.m_BtnCancel.Location = new System.Drawing.Point(164, 231);
             this.m_BtnCancel.Name = "m_BtnCancel";
             this.m_BtnCancel.Size = new System.Drawing.Size(116, 23);
@@ -57,10 +60,13 @@ namespace SmartApp.Ihm
             // 
             // m_ListUsersMess
             // 
+            this.m_ListUsersMess.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.m_ListUsersMess.FormattingEnabled = true;
             this.m_ListUsersMess.Location = new System.Drawing.Point(13, 26);
             this.m_ListUsersMess.Name = "m_ListUsersMess";
-            this.m_ListUsersMess.Size = new System.Drawing.Size(267, 173);
+            this.m_ListUsersMess.Size = new System.Drawing.Size(283, 186);
             this.m_ListUsersMess.TabIndex = 2;
             // 
             // m_labelMess
@@ -68,12 +74,13 @@ namespace SmartApp.Ihm
             this.m_labelMess.AutoSize = true;
             this.m_labelMess.Location = new System.Drawing.Point(13, 7);
             this.m_labelMess.Name = "m_labelMess";
-            this.m_labelMess.Size = new System.Drawing.Size(230, 13);
+            this.m_labelMess.Size = new System.Drawing.Size(235, 13);
             this.m_labelMess.TabIndex = 3;
             this.m_labelMess.Text = "The item you want to delete is used. See details:";
             // 
             // label1
             // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(10, 215);
             this.label1.Name = "label1";
@@ -87,20 +94,20 @@ namespace SmartApp.Ihm
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.m_BtnCancel;
-            this.ClientSize = new System.Drawing.Size(292, 266);
+            this.ClientSize = new System.Drawing.Size(308, 266);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.m_labelMess);
             this.Controls.Add(this.m_ListUsersMess);
             this.Controls.Add(this.m_BtnCancel);
             this.Controls.Add(this.m_BtnOK);
             this.DoubleBuffered = true;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ChangeListForm";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Change list";
             this.Load += new System.EventHandler(this.ChangeListForm_Load);
             this.ResumeLayout(false);

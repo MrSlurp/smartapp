@@ -21,7 +21,7 @@ using SmartApp.Scripts;
 
 namespace SmartApp
 {
-    public delegate void NeedRefreshHMI();
+    public delegate void NeedRefreshHMI(MessNeedUpdate Mess);
     public delegate void DocumentModifiedEvent();
     //*****************************************************************************************************
     // Description:
@@ -258,13 +258,14 @@ namespace SmartApp
                     GestTrame.TraiteMessage(Mess, Param);
                     GestTimer.TraiteMessage(Mess, Param);
                     GestLogger.TraiteMessage(Mess, Param);
+                    GestFunction.TraiteMessage(Mess, Param);
                     if (UpdateDocumentFrame != null
                         && (Mess == MESSAGE.MESS_ITEM_DELETED || Mess == MESSAGE.MESS_ITEM_RENAMED)
                         )
                     {
                         if (((BaseMessage)Param).TypeOfItem != typeof(BTControl))
                         {
-                            UpdateDocumentFrame.Invoke();
+                            UpdateDocumentFrame.Invoke(new MessNeedUpdate((BaseMessage)Param));
                         }
                         Modified = true;
                     }

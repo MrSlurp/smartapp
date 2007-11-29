@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Text;
 using System.Xml;
+using System.Diagnostics;
 using SmartApp.Ihm;
 
 namespace SmartApp.Datas
@@ -178,5 +179,88 @@ namespace SmartApp.Datas
             }
         }
         #endregion
+
+        protected void ScriptTraiteMessage(BaseObject Sender, MESSAGE Mess, StringCollection Script, object obj)
+        {
+            switch (Mess)
+            {
+                case MESSAGE.MESS_ASK_ITEM_DELETE:
+                    if (((MessAskDelete)obj).TypeOfItem == typeof(Trame)
+                        || ((MessAskDelete)obj).TypeOfItem == typeof(Function)
+                        || ((MessAskDelete)obj).TypeOfItem == typeof(Logger)
+                        || ((MessAskDelete)obj).TypeOfItem == typeof(BTTimer)
+                        )
+                    {
+                        MessAskDelete MessParam = (MessAskDelete)obj;
+                        for (int i = 0; i < Script.Count; i++)
+                        {
+                            string stritem = SmartApp.Scripts.ScriptParser.GetLineToken(Script[i], SmartApp.Scripts.ScriptParser.INDEX_TOKEN_SYMBOL);
+                            if (stritem == MessParam.WantDeletetItemSymbol)
+                            {
+                                Type tp = Sender.GetType();
+                                string strMess = "";
+                                if (tp == typeof(BTTimer))
+                                {
+                                    strMess = string.Format("Timer {0} Script: Line {1} will be removed", Symbol, i + 1);
+                                }
+                                else if (tp == typeof(BTScreen))
+                                {
+                                    strMess = string.Format("Screen {0} Script: Line {1} will be removed", Symbol, i + 1);
+                                }
+                                else if (tp == typeof(Function))
+                                {
+                                    strMess = string.Format("Function {0} Script: Line {1} will be removed", Symbol, i + 1);
+                                }
+                                else if (tp == typeof(BTControl))
+                                {
+                                    strMess = string.Format("Control {0} Script: Line {1} will be removed", Symbol, i + 1);
+                                }
+                                else
+                                    System.Diagnostics.Debug.Assert(false);
+                                MessParam.ListStrReturns.Add(strMess);
+                            }
+                        }
+                    }
+                    break;
+                case MESSAGE.MESS_ITEM_DELETED:
+                    if (((MessDeleted)obj).TypeOfItem == typeof(Trame)
+                        || ((MessDeleted)obj).TypeOfItem == typeof(Function)
+                        || ((MessDeleted)obj).TypeOfItem == typeof(Logger)
+                        || ((MessDeleted)obj).TypeOfItem == typeof(BTTimer)
+                        )
+                    {
+                        MessDeleted MessParam = (MessDeleted)obj;
+                        for (int i = 0; i < Script.Count; i++)
+                        {
+                            string stritem = SmartApp.Scripts.ScriptParser.GetLineToken(Script[i], SmartApp.Scripts.ScriptParser.INDEX_TOKEN_SYMBOL);
+                            if (stritem == MessParam.DeletetedItemSymbol)
+                            {
+                                Script.RemoveAt(i);
+                            }
+                        }
+                    }
+                    break;
+                case MESSAGE.MESS_ITEM_RENAMED:
+                    if (((MessItemRenamed)obj).TypeOfItem == typeof(Trame)
+                        || ((MessItemRenamed)obj).TypeOfItem == typeof(Function)
+                        || ((MessItemRenamed)obj).TypeOfItem == typeof(Logger)
+                        || ((MessItemRenamed)obj).TypeOfItem == typeof(BTTimer)
+                        )
+                    {
+                        MessItemRenamed MessParam = (MessItemRenamed)obj;
+                        for (int i = 0; i < Script.Count; i++)
+                        {
+                            string stritem = SmartApp.Scripts.ScriptParser.GetLineToken(Script[i], SmartApp.Scripts.ScriptParser.INDEX_TOKEN_SYMBOL);
+                            if (stritem == MessParam.OldItemSymbol)
+                            {
+                                Script[i] = Script[i].Replace(MessParam.OldItemSymbol, MessParam.NewItemSymbol);
+                            }
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

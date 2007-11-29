@@ -36,13 +36,17 @@ namespace SmartApp
         MESS_CMD_STOP,
     }
 
+    //*****************************************************************************************************
+    // Description: classe de base qui possède le type de l'objet détruit / modifié
+    // Return: /
+    //*****************************************************************************************************
     public class BaseMessage
     {
         public Type TypeOfItem;
 
     }
     //*****************************************************************************************************
-    // Description:
+    // Description: message envoyé lorsque l'utilisateur supprime un objet
     // Return: /
     //*****************************************************************************************************
     public class MessDeleted : BaseMessage
@@ -51,7 +55,7 @@ namespace SmartApp
     }
 
     //*****************************************************************************************************
-    // Description:
+    // Description: message envoyé lorsque l'utilisateur souhaite supprimer qqch
     // Return: /
     //*****************************************************************************************************
     public class MessAskDelete : BaseMessage
@@ -75,13 +79,47 @@ namespace SmartApp
     }
 
     //*****************************************************************************************************
-    // Description:
+    // Description: message envoyé lorsqu'un objet change de nom
     // Return: /
     //*****************************************************************************************************
     public class MessItemRenamed : BaseMessage
     {
         public string OldItemSymbol;
         public string NewItemSymbol;
+    }
+
+    //*****************************************************************************************************
+    // Description: message qui améliore la finesse de rafraichissement des IHM en fonction de ce qui a changé
+    // Return: /
+    //*****************************************************************************************************
+    public class MessNeedUpdate : BaseMessage
+    {
+        public bool bUpdateDataForm;
+        public bool bUpdateFrameForm;
+        public bool bUpdateScreenForm;
+        public bool bUpdateProgramForm;
+
+        public MessNeedUpdate(BaseMessage mess)
+        {
+            if (mess.TypeOfItem == typeof(Datas.Data))
+            {
+                bUpdateFrameForm = true;
+                bUpdateScreenForm = true;
+                bUpdateProgramForm = true;
+            }
+            if (mess.TypeOfItem == typeof(Datas.Trame))
+            {
+                bUpdateScreenForm = true;
+                bUpdateProgramForm = true;
+            }
+            if (mess.TypeOfItem == typeof(Datas.Logger)
+                || mess.TypeOfItem == typeof(Datas.Function)
+                || mess.TypeOfItem == typeof(Datas.BTTimer)
+                )
+            {
+                bUpdateScreenForm = true;
+            }
+        }
     }
 
 }

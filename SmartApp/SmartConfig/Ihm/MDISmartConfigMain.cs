@@ -392,7 +392,7 @@ namespace SmartApp.Ihm
         // Description:
         // Return: /
         //*****************************************************************************************************      
-        protected void OnNeedUpdateHMI()
+        protected void OnNeedUpdateHMI(MessNeedUpdate Mess)
         {
             if (this.InvokeRequired)
             {
@@ -401,7 +401,7 @@ namespace SmartApp.Ihm
             }
             else
             {
-                AsyncUpdater();
+                AsyncUpdater(Mess);
             }
         }
 
@@ -409,12 +409,29 @@ namespace SmartApp.Ihm
         // Description:
         // Return: /
         //*****************************************************************************************************      
-        protected void AsyncUpdater()
+        protected void AsyncUpdater(MessNeedUpdate Mess)
         {
-            m_DataForm.Initialize();
-            m_FrameForm.Initialize();
-            m_DesignForm.Initialize();
-            m_ProgForm.Initialize();
+            if (Mess == null)
+            {
+                m_DataForm.Initialize();
+                m_FrameForm.Initialize();
+                m_DesignForm.Initialize();
+                m_ProgForm.Initialize();
+            }
+            else
+            {
+                if (Mess.bUpdateDataForm)
+                    m_DataForm.Initialize();
+
+                if (Mess.bUpdateFrameForm)
+                    m_FrameForm.Initialize();
+
+                if (Mess.bUpdateProgramForm)
+                    m_ProgForm.Initialize();
+
+                if (Mess.bUpdateScreenForm)
+                    m_DesignForm.Initialize();
+            }
         }
 
         //*****************************************************************************************************
@@ -496,7 +513,10 @@ namespace SmartApp.Ihm
                 WizardSLForm wiz = new WizardSLForm();
                 wiz.m_Document = m_Document;
                 if (wiz.ShowDialog() == DialogResult.OK)
-                    this.OnNeedUpdateHMI();
+                {
+                    this.OnNeedUpdateHMI(null);
+                    m_Document.Modified = true;
+                }
             }
         }
 
@@ -520,7 +540,10 @@ namespace SmartApp.Ihm
                 WizardTcpModbusForm wiz = new WizardTcpModbusForm();
                 wiz.m_Document = m_Document;
                 if (wiz.ShowDialog() == DialogResult.OK)
-                    this.OnNeedUpdateHMI();
+                {
+                    this.OnNeedUpdateHMI(null);
+                    m_Document.Modified = true;
+                }
             }
 
         }
