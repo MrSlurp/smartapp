@@ -398,7 +398,7 @@
   <Program>
     <FunctionSection />
     <TimerSection>
-      <Timer strNom="" strSymbol="NEW_TIMER_0" Period="200">
+      <Timer strNom="" strSymbol="NEW_TIMER_0" Period="100" AutoStart="False">
         <Line>FRAMES.M3_READ_SLOUT_BLOC_1.SEND()</Line>
         <Line>FRAMES.M3_RESP_READ_SLOUT_BLOC_1.RECEIVE()</Line>
       </Timer>
