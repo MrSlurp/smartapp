@@ -74,12 +74,6 @@ namespace SmartApp
             {
                 return m_Executer;
             }
-            /*
-            set
-            {
-                m_Executer = value;
-            }
-             * */
         }
 
         //*****************************************************************************************************
@@ -387,7 +381,8 @@ namespace SmartApp
                             {
                                 if (FileVer < Cste.CUR_FILE_VERSION)
                                 {
-
+                                    if (Program.TypeApp == TYPE_APP.SMART_CONFIG)
+                                        MessageBox.Show("This file have been created with an oldest version, if you save this file, you will not be able tio read it with previous version", "Warning");
                                 }
                                 else if (FileVer > Cste.CUR_FILE_VERSION)
                                 {

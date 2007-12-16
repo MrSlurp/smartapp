@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using SmartApp.Ihm;
 using SmartApp.Ihm.Wizards;
 using Microsoft.Win32;
+using System.Reflection;
 
 namespace SmartApp.Ihm
 {
@@ -19,6 +20,8 @@ namespace SmartApp.Ihm
         protected FrameForm m_FrameForm = new FrameForm();
         protected ProgramForm m_ProgForm = new ProgramForm();
         protected BTDoc m_Document = null;
+        IniFileParser m_IniFile = new IniFileParser();
+        private string m_strIniFilePath;
         protected string m_strDocumentName = "";
 
         //*****************************************************************************************************
@@ -29,6 +32,9 @@ namespace SmartApp.Ihm
         {
             DoFileFormatRegistration();
             InitializeComponent();
+            string strAppDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName);
+            m_strIniFilePath = strAppDir + @"\" + Cste.STR_FORMPOSINI_FILENAME;
+            m_IniFile.Load(m_strIniFilePath);
             m_DataForm.MdiParent = this;
             m_DesignForm.MdiParent = this;
             m_FrameForm.MdiParent = this;
@@ -237,7 +243,7 @@ namespace SmartApp.Ihm
                 string strFileFullName = openFileDialog.FileName;
                 if (!OpenDoc(strFileFullName))
                 {
-                    MessageBox.Show("Erreur lors de l'ouverture du fichier", "Erreur");
+                    MessageBox.Show("Error while reading file. File is corrupted", "Error");
                     this.CloseDoc();
                 }
             }
@@ -355,6 +361,20 @@ namespace SmartApp.Ihm
             m_DataForm.Show();
             m_FrameForm.Show();
             m_ProgForm.Show();
+            for (int i = 0; i < this.MdiChildren.Length; i++)
+            {
+                string strFramePosvalues = m_IniFile.GetValue(MdiChildren[i].Name, "Position");
+                if (!string.IsNullOrEmpty(strFramePosvalues))
+                {
+                    string[] TabPos = strFramePosvalues.Split(',');
+                    Rectangle rcForm = new Rectangle(int.Parse(TabPos[0]),
+                        int.Parse(TabPos[1]),
+                        int.Parse(TabPos[2]),
+                        int.Parse(TabPos[3]));
+                    MdiChildren[i].Location = new Point(rcForm.X, rcForm.Y);
+                    MdiChildren[i].Size = new Size(rcForm.Width, rcForm.Height);
+                }
+            }
 
             m_windowsMenu.Enabled = true;
             m_jumpTotCmdMenuItem.Enabled = true;
@@ -448,12 +468,21 @@ namespace SmartApp.Ihm
                 {
                     DoSaveDocument();
                 }
-                if (res == DialogResult.Cancel)
+                else if (res == DialogResult.Cancel)
                 {
                     e.Cancel = true;
                     return;
                 }
             }
+            for (int i = 0; i < this.MdiChildren.Length; i++)
+            {
+                string strValue = MdiChildren[i].Location.X.ToString() + ',' +
+                    MdiChildren[i].Location.Y.ToString() + ',' +
+                    MdiChildren[i].Size.Width.ToString() + ',' +
+                    MdiChildren[i].Size.Height.ToString();
+                m_IniFile.SetValue(MdiChildren[i].Name, "Position", strValue);
+            }
+            m_IniFile.Save(m_strIniFilePath);
         }
 
         //*****************************************************************************************************
@@ -627,6 +656,10 @@ namespace SmartApp.Ihm
                 m_saveAsToolStripMenuItem.Enabled = true;
                 m_MenuItemClose.Enabled = true;
             }
+        }
+
+        private void MDISmartConfigMain_Load(object sender, EventArgs e)
+        {
         }
     }
 }

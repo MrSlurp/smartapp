@@ -30,10 +30,12 @@ namespace SmartApp
         public const string STRCMD_AUTOCONNECT = "-AC";
         public const string STRCMD_AUTOSTART = "-AS";
 
-        public const int CUR_FILE_VERSION = 1;
+        public const int CUR_FILE_VERSION = 2;
+        public const int FILE_VERSION_V1001 = 1;
         public const int NB_MAX_COMM = 255;
         public const string STR_COMINI_FILENAME = "ConfigComm.ini";
         public const string STR_OPTINI_FILENAME = "Options.ini";
+        public const string STR_FORMPOSINI_FILENAME = "Forms.ini";
         public const string STR_FILE_DESC_HEADER_FORMAT = "Comm{0}";
         public const string STR_FILE_DESC_NAME = "Name";
         public const string STR_FILE_DESC_COMM = "Comm";

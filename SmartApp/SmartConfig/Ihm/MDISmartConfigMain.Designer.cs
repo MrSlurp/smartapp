@@ -569,6 +569,7 @@ namespace SmartApp.Ihm
             this.Name = "MDISmartConfigMain";
             this.Text = "SmartConfig";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnFormClosing);
+            this.Load += new System.EventHandler(this.MDISmartConfigMain_Load);
             this.m_menuStrip.ResumeLayout(false);
             this.m_menuStrip.PerformLayout();
             this.m_toolStrip.ResumeLayout(false);

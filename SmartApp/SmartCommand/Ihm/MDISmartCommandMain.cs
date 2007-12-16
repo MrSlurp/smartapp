@@ -65,6 +65,12 @@ namespace SmartApp
             if (!string.IsNullOrEmpty(strFileName))
             {
                 OpenDoc(strFileName);
+                if (!OpenDoc(strFileName))
+                {
+                    MessageBox.Show("Error while reading file. File is corrupted", "Error");
+                    this.CloseDoc();
+                    return;
+                }
                 InitCboComms();
                 UpdateToolBarCxnItemState();
             }
@@ -116,7 +122,7 @@ namespace SmartApp
                 string strFileFullName = openFileDialog.FileName;
                 if (!OpenDoc(strFileFullName))
                 {
-                    MessageBox.Show("Erreur lors de l'ouverture du fichier", "Erreur");
+                    MessageBox.Show("Error while reading file. File is corrupted", "Error");
                     this.CloseDoc();
                 }
             }
