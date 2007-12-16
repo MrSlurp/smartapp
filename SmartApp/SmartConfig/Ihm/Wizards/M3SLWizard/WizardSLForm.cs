@@ -190,12 +190,12 @@ namespace SmartApp.Ihm.Wizards
             {
                 Data dt = (Data)m_ListUserData[i];
                 ListViewItem lviData = m_ListViewDatas.Items.Add(dt.Symbol);
-                lviData.SubItems.Add(dt.Size.ToString());
+                lviData.SubItems.Add(dt.SizeInBits.ToString());
                 int CurByte = CurDataBit / M3_SL_IO_SIZE +1;
                 lviData.SubItems.Add(CurByte.ToString());
                 lviData.Tag = dt;
 
-                CurDataBit += dt.Size;
+                CurDataBit += dt.SizeInBits;
             }
         }
         #endregion
@@ -405,7 +405,7 @@ namespace SmartApp.Ihm.Wizards
             string FinFormatForDataOther = "_B{0}-{1}"; // 1 à 16, 1 à 16 (noméro de bit de debut, numéro du bit de fin
             string strBaseSmbol = string.Format(FormatString, InOrOutBloc, indexSLBloc, InOrOutData, iCurrentIO);
             int DataBitPosInCurByte = DataBitPos - ((iCurrentIO - 1) * M3_SL_IO_SIZE);
-            if (DataSize == (int)DATA_SIZE.DATA_SIZE_16B)
+            if (DataSize == (int)DATA_SIZE.DATA_SIZE_16B || DataSize == (int)DATA_SIZE.DATA_SIZE_16BU)
                 return strBaseSmbol;
             else if (DataSize == (int)DATA_SIZE.DATA_SIZE_8B)
             {
@@ -508,7 +508,7 @@ namespace SmartApp.Ihm.Wizards
             else if (m_ListViewDatas.SelectedItems.Count == 1)
             {
                 Data dt = (Data)m_ListViewDatas.SelectedItems[0].Tag;
-                if (dt.Size > 1)
+                if (dt.SizeInBits > 1)
                 {
                     m_btnSplit.Enabled = true;
                 }
@@ -550,7 +550,7 @@ namespace SmartApp.Ihm.Wizards
             if (m_ListViewDatas.SelectedItems.Count == 1)
             {
                 Data dt = (Data)m_ListViewDatas.SelectedItems[0].Tag;
-                if (dt.Size > 1 && ((dt.Size %2) ==0)) // la taille de la donnée doit être paire
+                if (dt.SizeInBits > 1 && ((dt.SizeInBits %2) ==0)) // la taille de la donnée doit être paire
                 {
                     int iCurUserDataBit = 0;
                     for (int indexSplit = 0; indexSplit < m_ListUserData.Count; indexSplit++)
@@ -558,7 +558,7 @@ namespace SmartApp.Ihm.Wizards
                         Data uData = (Data)m_ListUserData[indexSplit];
                         if (uData.Symbol == dt.Symbol)
                         {
-                            int newDataSize = dt.Size /2;
+                            int newDataSize = dt.SizeInBits /2;
                             string strSymb1 = GetDefaultSymbolM3Data(frType, AddrRange, iCurUserDataBit, newDataSize);
                             string strSymb2 = GetDefaultSymbolM3Data(frType, AddrRange, iCurUserDataBit+newDataSize, newDataSize);
                             Data newData1 = new Data(strSymb1, 0, newDataSize, false);  
@@ -568,7 +568,7 @@ namespace SmartApp.Ihm.Wizards
                             this.InitListViewData();
                             break;
                         }
-                        iCurUserDataBit += uData.Size;
+                        iCurUserDataBit += uData.SizeInBits;
                     }
                 }
             }
@@ -587,7 +587,7 @@ namespace SmartApp.Ihm.Wizards
             {
                 Data dt1 = (Data)m_ListViewDatas.SelectedItems[0].Tag;
                 Data dt2 = (Data)m_ListViewDatas.SelectedItems[1].Tag;
-                if (dt1.Size == dt2.Size && ((dt1.Size + dt2.Size)%2 == 0)) // la taille totale de la donnée doit être paire
+                if (dt1.SizeInBits == dt2.SizeInBits && ((dt1.SizeInBits + dt2.SizeInBits)%2 == 0)) // la taille totale de la donnée doit être paire
                 {
                     Data FirstData = null;
                     if (m_ListViewDatas.SelectedItems[0].Index < m_ListViewDatas.SelectedItems[1].Index)
@@ -601,7 +601,7 @@ namespace SmartApp.Ihm.Wizards
                         Data uData = (Data)m_ListUserData[indexJoin];
                         if (uData.Symbol == FirstData.Symbol)
                         {
-                            int newDataSize = dt1.Size + dt2.Size;
+                            int newDataSize = dt1.SizeInBits + dt2.SizeInBits;
                             string strSymb1 = GetDefaultSymbolM3Data(frType, AddrRange, iCurUserDataBit, newDataSize);
                             Data newData1 = new Data(strSymb1, 0, newDataSize, false);
                             m_ListUserData[indexJoin] = newData1;
@@ -609,7 +609,7 @@ namespace SmartApp.Ihm.Wizards
                             this.InitListViewData();
                             break;
                         }
-                        iCurUserDataBit += uData.Size;
+                        iCurUserDataBit += uData.SizeInBits;
                     }
                 }
             }

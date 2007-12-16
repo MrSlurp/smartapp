@@ -63,7 +63,7 @@ namespace SmartApp.Datas
             m_DefVal = DefaultValue;
             m_Size = size;
             m_bConstant = bIsConstant;
-            switch ((DATA_SIZE)this.Size)
+            switch ((DATA_SIZE)this.SizeInBits)
             {
                 case DATA_SIZE.DATA_SIZE_1B:
                     m_MaxVal = 1;
@@ -84,6 +84,10 @@ namespace SmartApp.Datas
                 case DATA_SIZE.DATA_SIZE_16B:
                     m_MaxVal = 32767;
                     m_MinVal = -32768;
+                    break;
+                case DATA_SIZE.DATA_SIZE_16BU:
+                    m_MaxVal = 0xFFFF;
+                    m_MinVal = 0;
                     break;
                 default:
                     System.Diagnostics.Debug.Assert(false);
@@ -206,10 +210,28 @@ namespace SmartApp.Datas
         // Description: acceseur sur la Taille de la donnée en bits
         // Return: /
         //*****************************************************************************************************
-        public int Size
+        public int SizeInBits
         {
             get
             {
+                // on ne prend que le poid faible, le poid fort indiquant si la donnée est 
+                // signée ou non
+                return m_Size & 0xFF;
+            }
+            /*
+            set
+            {
+                m_Size = value;
+            }
+             * */
+        }
+
+        public int SizeAndSign
+        {
+            get
+            {
+                // on ne prend que le poid faible, le poid fort indiquant si la donnée est 
+                // signée ou non
                 return m_Size;
             }
             set

@@ -80,6 +80,12 @@
     <Compile Include="SmartCommand\Comm\EthernetComm.cs" />
     <Compile Include="SmartCommand\Comm\HttpComm.cs" />
     <Compile Include="SmartCommand\Comm\SerialComm.cs" />
+    <Compile Include="Common\Controls Personnalisables\Gauge.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Common\Controls Personnalisables\Gauge.Designer.cs">
+      <DependentUpon>Gauge.cs</DependentUpon>
+    </Compile>
     <Compile Include="SmartCommand\Controls\BaseControl.cs" />
     <Compile Include="SmartCommand\Controls\ButtonControl.cs" />
     <Compile Include="SmartCommand\Controls\CheckControl.cs" />
@@ -167,6 +173,12 @@
     </Compile>
     <Compile Include="SmartConfig\Ihm\ConfigurationForm\FrameForm.Designer.cs">
       <DependentUpon>FrameForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ControlConfig\GaugeConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ControlConfig\GaugeConfig.Designer.cs">
+      <DependentUpon>GaugeConfig.cs</DependentUpon>
     </Compile>
     <Compile Include="SmartConfig\Ihm\Designer\ControlPainter.cs" />
     <Compile Include="SmartConfig\Ihm\Designer\DragItemPanel.cs">

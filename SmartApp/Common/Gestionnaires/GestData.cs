@@ -98,23 +98,32 @@ namespace SmartApp.Gestionnaires
 
         //*****************************************************************************************************
         // Description: met a jour les données de control de l'application
+        // ne fait que créer les données nécessaire et les maintenanir a jour en fonctions des paramètres
+        // des trames
+        // n'ajoute pas, ni ne supprime les données dans la trame
         // Return: /
         //*****************************************************************************************************
         public void UpdateAllControlDatas(GestTrame GestTr)
         {
+            //Liste des données de control nécessaires
             StringCollection ListNeededCtrlDatas = new StringCollection();
+            // liste des trames ayant besoin d'une donnée de controls
             List<Trame> ListTrameNeedCtrlDatas = new List<Trame>();
             // on crée une liste syncronisée des noms des 
             // données de control nécessaire et des trames correspondantes
             for (int i = 0; i < GestTr.Count; i++)
             {
                 Trame Tr = (Trame)GestTr[i];
+                // si la trame possède une donnée de control
                 if (Tr.CtrlDataType != CTRLDATA_TYPE.NONE.ToString())
                 {
+                    // et si il n'existe pas déja une donnée de control pour cette trame
                     if (GetFromSymbol(Tr.Symbol + Cste.STR_SUFFIX_CTRLDATA) == null)
                     {
                         string strNeeded = Tr.Symbol + Cste.STR_SUFFIX_CTRLDATA;
+                        // alors on enregistre le nom de la donnée nécessaire
                         ListNeededCtrlDatas.Add(strNeeded);
+                        // et la trame qui en a besoin
                         ListTrameNeedCtrlDatas.Add(Tr);
                     }
                 }
@@ -125,9 +134,12 @@ namespace SmartApp.Gestionnaires
             for (int i = 0; i < this.Count; i++)
             {
                 Data dt = (Data)this[i];
+                // si la donnée est une donnée de control (référence au suffix)
+                // et qu'elle n'est pas dans la liste de celle dont on a besoin
                 if (dt.Symbol.EndsWith(Cste.STR_SUFFIX_CTRLDATA)
                     && !ListNeededCtrlDatas.Contains(dt.Symbol))
                 {
+                    // on parcour la liste des trames et on vérfie si 
                     bool bFindCorrespFrame = false;
                     for (int j = 0; j < GestTr.Count; j++)
                     {
@@ -153,27 +165,39 @@ namespace SmartApp.Gestionnaires
                 Data NewData = new Data();
                 Trame tr = ListTrameNeedCtrlDatas[i];
                 NewData.Symbol = tr.Symbol + Cste.STR_SUFFIX_CTRLDATA;
-                NewData.Size = tr.CtrlDataSize;
-                NewData.IsUserVisible = false;
-                switch ((DATA_SIZE)NewData.Size)
-                {
-                    case DATA_SIZE.DATA_SIZE_8B:
-                        NewData.Minimum = 0;
-                        NewData.Maximum = 255;
-                        break;
-                    case DATA_SIZE.DATA_SIZE_16B:
-                        NewData.Minimum = -32768;
-                        NewData.Maximum = 32767;
-                        break;
-                    case DATA_SIZE.DATA_SIZE_32B:
-                        NewData.Minimum = int.MinValue;
-                        NewData.Maximum = int.MaxValue;
-                        break;
-                    default:
-                        System.Diagnostics.Debug.Assert(false);
-                        break;
-                }
                 this.AddObj(NewData);
+            }
+            // on met a jour leurs paramètres
+            for (int i = 0; i < GestTr.Count; i++)
+            {
+                Data dt = (Data)GetFromSymbol(GestTr[i].Symbol + Cste.STR_SUFFIX_CTRLDATA);
+                if (dt != null)
+                {
+                    dt.SizeAndSign = ((Trame)GestTr[i]).CtrlDataSize;
+                    dt.IsUserVisible = false;
+                    switch ((DATA_SIZE)dt.SizeAndSign)
+                    {
+                        case DATA_SIZE.DATA_SIZE_8B:
+                            dt.Minimum = 0;
+                            dt.Maximum = 255;
+                            break;
+                        case DATA_SIZE.DATA_SIZE_16B:
+                            dt.Minimum = -32768;
+                            dt.Maximum = 32767;
+                            break;
+                        case DATA_SIZE.DATA_SIZE_16BU:
+                            dt.Minimum = 0;
+                            dt.Maximum = 0xFFFF;
+                            break;
+                        case DATA_SIZE.DATA_SIZE_32B:
+                            dt.Minimum = int.MinValue;
+                            dt.Maximum = int.MaxValue;
+                            break;
+                        default:
+                            System.Diagnostics.Debug.Assert(false);
+                            break;
+                    }
+                }
             }
         }
         #endregion

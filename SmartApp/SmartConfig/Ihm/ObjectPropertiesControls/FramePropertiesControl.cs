@@ -21,6 +21,8 @@ namespace SmartApp.Ihm
         Trame m_Trame = null;
         private BTDoc m_Document = null;
         private bool bLockComboCtrlDataTypeEvent = false;
+
+        bool m_bLockEvent = false;
         #endregion
 
         #region events
@@ -37,18 +39,23 @@ namespace SmartApp.Ihm
         public FramePropertiesControl()
         {
             InitializeComponent();
-            m_TabCboCtrlDataSize = new CComboData[3];
+            m_TabCboCtrlDataSize = new CComboData[4];
             m_TabCboCtrlDataSize[0] = new CComboData("8 bits", (int)DATA_SIZE.DATA_SIZE_8B);
             m_TabCboCtrlDataSize[1] = new CComboData("16 bits", (int)DATA_SIZE.DATA_SIZE_16B);
-            m_TabCboCtrlDataSize[2] = new CComboData("32 bits", (int)DATA_SIZE.DATA_SIZE_32B);
+            m_TabCboCtrlDataSize[2] = new CComboData("16 bits (unsigned)", (int)DATA_SIZE.DATA_SIZE_16BU);
+            m_TabCboCtrlDataSize[3] = new CComboData("32 bits", (int)DATA_SIZE.DATA_SIZE_32B);
             m_cboCtrlDataSize.ValueMember = "Object";
             m_cboCtrlDataSize.DisplayMember = "DisplayedString";
             m_cboCtrlDataSize.DataSource = m_TabCboCtrlDataSize;
+            this.m_cboCtrlDataSize.SelectedIndexChanged += new System.EventHandler(this.OncboCtrlDataSizeSelectedIndexChanged);
+            m_bLockEvent = true;
             m_cboCtrlDataSize.SelectedIndex = 0;
+            m_bLockEvent = false;
 
-            m_TabCboCtrlDataType = new CComboData[2/*3*/];
+            m_TabCboCtrlDataType = new CComboData[3];
             m_TabCboCtrlDataType[0] = new CComboData("None", CTRLDATA_TYPE.NONE.ToString());
             m_TabCboCtrlDataType[1] = new CComboData("Millenium3 SL Bloc CheckSum", CTRLDATA_TYPE.SUM_COMPL_P1.ToString());
+            m_TabCboCtrlDataType[2] = new CComboData("Modbus CRC 16", CTRLDATA_TYPE.MODBUS_CRC.ToString());
             //m_TabCboCtrlDataType[2] = new CComboData("Zelio2 SL Bloc CheckSum", CTRLDATA_TYPE.SUM_COMPL_P2.ToString());
             m_cboCtrlDataType.ValueMember = "Object";
             m_cboCtrlDataType.DisplayMember = "DisplayedString";
@@ -215,8 +222,10 @@ namespace SmartApp.Ihm
             }
             set
             {
+                m_bLockEvent = true;
                 if (this.m_cboCtrlDataSize != null )
                     this.m_cboCtrlDataSize.SelectedValue = (int)value;
+                m_bLockEvent = false;
 
             }
         }
@@ -408,10 +417,12 @@ namespace SmartApp.Ihm
                 m_Trame.Symbol = this.Symbol;
                 m_Trame.CtrlDataType = this.CtrlDataType;
                 m_Trame.CtrlDataFrom = this.CtrlDataFrom;
+                m_Trame.CtrlDataSize = this.CtrlDataSize;
                 m_Trame.CtrlDataTo = this.CtrlDataTo;
                 m_Trame.ConvType = this.ConvType;
                 m_Trame.ConvFrom = this.ConvFrom;
                 m_Trame.ConvTo = this.ConvTo;
+
                 Doc.Modified = true;
             }
 
@@ -464,7 +475,12 @@ namespace SmartApp.Ihm
                     || this.CtrlDataType == CTRLDATA_TYPE.SUM_COMPL_P2.ToString())
                 {
                     m_cboCtrlDataSize.Enabled = false;
-                    this.CtrlDataSize = 8;
+                    this.CtrlDataSize = (int)DATA_SIZE.DATA_SIZE_8B;
+                }
+                else if (this.CtrlDataType == CTRLDATA_TYPE.MODBUS_CRC.ToString())
+                {
+                    m_cboCtrlDataSize.Enabled = false;
+                    this.CtrlDataSize = (int)DATA_SIZE.DATA_SIZE_16BU;
                 }
                 else
                 {
@@ -534,6 +550,8 @@ namespace SmartApp.Ihm
         //*****************************************************************************************************      
         private void UpdateControlData()
         {
+            if (m_Trame == null)
+                return;
             // on préviens que la liste des données va changer 
             // la frame form va updater la liste des données de la trame a partir de la 
             // list view
@@ -544,7 +562,9 @@ namespace SmartApp.Ihm
             if (this.CtrlDataType != CTRLDATA_TYPE.NONE.ToString())
             {
                 GestData.UpdateAllControlDatas(GestTrame);
-                m_Trame.FrameDatas.Add(this.Symbol + Cste.STR_SUFFIX_CTRLDATA);
+                // on ne l'ajoute que si la donnée n'y est pas déja
+                if (!m_Trame.FrameDatas.Contains(this.Symbol + Cste.STR_SUFFIX_CTRLDATA))
+                    m_Trame.FrameDatas.Add(this.Symbol + Cste.STR_SUFFIX_CTRLDATA);
             }
             else
             {
@@ -604,6 +624,17 @@ namespace SmartApp.Ihm
             if (!ValidateValues())
                 e.Cancel = true;
         }
+
+        //*****************************************************************************************************
+        // Description:
+        // Return: /
+        //*****************************************************************************************************      
+        private void OncboCtrlDataSizeSelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!m_bLockEvent)
+                UpdateControlData();
+        }
         #endregion
+
     }
 }

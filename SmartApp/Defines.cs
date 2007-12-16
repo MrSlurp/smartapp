@@ -57,13 +57,14 @@ namespace SmartApp
     /// </summary>
     enum DATA_SIZE
     {
-        DATA_SIZE_NULL = 0,
-        DATA_SIZE_1B = 1,
-        DATA_SIZE_2B = 2,
-        DATA_SIZE_4B = 4,
-        DATA_SIZE_8B = 8,
-        DATA_SIZE_16B = 16,
-        DATA_SIZE_32B = 32,
+        DATA_SIZE_NULL = 0x0000,
+        DATA_SIZE_1B = 0x0001,
+        DATA_SIZE_2B = 0x0002,
+        DATA_SIZE_4B = 0x0004,
+        DATA_SIZE_8B = 0x0008,
+        DATA_SIZE_16B = 0x0010,
+        DATA_SIZE_32B = 0x0020,
+        DATA_SIZE_16BU = 0x0110,
     }
 
     /// <summary>
@@ -160,6 +161,7 @@ namespace SmartApp
         NONE,
         SUM_COMPL_P1,
         SUM_COMPL_P2,
+        MODBUS_CRC,
     }
 
     /// <summary>

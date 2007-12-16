@@ -293,7 +293,7 @@ namespace SmartApp.Datas
                         if (m_LogType == LOGGER_TYPE.AUTO.ToString() && m_bAutoStart)
                         {
                             string fileFullPath = m_strLogFilePath + @"\" + m_strFileName;
-                            m_FileWriter = new StreamWriter(File.Open(fileFullPath, FileMode.Append));
+                            m_FileWriter = new StreamWriter(File.Open(fileFullPath, FileMode.Append, FileAccess.Write, FileShare.Read));
                             this.StartAutoLogger();
                         }
                         break;

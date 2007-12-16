@@ -485,7 +485,7 @@ namespace SmartApp.Datas
             for (int i = 0; i < m_ListRefDatas.Count; i++)
             {
                 Data dat = (Data)m_ListRefDatas[i];
-                int DataSz = dat.Size;
+                int DataSz = dat.SizeInBits;
                 int BeginData = CurrentDataPos;
                 // -1 car l'index des bits est basé a 0;
                 int EndData = (CurrentDataPos - 1) + DataSz;
@@ -637,7 +637,7 @@ namespace SmartApp.Datas
             for (int i = 0; i < m_ListRefDatas.Count; i++)
             {
                 Data dat = (Data)m_ListRefDatas[i];
-                int DataSz = dat.Size;
+                int DataSz = dat.SizeInBits;
                 int BeginData = CurrentDataPos;
                 // -1 car l'index des bits est basé a 0;
                 int EndData = (CurrentDataPos - 1) + DataSz;
@@ -731,7 +731,7 @@ namespace SmartApp.Datas
                 }
                 else
                 {
-                    if (dat.Size == Cste.SIZE_2_BYTE) // S16
+                    if (dat.SizeInBits == Cste.SIZE_2_BYTE) // S16
                     {
                         short S16Value = (short)DataValue;
                         dat.Value = S16Value;
@@ -819,7 +819,7 @@ namespace SmartApp.Datas
             for (int i = 0; i < m_ListRefDatas.Count; i++)
             {
                 Data dat = (Data)m_ListRefDatas[i];
-                int DataSz = dat.Size;
+                int DataSz = dat.SizeInBits;
                 int BeginData = CurrentDataPos;
                 // -1 car l'index des bits est basé a 0;
                 int EndData = (CurrentDataPos - 1) + DataSz;
@@ -883,7 +883,7 @@ namespace SmartApp.Datas
             for (int i = 0; i < m_ListRefDatas.Count; i++)
             {
                 Data dat = (Data)m_ListRefDatas[i];
-                sizeInBits += dat.Size;
+                sizeInBits += dat.SizeInBits;
             }
             int sizeInByte = sizeInBits / Cste.SIZE_1_BYTE;
             int rest = sizeInBits % Cste.SIZE_1_BYTE;
@@ -913,7 +913,7 @@ namespace SmartApp.Datas
             for (int i = 0; i < m_ListRefDatas.Count; i++)
             {
                 Data dat = (Data)m_ListRefDatas[i];
-                int DataSz = dat.Size;
+                int DataSz = dat.SizeInBits;
                 int BeginData = CurrentDataPos;
                 // -1 car l'index des bits est basé a 0;
                 int EndData = (CurrentDataPos - 1) + DataSz;
@@ -951,23 +951,26 @@ namespace SmartApp.Datas
                 {
                     Value += buffer[i];
                 }
-                if (dat.Size == Cste.SIZE_1_BYTE)
+                if (dat.SizeInBits == Cste.SIZE_1_BYTE)
                 {
                     byte ByteValue = (byte)(Value & 0xFF);
-                    ByteValue = (byte) (-ByteValue);
+                    ByteValue = (byte)(-ByteValue);
                     dat.Value = ByteValue;
                 }
-                else if (dat.Size == Cste.SIZE_2_BYTE)
+                else
+                    System.Diagnostics.Debug.Assert(false);
+            }
+            else if (m_strDataClcType == CTRLDATA_TYPE.MODBUS_CRC.ToString())
+            {
+                if (dat.SizeInBits == Cste.SIZE_2_BYTE)
                 {
-                    char charValue = (char)(Value & 0xFFFF);
-                    charValue = (char) (-charValue);
-                    dat.Value = charValue;
+                    uint Crc = CalculCRC(buffer);
+                    int TempValue = (int)(Crc >> 8) & 0x00FF;
+                    TempValue |= (int)(Crc << 8) & 0xFF00;
+                    dat.Value = TempValue;
                 }
-                else if (dat.Size == Cste.SIZE_4_BYTE)
-                {
-                    Value = -Value;
-                    dat.Value = Value;
-                }
+                else
+                    System.Diagnostics.Debug.Assert(false);
             }
             else // pas prévu
                 System.Diagnostics.Debug.Assert(false, "Type de calcul de donnée de control pas codé");
@@ -989,7 +992,7 @@ namespace SmartApp.Datas
             for (int i = 0; i < m_ListRefDatas.Count; i++)
             {
                 dat = (Data)m_ListRefDatas[i];
-                int DataSz = dat.Size;
+                int DataSz = dat.SizeInBits;
                 int BeginData = CurrentDataPos;
                 // -1 car l'index des bits est basé a 0;
                 int EndData = (CurrentDataPos - 1) + DataSz;
@@ -1064,7 +1067,7 @@ namespace SmartApp.Datas
             for (int i = 0; i < m_ListRefDatas.Count; i++)
             {
                 Data dat = (Data)m_ListRefDatas[i];
-                int DataSz = dat.Size;
+                int DataSz = dat.SizeInBits;
                 int BeginData = CurrentDataPos;
                 // -1 car l'index des bits est basé a 0;
                 int EndData = (CurrentDataPos - 1) + DataSz;
@@ -1128,6 +1131,48 @@ namespace SmartApp.Datas
 
             return Out;
         }
+        #endregion
+
+        #region fonction de calcul du CRC 16 modbus
+        //*****************************************************************************************************
+        // Description: Calcul du CRC
+        // Return: /
+        //*****************************************************************************************************
+        uint CalculCRC(byte[] Buf)
+        {
+            ulong crccode = 0xFFFF;
+            for (uint i = 0; i < Buf.Length; i++)
+            {
+                crccode = onecrc((uint)Buf[i], (uint)crccode);
+            }
+            return (uint)crccode; 
+        }
+
+        //*****************************************************************************************************
+        // Description: Accumulation du CRC
+        // Return: /
+        //*****************************************************************************************************
+        uint onecrc(uint item, uint start)
+        {
+            int i;
+            uint accum = 0;
+            uint mask;
+
+            accum = start;
+
+            mask = 0xA001;
+            for (i = 8; i > 0; i--)
+            {
+                if (((item ^ accum) & 0x0001) != 0)
+                    accum = (accum >> 1) ^ mask;
+                else
+                    accum >>= 1;
+
+                item >>= 1;
+            }
+            return (accum);
+        }
+
         #endregion
     }
 }

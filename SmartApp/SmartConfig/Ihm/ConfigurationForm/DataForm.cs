@@ -106,7 +106,7 @@ namespace SmartApp.Ihm
                         lviData.Tag = dt;
                         string strValues = string.Format("Def: {0}, Min: {1}, Max: {2}", dt.DefaultValue, dt.Minimum, dt.Maximum);
                         lviData.SubItems.Add(dt.IsConstant.ToString());
-                        lviData.SubItems.Add(dt.Size.ToString());
+                        lviData.SubItems.Add(dt.SizeInBits.ToString());
                         lviData.SubItems.Add(strValues);
                         m_listViewData.Items.Add(lviData);
                     }
@@ -134,7 +134,7 @@ namespace SmartApp.Ihm
                     lviData.BackColor = gr.m_GroupColor;
                 }
                 lviData.SubItems[1].Text = dt.IsConstant.ToString();
-                lviData.SubItems[2].Text = dt.Size.ToString();
+                lviData.SubItems[2].Text = dt.SizeInBits.ToString();
                 string strValues = string.Format("Def: {0}, Min: {1}, Max: {2}", dt.DefaultValue, dt.Minimum, dt.Maximum);
                 lviData.SubItems[3].Text = strValues;
                 
@@ -251,7 +251,7 @@ namespace SmartApp.Ihm
                 return;
             Data NewDat = new Data();
             NewDat.Symbol = strSymbol;
-            NewDat.Size = (int)DATA_SIZE.DATA_SIZE_1B;
+            NewDat.SizeAndSign = (int)DATA_SIZE.DATA_SIZE_1B;
             NewDat.Maximum = 1;
             NewDat.Minimum = 0;
             NewDat.DefaultValue = 0;

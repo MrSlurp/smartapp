@@ -354,7 +354,6 @@ namespace SmartApp
         {
             if (m_Document != null)
             {
-
                 this.CloseDoc();
             }
         }

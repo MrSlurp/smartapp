@@ -148,7 +148,7 @@ namespace SmartApp.Ihm
             // 
             this.m_DataPropertyPage.BackColor = System.Drawing.Color.Transparent;
             this.m_DataPropertyPage.Data = null;
-            this.m_DataPropertyPage.DataSize = 0;
+            this.m_DataPropertyPage.DataSizeAndSign = 0;
             this.m_DataPropertyPage.DefaultValue = 0;
             this.m_DataPropertyPage.Description = "";
             this.m_DataPropertyPage.Doc = null;

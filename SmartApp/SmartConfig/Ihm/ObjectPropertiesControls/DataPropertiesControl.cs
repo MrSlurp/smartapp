@@ -31,17 +31,18 @@ namespace SmartApp.Ihm
         //*****************************************************************************************************
         public DataPropertiesControl()
         {
-            m_TabCboDataStruct = new CComboData[5];
+            m_TabCboDataStruct = new CComboData[6];
             m_TabCboDataStruct[0] = new CComboData("1 bit data",DATA_SIZE.DATA_SIZE_1B);
-            m_TabCboDataStruct[1] = new CComboData("2 bits data",2);
-            m_TabCboDataStruct[2] = new CComboData("4 bits data",4);
-            m_TabCboDataStruct[3] = new CComboData("8 bits data",8);
-            m_TabCboDataStruct[4] = new CComboData("16 bits data (signed)",16);
+            m_TabCboDataStruct[1] = new CComboData("2 bits data", DATA_SIZE.DATA_SIZE_2B);
+            m_TabCboDataStruct[2] = new CComboData("4 bits data", DATA_SIZE.DATA_SIZE_4B);
+            m_TabCboDataStruct[3] = new CComboData("8 bits data", DATA_SIZE.DATA_SIZE_8B);
+            m_TabCboDataStruct[4] = new CComboData("16 bits data (signed)", DATA_SIZE.DATA_SIZE_16B);
+            m_TabCboDataStruct[5] = new CComboData("16 bits data (unsigned)", DATA_SIZE.DATA_SIZE_16BU);
 
             InitializeComponent();
             m_cboSize.ValueMember = "Object";
             m_cboSize.DisplayMember = "DisplayedString";
-            m_cboSize.DataSource = m_TabCboDataStruct;//Items.AddRange(m_TabCboDataStruct);
+            m_cboSize.DataSource = m_TabCboDataStruct;
             m_cboSize.SelectedIndex = 0;
             this.Enabled = false;
         }
@@ -80,7 +81,7 @@ namespace SmartApp.Ihm
                 {
                     this.Description = "";
                     this.Symbol = "";
-                    this.DataSize = 8;
+                    this.DataSizeAndSign = 8;
                     this.MinValue = 0;
                     this.MaxValue = 0;
                     this.DefaultValue = 0;
@@ -194,7 +195,7 @@ namespace SmartApp.Ihm
                 bDataPropChange |= true;
             if (m_Data.Symbol != this.Symbol)
                 bDataPropChange |= true;
-            if (m_Data.Size != this.DataSize)
+            if (m_Data.SizeAndSign != this.DataSizeAndSign)
                 bDataPropChange |= true;
             if (m_Data.Minimum != this.MinValue)
                 bDataPropChange |= true;
@@ -209,7 +210,7 @@ namespace SmartApp.Ihm
             {
                 m_Data.Description = this.Description;
                 m_Data.Symbol = this.Symbol;
-                m_Data.Size = this.DataSize;
+                m_Data.SizeAndSign = this.DataSizeAndSign;
                 m_Data.Minimum = this.MinValue;
                 m_Data.Maximum = this.MaxValue;
                 m_Data.DefaultValue = this.DefaultValue;
@@ -259,7 +260,7 @@ namespace SmartApp.Ihm
         // Description:
         // Return: /
         //*****************************************************************************************************
-        public int DataSize
+        public int DataSizeAndSign
         {
             get
             {
@@ -362,8 +363,8 @@ namespace SmartApp.Ihm
         {
             if (m_Data == null)
                 return;
-            m_Data.Size = this.DataSize;
-            switch ((DATA_SIZE)m_Data.Size)
+            m_Data.SizeAndSign = this.DataSizeAndSign;
+            switch ((DATA_SIZE)m_Data.SizeAndSign)
             {
                 case DATA_SIZE.DATA_SIZE_1B:
                     m_numUDMax.Maximum = 1;
@@ -420,6 +421,16 @@ namespace SmartApp.Ihm
                     m_numUDMin.Value = -32768;
                     m_numUDDefault.Value = 0;
                     break;
+                case DATA_SIZE.DATA_SIZE_16BU:
+                    m_numUDMax.Maximum = 0xFFFF;
+                    m_numUDMax.Minimum = 0;
+                    m_numUDMax.Maximum = 0xFFFF;
+                    m_numUDMin.Minimum = 0;
+                    m_numUDDefault.Maximum = 0xFFFF;
+                    m_numUDDefault.Minimum = 0;
+                    m_numUDMax.Value = 0xFFFF;
+                    m_numUDMin.Value = 0;
+                    break;
                 default:
                     System.Diagnostics.Debug.Assert(false);
                     break;
@@ -439,7 +450,8 @@ namespace SmartApp.Ihm
         {
             if (m_Data == null)
                 return;
-            switch ((DATA_SIZE)m_Data.Size)
+            
+            switch ((DATA_SIZE)m_Data.SizeAndSign)
             {
                 case DATA_SIZE.DATA_SIZE_1B:
                     this.m_cboSize.SelectedIndex = 0;
@@ -456,10 +468,14 @@ namespace SmartApp.Ihm
                 case DATA_SIZE.DATA_SIZE_16B:
                     this.m_cboSize.SelectedIndex = 4;
                     break;
+                case DATA_SIZE.DATA_SIZE_16BU:
+                    this.m_cboSize.SelectedIndex = 5;
+                    break;
                 default:
                     System.Diagnostics.Debug.Assert(false);
                     break;
             }
+            
         }
         #endregion
 

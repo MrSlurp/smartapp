@@ -390,7 +390,7 @@ namespace SmartApp.Ihm.Wizards
                         || dt.IsUserVisible != ConflictData.IsUserVisible
                         || dt.Maximum != ConflictData.Maximum
                         || dt.Minimum != ConflictData.Minimum
-                        || dt.Size != ConflictData.Size
+                        || dt.SizeInBits != ConflictData.SizeInBits
                         )
                     {
                         // on l'ajoute la liste des données qui posent problème
@@ -456,7 +456,7 @@ namespace SmartApp.Ihm.Wizards
                                 || dat.IsUserVisible != pbData.IsUserVisible
                                 || dat.Maximum != pbData.Maximum
                                 || dat.Minimum != pbData.Minimum
-                                || dat.Size != pbData.Size
+                                || dat.SizeInBits != pbData.SizeInBits
                                 )
                             {
                                 // on ne fais rien, on test le prochain symbol
@@ -477,7 +477,7 @@ namespace SmartApp.Ihm.Wizards
                     pbData.IsUserVisible = dat.IsUserVisible;
                     pbData.Maximum = dat.Maximum;
                     pbData.Minimum = dat.Minimum;
-                    pbData.Size = dat.Size;
+                    pbData.SizeAndSign = dat.SizeAndSign;
                     //La data crées est poubellisée
                 }
 

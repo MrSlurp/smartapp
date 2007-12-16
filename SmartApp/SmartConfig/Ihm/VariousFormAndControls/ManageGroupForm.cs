@@ -96,7 +96,7 @@ namespace SmartApp.Ihm
                         lviData.Tag = dt;
                         string strValues = string.Format("Def: {0}, Min: {1}, Max: {2}", dt.DefaultValue, dt.Minimum, dt.Maximum);
                         lviData.SubItems.Add(dt.IsConstant.ToString());
-                        lviData.SubItems.Add(dt.Size.ToString());
+                        lviData.SubItems.Add(dt.SizeInBits.ToString());
                         lviData.SubItems.Add(strValues);
                         m_listViewDataSrc.Items.Add(lviData);
                     }
@@ -127,7 +127,7 @@ namespace SmartApp.Ihm
                         lviData.Tag = dt;
                         string strValues = string.Format("Def: {0}, Min: {1}, Max: {2}", dt.DefaultValue, dt.Minimum, dt.Maximum);
                         lviData.SubItems.Add(dt.IsConstant.ToString());
-                        lviData.SubItems.Add(dt.Size.ToString());
+                        lviData.SubItems.Add(dt.SizeInBits.ToString());
                         lviData.SubItems.Add(strValues);
                         m_ListViewDataDest.Items.Add(lviData);
                     }
