@@ -64,7 +64,7 @@ namespace SmartApp
             UpdateToolBarCxnItemState();
             if (!string.IsNullOrEmpty(strFileName))
             {
-                OpenDoc(strFileName);
+                //OpenDoc(strFileName);
                 if (!OpenDoc(strFileName))
                 {
                     MessageBox.Show("Error while reading file. File is corrupted", "Error");
