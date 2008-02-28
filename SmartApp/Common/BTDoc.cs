@@ -479,7 +479,7 @@ namespace SmartApp
             XmlDoc.DocumentElement.AppendChild(NodeFileHeader);
             XmlNode NodeFileVer = XmlDoc.CreateElement(XML_CF_TAG.FileVersion.ToString());
             XmlAttribute FIndice = XmlDoc.CreateAttribute(XML_CF_ATTRIB.Indice.ToString());
-            FIndice.Value = "1";
+            FIndice.Value = Cste.CUR_FILE_VERSION.ToString();
             NodeFileVer.Attributes.Append(FIndice);
             NodeFileHeader.AppendChild(NodeFileVer);
             XmlNode NodeSoftVer = XmlDoc.CreateElement(XML_CF_TAG.SoftVersion.ToString());
