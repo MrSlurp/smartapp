@@ -74,6 +74,7 @@ namespace SmartApp.Ihm
                     this.LogType = m_Logger.LogType;
                     this.Period = m_Logger.Period;
                     this.LogFile = m_Logger.LogFile;
+                    this.AutoStart = m_Logger.AutoStart;
                 }
                 else
                 {
@@ -83,6 +84,7 @@ namespace SmartApp.Ihm
                     this.LogType = LOGGER_TYPE.STANDARD.ToString();
                     this.Period = 50;
                     this.LogFile = "";
+                    this.AutoStart = false;
                 }
                 this.InitListViewData();
                 this.UpdateFromLogType();

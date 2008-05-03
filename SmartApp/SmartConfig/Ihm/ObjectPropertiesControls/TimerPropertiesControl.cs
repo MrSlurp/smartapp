@@ -71,6 +71,7 @@ namespace SmartApp.Ihm
                     this.Symbol = m_Timer.Symbol;
                     this.ScriptLines = m_Timer.ScriptLines;
                     this.Period = m_Timer.Period;
+                    this.AutoStart = m_Timer.AutoStart;
                 }
                 else
                 {
@@ -79,6 +80,7 @@ namespace SmartApp.Ihm
                     this.ScriptLines = null;
                     this.Period = 50;
                     this.Enabled = false;
+                    this.AutoStart = false;
                 }
 
             }
