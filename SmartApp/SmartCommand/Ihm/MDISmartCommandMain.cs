@@ -64,7 +64,6 @@ namespace SmartApp
             UpdateToolBarCxnItemState();
             if (!string.IsNullOrEmpty(strFileName))
             {
-                //OpenDoc(strFileName);
                 if (!OpenDoc(strFileName))
                 {
                     MessageBox.Show("Error while reading file. File is corrupted", "Error");
@@ -83,6 +82,16 @@ namespace SmartApp
                     if (m_Document.m_Comm.IsOpen && LaunchArgParser.AutoStart)
                     {
                         m_tsBtnStartStop_Click(null, null);
+                    }
+                    else if (!m_Document.m_Comm.IsOpen && LaunchArgParser.AutoStart == false)
+                    {
+                        LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, "Failed to connect");
+                        MDISmartCommandMain.EventLogger.AddLogEvent(log);
+                    }
+                    else if (!m_Document.m_Comm.IsOpen && LaunchArgParser.AutoStart == false)
+                    {
+                        LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, "Failed to connect. Application not started");
+                        MDISmartCommandMain.EventLogger.AddLogEvent(log);
                     }
                 }
             }

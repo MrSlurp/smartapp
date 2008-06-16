@@ -49,6 +49,9 @@ namespace SmartApp.Ihm
         {
             DoFileFormatRegistration();
             InitializeComponent();
+            string strAppDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName);
+            m_strIniFilePath = strAppDir + @"\" + Cste.STR_FORMPOSINI_FILENAME;
+            m_IniFile.Load(m_strIniFilePath);
             m_DataForm.MdiParent = this;
             m_DesignForm.MdiParent = this;
             m_FrameForm.MdiParent = this;

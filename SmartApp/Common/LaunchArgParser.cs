@@ -59,7 +59,7 @@ namespace SmartApp
             // le premier argument doit toujorus être le type de l'appli
             m_TypeApp = GetTypeApp(strArgsList);
 
-            for (int i = 1; i < strArgsList.Length; i++)
+            for (int i = 0; i < strArgsList.Length; i++)
             {
                 if (strArgsList[i].EndsWith(".saf"))
                 {

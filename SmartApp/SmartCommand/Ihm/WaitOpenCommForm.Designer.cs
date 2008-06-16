@@ -47,7 +47,7 @@ namespace SmartApp.Ihm
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(164, 63);
+            this.ClientSize = new System.Drawing.Size(160, 59);
             this.ControlBox = false;
             this.Controls.Add(this.label1);
             this.DoubleBuffered = true;
