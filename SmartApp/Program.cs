@@ -54,6 +54,7 @@ namespace SmartApp
         [STAThread]
         static void Main(string[] strArgsList)
         {
+            //System.Diagnostics.Debugger.Break();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             LaunchArgParser.ParseArguments(strArgsList);
