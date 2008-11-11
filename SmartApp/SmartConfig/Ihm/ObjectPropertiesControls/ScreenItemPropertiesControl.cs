@@ -426,7 +426,19 @@ namespace SmartApp.Ihm
                     m_checkScreenEvent.Enabled = false;
                     m_checkScreenEvent.Checked = false;
                     break;
+                case InteractiveControlType.FilledRect:
+                    m_EditText.Enabled = false;
+                    this.Txt = "";
+                    m_EditAssociateData.Enabled = true;
+                    m_checkReadOnly.Enabled = false;
+                    m_checkScreenEvent.Enabled = false;
+                    m_checkScreenEvent.Checked = false;
+                    break;
+                default:
+                    System.Diagnostics.Debug.Assert(false);
+                    break;
             }
+            m_FilledRectPropPanel.BTControl = this.BTControl;
         }
     }
 }

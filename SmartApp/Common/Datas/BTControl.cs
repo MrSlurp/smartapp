@@ -30,6 +30,8 @@ namespace SmartApp.Datas
         protected bool m_bIsReadOnly = false;
         // collection de string qui contiennent le script a executer
         protected StringCollection m_ScriptLines = new StringCollection();
+
+        protected SpecificControlProp m_SpecificProp = null;
         #endregion
 
         #region constructeurs
@@ -53,6 +55,16 @@ namespace SmartApp.Datas
             m_IControl = Ctrl;
             if (m_IControl != null)
                 m_IControl.SourceBTControl = this;
+
+            switch (m_IControl.ControlType)
+            {
+                case InteractiveControlType.FilledRect:
+                    m_SpecificProp = new TwoColorProp();
+                    break;
+                default:
+                    Console.WriteLine("Controle crée sans propriété spécifiques");
+                    break;
+            }
         }
         #endregion
 
@@ -114,6 +126,22 @@ namespace SmartApp.Datas
             set
             {
                 m_strAssociateData = value;
+            }
+        }
+
+        //*****************************************************************************************************
+        // Description: 
+        // Return: /
+        //*****************************************************************************************************
+        public SpecificControlProp SpecificProp
+        {
+            get
+            {
+                return m_SpecificProp;
+            }
+            set
+            {
+                m_SpecificProp = value;
             }
         }
 
@@ -183,8 +211,6 @@ namespace SmartApp.Datas
             m_bUseScreenEvent = bool.Parse(AttrScreenEvent.Value);
             string[] TabStrPos = AttrPos.Value.Split(',');
             string[] TabStrSize = AttrSize.Value.Split(',');
-            m_IControl.Location = new System.Drawing.Point(int.Parse(TabStrPos[0]), int.Parse(TabStrPos[1]));
-            m_IControl.Size = new System.Drawing.Size(int.Parse(TabStrSize[0]), int.Parse(TabStrSize[1]));
             m_IControl.Text = AttrText.Value;
             // read only est facultatif et est traité indépendemeent
             if (AttrReadOnly != null)
@@ -223,11 +249,20 @@ namespace SmartApp.Datas
                 case CONTROL_TYPE.UP_DOWN:
                     m_IControl.ControlType = InteractiveControlType.NumericUpDown;
                     break;
+                case CONTROL_TYPE.FILLED_RECT:
+                    m_IControl.ControlType = InteractiveControlType.FilledRect;
+                    m_SpecificProp = new TwoColorProp();
+                    m_SpecificProp.ReadIn(Node);
+                    break;
                 case CONTROL_TYPE.NULL:
                 default:
                     Console.WriteLine("Type de control indéfini");
                     return false;
             }
+            // on assigne la taille après avoir changé le type
+            // sinon le changement de type provoque une modification de la taille (en fonction des dimension minimales)
+            m_IControl.Location = new System.Drawing.Point(int.Parse(TabStrPos[0]), int.Parse(TabStrPos[1]));
+            m_IControl.Size = new System.Drawing.Size(int.Parse(TabStrSize[0]), int.Parse(TabStrSize[1]));
 
             // on lit le script si il y en a un
             if (Node.FirstChild != null && Node.FirstChild.Name == XML_CF_TAG.EventScript.ToString())
@@ -289,6 +324,10 @@ namespace SmartApp.Datas
                 case InteractiveControlType.NumericUpDown:
                     AttrType.Value = CONTROL_TYPE.UP_DOWN.ToString();
                     break;
+                case InteractiveControlType.FilledRect:
+                    AttrType.Value = CONTROL_TYPE.FILLED_RECT.ToString();
+                    m_SpecificProp.WriteOut(XmlDoc, NodeControl);
+                    break;
                 default:
                     Console.WriteLine("Type de control indéfini");
                     break;
@@ -311,7 +350,6 @@ namespace SmartApp.Datas
                 XmlEventScript.AppendChild(NodeLine);
             }
             NodeControl.AppendChild(XmlEventScript);
-
             return true;
         }
 

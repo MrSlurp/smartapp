@@ -343,6 +343,10 @@ namespace SmartApp.Datas
                         NewControl = new UpDownControl();
                         NewControl.ReadIn(ChildNode);
                         break;
+                    case CONTROL_TYPE.FILLED_RECT:
+                        NewControl = new FilledRectControl();
+                        NewControl.ReadIn(ChildNode);
+                        break;
                     case CONTROL_TYPE.NULL:
                     default:
                         Console.WriteLine("Type de control indéfini");

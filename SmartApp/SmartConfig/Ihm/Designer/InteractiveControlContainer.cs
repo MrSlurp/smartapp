@@ -139,7 +139,11 @@ namespace SmartApp.Ihm.Designer
                         case InteractiveControlType.Combo:
                         case InteractiveControlType.Text:
                         case InteractiveControlType.NumericUpDown:
+                        case InteractiveControlType.FilledRect:
                             Abilities = SelectionAbilitiesValues.AbleResizeWidth;
+                            break;
+                        default :
+                            System.Diagnostics.Debug.Assert(false);
                             break;
                     }
                 }

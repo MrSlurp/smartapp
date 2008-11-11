@@ -241,7 +241,11 @@ namespace SmartApp.Ihm
                 case InteractiveControlType.Text:
                 case InteractiveControlType.NumericUpDown:
                 case InteractiveControlType.Slider:
+                case InteractiveControlType.FilledRect:
                     m_PanelCtrlEventScript.ScriptableItem = null;
+                    break;
+                default:
+                    System.Diagnostics.Debug.Assert(false);
                     break;
             }
             if (m_InteractiveControlContainer.SelectionCount > 1)

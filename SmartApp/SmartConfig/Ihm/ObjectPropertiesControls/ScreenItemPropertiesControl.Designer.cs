@@ -39,6 +39,7 @@ namespace SmartApp.Ihm
             this.labelText = new System.Windows.Forms.Label();
             this.m_EditAssociateData = new SmartApp.Ihm.SymbolTextBox();
             this.m_LabelCurControl = new System.Windows.Forms.Label();
+            this.m_FilledRectPropPanel = new SmartApp.Ihm.FilledRectProperties();
             this.SuspendLayout();
             // 
             // m_textSymbol
@@ -164,11 +165,21 @@ namespace SmartApp.Ihm
             this.m_LabelCurControl.TabIndex = 14;
             this.m_LabelCurControl.Text = "No selection";
             // 
+            // panel1
+            // 
+            this.m_FilledRectPropPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_FilledRectPropPanel.Location = new System.Drawing.Point(7, 299);
+            this.m_FilledRectPropPanel.Name = "panel1";
+            this.m_FilledRectPropPanel.Size = new System.Drawing.Size(189, 50);
+            this.m_FilledRectPropPanel.TabIndex = 15;
+            // 
             // ScreenItemPropertiesControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(this.m_FilledRectPropPanel);
             this.Controls.Add(this.m_LabelCurControl);
             this.Controls.Add(this.m_EditAssociateData);
             this.Controls.Add(this.m_EditText);
@@ -181,7 +192,7 @@ namespace SmartApp.Ihm
             this.Controls.Add(this.m_labelDesc);
             this.Controls.Add(this.m_richTextBoxDesc);
             this.Name = "ScreenItemPropertiesControl";
-            this.Size = new System.Drawing.Size(201, 300);
+            this.Size = new System.Drawing.Size(201, 375);
             this.Validating += new System.ComponentModel.CancelEventHandler(this.PropertiesControlValidating);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -201,5 +212,6 @@ namespace SmartApp.Ihm
         private System.Windows.Forms.Label labelText;
         private SmartApp.Ihm.SymbolTextBox m_EditAssociateData;
         private System.Windows.Forms.Label m_LabelCurControl;
+        private SmartApp.Ihm.FilledRectProperties m_FilledRectPropPanel;
     }
 }

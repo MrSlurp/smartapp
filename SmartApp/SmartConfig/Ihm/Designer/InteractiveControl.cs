@@ -45,7 +45,8 @@ namespace SmartApp.Ihm.Designer
         CheckBox,
         Slider,
         NumericUpDown,
-        Text
+        Text,
+        FilledRect,
     }
     #endregion
 
@@ -356,6 +357,15 @@ namespace SmartApp.Ihm.Designer
                     canResizeHeight = false;
                     this.Height = this.minSize.Height;
                     break;
+                case InteractiveControlType.FilledRect:
+                    canResizeWidth = true;
+                    canResizeHeight = true;
+                    this.minSize = new Size(5,5);
+                    this.Height = this.minSize.Height;
+                    break;
+                default:
+                    System.Diagnostics.Debug.Assert(false);
+                    break;
             }
             if (canResizeHeight && canResizeWidth)
                 resizeButton[0].CanBeVisible = true;
@@ -381,7 +391,6 @@ namespace SmartApp.Ihm.Designer
         //*****************************************************************************************************
         protected override void OnPaint(PaintEventArgs e)
         {
-            //base.OnPaint(e);
             switch (m_TypeControl)
             {
                 case InteractiveControlType.Button:
@@ -401,6 +410,12 @@ namespace SmartApp.Ihm.Designer
                     break;
                 case InteractiveControlType.Text:
                     ControlPainter.DrawText(e.Graphics, this);
+                    break;
+                case InteractiveControlType.FilledRect:
+                    ControlPainter.DrawFilledRectControl(e.Graphics, this);
+                    break;
+                default:
+                    System.Diagnostics.Debug.Assert(false);
                     break;
             }
             if (Selected || !Initialized)

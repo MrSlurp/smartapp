@@ -242,7 +242,7 @@
             // 
             this.m_numNumberOfReg.Location = new System.Drawing.Point(15, 151);
             this.m_numNumberOfReg.Maximum = new decimal(new int[] {
-            50,
+            120,
             0,
             0,
             0});

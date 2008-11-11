@@ -137,6 +137,8 @@ namespace SmartApp
         FileName,
         ReadOnly,
         AutoStart,
+        ActiveColor,
+        InactiveColor,
     }
 
     /// <summary>
@@ -152,6 +154,7 @@ namespace SmartApp
         BUTTON,
         STATIC,
         UP_DOWN,
+        FILLED_RECT,
     }
 
     /// <summary>

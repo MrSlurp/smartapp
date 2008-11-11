@@ -65,6 +65,7 @@
     <Compile Include="Common\AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Common\Datas\SpecificControlProp.cs" />
     <Compile Include="Common\IniFileParser.cs" />
     <Compile Include="Common\LaunchArgParser.cs" />
     <Compile Include="Common\Scripts\Executer.cs" />
@@ -90,6 +91,9 @@
     <Compile Include="SmartCommand\Controls\ButtonControl.cs" />
     <Compile Include="SmartCommand\Controls\CheckControl.cs" />
     <Compile Include="SmartCommand\Controls\ComboControl.cs" />
+    <Compile Include="SmartCommand\Controls\FilledRectControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SmartCommand\Controls\SliderControl.cs" />
     <Compile Include="SmartCommand\Controls\StaticControl.cs" />
     <Compile Include="SmartCommand\Controls\UpDownControl.cs" />
@@ -265,6 +269,12 @@
     <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\TimerPropertiesControl.Designer.cs">
       <DependentUpon>TimerPropertiesControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\SpecificProperties\FilledRectProperties.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\SpecificProperties\FilledRectProperties.Designer.cs">
+      <DependentUpon>FilledRectProperties.cs</DependentUpon>
+    </Compile>
     <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\UtilsClasses.cs" />
     <Compile Include="SmartConfig\Ihm\ProgItemPanels\FunctionPanel.cs">
       <SubType>UserControl</SubType>
@@ -384,6 +394,10 @@
     <EmbeddedResource Include="SmartConfig\Ihm\MDISmartConfigMain.resx">
       <SubType>Designer</SubType>
       <DependentUpon>MDISmartConfigMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\ObjectPropertiesControls\SpecificProperties\FilledRectProperties.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FilledRectProperties.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SmartConfig\Ihm\ObjectPropertiesControls\FramePropertiesControl.resx">
       <SubType>Designer</SubType>
