@@ -7,7 +7,7 @@ using SmartApp.Datas;
 
 namespace SmartApp.Controls
 {
-    public class FilledRectControl : BaseControl
+    public class FilledRectControl : BTFilledRectControl
     {
         //*****************************************************************************************************
         // Description:
@@ -30,8 +30,8 @@ namespace SmartApp.Controls
                 m_Ctrl.Location = m_RectControl.Location;
                 m_Ctrl.Name = m_strSymbol;
                 m_Ctrl.Size = m_RectControl.Size;
-                ((FilledRect)m_Ctrl).ColorActive = ((TwoColorProp)m_SpecificProp).ColorActive;
-                ((FilledRect)m_Ctrl).ColorInactive = ((TwoColorProp)m_SpecificProp).ColorInactive;
+                ((FilledRect)m_Ctrl).ColorActive = ((TwoColorProp)SpecificProp).ColorActive;
+                ((FilledRect)m_Ctrl).ColorInactive = ((TwoColorProp)SpecificProp).ColorInactive;
             }
         }
 

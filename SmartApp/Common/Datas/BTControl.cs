@@ -12,8 +12,10 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Text;
 using System.Xml;
+using System.Windows.Forms;
+using System.Drawing;
 using SmartApp.Ihm.Designer;
-using SmartApp.Datas;
+using SmartApp.Scripts;
 
 namespace SmartApp.Datas
 {
@@ -31,7 +33,15 @@ namespace SmartApp.Datas
         // collection de string qui contiennent le script a executer
         protected StringCollection m_ScriptLines = new StringCollection();
 
-        protected SpecificControlProp m_SpecificProp = null;
+        //protected SpecificControlProp m_SpecificProp = null;
+        #endregion
+
+        #region Déclaration des données de la classe pour BTCommand
+        protected Control m_Ctrl;
+        protected Data m_AssociateData;
+        protected BTScreen m_Parent;
+        protected Rectangle m_RectControl;
+        protected ScriptExecuter m_Executer = null;
         #endregion
 
         #region constructeurs
@@ -55,20 +65,44 @@ namespace SmartApp.Datas
             m_IControl = Ctrl;
             if (m_IControl != null)
                 m_IControl.SourceBTControl = this;
+        }
 
-            switch (m_IControl.ControlType)
+        public static BTControl CreateNewBTControl(InteractiveControl Ctrl)
+        {
+            BTControl newControl = null;
+            switch (Ctrl.ControlType)
             {
-                case InteractiveControlType.FilledRect:
-                    m_SpecificProp = new TwoColorProp();
+                case InteractiveControlType.SpecificControl:
+                    if (Ctrl.GetType() == typeof(TwoColorFilledRect))
+                    {
+                        newControl = new BTFilledRectControl(Ctrl);
+                    }
+                    else
+                    {
+                        System.Diagnostics.Debug.Assert(false);
+                    }
                     break;
                 default:
-                    Console.WriteLine("Controle crée sans propriété spécifiques");
+                    newControl = new BTControl(Ctrl);
                     break;
             }
+            return newControl;
         }
         #endregion
 
         #region attributs
+        public ScriptExecuter Executer
+        {
+            get
+            {
+                return m_Executer;
+            }
+            set
+            {
+                m_Executer = value;
+            }
+        }
+
         //*****************************************************************************************************
         // Description: en lecture seul, renvoie la référence vers l'objet graphique utilisé dans le designer
         // Return: /
@@ -80,6 +114,19 @@ namespace SmartApp.Datas
                 return m_IControl;
             }
         }
+
+        //*****************************************************************************************************
+        // Description:
+        // Return: /
+        //*****************************************************************************************************
+        public Control DisplayedControl
+        {
+            get
+            {
+                return m_Ctrl;
+            }
+        }
+
 
         //*****************************************************************************************************
         // Description: accesseur de la propriété IsReadOnly
@@ -129,22 +176,19 @@ namespace SmartApp.Datas
             }
         }
 
+        
         //*****************************************************************************************************
         // Description: 
         // Return: /
         //*****************************************************************************************************
-        public SpecificControlProp SpecificProp
+        public virtual SpecificControlProp SpecificProp
         {
             get
             {
-                return m_SpecificProp;
-            }
-            set
-            {
-                m_SpecificProp = value;
+                return null;
             }
         }
-
+        
         //*****************************************************************************************************
         // Description: accesseur du script
         // renvoie un string[] pour pouvoir être utilisé directement avec le RichEditBox
@@ -182,39 +226,12 @@ namespace SmartApp.Datas
         {
             if (!base.ReadIn(Node))
                 return false;
-            // attribut AssociateData
-            XmlNode AttrAssocData = Node.Attributes.GetNamedItem(XML_CF_ATTRIB.AssociateData.ToString());
             // attribut Type (type de control) cette valeur n'est pas directement stocké dans l'objet
             // mais dans l'objet graphique associé
             XmlNode AttrType = Node.Attributes.GetNamedItem(XML_CF_ATTRIB.Type.ToString());
-            // attribut text. Meme chose que pour le type
-            XmlNode AttrText = Node.Attributes.GetNamedItem(XML_CF_ATTRIB.Text.ToString());
-            // attribut screen event
-            XmlNode AttrScreenEvent = Node.Attributes.GetNamedItem(XML_CF_ATTRIB.ScreenEvent.ToString());
-            // attribut taille Meme chose que pour le type
-            XmlNode AttrSize = Node.Attributes.GetNamedItem(XML_CF_ATTRIB.size.ToString());
-            // attribut position Meme chose que pour le type
-            XmlNode AttrPos = Node.Attributes.GetNamedItem(XML_CF_ATTRIB.Pos.ToString());
-            // attribut readOnly
-            XmlNode AttrReadOnly = Node.Attributes.GetNamedItem(XML_CF_ATTRIB.ReadOnly.ToString());
             // on test la présence de tout les attributs obligatoires
-            if (AttrAssocData == null
-                || AttrType == null
-                || AttrScreenEvent == null
-                || AttrSize == null
-                || AttrPos == null
-                || AttrText == null)
+            if ( AttrType == null)
                 return false;
-
-            // on assigne toutes les valeurs
-            m_strAssociateData = AttrAssocData.Value;
-            m_bUseScreenEvent = bool.Parse(AttrScreenEvent.Value);
-            string[] TabStrPos = AttrPos.Value.Split(',');
-            string[] TabStrSize = AttrSize.Value.Split(',');
-            m_IControl.Text = AttrText.Value;
-            // read only est facultatif et est traité indépendemeent
-            if (AttrReadOnly != null)
-                this.IsReadOnly = bool.Parse(AttrReadOnly.Value);
 
             CONTROL_TYPE TypeId = CONTROL_TYPE.NULL;
             // on parse le type de control
@@ -249,38 +266,59 @@ namespace SmartApp.Datas
                 case CONTROL_TYPE.UP_DOWN:
                     m_IControl.ControlType = InteractiveControlType.NumericUpDown;
                     break;
-                case CONTROL_TYPE.FILLED_RECT:
-                    m_IControl.ControlType = InteractiveControlType.FilledRect;
-                    m_SpecificProp = new TwoColorProp();
-                    m_SpecificProp.ReadIn(Node);
+                case CONTROL_TYPE.SPECIFIC:
+                    System.Diagnostics.Debug.Assert(false);
                     break;
                 case CONTROL_TYPE.NULL:
                 default:
                     Console.WriteLine("Type de control indéfini");
                     return false;
             }
-            // on assigne la taille après avoir changé le type
-            // sinon le changement de type provoque une modification de la taille (en fonction des dimension minimales)
-            m_IControl.Location = new System.Drawing.Point(int.Parse(TabStrPos[0]), int.Parse(TabStrPos[1]));
-            m_IControl.Size = new System.Drawing.Size(int.Parse(TabStrSize[0]), int.Parse(TabStrSize[1]));
-
-            // on lit le script si il y en a un
-            if (Node.FirstChild != null && Node.FirstChild.Name == XML_CF_TAG.EventScript.ToString())
-            {
-                for (int i = 0; i < Node.FirstChild.ChildNodes.Count; i++)
-                {
-                    if (Node.FirstChild.ChildNodes[i].Name == XML_CF_TAG.Line.ToString()
-                        && Node.FirstChild.ChildNodes[i].FirstChild != null)
-                    {
-
-                        m_ScriptLines.Add(Node.FirstChild.ChildNodes[i].FirstChild.Value);
-                    }
-                }
-            }
-
+            ReadInCommonBTControl(Node);
+            ReadScript(Node);
             return true;
         }
 
+        protected bool ReadInCommonBTControl(XmlNode Node)
+        {
+            // attribut AssociateData
+            XmlNode AttrAssocData = Node.Attributes.GetNamedItem(XML_CF_ATTRIB.AssociateData.ToString());
+            // attribut text. Meme chose que pour le type
+            XmlNode AttrText = Node.Attributes.GetNamedItem(XML_CF_ATTRIB.Text.ToString());
+            // attribut screen event
+            XmlNode AttrScreenEvent = Node.Attributes.GetNamedItem(XML_CF_ATTRIB.ScreenEvent.ToString());
+            // attribut taille Meme chose que pour le type
+            XmlNode AttrSize = Node.Attributes.GetNamedItem(XML_CF_ATTRIB.size.ToString());
+            // attribut position Meme chose que pour le type
+            XmlNode AttrPos = Node.Attributes.GetNamedItem(XML_CF_ATTRIB.Pos.ToString());
+            // attribut readOnly
+            XmlNode AttrReadOnly = Node.Attributes.GetNamedItem(XML_CF_ATTRIB.ReadOnly.ToString());
+            // on test la présence de tout les attributs obligatoires
+            if (AttrAssocData == null
+                || AttrScreenEvent == null
+                || AttrSize == null
+                || AttrPos == null
+                || AttrText == null)
+                return false;
+
+            // on assigne toutes les valeurs
+            m_strAssociateData = AttrAssocData.Value;
+            m_bUseScreenEvent = bool.Parse(AttrScreenEvent.Value);
+            string[] TabStrPos = AttrPos.Value.Split(',');
+            string[] TabStrSize = AttrSize.Value.Split(',');
+            m_IControl.Text = AttrText.Value;
+            // read only est facultatif et est traité indépendemeent
+            if (AttrReadOnly != null)
+                this.IsReadOnly = bool.Parse(AttrReadOnly.Value);
+
+            // on assigne la taille après avoir changé le type
+            // sinon le changement de type provoque une modification de la taille (en fonction des dimension minimales)
+
+            m_IControl.Location = new System.Drawing.Point(int.Parse(TabStrPos[0]), int.Parse(TabStrPos[1]));
+            m_IControl.Size = new System.Drawing.Size(int.Parse(TabStrSize[0]), int.Parse(TabStrSize[1]));
+            m_RectControl = new Rectangle(this.IControl.Location, this.IControl.Size);
+            return true;
+        }
         //*****************************************************************************************************
         // Description: ecrit les données de l'objet a partir de son noeud XML
         // Return: /
@@ -291,19 +329,7 @@ namespace SmartApp.Datas
             Node.AppendChild(NodeControl);
             base.WriteOut(XmlDoc, NodeControl);
             // on écrit les différents attributs du control
-            XmlAttribute AttrAssocData = XmlDoc.CreateAttribute(XML_CF_ATTRIB.AssociateData.ToString());
             XmlAttribute AttrType = XmlDoc.CreateAttribute(XML_CF_ATTRIB.Type.ToString());
-            XmlAttribute AttrText = XmlDoc.CreateAttribute(XML_CF_ATTRIB.Text.ToString());
-            XmlAttribute AttrScreenEvent = XmlDoc.CreateAttribute(XML_CF_ATTRIB.ScreenEvent.ToString());
-            XmlAttribute AttrSize = XmlDoc.CreateAttribute(XML_CF_ATTRIB.size.ToString());
-            XmlAttribute AttrPos = XmlDoc.CreateAttribute(XML_CF_ATTRIB.Pos.ToString());
-            XmlAttribute AttrReadOnly = XmlDoc.CreateAttribute(XML_CF_ATTRIB.ReadOnly.ToString());
-            AttrAssocData.Value = m_strAssociateData;
-            AttrScreenEvent.Value = m_bUseScreenEvent.ToString();
-            AttrPos.Value = string.Format("{0},{1}", m_IControl.Location.X, m_IControl.Location.Y);
-            AttrSize.Value = string.Format("{0},{1}", m_IControl.Size.Width, m_IControl.Size.Height);
-            AttrText.Value = m_IControl.Text;
-            AttrReadOnly.Value = IsReadOnly.ToString();
             switch (m_IControl.ControlType)
             {
                 case InteractiveControlType.Button:
@@ -324,23 +350,64 @@ namespace SmartApp.Datas
                 case InteractiveControlType.NumericUpDown:
                     AttrType.Value = CONTROL_TYPE.UP_DOWN.ToString();
                     break;
-                case InteractiveControlType.FilledRect:
-                    AttrType.Value = CONTROL_TYPE.FILLED_RECT.ToString();
-                    m_SpecificProp.WriteOut(XmlDoc, NodeControl);
+                case InteractiveControlType.SpecificControl:
+                    System.Diagnostics.Debug.Assert(false);
                     break;
                 default:
                     Console.WriteLine("Type de control indéfini");
                     break;
             }
-            NodeControl.Attributes.Append(AttrAssocData);
             NodeControl.Attributes.Append(AttrType);
-            NodeControl.Attributes.Append(AttrScreenEvent);
-            NodeControl.Attributes.Append(AttrPos);
-            NodeControl.Attributes.Append(AttrSize);
-            NodeControl.Attributes.Append(AttrText);
-            NodeControl.Attributes.Append(AttrReadOnly);
+            if (!WriteOutCommonBTControl(XmlDoc, NodeControl))
+                return false;
+            // on écrit le script
+            WriteScript(XmlDoc, NodeControl);
+            return true;
+        }
 
-            /// on écrit le script
+        protected bool WriteOutCommonBTControl(XmlDocument XmlDoc, XmlNode Node)
+        {
+            XmlAttribute AttrAssocData = XmlDoc.CreateAttribute(XML_CF_ATTRIB.AssociateData.ToString());
+            XmlAttribute AttrText = XmlDoc.CreateAttribute(XML_CF_ATTRIB.Text.ToString());
+            XmlAttribute AttrScreenEvent = XmlDoc.CreateAttribute(XML_CF_ATTRIB.ScreenEvent.ToString());
+            XmlAttribute AttrSize = XmlDoc.CreateAttribute(XML_CF_ATTRIB.size.ToString());
+            XmlAttribute AttrPos = XmlDoc.CreateAttribute(XML_CF_ATTRIB.Pos.ToString());
+            XmlAttribute AttrReadOnly = XmlDoc.CreateAttribute(XML_CF_ATTRIB.ReadOnly.ToString());
+            AttrAssocData.Value = m_strAssociateData;
+            AttrScreenEvent.Value = m_bUseScreenEvent.ToString();
+            AttrPos.Value = string.Format("{0},{1}", m_IControl.Location.X, m_IControl.Location.Y);
+            AttrSize.Value = string.Format("{0},{1}", m_IControl.Size.Width, m_IControl.Size.Height);
+            AttrText.Value = m_IControl.Text;
+            AttrReadOnly.Value = IsReadOnly.ToString();
+            Node.Attributes.Append(AttrAssocData);
+            Node.Attributes.Append(AttrScreenEvent);
+            Node.Attributes.Append(AttrPos);
+            Node.Attributes.Append(AttrSize);
+            Node.Attributes.Append(AttrText);
+            Node.Attributes.Append(AttrReadOnly);
+
+            return true;
+        }
+
+        protected void ReadScript(XmlNode Node)
+        {
+            // on lit le script si il y en a un
+            if (Node.FirstChild != null && Node.FirstChild.Name == XML_CF_TAG.EventScript.ToString())
+            {
+                for (int i = 0; i < Node.FirstChild.ChildNodes.Count; i++)
+                {
+                    if (Node.FirstChild.ChildNodes[i].Name == XML_CF_TAG.Line.ToString()
+                        && Node.FirstChild.ChildNodes[i].FirstChild != null)
+                    {
+
+                        m_ScriptLines.Add(Node.FirstChild.ChildNodes[i].FirstChild.Value);
+                    }
+                }
+            }
+        }
+
+        protected void WriteScript(XmlDocument XmlDoc, XmlNode NodeControl)
+        {
             XmlNode XmlEventScript = XmlDoc.CreateElement(XML_CF_TAG.EventScript.ToString());
             for (int i = 0; i < m_ScriptLines.Count; i++)
             {
@@ -350,7 +417,6 @@ namespace SmartApp.Datas
                 XmlEventScript.AppendChild(NodeLine);
             }
             NodeControl.AppendChild(XmlEventScript);
-            return true;
         }
 
 
@@ -361,9 +427,54 @@ namespace SmartApp.Datas
         //*****************************************************************************************************
         public override bool FinalizeRead(BTDoc Doc)
         {
+            if (!string.IsNullOrEmpty(m_strAssociateData))
+            {
+                m_AssociateData = (Data)Doc.GestData.GetFromSymbol(m_strAssociateData);
+                if (m_AssociateData == null)
+                {
+                    // TODO : loguer les erreurs
+                    // pas d'assert ici, car par exemple un bouton ou un static peuvent ne pas avoir de donnée
+                    //Console.WriteLine("Donnée Associée non trouvée");
+                    return true;
+                }
+                else
+                {
+                    m_AssociateData.DataValueChanged += new EventDataValueChange(UpdateFromData);
+                }
+            }
+            Executer = Doc.Executer; 
             return true;
         }
 
+        #endregion
+
+        #region Fonction pour BTCommand
+        //*****************************************************************************************************
+        // Description:
+        // Return: /
+        //*****************************************************************************************************
+        public void SetParent(BTScreen btScreen)
+        {
+            m_Parent = btScreen;
+        }
+
+        //*****************************************************************************************************
+        // Description:
+        // Return: /
+        //*****************************************************************************************************
+        public virtual void CreateControl() { }
+
+        //*****************************************************************************************************
+        // Description:
+        // Return: /
+        //*****************************************************************************************************
+        public virtual void OnControlEvent(Object Sender, EventArgs Args) { }
+
+        //*****************************************************************************************************
+        // Description:
+        // Return: /
+        //*****************************************************************************************************
+        public virtual void UpdateFromData() { }
         #endregion
 
         #region Gestion des AppMessages
@@ -408,6 +519,9 @@ namespace SmartApp.Datas
                             m_strAssociateData = ((MessItemRenamed)obj).NewItemSymbol;
                         }
                     }
+                    break;
+                case MESSAGE.MESS_UPDATE_FROM_DATA:
+                    UpdateFromData();
                     break;
                 default:
                     break;

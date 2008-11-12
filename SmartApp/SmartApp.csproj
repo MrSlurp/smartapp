@@ -66,6 +66,8 @@
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Common\Datas\SpecificControlProp.cs" />
+    <Compile Include="Common\Datas\SpecificControls\BTFilledRectControl.cs" />
+    <Compile Include="Common\Datas\SpecificControls\IBTSpecificControl.cs" />
     <Compile Include="Common\IniFileParser.cs" />
     <Compile Include="Common\LaunchArgParser.cs" />
     <Compile Include="Common\Scripts\Executer.cs" />
@@ -87,7 +89,6 @@
     <Compile Include="Common\Controls Personnalisables\Gauge.Designer.cs">
       <DependentUpon>Gauge.cs</DependentUpon>
     </Compile>
-    <Compile Include="SmartCommand\Controls\BaseControl.cs" />
     <Compile Include="SmartCommand\Controls\ButtonControl.cs" />
     <Compile Include="SmartCommand\Controls\CheckControl.cs" />
     <Compile Include="SmartCommand\Controls\ComboControl.cs" />
@@ -191,6 +192,7 @@
     <Compile Include="SmartConfig\Ihm\Designer\DragItemPanel.Designer.cs">
       <DependentUpon>DragItemPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="SmartConfig\Ihm\Designer\DropableItems.cs" />
     <Compile Include="SmartConfig\Ihm\Designer\InteractiveControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -208,6 +210,13 @@
     </Compile>
     <Compile Include="SmartConfig\Ihm\Designer\ResizeButton.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Designer\SpecificControls\ISpecific.cs" />
+    <Compile Include="SmartConfig\Ihm\Designer\SpecificControls\TwoColorFilledRect.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Designer\SpecificControls\TwoColorFilledRect.Designer.cs">
+      <DependentUpon>TwoColorFilledRect.cs</DependentUpon>
     </Compile>
     <Compile Include="SmartConfig\Ihm\MDISmartConfigMain.cs">
       <SubType>Form</SubType>
@@ -263,17 +272,18 @@
     <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\FunctionPropertiesControl.Designer.cs">
       <DependentUpon>FunctionPropertiesControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\SpecificProperties\ISpecificPanel.cs" />
     <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\TimerPropertiesControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\TimerPropertiesControl.Designer.cs">
       <DependentUpon>TimerPropertiesControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\SpecificProperties\FilledRectProperties.cs">
+    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\SpecificProperties\TwoColorProperties.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\SpecificProperties\FilledRectProperties.Designer.cs">
-      <DependentUpon>FilledRectProperties.cs</DependentUpon>
+    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\SpecificProperties\TwoColorProperties.Designer.cs">
+      <DependentUpon>TwoColorProperties.cs</DependentUpon>
     </Compile>
     <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\UtilsClasses.cs" />
     <Compile Include="SmartConfig\Ihm\ProgItemPanels\FunctionPanel.cs">
@@ -391,13 +401,17 @@
       <SubType>Designer</SubType>
       <DependentUpon>InteractiveControlContainer.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\Designer\SpecificControls\TwoColorFilledRect.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>TwoColorFilledRect.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SmartConfig\Ihm\MDISmartConfigMain.resx">
       <SubType>Designer</SubType>
       <DependentUpon>MDISmartConfigMain.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SmartConfig\Ihm\ObjectPropertiesControls\SpecificProperties\FilledRectProperties.resx">
+    <EmbeddedResource Include="SmartConfig\Ihm\ObjectPropertiesControls\SpecificProperties\TwoColorProperties.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>FilledRectProperties.cs</DependentUpon>
+      <DependentUpon>TwoColorProperties.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SmartConfig\Ihm\ObjectPropertiesControls\FramePropertiesControl.resx">
       <SubType>Designer</SubType>
@@ -564,6 +578,7 @@
     <None Include="SmartConfig\Res\Toolbar\MakeSameBoth.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
     <None Include="SmartConfig\Res\CxnOn.bmp" />
     <None Include="SmartConfig\Res\CxnOff.bmp" />
     <None Include="SmartConfig\Res\PresAssData.bmp" />

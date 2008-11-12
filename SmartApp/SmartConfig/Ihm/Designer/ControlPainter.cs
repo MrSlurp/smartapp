@@ -166,25 +166,14 @@ namespace SmartApp.Ihm.Designer
             gr.DrawRectangle(pen, DrawRect);
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        public static void DrawFilledRectControl(Graphics gr, Control ctrl)
-        {
-            Rectangle DrawRect = ctrl.ClientRectangle;
-            SolidBrush br = new SolidBrush(Color.Black);
-            gr.FillRectangle(br, DrawRect);
-            DrawPresenceAssociateData(gr, ctrl);
-        }
 
         //*****************************************************************************************************
         // Description:
         // Return: /
         //*****************************************************************************************************
-        private static void DrawPresenceAssociateData(Graphics gr, Control ctrl)
+        public static void DrawPresenceAssociateData(Graphics gr, Control ctrl)
         {
-            if (ctrl.GetType() == typeof(InteractiveControl)
+            if (DropableItems.AllowedItem(ctrl.GetType())
                 && ((InteractiveControl)ctrl).SourceBTControl != null)
             {
                 InteractiveControl iCtrl = (InteractiveControl)ctrl;
@@ -202,7 +191,7 @@ namespace SmartApp.Ihm.Designer
                         case InteractiveControlType.Combo:
                         case InteractiveControlType.NumericUpDown:
                         case InteractiveControlType.Slider:
-                        case InteractiveControlType.FilledRect:
+                        case InteractiveControlType.SpecificControl:
                             gr.DrawImage(Image, rect);
                             break;
                         case InteractiveControlType.Text:

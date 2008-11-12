@@ -30,8 +30,12 @@ namespace SmartApp
         public const string STRCMD_AUTOCONNECT = "-AC";
         public const string STRCMD_AUTOSTART = "-AS";
 
-        public const int CUR_FILE_VERSION = 2;
-        public const int FILE_VERSION_V1001 = 1;
+        public const int CUR_FILE_VERSION = 3;
+
+        public const int FILE_VERSION_V1000 = 1;
+        public const int FILE_VERSION_V1001 = 2;
+        public const int FILE_VERSION_V1201 = 3;
+
         public const int NB_MAX_COMM = 255;
         public const string STR_COMINI_FILENAME = "ConfigComm.ini";
         public const string STR_OPTINI_FILENAME = "Options.ini";
@@ -104,7 +108,8 @@ namespace SmartApp
         Logger,
         Line,
         ImagePath,
-        Program
+        Program,
+        SpecificControl,
     }
     /// <summary>
     /// enum des attributs du ficher de config (Config File (CF))
@@ -139,13 +144,14 @@ namespace SmartApp
         AutoStart,
         ActiveColor,
         InactiveColor,
+        SpecificType,
     }
 
     /// <summary>
     /// Types de contols disponibles
     /// les chaines doivent correspondre a ce qui est écrit dans le fichier XML
     /// </summary>
-    enum CONTROL_TYPE
+    public enum CONTROL_TYPE
     {
         NULL,
         CHECK,
@@ -154,6 +160,12 @@ namespace SmartApp
         BUTTON,
         STATIC,
         UP_DOWN,
+        SPECIFIC,
+    }
+
+    public enum SPECIFIC_TYPE
+    {
+        NULL,
         FILLED_RECT,
     }
 

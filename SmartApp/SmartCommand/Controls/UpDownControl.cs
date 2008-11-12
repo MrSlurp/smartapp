@@ -17,7 +17,7 @@ using SmartApp.Datas;
 using SmartApp.Ihm;
 namespace SmartApp.Controls
 {
-    public class UpDownControl : BaseControl
+    public class UpDownControl : BTControl
     {
         //*****************************************************************************************************
         // Description:

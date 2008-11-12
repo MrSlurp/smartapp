@@ -19,7 +19,7 @@ using SmartApp.Ihm;
 
 namespace SmartApp.Controls
 {
-    public class ComboControl : BaseControl
+    public class ComboControl : BTControl
     {
         private ArrayList m_ArrayComboValue;
         private string[] m_ListStrValues;

@@ -46,7 +46,7 @@ namespace SmartApp.Ihm.Designer
         Slider,
         NumericUpDown,
         Text,
-        FilledRect,
+        SpecificControl,
     }
     #endregion
 
@@ -92,7 +92,7 @@ namespace SmartApp.Ihm.Designer
         // Description: accesseur pour le type, modifie atomatiquement les propriété de redimensionement et 
         // la taille du control quand le type change
         //*****************************************************************************************************
-        public InteractiveControlType ControlType
+        public virtual InteractiveControlType ControlType
         {
             get
             {
@@ -180,6 +180,11 @@ namespace SmartApp.Ihm.Designer
             resizeButton[1] = new ResizeButton(ResizeButtonPosition.MiddleRight, this);
             resizeButton[2] = new ResizeButton(ResizeButtonPosition.BottomCenter, this);
             this.Text = "Item";
+        }
+
+        public virtual InteractiveControl CreateNew()
+        {
+            return new InteractiveControl();
         }
 
         //*****************************************************************************************************
@@ -357,10 +362,10 @@ namespace SmartApp.Ihm.Designer
                     canResizeHeight = false;
                     this.Height = this.minSize.Height;
                     break;
-                case InteractiveControlType.FilledRect:
-                    canResizeWidth = true;
-                    canResizeHeight = true;
-                    this.minSize = new Size(5,5);
+                case InteractiveControlType.SpecificControl:
+                    canResizeWidth = ((ISpecificControl)this).SpecGraphicProp.m_bcanResizeWidth;
+                    canResizeHeight = ((ISpecificControl)this).SpecGraphicProp.m_bcanResizeHeight;
+                    this.minSize = ((ISpecificControl)this).SpecGraphicProp.m_MinSize;
                     this.Height = this.minSize.Height;
                     break;
                 default:
@@ -411,8 +416,8 @@ namespace SmartApp.Ihm.Designer
                 case InteractiveControlType.Text:
                     ControlPainter.DrawText(e.Graphics, this);
                     break;
-                case InteractiveControlType.FilledRect:
-                    ControlPainter.DrawFilledRectControl(e.Graphics, this);
+                case InteractiveControlType.SpecificControl:
+                    ((ISpecificControl)this).SelfPaint(e.Graphics, this);
                     break;
                 default:
                     System.Diagnostics.Debug.Assert(false);

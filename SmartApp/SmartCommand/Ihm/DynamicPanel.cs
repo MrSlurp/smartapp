@@ -17,7 +17,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-using SmartApp.Controls;
+using SmartApp.Datas;
 
 namespace SmartApp.Ihm
 {
@@ -44,8 +44,8 @@ namespace SmartApp.Ihm
             this.SuspendLayout();
             for (int i = 0; i < ControlsList.Count; i++)
             {
-                BaseControl Ctrl = null;
-                Ctrl = (BaseControl)ControlsList[i];
+                BTControl Ctrl = null;
+                Ctrl = (BTControl)ControlsList[i];
                 Ctrl.CreateControl();
                 if (Ctrl.DisplayedControl != null)
                     this.Controls.Add(Ctrl.DisplayedControl);

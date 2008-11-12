@@ -41,7 +41,7 @@ namespace SmartApp.Datas
         // objet dynamic pannel qui est affiché
         private DynamicPanel m_DynamicPanel = new DynamicPanel();
         // liste des "Control" de l'écran en mode commande
-        private List<BaseControl> m_ListControls = new List<BaseControl>();
+        private List<BTControl> m_ListControls = new List<BTControl>();
         // liens vers l'executer de script
         protected ScriptExecuter m_Executer = null;
         #endregion
@@ -231,13 +231,23 @@ namespace SmartApp.Datas
                                 for (int j = 0; j < ChildNode.ChildNodes.Count; j++)
                                 {
                                     XmlNode NodeControl = ChildNode.ChildNodes[j];
-                                    if (NodeControl.Name != XML_CF_TAG.Control.ToString())
-                                        continue;
-                                    BTControl Control = new BTControl();
-                                    if (!Control.ReadIn(NodeControl))
-                                        return false;
+                                    if (NodeControl.Name == XML_CF_TAG.Control.ToString())
+                                    {
+                                        BTControl Control = new BTControl();
+                                        if (!Control.ReadIn(NodeControl))
+                                            return false;
 
-                                    m_GestControl.AddObj(Control);
+                                        m_GestControl.AddObj(Control);
+                                    }
+                                    else if (NodeControl.Name == XML_CF_TAG.SpecificControl.ToString())
+                                    {
+                                        BTControl Control = SpecificControlParser.ParseAndCreateSpecificControl(NodeControl);
+                                        if (!Control.ReadIn(NodeControl))
+                                            return false;
+                                        m_GestControl.AddObj(Control);
+                                    }
+                                    else
+                                        return false;
                                 }
                             }
                             // sinon on effectue une lecture spéciale mode Command
@@ -300,61 +310,88 @@ namespace SmartApp.Datas
             for (int i = 0; i < Node.ChildNodes.Count; i++)
             {
                 XmlNode ChildNode = Node.ChildNodes[i];
-                if (ChildNode.Name != XML_CF_TAG.Control.ToString())
-                    continue;
-                XmlNode AttrType = ChildNode.Attributes.GetNamedItem(XML_CF_ATTRIB.Type.ToString());
-                CONTROL_TYPE TypeId = 0;
-                try
+                if (ChildNode.Name == XML_CF_TAG.Control.ToString())
                 {
-                    TypeId = (CONTROL_TYPE)Enum.Parse(typeof(CONTROL_TYPE), AttrType.Value, true);
-                }
-                catch (Exception)
-                {
-                    // en cas de tag non reconne dans l'enum, une exeption est levée, 
-                    // on la récupère car ca peut arriver
-                    continue;
-                }
+                    XmlNode AttrType = ChildNode.Attributes.GetNamedItem(XML_CF_ATTRIB.Type.ToString());
+                    CONTROL_TYPE TypeId = 0;
+                    try
+                    {
+                        TypeId = (CONTROL_TYPE)Enum.Parse(typeof(CONTROL_TYPE), AttrType.Value, true);
+                    }
+                    catch (Exception)
+                    {
+                        // en cas de tag non reconne dans l'enum, une exeption est levée, 
+                        // on la récupère car ca peut arriver
+                        continue;
+                    }
 
-                BaseControl NewControl = null;
-                // on crée chaque objet en fonction de son type
-                switch (TypeId)
-                {
-                    case CONTROL_TYPE.BUTTON:
-                        NewControl = new ButtonControl();
-                        NewControl.ReadIn(ChildNode);
-                        break;
-                    case CONTROL_TYPE.CHECK:
-                        NewControl = new CheckControl();
-                        NewControl.ReadIn(ChildNode);
-                        break;
-                    case CONTROL_TYPE.COMBO:
-                        NewControl = new ComboControl();
-                        NewControl.ReadIn(ChildNode);
-                        break;
-                    case CONTROL_TYPE.SLIDER:
-                        NewControl = new SliderControl();
-                        NewControl.ReadIn(ChildNode);
-                        break;
-                    case CONTROL_TYPE.STATIC:
-                        NewControl = new StaticControl();
-                        NewControl.ReadIn(ChildNode);
-                        break;
-                    case CONTROL_TYPE.UP_DOWN:
-                        NewControl = new UpDownControl();
-                        NewControl.ReadIn(ChildNode);
-                        break;
-                    case CONTROL_TYPE.FILLED_RECT:
-                        NewControl = new FilledRectControl();
-                        NewControl.ReadIn(ChildNode);
-                        break;
-                    case CONTROL_TYPE.NULL:
-                    default:
-                        Console.WriteLine("Type de control indéfini");
-                        NewControl = null;
-                        break;
+                    BTControl NewControl = null;
+                    // on crée chaque objet en fonction de son type
+                    switch (TypeId)
+                    {
+                        case CONTROL_TYPE.BUTTON:
+                            NewControl = new ButtonControl();
+                            NewControl.ReadIn(ChildNode);
+                            break;
+                        case CONTROL_TYPE.CHECK:
+                            NewControl = new CheckControl();
+                            NewControl.ReadIn(ChildNode);
+                            break;
+                        case CONTROL_TYPE.COMBO:
+                            NewControl = new ComboControl();
+                            NewControl.ReadIn(ChildNode);
+                            break;
+                        case CONTROL_TYPE.SLIDER:
+                            NewControl = new SliderControl();
+                            NewControl.ReadIn(ChildNode);
+                            break;
+                        case CONTROL_TYPE.STATIC:
+                            NewControl = new StaticControl();
+                            NewControl.ReadIn(ChildNode);
+                            break;
+                        case CONTROL_TYPE.UP_DOWN:
+                            NewControl = new UpDownControl();
+                            NewControl.ReadIn(ChildNode);
+                            break;
+                        case CONTROL_TYPE.SPECIFIC:
+                            System.Diagnostics.Debug.Assert(false);
+                            /*
+                            NewControl = new FilledRectControl();
+                            NewControl.ReadIn(ChildNode);
+                             * */
+                            break;
+                        case CONTROL_TYPE.NULL:
+                        default:
+                            Console.WriteLine("Type de control indéfini");
+                            NewControl = null;
+                            break;
+                    }
+                    if (NewControl != null)
+                        m_ListControls.Add(NewControl);
                 }
-                if (NewControl != null)
-                    m_ListControls.Add(NewControl);
+                else if (ChildNode.Name == XML_CF_TAG.SpecificControl.ToString())
+                {
+                    SPECIFIC_TYPE ControlType = SpecificControlParser.ParseSpecificControlType(ChildNode);
+                    BTControl NewControl = null;
+                    switch (ControlType)
+                    {
+                        case SPECIFIC_TYPE.FILLED_RECT:
+                            NewControl = new FilledRectControl();
+                            NewControl.ReadIn(ChildNode);
+                            break;
+                        case SPECIFIC_TYPE.NULL:
+                        default:
+                            Console.WriteLine("Type de control indéfini");
+                            break;
+                    }
+                    if (NewControl != null)
+                        m_ListControls.Add(NewControl);
+                }
+                else
+                {
+                    System.Diagnostics.Debug.Assert(false);
+                    return false;
+                }
             }
             return true;
         }

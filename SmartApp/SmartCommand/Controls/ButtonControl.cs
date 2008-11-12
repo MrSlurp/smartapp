@@ -18,7 +18,7 @@ using SmartApp.Ihm;
 
 namespace SmartApp.Controls
 {
-    public class ButtonControl : BaseControl
+    public class ButtonControl : BTControl
     {
         //*****************************************************************************************************
         // Description:

@@ -24,6 +24,7 @@ namespace SmartApp
                 m_DynamicPanel.Enabled = value;
             }
         }
+
         public DynamicPanelForm(DynamicPanel DynamicPanel)
         {
             InitializeComponent();

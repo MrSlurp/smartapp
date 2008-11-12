@@ -139,7 +139,7 @@ namespace SmartApp.Ihm.Designer
                         case InteractiveControlType.Combo:
                         case InteractiveControlType.Text:
                         case InteractiveControlType.NumericUpDown:
-                        case InteractiveControlType.FilledRect:
+                        case InteractiveControlType.SpecificControl:
                             Abilities = SelectionAbilitiesValues.AbleResizeWidth;
                             break;
                         default :
@@ -201,7 +201,7 @@ namespace SmartApp.Ihm.Designer
             Point ptMouse = ((Control)obj).PointToScreen(e.Location);
             // puis en point client pour this
             ptMouse = PointToClient(ptMouse);
-            if (obj.GetType() == typeof(InteractiveControl) || this.Controls.Contains((Control)obj))
+            if (DropableItems.AllowedItem(obj.GetType()) || this.Controls.Contains((Control)obj))
             {
                 for (int i = 0; i < m_ListSelection.Count; i++)
                 {
@@ -419,7 +419,7 @@ namespace SmartApp.Ihm.Designer
         {
             base.OnControlAdded(e);
             // losrqu'un control est ajouté, les handlers suivants sont automatiquement ajoutés
-            if (e.Control.GetType() == typeof(InteractiveControl))
+            if (DropableItems.AllowedItem(e.Control.GetType()))
             {
                 if (!((InteractiveControl)e.Control).Initialized)
                 {
@@ -462,7 +462,7 @@ namespace SmartApp.Ihm.Designer
         protected override void OnControlRemoved(ControlEventArgs e)
         {
             base.OnControlRemoved(e);
-            if (e.Control.GetType() == typeof(InteractiveControl))
+            if (DropableItems.AllowedItem(e.Control.GetType()))
             {
                 if (m_ListSelection.Contains(e.Control))
                 {
@@ -561,7 +561,7 @@ namespace SmartApp.Ihm.Designer
         //*****************************************************************************************************
         private void OnDragEnter(object sender, DragEventArgs e)
         {
-            InteractiveControl DropedItem = (InteractiveControl)e.Data.GetData(typeof(InteractiveControl));
+            InteractiveControl DropedItem = DropableItems.GetDropableItem(e);
             if (DropedItem != null)
                 e.Effect = DragDropEffects.All;
             else
@@ -575,13 +575,13 @@ namespace SmartApp.Ihm.Designer
         private void OnDragDrop(object sender, DragEventArgs e)
         {
             // on récupère les données de l'objet dropé en correspondance avec ce qu'on veux
-            InteractiveControl DropedItem = (InteractiveControl)e.Data.GetData(typeof(InteractiveControl));
+            InteractiveControl DropedItem = DropableItems.GetDropableItem(e);
             if (DropedItem != null)
             {
                 // si on a bien dropé un InteractiveControl
                 // on crée un nouvel objet avec les meme caractéristiques
                 // et on le place a la position de la souris
-                InteractiveControl newControl = new InteractiveControl();
+                InteractiveControl newControl = DropedItem.CreateNew();
                 Point PtMouse = new Point(e.X, e.Y);
                 PtMouse = PointToClient(PtMouse);
                 newControl.Name = DropedItem.Name;

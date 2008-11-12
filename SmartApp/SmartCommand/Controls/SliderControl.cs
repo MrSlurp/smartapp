@@ -19,7 +19,7 @@ using SmartApp.Ihm;
 
 namespace SmartApp.Controls
 {
-    public class SliderControl : BaseControl
+    public class SliderControl : BTControl
     {
         //*****************************************************************************************************
         // Description:

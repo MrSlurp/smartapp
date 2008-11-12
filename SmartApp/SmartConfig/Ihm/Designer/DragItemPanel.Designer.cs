@@ -34,7 +34,7 @@ namespace SmartApp.Ihm.Designer
             this.m_ToolDragItemNumUpDown = new SmartApp.Ihm.Designer.InteractiveControl();
             this.m_ToolDragItemText = new SmartApp.Ihm.Designer.InteractiveControl();
             this.m_ToolDragItemcombo = new SmartApp.Ihm.Designer.InteractiveControl();
-            this.m_ToolDragItemFilledRect = new SmartApp.Ihm.Designer.InteractiveControl();
+            this.m_ToolDragItemFilledRect = new SmartApp.Ihm.Designer.TwoColorFilledRect();
             this.SuspendLayout();
             // 
             // m_ToolDragItemBtn
@@ -112,7 +112,7 @@ namespace SmartApp.Ihm.Designer
             // m_ToolDragItemFilledRect
             // 
             this.m_ToolDragItemFilledRect.AllowDrop = true;
-            this.m_ToolDragItemFilledRect.ControlType = SmartApp.Ihm.Designer.InteractiveControlType.FilledRect;
+            this.m_ToolDragItemFilledRect.ControlType = SmartApp.Ihm.Designer.InteractiveControlType.SpecificControl;
             this.m_ToolDragItemFilledRect.Location = new System.Drawing.Point(3, 176);
             this.m_ToolDragItemFilledRect.Name = "m_ToolDragItemFilledRect";
             this.m_ToolDragItemFilledRect.Selected = false;
@@ -145,7 +145,7 @@ namespace SmartApp.Ihm.Designer
         private SmartApp.Ihm.Designer.InteractiveControl m_ToolDragItemNumUpDown;
         private SmartApp.Ihm.Designer.InteractiveControl m_ToolDragItemText;
         private SmartApp.Ihm.Designer.InteractiveControl m_ToolDragItemcombo;
-        private SmartApp.Ihm.Designer.InteractiveControl m_ToolDragItemFilledRect;
+        private SmartApp.Ihm.Designer.TwoColorFilledRect m_ToolDragItemFilledRect;
 
 
         #endregion

@@ -1,6 +1,6 @@
 ﻿namespace SmartApp.Ihm
 {
-    partial class FilledRectProperties
+    partial class TwoColorProperties
     {
         /// <summary> 
         /// Required designer variable.

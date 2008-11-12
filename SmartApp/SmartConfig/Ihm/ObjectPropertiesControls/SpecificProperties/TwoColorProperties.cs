@@ -11,13 +11,10 @@ using SmartApp.Ihm.Designer;
 
 namespace SmartApp.Ihm
 {
-    public partial class FilledRectProperties : UserControl
+    public partial class TwoColorProperties : UserControl, ISpecificPanel
     {
         #region données membres
         private BTControl m_Control = null;
-
-        private GestControl m_GestControl = null;
-
         private BTDoc m_Document = null;
         #endregion
 
@@ -25,7 +22,7 @@ namespace SmartApp.Ihm
         public event ControlPropertiesChange ControlPropertiesChanged;
         #endregion
 
-        public FilledRectProperties()
+        public TwoColorProperties()
         {
             InitializeComponent();
         }
@@ -43,7 +40,7 @@ namespace SmartApp.Ihm
             }
             set
             {
-                if (value.IControl.ControlType == InteractiveControlType.FilledRect)
+                if (value.IControl.GetType() == typeof(TwoColorFilledRect))
                     m_Control = value;
                 else
                     m_Control = null;
@@ -61,7 +58,6 @@ namespace SmartApp.Ihm
                     m_TextActiveColor.BackColor = Color.White;
                     m_TextInactiveColor.BackColor = Color.White;
                 }
-                UpdateStateFromControlType();
             }
         }
 
@@ -78,22 +74,6 @@ namespace SmartApp.Ihm
             set
             {
                 m_Document = value;
-            }
-        }
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        public GestControl GestControl
-        {
-            get
-            {
-                return m_GestControl;
-            }
-            set
-            {
-                m_GestControl = value;
             }
         }
         #endregion
@@ -136,31 +116,6 @@ namespace SmartApp.Ihm
         }
         #endregion
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        protected void UpdateStateFromControlType()
-        {
-            if (m_Control == null)
-                return;
-
-            switch (m_Control.IControl.ControlType)
-            {
-                case InteractiveControlType.Button:
-                case InteractiveControlType.CheckBox:
-                case InteractiveControlType.Combo:
-                case InteractiveControlType.Text:
-                case InteractiveControlType.NumericUpDown:
-                case InteractiveControlType.Slider:
-                    break;
-                case InteractiveControlType.FilledRect:
-                    break;
-                default:
-                    System.Diagnostics.Debug.Assert(false);
-                    break;
-            }
-        }
 
         private void m_BtnSelectActiveColor_Click(object sender, EventArgs e)
         {

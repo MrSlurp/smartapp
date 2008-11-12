@@ -116,6 +116,11 @@ namespace SmartApp.Datas
         //*****************************************************************************************************
         public virtual bool ReadIn(XmlNode Node)
         {
+            return ReadInBaseObject(Node);
+        }
+
+        protected bool ReadInBaseObject(XmlNode Node)
+        {
             // lecture de l'attribut "nom" (description)
             XmlNode NameAttrib = Node.Attributes.GetNamedItem(XML_CF_ATTRIB.strNom.ToString());
             if (NameAttrib == null)
@@ -130,12 +135,16 @@ namespace SmartApp.Datas
             m_strSymbol = SymbolAttrib.Value;
             return true;
         }
-
         //*****************************************************************************************************
         // Description: ecrit les données de l'objet a partir de son noeud XML
         // Return: /
         //*****************************************************************************************************
         public virtual bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
+        {
+            return WriteOutBaseObject(XmlDoc, Node);
+        }
+
+        protected bool WriteOutBaseObject(XmlDocument XmlDoc, XmlNode Node)
         {
             // écriture de l'attribut "nom" (description)
             XmlAttribute AttrName = XmlDoc.CreateAttribute(XML_CF_ATTRIB.strNom.ToString());

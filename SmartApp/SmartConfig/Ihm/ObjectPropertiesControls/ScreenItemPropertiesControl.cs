@@ -22,6 +22,8 @@ namespace SmartApp.Ihm
 
 
         private AutoCompleteStringCollection m_BeginWithDataList;
+
+        private UserControl m_CurrentSpecificControlPropPanel = null;
         #endregion
 
         #region events
@@ -391,7 +393,10 @@ namespace SmartApp.Ihm
         protected void UpdateStateFromControlType()
         {
             if (m_Control == null)
+            {
+                SetSpecificPanelProp(null);
                 return;
+            }
 
             switch (m_Control.IControl.ControlType)
             {
@@ -400,6 +405,7 @@ namespace SmartApp.Ihm
                     m_EditAssociateData.Enabled = true;
                     m_checkReadOnly.Enabled = false;
                     m_checkScreenEvent.Enabled = true;
+                    SetSpecificPanelProp(null);
                     break;
                 case InteractiveControlType.CheckBox:
                 case InteractiveControlType.Combo:
@@ -407,6 +413,7 @@ namespace SmartApp.Ihm
                     m_EditAssociateData.Enabled = true;
                     m_checkReadOnly.Enabled = true;
                     m_checkScreenEvent.Enabled = true;
+                    SetSpecificPanelProp(null);
                     break;
                 case InteractiveControlType.Text:
                     m_EditText.Enabled = true;
@@ -416,6 +423,7 @@ namespace SmartApp.Ihm
                     m_checkReadOnly.Checked = false;
                     m_checkScreenEvent.Enabled = false;
                     m_checkScreenEvent.Checked = false;
+                    SetSpecificPanelProp(null);
                     break;
                 case InteractiveControlType.NumericUpDown:
                 case InteractiveControlType.Slider:
@@ -425,20 +433,38 @@ namespace SmartApp.Ihm
                     m_checkReadOnly.Enabled = true;
                     m_checkScreenEvent.Enabled = false;
                     m_checkScreenEvent.Checked = false;
+                    SetSpecificPanelProp(null);
                     break;
-                case InteractiveControlType.FilledRect:
-                    m_EditText.Enabled = false;
+                case InteractiveControlType.SpecificControl:
+                    m_EditText.Enabled = ((ISpecificControl)m_Control.IControl).StdPropEnabling.m_bEditTextEnabled;
                     this.Txt = "";
-                    m_EditAssociateData.Enabled = true;
-                    m_checkReadOnly.Enabled = false;
-                    m_checkScreenEvent.Enabled = false;
-                    m_checkScreenEvent.Checked = false;
+                    m_EditAssociateData.Enabled = ((ISpecificControl)m_Control.IControl).StdPropEnabling.m_bEditAssociateDataEnabled;
+                    m_checkReadOnly.Enabled = ((ISpecificControl)m_Control.IControl).StdPropEnabling.m_bcheckReadOnlyEnabled;
+                    m_checkReadOnly.Checked = ((ISpecificControl)m_Control.IControl).StdPropEnabling.m_bcheckReadOnlyChecked;
+                    m_checkScreenEvent.Enabled = ((ISpecificControl)m_Control.IControl).StdPropEnabling.m_bcheckScreenEventEnabled;
+                    m_checkScreenEvent.Checked = ((ISpecificControl)m_Control.IControl).StdPropEnabling.m_bcheckScreenEventChecked;
+                    SetSpecificPanelProp(((ISpecificControl)m_Control.IControl).SpecificPropPanel);
+                    ((ISpecificPanel)((ISpecificControl)m_Control.IControl).SpecificPropPanel).BTControl = m_Control;
+                    ((ISpecificPanel)((ISpecificControl)m_Control.IControl).SpecificPropPanel).Doc = m_Document;
                     break;
                 default:
                     System.Diagnostics.Debug.Assert(false);
                     break;
             }
-            m_FilledRectPropPanel.BTControl = this.BTControl;
+        }
+
+        protected void SetSpecificPanelProp(UserControl ctrl)
+        {
+            if (m_CurrentSpecificControlPropPanel != null)
+            {
+                this.Controls.Remove(m_CurrentSpecificControlPropPanel);
+            }
+            if (ctrl != null)
+            {
+                this.Controls.Add(ctrl);
+                ctrl.Location = this.m_panelPlaceSpec.Location;
+                m_CurrentSpecificControlPropPanel = ctrl;
+            }
         }
     }
 }
