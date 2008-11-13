@@ -7,12 +7,12 @@ using SmartApp.Ihm.Designer;
 
 namespace SmartApp.Datas
 {
-    public class BTFilledRectControl : BTControl
+    public class BTFilledEllipseControl : BTControl
     {
 
         protected SpecificControlProp m_SpecificProp = null;
 
-        public BTFilledRectControl()
+        public BTFilledEllipseControl()
         {
             m_IControl = new TwoColorFilledRect();
             if (m_IControl != null)
@@ -21,7 +21,7 @@ namespace SmartApp.Datas
             m_SpecificProp = new TwoColorProp();
         }
 
-        public BTFilledRectControl(InteractiveControl Ctrl)
+        public BTFilledEllipseControl(InteractiveControl Ctrl)
         {
             m_IControl = Ctrl;
             if (m_IControl != null)
@@ -29,6 +29,7 @@ namespace SmartApp.Datas
 
             m_SpecificProp = new TwoColorProp();
         }
+
         public override SpecificControlProp SpecificProp
         {
             get
@@ -66,7 +67,7 @@ namespace SmartApp.Datas
             Node.AppendChild(NodeControl);
             WriteOutBaseObject(XmlDoc, NodeControl);
             XmlAttribute AttrSpec = XmlDoc.CreateAttribute(XML_CF_ATTRIB.SpecificType.ToString());
-            AttrSpec.Value = SPECIFIC_TYPE.FILLED_RECT.ToString();
+            AttrSpec.Value = SPECIFIC_TYPE.FILLED_ELLIPSE.ToString();
             NodeControl.Attributes.Append(AttrSpec);
             // on écrit les différents attributs du control
             if (!WriteOutCommonBTControl(XmlDoc, NodeControl))

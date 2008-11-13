@@ -16,6 +16,9 @@ namespace SmartApp.Ihm.Designer
             DropedItem = (InteractiveControl)e.Data.GetData(typeof(TwoColorFilledRect));
             if (DropedItem != null)
                 return DropedItem;
+            DropedItem = (InteractiveControl)e.Data.GetData(typeof(TwoColorFilledEllipse));
+            if (DropedItem != null)
+                return DropedItem;
 
             return null;
         }
@@ -24,6 +27,7 @@ namespace SmartApp.Ihm.Designer
         {
             if (ObjType == typeof(InteractiveControl)
                 || ObjType == typeof(TwoColorFilledRect)
+                || ObjType == typeof(TwoColorFilledEllipse)
                 )
                 return true;
             else

@@ -242,9 +242,12 @@ namespace SmartApp.Datas
                                     else if (NodeControl.Name == XML_CF_TAG.SpecificControl.ToString())
                                     {
                                         BTControl Control = SpecificControlParser.ParseAndCreateSpecificControl(NodeControl);
-                                        if (!Control.ReadIn(NodeControl))
-                                            return false;
-                                        m_GestControl.AddObj(Control);
+                                        if (Control != null)
+                                        {
+                                            if (!Control.ReadIn(NodeControl))
+                                                return false;
+                                            m_GestControl.AddObj(Control);
+                                        }
                                     }
                                     else
                                         return false;
@@ -377,6 +380,10 @@ namespace SmartApp.Datas
                     {
                         case SPECIFIC_TYPE.FILLED_RECT:
                             NewControl = new FilledRectControl();
+                            NewControl.ReadIn(ChildNode);
+                            break;
+                        case SPECIFIC_TYPE.FILLED_ELLIPSE:
+                            NewControl = new FilledEllipseControl();
                             NewControl.ReadIn(ChildNode);
                             break;
                         case SPECIFIC_TYPE.NULL:

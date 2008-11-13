@@ -167,6 +167,7 @@ namespace SmartApp
     {
         NULL,
         FILLED_RECT,
+        FILLED_ELLIPSE,
     }
 
     /// <summary>

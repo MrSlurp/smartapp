@@ -65,8 +65,10 @@
     <Compile Include="Common\AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Common\Datas\BTControl.Command.cs" />
     <Compile Include="Common\Datas\SpecificControlProp.cs" />
     <Compile Include="Common\Datas\SpecificControls\BTFilledRectControl.cs" />
+    <Compile Include="Common\Datas\SpecificControls\BTFilledEllipseControl.cs" />
     <Compile Include="Common\Datas\SpecificControls\IBTSpecificControl.cs" />
     <Compile Include="Common\IniFileParser.cs" />
     <Compile Include="Common\LaunchArgParser.cs" />
@@ -92,6 +94,9 @@
     <Compile Include="SmartCommand\Controls\ButtonControl.cs" />
     <Compile Include="SmartCommand\Controls\CheckControl.cs" />
     <Compile Include="SmartCommand\Controls\ComboControl.cs" />
+    <Compile Include="SmartCommand\Controls\FilledEllipseControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="SmartCommand\Controls\FilledRectControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -217,6 +222,12 @@
     </Compile>
     <Compile Include="SmartConfig\Ihm\Designer\SpecificControls\TwoColorFilledRect.Designer.cs">
       <DependentUpon>TwoColorFilledRect.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Designer\SpecificControls\TwoColorFilledEllipse.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Designer\SpecificControls\TwoColorFilledEllipse.Designer.cs">
+      <DependentUpon>TwoColorFilledEllipse.cs</DependentUpon>
     </Compile>
     <Compile Include="SmartConfig\Ihm\MDISmartConfigMain.cs">
       <SubType>Form</SubType>
@@ -400,6 +411,10 @@
     <EmbeddedResource Include="SmartConfig\Ihm\Designer\InteractiveControlContainer.resx">
       <SubType>Designer</SubType>
       <DependentUpon>InteractiveControlContainer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\Designer\SpecificControls\TwoColorFilledEllipse.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>TwoColorFilledEllipse.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SmartConfig\Ihm\Designer\SpecificControls\TwoColorFilledRect.resx">
       <SubType>Designer</SubType>

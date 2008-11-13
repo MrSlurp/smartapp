@@ -35,6 +35,7 @@ namespace SmartApp.Ihm.Designer
             this.m_ToolDragItemText = new SmartApp.Ihm.Designer.InteractiveControl();
             this.m_ToolDragItemcombo = new SmartApp.Ihm.Designer.InteractiveControl();
             this.m_ToolDragItemFilledRect = new SmartApp.Ihm.Designer.TwoColorFilledRect();
+            this.m_ToolDragItemFilledEllipse = new SmartApp.Ihm.Designer.TwoColorFilledEllipse();
             this.SuspendLayout();
             // 
             // m_ToolDragItemBtn
@@ -120,6 +121,16 @@ namespace SmartApp.Ihm.Designer
             this.m_ToolDragItemFilledRect.SourceBTControl = null;
             this.m_ToolDragItemFilledRect.TabIndex = 6;
             this.m_ToolDragItemFilledRect.MouseDown += new System.Windows.Forms.MouseEventHandler(this.OnItemMouseDown);
+
+            this.m_ToolDragItemFilledEllipse.AllowDrop = true;
+            this.m_ToolDragItemFilledEllipse.ControlType = SmartApp.Ihm.Designer.InteractiveControlType.SpecificControl;
+            this.m_ToolDragItemFilledEllipse.Location = new System.Drawing.Point(3, 199);
+            this.m_ToolDragItemFilledEllipse.Name = "m_ToolDragItemFilledEllipse";
+            this.m_ToolDragItemFilledEllipse.Selected = false;
+            this.m_ToolDragItemFilledEllipse.Size = new System.Drawing.Size(100, 40);
+            this.m_ToolDragItemFilledEllipse.SourceBTControl = null;
+            this.m_ToolDragItemFilledEllipse.TabIndex = 7;
+            this.m_ToolDragItemFilledEllipse.MouseDown += new System.Windows.Forms.MouseEventHandler(this.OnItemMouseDown);
             // 
             // DragItemPanel
             // 
@@ -133,6 +144,7 @@ namespace SmartApp.Ihm.Designer
             this.Controls.Add(this.m_ToolDragItemText);
             this.Controls.Add(this.m_ToolDragItemcombo);
             this.Controls.Add(this.m_ToolDragItemFilledRect);
+            this.Controls.Add(this.m_ToolDragItemFilledEllipse);
             this.Name = "DragItemPanel";
             this.Size = new System.Drawing.Size(157, 215);
             this.ResumeLayout(false);
@@ -146,6 +158,7 @@ namespace SmartApp.Ihm.Designer
         private SmartApp.Ihm.Designer.InteractiveControl m_ToolDragItemText;
         private SmartApp.Ihm.Designer.InteractiveControl m_ToolDragItemcombo;
         private SmartApp.Ihm.Designer.TwoColorFilledRect m_ToolDragItemFilledRect;
+        private SmartApp.Ihm.Designer.TwoColorFilledEllipse m_ToolDragItemFilledEllipse;
 
 
         #endregion

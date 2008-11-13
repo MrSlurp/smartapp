@@ -12,14 +12,11 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Text;
 using System.Xml;
-using System.Windows.Forms;
-using System.Drawing;
 using SmartApp.Ihm.Designer;
-using SmartApp.Scripts;
 
 namespace SmartApp.Datas
 {
-    public class BTControl : BaseObject, IScriptable
+    public partial class BTControl : BaseObject, IScriptable
     {
         #region Déclaration des données de la classe
         // control affiché dans le designer d'ecrans
@@ -36,13 +33,6 @@ namespace SmartApp.Datas
         //protected SpecificControlProp m_SpecificProp = null;
         #endregion
 
-        #region Déclaration des données de la classe pour BTCommand
-        protected Control m_Ctrl;
-        protected Data m_AssociateData;
-        protected BTScreen m_Parent;
-        protected Rectangle m_RectControl;
-        protected ScriptExecuter m_Executer = null;
-        #endregion
 
         #region constructeurs
         //*****************************************************************************************************
@@ -77,6 +67,10 @@ namespace SmartApp.Datas
                     {
                         newControl = new BTFilledRectControl(Ctrl);
                     }
+                    else if (Ctrl.GetType() == typeof(TwoColorFilledEllipse))
+                    {
+                        newControl = new BTFilledEllipseControl(Ctrl);
+                    }
                     else
                     {
                         System.Diagnostics.Debug.Assert(false);
@@ -91,17 +85,6 @@ namespace SmartApp.Datas
         #endregion
 
         #region attributs
-        public ScriptExecuter Executer
-        {
-            get
-            {
-                return m_Executer;
-            }
-            set
-            {
-                m_Executer = value;
-            }
-        }
 
         //*****************************************************************************************************
         // Description: en lecture seul, renvoie la référence vers l'objet graphique utilisé dans le designer
@@ -114,19 +97,6 @@ namespace SmartApp.Datas
                 return m_IControl;
             }
         }
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        public Control DisplayedControl
-        {
-            get
-            {
-                return m_Ctrl;
-            }
-        }
-
 
         //*****************************************************************************************************
         // Description: accesseur de la propriété IsReadOnly
@@ -316,7 +286,7 @@ namespace SmartApp.Datas
 
             m_IControl.Location = new System.Drawing.Point(int.Parse(TabStrPos[0]), int.Parse(TabStrPos[1]));
             m_IControl.Size = new System.Drawing.Size(int.Parse(TabStrSize[0]), int.Parse(TabStrSize[1]));
-            m_RectControl = new Rectangle(this.IControl.Location, this.IControl.Size);
+            SetControlRect();
             return true;
         }
         //*****************************************************************************************************
@@ -446,35 +416,6 @@ namespace SmartApp.Datas
             return true;
         }
 
-        #endregion
-
-        #region Fonction pour BTCommand
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        public void SetParent(BTScreen btScreen)
-        {
-            m_Parent = btScreen;
-        }
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        public virtual void CreateControl() { }
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        public virtual void OnControlEvent(Object Sender, EventArgs Args) { }
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        public virtual void UpdateFromData() { }
         #endregion
 
         #region Gestion des AppMessages

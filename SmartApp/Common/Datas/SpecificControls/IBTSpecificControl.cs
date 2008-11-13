@@ -26,12 +26,16 @@ namespace SmartApp.Datas
             {
                 // en cas de tag non reconne dans l'enum, une exeption est levée, 
                 // on la récupère car ca peut arriver
+                Console.WriteLine("Impossible de parser le type de controle specifique");
             }
 
             switch (TypeId)
             {
                 case SPECIFIC_TYPE.FILLED_RECT:
                     newControl = new BTFilledRectControl();
+                    break;
+                case SPECIFIC_TYPE.FILLED_ELLIPSE:
+                    newControl = new BTFilledEllipseControl();
                     break;
                 case SPECIFIC_TYPE.NULL:
                 default:
