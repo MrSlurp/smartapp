@@ -1,3 +1,5 @@
+using CommonLib;
+
 namespace SmartApp.Ihm
 {
     partial class DesignerForm
@@ -225,7 +227,7 @@ namespace SmartApp.Ihm
             // m_toolBtnAlignLeft
             // 
             this.m_toolBtnAlignLeft.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.m_toolBtnAlignLeft.Image = global::SmartApp.Properties.Resources.AlignLeft;
+            this.m_toolBtnAlignLeft.Image = Resources.AlignLeft;
             this.m_toolBtnAlignLeft.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.m_toolBtnAlignLeft.Name = "m_toolBtnAlignLeft";
             this.m_toolBtnAlignLeft.Size = new System.Drawing.Size(23, 22);
@@ -235,7 +237,7 @@ namespace SmartApp.Ihm
             // m_toolBtnAlignTop
             // 
             this.m_toolBtnAlignTop.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.m_toolBtnAlignTop.Image = global::SmartApp.Properties.Resources.AlignTop;
+            this.m_toolBtnAlignTop.Image = Resources.AlignTop;
             this.m_toolBtnAlignTop.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.m_toolBtnAlignTop.Name = "m_toolBtnAlignTop";
             this.m_toolBtnAlignTop.Size = new System.Drawing.Size(23, 22);
@@ -260,7 +262,7 @@ namespace SmartApp.Ihm
             // m_toolBtnMSHeight
             // 
             this.m_toolBtnMSHeight.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.m_toolBtnMSHeight.Image = global::SmartApp.Properties.Resources.MakeSameHeight;
+            this.m_toolBtnMSHeight.Image = Resources.MakeSameHeight;
             this.m_toolBtnMSHeight.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.m_toolBtnMSHeight.Name = "m_toolBtnMSHeight";
             this.m_toolBtnMSHeight.Size = new System.Drawing.Size(23, 22);
@@ -270,7 +272,7 @@ namespace SmartApp.Ihm
             // m_toolBtnMSSize
             // 
             this.m_toolBtnMSSize.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.m_toolBtnMSSize.Image = global::SmartApp.Properties.Resources.MakeSameBoth;
+            this.m_toolBtnMSSize.Image = Resources.MakeSameBoth;
             this.m_toolBtnMSSize.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.m_toolBtnMSSize.Name = "m_toolBtnMSSize";
             this.m_toolBtnMSSize.Size = new System.Drawing.Size(23, 22);
@@ -285,7 +287,7 @@ namespace SmartApp.Ihm
             // m_toolBtnArrangeAcross
             // 
             this.m_toolBtnArrangeAcross.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.m_toolBtnArrangeAcross.Image = global::SmartApp.Properties.Resources.ArrangeAcross;
+            this.m_toolBtnArrangeAcross.Image = Resources.ArrangeAcross;
             this.m_toolBtnArrangeAcross.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.m_toolBtnArrangeAcross.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.m_toolBtnArrangeAcross.Name = "m_toolBtnArrangeAcross";
@@ -296,7 +298,7 @@ namespace SmartApp.Ihm
             // m_toolBtnArrangeDown
             // 
             this.m_toolBtnArrangeDown.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.m_toolBtnArrangeDown.Image = global::SmartApp.Properties.Resources.ArrangeDown;
+            this.m_toolBtnArrangeDown.Image = Resources.ArrangeDown;
             this.m_toolBtnArrangeDown.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.m_toolBtnArrangeDown.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.m_toolBtnArrangeDown.Name = "m_toolBtnArrangeDown";

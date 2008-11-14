@@ -7,8 +7,8 @@ using System.Text;
 using System.IO;
 using System.Windows.Forms;
 using SmartApp.Ihm.Designer;
-using SmartApp.Gestionnaires;
-using SmartApp.Datas;
+
+using CommonLib;
 
 namespace SmartApp.Ihm
 {

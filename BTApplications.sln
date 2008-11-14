@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartApp", "SmartApp\SmartA
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SetupSmartApp", "SetupSmartApp\SetupSmartApp.vdproj", "{9BF24393-6579-44DE-8219-98F2958BD47B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonLib", "CommonLib\CommonLib.csproj", "{3EFBC5AC-5842-4DE5-85C2-507E24AEC46F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug Cmd|Any CPU = Debug Cmd|Any CPU
@@ -43,6 +45,21 @@ Global
 		{9BF24393-6579-44DE-8219-98F2958BD47B}.Release|Any CPU.ActiveCfg = Release
 		{9BF24393-6579-44DE-8219-98F2958BD47B}.Release|Mixed Platforms.ActiveCfg = Release
 		{9BF24393-6579-44DE-8219-98F2958BD47B}.Release|Win32.ActiveCfg = Release
+		{3EFBC5AC-5842-4DE5-85C2-507E24AEC46F}.Debug Cmd|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EFBC5AC-5842-4DE5-85C2-507E24AEC46F}.Debug Cmd|Any CPU.Build.0 = Debug|Any CPU
+		{3EFBC5AC-5842-4DE5-85C2-507E24AEC46F}.Debug Cmd|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{3EFBC5AC-5842-4DE5-85C2-507E24AEC46F}.Debug Cmd|Mixed Platforms.Build.0 = Debug|Any CPU
+		{3EFBC5AC-5842-4DE5-85C2-507E24AEC46F}.Debug Cmd|Win32.ActiveCfg = Debug|Any CPU
+		{3EFBC5AC-5842-4DE5-85C2-507E24AEC46F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EFBC5AC-5842-4DE5-85C2-507E24AEC46F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EFBC5AC-5842-4DE5-85C2-507E24AEC46F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{3EFBC5AC-5842-4DE5-85C2-507E24AEC46F}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{3EFBC5AC-5842-4DE5-85C2-507E24AEC46F}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{3EFBC5AC-5842-4DE5-85C2-507E24AEC46F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EFBC5AC-5842-4DE5-85C2-507E24AEC46F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EFBC5AC-5842-4DE5-85C2-507E24AEC46F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{3EFBC5AC-5842-4DE5-85C2-507E24AEC46F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{3EFBC5AC-5842-4DE5-85C2-507E24AEC46F}.Release|Win32.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

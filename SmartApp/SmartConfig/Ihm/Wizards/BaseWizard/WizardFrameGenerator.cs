@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
-using SmartApp.Datas;
-using SmartApp.Gestionnaires;
+using CommonLib;
+
 
 namespace SmartApp.Ihm.Wizards
 {

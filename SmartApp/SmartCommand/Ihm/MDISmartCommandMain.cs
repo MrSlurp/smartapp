@@ -6,8 +6,8 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using SmartApp.AppEventLog;
-using SmartApp.Datas;
-using SmartApp.Comm;
+using CommonLib;
+ 
 using System.IO;
 using System.Reflection;
 
@@ -162,9 +162,10 @@ namespace SmartApp
         //*****************************************************************************************************
         private bool OpenDoc(string strFullFileName)
         {
-            m_Document = new BTDoc();
-            m_Document.OnCommStateChange += new SmartApp.Comm.CommOpenedStateChange(OnCommStateChange);
-            if (m_Document.ReadConfigDocument(strFullFileName))
+            m_Document = new BTDoc(Program.TypeApp);
+            m_Document.OnCommStateChange += new CommOpenedStateChange(OnCommStateChange);
+            m_Document.EventAddLogEvent += new AddLogEventDelegate(AddLogEvent);
+            if (m_Document.ReadConfigDocument(strFullFileName, Program.TypeApp))
             {
                 if (OpenDocument(m_Document))
                 {
@@ -192,7 +193,7 @@ namespace SmartApp
             {
                 if (this.InvokeRequired)
                 {
-                    SmartApp.Comm.CommOpenedStateChange AsyncCall = new SmartApp.Comm.CommOpenedStateChange(AsyncUpdater);
+                    CommOpenedStateChange AsyncCall = new CommOpenedStateChange(AsyncUpdater);
                     this.Invoke(AsyncCall);
                 }
                 else
@@ -212,7 +213,7 @@ namespace SmartApp
             {
                 m_tsBtnConnexion.Checked = true;
                 m_tsBtnConnexion.Text = "Connected";
-                m_tsBtnConnexion.Image = global::SmartApp.Properties.Resources.CxnOn;
+                m_tsBtnConnexion.Image = Resources.CxnOn;
                 m_tsBtnStartStop.Enabled = true;
                 UpdateToolBarCxnItemState();
             }
@@ -220,9 +221,9 @@ namespace SmartApp
             {
                 m_tsBtnConnexion.Checked = false;
                 m_tsBtnConnexion.Text = "Disconnected";
-                m_tsBtnConnexion.Image = global::SmartApp.Properties.Resources.CxnOff;
+                m_tsBtnConnexion.Image = Resources.CxnOff;
                 m_tsBtnStartStop.Enabled = false;
-                m_Document.TraiteMessage(MESSAGE.MESS_CMD_STOP, null);
+                m_Document.TraiteMessage(MESSAGE.MESS_CMD_STOP, null, Program.TypeApp);
                 m_tsBtnStartStop.Checked = false;
                 UpdateToolBarCxnItemState();
             }
@@ -319,7 +320,7 @@ namespace SmartApp
                     m_IniFile.SetValue(m_Document.FileName, Cste.STR_FILE_DESC_COMM, strTypeComm);
                     m_IniFile.SetValue(m_Document.FileName, Cste.STR_FILE_DESC_ADDR, strCommParam);
                 }
-                m_Document.TraiteMessage(MESSAGE.MESS_CMD_STOP, null);
+                m_Document.TraiteMessage(MESSAGE.MESS_CMD_STOP, null, Program.TypeApp);
                 m_Document.DetachCommEventHandler(OnCommStateChange);
                 m_Document.CloseDocumentComm();
             }
@@ -415,8 +416,8 @@ namespace SmartApp
                     }
                     m_tsBtnStartStop.Checked = true;
                     m_tsBtnStartStop.Text = "Running";
-                    m_tsBtnStartStop.Image = global::SmartApp.Properties.Resources.CxnOn;
-                    m_Document.TraiteMessage(MESSAGE.MESS_CMD_RUN, null);
+                    m_tsBtnStartStop.Image = Resources.CxnOn;
+                    m_Document.TraiteMessage(MESSAGE.MESS_CMD_RUN, null, Program.TypeApp);
                     UpdateToolBarCxnItemState();
                 }
                 else
@@ -427,8 +428,8 @@ namespace SmartApp
                     }
                     m_tsBtnStartStop.Checked = false;
                     m_tsBtnStartStop.Text = "Stoppped";
-                    m_tsBtnStartStop.Image = global::SmartApp.Properties.Resources.CxnOff;
-                    m_Document.TraiteMessage(MESSAGE.MESS_CMD_STOP, null);
+                    m_tsBtnStartStop.Image = Resources.CxnOff;
+                    m_Document.TraiteMessage(MESSAGE.MESS_CMD_STOP, null, Program.TypeApp);
                     UpdateToolBarCxnItemState();
                 }
             }
@@ -440,7 +441,7 @@ namespace SmartApp
                 }
                 m_tsBtnStartStop.Checked = false;
                 m_tsBtnStartStop.Text = "Stoppped";
-                m_tsBtnStartStop.Image = global::SmartApp.Properties.Resources.CxnOff;
+                m_tsBtnStartStop.Image = Resources.CxnOff;
             }
 
         }
@@ -537,5 +538,11 @@ namespace SmartApp
         {
             AboutForm.ShowAbout();
         }
+
+        protected void AddLogEvent(LogEvent Event)
+        {
+            m_EventLog.AddLogEvent(Event);
+        }
+
     }
 }

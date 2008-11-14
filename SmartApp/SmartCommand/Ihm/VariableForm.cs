@@ -5,7 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using SmartApp.Gestionnaires;
+using CommonLib;
 
 namespace SmartApp
 {
@@ -35,7 +35,7 @@ namespace SmartApp
             m_DataslistView.Items.Clear();
             for (int i = 0; i < m_GestData.Count; i++)
             {
-                Datas.Data Dat = (Datas.Data)m_GestData[i];
+                Data Dat = (Data)m_GestData[i];
                 String[] ItemValues = new String[2];
                 ItemValues[0] = Dat.Symbol;
                 ItemValues[1] = String.Format("{0}", Dat.Value);
@@ -47,7 +47,7 @@ namespace SmartApp
         {
             for (int i = 0; i < m_GestData.Count; i++)
             {
-                Datas.Data Dat = (Datas.Data)m_GestData[i];
+                Data Dat = (Data)m_GestData[i];
                 String DataValue = String.Format("{0}", Dat.Value);
                 m_DataslistView.Items[i].SubItems[1].Text = DataValue;
             }

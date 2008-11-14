@@ -6,9 +6,8 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using SmartApp.Datas;
+using CommonLib;
 using SmartApp.Ihm.Designer;
-using SmartApp.Properties;
 
 namespace SmartApp.Ihm.Wizards
 {

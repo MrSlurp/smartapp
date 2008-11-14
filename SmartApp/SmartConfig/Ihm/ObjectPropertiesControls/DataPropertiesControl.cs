@@ -5,8 +5,8 @@ using System.Drawing;
 using System.Data;
 using System.Text;
 using System.Windows.Forms;
-using SmartApp.Datas;
-using SmartApp.Gestionnaires;
+using CommonLib;
+
 
 namespace SmartApp.Ihm
 {

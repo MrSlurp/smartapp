@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using SmartApp.Datas;
+using CommonLib;
 
 namespace SmartApp.Ihm
 {

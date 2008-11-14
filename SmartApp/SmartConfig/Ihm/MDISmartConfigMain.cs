@@ -10,6 +10,7 @@ using SmartApp.Ihm;
 using SmartApp.Ihm.Wizards;
 using Microsoft.Win32;
 using System.Reflection;
+using CommonLib;
 
 namespace SmartApp.Ihm
 {
@@ -186,7 +187,7 @@ namespace SmartApp.Ihm
         {
             if (m_Document == null)
             {
-                m_Document = new BTDoc();
+                m_Document = new BTDoc(Program.TypeApp);
                 OpenDocument(m_Document);
                 // on ne donne pas de nom au document, comme ca on peux savoir qu'il n'a jamais été sauvé
                 m_strDocumentName = "Untitled.scf";
@@ -208,7 +209,7 @@ namespace SmartApp.Ihm
                     }
                     this.CloseDoc();
 
-                    m_Document = new BTDoc();
+                    m_Document = new BTDoc(Program.TypeApp);
                     OpenDocument(m_Document);
                     // on ne donne pas de nom au document, comme ca on peux savoir qu'il n'a jamais été sauvé
                     m_strDocumentName = "Untitled.scf";
@@ -326,10 +327,10 @@ namespace SmartApp.Ihm
         //*****************************************************************************************************
         private bool OpenDoc(string strFullFileName)
         {
-            m_Document = new BTDoc();
+            m_Document = new BTDoc(Program.TypeApp);
             //m_Document.UpdateDocumentFrame += new NeedRefreshHMI(OnNeedUpdateHMI);
             //m_Document.OnDocumentModified += new DocumentModifiedEvent(UpdateModifiedFlag);
-            if (m_Document.ReadConfigDocument(strFullFileName))
+            if (m_Document.ReadConfigDocument(strFullFileName, Program.TypeApp))
             {
                 if (OpenDocument(m_Document))
                 {

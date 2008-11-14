@@ -1,4 +1,5 @@
-﻿namespace SmartApp
+﻿using CommonLib;
+namespace SmartApp
 {
     partial class MDISmartCommandMain
     {
@@ -191,7 +192,7 @@
             // 
             // m_tsBtnConnexion
             // 
-            this.m_tsBtnConnexion.Image = global::SmartApp.Properties.Resources.CxnOff;
+            this.m_tsBtnConnexion.Image = Resources.CxnOff;
             this.m_tsBtnConnexion.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.m_tsBtnConnexion.Name = "m_tsBtnConnexion";
             this.m_tsBtnConnexion.Size = new System.Drawing.Size(91, 22);
@@ -201,7 +202,7 @@
             // m_tsBtnStartStop
             // 
             this.m_tsBtnStartStop.Enabled = false;
-            this.m_tsBtnStartStop.Image = global::SmartApp.Properties.Resources.CxnOff;
+            this.m_tsBtnStartStop.Image = Resources.CxnOff;
             this.m_tsBtnStartStop.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.m_tsBtnStartStop.Name = "m_tsBtnStartStop";
             this.m_tsBtnStartStop.Size = new System.Drawing.Size(67, 22);

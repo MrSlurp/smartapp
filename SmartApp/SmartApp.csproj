@@ -65,55 +65,26 @@
     <Compile Include="Common\AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Common\Datas\BTControl.Command.cs" />
-    <Compile Include="Common\Datas\SpecificControlProp.cs" />
-    <Compile Include="Common\Datas\SpecificControls\BTFilledRectControl.cs" />
-    <Compile Include="Common\Datas\SpecificControls\BTFilledEllipseControl.cs" />
-    <Compile Include="Common\Datas\SpecificControls\IBTSpecificControl.cs" />
     <Compile Include="Common\IniFileParser.cs" />
     <Compile Include="Common\LaunchArgParser.cs" />
-    <Compile Include="Common\Scripts\Executer.cs" />
+    <Compile Include="DllInterface\DllControlInterface.cs" />
     <Compile Include="SmartCommand\AppEventLog\AppEventLogForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SmartCommand\AppEventLog\AppEventLogForm.Designer.cs">
       <DependentUpon>AppEventLogForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="SmartCommand\AppEventLog\LogEvent.cs" />
-    <Compile Include="SmartCommand\Comm\BaseComm.cs" />
-    <Compile Include="SmartCommand\Comm\BTComm.cs" />
-    <Compile Include="SmartCommand\Comm\EthernetComm.cs" />
-    <Compile Include="SmartCommand\Comm\HttpComm.cs" />
-    <Compile Include="SmartCommand\Comm\SerialComm.cs" />
     <Compile Include="Common\Controls Personnalisables\Gauge.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Common\Controls Personnalisables\Gauge.Designer.cs">
       <DependentUpon>Gauge.cs</DependentUpon>
     </Compile>
-    <Compile Include="SmartCommand\Controls\ButtonControl.cs" />
-    <Compile Include="SmartCommand\Controls\CheckControl.cs" />
-    <Compile Include="SmartCommand\Controls\ComboControl.cs" />
-    <Compile Include="SmartCommand\Controls\FilledEllipseControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="SmartCommand\Controls\FilledRectControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SmartCommand\Controls\SliderControl.cs" />
-    <Compile Include="SmartCommand\Controls\StaticControl.cs" />
-    <Compile Include="SmartCommand\Controls\UpDownControl.cs" />
     <Compile Include="SmartCommand\Ihm\CommConfiguration.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SmartCommand\Ihm\CommConfiguration.Designer.cs">
       <DependentUpon>CommConfiguration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SmartCommand\Ihm\DynamicPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="SmartCommand\Ihm\DynamicPanel.Designer.cs">
-      <DependentUpon>DynamicPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="SmartCommand\Ihm\DynamicPanelForm.cs">
       <SubType>Form</SubType>
@@ -145,27 +116,6 @@
     <Compile Include="SmartCommand\Ihm\WaitOpenCommForm.Designer.cs">
       <DependentUpon>WaitOpenCommForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="SmartConfig\Ihm\AppMessages.cs" />
-    <Compile Include="Common\Datas\BaseObject.cs" />
-    <Compile Include="Common\Datas\BTControl.cs">
-    </Compile>
-    <Compile Include="Common\Datas\BTScreen.cs" />
-    <Compile Include="Common\Datas\BTTimer.cs" />
-    <Compile Include="Common\Datas\Data.cs" />
-    <Compile Include="Common\Datas\Function.cs" />
-    <Compile Include="Common\Datas\Logger.cs" />
-    <Compile Include="Defines.cs" />
-    <Compile Include="Common\Datas\Trame.cs" />
-    <Compile Include="Common\Gestionnaires\BaseGest.cs" />
-    <Compile Include="Common\Gestionnaires\BaseGestGroup.cs" />
-    <Compile Include="Common\Gestionnaires\GestControl.cs" />
-    <Compile Include="Common\Gestionnaires\GestData.cs" />
-    <Compile Include="Common\Gestionnaires\GestFunction.cs" />
-    <Compile Include="Common\Gestionnaires\GestLogger.cs" />
-    <Compile Include="Common\Gestionnaires\GestScreen.cs" />
-    <Compile Include="Common\Gestionnaires\GestTimer.cs" />
-    <Compile Include="Common\Gestionnaires\GestTrame.cs" />
-    <Compile Include="Common\BTDoc.cs" />
     <Compile Include="SmartConfig\Ihm\ConfigurationForm\DataForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -190,44 +140,17 @@
     <Compile Include="SmartConfig\Ihm\ControlConfig\GaugeConfig.Designer.cs">
       <DependentUpon>GaugeConfig.cs</DependentUpon>
     </Compile>
-    <Compile Include="SmartConfig\Ihm\Designer\ControlPainter.cs" />
     <Compile Include="SmartConfig\Ihm\Designer\DragItemPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="SmartConfig\Ihm\Designer\DragItemPanel.Designer.cs">
       <DependentUpon>DragItemPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="SmartConfig\Ihm\Designer\DropableItems.cs" />
-    <Compile Include="SmartConfig\Ihm\Designer\InteractiveControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\Designer\InteractiveControl.Designer.cs">
-      <DependentUpon>InteractiveControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="SmartConfig\Ihm\Designer\InteractiveControlContainer.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="SmartConfig\Ihm\Designer\InteractiveControlContainer.Designer.cs">
       <DependentUpon>InteractiveControlContainer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\Designer\MoveButton.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\Designer\ResizeButton.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\Designer\SpecificControls\ISpecific.cs" />
-    <Compile Include="SmartConfig\Ihm\Designer\SpecificControls\TwoColorFilledRect.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\Designer\SpecificControls\TwoColorFilledRect.Designer.cs">
-      <DependentUpon>TwoColorFilledRect.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\Designer\SpecificControls\TwoColorFilledEllipse.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\Designer\SpecificControls\TwoColorFilledEllipse.Designer.cs">
-      <DependentUpon>TwoColorFilledEllipse.cs</DependentUpon>
     </Compile>
     <Compile Include="SmartConfig\Ihm\MDISmartConfigMain.cs">
       <SubType>Form</SubType>
@@ -315,7 +238,6 @@
     <Compile Include="SmartConfig\Ihm\ProgItemPanels\TimerPanel.Designer.cs">
       <DependentUpon>TimerPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Common\Scripts\Parser.cs" />
     <Compile Include="SmartConfig\Ihm\Scripts\ScriptControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -360,10 +282,6 @@
       <SubType>Designer</SubType>
       <DependentUpon>CommConfiguration.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SmartCommand\Ihm\DynamicPanel.resx">
-      <DependentUpon>DynamicPanel.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="SmartCommand\Ihm\DynamicPanelForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>DynamicPanelForm.cs</DependentUpon>
@@ -404,21 +322,9 @@
       <SubType>Designer</SubType>
       <DependentUpon>DragItemPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SmartConfig\Ihm\Designer\InteractiveControl.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>InteractiveControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="SmartConfig\Ihm\Designer\InteractiveControlContainer.resx">
       <SubType>Designer</SubType>
       <DependentUpon>InteractiveControlContainer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SmartConfig\Ihm\Designer\SpecificControls\TwoColorFilledEllipse.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>TwoColorFilledEllipse.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SmartConfig\Ihm\Designer\SpecificControls\TwoColorFilledRect.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>TwoColorFilledRect.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SmartConfig\Ihm\MDISmartConfigMain.resx">
       <SubType>Designer</SubType>
@@ -530,83 +436,149 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SmartConfig\Res\UpDownBtn.bmp" />
+    <None Include="SmartConfig\Res\UpDownBtn.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SmartConfig\Res\BottomLeftBtn.bmp" />
+    <None Include="SmartConfig\Res\BottomLeftBtn.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SmartConfig\Res\BottomRightBtn.bmp" />
+    <None Include="SmartConfig\Res\BottomRightBtn.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SmartConfig\Res\CheckBox.bmp" />
+    <None Include="SmartConfig\Res\CheckBox.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SmartConfig\Res\ColorTourComboUpDownNum.bmp" />
+    <None Include="SmartConfig\Res\ColorTourComboUpDownNum.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SmartConfig\Res\DownBtn.bmp" />
+    <None Include="SmartConfig\Res\DownBtn.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SmartConfig\Res\LeftBtn.bmp" />
+    <None Include="SmartConfig\Res\LeftBtn.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SmartConfig\Res\RadioBtn.bmp" />
+    <None Include="SmartConfig\Res\RadioBtn.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SmartConfig\Res\RightBtn.bmp" />
+    <None Include="SmartConfig\Res\RightBtn.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SmartConfig\Res\SliderBar.bmp" />
+    <None Include="SmartConfig\Res\SliderBar.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SmartConfig\Res\SliderCursor.bmp" />
+    <None Include="SmartConfig\Res\SliderCursor.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SmartConfig\Res\TopBtn.bmp" />
+    <None Include="SmartConfig\Res\TopBtn.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SmartConfig\Res\TopLeftBtn.bmp" />
+    <None Include="SmartConfig\Res\TopLeftBtn.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SmartConfig\Res\TopRightBtn.bmp" />
+    <None Include="SmartConfig\Res\TopRightBtn.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SmartConfig\Res\DropBtn.bmp" />
+    <None Include="SmartConfig\Res\DropBtn.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SmartConfig\Res\move.bmp" />
+    <None Include="SmartConfig\Res\move.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SmartConfig\Res\Toolbar\MakeSameHeight.bmp" />
+    <None Include="SmartConfig\Res\Toolbar\MakeSameHeight.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SmartConfig\Res\Toolbar\AlignLeft.bmp" />
+    <None Include="SmartConfig\Res\Toolbar\AlignLeft.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SmartConfig\Res\Toolbar\AlignTop.bmp" />
+    <None Include="SmartConfig\Res\Toolbar\AlignTop.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SmartConfig\Res\Toolbar\MakeSameWidth.bmp" />
+    <None Include="SmartConfig\Res\Toolbar\MakeSameWidth.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SmartConfig\Res\Toolbar\MakeSameBoth.bmp" />
+    <None Include="SmartConfig\Res\Toolbar\MakeSameBoth.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
-    <None Include="SmartConfig\Res\CxnOn.bmp" />
-    <None Include="SmartConfig\Res\CxnOff.bmp" />
-    <None Include="SmartConfig\Res\PresAssData.bmp" />
+    <None Include="ClassDiagram1.cd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="SmartConfig\Res\CxnOn.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="SmartConfig\Res\CxnOff.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="SmartConfig\Res\PresAssData.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="SmartApp.ico" />
     <None Include="app.config" />
-    <None Include="SmartConfig\Res\WizRes\SLO3.bmp" />
-    <None Include="SmartConfig\Res\WizRes\SLI2.bmp" />
-    <None Include="SmartConfig\Res\WizRes\SLI3.bmp" />
-    <None Include="SmartConfig\Res\WizRes\SLO1.bmp" />
-    <None Include="SmartConfig\Res\WizRes\SLO2.bmp" />
-    <None Include="SmartConfig\Res\WizRes\SLI1.bmp" />
-    <None Include="SmartConfig\Res\Toolbar\ArrangeDown.bmp" />
-    <None Include="SmartConfig\Res\Toolbar\ArrangeAcross.bmp" />
+    <None Include="SmartConfig\Res\WizRes\SLO3.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="SmartConfig\Res\WizRes\SLI2.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="SmartConfig\Res\WizRes\SLI3.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="SmartConfig\Res\WizRes\SLO1.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="SmartConfig\Res\WizRes\SLO2.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="SmartConfig\Res\WizRes\SLI1.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="SmartConfig\Res\Toolbar\ArrangeDown.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="SmartConfig\Res\Toolbar\ArrangeAcross.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="ToDo.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -615,6 +587,12 @@
       <ProductName>.NET Framework 2.0</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CommonLib\CommonLib.csproj">
+      <Project>{3EFBC5AC-5842-4DE5-85C2-507E24AEC46F}</Project>
+      <Name>CommonLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

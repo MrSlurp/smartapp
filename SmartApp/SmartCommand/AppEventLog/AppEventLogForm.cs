@@ -5,12 +5,15 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using CommonLib;
 
 namespace SmartApp.AppEventLog
 {
     public partial class AppEventLogForm : Form
     {
+        private delegate void delegateAddLog(LogEvent ev);
         private int m_iMaxEventLine = 100;
+        
 
         //*****************************************************************************************************
         // Description:
@@ -26,6 +29,19 @@ namespace SmartApp.AppEventLog
         // Return: /
         //*****************************************************************************************************
         public void AddLogEvent(LogEvent ev)
+        {
+            if (this.InvokeRequired)
+            {
+                delegateAddLog d = new delegateAddLog(AddLog);
+                this.Invoke(d, ev);
+            }
+            else
+            {
+                AddLog(ev);
+            }
+        }
+
+        private void AddLog(LogEvent ev)
         {
             if (m_lvEvent.Items.Count < m_iMaxEventLine)
             {

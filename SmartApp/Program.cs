@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using SmartApp.Ihm;
+using CommonLib;
 
 namespace SmartApp
 {
@@ -54,6 +55,7 @@ namespace SmartApp
         [STAThread]
         static void Main(string[] strArgsList)
         {
+            CommonLib.Resources.InitializeBitmap();
             //System.Diagnostics.Debugger.Break();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
