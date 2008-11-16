@@ -118,7 +118,7 @@ namespace CtrlSerpentin
         protected override void OnPaint(PaintEventArgs e)
         {
             Color UsedColor = m_bIsActive ? this.m_ColorActive : this.m_ColorInactive;
-            Pen pn = new Pen(UsedColor, 3);
+            Pen pn = new Pen(UsedColor, 4);
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
             e.Graphics.DrawLines(pn, m_ListPoint);
             pn.Dispose();

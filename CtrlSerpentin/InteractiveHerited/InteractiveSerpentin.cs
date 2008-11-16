@@ -94,7 +94,7 @@ namespace CtrlSerpentin
                 crbr = ((TwoColorProp)SourceBTControl.SpecificProp).ColorInactive;
             else
                 crbr = Color.Blue;
-            Pen pn = new Pen(crbr, 3);
+            Pen pn = new Pen(crbr, 4);
             gr.SmoothingMode = SmoothingMode.AntiAlias;
             gr.DrawLines(pn, m_ListPoint);
             ControlPainter.DrawPresenceAssociateData(gr, ctrl);

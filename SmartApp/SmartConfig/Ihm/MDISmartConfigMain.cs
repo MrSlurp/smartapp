@@ -16,6 +16,7 @@ namespace SmartApp.Ihm
 {
     public partial class MDISmartConfigMain : Form
     {
+        protected delegate void UpdateTitleDg(string str);
         protected DataForm m_DataForm = new DataForm();
         protected DesignerForm m_DesignForm = new DesignerForm();
         protected FrameForm m_FrameForm = new FrameForm();
@@ -175,7 +176,21 @@ namespace SmartApp.Ihm
                     strTitle += "*";
                 }
             }
-            this.Text = strTitle;
+            if (this.InvokeRequired)
+            {
+                UpdateTitleDg dg = new UpdateTitleDg(SetTitle);
+                this.Invoke(dg, strTitle);
+
+            }
+            else
+            {
+                this.Text = strTitle;
+            }
+        }
+
+        private void SetTitle(string str)
+        {
+            this.Text = str;
         }
 
         #region menu File

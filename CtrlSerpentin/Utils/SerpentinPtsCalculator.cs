@@ -14,7 +14,7 @@ namespace CtrlSerpentin
         {
             // les points vont de gauche à droite et doivent commencer et finir à droite
             int xPtLeft = MARGE;
-            int xPtRight = Rect.Width - MARGE;
+            int xPtRight = Rect.Width;
             int nbPoints = Rect.Height / ECART_PT;
 
             // il faut un nombre de points impaire
