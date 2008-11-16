@@ -11,6 +11,7 @@ namespace SmartApp
         static MDISmartConfigMain m_ConfigApp = null;
         static MDISmartCommandMain m_CommandApp = null;
         static Form m_CurrentMainForm = null;
+        static DllControlGest m_GestDlls = new DllControlGest();
 
         private static TYPE_APP m_TypeApp = TYPE_APP.NONE;
 
@@ -26,9 +27,13 @@ namespace SmartApp
             {
                 return m_TypeApp;
             }
-            set
+        }
+
+        public static DllControlGest DllGest
+        {
+            get
             {
-                m_TypeApp = value;
+                return m_GestDlls;
             }
         }
 
@@ -56,6 +61,7 @@ namespace SmartApp
         static void Main(string[] strArgsList)
         {
             CommonLib.Resources.InitializeBitmap();
+            m_GestDlls.LoadExistingDlls();
             //System.Diagnostics.Debugger.Break();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

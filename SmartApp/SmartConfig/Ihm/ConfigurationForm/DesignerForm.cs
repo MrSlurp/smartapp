@@ -249,6 +249,12 @@ namespace SmartApp.Ihm
                     else
                         m_PanelCtrlEventScript.ScriptableItem = null;
                     break;
+                case InteractiveControlType.DllControl:
+                    if (((ISpecificControl)ctrl.IControl).StdPropEnabling.m_bCtrlEventScriptEnabled)
+                        m_PanelCtrlEventScript.ScriptableItem = ctrl;
+                    else
+                        m_PanelCtrlEventScript.ScriptableItem = null;
+                    break;
                 default:
                     System.Diagnostics.Debug.Assert(false);
                     break;
@@ -381,7 +387,12 @@ namespace SmartApp.Ihm
             if (m_Currentscreen == null)
                 return;
 
-            BTControl NewCtrl = BTControl.CreateNewBTControl(ctrl);
+            BTControl NewCtrl = null;
+            if (ctrl.IsDllControl)
+                NewCtrl = Program.DllGest[ctrl.DllControlID].CreateBTControl(ctrl);
+            else
+                NewCtrl = BTControl.CreateNewBTControl(ctrl);
+
             NewCtrl.Symbol = m_Currentscreen.Controls.GetNextDefaultSymbol();
             m_Currentscreen.Controls.AddObj(NewCtrl);
             m_Document.Modified = true;

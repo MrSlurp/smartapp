@@ -134,13 +134,14 @@ namespace SmartApp.Ihm.Designer
                     switch (Ctrl.ControlType)
                     {
                         case InteractiveControlType.Button:
+                        case InteractiveControlType.SpecificControl:
+                        case InteractiveControlType.DllControl:
                             break;
                         case InteractiveControlType.CheckBox:
                         case InteractiveControlType.Slider:
                         case InteractiveControlType.Combo:
                         case InteractiveControlType.Text:
                         case InteractiveControlType.NumericUpDown:
-                        case InteractiveControlType.SpecificControl:
                             Abilities = SelectionAbilitiesValues.AbleResizeWidth;
                             break;
                         default :
@@ -588,7 +589,9 @@ namespace SmartApp.Ihm.Designer
                 newControl.Name = DropedItem.Name;
                 newControl.Location = new Point(PtMouse.X - DropedItem.PtMouseDown.X, 
                                                 PtMouse.Y - DropedItem.PtMouseDown.Y);
-                newControl.ControlType = DropedItem.ControlType;
+                if (!newControl.IsDllControl)
+                    newControl.ControlType = DropedItem.ControlType;
+
                 newControl.Size = DropedItem.Size;
                 newControl.Text = DropedItem.Text;
                 // lorsqu'un control est ajouté, on supprime la séléction

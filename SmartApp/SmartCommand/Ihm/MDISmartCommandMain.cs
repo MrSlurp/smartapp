@@ -165,7 +165,7 @@ namespace SmartApp
             m_Document = new BTDoc(Program.TypeApp);
             m_Document.OnCommStateChange += new CommOpenedStateChange(OnCommStateChange);
             m_Document.EventAddLogEvent += new AddLogEventDelegate(AddLogEvent);
-            if (m_Document.ReadConfigDocument(strFullFileName, Program.TypeApp))
+            if (m_Document.ReadConfigDocument(strFullFileName, Program.TypeApp, Program.DllGest))
             {
                 if (OpenDocument(m_Document))
                 {

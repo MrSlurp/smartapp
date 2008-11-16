@@ -249,6 +249,10 @@ namespace SmartApp.Ihm
                     if (dat == null)
                         bRet = false;
                 }
+                if (m_CurrentSpecificControlPropPanel != null
+                    && !((ISpecificPanel)m_CurrentSpecificControlPropPanel).IsDataValuesValid)
+                    bRet = false;
+
 
                 return bRet;
             }
@@ -304,6 +308,10 @@ namespace SmartApp.Ihm
             if (m_Control.UseScreenEvent != this.UseScreenEvent)
                 bDataPropChange |= true;
             if (this.Txt != m_Control.IControl.Text)
+                bDataPropChange |= true;
+
+            if (m_CurrentSpecificControlPropPanel != null
+                && ((ISpecificPanel)m_CurrentSpecificControlPropPanel).ValidateValues())
                 bDataPropChange |= true;
 
             if (bDataPropChange)
@@ -436,6 +444,7 @@ namespace SmartApp.Ihm
                     SetSpecificPanelProp(null);
                     break;
                 case InteractiveControlType.SpecificControl:
+                case InteractiveControlType.DllControl:
                     m_EditText.Enabled = ((ISpecificControl)m_Control.IControl).StdPropEnabling.m_bEditTextEnabled;
                     this.Txt = "";
                     m_EditAssociateData.Enabled = ((ISpecificControl)m_Control.IControl).StdPropEnabling.m_bEditAssociateDataEnabled;
@@ -443,6 +452,7 @@ namespace SmartApp.Ihm
                     m_checkReadOnly.Checked = ((ISpecificControl)m_Control.IControl).StdPropEnabling.m_bcheckReadOnlyChecked;
                     m_checkScreenEvent.Enabled = ((ISpecificControl)m_Control.IControl).StdPropEnabling.m_bcheckScreenEventEnabled;
                     m_checkScreenEvent.Checked = ((ISpecificControl)m_Control.IControl).StdPropEnabling.m_bcheckScreenEventChecked;
+                    m_EditText.Enabled = ((ISpecificControl)m_Control.IControl).StdPropEnabling.m_bEditTextEnabled;
                     SetSpecificPanelProp(((ISpecificControl)m_Control.IControl).SpecificPropPanel);
                     ((ISpecificPanel)((ISpecificControl)m_Control.IControl).SpecificPropPanel).BTControl = m_Control;
                     ((ISpecificPanel)((ISpecificControl)m_Control.IControl).SpecificPropPanel).Doc = m_Document;
@@ -461,10 +471,22 @@ namespace SmartApp.Ihm
             }
             if (ctrl != null)
             {
-                this.Controls.Add(ctrl);
-                ctrl.Location = this.m_panelPlaceSpec.Location;
-                m_CurrentSpecificControlPropPanel = ctrl;
+                try
+                {
+                    this.Controls.Add(ctrl);
+                    ctrl.Location = this.m_panelPlaceSpec.Location;
+                    m_CurrentSpecificControlPropPanel = ctrl;
+                    m_CurrentSpecificControlPropPanel.Visible = true;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
             }
+        }
+        protected override void OnControlAdded(ControlEventArgs e)
+        {
+            base.OnControlAdded(e);
         }
     }
 }

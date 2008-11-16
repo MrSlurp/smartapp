@@ -330,7 +330,7 @@ namespace SmartApp.Ihm
             m_Document = new BTDoc(Program.TypeApp);
             //m_Document.UpdateDocumentFrame += new NeedRefreshHMI(OnNeedUpdateHMI);
             //m_Document.OnDocumentModified += new DocumentModifiedEvent(UpdateModifiedFlag);
-            if (m_Document.ReadConfigDocument(strFullFileName, Program.TypeApp))
+            if (m_Document.ReadConfigDocument(strFullFileName, Program.TypeApp, Program.DllGest))
             {
                 if (OpenDocument(m_Document))
                 {
@@ -421,7 +421,7 @@ namespace SmartApp.Ihm
             if (this.InvokeRequired)
             {
                 AsyncUpdateHMI AsyncCall = new AsyncUpdateHMI(AsyncUpdater);
-                this.Invoke(AsyncCall);
+                this.Invoke(AsyncCall, Mess);
             }
             else
             {

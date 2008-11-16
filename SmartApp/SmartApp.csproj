@@ -67,7 +67,6 @@
     </Compile>
     <Compile Include="Common\IniFileParser.cs" />
     <Compile Include="Common\LaunchArgParser.cs" />
-    <Compile Include="DllInterface\DllControlInterface.cs" />
     <Compile Include="SmartCommand\AppEventLog\AppEventLogForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -206,7 +205,6 @@
     <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\FunctionPropertiesControl.Designer.cs">
       <DependentUpon>FunctionPropertiesControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\SpecificProperties\ISpecificPanel.cs" />
     <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\TimerPropertiesControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -436,147 +434,144 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SmartConfig\Res\UpDownBtn.bmp">
+    <None Include="Res\UpDownBtn.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SmartConfig\Res\BottomLeftBtn.bmp">
+    <None Include="Res\BottomLeftBtn.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SmartConfig\Res\BottomRightBtn.bmp">
+    <None Include="Res\BottomRightBtn.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SmartConfig\Res\CheckBox.bmp">
+    <None Include="Res\CheckBox.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SmartConfig\Res\ColorTourComboUpDownNum.bmp">
+    <None Include="Res\ColorTourComboUpDownNum.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SmartConfig\Res\DownBtn.bmp">
+    <None Include="Res\DownBtn.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SmartConfig\Res\LeftBtn.bmp">
+    <None Include="Res\LeftBtn.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SmartConfig\Res\RadioBtn.bmp">
+    <None Include="Res\RadioBtn.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SmartConfig\Res\RightBtn.bmp">
+    <None Include="Res\RightBtn.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SmartConfig\Res\SliderBar.bmp">
+    <None Include="Res\SliderBar.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SmartConfig\Res\SliderCursor.bmp">
+    <None Include="Res\SliderCursor.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SmartConfig\Res\TopBtn.bmp">
+    <None Include="Res\TopBtn.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SmartConfig\Res\TopLeftBtn.bmp">
+    <None Include="Res\TopLeftBtn.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SmartConfig\Res\TopRightBtn.bmp">
+    <None Include="Res\TopRightBtn.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SmartConfig\Res\DropBtn.bmp">
+    <None Include="Res\DropBtn.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SmartConfig\Res\move.bmp">
+    <None Include="Res\move.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SmartConfig\Res\Toolbar\MakeSameHeight.bmp">
+    <None Include="Res\Toolbar\MakeSameHeight.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SmartConfig\Res\Toolbar\AlignLeft.bmp">
+    <None Include="Res\Toolbar\AlignLeft.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SmartConfig\Res\Toolbar\AlignTop.bmp">
+    <None Include="Res\Toolbar\AlignTop.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SmartConfig\Res\Toolbar\MakeSameWidth.bmp">
+    <None Include="Res\Toolbar\MakeSameWidth.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SmartConfig\Res\Toolbar\MakeSameBoth.bmp">
+    <None Include="Res\Toolbar\MakeSameBoth.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="SmartConfig\Res\CxnOn.bmp">
+    <None Include="Res\CxnOn.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SmartConfig\Res\CxnOff.bmp">
+    <None Include="Res\CxnOff.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SmartConfig\Res\PresAssData.bmp">
+    <None Include="Res\PresAssData.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="SmartApp.ico" />
     <None Include="app.config" />
-    <None Include="SmartConfig\Res\WizRes\SLO3.bmp">
+    <None Include="Res\WizRes\SLO3.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SmartConfig\Res\WizRes\SLI2.bmp">
+    <None Include="Res\WizRes\SLI2.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SmartConfig\Res\WizRes\SLI3.bmp">
+    <None Include="Res\WizRes\SLI3.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SmartConfig\Res\WizRes\SLO1.bmp">
+    <None Include="Res\WizRes\SLO1.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SmartConfig\Res\WizRes\SLO2.bmp">
+    <None Include="Res\WizRes\SLO2.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SmartConfig\Res\WizRes\SLI1.bmp">
+    <None Include="Res\WizRes\SLI1.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SmartConfig\Res\Toolbar\ArrangeDown.bmp">
+    <None Include="Res\Toolbar\ArrangeDown.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="SmartConfig\Res\Toolbar\ArrangeAcross.bmp">
+    <None Include="Res\Toolbar\ArrangeAcross.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="ToDo.txt" />

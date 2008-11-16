@@ -121,7 +121,9 @@ namespace SmartApp.Ihm.Designer
             this.m_ToolDragItemFilledRect.SourceBTControl = null;
             this.m_ToolDragItemFilledRect.TabIndex = 6;
             this.m_ToolDragItemFilledRect.MouseDown += new System.Windows.Forms.MouseEventHandler(this.OnItemMouseDown);
-
+            // 
+            // m_ToolDragItemFilledEllipse
+            // 
             this.m_ToolDragItemFilledEllipse.AllowDrop = true;
             this.m_ToolDragItemFilledEllipse.ControlType = CommonLib.InteractiveControlType.SpecificControl;
             this.m_ToolDragItemFilledEllipse.Location = new System.Drawing.Point(3, 199);
