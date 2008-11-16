@@ -13,7 +13,7 @@ namespace CommonLib
 
         public BTFilledEllipseControl()
         {
-            m_IControl = new TwoColorFilledRect();
+            m_IControl = new TwoColorFilledEllipse();
             if (m_IControl != null)
                 m_IControl.SourceBTControl = this;
 

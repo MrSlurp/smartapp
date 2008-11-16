@@ -121,6 +121,7 @@ namespace CommonLib
         ImagePath,
         Program,
         SpecificControl,
+        DllControl,
     }
     /// <summary>
     /// enum des attributs du ficher de config (Config File (CF))
@@ -156,6 +157,7 @@ namespace CommonLib
         ActiveColor,
         InactiveColor,
         SpecificType,
+        DllID,
     }
 
     /// <summary>
@@ -172,6 +174,7 @@ namespace CommonLib
         STATIC,
         UP_DOWN,
         SPECIFIC,
+        DLL,
     }
 
     public enum SPECIFIC_TYPE

@@ -140,7 +140,7 @@ namespace CommonLib
         {
             if (OnCommStateChange != null)
             {
-                Delegate.Remove(OnCommStateChange, Handler);
+                m_Comm.OnCommStateChange -= new CommOpenedStateChange(this.CommeStateChangeEvent);
             }
         }
         #endregion
@@ -298,7 +298,7 @@ namespace CommonLib
         // Description:
         // Return: /
         //*****************************************************************************************************
-        public bool ReadConfigDocument(string strFullFileName, TYPE_APP TypeApp)
+        public bool ReadConfigDocument(string strFullFileName, TYPE_APP TypeApp, DllControlGest GestDll)
         {
             m_strfileFullName = strFullFileName;
             XmlDocument XmlDoc = new XmlDocument();
@@ -344,7 +344,7 @@ namespace CommonLib
                             return false;
                         break;
                     case XML_CF_TAG.ScreenSection:
-                        if (!this.GestScreen.ReadIn(Node, TypeApp))
+                        if (!this.GestScreen.ReadIn(Node, TypeApp, GestDll))
                             return false;
                         break;
                     case XML_CF_TAG.FileHeader:

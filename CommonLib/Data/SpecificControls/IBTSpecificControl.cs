@@ -62,5 +62,11 @@ namespace CommonLib
 
             return TypeId;
         }
+
+        public static uint ParseDllID(XmlNode Node)
+        {
+            XmlNode AttrId = Node.Attributes.GetNamedItem(XML_CF_ATTRIB.DllID.ToString());
+            return uint.Parse(AttrId.Value);
+        }
     }
 }

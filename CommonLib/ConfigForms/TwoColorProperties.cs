@@ -37,7 +37,7 @@ namespace CommonLib
             }
             set
             {
-                if (value.IControl.GetType() == typeof(TwoColorFilledRect))
+                if (value != null && value.SpecificProp.GetType() == typeof(TwoColorProp))
                     m_Control = value;
                 else
                     m_Control = null;
@@ -102,10 +102,15 @@ namespace CommonLib
                 return true;
 
             bool bDataPropChange = false;
+            if (m_TextActiveColor.BackColor != ((TwoColorProp)m_Control.SpecificProp).ColorActive)
+                bDataPropChange = true;
+            if (m_TextInactiveColor.BackColor != ((TwoColorProp)m_Control.SpecificProp).ColorInactive)
+                bDataPropChange = true;
 
             if (bDataPropChange)
             {
                 Doc.Modified = true;
+                m_Control.IControl.Refresh();
             }
             if (bDataPropChange && ControlPropertiesChanged != null)
                 ControlPropertiesChanged(m_Control);

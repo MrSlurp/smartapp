@@ -52,6 +52,12 @@ namespace CommonLib
         //*****************************************************************************************************
         public override bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
         {
+            System.Diagnostics.Debug.Assert(false);
+            return false;
+        }
+
+        public bool ReadIn(XmlNode Node, TYPE_APP TypeApp, DllControlGest GestDLL)
+        {
             for (int i = 0; i < Node.ChildNodes.Count; i++)
             {
                 XmlNode ChildNode = Node.ChildNodes[i];
@@ -61,7 +67,7 @@ namespace CommonLib
                 BTScreen NewScreen = new BTScreen();
                 if (NewScreen != null)
                 {
-                    if (!NewScreen.ReadIn(ChildNode, TypeApp))
+                    if (!NewScreen.ReadIn(ChildNode, TypeApp, GestDLL))
                         return false;
 
                     this.AddObj(NewScreen);

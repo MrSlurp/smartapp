@@ -192,6 +192,7 @@ namespace CommonLib
                         case InteractiveControlType.NumericUpDown:
                         case InteractiveControlType.Slider:
                         case InteractiveControlType.SpecificControl:
+                        case InteractiveControlType.DllControl:
                             gr.DrawImage(Image, rect);
                             break;
                         case InteractiveControlType.Text:

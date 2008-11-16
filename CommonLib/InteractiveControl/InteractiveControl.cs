@@ -46,6 +46,7 @@ namespace CommonLib
         NumericUpDown,
         Text,
         SpecificControl,
+        DllControl,
     }
     #endregion
 
@@ -72,7 +73,7 @@ namespace CommonLib
         private MoveButton moveButton;
 
         // type du control
-        private InteractiveControlType m_TypeControl = InteractiveControlType.Button;
+        protected InteractiveControlType m_TypeControl = InteractiveControlType.Button;
 
         private BTControl m_SrcBTControl = null;
         private bool m_bInitialized = false;
@@ -160,6 +161,23 @@ namespace CommonLib
                 return m_ptMouseDown;
             }
         }
+
+        public virtual bool IsDllControl
+        {
+            get
+            {
+                return false;
+            }
+        }
+
+        public virtual uint DllControlID
+        {
+            get
+            {
+                return 0;
+            }
+        }
+
         #endregion
 
         #region constructeur et init
@@ -179,6 +197,7 @@ namespace CommonLib
             resizeButton[1] = new ResizeButton(ResizeButtonPosition.MiddleRight, this);
             resizeButton[2] = new ResizeButton(ResizeButtonPosition.BottomCenter, this);
             this.Text = "Item";
+            BackColor = Color.Transparent;
         }
 
         public virtual InteractiveControl CreateNew()
@@ -328,7 +347,7 @@ namespace CommonLib
         // Description: appelé pr mettre a jour l'état du control lorsque celui ci change
         // Return: /
         //*****************************************************************************************************
-        private void OnTypeControlChanged()
+        protected void OnTypeControlChanged()
         {
             switch (m_TypeControl)
             {
@@ -362,6 +381,7 @@ namespace CommonLib
                     this.Height = this.minSize.Height;
                     break;
                 case InteractiveControlType.SpecificControl:
+                case InteractiveControlType.DllControl:
                     canResizeWidth = ((ISpecificControl)this).SpecGraphicProp.m_bcanResizeWidth;
                     canResizeHeight = ((ISpecificControl)this).SpecGraphicProp.m_bcanResizeHeight;
                     this.minSize = ((ISpecificControl)this).SpecGraphicProp.m_MinSize;
@@ -422,15 +442,21 @@ namespace CommonLib
                     System.Diagnostics.Debug.Assert(false);
                     break;
             }
+            DrawSelRect(e.Graphics);
+        }
+
+        public void DrawSelRect(Graphics gr)
+        {
             if (Selected || !Initialized)
             {
                 Pen dashPen = new Pen(Color.Gray, 1);
                 dashPen.DashStyle = DashStyle.Dash;
                 Rectangle rect = new Rectangle(ClientRectangle.Left, ClientRectangle.Top,
                     ClientRectangle.Width - 1, ClientRectangle.Height - 1);
-                e.Graphics.DrawRectangle(dashPen, rect);
+                gr.DrawRectangle(dashPen, rect);
                 dashPen.Dispose();
             }
+
         }
 
         //*****************************************************************************************************

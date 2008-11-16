@@ -190,6 +190,12 @@ namespace CommonLib
         //*****************************************************************************************************
         public override bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
         {
+            System.Diagnostics.Debug.Assert(false);
+            return false;
+        }
+
+        public bool ReadIn(XmlNode Node, TYPE_APP TypeApp, DllControlGest GestDLL)
+        {
             if (!base.ReadIn(Node, TypeApp))
                 return false;
             // on prend d'abord le text
@@ -244,14 +250,28 @@ namespace CommonLib
                                             m_GestControl.AddObj(Control);
                                         }
                                     }
+                                    else if (NodeControl.Name == XML_CF_TAG.DllControl.ToString())
+                                    {
+                                        uint DllID= SpecificControlParser.ParseDllID(NodeControl);
+                                        BTControl Control = GestDLL[DllID].CreateBTControl();
+                                        if (Control != null)
+                                        {
+                                            if (!Control.ReadIn(NodeControl, TypeApp))
+                                                return false;
+                                            m_GestControl.AddObj(Control);
+                                        }
+                                    }
                                     else
+                                    {
+                                        System.Diagnostics.Debug.Assert(false);
                                         return false;
+                                    }
                                 }
                             }
                             // sinon on effectue une lecture spéciale mode Command
                             else if (TypeApp == TYPE_APP.SMART_COMMAND)
                             {
-                                if (!ReadControlForCommandMode(ChildNode))
+                                if (!ReadControlForCommandMode(ChildNode, GestDLL))
                                     return false;
                             }
                             else
@@ -301,7 +321,7 @@ namespace CommonLib
         // Description: ecrit les données de l'objet a partir de son noeud XML
         // Return: /
         //*****************************************************************************************************
-        private bool ReadControlForCommandMode(XmlNode Node)
+        private bool ReadControlForCommandMode(XmlNode Node, DllControlGest GestDll)
         {
             // En mode Commande on doit crée des objets pouvant afficher des vrais controls du framework
             // ceci est fait grace aux objets "baseControl" et dérivés
@@ -382,6 +402,14 @@ namespace CommonLib
                             Console.WriteLine("Type de control indéfini");
                             break;
                     }
+                    if (NewControl != null)
+                        m_ListControls.Add(NewControl);
+                }
+                else if (ChildNode.Name == XML_CF_TAG.DllControl.ToString())
+                {
+                    uint DllID = SpecificControlParser.ParseDllID(ChildNode);
+                    BTControl NewControl = GestDll[DllID].CreateCommandBTControl();
+                    NewControl.ReadIn(ChildNode, TYPE_APP.SMART_COMMAND);
                     if (NewControl != null)
                         m_ListControls.Add(NewControl);
                 }

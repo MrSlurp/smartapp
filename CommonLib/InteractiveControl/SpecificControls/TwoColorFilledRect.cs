@@ -30,12 +30,14 @@ namespace CommonLib
             m_stdPropEnabling.m_bcheckScreenEventEnabled = false;
             m_stdPropEnabling.m_bcheckScreenEventChecked= false;
             m_stdPropEnabling.m_bEditAssociateDataEnabled = true;
-            m_stdPropEnabling.m_bEditTextEnabled = true;
+            m_stdPropEnabling.m_bEditTextEnabled = false;
             m_stdPropEnabling.m_bCtrlEventScriptEnabled = false;
 
             m_SpecGraphicProp.m_bcanResizeWidth = true;
             m_SpecGraphicProp.m_bcanResizeHeight = true;
             m_SpecGraphicProp.m_MinSize = new Size(5, 5);
+            m_TypeControl = InteractiveControlType.SpecificControl;
+            OnTypeControlChanged();
 
         }
 
@@ -93,7 +95,12 @@ namespace CommonLib
         public void SelfPaint(Graphics gr, Control ctrl)
         {
             Rectangle DrawRect = ctrl.ClientRectangle;
-            SolidBrush br = new SolidBrush(Color.Black);
+            Color crbr = Color.Black;
+            if (SourceBTControl != null)
+                crbr = ((TwoColorProp)SourceBTControl.SpecificProp).ColorInactive;
+            else
+                crbr = Color.Blue;
+            Brush br = new SolidBrush(crbr);
             gr.FillRectangle(br, DrawRect);
             ControlPainter.DrawPresenceAssociateData(gr, ctrl);
             br.Dispose();
@@ -102,15 +109,7 @@ namespace CommonLib
         protected override void OnPaint(PaintEventArgs e)
         {
             SelfPaint(e.Graphics, this);
-            if (Selected || !Initialized)
-            {
-                Pen dashPen = new Pen(Color.Gray, 1);
-                dashPen.DashStyle = DashStyle.Dash;
-                Rectangle rect = new Rectangle(ClientRectangle.Left, ClientRectangle.Top,
-                    ClientRectangle.Width - 1, ClientRectangle.Height - 1);
-                e.Graphics.DrawRectangle(dashPen, rect);
-                dashPen.Dispose();
-            }
+            DrawSelRect(e.Graphics);
         }
 
     }

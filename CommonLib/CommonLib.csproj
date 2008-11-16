@@ -63,6 +63,8 @@
     <Compile Include="Data\SpecificControls\IBTSpecificControl.cs" />
     <Compile Include="Data\Trame.cs" />
     <Compile Include="Defines.cs" />
+    <Compile Include="DllControlGest.cs" />
+    <Compile Include="DllControlInterface.cs" />
     <Compile Include="Gestionnaires\BaseGest.cs" />
     <Compile Include="Gestionnaires\BaseGestGroup.cs" />
     <Compile Include="Gestionnaires\GestControl.cs" />

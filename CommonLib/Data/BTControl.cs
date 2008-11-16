@@ -130,6 +130,26 @@ namespace CommonLib
         }
 
         //*****************************************************************************************************
+        // Description: accesseur de la propriété UseScreenEvent
+        // Return: /
+        //*****************************************************************************************************
+        public virtual bool IsDllControl
+        {
+            get
+            {
+                return false;
+            }
+        }
+
+        public virtual uint DllControlID
+        {
+            get
+            {
+                return 0;
+            }
+        }
+
+        //*****************************************************************************************************
         // Description: accesseur vers le symbol de la données associée
         // Return: /
         //*****************************************************************************************************
@@ -320,6 +340,7 @@ namespace CommonLib
                     AttrType.Value = CONTROL_TYPE.UP_DOWN.ToString();
                     break;
                 case InteractiveControlType.SpecificControl:
+                case InteractiveControlType.DllControl:
                     System.Diagnostics.Debug.Assert(false);
                     break;
                 default:

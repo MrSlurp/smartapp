@@ -9,29 +9,27 @@ namespace CommonLib
     {
         public static InteractiveControl GetDropableItem(DragEventArgs e)
         {
-            InteractiveControl DropedItem = null;
-            DropedItem = (InteractiveControl)e.Data.GetData(typeof(InteractiveControl));
-            if (DropedItem != null)
-                return DropedItem;
-            DropedItem = (InteractiveControl)e.Data.GetData(typeof(TwoColorFilledRect));
-            if (DropedItem != null)
-                return DropedItem;
-            DropedItem = (InteractiveControl)e.Data.GetData(typeof(TwoColorFilledEllipse));
-            if (DropedItem != null)
-                return DropedItem;
-
+            //InteractiveControl DropedItem = null;
+            string[] strListFormats = e.Data.GetFormats();
+            for (int i = 0; i < strListFormats.Length;/* i++*/)
+            {
+                Type tp = Type.GetType(strListFormats[i], false, false);
+                if (tp != null && tp.IsSubclassOf(typeof(InteractiveControl)))
+                {
+                    return (InteractiveControl)e.Data.GetData(tp);
+                }
+                else
+                {
+                    return (InteractiveControl)e.Data.GetData(strListFormats[i]);
+                }
+            }
             return null;
+            
         }
 
         public static bool AllowedItem(Type ObjType)
         {
-            if (ObjType == typeof(InteractiveControl)
-                || ObjType == typeof(TwoColorFilledRect)
-                || ObjType == typeof(TwoColorFilledEllipse)
-                )
-                return true;
-            else
-                return false;
+            return (ObjType.IsSubclassOf(typeof(InteractiveControl)) || ObjType == typeof(InteractiveControl));
         }
     }
 }
