@@ -245,7 +245,7 @@ namespace SmartApp.Ihm
         private void m_btnBrowseBkFile_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Image Files (JPEG,GIF,BMP, PNG)|*.jpg;*.jpeg;*.gif;*.bmp;*.png|JPEG Files(*.jpg;*.jpeg)|*.jpg;*.jpeg|GIF Files(*.gif)|*.gif|BMP Files(*.bmp)|*.bmp|PNG Files(*.png)|*.png";
+            openFileDialog.Filter = "Image Files (jpeg, gif, bmp, png)|*.jpg;*.jpeg;*.gif;*.bmp;*.png|JPEG Files(*.jpg;*.jpeg)|*.jpg;*.jpeg|GIF Files(*.gif)|*.gif|BMP Files(*.bmp)|*.bmp|PNG Files(*.png)|*.png";
             openFileDialog.InitialDirectory = Application.StartupPath;
             DialogResult dlgRes = openFileDialog.ShowDialog();
             if (dlgRes == DialogResult.OK)

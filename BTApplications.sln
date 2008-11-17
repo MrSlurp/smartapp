@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonLib", "CommonLib\Comm
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CtrlSerpentin", "CtrlSerpentin\CtrlSerpentin.csproj", "{94373D87-E83C-4FDF-A029-792A4A48C680}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CtrlTwoBitmap", "CtrlTwoBitmap\CtrlTwoBitmap.csproj", "{4955E361-A3B1-4507-BB31-A987814A0A3B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug Cmd|Any CPU = Debug Cmd|Any CPU
@@ -77,6 +79,21 @@ Global
 		{94373D87-E83C-4FDF-A029-792A4A48C680}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{94373D87-E83C-4FDF-A029-792A4A48C680}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{94373D87-E83C-4FDF-A029-792A4A48C680}.Release|Win32.ActiveCfg = Release|Any CPU
+		{4955E361-A3B1-4507-BB31-A987814A0A3B}.Debug Cmd|Any CPU.ActiveCfg = Debug|Any CPU
+		{4955E361-A3B1-4507-BB31-A987814A0A3B}.Debug Cmd|Any CPU.Build.0 = Debug|Any CPU
+		{4955E361-A3B1-4507-BB31-A987814A0A3B}.Debug Cmd|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{4955E361-A3B1-4507-BB31-A987814A0A3B}.Debug Cmd|Mixed Platforms.Build.0 = Debug|Any CPU
+		{4955E361-A3B1-4507-BB31-A987814A0A3B}.Debug Cmd|Win32.ActiveCfg = Debug|Any CPU
+		{4955E361-A3B1-4507-BB31-A987814A0A3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4955E361-A3B1-4507-BB31-A987814A0A3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4955E361-A3B1-4507-BB31-A987814A0A3B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{4955E361-A3B1-4507-BB31-A987814A0A3B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{4955E361-A3B1-4507-BB31-A987814A0A3B}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{4955E361-A3B1-4507-BB31-A987814A0A3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4955E361-A3B1-4507-BB31-A987814A0A3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4955E361-A3B1-4507-BB31-A987814A0A3B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{4955E361-A3B1-4507-BB31-A987814A0A3B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{4955E361-A3B1-4507-BB31-A987814A0A3B}.Release|Win32.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

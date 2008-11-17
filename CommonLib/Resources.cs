@@ -59,6 +59,7 @@ namespace CommonLib
 		
 		public static Bitmap CxnOn;
 		public static Bitmap CxnOff;
+        public static Bitmap Empty;
 		
 		public static void InitializeBitmap()
 		{
@@ -96,6 +97,7 @@ namespace CommonLib
 
 			CxnOn = new Bitmap(strAppDir + "\\Res\\CxnOn.bmp");			
 			CxnOff = new Bitmap(strAppDir + "\\Res\\CxnOff.bmp");			
+            Empty = new Bitmap(strAppDir + "\\Res\\EmptyImg.bmp");			
 		}
 		
 	}

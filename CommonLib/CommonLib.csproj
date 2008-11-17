@@ -176,6 +176,7 @@
     <Content Include="Res\CxnOn.bmp" />
     <Content Include="Res\DownBtn.bmp" />
     <Content Include="Res\DropBtn.bmp" />
+    <Content Include="Res\EmptyImg.bmp"/>
     <Content Include="Res\LeftBtn.bmp" />
     <Content Include="Res\move.bmp" />
     <Content Include="Res\PresAssData.bmp" />

@@ -10,5 +10,6 @@ namespace CommonLib
         BTDoc Doc { get; set;}
         bool IsDataValuesValid { get;}
         bool ValidateValues();
+        event ControlPropertiesChange ControlPropertiesChanged;
     }
 }

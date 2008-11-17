@@ -43,14 +43,12 @@ namespace CommonLib
                     m_Control = null;
                 if (m_Control != null)
                 {
-                    this.Visible = true;
                     this.Enabled = true;
                     m_TextActiveColor.BackColor = ((TwoColorProp)m_Control.SpecificProp).ColorActive;
                     m_TextInactiveColor.BackColor = ((TwoColorProp)m_Control.SpecificProp).ColorInactive;
                 }
                 else
                 {
-                    this.Visible = false;
                     this.Enabled = false;
                     m_TextActiveColor.BackColor = Color.White;
                     m_TextInactiveColor.BackColor = Color.White;
@@ -109,6 +107,8 @@ namespace CommonLib
 
             if (bDataPropChange)
             {
+                ((TwoColorProp)m_Control.SpecificProp).ColorActive = m_TextActiveColor.BackColor;
+                ((TwoColorProp)m_Control.SpecificProp).ColorInactive = m_TextInactiveColor.BackColor;
                 Doc.Modified = true;
                 m_Control.IControl.Refresh();
             }
@@ -125,7 +125,6 @@ namespace CommonLib
             DialogResult DlgRes = m_clrDlg.ShowDialog();
             if (DlgRes == DialogResult.OK)
             {
-                ((TwoColorProp)m_Control.SpecificProp).ColorActive = m_clrDlg.Color;
                 m_TextActiveColor.BackColor = ((TwoColorProp)m_Control.SpecificProp).ColorActive;
             }
         }
@@ -136,7 +135,6 @@ namespace CommonLib
             DialogResult DlgRes = m_clrDlg.ShowDialog();
             if (DlgRes == DialogResult.OK)
             {
-                ((TwoColorProp)m_Control.SpecificProp).ColorInactive = m_clrDlg.Color;
                 m_TextInactiveColor.BackColor = ((TwoColorProp)m_Control.SpecificProp).ColorInactive;
             }
         }
