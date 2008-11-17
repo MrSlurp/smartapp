@@ -125,7 +125,7 @@ namespace CommonLib
             DialogResult DlgRes = m_clrDlg.ShowDialog();
             if (DlgRes == DialogResult.OK)
             {
-                m_TextActiveColor.BackColor = ((TwoColorProp)m_Control.SpecificProp).ColorActive;
+                m_TextActiveColor.BackColor = m_clrDlg.Color;
             }
         }
 
@@ -135,7 +135,7 @@ namespace CommonLib
             DialogResult DlgRes = m_clrDlg.ShowDialog();
             if (DlgRes == DialogResult.OK)
             {
-                m_TextInactiveColor.BackColor = ((TwoColorProp)m_Control.SpecificProp).ColorInactive;
+                m_TextInactiveColor.BackColor = m_clrDlg.Color;
             }
         }
     }
