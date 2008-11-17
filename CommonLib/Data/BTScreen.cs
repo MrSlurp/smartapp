@@ -497,10 +497,11 @@ namespace CommonLib
                 }
                 // on ajuste la taille du dynamic Panel
                 m_DynamicPanel.Size = new Size(pt.X + 10, pt.Y + 10);
+                string strImageFullPath = BackPictureFile.Replace(@".\", Application.StartupPath + @"\");
                 try
                 {
                     // si il y a une image, on la charge
-                    Bitmap imgBack = new Bitmap(BackPictureFile);
+                    Bitmap imgBack = new Bitmap(strImageFullPath);
                     imgBack.MakeTransparent(Cste.TransparencyColor);
                     // ets i besoin on réajuste la taille du panel
                     if (imgBack.Width > m_DynamicPanel.Width)
@@ -515,7 +516,7 @@ namespace CommonLib
                     // en cas d'ereur on logue al'utilisateur que l'image n'as pas été chargée
                     if (!string.IsNullOrEmpty(m_strBackPictureFile))
                     {
-                        LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format("Screen {0} Failed to load file {1}", Symbol, m_strBackPictureFile));
+                        LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format("Screen {0} Failed to load file {1}", Symbol, strImageFullPath));
                         AddLogEvent(log);
                     }
                 }
@@ -547,6 +548,10 @@ namespace CommonLib
                 if (Mess == MESSAGE.MESS_CMD_RUN)
                 {
                     ExecuteInitScript();
+                }
+                for (int i = 0; i < m_ListControls.Count; i++)
+                {
+                    m_ListControls[i].TraiteMessage(Mess, obj, TypeApp);
                 }
             }
         }

@@ -37,7 +37,7 @@
             // 
             // m_btnNewScreen
             // 
-            this.m_btnNewScreen.Location = new System.Drawing.Point(3, 463);
+            this.m_btnNewScreen.Location = new System.Drawing.Point(3, 495);
             this.m_btnNewScreen.Name = "m_btnNewScreen";
             this.m_btnNewScreen.Size = new System.Drawing.Size(75, 23);
             this.m_btnNewScreen.TabIndex = 3;
@@ -86,7 +86,7 @@
             this.m_PanelScreenProperties.Location = new System.Drawing.Point(0, 230);
             this.m_PanelScreenProperties.Margin = new System.Windows.Forms.Padding(0);
             this.m_PanelScreenProperties.Name = "m_PanelScreenProperties";
-            this.m_PanelScreenProperties.Size = new System.Drawing.Size(227, 230);
+            this.m_PanelScreenProperties.Size = new System.Drawing.Size(227, 258);
             this.m_PanelScreenProperties.Symbol = "";
             this.m_PanelScreenProperties.TabIndex = 5;
             this.m_PanelScreenProperties.Title = "";

@@ -26,7 +26,9 @@ namespace CommonLib
         {
             InitializeComponent();
             //la taille du contrôle est celle de l'icône
-            this.Size = BackgroundImage.Size;
+            if (BackgroundImage != null)
+                this.Size = BackgroundImage.Size;
+
             this.Visible = false;
             this.interactiveControl = interactiveControl;
 

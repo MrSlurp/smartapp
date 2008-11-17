@@ -36,6 +36,7 @@ namespace SmartApp.Ihm
             this.label4 = new System.Windows.Forms.Label();
             this.m_textBkgndFile = new System.Windows.Forms.TextBox();
             this.m_btnBrowseBkFile = new System.Windows.Forms.Button();
+            this.m_btnRemoveFile = new System.Windows.Forms.Button();
             this.m_textBoxSymbol = new SmartApp.Ihm.SymbolTextBox();
             this.SuspendLayout();
             // 
@@ -123,6 +124,18 @@ namespace SmartApp.Ihm
             this.m_btnBrowseBkFile.UseVisualStyleBackColor = true;
             this.m_btnBrowseBkFile.Click += new System.EventHandler(this.m_btnBrowseBkFile_Click);
             // 
+            // m_btnRemoveFile
+            // 
+            this.m_btnRemoveFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_btnRemoveFile.Location = new System.Drawing.Point(0, 232);
+            this.m_btnRemoveFile.Name = "m_btnRemoveFile";
+            this.m_btnRemoveFile.Size = new System.Drawing.Size(165, 23);
+            this.m_btnRemoveFile.TabIndex = 11;
+            this.m_btnRemoveFile.Text = "Remove background image";
+            this.m_btnRemoveFile.UseVisualStyleBackColor = true;
+            this.m_btnRemoveFile.Click += new System.EventHandler(this.m_btnRemoveFile_Click);
+            // 
             // m_textBoxSymbol
             // 
             this.m_textBoxSymbol.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
@@ -138,6 +151,7 @@ namespace SmartApp.Ihm
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(this.m_btnRemoveFile);
             this.Controls.Add(this.m_btnBrowseBkFile);
             this.Controls.Add(this.m_textBkgndFile);
             this.Controls.Add(this.label4);
@@ -149,7 +163,7 @@ namespace SmartApp.Ihm
             this.Controls.Add(this.m_richTextDesc);
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "ScreenPropertiesControl";
-            this.Size = new System.Drawing.Size(227, 236);
+            this.Size = new System.Drawing.Size(227, 258);
             this.Validating += new System.ComponentModel.CancelEventHandler(this.PropertiesControlValidating);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -167,5 +181,6 @@ namespace SmartApp.Ihm
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox m_textBkgndFile;
         private System.Windows.Forms.Button m_btnBrowseBkFile;
+        private System.Windows.Forms.Button m_btnRemoveFile;
     }
 }

@@ -262,5 +262,10 @@ namespace SmartApp.Ihm
             }
         }
 
+        private void m_btnRemoveFile_Click(object sender, EventArgs e)
+        {
+            BackPictureFile = "";
+        }
+
     }
 }

@@ -349,6 +349,10 @@ namespace SmartApp.Ihm
                     imgBack.MakeTransparent(Cste.TransparencyColor);
                     m_InteractiveControlContainer.ScreenBckImage = imgBack;
                 }
+                else
+                {
+                    m_InteractiveControlContainer.ScreenBckImage = null;
+                }
             }
             catch (Exception )
             {

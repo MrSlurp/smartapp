@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Data;
@@ -19,7 +20,7 @@ namespace CtrlTwoBitmap
 
         private string m_strImgInactive = "";
         private Bitmap m_BmpInact;
-        private Bitmap m_BmpDefault = CommonLib.Resources.Empty;
+        private Bitmap m_BmpDefault = TwoImageRes.DefaultImg;
         public InteractiveTwoBitmap()
         {
             InitializeComponent();
@@ -101,18 +102,18 @@ namespace CtrlTwoBitmap
                     if (((TwoBitmapProp)this.SourceBTControl.SpecificProp).NomFichierInactif != m_strImgInactive)
                     {
                         m_strImgInactive = ((TwoBitmapProp)this.SourceBTControl.SpecificProp).NomFichierInactif;
-                        m_BmpInact = new Bitmap(m_strImgInactive);
+                        string strImageFullPath = m_strImgInactive.Replace(@".\", Application.StartupPath + @"\");
+                        m_BmpInact = new Bitmap(strImageFullPath);
+                        m_BmpInact.MakeTransparent(Color.Magenta);
                     }
-                    gr.DrawImage(m_BmpInact, new Rectangle(new Point(0, 0), m_BmpInact.Size));
+                    gr.DrawImage(m_BmpInact, new Rectangle(new Point(0, 0), this.Size));
                     return;
                 }
-                catch (Exception e)
+                catch (Exception )
                 {
-                    Console.WriteLine(e.Message);
-                    //LogEvent ev = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format("Failed to load image file \" {0} \"", m_strImgInactive));
                 }
             }
-            gr.DrawImage(m_BmpDefault, new Rectangle(new Point(0, 0), m_BmpDefault.Size));
+            gr.DrawImage(m_BmpDefault, new Rectangle(new Point(0, 0), this.Size));
         }
 
         protected override void OnPaint(PaintEventArgs e)

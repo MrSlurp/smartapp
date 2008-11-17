@@ -57,6 +57,8 @@ namespace SmartApp.Ihm.Designer
                 newICtrl.Size = sz;
                 newICtrl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.OnItemMouseDown);
                 this.Controls.Add(newICtrl);
+                DownPos += newICtrl.Size.Height;
+                DownPos += ECART;
             }
             this.ResumeLayout(false);
         }

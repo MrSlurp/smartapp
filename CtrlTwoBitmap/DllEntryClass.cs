@@ -11,6 +11,11 @@ namespace CtrlTwoBitmap
     public class DllEntryClass : IDllControlInterface
     {
         public const uint TwoBitmap_Control_ID = 110;
+        public DllEntryClass()
+        {
+            TwoImageRes.InitializeBitmap();
+        }
+
         public uint DllID
         {
             get

@@ -93,7 +93,7 @@
             this.m_TextInactiveColor.Size = new System.Drawing.Size(28, 20);
             this.m_TextInactiveColor.TabIndex = 10;
             // 
-            // FilledRectProperties
+            // TwoColorProperties
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -104,7 +104,7 @@
             this.Controls.Add(this.m_TextActiveColor);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Name = "FilledRectProperties";
+            this.Name = "TwoColorProperties";
             this.Size = new System.Drawing.Size(155, 47);
             this.ResumeLayout(false);
             this.PerformLayout();

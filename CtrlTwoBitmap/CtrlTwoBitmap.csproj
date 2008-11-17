@@ -14,7 +14,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\Prod\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -22,7 +22,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\Prod\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -54,6 +54,7 @@
       <DependentUpon>InteractiveTwoBitmap.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Res\TwoImageRes.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CommonLib\CommonLib.csproj">
@@ -68,44 +69,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="BTControlHerited\.svn\entries" />
-    <None Include="BTControlHerited\.svn\format" />
-    <None Include="BTControlHerited\.svn\text-base\BTTwoBitmapControl.cs.svn-base" />
-    <None Include="BTControlHerited\.svn\text-base\TwoBitmapProp.cs.svn-base" />
-    <None Include="ConfigForm\.svn\entries" />
-    <None Include="ConfigForm\.svn\format" />
-    <None Include="ConfigForm\.svn\text-base\TwoBitmapProperties.cs.svn-base" />
-    <None Include="ConfigForm\.svn\text-base\TwoBitmapProperties.Designer.cs.svn-base" />
-    <None Include="ConfigForm\.svn\text-base\TwoBitmapProperties.resx.svn-base" />
-    <None Include="GraphicCommandControl\.svn\entries" />
-    <None Include="GraphicCommandControl\.svn\format" />
-    <None Include="GraphicCommandControl\.svn\text-base\TwoBitmapControl.cs.svn-base" />
-    <None Include="InteractiveHerited\.svn\entries" />
-    <None Include="InteractiveHerited\.svn\format" />
-    <None Include="InteractiveHerited\.svn\text-base\InteractiveTwoBitmap.cs.svn-base" />
-    <None Include="InteractiveHerited\.svn\text-base\InteractiveTwoBitmap.Designer.cs.svn-base" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="BTControlHerited\.svn\prop-base\" />
-    <Folder Include="BTControlHerited\.svn\props\" />
-    <Folder Include="BTControlHerited\.svn\tmp\prop-base\" />
-    <Folder Include="BTControlHerited\.svn\tmp\props\" />
-    <Folder Include="BTControlHerited\.svn\tmp\text-base\" />
-    <Folder Include="ConfigForm\.svn\prop-base\" />
-    <Folder Include="ConfigForm\.svn\props\" />
-    <Folder Include="ConfigForm\.svn\tmp\prop-base\" />
-    <Folder Include="ConfigForm\.svn\tmp\props\" />
-    <Folder Include="ConfigForm\.svn\tmp\text-base\" />
-    <Folder Include="GraphicCommandControl\.svn\prop-base\" />
-    <Folder Include="GraphicCommandControl\.svn\props\" />
-    <Folder Include="GraphicCommandControl\.svn\tmp\prop-base\" />
-    <Folder Include="GraphicCommandControl\.svn\tmp\props\" />
-    <Folder Include="GraphicCommandControl\.svn\tmp\text-base\" />
-    <Folder Include="InteractiveHerited\.svn\prop-base\" />
-    <Folder Include="InteractiveHerited\.svn\props\" />
-    <Folder Include="InteractiveHerited\.svn\tmp\prop-base\" />
-    <Folder Include="InteractiveHerited\.svn\tmp\props\" />
-    <Folder Include="InteractiveHerited\.svn\tmp\text-base\" />
+    <Content Include="Res\DefaultImage.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
