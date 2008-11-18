@@ -6,17 +6,38 @@ using System.Xml;
 
 namespace CommonLib
 {
+    /// <summary>
+    /// classe abstraite définissant les fonction obligatoire à implémenter par les propriété spécifiques
+    /// </summary>
     public abstract class SpecificControlProp
     {
+        /// <summary>
+        /// fonction de lecture des propriété spécifiques
+        /// </summary>
+        /// <param name="Node">Noeud du control</param>
+        /// <returns>true si la lecture c'est bien passé, sinon false</returns>
         public abstract bool ReadIn(XmlNode Node);
+
+        /// <summary>
+        /// fonction d'écriture des propriété spécifiques
+        /// </summary>
+        /// <param name="XmlDoc">Document Xml</param>
+        /// <param name="Node">Noeud du control</param>
+        /// <returns>true si l'écriture c'est bien passé</returns>
         public abstract bool WriteOut(XmlDocument XmlDoc, XmlNode Node);
     }
 
+    /// <summary>
+    /// classe des propriété spécifiques des controles utilisant deux couleurs
+    /// </summary>
     public class TwoColorProp : SpecificControlProp
     {
         private Color m_ColorInactive = Color.Black;
         private Color m_ColorActive = Color.Blue;
 
+        /// <summary>
+        /// accesseur vers la couleur à l'état inactif
+        /// </summary>
         public Color ColorInactive
         {
             get
@@ -29,6 +50,9 @@ namespace CommonLib
             }
         }
 
+        /// <summary>
+        /// accesseur vers la couleur à l'état actif
+        /// </summary>
         public Color ColorActive
         {
             get
@@ -41,6 +65,11 @@ namespace CommonLib
             }
         }
 
+        /// <summary>
+        /// fonction de lecture des propriété spécifiques
+        /// </summary>
+        /// <param name="Node">Noeud du control</param>
+        /// <returns>true si la lecture c'est bien passé, sinon false</returns>
         public override bool ReadIn(XmlNode Node)
         {
             XmlNode AttrActiveColor = Node.Attributes.GetNamedItem(XML_CF_ATTRIB.ActiveColor.ToString());
@@ -62,6 +91,12 @@ namespace CommonLib
             return true;
         }
 
+        /// <summary>
+        /// fonction d'écriture des propriété spécifiques
+        /// </summary>
+        /// <param name="XmlDoc">Document Xml</param>
+        /// <param name="Node">Noeud du control</param>
+        /// <returns>true si l'écriture c'est bien passé</returns>
         public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
         {
             XmlAttribute AttrActColor = XmlDoc.CreateAttribute(XML_CF_ATTRIB.ActiveColor.ToString());

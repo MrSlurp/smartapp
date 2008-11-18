@@ -63,7 +63,7 @@ namespace CommonLib
 		
 		public static void InitializeBitmap()
 		{
-            string strAppDir = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
+            string strAppDir = Path.GetDirectoryName(Application.ExecutablePath);
 			AlignLeft = new Bitmap(strAppDir + "\\Res\\ToolBar\\AlignLeft.bmp");
 			AlignTop = new Bitmap(strAppDir + "\\Res\\ToolBar\\AlignTop.bmp");
 			ArrangeAcross = new Bitmap(strAppDir + "\\Res\\ToolBar\\ArrangeAcross.bmp");

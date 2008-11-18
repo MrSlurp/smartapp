@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CtrlSerpentin", "CtrlSerpen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CtrlTwoBitmap", "CtrlTwoBitmap\CtrlTwoBitmap.csproj", "{4955E361-A3B1-4507-BB31-A987814A0A3B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FourBitmap", "FourBitmap\FourBitmap.csproj", "{6494B802-211E-4D72-9657-22A2EE0850E8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug Cmd|Any CPU = Debug Cmd|Any CPU
@@ -94,6 +96,21 @@ Global
 		{4955E361-A3B1-4507-BB31-A987814A0A3B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{4955E361-A3B1-4507-BB31-A987814A0A3B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{4955E361-A3B1-4507-BB31-A987814A0A3B}.Release|Win32.ActiveCfg = Release|Any CPU
+		{6494B802-211E-4D72-9657-22A2EE0850E8}.Debug Cmd|Any CPU.ActiveCfg = Debug|Any CPU
+		{6494B802-211E-4D72-9657-22A2EE0850E8}.Debug Cmd|Any CPU.Build.0 = Debug|Any CPU
+		{6494B802-211E-4D72-9657-22A2EE0850E8}.Debug Cmd|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{6494B802-211E-4D72-9657-22A2EE0850E8}.Debug Cmd|Mixed Platforms.Build.0 = Debug|Any CPU
+		{6494B802-211E-4D72-9657-22A2EE0850E8}.Debug Cmd|Win32.ActiveCfg = Debug|Any CPU
+		{6494B802-211E-4D72-9657-22A2EE0850E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6494B802-211E-4D72-9657-22A2EE0850E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6494B802-211E-4D72-9657-22A2EE0850E8}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{6494B802-211E-4D72-9657-22A2EE0850E8}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{6494B802-211E-4D72-9657-22A2EE0850E8}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{6494B802-211E-4D72-9657-22A2EE0850E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6494B802-211E-4D72-9657-22A2EE0850E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6494B802-211E-4D72-9657-22A2EE0850E8}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{6494B802-211E-4D72-9657-22A2EE0850E8}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{6494B802-211E-4D72-9657-22A2EE0850E8}.Release|Win32.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

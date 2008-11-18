@@ -5,13 +5,17 @@ using System.Xml;
 
 namespace CommonLib
 {
-    interface IBTSpecificControl
-    {
-        SpecificControlProp SpecBTControlProp { get;}
-    }
-
+    /// <summary>
+    /// classe utilitaire static contenant des fonction utilitaire pour déterminer le type de controle spécifique 
+    /// ou l'identifiant d'un DLL contenu dans le fichier XML
+    /// </summary>
     public static class SpecificControlParser
     {
+        /// <summary>
+        /// détermine et crée un BTControle spécifique en fonction de l'attribut du fichier XML
+        /// </summary>
+        /// <param name="Node">Noeud du control contenu dans le fichier XML</param>
+        /// <returns>le BTcontrol spécifique ou null</returns>
         public static BTControl ParseAndCreateSpecificControl(XmlNode Node)
         {
             BTControl newControl = null;
@@ -45,6 +49,11 @@ namespace CommonLib
             return newControl;
         }
 
+        /// <summary>
+        /// détermine le type de  BTControle spécifique en fonction de l'attribut du fichier XML
+        /// </summary>
+        /// <param name="Node">Noeud du control contenu dans le fichier XML</param>
+        /// <returns>le type spécifique ou SPECIFIC_TYPE.NULL</returns>
         public static SPECIFIC_TYPE ParseSpecificControlType(XmlNode Node)
         {
             XmlNode AttrType = Node.Attributes.GetNamedItem(XML_CF_ATTRIB.SpecificType.ToString());
@@ -63,10 +72,18 @@ namespace CommonLib
             return TypeId;
         }
 
+        /// <summary>
+        /// détermine l'identifiant DLL de l'objet DLL control en fonction de l'attribut du fichier XML
+        /// </summary>
+        /// <param name="Node">Noeud du control contenu dans le fichier XML</param>
+        /// <returns>l'identifiant unique de la DLL ou 0</returns>
         public static uint ParseDllID(XmlNode Node)
         {
             XmlNode AttrId = Node.Attributes.GetNamedItem(XML_CF_ATTRIB.DllID.ToString());
-            return uint.Parse(AttrId.Value);
+            if (AttrId != null)
+                return uint.Parse(AttrId.Value);
+            else
+                return 0;
         }
     }
 }

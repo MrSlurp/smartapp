@@ -1,0 +1,79 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6494B802-211E-4D72-9657-22A2EE0850E8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FourBitmap</RootNamespace>
+    <AssemblyName>FourBitmap</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Prod\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\Prod\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BTControlHerited\BTDllFourBitmapControl.cs" />
+    <Compile Include="BTControlHerited\DllFourBitmapProp.cs" />
+    <Compile Include="ConfigForm\FourBitmapProperties.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ConfigForm\FourBitmapProperties.Designer.cs">
+      <DependentUpon>FourBitmapProperties.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DllEntryClass.cs" />
+    <Compile Include="GraphicCommandControl\FourBitmapCmdControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="InteractiveHerited\InteractiveFourBitmapDllControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="InteractiveHerited\InteractiveFourBitmapDllControl.Designer.cs">
+      <DependentUpon>InteractiveFourBitmapDllControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Res\FourBitmapRes.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CommonLib\CommonLib.csproj">
+      <Project>{3EFBC5AC-5842-4DE5-85C2-507E24AEC46F}</Project>
+      <Name>CommonLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ConfigForm\FourBitmapProperties.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FourBitmapProperties.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

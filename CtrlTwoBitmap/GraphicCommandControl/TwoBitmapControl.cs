@@ -115,7 +115,6 @@ namespace CtrlTwoBitmap
                         ControlStyles.UserPaint |
                         ControlStyles.AllPaintingInWmPaint |
                         ControlStyles.DoubleBuffer, true);
-
         }
 
         public bool IsRunning
