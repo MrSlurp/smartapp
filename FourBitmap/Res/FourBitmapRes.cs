@@ -17,7 +17,7 @@ namespace FourBitmap
         {
             // adaptez le code ici afin de charger l'image souhaité
             string strAppDir = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
-            DefaultBmp = new Bitmap(strAppDir + "\\Res\\DefaultImage.bmp");
+            DefaultBmp = new Bitmap(strAppDir + "\\Res\\DefaultImage2.bmp");
         }
     }
 }

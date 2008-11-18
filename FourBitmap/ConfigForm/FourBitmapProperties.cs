@@ -109,6 +109,10 @@ namespace FourBitmap
 
             if (bDataPropChange)
             {
+                ((DllFourBitmapProp)m_Control.SpecificProp).NomFichier0 = m_txtBoxImg0.Text;
+                ((DllFourBitmapProp)m_Control.SpecificProp).NomFichier1 = m_txtBoxImg1.Text;
+                ((DllFourBitmapProp)m_Control.SpecificProp).NomFichier2 = m_txtBoxImg2.Text;
+                ((DllFourBitmapProp)m_Control.SpecificProp).NomFichier3 = m_txtBoxImg3.Text;
                 Doc.Modified = true;
                 m_Control.IControl.Refresh();
             }

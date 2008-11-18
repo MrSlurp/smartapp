@@ -189,6 +189,7 @@ namespace FourBitmap
                 else
                     ImageAnimator.StopAnimate(m_Bmp3, new EventHandler(OnFrameChanged));
             }
+            this.Refresh();
         }
 
         public int State
@@ -271,31 +272,33 @@ namespace FourBitmap
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            Bitmap UsedBmp = null;
+            if (Bmp0 != null && ImageAnimator.CanAnimate(Bmp0))
+                ImageAnimator.UpdateFrames(Bmp0);
+            if (Bmp1 != null && ImageAnimator.CanAnimate(Bmp1))
+                ImageAnimator.UpdateFrames(Bmp1);
+            if (Bmp2 != null && ImageAnimator.CanAnimate(Bmp2))
+                ImageAnimator.UpdateFrames(Bmp2);
+            if (Bmp3 != null && ImageAnimator.CanAnimate(Bmp3))
+                ImageAnimator.UpdateFrames(Bmp3);
             switch (State)
             {
                 case 0:
-                    UsedBmp = Bmp0;
+                    e.Graphics.DrawImage(Bmp0, new Rectangle(new Point(0, 0), this.Size));
                     break;
                 case 1:
-                    UsedBmp = Bmp1;
+                    e.Graphics.DrawImage(Bmp1, new Rectangle(new Point(0, 0), this.Size));
                     break;
                 case 2:
-                    UsedBmp = Bmp2;
+                    e.Graphics.DrawImage(Bmp2, new Rectangle(new Point(0, 0), this.Size));
                     break;
                 case 3:
-                    UsedBmp = Bmp3;
+                    e.Graphics.DrawImage(Bmp3, new Rectangle(new Point(0, 0), this.Size));
                     break;
                 default:
+                    e.Graphics.DrawImage(FourBitmapRes.DefaultBmp, new Rectangle(new Point(0, 0), this.Size));
                     break;
             }
-            if (UsedBmp != null && ImageAnimator.CanAnimate(UsedBmp))
-                ImageAnimator.UpdateFrames(UsedBmp);
 
-            if (UsedBmp != null)
-                e.Graphics.DrawImage(UsedBmp, new Rectangle(new Point(0, 0), this.Size));
-            else
-                e.Graphics.DrawImage(FourBitmapRes.DefaultBmp, new Rectangle(new Point(0, 0), this.Size));
         }
     }
 }

@@ -33,7 +33,7 @@ namespace CtrlTwoBitmap
                 m_Ctrl.Size = m_RectControl.Size;
                 m_Ctrl.BackColor = Color.Transparent;
                 
-                string strBmpInact = ((TwoBitmapProp)this.m_SpecificProp).NomFichierActif;
+                string strBmpInact = ((TwoBitmapProp)this.m_SpecificProp).NomFichierInactif;
                 string strImageFullPath = strBmpInact.Replace(@".\", Application.StartupPath + @"\");
                 try
                 {
@@ -165,6 +165,7 @@ namespace CtrlTwoBitmap
                 {
                     m_bIsActive = value;
                     TraiteAnimation();
+                    Refresh();
                 }
             }
         }
@@ -205,14 +206,30 @@ namespace CtrlTwoBitmap
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            Bitmap UsedBmp = m_bIsActive ? this.m_BmpAct : this.m_BmpInact;
-            if (UsedBmp != null && ImageAnimator.CanAnimate(UsedBmp) && m_bIsActive)
-                ImageAnimator.UpdateFrames(UsedBmp);
+            if (m_bIsActive)
+            {
+                if (m_BmpAct != null )
+                {
+                    if (ImageAnimator.CanAnimate(m_BmpAct))
+                        ImageAnimator.UpdateFrames(m_BmpAct);
 
-            if (UsedBmp != null)
-                e.Graphics.DrawImage(UsedBmp, new Rectangle(new Point(0, 0), this.Size));
+                    e.Graphics.DrawImage(m_BmpAct, new Rectangle(new Point(0, 0), this.Size));
+                }
+                else
+                    e.Graphics.DrawImage(TwoImageRes.DefaultImg, new Rectangle(new Point(0, 0), this.Size));
+            }
             else
-                e.Graphics.DrawImage(TwoImageRes.DefaultImg, new Rectangle(new Point(0, 0), this.Size));
+            {
+                if (m_BmpAct != null)
+                {
+                    if (ImageAnimator.CanAnimate(m_BmpInact))
+                        ImageAnimator.UpdateFrames(m_BmpInact);
+
+                    e.Graphics.DrawImage(m_BmpInact, new Rectangle(new Point(0, 0), this.Size));
+                }
+                else
+                    e.Graphics.DrawImage(TwoImageRes.DefaultImg, new Rectangle(new Point(0, 0), this.Size));
+            }
         }
 
     }
