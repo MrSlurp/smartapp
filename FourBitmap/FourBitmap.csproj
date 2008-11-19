@@ -15,6 +15,9 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\Prod\Debug\</OutputPath>
+    <IntermediatePath>..\obj\Debug\</IntermediatePath>
+    <IntermediateOuputPath>..\obj\Debug\</IntermediateOuputPath>
+    <BaseIntermediateOutputPath>..\obj\Debug\</BaseIntermediateOutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -23,6 +26,9 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\Prod\Release\</OutputPath>
+    <IntermediatePath>..\obj\Release\</IntermediatePath>
+    <IntermediateOuputPath>..\obj\Release\</IntermediateOuputPath>
+    <BaseIntermediateOutputPath>..\obj\Release\</BaseIntermediateOutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>

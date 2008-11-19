@@ -69,7 +69,7 @@ namespace FourBitmap
                 }
 
                 string strBmp3 = ((DllFourBitmapProp)this.m_SpecificProp).NomFichier3;
-                strImageFullPath = strBmp1.Replace(@".\", Application.StartupPath + @"\");
+                strImageFullPath = strBmp3.Replace(@".\", Application.StartupPath + @"\");
                 try
                 {
                     ((FourBitmapDispCtrl)m_Ctrl).Bmp3 = new Bitmap(strImageFullPath);
