@@ -16,6 +16,7 @@ namespace SmartApp
     public partial class MDISmartCommandMain : Form
     {
         private VariableForm m_VariableForm;
+        private VirtualDataForm m_VirtualDataForm;
         private BTDoc m_Document = null;
         private static AppEventLogForm m_EventLog = new AppEventLogForm();
         CommConfiguration m_CommConfigPage = new CommConfiguration();
@@ -79,6 +80,7 @@ namespace SmartApp
                 {
                     SelectCommInComboOrCreateTemp(LaunchArgParser.CommType.ToString(), LaunchArgParser.CommParam);
                     m_Document.OpenDocumentComm();
+                    TraiteCommStateVirtualDataForm();
                     if (m_Document.m_Comm.IsOpen && LaunchArgParser.AutoStart)
                     {
                         m_tsBtnStartStop_Click(null, null);
@@ -323,6 +325,7 @@ namespace SmartApp
                 m_Document.TraiteMessage(MESSAGE.MESS_CMD_STOP, null, Program.TypeApp);
                 m_Document.DetachCommEventHandler(OnCommStateChange);
                 m_Document.CloseDocumentComm();
+                TraiteCommStateVirtualDataForm();
             }
             m_Document = null;
 
@@ -356,9 +359,37 @@ namespace SmartApp
                 if (m_Document.m_Comm.IsOpen)
                 {
                     m_Document.CloseDocumentComm();
+                    TraiteCommStateVirtualDataForm();
                 }
                 else
+                {
                     m_Document.OpenDocumentComm();
+                    TraiteCommStateVirtualDataForm();
+                }
+            }
+        }
+
+        private void TraiteCommStateVirtualDataForm()
+        {
+            if (m_Document != null)
+            {
+                if (m_Document.m_Comm.IsOpen)
+                {
+                    if (m_Document.TypeComm == TYPE_COMM.VIRTUAL && m_VirtualDataForm == null)
+                    {
+                        m_VirtualDataForm = new VirtualDataForm(m_Document.GestDataVirtual, m_Document.GestData);
+                        m_VirtualDataForm.Show();
+                        m_VirtualDataForm.BringToFront();
+                    }
+                }
+                else
+                {
+                    if (m_VirtualDataForm != null)
+                    {
+                        m_VirtualDataForm.Hide();
+                        m_VirtualDataForm = null;
+                    }
+                }
             }
         }
 

@@ -32,6 +32,7 @@ namespace SmartApp
             m_IniFile.Load(strIniFilePath);
             ColConnectionType.Items.Add(TYPE_COMM.SERIAL.ToString());
             ColConnectionType.Items.Add(TYPE_COMM.ETHERNET.ToString());
+            ColConnectionType.Items.Add(TYPE_COMM.VIRTUAL.ToString());
             ColConnectionType.ValueType = typeof(string);
             InitCommList();
         }
@@ -147,7 +148,10 @@ namespace SmartApp
                         strErr = "Invalid Serial port";
                         return false; ;
                     }
-
+                }
+                else if (TYPE_COMM.VIRTUAL.ToString() == Type)
+                {
+                    // toujours OK
                 }
                 else
                 {

@@ -82,6 +82,11 @@ namespace SmartApp
                             m_Comtype = TYPE_COMM.SERIAL;
                             m_CommParam = TabComm[1];
                         }
+                        else if (TabComm.Length == 1 && TabComm[0].ToUpper() == TYPE_COMM.VIRTUAL.ToString())
+                        {
+                            m_Comtype = TYPE_COMM.VIRTUAL;
+                            m_CommParam = "Virtual";
+                        }
                         m_bAutoConnect = true;
                         i++;
                     }
