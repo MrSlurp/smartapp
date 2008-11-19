@@ -57,6 +57,7 @@ namespace CommonLib
             }
         }
 
+        #region Fonction d'execution des scripts
         public void ExecuteScript(string[] ScriptLines)
         {
             StringCollection strCollct = new StringCollection();
@@ -164,6 +165,7 @@ namespace CommonLib
             }
             return SCR_OBJECT.INVALID;
         }
+        #endregion
 
         #region execution des fonction
         //*****************************************************************************************************
@@ -308,7 +310,7 @@ namespace CommonLib
             Trame TrameToSend = (Trame)m_Document.GestTrame.GetFromSymbol(FrameSymbol);
             if (TrameToSend != null)
             {
-                Byte[] buffer = TrameToSend.CreateTrameToSend();
+                Byte[] buffer = TrameToSend.CreateTrameToSend(false);
                 if (m_Document.m_Comm.IsOpen)
                 {
                     m_Document.m_Comm.SendData(buffer);
@@ -321,7 +323,7 @@ namespace CommonLib
             }
             else
             {
-                LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format("Unknown Timer {0}", FrameSymbol));
+                LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format("Unknown Frame {0}", FrameSymbol));
                 AddLogEvent(log);
             }
         }
@@ -353,7 +355,12 @@ namespace CommonLib
                         return;
                     }
                     m_bIsWaiting = false;
-                    byte[] buffer = m_Document.m_Comm.GetRecievedData(ConvertedSize, FrameHeader);
+                    byte[] buffer = null;
+                    if (m_Document.m_Comm.CommType == TYPE_COMM.VIRTUAL)
+                        buffer = m_Document.m_Comm.GetRecievedData(ConvertedSize, TrameToRecieve);
+                    else
+                        buffer = m_Document.m_Comm.GetRecievedData(ConvertedSize, FrameHeader);
+
                     if (buffer == null || !TrameToRecieve.TreatRecieveTrame(buffer))
                     {
                         string strmess;

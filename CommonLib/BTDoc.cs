@@ -38,6 +38,8 @@ namespace CommonLib
         private GestTimer       m_GestTimer = new GestTimer();
         // Stocke la liste de toutes les loggers de l'application
         private GestLogger      m_GestLogger = new GestLogger();
+        // C'est une image de la liste des données sans gestion des groupes (les groupes ne sont pas lu)
+        private GestDataVirtual m_GestVirtualData = new GestDataVirtual();
 
         private TYPE_APP m_TypeApp = TYPE_APP.NONE;
         // indique si le document a été modifié
@@ -106,6 +108,14 @@ namespace CommonLib
             }
         }
 
+        public TYPE_COMM TypeComm
+        {
+            get
+            {
+                return m_Comm.CommType;
+            }
+        }
+
         #region constructeur
         //*****************************************************************************************************
         // Description:
@@ -115,6 +125,8 @@ namespace CommonLib
         {
             m_GestData.DoSendMessage += new SendMessage(TraiteMessage);
             m_GestData.EventAddLogEvent += new AddLogEventDelegate(AddLogEvent);
+            m_GestVirtualData.DoSendMessage += new SendMessage(TraiteMessage);
+            m_GestVirtualData.EventAddLogEvent += new AddLogEventDelegate(AddLogEvent);
             m_GestScreen.DoSendMessage += new SendMessage(TraiteMessage);
             m_GestScreen.EventAddLogEvent += new AddLogEventDelegate(AddLogEvent);
             m_GestTrame.DoSendMessage += new SendMessage(TraiteMessage);
@@ -184,6 +196,14 @@ namespace CommonLib
             get
             {
                 return m_GestData;
+            }
+        }
+
+        public GestDataVirtual GestDataVirtual
+        {
+            get
+            {
+                return m_GestVirtualData;
             }
         }
 
@@ -264,6 +284,7 @@ namespace CommonLib
                 case MESSAGE.MESS_CMD_RUN:
                 case MESSAGE.MESS_CMD_STOP:
                     GestData.TraiteMessage(Mess, Param, TypeApp);
+                    GestDataVirtual.TraiteMessage(Mess, Param, TypeApp);
                     GestScreen.TraiteMessage(Mess, Param, TypeApp);
                     GestTrame.TraiteMessage(Mess, Param, TypeApp);
                     GestTimer.TraiteMessage(Mess, Param, TypeApp);
@@ -338,6 +359,11 @@ namespace CommonLib
                     case XML_CF_TAG.DataSection:
                         if (!this.GestData.ReadIn(Node, TypeApp))
                             return false;
+                        if (TypeApp == TYPE_APP.SMART_COMMAND)
+                        {
+                            if (!this.GestDataVirtual.ReadIn(Node, TypeApp))
+                                return false;
+                        }
                         break;
                     case XML_CF_TAG.TrameSection:
                         if (!this.GestTrame.ReadIn(Node, TypeApp))
@@ -516,6 +542,7 @@ namespace CommonLib
             if (TypeApp == TYPE_APP.SMART_COMMAND)
             {
                 if (!m_GestData.FinalizeRead(this)
+                    || !m_GestVirtualData.FinalizeRead(this)
                     || !m_GestScreen.FinalizeRead(this)
                     || !m_GestTrame.FinalizeRead(this)
                     || !m_GestFunction.FinalizeRead(this)

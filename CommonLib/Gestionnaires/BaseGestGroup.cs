@@ -188,6 +188,11 @@ namespace CommonLib
         //*****************************************************************************************************
         public override bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
         {
+            return ReadGestGroup(Node, TypeApp);
+        }
+
+        protected bool ReadGestGroup(XmlNode Node, TYPE_APP TypeApp)
+        {
             XmlNode NodeSectionGroup = null;
             for (int i = 0; i<Node.ChildNodes.Count; i++)
             {

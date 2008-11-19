@@ -12,7 +12,6 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Text;
 using System.Xml;
-using System.Windows.Forms;
 
 namespace CommonLib
 {
@@ -36,6 +35,19 @@ namespace CommonLib
         //*****************************************************************************************************
         public override bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
         {
+            // relecture des données
+            if (!ReadForGestData(Node, TypeApp))
+                return false;
+
+            // relecture des groupes
+            if (!base.ReadIn(Node, TypeApp))
+                return false;
+
+            return true;
+        }
+
+        private bool ReadForGestData(XmlNode Node, TYPE_APP TypeApp)
+        {
             for (int i = 0; i < Node.ChildNodes.Count; i++)
             {
                 XmlNode ChildNode = Node.ChildNodes[i];
@@ -51,9 +63,6 @@ namespace CommonLib
                     this.AddObj(NewData);
                 }
             }
-            if (!base.ReadIn(Node, TypeApp))
-                return false;
-
             return true;
         }
 

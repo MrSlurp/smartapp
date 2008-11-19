@@ -23,6 +23,7 @@ namespace CommonLib
         private StringCollection m_ListStrDatas;
         // liste des références vers les données de la trame
         private ArrayList m_ListRefDatas;
+        private ArrayList m_ListRefVirtualDatas;
         // type de conversion de la trame
         private string m_strConvertType;
         // index de la donnée ou commence la conversion
@@ -62,6 +63,7 @@ namespace CommonLib
         {
             m_ListStrDatas = new StringCollection();
             m_ListRefDatas = new ArrayList();
+            m_ListRefVirtualDatas = new ArrayList();
             m_iDataClcSize = (int)DATA_SIZE.DATA_SIZE_8B;
             m_strConvertType = CONVERT_TYPE.NONE.ToString();
             m_strDataClcType = CTRLDATA_TYPE.NONE.ToString();
@@ -342,6 +344,16 @@ namespace CommonLib
                     continue;
                 }
                 m_ListRefDatas.Add(Dat);
+                VirtualData VDat = (VirtualData)Doc.GestDataVirtual.GetFromSymbol(strData);
+                if (VDat == null)
+                {
+                    string strMessage;
+                    strMessage = string.Format("Frame Data not found (Frame {0}, Data {1}", m_strSymbol, strData);
+                    LogEvent log = new LogEvent(LOG_EVENT_TYPE.INFO, strMessage);
+                    AddLogEvent(log);
+                    continue;
+                }
+                m_ListRefVirtualDatas.Add(VDat);
             }
 
             // cette première passe permet d'initialiser le buffer contenant le header de la trame
@@ -354,7 +366,7 @@ namespace CommonLib
 
             CalcBeginAndEndConversion();
             //certaines choses sont initialisée par ces deux fonctions, comme le hearder de trame
-            PrepareSendBuffer(buffer);
+            PrepareSendBuffer(buffer, false);
             TreatWriteConversion(buffer);
             return true;
         }
@@ -420,7 +432,7 @@ namespace CommonLib
         // Description: crée la trame a envoyer a partir des données qu'elle contien et renvoie le buffer
         // Return: /
         //*****************************************************************************************************
-        public Byte[] CreateTrameToSend()
+        public Byte[] CreateTrameToSend(bool forVirtualComm )
         {
             // Obtenir la taille totale en octets
             int Taille = GetTrameSizeInByte();
@@ -431,7 +443,7 @@ namespace CommonLib
                 buffer[i] = 0;
 
             //la donnée de control est calculé dans cette fonction juste avant d'être placé dans la trame
-            PrepareSendBuffer(buffer);
+            PrepareSendBuffer(buffer, forVirtualComm);
             // traiter la conversion
             buffer = TreatWriteConversion(buffer);
             return buffer;
@@ -474,7 +486,7 @@ namespace CommonLib
         // si une donnée de control existe, celle ci est calculée avant d'être assignée dans la trame
         // Return: /
         //*****************************************************************************************************
-        private void PrepareSendBuffer(byte[] buffer)
+        private void PrepareSendBuffer(byte[] buffer, bool forVirtualComm)
         {
             int CurrentDataPos = 0;
             int ByteWhereBeginDataCtrl = 0;
@@ -483,7 +495,12 @@ namespace CommonLib
             int iTempHeaderLenght = 0;
             for (int i = 0; i < m_ListRefDatas.Count; i++)
             {
-                Data dat = (Data)m_ListRefDatas[i];
+                Data dat = null;
+                if (forVirtualComm)
+                    dat = (Data)m_ListRefVirtualDatas[i];
+                else
+                    dat = (Data)m_ListRefDatas[i];
+
                 int DataSz = dat.SizeInBits;
                 int BeginData = CurrentDataPos;
                 // -1 car l'index des bits est basé a 0;

@@ -15,6 +15,9 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\Prod\Debug\</OutputPath>
+    <IntermediatePath>..\obj\Debug\</IntermediatePath>
+    <IntermediateOuputPath>..\obj\Debug\</IntermediateOuputPath>
+    <BaseIntermediateOutputPath>..\obj\Debug\</BaseIntermediateOutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -23,6 +26,9 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\Prod\Release\</OutputPath>
+    <IntermediatePath>..\obj\Release\</IntermediatePath>
+    <IntermediateOuputPath>..\obj\Release\</IntermediateOuputPath>
+    <BaseIntermediateOutputPath>..\obj\Release\</BaseIntermediateOutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -41,6 +47,7 @@
     <Compile Include="Comm\EthernetComm.cs" />
     <Compile Include="Comm\HttpComm.cs" />
     <Compile Include="Comm\SerialComm.cs" />
+    <Compile Include="Comm\VirtualComm.cs" />
     <Compile Include="ConfigForms\ISpecificPanel.cs" />
     <Compile Include="ConfigForms\TwoColorProperties.cs">
       <SubType>UserControl</SubType>
@@ -62,6 +69,7 @@
     <Compile Include="Data\SpecificControls\BTFilledRectControl.cs" />
     <Compile Include="Data\SpecificControls\IBTSpecificControl.cs" />
     <Compile Include="Data\Trame.cs" />
+    <Compile Include="Data\VirtualData.cs" />
     <Compile Include="Defines.cs" />
     <Compile Include="DllControlGest.cs" />
     <Compile Include="DllControlInterface.cs" />
@@ -69,6 +77,7 @@
     <Compile Include="Gestionnaires\BaseGestGroup.cs" />
     <Compile Include="Gestionnaires\GestControl.cs" />
     <Compile Include="Gestionnaires\GestData.cs" />
+    <Compile Include="Gestionnaires\GestDataVirtual.cs" />
     <Compile Include="Gestionnaires\GestFunction.cs" />
     <Compile Include="Gestionnaires\GestLogger.cs" />
     <Compile Include="Gestionnaires\GestScreen.cs" />

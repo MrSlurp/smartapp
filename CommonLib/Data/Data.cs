@@ -15,17 +15,18 @@ using System.Xml;
 namespace CommonLib
 {
     public delegate void EventDataValueChange();
+    public delegate void EventDataValueChangePlus(Data data);
     public class Data : BaseObject
     {
         #region Déclaration des données de la classe
         // valeur minimale
-        private int m_MinVal;
+        protected int m_MinVal;
         // valeur maximale
-        private int m_MaxVal;
+        protected int m_MaxVal;
         // valeur par défaut
-        private int m_DefVal;
+        protected int m_DefVal;
         // valeur courante
-        private int m_CurrentVal;
+        protected int m_CurrentVal;
         // taille en bits
         private int m_Size;
         // donnée constante??
@@ -37,6 +38,7 @@ namespace CommonLib
         // évènement levé lorsque la valeur change.
         // utilisé en mode commande pour que les controles rafrachissent leur affichage
         public event EventDataValueChange DataValueChanged;
+        public event EventDataValueChangePlus DataValueChangedPlus;
 
         #region constructeur et init
         //*****************************************************************************************************
@@ -53,7 +55,7 @@ namespace CommonLib
         }
 
         //*****************************************************************************************************
-        // Description: constructeur "paramétré" principalement utilisé par les wizardq
+        // Description: constructeur "paramétré" principalement utilisé par les wizards
         // Return: /
         //*****************************************************************************************************
         public Data(string strSymbol, int DefaultValue, int size, bool bIsConstant)
@@ -128,7 +130,7 @@ namespace CommonLib
         // protégé en écriture par les bornes de la donnée ou l'attribut "constant"
         // Return: /
         //*****************************************************************************************************
-        public int Value
+        public virtual int Value
         {
             get
             {
@@ -169,6 +171,8 @@ namespace CommonLib
                 // si la valeur de la donnée a changé on le notifie
                 if (bValueChange && DataValueChanged != null)
                     DataValueChanged();
+                if (bValueChange && DataValueChangedPlus != null)
+                    DataValueChangedPlus(this);
             }
         }
 

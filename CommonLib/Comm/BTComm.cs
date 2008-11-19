@@ -44,6 +44,8 @@ namespace CommonLib
         HTTP,
         // communication de type TCP, pour le TCP modbus ou autre
         ETHERNET,
+        // connexion virtuel pour test des fichiers de configuration
+        VIRTUAL,
     }
 
     //*****************************************************************************************************
@@ -79,13 +81,6 @@ namespace CommonLib
         public BTComm()
         {
             // init par défaut
-            /*
-            m_TypeComm = TYPE_COMM.SERIAL_COMM;
-            m_strDestAdress = "COM6";
-            m_Comm = new SerialComm();
-            m_Comm = new SerialComm();
-            ((SerialComm)m_Comm).ComPort = m_strDestAdress;
-            */
             m_TypeComm = TYPE_COMM.ETHERNET;
             m_strDestAdress = "192.168.0.99:502";
             m_Comm = new EthernetComm();
@@ -158,6 +153,11 @@ namespace CommonLib
                         int port = int.Parse(strs[1]);
                         ((EthernetComm)m_Comm).IpAddr = strDestAdress;
                         ((EthernetComm)m_Comm).Port = port;
+                        break;
+                    case TYPE_COMM.VIRTUAL:
+                        m_Comm = new VirtualComm();
+                        ((VirtualComm)m_Comm).OnCommStateChange += new CommOpenedStateChange(ConnectionStateChangeEvent);
+                        // aucun paramètres
                         break;
                     case TYPE_COMM.HTTP:
                     default:
@@ -267,6 +267,15 @@ namespace CommonLib
             return buffer;
         }
 
+        public Byte[] GetRecievedData(int ConvertedSize, Trame TrameToReturn)
+        {
+            Byte[] buffer = null;
+            if (m_Comm.GetType() == typeof (VirtualComm))
+                buffer = ((VirtualComm)m_Comm).GetRecievedData(ConvertedSize, TrameToReturn);
+
+            return buffer;
+        }
+
         //*****************************************************************************************************
         // Description: renvoie le code d'erreur courant
         // Return: /
@@ -308,11 +317,5 @@ namespace CommonLib
                 EventAddLogEvent(Event);
             }
         }
-        /*
-        public void DiscardRecievedDatas()
-        {
-            m_Comm.DiscardRecievedDatas();
-        }
-         * */
     }
 }
