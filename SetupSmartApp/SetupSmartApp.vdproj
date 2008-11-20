@@ -57,19 +57,13 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_51C316D1C9FC4E6C94784C5AC6C1F3F7"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_70E4B28499FB4A368A8DD427C619DB3E"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_BBA9DD287AE2424997541E39A61EC2A6"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_DD25E0EABC9242738A862943884CD443"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -81,14 +75,20 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_F1E02DA706378F37F39F81CB91F20493"
-        "OwnerKey" = "8:_DD25E0EABC9242738A862943884CD443"
+        "MsmKey" = "8:_ED6AD66369934C128648CBD99834A9DC"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_F1E02DA706378F37F39F81CB91F20493"
         "OwnerKey" = "8:_02E63C948F23424D8DD7AA34561CC24D"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F1E02DA706378F37F39F81CB91F20493"
+        "OwnerKey" = "8:_ED6AD66369934C128648CBD99834A9DC"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -112,13 +112,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_DD25E0EABC9242738A862943884CD443"
+        "OwnerKey" = "8:_3E3AFC53A79F438A9E8825628FBF38C2"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_02E63C948F23424D8DD7AA34561CC24D"
+        "OwnerKey" = "8:_ED6AD66369934C128648CBD99834A9DC"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -130,7 +130,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_3E3AFC53A79F438A9E8825628FBF38C2"
+        "OwnerKey" = "8:_02E63C948F23424D8DD7AA34561CC24D"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -314,12 +314,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_70E4B28499FB4A368A8DD427C619DB3E"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_51C316D1C9FC4E6C94784C5AC6C1F3F7"
             {
-            "SourcePath" = "8:Fournitures\\Serial Example (SL Bloc).pm3"
-            "TargetName" = "8:Serial Example (SL Bloc).pm3"
+            "SourcePath" = "8:..\\BTApp.ico"
+            "TargetName" = "8:BTApp.ico"
             "Tag" = "8:"
-            "Folder" = "8:_EBBB34434F0B4F8F91DEB736FE51356D"
+            "Folder" = "8:_8421F5FDC69F48CA8248FC20B9EEBC38"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -334,12 +334,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BBA9DD287AE2424997541E39A61EC2A6"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_70E4B28499FB4A368A8DD427C619DB3E"
             {
-            "SourcePath" = "8:..\\SmartApp\\SmartApp.ico"
-            "TargetName" = "8:SmartApp.ico"
+            "SourcePath" = "8:Fournitures\\Serial Example (SL Bloc).pm3"
+            "TargetName" = "8:Serial Example (SL Bloc).pm3"
             "Tag" = "8:"
-            "Folder" = "8:_8421F5FDC69F48CA8248FC20B9EEBC38"
+            "Folder" = "8:_EBBB34434F0B4F8F91DEB736FE51356D"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -434,11 +434,11 @@
             "Description" = "8:Smart Application configuration file"
             "Extensions" = "8:.saf"
             "MIME" = "8:"
-            "Icon" = "8:_BBA9DD287AE2424997541E39A61EC2A6"
+            "Icon" = "8:_51C316D1C9FC4E6C94784C5AC6C1F3F7"
             "IconIndex" = "3:0"
                 "Command"
                 {
-                "Command" = "8:_DD25E0EABC9242738A862943884CD443"
+                "Command" = "8:_ED6AD66369934C128648CBD99834A9DC"
                 }
                 "Verbs"
                 {
@@ -510,14 +510,14 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Smart Application"
-        "ProductCode" = "8:{B004E9A8-AC4C-4033-A72A-7828ACA247D7}"
-        "PackageCode" = "8:{4DD31360-2DF8-452F-A7AE-A6AEA61CB4A0}"
+        "ProductCode" = "8:{E6101A18-F71A-4DCD-A791-3C76DB100D55}"
+        "PackageCode" = "8:{83B96D28-CC45-41A3-8F8B-3213BCDEE546}"
         "UpgradeCode" = "8:{D5DB5027-D729-4E56-87EB-273CB32671B6}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.0.0"
+        "ProductVersion" = "8:2.0.0"
         "Manufacturer" = "8:Bigot Pascal"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -694,10 +694,10 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_DD25E0EABC9242738A862943884CD443"
+            "Target" = "8:_ED6AD66369934C128648CBD99834A9DC"
             "Folder" = "8:_AA60EF9031DA4F03A94DFA6BA233CC64"
             "WorkingFolder" = "8:_8421F5FDC69F48CA8248FC20B9EEBC38"
-            "Icon" = "8:_BBA9DD287AE2424997541E39A61EC2A6"
+            "Icon" = "8:_51C316D1C9FC4E6C94784C5AC6C1F3F7"
             "Feature" = "8:"
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_4E231E327814421F8706B766BAEAAD19"
@@ -708,10 +708,10 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_DD25E0EABC9242738A862943884CD443"
+            "Target" = "8:_ED6AD66369934C128648CBD99834A9DC"
             "Folder" = "8:_AA60EF9031DA4F03A94DFA6BA233CC64"
             "WorkingFolder" = "8:_8421F5FDC69F48CA8248FC20B9EEBC38"
-            "Icon" = "8:_BBA9DD287AE2424997541E39A61EC2A6"
+            "Icon" = "8:_51C316D1C9FC4E6C94784C5AC6C1F3F7"
             "Feature" = "8:"
             }
         }
@@ -1115,7 +1115,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_02E63C948F23424D8DD7AA34561CC24D"
             {
-            "SourcePath" = "8:..\\obj\\Debug\\Debug\\FourBitmap.dll"
+            "SourcePath" = "8:..\\obj\\Release\\Release\\FourBitmap.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8421F5FDC69F48CA8248FC20B9EEBC38"
@@ -1143,7 +1143,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_3E3AFC53A79F438A9E8825628FBF38C2"
             {
-            "SourcePath" = "8:..\\obj\\Debug\\Debug\\CtrlSerpentin.dll"
+            "SourcePath" = "8:..\\obj\\Release\\Release\\CtrlSerpentin.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8421F5FDC69F48CA8248FC20B9EEBC38"
@@ -1169,9 +1169,65 @@
                 {
                 }
             }
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_41F86CE4B0864E85874514B528DDEEC2"
+            {
+            "SourcePath" = "8:"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_8421F5FDC69F48CA8248FC20B9EEBC38"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:ContentFiles"
+            "OutputProjectGuid" = "8:{4955E361-A3B1-4507-BB31-A987814A0A3B}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_4677DE4A177B41EE80EDD868F17865AE"
+            {
+            "SourcePath" = "8:"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_8421F5FDC69F48CA8248FC20B9EEBC38"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:ContentFiles"
+            "OutputProjectGuid" = "8:{5A8BD31D-5E4E-4891-9351-DD3119CB6BC9}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_4C9F4229D2B64447A88FC59B02CBB014"
             {
-            "SourcePath" = "8:..\\obj\\Debug\\Debug\\CtrlTwoBitmap.dll"
+            "SourcePath" = "8:..\\obj\\Release\\Release\\CtrlTwoBitmap.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8421F5FDC69F48CA8248FC20B9EEBC38"
@@ -1197,9 +1253,9 @@
                 {
                 }
             }
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_DD25E0EABC9242738A862943884CD443"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_7433D559967140C5A00CF99CE2C1688D"
             {
-            "SourcePath" = "8:..\\obj\\Debug\\Debug Cmd\\SmartApp.exe"
+            "SourcePath" = "8:"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8421F5FDC69F48CA8248FC20B9EEBC38"
@@ -1207,7 +1263,35 @@
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
             "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:TRUE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:ContentFiles"
+            "OutputProjectGuid" = "8:{6494B802-211E-4D72-9657-22A2EE0850E8}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_ED6AD66369934C128648CBD99834A9DC"
+            {
+            "SourcePath" = "8:..\\obj\\Release\\Release\\SmartApp.exe"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_8421F5FDC69F48CA8248FC20B9EEBC38"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
             "System" = "11:FALSE"
             "Permanent" = "11:FALSE"
             "SharedLegacy" = "11:FALSE"

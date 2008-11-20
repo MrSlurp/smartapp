@@ -75,18 +75,18 @@ namespace GradientBaloon
         }
     }
 
-    public class GradientBaloonDispCtrl : UserControl
+    public class GradientBaloonDispCtrl : DrawInParentCmdCtrl
     {
         // ajouter ici les données membres du control affiché
-
         public GradientBaloonDispCtrl()
         {
+            m_bDrawInParent = true;
         }
 
-        protected override void OnPaint(PaintEventArgs e)
+        public override void OnPaintInParent(Graphics gr, Rectangle rect)
         {
-            // mettez ici le code de dessin du control
-            base.OnPaint(e);
+            LinearGradientBrush grBrush = new LinearGradientBrush(rect, Color.Red, Color.Blue, LinearGradientMode.Vertical);
+            gr.FillRectangle(grBrush, rect);
         }
     }
 }

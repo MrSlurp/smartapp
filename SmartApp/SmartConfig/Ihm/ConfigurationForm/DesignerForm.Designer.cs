@@ -171,7 +171,7 @@ namespace SmartApp.Ihm
             this.m_TabItemOption.Location = new System.Drawing.Point(4, 22);
             this.m_TabItemOption.Name = "m_TabItemOption";
             this.m_TabItemOption.Padding = new System.Windows.Forms.Padding(3);
-            this.m_TabItemOption.Size = new System.Drawing.Size(281, 521);
+            this.m_TabItemOption.Size = new System.Drawing.Size(281, 537);
             this.m_TabItemOption.TabIndex = 0;
             this.m_TabItemOption.Text = "Control Options";
             this.m_TabItemOption.UseVisualStyleBackColor = true;
@@ -189,7 +189,7 @@ namespace SmartApp.Ihm
             this.m_PanelControlProperties.Location = new System.Drawing.Point(3, 3);
             this.m_PanelControlProperties.Margin = new System.Windows.Forms.Padding(0);
             this.m_PanelControlProperties.Name = "m_PanelControlProperties";
-            this.m_PanelControlProperties.Size = new System.Drawing.Size(275, 515);
+            this.m_PanelControlProperties.Size = new System.Drawing.Size(275, 531);
             this.m_PanelControlProperties.Symbol = "";
             this.m_PanelControlProperties.TabIndex = 1;
             this.m_PanelControlProperties.Txt = "";
@@ -204,7 +204,7 @@ namespace SmartApp.Ihm
             this.m_TabScript.Location = new System.Drawing.Point(4, 22);
             this.m_TabScript.Name = "m_TabScript";
             this.m_TabScript.Padding = new System.Windows.Forms.Padding(3);
-            this.m_TabScript.Size = new System.Drawing.Size(281, 521);
+            this.m_TabScript.Size = new System.Drawing.Size(281, 537);
             this.m_TabScript.TabIndex = 1;
             this.m_TabScript.Text = "Item Script";
             this.m_TabScript.UseVisualStyleBackColor = true;

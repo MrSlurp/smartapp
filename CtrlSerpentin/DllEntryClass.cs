@@ -8,6 +8,7 @@ using CommonLib;
 
 namespace CtrlSerpentin
 {
+    [Serializable]
     public class DllEntryClass : IDllControlInterface
     {
         public const uint Serpentin_Control_ID = 100;

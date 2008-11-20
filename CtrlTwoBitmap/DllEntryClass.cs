@@ -8,6 +8,7 @@ using CommonLib;
 
 namespace CtrlTwoBitmap
 {
+    [Serializable]
     public class DllEntryClass : IDllControlInterface
     {
         public const uint TwoBitmap_Control_ID = 110;

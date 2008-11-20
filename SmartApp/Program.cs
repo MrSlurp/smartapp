@@ -62,7 +62,6 @@ namespace SmartApp
         {
             CommonLib.Resources.InitializeBitmap();
             m_GestDlls.LoadExistingDlls();
-            //System.Diagnostics.Debugger.Break();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             LaunchArgParser.ParseArguments(strArgsList);

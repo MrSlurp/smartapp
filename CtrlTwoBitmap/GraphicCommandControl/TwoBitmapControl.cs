@@ -114,6 +114,7 @@ namespace CtrlTwoBitmap
             SetStyle(
                         ControlStyles.UserPaint |
                         ControlStyles.AllPaintingInWmPaint |
+                        ControlStyles.SupportsTransparentBackColor |
                         ControlStyles.DoubleBuffer, true);
         }
 
@@ -212,7 +213,7 @@ namespace CtrlTwoBitmap
                 {
                     if (ImageAnimator.CanAnimate(m_BmpAct))
                         ImageAnimator.UpdateFrames(m_BmpAct);
-
+                    
                     e.Graphics.DrawImage(m_BmpAct, new Rectangle(new Point(0, 0), this.Size));
                 }
                 else

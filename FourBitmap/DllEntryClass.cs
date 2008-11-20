@@ -8,6 +8,7 @@ using CommonLib;
 
 namespace FourBitmap
 {
+    [Serializable]
     public class DllEntryClass : IDllControlInterface
     {
         // changes ici l'identifiant unique de la DLL

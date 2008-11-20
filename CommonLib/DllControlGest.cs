@@ -37,9 +37,20 @@ namespace CommonLib
                         Type oType = typsFile[j];
                         if (oType.IsPublic && oType.Name == "DllEntryClass")
                         {
-                            IDllControlInterface oDll = (IDllControlInterface)Dll.CreateInstance(oType.FullName);
-                            m_HashDllIDs.Add(oDll.DllID, oDll);
-                            m_ListDlls.Add(oDll);
+                            try
+                            {
+                                IDllControlInterface oDll = (IDllControlInterface)Dll.CreateInstance(oType.FullName);
+                                if (oDll != null)
+                                {
+                                    m_HashDllIDs.Add(oDll.DllID, oDll);
+                                    m_ListDlls.Add(oDll);
+                                }
+                            }
+                            catch (Exception e)
+                            {
+                                MessageBox.Show(string.Format("Error while loading Plugins controls (Error in DLL {0})\n Plugins control will not be available", oType.Assembly.FullName), "Error plugins loading ");
+                                Console.WriteLine(e.Message);
+                            }
                         }
                     }
                 }

@@ -395,7 +395,7 @@ namespace SmartApp.Ihm.Designer
                 m_ListSelection.Clear();
                 for (int i = 0; i < ListToSelect.Count; i++)
                 {
-                    if (ListToSelect[i].GetType() == typeof(InteractiveControl))
+                    if (DropableItems.AllowedItem(ListToSelect[i].GetType()))
                     {
                         m_ListSelection.Add(ListToSelect[i]);
                         ((InteractiveControl)ListToSelect[i]).Selected = true;

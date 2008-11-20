@@ -136,10 +136,6 @@ namespace FourBitmap
 
         public FourBitmapDispCtrl()
         {
-            SetStyle(
-                        ControlStyles.UserPaint |
-                        ControlStyles.AllPaintingInWmPaint |
-                        ControlStyles.DoubleBuffer, true);
         }
 
         public bool IsRunning

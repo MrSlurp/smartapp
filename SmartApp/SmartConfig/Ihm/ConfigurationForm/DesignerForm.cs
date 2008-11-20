@@ -73,6 +73,13 @@ namespace SmartApp.Ihm
         public DesignerForm()
         {
             InitializeComponent();
+            this.m_toolBtnAlignLeft.Image = Resources.AlignLeft;
+            this.m_toolBtnAlignTop.Image = Resources.AlignTop;
+            this.m_toolBtnArrangeAcross.Image = Resources.ArrangeAcross;
+            this.m_toolBtnArrangeDown.Image = Resources.ArrangeDown;
+            this.m_toolBtnMSHeight.Image = Resources.MakeSameHeight;
+            this.m_toolBtnMSWidth.Image = Resources.MakeSameWidth;
+            this.m_toolBtnMSSize.Image = Resources.MakeSameBoth;
             m_InteractiveControlContainer.SelectionChange += new SelectionChangeEvent(OnScreenDesignerSelectionChange);
             m_InteractiveControlContainer.EventControlAdded += new IControlAddedEvent(this.OnDesignerControAdded);
             m_InteractiveControlContainer.EventControlRemoved += new IControlRemovedEvent(this.OnDesignerControRemoved);

@@ -73,6 +73,7 @@
     <Compile Include="Defines.cs" />
     <Compile Include="DllControlGest.cs" />
     <Compile Include="DllControlInterface.cs" />
+    <Compile Include="FileTrace.cs" />
     <Compile Include="Gestionnaires\BaseGest.cs" />
     <Compile Include="Gestionnaires\BaseGestGroup.cs" />
     <Compile Include="Gestionnaires\GestControl.cs" />
@@ -136,6 +137,9 @@
     <Compile Include="StdGraphicControl\CheckControl.cs" />
     <Compile Include="StdGraphicControl\ComboControl.cs" />
     <Compile Include="StdGraphicControl\ControlPainter.cs" />
+    <Compile Include="StdGraphicControl\DrawInParentCmdCtrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="StdGraphicControl\FilledEllipseControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

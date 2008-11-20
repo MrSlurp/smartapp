@@ -253,18 +253,33 @@ namespace CommonLib
                                     else if (NodeControl.Name == XML_CF_TAG.DllControl.ToString())
                                     {
                                         uint DllID= SpecificControlParser.ParseDllID(NodeControl);
-                                        BTControl Control = GestDLL[DllID].CreateBTControl();
-                                        if (Control != null)
+                                        if (GestDLL[DllID] != null)
                                         {
-                                            if (!Control.ReadIn(NodeControl, TypeApp))
+                                            BTControl Control = GestDLL[DllID].CreateBTControl();
+                                            if (Control != null)
+                                            {
+                                                if (!Control.ReadIn(NodeControl, TypeApp))
+                                                    return false;
+                                                m_GestControl.AddObj(Control);
+                                            }
+                                            else
+                                            {
+                                                System.Diagnostics.Debug.Assert(false);
                                                 return false;
-                                            m_GestControl.AddObj(Control);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            XmlNode AttrSymbol = NodeControl.Attributes.GetNamedItem(XML_CF_ATTRIB.strSymbol.ToString());
+                                            string symbol = "Unknown";
+                                            if (!string.IsNullOrEmpty(AttrSymbol.Value))
+                                                symbol = AttrSymbol.Value;
+                                            MessageBox.Show(string.Format("Missing plugins (ID = {1}) for object {0}\nIf you save the file, object will be lost", symbol, DllID), "WARINING");
                                         }
                                     }
                                     else
                                     {
                                         System.Diagnostics.Debug.Assert(false);
-                                        return false;
                                     }
                                 }
                             }
@@ -486,6 +501,7 @@ namespace CommonLib
                     m_ListControls[i].FinalizeRead(Doc);
                     m_ListControls[i].SetParent(this);
                     // on crée l'objet
+                    
                     m_ListControls[i].CreateControl();
                     // a partir de ce moment on connais leur taille définitive
                     if (pt.X < m_ListControls[i].DisplayedControl.Right)
@@ -493,7 +509,9 @@ namespace CommonLib
                     if (pt.Y < m_ListControls[i].DisplayedControl.Bottom)
                         pt.Y = m_ListControls[i].DisplayedControl.Bottom;
 
-                    this.m_DynamicPanel.Controls.Add(m_ListControls[i].DisplayedControl);
+
+                    //this.m_DynamicPanel.Controls.Add(m_ListControls[i].DisplayedControl);
+                    this.m_DynamicPanel.MyInitializeComponent(m_ListControls);
                 }
                 // on ajuste la taille du dynamic Panel
                 m_DynamicPanel.Size = new Size(pt.X + 10, pt.Y + 10);

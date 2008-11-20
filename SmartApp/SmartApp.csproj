@@ -22,7 +22,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationVersion>1.2.0.0</ApplicationVersion>
+    <ApplicationVersion>2.0.0.0</ApplicationVersion>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -463,120 +463,120 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Res\UpDownBtn.bmp">
+    <Content Include="Res\UpDownBtn.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Res\BottomLeftBtn.bmp">
+    <Content Include="Res\BottomLeftBtn.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Res\BottomRightBtn.bmp">
+    <Content Include="Res\BottomRightBtn.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Res\CheckBox.bmp">
+    <Content Include="Res\CheckBox.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Res\ColorTourComboUpDownNum.bmp">
+    <Content Include="Res\ColorTourComboUpDownNum.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Res\DownBtn.bmp">
+    <Content Include="Res\DownBtn.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Res\LeftBtn.bmp">
+    <Content Include="Res\LeftBtn.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Res\RadioBtn.bmp">
+    <Content Include="Res\RadioBtn.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Res\RightBtn.bmp">
+    <Content Include="Res\RightBtn.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Res\SliderBar.bmp">
+    <Content Include="Res\SliderBar.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Res\SliderCursor.bmp">
+    <Content Include="Res\SliderCursor.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Res\TopBtn.bmp">
+    <Content Include="Res\TopBtn.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Res\TopLeftBtn.bmp">
+    <Content Include="Res\TopLeftBtn.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Res\TopRightBtn.bmp">
+    <Content Include="Res\TopRightBtn.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Res\DropBtn.bmp">
+    <Content Include="Res\DropBtn.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Res\move.bmp">
+    <Content Include="Res\move.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Res\Toolbar\MakeSameHeight.bmp">
+    <Content Include="Res\Toolbar\MakeSameHeight.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Res\Toolbar\AlignLeft.bmp">
+    <Content Include="Res\Toolbar\AlignLeft.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Res\Toolbar\AlignTop.bmp">
+    <Content Include="Res\Toolbar\AlignTop.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Res\Toolbar\MakeSameWidth.bmp">
+    <Content Include="Res\Toolbar\MakeSameWidth.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Res\Toolbar\MakeSameBoth.bmp">
+    <Content Include="Res\Toolbar\MakeSameBoth.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Res\CxnOn.bmp">
+    <Content Include="Res\CxnOn.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Res\CxnOff.bmp">
+    </Content>
+    <Content Include="Res\CxnOff.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Res\PresAssData.bmp">
+    </Content>
+    <Content Include="Res\PresAssData.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
     <Content Include="ImgLib\Pompe.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -667,32 +667,34 @@
     <Content Include="Res\EmptyImg.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="SmartApp.ico" />
+    <None Include="SmartApp.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="app.config" />
-    <None Include="Res\WizRes\SLO3.bmp">
+    <Content Include="Res\WizRes\SLO3.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Res\WizRes\SLI2.bmp">
+    </Content>
+    <Content Include="Res\WizRes\SLI2.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Res\WizRes\SLI3.bmp">
+    </Content>
+    <Content Include="Res\WizRes\SLI3.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Res\WizRes\SLO1.bmp">
+    </Content>
+    <Content Include="Res\WizRes\SLO1.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Res\WizRes\SLO2.bmp">
+    </Content>
+    <Content Include="Res\WizRes\SLO2.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Res\WizRes\SLI1.bmp">
+    </Content>
+    <Content Include="Res\WizRes\SLI1.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Res\Toolbar\ArrangeDown.bmp">
+    </Content>
+    <Content Include="Res\Toolbar\ArrangeDown.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Res\Toolbar\ArrangeAcross.bmp">
+    </Content>
+    <Content Include="Res\Toolbar\ArrangeAcross.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
     <Content Include="ToDo.txt" />
   </ItemGroup>
   <ItemGroup>

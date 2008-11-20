@@ -94,25 +94,14 @@ namespace GradientBaloon
 
         public void SelfPaint(Graphics gr, Control ctrl)
         {
-            /*
-            Point[] pts = new Point[] { new Point(0, 0), 
-                                        new Point(this.Width/4, this.Height/4), 
-                                        new Point(this.Width/2, this.Height/2), 
-                                        new Point(3*(this.Width/4), 3*(this.Height/4)), 
-                                        new Point(this.Width, this.Height) };
-             * */
             if (this.SourceBTControl != null)
             {
-                // mettez ici le code de dessin du control lorsqu'il est posé dans la surface de dessin
-                LinearGradientBrush grBrush = new LinearGradientBrush(this.ClientRectangle, Color.Red, Color.Blue, LinearGradientMode.BackwardDiagonal);
-                //PathGradientBrush grBrush = new PathGradientBrush(pts, WrapMode.);
+                LinearGradientBrush grBrush = new LinearGradientBrush(this.ClientRectangle, Color.Red, Color.Blue, LinearGradientMode.Vertical);
                 gr.FillRectangle(grBrush, this.ClientRectangle);
             }
             else
             {
-                // mettez ici le code de dessin du control lorsqu'il est dans la barre d'outil
-                LinearGradientBrush grBrush = new LinearGradientBrush(this.ClientRectangle, Color.Red, Color.Blue, 90, true);
-                //PathGradientBrush grBrush = new PathGradientBrush(pts, WrapMode.Clamp);
+                LinearGradientBrush grBrush = new LinearGradientBrush(this.ClientRectangle, Color.Red, Color.Blue, LinearGradientMode.Vertical);
                 gr.FillRectangle(grBrush, this.ClientRectangle);
             }
         }
