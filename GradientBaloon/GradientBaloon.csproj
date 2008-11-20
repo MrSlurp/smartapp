@@ -61,6 +61,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Res\GradientBaloonRes.cs" />
+    <Compile Include="Res\RoundRectangle.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CommonLib\CommonLib.csproj">

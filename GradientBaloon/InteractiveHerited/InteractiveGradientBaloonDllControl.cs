@@ -96,13 +96,26 @@ namespace GradientBaloon
         {
             if (this.SourceBTControl != null)
             {
+                
                 LinearGradientBrush grBrush = new LinearGradientBrush(this.ClientRectangle, Color.Red, Color.Blue, LinearGradientMode.Vertical);
-                gr.FillRectangle(grBrush, this.ClientRectangle);
+                RoundRectangle rr = new RoundRectangle(this.ClientRectangle, RoundedCorner.All, 15);
+                Pen pn = new Pen(Color.Black, 4);
+                GraphicsPath path = rr.ToGraphicsPath();
+                gr.FillPath(grBrush, path);
+                rr.Inflate(-1, -1);
+                path = rr.ToGraphicsPath();
+                gr.DrawPath(pn, path);
             }
             else
             {
                 LinearGradientBrush grBrush = new LinearGradientBrush(this.ClientRectangle, Color.Red, Color.Blue, LinearGradientMode.Vertical);
-                gr.FillRectangle(grBrush, this.ClientRectangle);
+                RoundRectangle rr = new RoundRectangle(this.ClientRectangle, RoundedCorner.All, 15);
+                Pen pn = new Pen(Color.Black, 4);
+                GraphicsPath path = rr.ToGraphicsPath();
+                gr.FillPath(grBrush, path);
+                rr.Inflate(-1,-1);
+                path = rr.ToGraphicsPath();
+                gr.DrawPath(pn, path);
             }
         }
 
