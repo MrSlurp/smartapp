@@ -57,6 +57,7 @@ namespace CommonLib
                         )
                     {
                         m_ListToDrawManually.Add(Ctrl.DisplayedControl);
+                        ((DrawInParentCmdCtrl)Ctrl.DisplayedControl).SetDelgateRefresh(new NeedSuperposedRefresh(TraiteRefreshSuperposedItem));
                     }
                     this.Controls.Add(Ctrl.DisplayedControl);
             }
@@ -64,14 +65,19 @@ namespace CommonLib
             ResumeLayout(true);
         }
 
-        protected override void OnControlAdded(ControlEventArgs e)
+        protected void TraiteRefreshSuperposedItem()
         {
-            base.OnControlAdded(e);
-        }
-
-        protected override void OnControlRemoved(ControlEventArgs e)
-        {
-            base.OnControlRemoved(e);
+            for (int i = 0; i < m_ListToDrawManually.Count; i++)
+            {
+                DrawInParentCmdCtrl dpCtrl = (DrawInParentCmdCtrl)m_ListToDrawManually[i];
+                Rectangle drawRect = RectangleToClient(dpCtrl.RectangleToScreen(dpCtrl.ClientRectangle));
+                for (int j = 0; j < this.Controls.Count; j++)
+                {
+                    Rectangle OtherCtrlRect = RectangleToClient(this.Controls[j].RectangleToScreen(this.Controls[j].ClientRectangle));
+                    if (OtherCtrlRect.IntersectsWith(drawRect) && !m_ListToDrawManually.Contains(this.Controls[j]))
+                        this.Controls[j].Invalidate();
+                }
+            }
         }
 
         protected override void OnPaint(PaintEventArgs e)

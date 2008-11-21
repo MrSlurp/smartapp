@@ -107,7 +107,6 @@ namespace SmartApp
             else
             {
                 MessageBox.Show(strErr, "Error");
-
             }
         }
 
@@ -121,12 +120,15 @@ namespace SmartApp
                 string Name = (string)dtgrRow.Cells[0].Value;
                 string Type = (string)dtgrRow.Cells[1].Value;
                 string Param = (string)dtgrRow.Cells[2].Value;
-                if (string.IsNullOrEmpty(Type)
-                    || string.IsNullOrEmpty(Param))
+                if (string.IsNullOrEmpty(Type))
                     continue;
 
                 if (TYPE_COMM.ETHERNET.ToString() == Type)
                 {
+                    if (string.IsNullOrEmpty(Param))
+                        strErr = "Invalid Parameters";
+
+
                     if (Param.IndexOf(':') == -1)
                     {
                         strErr = "Invalid IP Address";
@@ -143,6 +145,9 @@ namespace SmartApp
                 }
                 else if (TYPE_COMM.SERIAL.ToString() == Type)
                 {
+                    if (string.IsNullOrEmpty(Param))
+                        strErr = "Invalid Parameters";
+
                     if (!Param.StartsWith("COM"))
                     {
                         strErr = "Invalid Serial port";
@@ -158,7 +163,6 @@ namespace SmartApp
                     strErr = "Invalid Communication, select a type and enter parameters";
                     return false; ;
                 }
-
             }
             strErr = "";
             return true;
@@ -175,11 +179,12 @@ namespace SmartApp
                 string Name = (string)dtgrRow.Cells[0].Value;
                 string Type = (string)dtgrRow.Cells[1].Value;
                 string Param = (string)dtgrRow.Cells[2].Value;
-                if (string.IsNullOrEmpty(Type)
-                    || string.IsNullOrEmpty(Param))
+                if (string.IsNullOrEmpty(Type))
                     continue;
                 if (string.IsNullOrEmpty(Name))
                     Name = "";
+                if (string.IsNullOrEmpty(Param))
+                    Param = "void";
                 m_IniFile.SetValue(strSection, Cste.STR_FILE_DESC_NAME, Name);
                 m_IniFile.SetValue(strSection, Cste.STR_FILE_DESC_COMM, Type);
                 m_IniFile.SetValue(strSection, Cste.STR_FILE_DESC_ADDR, Param);

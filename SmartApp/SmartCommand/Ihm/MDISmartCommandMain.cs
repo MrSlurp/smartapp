@@ -176,6 +176,7 @@ namespace SmartApp
                     this.Text += " - " + strFileName;
                     m_tsBtnConnexion.Enabled = true;
                     UpdateToolBarCxnItemState();
+                    SetTypeComeAndParamFromCbo(); 
                     return true;
                 }
                 else
@@ -263,8 +264,9 @@ namespace SmartApp
                 Frm.Show();
                 Frm.DynamicPanelEnabled = false;
                 m_FormList.Add(Frm);
-                if (!string.IsNullOrEmpty(m_tsCboCurConnection.SelectedText))
+                if (m_tsCboCurConnection.Items.Count != 0)
                 {
+                    m_tsCboCurConnection.SelectedIndex = 0;
                     SetTypeComeAndParamFromCbo();
                 }
             }

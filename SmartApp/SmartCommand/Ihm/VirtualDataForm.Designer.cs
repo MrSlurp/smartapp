@@ -37,17 +37,17 @@
             this.m_tabControl.Location = new System.Drawing.Point(0, 0);
             this.m_tabControl.Name = "m_tabControl";
             this.m_tabControl.SelectedIndex = 0;
-            this.m_tabControl.Size = new System.Drawing.Size(628, 462);
+            this.m_tabControl.Size = new System.Drawing.Size(628, 266);
             this.m_tabControl.TabIndex = 0;
             // 
             // VirtualDataForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(628, 462);
+            this.ClientSize = new System.Drawing.Size(628, 266);
             this.ControlBox = false;
             this.Controls.Add(this.m_tabControl);
-            this.MinimumSize = new System.Drawing.Size(636, 496);
+            this.MinimumSize = new System.Drawing.Size(636, 250);
             this.Name = "VirtualDataForm";
             this.Text = "Virtual Data";
             this.Load += new System.EventHandler(this.VirtualDataForm_Load);

@@ -6,6 +6,7 @@ using System.Windows.Forms;
 
 namespace CommonLib
 {
+    public delegate void NeedSuperposedRefresh();
     public class DrawInParentCmdCtrl : UserControl
     {
         protected bool m_bDrawInParent = false;
@@ -26,32 +27,22 @@ namespace CommonLib
             }
         }
 
+        public event NeedSuperposedRefresh RefreshSuperposedItem;
+
+        public void SetDelgateRefresh(NeedSuperposedRefresh dg)
+        {
+            RefreshSuperposedItem += dg;
+        }
+
+        protected void CallEventRefresh()
+            {
+            if (RefreshSuperposedItem != null)
+                RefreshSuperposedItem();
+        }
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            /*
-            if (m_bDrawInParent && this.Parent != null)
-            {
-                Graphics gr = this.Parent.CreateGraphics();
-                Rectangle drawRect = Parent.RectangleToClient(this.RectangleToScreen(this.ClientRectangle));
-                OnPaintInParent(gr, drawRect);
-                gr.Dispose();
-            }
-             * */
         }
-
-        /*
-    protected override void  OnPaintBackground(PaintEventArgs e)
-    {
-        if (m_bDrawInParent && this.Parent != null)
-        {
-            Graphics gr = this.Parent.CreateGraphics();
-            Rectangle drawRect = Parent.RectangleToClient(this.RectangleToScreen(this.ClientRectangle));
-            OnPaintInParent(gr, drawRect);
-            gr.Dispose();
-        }
-    }
-         * */
 
         public virtual void OnPaintInParent(Graphics gr, Rectangle rect)
         {
