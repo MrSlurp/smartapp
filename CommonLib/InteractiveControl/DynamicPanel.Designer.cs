@@ -42,6 +42,7 @@ namespace CommonLib
             // DynamicPanel
             // 
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.DoubleBuffered = true;
             this.Name = "DynamicPanel";
             this.Size = new System.Drawing.Size(171, 170);
             this.ResumeLayout(false);

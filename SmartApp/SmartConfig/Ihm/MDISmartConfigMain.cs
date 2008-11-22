@@ -230,6 +230,15 @@ namespace SmartApp.Ihm
                     m_strDocumentName = "Untitled.scf";
                     UpdateTitle();
                 }
+                else
+                {
+                    this.CloseDoc();
+                    m_Document = new BTDoc(Program.TypeApp);
+                    OpenDocument(m_Document);
+                    // on ne donne pas de nom au document, comme ca on peux savoir qu'il n'a jamais été sauvé
+                    m_strDocumentName = "Untitled.scf";
+                    UpdateTitle();
+                }
             }
         }
 
@@ -283,7 +292,24 @@ namespace SmartApp.Ihm
         //*****************************************************************************************************
         private void OnExitMenuItemClick(object sender, EventArgs e)
         {
-            Application.Exit();
+            if (m_Document != null)
+            {
+                if (m_Document.Modified)
+                {
+                    DialogResult res = MessageBox.Show("File Have been modified\nDo you want to save it?", "Warning",
+                                                            MessageBoxButtons.YesNoCancel);
+                    if (res == DialogResult.Yes)
+                    {
+                        DoSaveDocument();
+                    }
+                    if (res == DialogResult.Cancel)
+                    {
+                        return;
+                    }
+                }
+                this.CloseDoc();
+            }
+            this.Close();
         }
 
         //*****************************************************************************************************
@@ -586,8 +612,8 @@ namespace SmartApp.Ihm
                 {
                     return;
                 }
-                this.CloseDoc();
             }
+            this.CloseDoc();
         }
 
         //*****************************************************************************************************

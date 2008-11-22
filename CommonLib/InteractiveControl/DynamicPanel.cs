@@ -75,7 +75,7 @@ namespace CommonLib
                 {
                     Rectangle OtherCtrlRect = RectangleToClient(this.Controls[j].RectangleToScreen(this.Controls[j].ClientRectangle));
                     if (OtherCtrlRect.IntersectsWith(drawRect) && !m_ListToDrawManually.Contains(this.Controls[j]))
-                        this.Controls[j].Invalidate();
+                        this.Controls[j].Refresh();
                 }
             }
         }

@@ -104,7 +104,11 @@ namespace GradientBaloon
             }
             set
             {
-                m_Value = value;
+                if (m_Value != value)
+                {
+                    m_Value = value;
+                    this.CallEventRefresh();
+                }
             }
         }
 
@@ -154,8 +158,14 @@ namespace GradientBaloon
         {
             float Delta = m_MaxVal - m_MinVal;
             float nbPixelPercent = ((float)this.Height / Delta);
-            float ValPercent = (float)((float)m_Value  / (float)Delta)*100;
-            float Tmp1 = (ValPercent / 100) - ((float)(PercentCenterPart/2) / (float)100);
+
+            float ValPercent = 0; 
+            if (m_MinVal < 0 && m_MaxVal >= 0)
+                ValPercent = (float)(((float)m_Value - (float)m_MinVal) / (float)Delta) * 100;
+            else
+                ValPercent = (float)(((float)m_Value - (float)m_MinVal) / (float)Delta) * 100;
+
+            float Tmp1 = (ValPercent / 100) - ((float)(PercentCenterPart / 2) / (float)100);
             float Tmp2 = (float)PercentCenterPart/(float)100;
             float Tmp3 = (100 - ValPercent) / 100 - ((float)(PercentCenterPart/2) / (float)100);
             if (Tmp1 < 0.05f)

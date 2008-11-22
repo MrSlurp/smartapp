@@ -176,7 +176,11 @@ namespace SmartApp
                     this.Text += " - " + strFileName;
                     m_tsBtnConnexion.Enabled = true;
                     UpdateToolBarCxnItemState();
-                    SetTypeComeAndParamFromCbo(); 
+                    if (m_tsCboCurConnection.Items.Count != 0)
+                    {
+                        m_tsCboCurConnection.SelectedIndex = 0;
+                        SetTypeComeAndParamFromCbo();
+                    }
                     return true;
                 }
                 else

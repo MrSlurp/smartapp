@@ -71,7 +71,7 @@ namespace CtrlSerpentin
         private Point[] m_ListPoint = new Point[1];
         public Serpentin()
         {
-
+            this.DoubleBuffered = true;
         }
 
         public bool IsActive

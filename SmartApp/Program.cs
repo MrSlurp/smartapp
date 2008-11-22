@@ -6,6 +6,8 @@ using CommonLib;
 
 namespace SmartApp
 {
+    // ligne de commande test
+    // -Cmd "G:\_SmartApp\Prod\Debug\AppartCmdTestLine.saf" -AC "VIRTUAL" -AS
     static class Program
     {
         static MDISmartConfigMain m_ConfigApp = null;

@@ -139,6 +139,7 @@ namespace CommonLib
             set
             {
                 // on test d'abord savoir si la valeur a changé
+                int previousVal = m_CurrentVal;
                 bool bValueChange = false;
                 if (m_CurrentVal != value)
                     bValueChange = true;
@@ -153,14 +154,22 @@ namespace CommonLib
                     if (value < m_MinVal)
                     {
                         m_CurrentVal = m_MinVal;
-                        LogEvent log = new LogEvent(LOG_EVENT_TYPE.INFO, string.Format("Data {0} : min value saturation ({1})", Symbol, m_MinVal));
-                        AddLogEvent(log);
+                        if (previousVal != m_CurrentVal)
+                        {
+                            LogEvent log = new LogEvent(LOG_EVENT_TYPE.INFO, string.Format("Data {0} : min value saturation ({1})", Symbol, m_MinVal));
+                            AddLogEvent(log);
+                            bValueChange = false;
+                        }
                     }
                     else if (value > m_MaxVal)
                     {
-                        m_CurrentVal = m_MaxVal;
-                        LogEvent log = new LogEvent(LOG_EVENT_TYPE.INFO, string.Format("Data {0} : max value saturation ({1})", Symbol, m_MaxVal));
-                        AddLogEvent(log);
+                        if (previousVal != m_CurrentVal)
+                        {
+                            m_CurrentVal = m_MaxVal;
+                            LogEvent log = new LogEvent(LOG_EVENT_TYPE.INFO, string.Format("Data {0} : max value saturation ({1})", Symbol, m_MaxVal));
+                            AddLogEvent(log);
+                            bValueChange = false;
+                        }
                     }
                 }
                 else
