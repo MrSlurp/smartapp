@@ -27,6 +27,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_11A77C95C80A47E982A0DD860FF76C84"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_316C5C02814F480BA27B022D48242837"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -69,6 +75,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_B32CBED26CFC4272B17AA02D003C2F52"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_DFF1C3E62E3B4CDC9367B1C5B993601F"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -83,6 +95,18 @@
         {
         "MsmKey" = "8:_F1E02DA706378F37F39F81CB91F20493"
         "OwnerKey" = "8:_02E63C948F23424D8DD7AA34561CC24D"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F1E02DA706378F37F39F81CB91F20493"
+        "OwnerKey" = "8:_B32CBED26CFC4272B17AA02D003C2F52"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F1E02DA706378F37F39F81CB91F20493"
+        "OwnerKey" = "8:_11A77C95C80A47E982A0DD860FF76C84"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -113,6 +137,18 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_3E3AFC53A79F438A9E8825628FBF38C2"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_B32CBED26CFC4272B17AA02D003C2F52"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_11A77C95C80A47E982A0DD860FF76C84"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1147,7 +1183,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_02E63C948F23424D8DD7AA34561CC24D"
             {
-            "SourcePath" = "8:..\\FourBitmap\\obj\\Debug Test\\FourBitmap.dll"
+            "SourcePath" = "8:..\\obj\\Debug\\Debug\\FourBitmap.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8421F5FDC69F48CA8248FC20B9EEBC38"
@@ -1173,9 +1209,37 @@
                 {
                 }
             }
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_11A77C95C80A47E982A0DD860FF76C84"
+            {
+            "SourcePath" = "8:..\\obj\\Debug\\Debug\\GradientBaloon.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_8421F5FDC69F48CA8248FC20B9EEBC38"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:Built"
+            "OutputProjectGuid" = "8:{5ACA4CB4-0DC3-4E09-8E13-81DD29F87161}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_3E3AFC53A79F438A9E8825628FBF38C2"
             {
-            "SourcePath" = "8:..\\CtrlSerpentin\\obj\\Debug Test\\CtrlSerpentin.dll"
+            "SourcePath" = "8:..\\obj\\Debug\\Debug\\CtrlSerpentin.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8421F5FDC69F48CA8248FC20B9EEBC38"
@@ -1259,7 +1323,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_4C9F4229D2B64447A88FC59B02CBB014"
             {
-            "SourcePath" = "8:..\\CtrlTwoBitmap\\obj\\Debug Test\\CtrlTwoBitmap.dll"
+            "SourcePath" = "8:..\\obj\\Debug\\Debug\\CtrlTwoBitmap.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8421F5FDC69F48CA8248FC20B9EEBC38"
@@ -1313,9 +1377,37 @@
                 {
                 }
             }
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_B32CBED26CFC4272B17AA02D003C2F52"
+            {
+            "SourcePath" = "8:..\\obj\\Debug\\Debug\\FormatedDisplay.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_8421F5FDC69F48CA8248FC20B9EEBC38"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:Built"
+            "OutputProjectGuid" = "8:{7B2150F6-8F06-49C9-8CE7-D298DE5E04EF}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_ED6AD66369934C128648CBD99834A9DC"
             {
-            "SourcePath" = "8:..\\SmartApp\\obj\\Debug Test\\SmartApp.exe"
+            "SourcePath" = "8:..\\obj\\Debug\\Debug\\SmartApp.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8421F5FDC69F48CA8248FC20B9EEBC38"
