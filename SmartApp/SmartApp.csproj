@@ -568,6 +568,124 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ImgLib\Anti retour\AntiRetourE.png" />
+    <Content Include="ImgLib\Anti retour\AntiRetourN.png" />
+    <Content Include="ImgLib\Anti retour\AntiRetourS.png" />
+    <Content Include="ImgLib\Anti retour\AntiRetourW.png" />
+    <Content Include="ImgLib\PanneauSolaire.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 1 voie\Vanne1VoieH.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 1 voie\Vanne1VoieHA.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 1 voie\Vanne1VoieV.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 1 voie\Vanne1VoieVA.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 3 voies\Vanne3VoieBDA2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 3 voies\Vanne3VoiesB.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 3 voies\Vanne3VoiesBA1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 3 voies\Vanne3VoiesBA2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 3 voies\Vanne3VoiesBA3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 3 voies\Vanne3VoiesD.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 3 voies\Vanne3VoiesDA1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 3 voies\Vanne3VoiesDA2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 3 voies\Vanne3VoiesDA3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 3 voies\Vanne3VoiesG.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 3 voies\Vanne3VoiesGA1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 3 voies\Vanne3VoiesGA2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 3 voies\Vanne3VoiesGA3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 3 voies\Vanne3VoiesH.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 3 voies\Vanne3VoiesHA1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 3 voies\Vanne3VoiesHA2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 3 voies\Vanne3VoiesHA3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 4 voies\Vanne4Voies.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 4 voies\Vanne4VoiesA1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 4 voies\Vanne4VoiesA2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 4 voies\Vanne4VoiesA3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 4 voies\Vanne4VoiesA4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 4 voies\Vanne4VoiesA5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 4 voies\Vanne4VoiesA6.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Voyant\BaseVoyant.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Voyant\VoyantBleuOff.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Voyant\VoyantBleuOn.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Voyant\VoyantOrangeOff.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Voyant\VoyantOrangeOn.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Voyant\VoyantRougeOff.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Voyant\VoyantRougeOn.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Voyant\VoyantVertOff.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Voyant\VoyantVertOn.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Res\CxnOn.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -583,90 +701,19 @@
     <Content Include="ImgLib\PompeAnim.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="ImgLib\Vanne1VoieH.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ImgLib\Vanne1VoieHA.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ImgLib\Vanne1VoieV.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ImgLib\Vanne1VoieVA.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ImgLib\Vanne3VoieBDA2.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ImgLib\Vanne3VoiesB.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ImgLib\Vanne3VoiesBA1.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ImgLib\Vanne3VoiesBA3.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ImgLib\Vanne3VoiesD.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ImgLib\Vanne3VoiesDA1.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ImgLib\Vanne3VoiesDA2.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ImgLib\Vanne3VoiesDA3.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ImgLib\Vanne3VoiesG.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ImgLib\Vanne3VoiesGA1.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ImgLib\Vanne3VoiesGA2.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ImgLib\Vanne3VoiesGA3.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ImgLib\Vanne3VoiesH.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ImgLib\Vanne3VoiesHA1.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ImgLib\Vanne3VoiesHA2.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ImgLib\Vanne3VoiesHA3.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ImgLib\Vanne4Voies.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ImgLib\Vanne4VoiesA1.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ImgLib\Vanne4VoiesA2.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ImgLib\Vanne4VoiesA3.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ImgLib\Vanne4VoiesA4.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ImgLib\Vanne4VoiesA5.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ImgLib\Vanne4VoiesA6.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Res\EmptyImg.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="ImgLib\Anti retour\.svn\entries" />
+    <None Include="ImgLib\Anti retour\.svn\format" />
+    <None Include="ImgLib\Anti retour\.svn\prop-base\AntiRetourE.png.svn-base" />
+    <None Include="ImgLib\Anti retour\.svn\prop-base\AntiRetourN.png.svn-base" />
+    <None Include="ImgLib\Anti retour\.svn\prop-base\AntiRetourS.png.svn-base" />
+    <None Include="ImgLib\Anti retour\.svn\prop-base\AntiRetourW.png.svn-base" />
+    <None Include="ImgLib\Anti retour\.svn\text-base\AntiRetourE.png.svn-base" />
+    <None Include="ImgLib\Anti retour\.svn\text-base\AntiRetourN.png.svn-base" />
+    <None Include="ImgLib\Anti retour\.svn\text-base\AntiRetourS.png.svn-base" />
+    <None Include="ImgLib\Anti retour\.svn\text-base\AntiRetourW.png.svn-base" />
     <None Include="SmartApp.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -709,6 +756,12 @@
       <Project>{3EFBC5AC-5842-4DE5-85C2-507E24AEC46F}</Project>
       <Name>CommonLib</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ImgLib\Anti retour\.svn\props\" />
+    <Folder Include="ImgLib\Anti retour\.svn\tmp\prop-base\" />
+    <Folder Include="ImgLib\Anti retour\.svn\tmp\props\" />
+    <Folder Include="ImgLib\Anti retour\.svn\tmp\text-base\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
