@@ -6,16 +6,15 @@ using System.Reflection;
 using System.Drawing;
 using CommonLib;
 
-namespace GradientBaloon
+namespace FormatedDisplay
 {
-    [Serializable]
     public class DllEntryClass : IDllControlInterface
     {
         // changes ici l'identifiant unique de la DLL
-        public const uint DLL_Control_ID = 130;
+        public const uint DLL_Control_ID = 140;
         public DllEntryClass()
         {
-            GradientBaloonRes.InitializeBitmap();
+            FormatedDisplayRes.InitializeBitmap();
         }
 
         public uint DllID
@@ -28,21 +27,21 @@ namespace GradientBaloon
 
         public BTControl CreateBTControl()
         {
-            return new BTDllGradientBaloonControl();
+            return new BTDllFormatedDisplayControl();
         }
 
         public BTControl CreateBTControl(InteractiveControl iCtrl)
         {
-            return new BTDllGradientBaloonControl(iCtrl);
+            return new BTDllFormatedDisplayControl(iCtrl);
         }
         public BTControl CreateCommandBTControl()
         {
-            return new GradientBaloonCmdControl();
+            return new FormatedDisplayCmdControl();
         }
 
         public InteractiveControl CreateInteractiveControl()
         {
-            return new InteractiveGradientBaloonDllControl();
+            return new InteractiveFormatedDisplayDllControl();
         }
 
         public Size ToolWindSize
@@ -59,7 +58,7 @@ namespace GradientBaloon
             get
             {
                 // modifiez ici le nom par défaut de l'objet lors de sa création
-                return "GradientBaloon";
+                return "FormatedDiplay";
             }
         }
 
