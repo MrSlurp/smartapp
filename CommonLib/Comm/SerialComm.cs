@@ -254,41 +254,53 @@ namespace CommonLib
             {
                 // on parcour la liste des trames reçues pour vois si par hasard on en aurai
                 // pas une de la bonne taille
+
                 int indexOfFrame = -1;
-                for (int i = 0; i < m_MessageList.Count; i++)
+                try
                 {
-                    if (m_MessageList[i].Length == FrameLenght)
+                    for (int i = 0; i < m_MessageList.Count; i++)
                     {
-                        if (FrameHeader == null)
+                        if (m_MessageList[i].Length == FrameLenght)
                         {
-                            indexOfFrame = i;
-                            break;
-                        }
-                        else
-                        {
-                            // on copare le header
-                            bool FrameOk = true;
-                            for (int indexHeader = 0; indexHeader < FrameHeader.Length; indexHeader++)
-                            {
-                                if (FrameHeader[indexHeader] != m_MessageList[i][indexHeader])
-                                {
-                                    FrameOk = false;
-                                    break;
-                                }
-                            }
-                            if (FrameOk)
+                            if (FrameHeader == null)
                             {
                                 indexOfFrame = i;
                                 break;
                             }
+                            else
+                            {
+                                // on copare le header
+                                bool FrameOk = true;
+                                for (int indexHeader = 0; indexHeader < FrameHeader.Length; indexHeader++)
+                                {
+                                    if (FrameHeader[indexHeader] != m_MessageList[i][indexHeader])
+                                    {
+                                        FrameOk = false;
+                                        break;
+                                    }
+                                }
+                                if (FrameOk)
+                                {
+                                    indexOfFrame = i;
+                                    break;
+                                }
+                            }
                         }
                     }
+                    // si on en a une, on la renvoie
+                    if (indexOfFrame != -1)
+                    {
+                        return true;
+                    }
                 }
-                // si on en a une, on la renvoie
-                if (indexOfFrame != -1)
+                catch (NullReferenceException e)
                 {
-                    return true;
+                    Console.WriteLine("========================================");
+                    Console.WriteLine("* Erreur Dans Serial Comm TestFrame  *");
+                    Console.WriteLine("{0}, Message Count = {1}", e.Message, m_MessageList.Count);
+                    Console.WriteLine("========================================");
                 }
+
             }
             return false;
         }

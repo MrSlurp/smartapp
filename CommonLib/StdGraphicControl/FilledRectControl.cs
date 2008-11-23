@@ -64,6 +64,10 @@ namespace CommonLib
 
         private bool m_bIsActive = false;
 
+        public FilledRect()
+        {
+            this.DoubleBuffered = true;
+        }
         public bool IsActive
         {
             get

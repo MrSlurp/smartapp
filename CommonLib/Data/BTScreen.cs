@@ -510,9 +510,10 @@ namespace CommonLib
                         pt.Y = m_ListControls[i].DisplayedControl.Bottom;
 
 
-                    //this.m_DynamicPanel.Controls.Add(m_ListControls[i].DisplayedControl);
-                    this.m_DynamicPanel.MyInitializeComponent(m_ListControls);
                 }
+                // on fait l'init graphique du panel (ajout de tout les control, création des listes d'optimisation
+                // du refresh pour les objet dessiné sur le panel
+                this.m_DynamicPanel.MyInitializeComponent(m_ListControls);
                 // on ajuste la taille du dynamic Panel
                 m_DynamicPanel.Size = new Size(pt.X + 10, pt.Y + 10);
                 string strImageFullPath = BackPictureFile.Replace(@".\", Application.StartupPath + @"\");

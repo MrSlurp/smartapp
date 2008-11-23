@@ -35,7 +35,13 @@ namespace CommonLib
         }
         #endregion
 
-        // TODO, remonter le read in/write out pour lire une liste de controls (voir BTScreen)
-
+        public void BringControlToTop(BTControl ctrl)
+        {
+            if (m_ListObject.Contains((BaseObject)ctrl))
+            {
+                m_ListObject.Remove(ctrl);
+                m_ListObject.Insert(m_ListObject.Count, ctrl);
+            }
+        }
     }
 }

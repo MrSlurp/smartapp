@@ -12,6 +12,7 @@ namespace SmartApp.Ihm.Designer
 {
     public delegate void IControlAddedEvent(InteractiveControl Ctrl);
     public delegate void IControlRemovedEvent(InteractiveControl Ctrl);
+    public delegate void IControlBringToTop(InteractiveControl Ctrl);
     public delegate void SelectionChangeEvent();
     public delegate bool CanChangeSelectionEvent();
     public delegate void ControlDoubleClicked();
@@ -54,6 +55,7 @@ namespace SmartApp.Ihm.Designer
         public event CanChangeSelectionEvent EventCanChangeSelection;
         public event ControlDoubleClicked EventControlDblClick;
         public event ControlsPosChanged EventControlPosChanged;
+        public event IControlBringToTop EventControlBringToTop;
 
         #endregion 
 
@@ -649,6 +651,21 @@ namespace SmartApp.Ihm.Designer
                 {
                     ((IInteractive)m_ListSelection[i]).Location = new Point(((IInteractive)m_ListSelection[i]).Location.X, PtFirstControl.Y);
                     ((IInteractive)m_ListSelection[i]).UpdateSelectionLocation();
+                }
+            }
+            Refresh();
+        }
+
+        public void LayoutBringToFront()
+        {
+            if (m_ListSelection.Count >= 1)
+            {
+                for (int i = 0; i < m_ListSelection.Count; i++)
+                {
+                    ((InteractiveControl)m_ListSelection[i]).BringToFront();
+                    ((InteractiveControl)m_ListSelection[i]).Selected = true;
+                    if (EventControlBringToTop != null)
+                        EventControlBringToTop((InteractiveControl)m_ListSelection[i]);
                 }
             }
             Refresh();

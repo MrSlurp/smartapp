@@ -11,7 +11,9 @@ namespace CommonLib
     {
         MiddleRight,
         BottomCenter,
-        BottomRight
+        BottomRight,
+        MiddleLeft,
+        TopCenter,
     }
 
     public partial class ResizeButton : Panel
@@ -102,10 +104,20 @@ namespace CommonLib
                 //afin d'achever l'effet du redimensionnement
                 switch (this.resizeButtonPosition)
                 {
+                    #region Top
+                    case (ResizeButtonPosition.TopCenter):
+                        mouseMove.X = 0;
+                        interactiveControl.UpdateSizeAndLocation(mouseMove);
+                        break;
+                    #endregion
                     #region Middle
                     case (ResizeButtonPosition.MiddleRight):
                         mouseMove.Y = 0;
                         interactiveControl.UpdateSize(mouseMove);
+                        break;
+                    case (ResizeButtonPosition.MiddleLeft):
+                        mouseMove.Y = 0;
+                        interactiveControl.UpdateSizeAndLocation(mouseMove);
                         break;
                     #endregion
                     //------------------------------------------------
@@ -136,10 +148,20 @@ namespace CommonLib
             if (interactiveControl == null) return false;
             switch (this.resizeButtonPosition)
             {
+                #region Top
+                case (ResizeButtonPosition.TopCenter):
+                    Left = interactiveControl.Width / 2 - Width / 2 + interactiveControl.Left;
+                    Top = interactiveControl.Top - Height / 2;
+                    break;
+                #endregion                 
                 //------------------------------------------------
                 #region Middle
                 case (ResizeButtonPosition.MiddleRight):
                     Left = interactiveControl.Width - Width / 2 + interactiveControl.Left;
+                    Top = interactiveControl.Height / 2 - Height / 2 + interactiveControl.Top;
+                    break;
+                case (ResizeButtonPosition.MiddleLeft):
+                    Left = interactiveControl.Left - Width / 2;
                     Top = interactiveControl.Height / 2 - Height / 2 + interactiveControl.Top;
                     break;
                 #endregion
@@ -176,7 +198,13 @@ namespace CommonLib
                 case (ResizeButtonPosition.BottomCenter):
                     Cursor = Cursors.SizeNS;
                     break;
+                case (ResizeButtonPosition.TopCenter):
+                    Cursor = Cursors.SizeNS;
+                    break;
                 case (ResizeButtonPosition.MiddleRight):
+                    Cursor = Cursors.SizeWE;
+                    break;
+                case (ResizeButtonPosition.MiddleLeft):
                     Cursor = Cursors.SizeWE;
                     break;
             }
@@ -197,7 +225,10 @@ namespace CommonLib
             else
             {
                 if (UpdateLocation())
-                    this.Visible = true && m_bCanBeVisible;
+                {
+                    this.Visible = true;
+                    BringToFront();
+                }
             }
         }
         #endregion

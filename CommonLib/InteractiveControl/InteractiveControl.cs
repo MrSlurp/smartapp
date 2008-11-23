@@ -21,6 +21,8 @@ namespace CommonLib
         void UpdateSizeAndLocation(Point mouseMove);
         void UpdateSelectionLocation();
         void UpdateSize(Point mouseMove);
+        void BeginMove();
+        void EndMove();
         int Left { get; set; }
         int Right { get;}
         int Top { get; set; }
@@ -66,9 +68,9 @@ namespace CommonLib
         protected bool IsSelected = false; // indique si le control fait parti de la séléction
         //taille minmale et maximale
         protected Size minSize = new Size(32, 20);
-        protected Size maxSize = new Size(600, 400);
+        protected Size maxSize = new Size(800, 800);
         //tableau des boutons de redimenssionement
-        private ResizeButton[] resizeButton = new ResizeButton[3];
+        private ResizeButton[] resizeButton = new ResizeButton[5];
         //bouton de déplacement
         private MoveButton moveButton;
 
@@ -121,6 +123,11 @@ namespace CommonLib
                 IsSelected = value;
                 if (canMove)
                     moveButton.ShowControl(IsSelected);
+                foreach (ResizeButton button in resizeButton)
+                {
+                    if (button != null)
+                        button.ShowControl(IsSelected);
+                }
 
                 Refresh();
             }
@@ -196,6 +203,8 @@ namespace CommonLib
             resizeButton[0] = new ResizeButton(ResizeButtonPosition.BottomRight, this);
             resizeButton[1] = new ResizeButton(ResizeButtonPosition.MiddleRight, this);
             resizeButton[2] = new ResizeButton(ResizeButtonPosition.BottomCenter, this);
+            resizeButton[3] = new ResizeButton(ResizeButtonPosition.MiddleLeft, this);
+            resizeButton[4] = new ResizeButton(ResizeButtonPosition.TopCenter, this);
             this.Text = "Item";
             BackColor = Color.Transparent;
         }
@@ -330,6 +339,26 @@ namespace CommonLib
             Refresh();
         }
 
+        public void BeginMove()
+        {
+            foreach (ResizeButton button in resizeButton)
+            {
+                if (button != null)
+                    button.CanBeVisible = false;
+            }
+        }
+
+        public void EndMove()
+        {
+            UpdateResizeBtnsVisibility();
+            foreach (ResizeButton button in resizeButton)
+            {
+                if (button != null)
+                    button.ShowControl(IsSelected);
+            }
+
+        }
+
         //*****************************************************************************************************
         // Description: 
         // Return: /
@@ -391,22 +420,39 @@ namespace CommonLib
                     System.Diagnostics.Debug.Assert(false);
                     break;
             }
+            UpdateResizeBtnsVisibility();
+        }
+        #endregion
+
+        public void UpdateResizeBtnsVisibility()
+        {
             if (canResizeHeight && canResizeWidth)
                 resizeButton[0].CanBeVisible = true;
             else
                 resizeButton[0].CanBeVisible = false;
 
             if (canResizeWidth)
+            {
                 resizeButton[1].CanBeVisible = true;
+                resizeButton[3].CanBeVisible = true;
+            }
             else
+            {
                 resizeButton[1].CanBeVisible = false;
+                resizeButton[3].CanBeVisible = true;
+            }
 
             if (canResizeHeight)
+            {
                 resizeButton[2].CanBeVisible = true;
+                resizeButton[4].CanBeVisible = true;
+            }
             else
+            {
                 resizeButton[2].CanBeVisible = false;
+                resizeButton[4].CanBeVisible = false;
+            }
         }
-        #endregion
 
         #region overrides
         //*****************************************************************************************************

@@ -58,10 +58,15 @@ namespace CommonLib
         //cette fonction affiche le contrôle
         public void ShowControl(bool show)
         {
-            if (!show) this.Visible = false;
+            if (!show) 
+                this.Visible = false;
             else
             {
-                if (UpdateLocation()) this.Visible = true;
+                if (UpdateLocation())
+                {
+                    this.Visible = true;
+                    BringToFront();
+                }
             }
         }
         #endregion
@@ -78,6 +83,10 @@ namespace CommonLib
                 clickPoint.X = e.X;
                 clickPoint.Y = e.Y;
                 isPressed = true;
+                if (interactiveControl != null)
+                {
+                    interactiveControl.BeginMove();
+                }
             }
             base.OnMouseDown(e);
         }
@@ -87,7 +96,14 @@ namespace CommonLib
         //*****************************************************************************************************
         protected override void OnMouseUp(MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left) isPressed = false;
+            if (e.Button == MouseButtons.Left)
+            {
+                isPressed = false;
+                if (interactiveControl != null)
+                {
+                    interactiveControl.EndMove();
+                }
+            }
             base.OnMouseUp(e);
         }
         //*****************************************************************************************************

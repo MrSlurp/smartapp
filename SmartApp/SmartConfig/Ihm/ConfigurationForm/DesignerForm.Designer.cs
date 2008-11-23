@@ -30,6 +30,7 @@ namespace SmartApp.Ihm
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DesignerForm));
             this.m_TopToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.m_ContentPanel = new System.Windows.Forms.ToolStripContentPanel();
             this.m_MainSplitterContainer = new System.Windows.Forms.SplitContainer();
@@ -56,6 +57,8 @@ namespace SmartApp.Ihm
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.m_toolBtnArrangeAcross = new System.Windows.Forms.ToolStripButton();
             this.m_toolBtnArrangeDown = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.m_toolBtnBringToFront = new System.Windows.Forms.ToolStripButton();
             this.m_InteractiveControlContainer = new SmartApp.Ihm.Designer.InteractiveControlContainer();
             this.m_MainSplitterContainer.Panel1.SuspendLayout();
             this.m_MainSplitterContainer.Panel2.SuspendLayout();
@@ -302,7 +305,9 @@ namespace SmartApp.Ihm
             this.m_toolBtnMSSize,
             this.toolStripSeparator2,
             this.m_toolBtnArrangeAcross,
-            this.m_toolBtnArrangeDown});
+            this.m_toolBtnArrangeDown,
+            this.toolStripSeparator3,
+            this.m_toolBtnBringToFront});
             this.m_toolStripDesignLayout.Location = new System.Drawing.Point(0, 0);
             this.m_toolStripDesignLayout.Name = "m_toolStripDesignLayout";
             this.m_toolStripDesignLayout.Size = new System.Drawing.Size(471, 25);
@@ -384,6 +389,21 @@ namespace SmartApp.Ihm
             this.m_toolBtnArrangeDown.Text = "Make vertical spacing equal";
             this.m_toolBtnArrangeDown.Click += new System.EventHandler(this.m_toolBtnArrangeDown_Click);
             // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+            // 
+            // m_toolBtnBringToFront
+            // 
+            this.m_toolBtnBringToFront.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.m_toolBtnBringToFront.Image = ((System.Drawing.Image)(resources.GetObject("m_toolBtnBringToFront.Image")));
+            this.m_toolBtnBringToFront.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.m_toolBtnBringToFront.Name = "m_toolBtnBringToFront";
+            this.m_toolBtnBringToFront.Size = new System.Drawing.Size(75, 22);
+            this.m_toolBtnBringToFront.Text = "Bring to front";
+            this.m_toolBtnBringToFront.Click += new System.EventHandler(this.m_toolBtnBringToFront_Click);
+            // 
             // m_InteractiveControlContainer
             // 
             this.m_InteractiveControlContainer.BackColor = System.Drawing.SystemColors.Control;
@@ -457,6 +477,8 @@ namespace SmartApp.Ihm
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton m_toolBtnArrangeAcross;
         private System.Windows.Forms.ToolStripButton m_toolBtnArrangeDown;
+        private System.Windows.Forms.ToolStripButton m_toolBtnBringToFront;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
 
     }
 }

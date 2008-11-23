@@ -83,6 +83,7 @@ namespace SmartApp.Ihm
             m_InteractiveControlContainer.SelectionChange += new SelectionChangeEvent(OnScreenDesignerSelectionChange);
             m_InteractiveControlContainer.EventControlAdded += new IControlAddedEvent(this.OnDesignerControAdded);
             m_InteractiveControlContainer.EventControlRemoved += new IControlRemovedEvent(this.OnDesignerControRemoved);
+            m_InteractiveControlContainer.EventControlBringToTop += new IControlBringToTop(this.OnDesignerControBringTop);
             m_InteractiveControlContainer.EventCanChangeSelection += new CanChangeSelectionEvent(this.OnControlContainerAskChangeSelection);
             m_InteractiveControlContainer.EventControlDblClick += new ControlDoubleClicked(this.OnControlDblClick);
             m_InteractiveControlContainer.EventControlPosChanged += new ControlsPosChanged(ControlPosChanged);
@@ -164,6 +165,15 @@ namespace SmartApp.Ihm
                 m_toolBtnArrangeAcross.Enabled = true;
                 m_toolBtnArrangeDown.Enabled = true;
             }
+            if (m_InteractiveControlContainer.SelectionCount >= 1)
+            {
+                m_toolBtnBringToFront.Enabled = true;
+            }
+            else
+            {
+                m_toolBtnBringToFront.Enabled = false;
+            }
+
 
             if (m_InteractiveControlContainer.SelectionAbilities == SelectionAbilitiesValues.UnableResize)
             {
@@ -380,7 +390,7 @@ namespace SmartApp.Ihm
             m_InteractiveControlContainer.Controls.Clear();
             if (Scr != null)
             {
-                for (int i = 0; i < Scr.Controls.Count; i++)
+                for (int i = Scr.Controls.Count -1; i >= 0 ; i--)
                 {
                     BTControl Ctrl = (BTControl)Scr.Controls[i];
                     m_InteractiveControlContainer.Controls.Add(Ctrl.IControl);
@@ -482,5 +492,17 @@ namespace SmartApp.Ihm
             m_InteractiveControlContainer.ArrangeItemsDown();
         }
 
+        private void m_toolBtnBringToFront_Click(object sender, EventArgs e)
+        {
+            m_InteractiveControlContainer.LayoutBringToFront();
+        }
+
+        private void OnDesignerControBringTop(InteractiveControl ctrl)
+        {
+            if (m_Currentscreen != null)
+            {
+                m_Currentscreen.Controls.BringControlToTop(ctrl.SourceBTControl);
+            }
+        }
     }
 }

@@ -65,6 +65,10 @@ namespace CommonLib
 
         private bool m_bIsActive = false;
 
+        public FilledEllipse()
+        {
+            this.DoubleBuffered = true;
+        }
         public bool IsActive
         {
             get

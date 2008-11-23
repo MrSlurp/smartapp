@@ -136,6 +136,7 @@ namespace FourBitmap
 
         public FourBitmapDispCtrl()
         {
+            this.DoubleBuffered = true;
         }
 
         public bool IsRunning

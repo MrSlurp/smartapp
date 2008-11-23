@@ -221,7 +221,7 @@ namespace CtrlTwoBitmap
             }
             else
             {
-                if (m_BmpAct != null)
+                if (m_BmpInact != null)
                 {
                     if (ImageAnimator.CanAnimate(m_BmpInact))
                         ImageAnimator.UpdateFrames(m_BmpInact);

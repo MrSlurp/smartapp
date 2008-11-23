@@ -33,6 +33,8 @@ namespace CommonLib
         private bool m_bConstant;
         // visible a l'utilisateur?
         private bool m_bIsUserVisible = true;
+
+        private bool m_bIsSaturationNotified = false;
         #endregion
 
         // évènement levé lorsque la valeur change.
@@ -139,43 +141,58 @@ namespace CommonLib
             set
             {
                 // on test d'abord savoir si la valeur a changé
-                int previousVal = m_CurrentVal;
                 bool bValueChange = false;
+                bool bIsInSaturation = false;
                 if (m_CurrentVal != value)
                     bValueChange = true;
-                // selon les bornes et si la donnée est constante, on effectue l'assignation...
-                if (value >= m_MinVal && value <= m_MaxVal && !this.IsConstant)
+                if (bValueChange)
                 {
-                    m_CurrentVal = value;
-                }
-                else if (!this.IsConstant)
-                {
-                    // ...ou la saturation en cas de dépassement des bornes
-                    if (value < m_MinVal)
+                    // selon les bornes et si la donnée est constante, on effectue l'assignation...
+                    if (value >= m_MinVal && value <= m_MaxVal && !this.IsConstant)
                     {
-                        m_CurrentVal = m_MinVal;
-                        if (previousVal != m_CurrentVal)
+                        m_CurrentVal = value;
+                    }
+
+                    if (!this.IsConstant)
+                    {
+                        // ...ou la saturation en cas de dépassement des bornes
+                        if (value < m_MinVal)
                         {
-                            LogEvent log = new LogEvent(LOG_EVENT_TYPE.INFO, string.Format("Data {0} : min value saturation ({1})", Symbol, m_MinVal));
+                            m_CurrentVal = m_MinVal;
+                            if (!m_bIsSaturationNotified)
+                            {
+                                LogEvent log = new LogEvent(LOG_EVENT_TYPE.INFO, string.Format("Data {0} : Enter min value saturation ({1})", Symbol, m_MinVal));
+                                AddLogEvent(log);
+                                bValueChange = false;
+                                m_bIsSaturationNotified = true;
+                            }
+                            bIsInSaturation = true;
+                        }
+                        else if (value > m_MaxVal)
+                        {
+                            if (!m_bIsSaturationNotified)
+                            {
+                                m_CurrentVal = m_MaxVal;
+                                LogEvent log = new LogEvent(LOG_EVENT_TYPE.INFO, string.Format("Data {0} : Enter max value saturation ({1})", Symbol, m_MaxVal));
+                                AddLogEvent(log);
+                                bValueChange = false;
+                                m_bIsSaturationNotified = true;
+                            }
+                            bIsInSaturation = true;
+                        }
+
+                        if (m_bIsSaturationNotified && !bIsInSaturation)
+                        {
+                            LogEvent log = new LogEvent(LOG_EVENT_TYPE.INFO, string.Format("Data {0} : Leave saturation", Symbol));
                             AddLogEvent(log);
-                            bValueChange = false;
+                            m_bIsSaturationNotified = false;
                         }
                     }
-                    else if (value > m_MaxVal)
+                    else
                     {
-                        if (previousVal != m_CurrentVal)
-                        {
-                            m_CurrentVal = m_MaxVal;
-                            LogEvent log = new LogEvent(LOG_EVENT_TYPE.INFO, string.Format("Data {0} : max value saturation ({1})", Symbol, m_MaxVal));
-                            AddLogEvent(log);
-                            bValueChange = false;
-                        }
+                        LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format("Data {0} is constant, value can't be set", Symbol));
+                        AddLogEvent(log);
                     }
-                }
-                else
-                {
-                    LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format("Data {0} is constant, value can't be set", Symbol));
-                    AddLogEvent(log);
                 }
                 // si la valeur de la donnée a changé on le notifie
                 if (bValueChange && DataValueChanged != null)

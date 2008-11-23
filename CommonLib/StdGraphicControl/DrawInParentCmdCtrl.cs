@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace CommonLib
 {
-    public delegate void NeedSuperposedRefresh();
+    public delegate void NeedSuperposedRefresh(Control ctrl);
     public class DrawInParentCmdCtrl : UserControl
     {
         protected bool m_bDrawInParent = false;
@@ -37,7 +37,7 @@ namespace CommonLib
         protected void CallEventRefresh()
             {
             if (RefreshSuperposedItem != null)
-                RefreshSuperposedItem();
+                RefreshSuperposedItem(this);
         }
 
         protected override void OnPaint(PaintEventArgs e)

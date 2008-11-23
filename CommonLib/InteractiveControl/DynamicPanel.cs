@@ -25,6 +25,9 @@ namespace CommonLib
 
         //ControlCollection m_ListToDrawManually = null;
         List<Control> m_ListToDrawManually = new List<Control>();
+        // optimisation
+        // pour chaque objet dessiner en fond il y a une liste des controls à rafraichir qui vont avec
+        Hashtable m_MapBackDrawToListRefresh = new Hashtable();
         /// <summary>
         /// 
         /// </summary>
@@ -44,7 +47,7 @@ namespace CommonLib
         public void MyInitializeComponent(List<BTControl> ControlsList)
         {
             this.SuspendLayout();
-            for (int i = 0; i < ControlsList.Count; i++)
+            for (int i = ControlsList.Count-1; i >=0 ; i--)
             {
                 BTControl Ctrl = null;
                 Ctrl = ControlsList[i];
@@ -63,19 +66,34 @@ namespace CommonLib
             }
             }
             ResumeLayout(true);
-        }
 
-        protected void TraiteRefreshSuperposedItem()
-        {
+            //optimisation, création des liste de refresh pour les controls dessiner sur le parent
             for (int i = 0; i < m_ListToDrawManually.Count; i++)
             {
                 DrawInParentCmdCtrl dpCtrl = (DrawInParentCmdCtrl)m_ListToDrawManually[i];
                 Rectangle drawRect = RectangleToClient(dpCtrl.RectangleToScreen(dpCtrl.ClientRectangle));
+
+                List<Control> listCtrlToRef = new List<Control>();
                 for (int j = 0; j < this.Controls.Count; j++)
                 {
                     Rectangle OtherCtrlRect = RectangleToClient(this.Controls[j].RectangleToScreen(this.Controls[j].ClientRectangle));
                     if (OtherCtrlRect.IntersectsWith(drawRect) && !m_ListToDrawManually.Contains(this.Controls[j]))
-                        this.Controls[j].Refresh();
+                    {
+                        listCtrlToRef.Add(this.Controls[j]);
+                    }
+                }
+                m_MapBackDrawToListRefresh.Add(dpCtrl, listCtrlToRef);
+            }
+        }
+
+        protected void TraiteRefreshSuperposedItem(Control ctrl)
+        {
+            List<Control> listCtrlToRef = (List<Control>)m_MapBackDrawToListRefresh[ctrl];
+            if (listCtrlToRef != null)
+            {
+                for (int i = 0; i < listCtrlToRef.Count; i++)
+                {
+                    listCtrlToRef[i].Refresh();
                 }
             }
         }
