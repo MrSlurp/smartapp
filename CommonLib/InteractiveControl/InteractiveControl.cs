@@ -414,7 +414,6 @@ namespace CommonLib
                     canResizeWidth = ((ISpecificControl)this).SpecGraphicProp.m_bcanResizeWidth;
                     canResizeHeight = ((ISpecificControl)this).SpecGraphicProp.m_bcanResizeHeight;
                     this.minSize = ((ISpecificControl)this).SpecGraphicProp.m_MinSize;
-                    this.Height = this.minSize.Height;
                     break;
                 default:
                     System.Diagnostics.Debug.Assert(false);

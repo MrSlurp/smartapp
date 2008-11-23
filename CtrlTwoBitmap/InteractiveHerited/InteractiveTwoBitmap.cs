@@ -14,7 +14,6 @@ namespace CtrlTwoBitmap
     public partial class InteractiveTwoBitmap : InteractiveControl, ISpecificControl
     {
         UserControl m_SpecificPropPanel = new TwoBitmapProperties();
-        TwoBitmapProp m_SpecificControlProp = new TwoBitmapProp();
         StandardPropEnabling m_stdPropEnabling = new StandardPropEnabling();
         SpecificGraphicProp m_SpecGraphicProp = new SpecificGraphicProp();
 
@@ -41,7 +40,7 @@ namespace CtrlTwoBitmap
             m_SpecGraphicProp.m_bcanResizeWidth = true;
             m_SpecGraphicProp.m_bcanResizeHeight = true;
             m_SpecGraphicProp.m_MinSize = new Size(5, 5);
-
+            this.ControlType = InteractiveControlType.DllControl;
         }
 
         public override InteractiveControl CreateNew()
@@ -66,14 +65,6 @@ namespace CtrlTwoBitmap
             get
             {
                 return m_SpecificPropPanel;
-            }
-        }
-
-        public SpecificControlProp SpecificControlProp
-        {
-            get
-            {
-                return m_SpecificControlProp;
             }
         }
 

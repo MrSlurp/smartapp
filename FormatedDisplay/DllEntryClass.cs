@@ -49,7 +49,7 @@ namespace FormatedDisplay
             get
             {
                 // modifiez ici la taille que le control aura dans la fenêtre d'outil
-                return new Size(130, 30);
+                return new Size(130, 20);
             }
         }
 

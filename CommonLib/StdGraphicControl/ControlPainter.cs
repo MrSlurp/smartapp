@@ -94,7 +94,6 @@ namespace CommonLib
             Rectangle DrawRect = ctrl.ClientRectangle;
             DrawRect.Inflate(-1, -1);
 
-            Pen pen = new Pen(ColorTourCombo, 1);
             gr.FillRectangle(Brushes.White, DrawRect);
 
             Bitmap BtnTop = Resources.TopBtn;

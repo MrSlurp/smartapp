@@ -14,7 +14,6 @@ namespace FourBitmap
     public partial class InteractiveFourBitmapDllControl : InteractiveControl, ISpecificControl
     {
         UserControl m_SpecificPropPanel = new FourBitmapProperties();
-        DllFourBitmapProp m_SpecificControlProp = new DllFourBitmapProp();
         StandardPropEnabling m_stdPropEnabling = new StandardPropEnabling();
         SpecificGraphicProp m_SpecGraphicProp = new SpecificGraphicProp();
 
@@ -41,9 +40,9 @@ namespace FourBitmap
 
             // modifiez ici les valeur afin que le control ai la taille min souhaité et ses possibilité de redimensionnement
             m_SpecGraphicProp.m_bcanResizeWidth = true;
-            m_SpecGraphicProp.m_bcanResizeHeight = true;
+            m_SpecGraphicProp.m_bcanResizeHeight = false;
             m_SpecGraphicProp.m_MinSize = new Size(5, 5);
-
+            this.ControlType = InteractiveControlType.DllControl;
         }
 
         public override InteractiveControl CreateNew()
@@ -68,14 +67,6 @@ namespace FourBitmap
             get
             {
                 return m_SpecificPropPanel;
-            }
-        }
-
-        public SpecificControlProp SpecificControlProp
-        {
-            get
-            {
-                return m_SpecificControlProp;
             }
         }
 

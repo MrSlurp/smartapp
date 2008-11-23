@@ -14,7 +14,6 @@ namespace GradientBaloon
     public partial class InteractiveGradientBaloonDllControl : InteractiveControl, ISpecificControl
     {
         UserControl m_SpecificPropPanel = new GradientBaloonProperties();
-        DllGradientBaloonProp m_SpecificControlProp = new DllGradientBaloonProp();
         StandardPropEnabling m_stdPropEnabling = new StandardPropEnabling();
         SpecificGraphicProp m_SpecGraphicProp = new SpecificGraphicProp();
 
@@ -25,7 +24,7 @@ namespace GradientBaloon
                         | System.Windows.Forms.AnchorStyles.Right)));
             m_SpecificPropPanel.AutoSize = true;
             m_SpecificPropPanel.Name = "DllControlPropPanel";
-            m_SpecificPropPanel.Text = "";
+            m_SpecificPropPanel.Text = "***.*";
 
             // modifiez ici les valeur afin que le control rende disponibles les champs standard souhaités
             m_stdPropEnabling.m_bcheckReadOnlyChecked = false;
@@ -40,7 +39,7 @@ namespace GradientBaloon
             m_SpecGraphicProp.m_bcanResizeWidth = true;
             m_SpecGraphicProp.m_bcanResizeHeight = true;
             m_SpecGraphicProp.m_MinSize = new Size(5, 5);
-
+            this.ControlType = InteractiveControlType.DllControl;
         }
 
         public override InteractiveControl CreateNew()
@@ -65,14 +64,6 @@ namespace GradientBaloon
             get
             {
                 return m_SpecificPropPanel;
-            }
-        }
-
-        public SpecificControlProp SpecificControlProp
-        {
-            get
-            {
-                return m_SpecificControlProp;
             }
         }
 

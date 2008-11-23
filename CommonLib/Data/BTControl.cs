@@ -29,7 +29,6 @@ namespace CommonLib
         // collection de string qui contiennent le script a executer
         protected StringCollection m_ScriptLines = new StringCollection();
 
-        //protected SpecificControlProp m_SpecificProp = null;
         #endregion
 
 
@@ -174,6 +173,7 @@ namespace CommonLib
         {
             get
             {
+                //surchargé dans les objet hérité pour retourner les propriété spécifiques
                 return null;
             }
         }

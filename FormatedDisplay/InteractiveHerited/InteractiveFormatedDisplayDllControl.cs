@@ -14,7 +14,6 @@ namespace FormatedDisplay
     public partial class InteractiveFormatedDisplayDllControl : InteractiveControl, ISpecificControl
     {
         UserControl m_SpecificPropPanel = new FormatedDisplayProperties();
-        DllFormatedDisplayProp m_SpecificControlProp = new DllFormatedDisplayProp();
         StandardPropEnabling m_stdPropEnabling = new StandardPropEnabling();
         SpecificGraphicProp m_SpecGraphicProp = new SpecificGraphicProp();
 
@@ -38,9 +37,9 @@ namespace FormatedDisplay
 
             // modifiez ici les valeur afin que le control ai la taille min souhaité et ses possibilité de redimensionnement
             m_SpecGraphicProp.m_bcanResizeWidth = true;
-            m_SpecGraphicProp.m_bcanResizeHeight = true;
-            m_SpecGraphicProp.m_MinSize = new Size(5, 5);
-
+            m_SpecGraphicProp.m_bcanResizeHeight = false;
+            m_SpecGraphicProp.m_MinSize = new Size(32, 20);
+            this.ControlType = InteractiveControlType.DllControl;
         }
 
         public override InteractiveControl CreateNew()
@@ -68,14 +67,6 @@ namespace FormatedDisplay
             }
         }
 
-        public SpecificControlProp SpecificControlProp
-        {
-            get
-            {
-                return m_SpecificControlProp;
-            }
-        }
-
         public StandardPropEnabling StdPropEnabling
         {
             get
@@ -94,14 +85,38 @@ namespace FormatedDisplay
 
         public void SelfPaint(Graphics gr, Control ctrl)
         {
+            Rectangle DrawRect = ctrl.ClientRectangle;
+            DrawRect.Inflate(-2, -2);
+            Pen pen = new Pen(Color.FromArgb(127, 157, 185), 1);
+            gr.FillRectangle(Brushes.White, DrawRect);
+            gr.DrawRectangle(pen, DrawRect);
+            string dispText = "1234.5";
             if (this.SourceBTControl != null)
             {
-                // mettez ici le code de dessin du control lorsqu'il est posé dans la surface de dessin
+                float diviseur = 1;
+                string FormatString = ((DllFormatedDisplayProp)this.SourceBTControl.SpecificProp).FormatString;
+                switch (FormatString)
+                {
+                    case ":F0":
+                        break;
+                    case ":F1":
+                        diviseur = 10;
+                        break;
+                    case ":F2":
+                        diviseur = 100;
+                        break;
+                    case ":F3":
+                        diviseur = 1000;
+                        break;
+                    default:
+                        break;
+                }
+                float sampleValue = 12345F / diviseur;
+                dispText = string.Format("{0" + FormatString + "}", sampleValue);
             }
-            else
-            {
-                // mettez ici le code de dessin du control lorsqu'il est dans la barre d'outil
-            }
+            SizeF SizeText = gr.MeasureString(dispText, SystemFonts.DefaultFont);
+            PointF PtText = new PointF(ctrl.ClientRectangle.Left + 2, (ctrl.Height - SizeText.Height) / 2);
+            gr.DrawString(dispText, SystemFonts.DefaultFont, Brushes.Black, PtText);
         }
 
         protected override void OnPaint(PaintEventArgs e)

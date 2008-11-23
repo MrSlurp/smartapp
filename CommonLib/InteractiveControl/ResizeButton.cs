@@ -226,8 +226,11 @@ namespace CommonLib
             {
                 if (UpdateLocation())
                 {
-                    this.Visible = true;
-                    BringToFront();
+                    if (m_bCanBeVisible)
+                    {
+                        this.Visible = true;
+                        BringToFront();
+                    }
                 }
             }
         }

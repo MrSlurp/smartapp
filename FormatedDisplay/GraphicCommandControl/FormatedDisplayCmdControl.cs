@@ -31,8 +31,7 @@ namespace FormatedDisplay
                 m_Ctrl.Location = m_RectControl.Location;
                 m_Ctrl.Name = m_strSymbol;
                 m_Ctrl.Size = m_RectControl.Size;
-                m_Ctrl.BackColor = Color.Transparent;
-                // faites ici les initialisation spécifiques du control affiché
+                ((FormatedDisplayDispCtrl)m_Ctrl).FormatString = ((DllFormatedDisplayProp)this.m_SpecificProp).FormatString;
             }
         }
 
@@ -78,6 +77,33 @@ namespace FormatedDisplay
     public class FormatedDisplayDispCtrl : UserControl
     {
         // ajouter ici les données membres du control affiché
+        int m_Value = 0;
+        string m_FormatString = ":F0";
+
+        public int Value
+        {
+            get
+            {
+                return m_Value;
+            }
+            set
+            {
+                m_Value = value;
+                Refresh();
+            }
+        }
+
+        public string FormatString
+        {
+            get
+            {
+                return m_FormatString;
+            }
+            set
+            {
+                m_FormatString = value;
+            }
+        }
 
         public FormatedDisplayDispCtrl()
         {
@@ -85,8 +111,34 @@ namespace FormatedDisplay
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            // mettez ici le code de dessin du control
-            base.OnPaint(e);
+            Rectangle DrawRect = ClientRectangle;
+            DrawRect.Inflate(-2, -2);
+            Pen pen = new Pen(Color.FromArgb(127, 157, 185), 1);
+            e.Graphics.FillRectangle(Brushes.White, DrawRect);
+            e.Graphics.DrawRectangle(pen, DrawRect);
+            string dispText = "1234.5";
+            float diviseur = 1;
+            switch (FormatString)
+            {
+                case ":F0":
+                    break;
+                case ":F1":
+                    diviseur = 10;
+                    break;
+                case ":F2":
+                    diviseur = 100;
+                    break;
+                case ":F3":
+                    diviseur = 1000;
+                    break;
+                default:
+                    break;
+            }
+            float DispValue = Value / diviseur;
+            dispText = string.Format("{0" + FormatString + "}", DispValue);
+            SizeF SizeText = e.Graphics.MeasureString(dispText, SystemFonts.DefaultFont);
+            PointF PtText = new PointF(ClientRectangle.Left + 2, (Height - SizeText.Height) / 2);
+            e.Graphics.DrawString(dispText, SystemFonts.DefaultFont, Brushes.Black, PtText);
         }
     }
 }

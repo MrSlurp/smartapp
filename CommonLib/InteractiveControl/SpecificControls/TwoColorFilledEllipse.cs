@@ -12,7 +12,6 @@ namespace CommonLib
     public partial class TwoColorFilledEllipse : InteractiveControl, ISpecificControl
     {
         UserControl m_SpecificPropPanel = new TwoColorProperties();
-        TwoColorProp m_SpecificControlProp = new TwoColorProp();
         StandardPropEnabling m_stdPropEnabling = new StandardPropEnabling();
         SpecificGraphicProp m_SpecGraphicProp = new SpecificGraphicProp();
 
@@ -66,14 +65,6 @@ namespace CommonLib
             get
             {
                 return m_SpecificPropPanel;
-            }
-        }
-
-        public SpecificControlProp SpecificControlProp
-        {
-            get
-            {
-                return m_SpecificControlProp;
             }
         }
 

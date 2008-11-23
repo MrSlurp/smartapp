@@ -10,7 +10,6 @@ namespace CommonLib
     {
         void SelfPaint(Graphics gr, Control ctrl);
         UserControl SpecificPropPanel { get;}
-        SpecificControlProp SpecificControlProp { get;}
         StandardPropEnabling StdPropEnabling { get;}
         SpecificGraphicProp SpecGraphicProp { get;}
     }

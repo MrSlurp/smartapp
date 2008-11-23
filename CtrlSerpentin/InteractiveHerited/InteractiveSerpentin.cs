@@ -13,7 +13,6 @@ namespace CtrlSerpentin
     public partial class InteractiveSerpentin : InteractiveControl, ISpecificControl
     {
         UserControl m_SpecificPropPanel = new TwoColorProperties();
-        TwoColorProp m_SpecificControlProp = new TwoColorProp();
         StandardPropEnabling m_stdPropEnabling = new StandardPropEnabling();
         SpecificGraphicProp m_SpecGraphicProp = new SpecificGraphicProp();
 
@@ -39,6 +38,7 @@ namespace CtrlSerpentin
             m_SpecGraphicProp.m_bcanResizeWidth = true;
             m_SpecGraphicProp.m_bcanResizeHeight = true;
             m_SpecGraphicProp.m_MinSize = new Size(5, 5);
+            this.ControlType = InteractiveControlType.DllControl;
         }
         public override InteractiveControl CreateNew()
         {
@@ -60,14 +60,6 @@ namespace CtrlSerpentin
             get
             {
                 return m_SpecificPropPanel;
-            }
-        }
-
-        public SpecificControlProp SpecificControlProp
-        {
-            get
-            {
-                return m_SpecificControlProp;
             }
         }
 

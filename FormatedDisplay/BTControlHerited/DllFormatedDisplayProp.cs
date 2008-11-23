@@ -11,9 +11,19 @@ namespace FormatedDisplay
 {
     class DllFormatedDisplayProp : SpecificControlProp
     {
-        // ajouter ici les données membres des propriété
+        private string m_FormatString = ":F0";
 
-        // ajouter ici les accesseur vers les données membres des propriété
+        public string FormatString
+        {
+            get
+            {
+                return m_FormatString;
+            }
+            set
+            {
+                m_FormatString = value;
+            }
+        }
 
         public override bool ReadIn(System.Xml.XmlNode Node)
         {

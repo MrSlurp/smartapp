@@ -23,6 +23,10 @@ namespace CtrlSerpentin
             {
                 nbPoints -= 1;
             }
+            if (nbPoints < 0)
+            {
+                nbPoints = 0;
+            }
             ListPts = new Point[nbPoints];
             int yCurPt = MARGE;
             bool bPtAGauche = false;
