@@ -188,42 +188,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="Res\BottomLeftBtn.bmp" />
-    <Content Include="Res\BottomRightBtn.bmp" />
-    <Content Include="Res\CheckBox.bmp" />
-    <Content Include="Res\ColorTourComboUpDownNum.bmp" />
-    <Content Include="Res\CxnOff.bmp" />
-    <Content Include="Res\CxnOn.bmp" />
-    <Content Include="Res\DownBtn.bmp" />
-    <Content Include="Res\DropBtn.bmp" />
-    <Content Include="Res\EmptyImg.bmp" />
-    <Content Include="Res\LeftBtn.bmp" />
-    <Content Include="Res\move.bmp" />
-    <Content Include="Res\PresAssData.bmp" />
-    <Content Include="Res\RadioBtn.bmp" />
-    <Content Include="Res\RightBtn.bmp" />
-    <Content Include="Res\SliderBar.bmp" />
-    <Content Include="Res\SliderCursor.bmp" />
-    <Content Include="Res\ToolBar\AlignLeft.bmp" />
-    <Content Include="Res\ToolBar\AlignTop.bmp" />
-    <Content Include="Res\ToolBar\ArrangeAcross.bmp" />
-    <Content Include="Res\ToolBar\ArrangeDown.bmp" />
-    <Content Include="Res\ToolBar\MakeSameBoth.bmp" />
-    <Content Include="Res\ToolBar\MakeSameHeight.bmp" />
-    <Content Include="Res\ToolBar\MakeSameWidth.bmp" />
-    <Content Include="Res\TopBtn.bmp" />
-    <Content Include="Res\TopLeftBtn.bmp" />
-    <Content Include="Res\TopRightBtn.bmp" />
-    <Content Include="Res\UpDownBtn.bmp" />
-    <Content Include="Res\WizRes\AlignLeft.bmp" />
-    <Content Include="Res\WizRes\AlignTop.bmp" />
-    <Content Include="Res\WizRes\ArrangeAcross.bmp" />
-    <Content Include="Res\WizRes\ArrangeDown.bmp" />
-    <Content Include="Res\WizRes\MakeSameBoth.bmp" />
-    <Content Include="Res\WizRes\MakeSameHeight.bmp" />
-    <Content Include="Res\WizRes\MakeSameWidth.bmp" />
-  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
