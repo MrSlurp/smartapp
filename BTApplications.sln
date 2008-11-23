@@ -59,7 +59,6 @@ Global
 		{9BF24393-6579-44DE-8219-98F2958BD47B}.Debug Cmd|Win32.Build.0 = Debug
 		{9BF24393-6579-44DE-8219-98F2958BD47B}.Debug Test|Any CPU.ActiveCfg = Debug Test
 		{9BF24393-6579-44DE-8219-98F2958BD47B}.Debug Test|Mixed Platforms.ActiveCfg = Debug Test
-		{9BF24393-6579-44DE-8219-98F2958BD47B}.Debug Test|Mixed Platforms.Build.0 = Debug Test
 		{9BF24393-6579-44DE-8219-98F2958BD47B}.Debug Test|Win32.ActiveCfg = Debug Test
 		{9BF24393-6579-44DE-8219-98F2958BD47B}.Debug Test|Win32.Build.0 = Debug Test
 		{9BF24393-6579-44DE-8219-98F2958BD47B}.Debug|Any CPU.ActiveCfg = Debug

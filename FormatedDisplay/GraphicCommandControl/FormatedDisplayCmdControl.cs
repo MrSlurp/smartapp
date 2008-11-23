@@ -49,7 +49,7 @@ namespace FormatedDisplay
         {
             if (m_AssociateData != null && m_Ctrl != null)
             {
-                // effectuez ici le traitement à executer lorsque la valeur change
+                ((FormatedDisplayDispCtrl)m_Ctrl).Value = m_AssociateData.Value;
             }
         }
 

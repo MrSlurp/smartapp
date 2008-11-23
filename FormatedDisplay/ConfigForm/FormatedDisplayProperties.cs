@@ -14,6 +14,7 @@ namespace FormatedDisplay
     {
         BTControl m_Control = null;
         private BTDoc m_Document = null;
+        private string m_FormatString = ":F0";
 
         #region events
         public event ControlPropertiesChange ControlPropertiesChanged;
@@ -39,12 +40,44 @@ namespace FormatedDisplay
                 if (m_Control != null)
                 {
                     this.Enabled = true;
-                    // assignez ici les valeur des propriété spécifiques du control
+
+                    switch (((DllFormatedDisplayProp)m_Control.SpecificProp).FormatString)
+                    {
+                        case ":F0":
+                            m_rdBtn0.Checked = true;
+                            m_rdBtn1.Checked = false;
+                            m_rdBtn2.Checked = false;
+                            m_rdBtn3.Checked = false;
+                            break;
+                        case ":F1":
+                            m_rdBtn0.Checked = false;
+                            m_rdBtn1.Checked = true;
+                            m_rdBtn2.Checked = false;
+                            m_rdBtn3.Checked = false;
+                            break;
+                        case ":F2":
+                            m_rdBtn0.Checked = false;
+                            m_rdBtn1.Checked = false;
+                            m_rdBtn2.Checked = true;
+                            m_rdBtn3.Checked = false;
+                            break;
+                        case ":F3":
+                            m_rdBtn0.Checked = false;
+                            m_rdBtn1.Checked = false;
+                            m_rdBtn2.Checked = true;
+                            m_rdBtn3.Checked = false;
+                            break;
+                        default:
+                            break;
+                    }
                 }
                 else
                 {
                     this.Enabled = false;
-                    // mettez ici les valeur par défaut pour le panel de propriété spécifiques
+                    m_rdBtn0.Checked = true;
+                    m_rdBtn1.Checked = false;
+                    m_rdBtn2.Checked = false;
+                    m_rdBtn3.Checked = false;
                 }
             }
         }
@@ -92,9 +125,11 @@ namespace FormatedDisplay
             // testez ici si les paramètres ont changé en les comparant avec ceux contenu dans les propriété
             // spécifiques du BTControl
             // si c'est le cas, assignez bDataPropChange à true;
-
+            if (m_FormatString != ((DllFormatedDisplayProp)m_Control.SpecificProp).FormatString)
+                bDataPropChange = true;
             if (bDataPropChange)
             {
+                ((DllFormatedDisplayProp)m_Control.SpecificProp).FormatString = m_FormatString;
                 Doc.Modified = true;
                 m_Control.IControl.Refresh();
             }
@@ -103,5 +138,25 @@ namespace FormatedDisplay
             return true;
         }
         #endregion
+
+        private void m_rdBtn_CheckedChanged(object sender, EventArgs e)
+        {
+            if (m_rdBtn0.Checked)
+            {
+                m_FormatString = ":F0";
+            }
+            else if (m_rdBtn1.Checked)
+            {
+                m_FormatString = ":F1";
+            }
+            else if (m_rdBtn2.Checked)
+            {
+                m_FormatString = ":F2";
+            }
+            else if (m_rdBtn3.Checked)
+            {
+                m_FormatString = ":F3";
+            }
+        }
     }
 }

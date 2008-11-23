@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.radioButton4 = new System.Windows.Forms.RadioButton();
+            this.m_rdBtn0 = new System.Windows.Forms.RadioButton();
+            this.m_rdBtn1 = new System.Windows.Forms.RadioButton();
+            this.m_rdBtn2 = new System.Windows.Forms.RadioButton();
+            this.m_rdBtn3 = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
             // label1
@@ -44,58 +44,62 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Format";
             // 
-            // radioButton1
+            // m_rdBtn0
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(18, 16);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(55, 17);
-            this.radioButton1.TabIndex = 1;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "12345";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.m_rdBtn0.AutoSize = true;
+            this.m_rdBtn0.Location = new System.Drawing.Point(18, 16);
+            this.m_rdBtn0.Name = "m_rdBtn0";
+            this.m_rdBtn0.Size = new System.Drawing.Size(55, 17);
+            this.m_rdBtn0.TabIndex = 1;
+            this.m_rdBtn0.TabStop = true;
+            this.m_rdBtn0.Text = "12345";
+            this.m_rdBtn0.UseVisualStyleBackColor = true;
+            this.m_rdBtn0.CheckedChanged += new System.EventHandler(this.m_rdBtn_CheckedChanged);
             // 
-            // radioButton2
+            // m_rdBtn1
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(18, 39);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(58, 17);
-            this.radioButton2.TabIndex = 1;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "1234.5";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.m_rdBtn1.AutoSize = true;
+            this.m_rdBtn1.Location = new System.Drawing.Point(18, 39);
+            this.m_rdBtn1.Name = "m_rdBtn1";
+            this.m_rdBtn1.Size = new System.Drawing.Size(58, 17);
+            this.m_rdBtn1.TabIndex = 1;
+            this.m_rdBtn1.TabStop = true;
+            this.m_rdBtn1.Text = "1234.5";
+            this.m_rdBtn1.UseVisualStyleBackColor = true;
+            this.m_rdBtn1.CheckedChanged += new System.EventHandler(this.m_rdBtn_CheckedChanged);
             // 
-            // radioButton3
+            // m_rdBtn2
             // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(18, 62);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(58, 17);
-            this.radioButton3.TabIndex = 1;
-            this.radioButton3.TabStop = true;
-            this.radioButton3.Text = "123.45";
-            this.radioButton3.UseVisualStyleBackColor = true;
+            this.m_rdBtn2.AutoSize = true;
+            this.m_rdBtn2.Location = new System.Drawing.Point(18, 62);
+            this.m_rdBtn2.Name = "m_rdBtn2";
+            this.m_rdBtn2.Size = new System.Drawing.Size(58, 17);
+            this.m_rdBtn2.TabIndex = 1;
+            this.m_rdBtn2.TabStop = true;
+            this.m_rdBtn2.Text = "123.45";
+            this.m_rdBtn2.UseVisualStyleBackColor = true;
+            this.m_rdBtn2.CheckedChanged += new System.EventHandler(this.m_rdBtn_CheckedChanged);
             // 
-            // radioButton4
+            // m_rdBtn3
             // 
-            this.radioButton4.AutoSize = true;
-            this.radioButton4.Location = new System.Drawing.Point(18, 85);
-            this.radioButton4.Name = "radioButton4";
-            this.radioButton4.Size = new System.Drawing.Size(58, 17);
-            this.radioButton4.TabIndex = 1;
-            this.radioButton4.TabStop = true;
-            this.radioButton4.Text = "12.345";
-            this.radioButton4.UseVisualStyleBackColor = true;
+            this.m_rdBtn3.AutoSize = true;
+            this.m_rdBtn3.Location = new System.Drawing.Point(18, 85);
+            this.m_rdBtn3.Name = "m_rdBtn3";
+            this.m_rdBtn3.Size = new System.Drawing.Size(58, 17);
+            this.m_rdBtn3.TabIndex = 1;
+            this.m_rdBtn3.TabStop = true;
+            this.m_rdBtn3.Text = "12.345";
+            this.m_rdBtn3.UseVisualStyleBackColor = true;
+            this.m_rdBtn3.CheckedChanged += new System.EventHandler(this.m_rdBtn_CheckedChanged);
             // 
             // FormatedDisplayProperties
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.radioButton4);
-            this.Controls.Add(this.radioButton3);
-            this.Controls.Add(this.radioButton2);
-            this.Controls.Add(this.radioButton1);
+            this.Controls.Add(this.m_rdBtn3);
+            this.Controls.Add(this.m_rdBtn2);
+            this.Controls.Add(this.m_rdBtn1);
+            this.Controls.Add(this.m_rdBtn0);
             this.Controls.Add(this.label1);
             this.Name = "FormatedDisplayProperties";
             this.Size = new System.Drawing.Size(137, 111);
@@ -107,10 +111,10 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton3;
-        private System.Windows.Forms.RadioButton radioButton4;
+        private System.Windows.Forms.RadioButton m_rdBtn0;
+        private System.Windows.Forms.RadioButton m_rdBtn1;
+        private System.Windows.Forms.RadioButton m_rdBtn2;
+        private System.Windows.Forms.RadioButton m_rdBtn3;
 
     }
 }

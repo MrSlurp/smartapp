@@ -13,6 +13,7 @@ namespace FormatedDisplay
     {
         private string m_FormatString = ":F0";
 
+        private const string NOM_ATTIB_FORMAT = "Format";
         public string FormatString
         {
             get
@@ -27,11 +28,19 @@ namespace FormatedDisplay
 
         public override bool ReadIn(System.Xml.XmlNode Node)
         {
+            XmlNode AttrFormat = Node.Attributes.GetNamedItem(NOM_ATTIB_FORMAT);
+            if (AttrFormat == null
+                )
+                return false;
+            FormatString = AttrFormat.Value;
             return true;
         }
 
         public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
         {
+            XmlAttribute AttrFormat = XmlDoc.CreateAttribute(NOM_ATTIB_FORMAT);
+            AttrFormat.Value = FormatString;
+            Node.Attributes.Append(AttrFormat);
             return true;
         }
     }
