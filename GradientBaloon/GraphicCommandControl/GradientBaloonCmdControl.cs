@@ -168,15 +168,16 @@ namespace GradientBaloon
             float Tmp1 = (ValPercent / 100) - ((float)(PercentCenterPart / 2) / (float)100);
             float Tmp2 = (float)PercentCenterPart/(float)100;
             float Tmp3 = (100 - ValPercent) / 100 - ((float)(PercentCenterPart/2) / (float)100);
-            if (Tmp1 < 0.1f)
-                Tmp1 = 0.1F;
-            if (Tmp1 > 0.9f)
-                Tmp1 = 0.9F;
+            // on laisse 10% car c'est la taille prise par le dégradé, il est placé en dessous de la zone supérieur
+            if (Tmp1 < 0.05f)
+                Tmp1 = 0.05F;
+            if (Tmp1 > 0.85f)
+                Tmp1 = 0.85F;
 
-            if (Tmp3 < 0.1f)
-                Tmp3 = 0.1F;
-            if (Tmp3 > 0.9f)
-                Tmp3 = 0.9F;
+            if (Tmp3 < 0.05f)
+                Tmp3 = 0.05F;
+            if (Tmp3 > 0.85f)
+                Tmp3 = 0.85F;
             float sum = Tmp1 + Tmp2 + Tmp3;
             int heightTop = (int)(this.Height * Tmp1);
             int heightCenter = (int)(this.Height * Tmp2);

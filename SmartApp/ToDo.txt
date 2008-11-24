@@ -21,7 +21,6 @@ Afficher la données associée en tool tip
 
 EVO
 Crée des séparateur graphiques pour les ecrans
-Insérer une version simplifiée de la AGauge avec une fenêtre pour la configurer
 Idées en plus
 MultiDocument pour SmartCmd:
 Une fenêtre qui gère tout les documents avec leur connexion respectives et qui affcihent leurs états
@@ -50,5 +49,3 @@ IPR 0009: problèmes divers sur l'auto completion: si on a plusieur lignes, si ut
 OK
 IPR 0010: il devrait y avoir une option démarrage auto pour les timers et les loggers
 OK == > A tester en édition ==>OK
-
-IPR 0011: pas de modif de doc enregistré sur utilisation des wizards
