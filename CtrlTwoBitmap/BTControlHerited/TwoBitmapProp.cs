@@ -56,8 +56,8 @@ namespace CtrlTwoBitmap
         {
             XmlAttribute AttrActive = XmlDoc.CreateAttribute(NOM_ATTIB_ACTIVE);
             XmlAttribute AttrInactive = XmlDoc.CreateAttribute(NOM_ATTIB_INACTIVE);
-            AttrActive.Value = NomFichierActif;
-            AttrInactive.Value = m_NomFichierInactif;
+            AttrActive.Value = PathTranslator.AbsolutePathToRelative(m_NomFichierActif);
+            AttrInactive.Value = PathTranslator.AbsolutePathToRelative(m_NomFichierInactif);
             Node.Attributes.Append(AttrActive);
             Node.Attributes.Append(AttrInactive);
             return true;

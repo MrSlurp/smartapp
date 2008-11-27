@@ -94,8 +94,8 @@ namespace FourBitmap
                 {
                     if (((DllFourBitmapProp)this.SourceBTControl.SpecificProp).NomFichier0 != m_strImg0)
                     {
-                        m_strImg0 = ((DllFourBitmapProp)this.SourceBTControl.SpecificProp).NomFichier0;
-                        string strImageFullPath = m_strImg0.Replace(@".\", Application.StartupPath + @"\");
+                        m_strImg0 = PathTranslator.RelativePathToAbsolute(((DllFourBitmapProp)this.SourceBTControl.SpecificProp).NomFichier0);
+                        string strImageFullPath = m_strImg0;
                         m_Bmp0 = new Bitmap(strImageFullPath);
                         m_Bmp0.MakeTransparent(Color.Magenta);
                     }

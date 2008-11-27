@@ -92,8 +92,8 @@ namespace CtrlTwoBitmap
                 {
                     if (((TwoBitmapProp)this.SourceBTControl.SpecificProp).NomFichierInactif != m_strImgInactive)
                     {
-                        m_strImgInactive = ((TwoBitmapProp)this.SourceBTControl.SpecificProp).NomFichierInactif;
-                        string strImageFullPath = m_strImgInactive.Replace(@".\", Application.StartupPath + @"\");
+                        m_strImgInactive = PathTranslator.RelativePathToAbsolute(((TwoBitmapProp)this.SourceBTControl.SpecificProp).NomFichierInactif);
+                        string strImageFullPath = m_strImgInactive;
                         m_BmpInact = new Bitmap(strImageFullPath);
                         m_BmpInact.MakeTransparent(Color.Magenta);
                     }

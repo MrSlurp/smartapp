@@ -359,10 +359,11 @@ namespace SmartApp.Ihm
             m_InteractiveControlContainer.AllowDrop = true;
             try
             {
-                if (!string.IsNullOrEmpty(m_Currentscreen.BackPictureFile)
-                    && File.Exists(m_Currentscreen.BackPictureFile))
+                string chemincomplet = PathTranslator.RelativePathToAbsolute(m_Currentscreen.BackPictureFile);
+                if (!string.IsNullOrEmpty(chemincomplet)
+                    && File.Exists(chemincomplet))
                 {
-                    Bitmap imgBack = new Bitmap(m_Currentscreen.BackPictureFile);
+                    Bitmap imgBack = new Bitmap(chemincomplet);
                     imgBack.MakeTransparent(Cste.TransparencyColor);
                     m_InteractiveControlContainer.ScreenBckImage = imgBack;
                 }

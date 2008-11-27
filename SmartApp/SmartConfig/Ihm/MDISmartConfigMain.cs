@@ -263,7 +263,7 @@ namespace SmartApp.Ihm
                 this.CloseDoc();
             } 
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "BTApp2 File (*.saf)|*.saf";
+            openFileDialog.Filter = "SmartApp File (*.saf)|*.saf";
             openFileDialog.InitialDirectory = Application.StartupPath;
             DialogResult dlgRes = openFileDialog.ShowDialog();
             if (dlgRes == DialogResult.OK)
@@ -347,12 +347,15 @@ namespace SmartApp.Ihm
         private void OnSaveAsClick()
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "BTApp2 File (*.saf)|*.saf";
+            saveFileDialog.Filter = "SmartApp File (*.saf)|*.saf";
             saveFileDialog.InitialDirectory = Application.StartupPath;
             DialogResult dlgRes = saveFileDialog.ShowDialog();
             if (dlgRes == DialogResult.OK)
             {
                 string strFileFullName = saveFileDialog.FileName;
+                int idxOfLastAntiSlash = strFileFullName.LastIndexOf('\\');
+                string DossierFichier = strFileFullName.Substring(0, strFileFullName.Length - (strFileFullName.Length - idxOfLastAntiSlash));
+                PathTranslator.BTDocPath = DossierFichier;
                 m_Document.WriteConfigDocument(strFileFullName, true);
                 int lastindex = strFileFullName.LastIndexOf(@"\");
                 m_strDocumentName = strFileFullName.Substring(lastindex + 1);

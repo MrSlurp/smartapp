@@ -32,8 +32,8 @@ namespace FourBitmap
                 m_Ctrl.Name = m_strSymbol;
                 m_Ctrl.Size = m_RectControl.Size;
                 m_Ctrl.BackColor = Color.Transparent;
-                string strBmp0 = ((DllFourBitmapProp)this.m_SpecificProp).NomFichier0;
-                string strImageFullPath = strBmp0.Replace(@".\", Application.StartupPath + @"\");
+
+                string strImageFullPath = PathTranslator.RelativePathToAbsolute(((DllFourBitmapProp)this.m_SpecificProp).NomFichier0);
                 try
                 {
                     ((FourBitmapDispCtrl)m_Ctrl).Bmp0 = new Bitmap(strImageFullPath);
@@ -44,8 +44,7 @@ namespace FourBitmap
                     AddLogEvent(log);
                 }
 
-                string strBmp1 = ((DllFourBitmapProp)this.m_SpecificProp).NomFichier1;
-                strImageFullPath = strBmp1.Replace(@".\", Application.StartupPath + @"\");
+                strImageFullPath = PathTranslator.RelativePathToAbsolute(((DllFourBitmapProp)this.m_SpecificProp).NomFichier1);
                 try
                 {
                     ((FourBitmapDispCtrl)m_Ctrl).Bmp1 = new Bitmap(strImageFullPath);
@@ -56,8 +55,7 @@ namespace FourBitmap
                     AddLogEvent(log);
                 }
 
-                string strBmp2 = ((DllFourBitmapProp)this.m_SpecificProp).NomFichier2;
-                strImageFullPath = strBmp2.Replace(@".\", Application.StartupPath + @"\");
+                strImageFullPath = PathTranslator.RelativePathToAbsolute(((DllFourBitmapProp)this.m_SpecificProp).NomFichier2);
                 try
                 {
                     ((FourBitmapDispCtrl)m_Ctrl).Bmp2 = new Bitmap(strImageFullPath);
@@ -68,8 +66,7 @@ namespace FourBitmap
                     AddLogEvent(log);
                 }
 
-                string strBmp3 = ((DllFourBitmapProp)this.m_SpecificProp).NomFichier3;
-                strImageFullPath = strBmp3.Replace(@".\", Application.StartupPath + @"\");
+                strImageFullPath = PathTranslator.RelativePathToAbsolute(((DllFourBitmapProp)this.m_SpecificProp).NomFichier3);
                 try
                 {
                     ((FourBitmapDispCtrl)m_Ctrl).Bmp3 = new Bitmap(strImageFullPath);
@@ -279,6 +276,7 @@ namespace FourBitmap
                 ImageAnimator.UpdateFrames(Bmp3);
             switch (State)
             {
+                default:
                 case 0:
                     e.Graphics.DrawImage(Bmp0, new Rectangle(new Point(0, 0), this.Size));
                     break;
@@ -290,9 +288,6 @@ namespace FourBitmap
                     break;
                 case 3:
                     e.Graphics.DrawImage(Bmp3, new Rectangle(new Point(0, 0), this.Size));
-                    break;
-                default:
-                    e.Graphics.DrawImage(FourBitmapRes.DefaultBmp, new Rectangle(new Point(0, 0), this.Size));
                     break;
             }
 

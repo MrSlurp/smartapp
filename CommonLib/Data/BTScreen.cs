@@ -477,7 +477,7 @@ namespace CommonLib
             }
             // et le chemin du de l'image de fond
             XmlNode NodeImage = XmlDoc.CreateElement(XML_CF_TAG.ImagePath.ToString());
-            XmlNode NodeTextImage = XmlDoc.CreateTextNode(m_strBackPictureFile);
+            XmlNode NodeTextImage = XmlDoc.CreateTextNode(PathTranslator.AbsolutePathToRelative(m_strBackPictureFile));
             NodeImage.AppendChild(NodeTextImage);
             Node.AppendChild(NodeImage);
             return true;
@@ -516,7 +516,7 @@ namespace CommonLib
                 this.m_DynamicPanel.MyInitializeComponent(m_ListControls);
                 // on ajuste la taille du dynamic Panel
                 m_DynamicPanel.Size = new Size(pt.X + 10, pt.Y + 10);
-                string strImageFullPath = BackPictureFile.Replace(@".\", Application.StartupPath + @"\");
+                string strImageFullPath = PathTranslator.RelativePathToAbsolute(BackPictureFile);
                 try
                 {
                     // si il y a une image, on la charge

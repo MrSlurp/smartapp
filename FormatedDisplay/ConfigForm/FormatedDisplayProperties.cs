@@ -40,8 +40,8 @@ namespace FormatedDisplay
                 if (m_Control != null)
                 {
                     this.Enabled = true;
-
-                    switch (((DllFormatedDisplayProp)m_Control.SpecificProp).FormatString)
+                    m_FormatString = ((DllFormatedDisplayProp)m_Control.SpecificProp).FormatString;
+                    switch (m_FormatString)
                     {
                         case ":F0":
                             m_rdBtn0.Checked = true;

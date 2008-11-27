@@ -33,8 +33,7 @@ namespace CtrlTwoBitmap
                 m_Ctrl.Size = m_RectControl.Size;
                 m_Ctrl.BackColor = Color.Transparent;
                 
-                string strBmpInact = ((TwoBitmapProp)this.m_SpecificProp).NomFichierInactif;
-                string strImageFullPath = strBmpInact.Replace(@".\", Application.StartupPath + @"\");
+                string strImageFullPath = PathTranslator.RelativePathToAbsolute(((TwoBitmapProp)this.m_SpecificProp).NomFichierInactif);
                 try
                 {
                     ((TwoBitmap)m_Ctrl).BmpInact = new Bitmap(strImageFullPath);
@@ -45,8 +44,7 @@ namespace CtrlTwoBitmap
                     AddLogEvent(log);
                 }
                 
-                string strBmpAct = ((TwoBitmapProp)this.m_SpecificProp).NomFichierActif;
-                strImageFullPath = strBmpAct.Replace(@".\", Application.StartupPath + @"\");
+                strImageFullPath = PathTranslator.RelativePathToAbsolute(((TwoBitmapProp)this.m_SpecificProp).NomFichierActif);
                 try
                 {
                     ((TwoBitmap)m_Ctrl).BmpAct = new Bitmap(strImageFullPath);

@@ -49,3 +49,13 @@ IPR 0009: problèmes divers sur l'auto completion: si on a plusieur lignes, si ut
 OK
 IPR 0010: il devrait y avoir une option démarrage auto pour les timers et les loggers
 OK == > A tester en édition ==>OK
+
+
+gestion des chemin relatif
+objets utilisant un chemin de fichier dans leurs attributs:
+  - screen
+  - Two bitmap
+  - Four bitmap
+  
+lors de la sauvegarde, si le fichier à été crée mais jamais enregistré, 
+il faut impérativement traduire le chemin avant de l'enregistrer

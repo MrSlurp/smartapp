@@ -112,19 +112,15 @@ namespace CtrlTwoBitmap
         private void m_btnImg1_Click(object sender, EventArgs e)
         {
             m_openFileDialog.Filter = "Image Files (jpeg, gif, bmp, png)|*.jpg;*.jpeg;*.gif;*.bmp;*.png|JPEG Files(*.jpg;*.jpeg)|*.jpg;*.jpeg|GIF Files(*.gif)|*.gif|BMP Files(*.bmp)|*.bmp|PNG Files(*.png)|*.png";
-            m_openFileDialog.InitialDirectory = Application.StartupPath;
+            if (!string.IsNullOrEmpty(PathTranslator.BTDocPath))
+                m_openFileDialog.InitialDirectory = PathTranslator.BTDocPath;
+            else
+                m_openFileDialog.InitialDirectory = Application.StartupPath;
+
             DialogResult dlgRes = m_openFileDialog.ShowDialog();
             if (dlgRes == DialogResult.OK)
             {
-                string FileName;
-                if (m_openFileDialog.FileName.StartsWith(Application.StartupPath))
-                {
-                    FileName = m_openFileDialog.FileName.Replace(Application.StartupPath, @".");
-                }
-                else
-                    FileName = m_openFileDialog.FileName;
-
-                m_txtBoxImg1.Text = FileName;
+                m_txtBoxImg1.Text = PathTranslator.AbsolutePathToRelative(m_openFileDialog.FileName);
             }
 
         }
@@ -132,21 +128,15 @@ namespace CtrlTwoBitmap
         private void m_btnImg2_Click(object sender, EventArgs e)
         {
             m_openFileDialog.Filter = "Image Files (jpeg, gif, bmp, png)|*.jpg;*.jpeg;*.gif;*.bmp;*.png|JPEG Files(*.jpg;*.jpeg)|*.jpg;*.jpeg|GIF Files(*.gif)|*.gif|BMP Files(*.bmp)|*.bmp|PNG Files(*.png)|*.png";
-            m_openFileDialog.InitialDirectory = Application.StartupPath;
+            if (!string.IsNullOrEmpty(PathTranslator.BTDocPath))
+                m_openFileDialog.InitialDirectory = PathTranslator.BTDocPath;
+            else
+                m_openFileDialog.InitialDirectory = Application.StartupPath;
             DialogResult dlgRes = m_openFileDialog.ShowDialog();
             if (dlgRes == DialogResult.OK)
             {
-                string FileName;
-                if (m_openFileDialog.FileName.StartsWith(Application.StartupPath))
-                {
-                    FileName = m_openFileDialog.FileName.Replace(Application.StartupPath, @".");
-                }
-                else
-                    FileName = m_openFileDialog.FileName;
-
-                m_txtBoxImg2.Text = FileName;
+                m_txtBoxImg2.Text = PathTranslator.AbsolutePathToRelative(m_openFileDialog.FileName);
             }
-
         }
     }
 }

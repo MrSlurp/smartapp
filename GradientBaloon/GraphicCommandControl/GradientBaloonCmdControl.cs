@@ -57,7 +57,6 @@ namespace GradientBaloon
             {
                 // effectuez ici le traitement à executer lorsque la valeur change
                 ((GradientBaloonDispCtrl)m_Ctrl).Value = m_AssociateData.Value;
-                m_Ctrl.Refresh();
             }
         }
 

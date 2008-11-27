@@ -93,10 +93,10 @@ namespace FourBitmap
             XmlAttribute Attr1 = XmlDoc.CreateAttribute(NOM_ATTIB_1);
             XmlAttribute Attr2 = XmlDoc.CreateAttribute(NOM_ATTIB_2);
             XmlAttribute Attr3 = XmlDoc.CreateAttribute(NOM_ATTIB_3);
-            Attr0.Value = NomFichier0;
-            Attr1.Value = NomFichier1;
-            Attr2.Value = NomFichier2;
-            Attr3.Value = NomFichier3;
+            Attr0.Value = PathTranslator.AbsolutePathToRelative(NomFichier0);
+            Attr1.Value = PathTranslator.AbsolutePathToRelative(NomFichier1);
+            Attr2.Value = PathTranslator.AbsolutePathToRelative(NomFichier2);
+            Attr3.Value = PathTranslator.AbsolutePathToRelative(NomFichier3);
             Node.Attributes.Append(Attr0);
             Node.Attributes.Append(Attr1);
             Node.Attributes.Append(Attr2);

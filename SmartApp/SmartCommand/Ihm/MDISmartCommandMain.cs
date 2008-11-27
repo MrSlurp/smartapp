@@ -125,7 +125,7 @@ namespace SmartApp
         {
             this.CloseDoc();
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "BTApp2 File (*.saf)|*.saf";
+            openFileDialog.Filter = "SmartApp File (*.saf)|*.saf";
             openFileDialog.InitialDirectory = Application.StartupPath;
             DialogResult dlgRes = openFileDialog.ShowDialog();
             if (dlgRes == DialogResult.OK)
