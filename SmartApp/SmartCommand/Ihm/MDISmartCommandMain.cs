@@ -172,6 +172,8 @@ namespace SmartApp
                 if (OpenDocument(m_Document))
                 {
                     int lastindex = strFullFileName.LastIndexOf(@"\");
+                    string DossierFichier = strFullFileName.Substring(0, strFullFileName.Length - (strFullFileName.Length - lastindex));
+                    PathTranslator.BTDocPath = DossierFichier;
                     string strFileName = strFullFileName.Substring(lastindex + 1);
                     this.Text += " - " + strFileName;
                     m_tsBtnConnexion.Enabled = true;

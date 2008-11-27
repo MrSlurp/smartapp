@@ -378,6 +378,9 @@ namespace SmartApp.Ihm
             {
                 if (OpenDocument(m_Document))
                 {
+                    int idxOfLastAntiSlash = strFullFileName.LastIndexOf('\\');
+                    string DossierFichier = strFullFileName.Substring(0, strFullFileName.Length - (strFullFileName.Length - idxOfLastAntiSlash));
+                    PathTranslator.BTDocPath = DossierFichier;
                     int lastindex = strFullFileName.LastIndexOf(@"\");
                     m_strDocumentName = strFullFileName.Substring(lastindex+1);
                     UpdateTitle();

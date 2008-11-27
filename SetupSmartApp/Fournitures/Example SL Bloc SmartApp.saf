@@ -1,7 +1,7 @@
 <Root>
   <FileHeader>
-    <FileVersion Indice="1" />
-    <SoftVersion Indice="1.0.0.1" />
+    <FileVersion Indice="3" />
+    <SoftVersion Indice="2.2.0.0" />
   </FileHeader>
   <DataSection>
     <Data strNom="" strSymbol="ASCII_COMMA" Min="0" Max="255" DefVal="58" size="8" Constant="True" />
@@ -144,82 +144,82 @@
   <ScreenSection>
     <Screen strNom="" strSymbol="NEW_SCREEN_0" Text="Millenium 3 Controller">
       <ControlList>
-        <Control strNom="" strSymbol="NEW_CTRL_0" AssociateData="M3_SLIN1_O1_B1" Type="CHECK" ScreenEvent="True" Pos="481,513" size="44,20" Text="O1" ReadOnly="False">
+        <Control strNom="" strSymbol="NEW_CTRL_0" Type="CHECK" AssociateData="M3_SLIN1_O1_B1" ScreenEvent="True" Pos="481,513" size="44,20" Text="O1" ReadOnly="False">
           <EventScript />
         </Control>
-        <Control strNom="" strSymbol="NEW_CTRL_1" AssociateData="M3_SLIN1_O1_B2" Type="CHECK" ScreenEvent="True" Pos="481,449" size="44,20" Text="O2" ReadOnly="False">
+        <Control strNom="" strSymbol="NEW_CTRL_1" Type="CHECK" AssociateData="M3_SLIN1_O1_B2" ScreenEvent="True" Pos="481,449" size="44,20" Text="O2" ReadOnly="False">
           <EventScript />
         </Control>
-        <Control strNom="" strSymbol="NEW_CTRL_2" AssociateData="M3_SLIN1_O1_B3" Type="CHECK" ScreenEvent="True" Pos="481,385" size="44,20" Text="O3" ReadOnly="False">
+        <Control strNom="" strSymbol="NEW_CTRL_2" Type="CHECK" AssociateData="M3_SLIN1_O1_B3" ScreenEvent="True" Pos="481,385" size="44,20" Text="O3" ReadOnly="False">
           <EventScript />
         </Control>
-        <Control strNom="" strSymbol="NEW_CTRL_3" AssociateData="M3_SLIN1_O1_B4" Type="CHECK" ScreenEvent="True" Pos="481,321" size="44,20" Text="O4" ReadOnly="False">
+        <Control strNom="" strSymbol="NEW_CTRL_3" Type="CHECK" AssociateData="M3_SLIN1_O1_B4" ScreenEvent="True" Pos="481,321" size="44,20" Text="O4" ReadOnly="False">
           <EventScript />
         </Control>
-        <Control strNom="" strSymbol="NEW_CTRL_4" AssociateData="M3_SLIN1_O1_B5" Type="CHECK" ScreenEvent="True" Pos="481,257" size="44,20" Text="O5" ReadOnly="False">
+        <Control strNom="" strSymbol="NEW_CTRL_4" Type="CHECK" AssociateData="M3_SLIN1_O1_B5" ScreenEvent="True" Pos="481,257" size="44,20" Text="O5" ReadOnly="False">
           <EventScript />
         </Control>
-        <Control strNom="" strSymbol="NEW_CTRL_5" AssociateData="M3_SLIN1_O1_B6" Type="CHECK" ScreenEvent="True" Pos="481,193" size="44,20" Text="O6" ReadOnly="False">
+        <Control strNom="" strSymbol="NEW_CTRL_5" Type="CHECK" AssociateData="M3_SLIN1_O1_B6" ScreenEvent="True" Pos="481,193" size="44,20" Text="O6" ReadOnly="False">
           <EventScript />
         </Control>
-        <Control strNom="" strSymbol="NEW_CTRL_6" AssociateData="M3_SLIN1_O1_B7" Type="CHECK" ScreenEvent="True" Pos="481,129" size="44,20" Text="O7" ReadOnly="False">
+        <Control strNom="" strSymbol="NEW_CTRL_6" Type="CHECK" AssociateData="M3_SLIN1_O1_B7" ScreenEvent="True" Pos="481,129" size="44,20" Text="O7" ReadOnly="False">
           <EventScript />
         </Control>
-        <Control strNom="" strSymbol="NEW_CTRL_7" AssociateData="M3_SLIN1_O1_B8" Type="CHECK" ScreenEvent="True" Pos="481,65" size="44,20" Text="O8" ReadOnly="False">
+        <Control strNom="" strSymbol="NEW_CTRL_7" Type="CHECK" AssociateData="M3_SLIN1_O1_B8" ScreenEvent="True" Pos="481,65" size="44,20" Text="O8" ReadOnly="False">
           <EventScript />
         </Control>
-        <Control strNom="" strSymbol="NEW_CTRL_8" AssociateData="M3_SLIN1_O1_B9" Type="CHECK" ScreenEvent="True" Pos="481,39" size="44,20" Text="O9" ReadOnly="False">
+        <Control strNom="" strSymbol="NEW_CTRL_8" Type="CHECK" AssociateData="M3_SLIN1_O1_B9" ScreenEvent="True" Pos="481,39" size="44,20" Text="O9" ReadOnly="False">
           <EventScript />
         </Control>
-        <Control strNom="" strSymbol="NEW_CTRL_9" AssociateData="M3_SLIN1_O1_B10" Type="CHECK" ScreenEvent="True" Pos="481,17" size="44,20" Text="OA" ReadOnly="False">
+        <Control strNom="" strSymbol="NEW_CTRL_9" Type="CHECK" AssociateData="M3_SLIN1_O1_B10" ScreenEvent="True" Pos="481,17" size="44,20" Text="OA" ReadOnly="False">
           <EventScript />
         </Control>
-        <Control strNom="" strSymbol="NEW_CTRL_10" AssociateData="M3_SLOUT1_I1_B1" Type="CHECK" ScreenEvent="False" Pos="24,435" size="41,20" Text="I1" ReadOnly="False">
+        <Control strNom="" strSymbol="NEW_CTRL_10" Type="CHECK" AssociateData="M3_SLOUT1_I1_B1" ScreenEvent="False" Pos="24,435" size="41,20" Text="I1" ReadOnly="False">
           <EventScript />
         </Control>
-        <Control strNom="" strSymbol="NEW_CTRL_11" AssociateData="M3_SLOUT1_I1_B2" Type="CHECK" ScreenEvent="False" Pos="24,412" size="41,20" Text="I2" ReadOnly="False">
+        <Control strNom="" strSymbol="NEW_CTRL_11" Type="CHECK" AssociateData="M3_SLOUT1_I1_B2" ScreenEvent="False" Pos="24,412" size="41,20" Text="I2" ReadOnly="False">
           <EventScript />
         </Control>
-        <Control strNom="" strSymbol="NEW_CTRL_12" AssociateData="M3_SLOUT1_I1_B3" Type="CHECK" ScreenEvent="False" Pos="24,389" size="41,20" Text="I3" ReadOnly="False">
+        <Control strNom="" strSymbol="NEW_CTRL_12" Type="CHECK" AssociateData="M3_SLOUT1_I1_B3" ScreenEvent="False" Pos="24,389" size="41,20" Text="I3" ReadOnly="False">
           <EventScript />
         </Control>
-        <Control strNom="" strSymbol="NEW_CTRL_13" AssociateData="M3_SLOUT1_I1_B4" Type="CHECK" ScreenEvent="False" Pos="24,366" size="41,20" Text="I4" ReadOnly="False">
+        <Control strNom="" strSymbol="NEW_CTRL_13" Type="CHECK" AssociateData="M3_SLOUT1_I1_B4" ScreenEvent="False" Pos="24,366" size="41,20" Text="I4" ReadOnly="False">
           <EventScript />
         </Control>
-        <Control strNom="" strSymbol="NEW_CTRL_14" AssociateData="M3_SLOUT1_I1_B5" Type="CHECK" ScreenEvent="False" Pos="24,343" size="41,20" Text="I5" ReadOnly="False">
+        <Control strNom="" strSymbol="NEW_CTRL_14" Type="CHECK" AssociateData="M3_SLOUT1_I1_B5" ScreenEvent="False" Pos="24,343" size="41,20" Text="I5" ReadOnly="False">
           <EventScript />
         </Control>
-        <Control strNom="" strSymbol="NEW_CTRL_15" AssociateData="M3_SLOUT1_I1_B6" Type="CHECK" ScreenEvent="False" Pos="24,320" size="41,20" Text="I6" ReadOnly="False">
+        <Control strNom="" strSymbol="NEW_CTRL_15" Type="CHECK" AssociateData="M3_SLOUT1_I1_B6" ScreenEvent="False" Pos="24,320" size="41,20" Text="I6" ReadOnly="False">
           <EventScript />
         </Control>
-        <Control strNom="" strSymbol="NEW_CTRL_16" AssociateData="M3_SLOUT1_I1_B7" Type="CHECK" ScreenEvent="False" Pos="24,297" size="41,20" Text="I7" ReadOnly="False">
+        <Control strNom="" strSymbol="NEW_CTRL_16" Type="CHECK" AssociateData="M3_SLOUT1_I1_B7" ScreenEvent="False" Pos="24,297" size="41,20" Text="I7" ReadOnly="False">
           <EventScript />
         </Control>
-        <Control strNom="" strSymbol="NEW_CTRL_17" AssociateData="M3_SLOUT1_I1_B8" Type="CHECK" ScreenEvent="False" Pos="24,274" size="41,20" Text="I8" ReadOnly="False">
+        <Control strNom="" strSymbol="NEW_CTRL_17" Type="CHECK" AssociateData="M3_SLOUT1_I1_B8" ScreenEvent="False" Pos="24,274" size="41,20" Text="I8" ReadOnly="False">
           <EventScript />
         </Control>
-        <Control strNom="" strSymbol="NEW_CTRL_18" AssociateData="M3_SLOUT1_I1_B9" Type="CHECK" ScreenEvent="False" Pos="24,251" size="41,20" Text="I9" ReadOnly="False">
+        <Control strNom="" strSymbol="NEW_CTRL_18" Type="CHECK" AssociateData="M3_SLOUT1_I1_B9" ScreenEvent="False" Pos="24,251" size="41,20" Text="I9" ReadOnly="False">
           <EventScript />
         </Control>
-        <Control strNom="" strSymbol="NEW_CTRL_19" AssociateData="M3_SLOUT1_I1_B10" Type="CHECK" ScreenEvent="False" Pos="24,228" size="41,20" Text="IA" ReadOnly="False">
+        <Control strNom="" strSymbol="NEW_CTRL_19" Type="CHECK" AssociateData="M3_SLOUT1_I1_B10" ScreenEvent="False" Pos="24,228" size="41,20" Text="IA" ReadOnly="False">
           <EventScript />
         </Control>
-        <Control strNom="" strSymbol="NEW_CTRL_20" AssociateData="M3_SLOUT1_I2" Type="UP_DOWN" ScreenEvent="False" Pos="86,201" size="56,20" Text="" ReadOnly="False">
+        <Control strNom="" strSymbol="NEW_CTRL_20" Type="UP_DOWN" AssociateData="M3_SLOUT1_I2" ScreenEvent="False" Pos="86,201" size="56,20" Text="" ReadOnly="False">
           <EventScript />
         </Control>
-        <Control strNom="" strSymbol="NEW_CTRL_21" AssociateData="M3_SLOUT1_I3" Type="UP_DOWN" ScreenEvent="False" Pos="86,177" size="56,20" Text="Numeric Up/Down" ReadOnly="False">
+        <Control strNom="" strSymbol="NEW_CTRL_21" Type="UP_DOWN" AssociateData="M3_SLOUT1_I3" ScreenEvent="False" Pos="86,177" size="56,20" Text="Numeric Up/Down" ReadOnly="False">
           <EventScript />
         </Control>
-        <Control strNom="" strSymbol="NEW_CTRL_22" AssociateData="M3_SLOUT1_I4" Type="UP_DOWN" ScreenEvent="False" Pos="86,153" size="56,20" Text="Numeric Up/Down" ReadOnly="False">
+        <Control strNom="" strSymbol="NEW_CTRL_22" Type="UP_DOWN" AssociateData="M3_SLOUT1_I4" ScreenEvent="False" Pos="86,153" size="56,20" Text="Numeric Up/Down" ReadOnly="False">
           <EventScript />
         </Control>
-        <Control strNom="" strSymbol="NEW_CTRL_23" AssociateData="M3_SLOUT1_I5" Type="UP_DOWN" ScreenEvent="False" Pos="86,129" size="56,20" Text="Numeric Up/Down" ReadOnly="False">
+        <Control strNom="" strSymbol="NEW_CTRL_23" Type="UP_DOWN" AssociateData="M3_SLOUT1_I5" ScreenEvent="False" Pos="86,129" size="56,20" Text="Numeric Up/Down" ReadOnly="False">
           <EventScript />
         </Control>
-        <Control strNom="" strSymbol="NEW_CTRL_24" AssociateData="M3_SLOUT1_I6" Type="UP_DOWN" ScreenEvent="False" Pos="86,105" size="56,20" Text="Numeric Up/Down" ReadOnly="False">
+        <Control strNom="" strSymbol="NEW_CTRL_24" Type="UP_DOWN" AssociateData="M3_SLOUT1_I6" ScreenEvent="False" Pos="86,105" size="56,20" Text="Numeric Up/Down" ReadOnly="False">
           <EventScript />
         </Control>
-        <Control strNom="" strSymbol="NEW_CTRL_25" AssociateData="M3_SLOUT1_I7" Type="UP_DOWN" ScreenEvent="False" Pos="86,81" size="56,20" Text="" ReadOnly="False">
+        <Control strNom="" strSymbol="NEW_CTRL_25" Type="UP_DOWN" AssociateData="M3_SLOUT1_I7" ScreenEvent="False" Pos="86,81" size="56,20" Text="" ReadOnly="False">
           <EventScript />
         </Control>
       </ControlList>
@@ -231,7 +231,7 @@
         <Line>FRAMES.M3_WRITE_SLIN_BLOC_1.SEND()</Line>
         <Line>FRAMES.M3_RESP_WRITE_SLIN_BLOC_1.RECEIVE()</Line>
       </EventScript>
-      <ImagePath>.\M3XD26.bmp</ImagePath>
+      <ImagePath>.\Examples\M3XD26.bmp</ImagePath>
     </Screen>
   </ScreenSection>
   <TrameSection>
