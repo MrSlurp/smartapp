@@ -433,7 +433,7 @@ namespace SmartApp.Ihm.Wizards
         private string GetDefaultFrameSymbol(bool bResp)
         {
             string FormatString = "M3_{0}_SL{1}_BLOC_{2}";// READ/WRITE, IN_OUT, 1/2/3 selon la plage d'adresse;
-            string RespFormatString = "M3_RESP_{0}_SL{1}_BLOC_{2}";// READ/WRITE, IN_OUT, 1/2/3 selon la plage d'adresse;
+            string RespFormatString = "M3_{0}_SL{1}_RET_BLOC_{2}";// READ/WRITE, IN_OUT, 1/2/3 selon la plage d'adresse;
             if (m_cboReadWrite.SelectedValue == null
                 || m_cboFrameType.SelectedValue == null
                 || m_cboAdressRange.SelectedValue == null

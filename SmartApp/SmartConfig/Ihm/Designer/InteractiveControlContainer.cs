@@ -869,9 +869,9 @@ namespace SmartApp.Ihm.Designer
 
         #endregion
 
-        private void InteractiveControlContainer_Scroll(object sender, ScrollEventArgs e)
+        protected override void OnGotFocus(EventArgs e)
         {
-
+            //base.OnGotFocus(e);
         }
     }
 }

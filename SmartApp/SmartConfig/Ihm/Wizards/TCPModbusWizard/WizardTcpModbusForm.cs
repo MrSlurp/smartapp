@@ -324,7 +324,7 @@ namespace SmartApp.Ihm.Wizards
         private string GetDefaultFrameSymbol(bool bResp)
         {
             string FormatString = "TCPMB_{0}_{1}_{2}_REG_FROM_AD{3}";// READ/WRITE, nombre de registre, IN/OUT, adresse de départ
-            string RespFormatString = "TCPMB_RESP_{0}_{1}_{2}_REG_FROM_AD{3}";// READ/WRITE, nombre de registre, IN/OUT, adresse de départ
+            string RespFormatString = "TCPMB_{0}_{1}_{2}_RET_REG_FROM_AD{3}";// READ/WRITE, nombre de registre, IN/OUT, adresse de départ
             if (m_cboReadWrite.SelectedValue == null
                 || m_cboFrameType.SelectedValue == null
                 )

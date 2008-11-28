@@ -40,7 +40,6 @@ namespace SmartApp.Ihm.Designer
             this.Size = new System.Drawing.Size(148, 148);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.OnDragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.OnDragEnter);
-            this.Scroll += new System.Windows.Forms.ScrollEventHandler(this.InteractiveControlContainer_Scroll);
             this.ResumeLayout(false);
 
         }
