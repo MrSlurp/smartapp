@@ -31,7 +31,6 @@ namespace CommonLib
 
         #endregion
 
-
         #region constructeurs
         //*****************************************************************************************************
         // Description: constructeur par défaut
@@ -493,5 +492,15 @@ namespace CommonLib
 
 
         #endregion
+
+        public void CopyParametersFrom(BTControl SrcBtControl)
+        {
+            m_strAssociateData = SrcBtControl.m_strAssociateData;
+            m_bUseScreenEvent = SrcBtControl.m_bUseScreenEvent;
+            if (SpecificProp != null && SrcBtControl.SpecificProp != null)
+            {
+                SpecificProp.CopyParametersFrom(SrcBtControl.SpecificProp);
+            }
+        }
     }
 }

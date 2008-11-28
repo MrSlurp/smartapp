@@ -29,8 +29,7 @@ namespace FormatedDisplay
         public override bool ReadIn(System.Xml.XmlNode Node)
         {
             XmlNode AttrFormat = Node.Attributes.GetNamedItem(NOM_ATTIB_FORMAT);
-            if (AttrFormat == null
-                )
+            if (AttrFormat == null)
                 return false;
             FormatString = AttrFormat.Value;
             return true;
@@ -43,5 +42,11 @@ namespace FormatedDisplay
             Node.Attributes.Append(AttrFormat);
             return true;
         }
+
+        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp)
+        {
+            FormatString = ((DllFormatedDisplayProp)SrcSpecificProp).FormatString;
+        }
+
     }
 }

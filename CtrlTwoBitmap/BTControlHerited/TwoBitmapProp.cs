@@ -62,5 +62,12 @@ namespace CtrlTwoBitmap
             Node.Attributes.Append(AttrInactive);
             return true;
         }
+
+        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp)
+        {
+            NomFichierActif = ((TwoBitmapProp)SrcSpecificProp).NomFichierActif;
+            NomFichierInactif = ((TwoBitmapProp)SrcSpecificProp).NomFichierInactif;
+        }
+
     }
 }

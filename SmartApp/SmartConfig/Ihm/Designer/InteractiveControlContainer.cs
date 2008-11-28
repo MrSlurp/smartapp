@@ -10,7 +10,7 @@ using CommonLib;
 
 namespace SmartApp.Ihm.Designer
 {
-    public delegate void IControlAddedEvent(InteractiveControl Ctrl);
+    public delegate void IControlAddedEvent(InteractiveControl Ctrl, BTControl SrcBtControl);
     public delegate void IControlRemovedEvent(InteractiveControl Ctrl);
     public delegate void IControlBringToTop(InteractiveControl Ctrl);
     public delegate void SelectionChangeEvent();
@@ -605,7 +605,7 @@ namespace SmartApp.Ihm.Designer
                 m_ListSelection.Clear();
                 newControl.Selected = true;
                 if (EventControlAdded != null)
-                    EventControlAdded(newControl);
+                    EventControlAdded(newControl, DropedItem.SourceBTControl);
 
                 this.Controls.Add(newControl);
                 m_ListSelection.Add(newControl);

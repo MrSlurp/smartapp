@@ -90,5 +90,13 @@ namespace CtrlJauge
             Node.Attributes.Append(AttrOrient);
             return true;
         }
+
+        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp)
+        {
+            Orientation = ((DllCtrlJaugeProp)SrcSpecificProp).Orientation;
+            ColorMin = ((DllCtrlJaugeProp)SrcSpecificProp).ColorMin;
+            ColorMax = ((DllCtrlJaugeProp)SrcSpecificProp).ColorMax;
+        }
+
     }
 }

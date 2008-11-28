@@ -213,19 +213,14 @@ namespace SmartApp.Ihm
             {
                 m_PanelControlProperties.Enabled = false;
                 m_PanelControlProperties.BTControl = null;
-                //m_PanelCtrlEventScript.Enabled = false;
             }
             else if (m_InteractiveControlContainer.SelectionCount ==1)
             {
                 m_PanelControlProperties.Enabled = true;
                 m_PanelControlProperties.BTControl = m_InteractiveControlContainer.FirstSelected.SourceBTControl;
-                //m_PanelCtrlEventScript.ScriptableItem = m_PanelControlProperties.BTControl;
-                //m_PanelCtrlEventScript.Enabled = true;
             }
             else
             {
-                //m_PanelCtrlEventScript.ScriptableItem = m_PanelControlProperties.BTControl;
-                //m_PanelCtrlEventScript.Enabled = false;
                 m_PanelControlProperties.Enabled = false;
             }
             
@@ -404,7 +399,7 @@ namespace SmartApp.Ihm
         // ajoute le control dans la liste des controls de l'écran
         // Return: /
         //*****************************************************************************************************      
-        private void OnDesignerControAdded(InteractiveControl ctrl)
+        private void OnDesignerControAdded(InteractiveControl ctrl, BTControl SrcBtControl)
         {
             if (m_Currentscreen == null)
                 return;
@@ -414,6 +409,11 @@ namespace SmartApp.Ihm
                 NewCtrl = Program.DllGest[ctrl.DllControlID].CreateBTControl(ctrl);
             else
                 NewCtrl = BTControl.CreateNewBTControl(ctrl);
+
+            if (SrcBtControl != null)
+            {
+                NewCtrl.CopyParametersFrom(SrcBtControl);
+            }
 
             NewCtrl.Symbol = m_Currentscreen.Controls.GetNextDefaultSymbol();
             m_Currentscreen.Controls.AddObj(NewCtrl);

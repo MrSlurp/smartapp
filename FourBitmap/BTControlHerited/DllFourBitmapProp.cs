@@ -103,5 +103,14 @@ namespace FourBitmap
             Node.Attributes.Append(Attr3);
             return true;
         }
+
+        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp)
+        {
+            NomFichier0 = ((DllFourBitmapProp)SrcSpecificProp).NomFichier0;
+            NomFichier1 = ((DllFourBitmapProp)SrcSpecificProp).NomFichier1;
+            NomFichier2 = ((DllFourBitmapProp)SrcSpecificProp).NomFichier2;
+            NomFichier3 = ((DllFourBitmapProp)SrcSpecificProp).NomFichier3;
+        }
+
     }
 }

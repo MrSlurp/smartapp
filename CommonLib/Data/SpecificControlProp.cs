@@ -25,6 +25,12 @@ namespace CommonLib
         /// <param name="Node">Noeud du control</param>
         /// <returns>true si l'écriture c'est bien passé</returns>
         public abstract bool WriteOut(XmlDocument XmlDoc, XmlNode Node);
+
+        /// <summary>
+        /// copy les paramètres spécifiques à l'identique
+        /// </summary>
+        /// <param name="SrcSpecificProp">paramètres sources</param>
+        public abstract void CopyParametersFrom(SpecificControlProp SrcSpecificProp);
     }
 
     /// <summary>
@@ -107,5 +113,12 @@ namespace CommonLib
             Node.Attributes.Append(AttrInactColor);
             return true;
         }
+
+        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp)
+        {
+            ColorInactive = ((TwoColorProp)SrcSpecificProp).ColorInactive;
+            ColorActive = ((TwoColorProp)SrcSpecificProp).ColorActive;
+        }
+
     }
 }

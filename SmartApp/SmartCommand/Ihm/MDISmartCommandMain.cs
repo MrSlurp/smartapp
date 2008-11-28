@@ -167,13 +167,13 @@ namespace SmartApp
             m_Document = new BTDoc(Program.TypeApp);
             m_Document.OnCommStateChange += new CommOpenedStateChange(OnCommStateChange);
             m_Document.EventAddLogEvent += new AddLogEventDelegate(AddLogEvent);
+            int lastindex = strFullFileName.LastIndexOf(@"\");
+            string DossierFichier = strFullFileName.Substring(0, strFullFileName.Length - (strFullFileName.Length - lastindex));
+            PathTranslator.BTDocPath = DossierFichier;
             if (m_Document.ReadConfigDocument(strFullFileName, Program.TypeApp, Program.DllGest))
             {
                 if (OpenDocument(m_Document))
                 {
-                    int lastindex = strFullFileName.LastIndexOf(@"\");
-                    string DossierFichier = strFullFileName.Substring(0, strFullFileName.Length - (strFullFileName.Length - lastindex));
-                    PathTranslator.BTDocPath = DossierFichier;
                     string strFileName = strFullFileName.Substring(lastindex + 1);
                     this.Text += " - " + strFileName;
                     m_tsBtnConnexion.Enabled = true;

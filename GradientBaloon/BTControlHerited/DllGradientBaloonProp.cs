@@ -24,5 +24,10 @@ namespace GradientBaloon
         {
             return true;
         }
+
+        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp)
+        {
+        }
+
     }
 }
