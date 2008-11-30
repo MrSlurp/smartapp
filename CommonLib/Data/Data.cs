@@ -92,6 +92,10 @@ namespace CommonLib
                     m_MaxVal = 0xFFFF;
                     m_MinVal = 0;
                     break;
+                case DATA_SIZE.DATA_SIZE_32B:
+                    m_MaxVal = int.MaxValue;
+                    m_MinVal = int.MinValue;
+                    break;
                 default:
                     System.Diagnostics.Debug.Assert(false);
                     break;
@@ -100,6 +104,49 @@ namespace CommonLib
 
         }
 
+        public Data(string strSymbol, int DefaultValue, DATA_SIZE size, bool bIsConstant)
+        {
+            m_strSymbol = strSymbol;
+            m_DefVal = DefaultValue;
+            m_Size = (int)size;
+            m_bConstant = bIsConstant;
+            switch ((DATA_SIZE)this.SizeInBits)
+            {
+                case DATA_SIZE.DATA_SIZE_1B:
+                    m_MaxVal = 1;
+                    m_MinVal = 0;
+                    break;
+                case DATA_SIZE.DATA_SIZE_2B:
+                    m_MaxVal = 3;
+                    m_MinVal = 0;
+                    break;
+                case DATA_SIZE.DATA_SIZE_4B:
+                    m_MaxVal = 15;
+                    m_MinVal = 0;
+                    break;
+                case DATA_SIZE.DATA_SIZE_8B:
+                    m_MaxVal = 255;
+                    m_MinVal = 0;
+                    break;
+                case DATA_SIZE.DATA_SIZE_16B:
+                    m_MaxVal = 32767;
+                    m_MinVal = -32768;
+                    break;
+                case DATA_SIZE.DATA_SIZE_16BU:
+                    m_MaxVal = 0xFFFF;
+                    m_MinVal = 0;
+                    break;
+                case DATA_SIZE.DATA_SIZE_32B:
+                    m_MaxVal = int.MaxValue;
+                    m_MinVal = int.MinValue;
+                    break;
+                default:
+                    System.Diagnostics.Debug.Assert(false);
+                    break;
+            }
+            this.UpdateUserVisibility();
+
+        }
         //*****************************************************************************************************
         // Description: appelé au lancement en mode Commande, initialise la valeur courante
         // Return: /

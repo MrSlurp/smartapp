@@ -59,7 +59,7 @@ namespace CommonLib
         #endregion
 
         #region donnée spécifiques aux fonctionement en mode Command
-        ScriptExecuter m_Executer = new ScriptExecuter();
+        ScriptExecuter m_Executer = null;
         #endregion
 
         //*****************************************************************************************************
@@ -139,6 +139,8 @@ namespace CommonLib
             m_GestLogger.EventAddLogEvent += new AddLogEventDelegate(AddLogEvent);
             m_Comm.OnCommStateChange += new CommOpenedStateChange(this.CommeStateChangeEvent);
             m_Comm.EventAddLogEvent += new AddLogEventDelegate(AddLogEvent);
+            m_Executer = new ScriptExecuter();
+            m_Executer.EventAddLogEvent += new AddLogEventDelegate(AddLogEvent);
             m_Executer.Document = this;
             m_TypeApp = TypeApp;
         }

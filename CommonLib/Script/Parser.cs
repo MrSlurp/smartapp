@@ -17,6 +17,9 @@ namespace CommonLib
         LOGGER_FUNC,
         TIMER_FUNC,
         FRAME_FUNC,
+        MATHS,
+        MATHS_FUNC,
+        DATA,
     }
 
     // mots clef de base du langage BTScript
@@ -27,6 +30,7 @@ namespace CommonLib
         FUNCTIONS,
         LOGGERS,
         TIMERS,
+        MATHS,
     }
 
     public enum FRAME_FUNC
@@ -50,6 +54,15 @@ namespace CommonLib
         INVALID,
         START,
         STOP
+    }
+
+    public enum MATHS_FUNC
+    {
+        INVALID,
+        ADD,
+        SUB,
+        MUL,
+        DIV,
     }
 
     public enum ErrorType
@@ -130,8 +143,9 @@ namespace CommonLib
         // Description: renvoie le type du token a la position pos (position du curseur sur la ligne)
         // Return: /
         //*****************************************************************************************************
-        public TOKEN_TYPE GetTokenTypeAtPos(string Line, int Pos)
+        public TOKEN_TYPE GetTokenTypeAtPos(string Line, int Pos, out bool IsParameter)
         {
+            IsParameter = false;
             List<int> listPointPos = new List<int>();
             int PosPoint = 0;
             while (PosPoint != -1 && Line.Length>0)
@@ -159,10 +173,14 @@ namespace CommonLib
                 return TOKEN_TYPE.SCR_OBJECT;
             }
 
-            if (TokenNumAtPos == 2)
+            int indexLastClosingParenthese = Line.LastIndexOf(')');
+            int indexLastOpeningParenthese = Line.LastIndexOf('(');
+
+            List<ScriptParserError> ListErr = new List<ScriptParserError>();
+            TOKEN_TYPE retTokenType = TOKEN_TYPE.NULL;
+            SCR_OBJECT ObjType = ParseFirstTokenType(Line, ListErr);
+            if (TokenNumAtPos == 2 || (TokenNumAtPos == 1 && ObjType == SCR_OBJECT.FUNCTIONS))
             {
-                int indexLastClosingParenthese = Line.LastIndexOf(')');
-                int indexLastOpeningParenthese = Line.LastIndexOf('(');
                 if (indexLastClosingParenthese > 0 && Pos > indexLastClosingParenthese)
                     return TOKEN_TYPE.NULL;
                 else if (indexLastOpeningParenthese > 0 && Pos > indexLastOpeningParenthese)
@@ -170,9 +188,6 @@ namespace CommonLib
             }
             // on est ici, on au moin un point
             //on parse le premier token
-            TOKEN_TYPE retTokenType = TOKEN_TYPE.NULL;
-            List<ScriptParserError> ListErr = new List<ScriptParserError>();
-            SCR_OBJECT ObjType = ParseFirstTokenType(Line, ListErr);
             switch (ObjType)
             {
                 case SCR_OBJECT.FRAMES:
@@ -196,6 +211,14 @@ namespace CommonLib
                     if (TokenNumAtPos == 2)
                         retTokenType = TOKEN_TYPE.TIMER_FUNC;
                     break;
+                case SCR_OBJECT.MATHS:
+                    retTokenType = TOKEN_TYPE.MATHS_FUNC;
+                    if (indexLastOpeningParenthese != -1 && Pos > indexLastOpeningParenthese)
+                    {
+                        retTokenType = TOKEN_TYPE.DATA;
+                        IsParameter = true;
+                    }
+                    break;
                 case SCR_OBJECT.INVALID:
                 default:
                     break;
@@ -209,9 +232,9 @@ namespace CommonLib
         // Description: renvoie une liste de chaine correspondant aux object utilisable au token donné a la position pos
         // Return: /
         //*****************************************************************************************************
-        public StringCollection GetAutoCompletStringListAtPos(string Line, int Pos)
+        public StringCollection GetAutoCompletStringListAtPos(string Line, int Pos, out bool IsParameter)
         {
-            TOKEN_TYPE CurTokenType = GetTokenTypeAtPos(Line, Pos);
+            TOKEN_TYPE CurTokenType = GetTokenTypeAtPos(Line, Pos, out IsParameter);
             StringCollection AutoCompleteStrings = new StringCollection();
             switch (CurTokenType)
             {
@@ -220,6 +243,7 @@ namespace CommonLib
                     AutoCompleteStrings.Add(SCR_OBJECT.FUNCTIONS.ToString());
                     AutoCompleteStrings.Add(SCR_OBJECT.LOGGERS.ToString());
                     AutoCompleteStrings.Add(SCR_OBJECT.TIMERS.ToString());
+                    AutoCompleteStrings.Add(SCR_OBJECT.MATHS.ToString());
                     break;
                 case TOKEN_TYPE.FRAME:
                     for (int i = 0; i < m_Document.GestTrame.Count; i++)
@@ -259,13 +283,24 @@ namespace CommonLib
                         AutoCompleteStrings.Add(m_Document.GestFunction[i].Symbol);
                     }
                     break;
+                case TOKEN_TYPE.MATHS_FUNC:
+                    AutoCompleteStrings.Add(MATHS_FUNC.ADD.ToString());
+                    AutoCompleteStrings.Add(MATHS_FUNC.SUB.ToString());
+                    AutoCompleteStrings.Add(MATHS_FUNC.MUL.ToString());
+                    AutoCompleteStrings.Add(MATHS_FUNC.DIV.ToString());
+                    break;
+                case TOKEN_TYPE.DATA:
+                    for (int i = 0; i < m_Document.GestData.Count; i++)
+                    {
+                        AutoCompleteStrings.Add(m_Document.GestData[i].Symbol);
+                    }
+                    break;
                 case TOKEN_TYPE.NULL:
                 default:
                     break;
             }
             return AutoCompleteStrings;
         }
-
 
         //*****************************************************************************************************
         // Description:
@@ -288,18 +323,21 @@ namespace CommonLib
                         {
                             case SCR_OBJECT.FRAMES:
                                 if (ParseFrame(Line, ErrorList))
-                                    ParseFrameFuncion(Line, ErrorList);
+                                    ParseFrameFunction(Line, ErrorList);
                                 break;
                             case SCR_OBJECT.FUNCTIONS:
                                 ParseFunction(Line, ErrorList);
                                 break;
                             case SCR_OBJECT.LOGGERS:
                                 if (ParseLogger(Line, ErrorList))
-                                    ParseLoggerFuncion(Line, ErrorList);
+                                    ParseLoggerFunction(Line, ErrorList);
                                 break;
                             case SCR_OBJECT.TIMERS:
                                 if (ParseTimer(Line, ErrorList))
-                                    ParseTimerFuncion(Line, ErrorList);
+                                    ParseTimerFunction(Line, ErrorList);
+                                break;
+                            case SCR_OBJECT.MATHS:
+                                ParseMathsFunction(Line, ErrorList);
                                 break;
                             case SCR_OBJECT.INVALID:
                             default:
@@ -498,7 +536,7 @@ namespace CommonLib
         // Description:
         // Return: /
         //*****************************************************************************************************
-        protected void ParseFrameFuncion(string line, List<ScriptParserError> ErrorList)
+        protected void ParseFrameFunction(string line, List<ScriptParserError> ErrorList)
         {
             string[] strTab = line.Split('.');
             if (strTab.Length > 2)
@@ -568,7 +606,7 @@ namespace CommonLib
         // Description:
         // Return: /
         //*****************************************************************************************************
-        protected void ParseLoggerFuncion(string line, List<ScriptParserError> ErrorList)
+        protected void ParseLoggerFunction(string line, List<ScriptParserError> ErrorList)
         {
             string[] strTab = line.Split('.');
             if (strTab.Length > 2)
@@ -635,7 +673,7 @@ namespace CommonLib
         // Description:
         // Return: /
         //*****************************************************************************************************
-        protected void ParseTimerFuncion(string line, List<ScriptParserError> ErrorList)
+        protected void ParseTimerFunction(string line, List<ScriptParserError> ErrorList)
         {
             string[] strTab = line.Split('.');
             if (strTab.Length > 2)
@@ -690,6 +728,105 @@ namespace CommonLib
                 ErrorList.Add(Err);
             }
         }
-        
+
+        protected void ParseMathsFunction(string line, List<ScriptParserError> ErrorList)
+        {
+            string[] strTab = line.Split('.');
+            if (strTab.Length > 1)
+            {
+                string strTemp = strTab[1];
+                string strTempFull = strTemp;
+                int posOpenParenthese = strTemp.LastIndexOf('(');
+                if (posOpenParenthese >= 0)
+                    strTemp = strTemp.Remove(posOpenParenthese);
+
+                int posCloseParenthese = strTempFull.LastIndexOf(')');
+
+                string strScrObject = strTemp;
+                MATHS_FUNC SecondTokenType = MATHS_FUNC.INVALID;
+                try
+                {
+                    SecondTokenType = (MATHS_FUNC)Enum.Parse(typeof(MATHS_FUNC), strScrObject);
+                }
+                catch (Exception)
+                {
+                    string strErr = string.Format("Invalid Maths function {0}", strScrObject);
+                    ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
+                    ErrorList.Add(Err);
+                    return;
+                }
+
+                switch (SecondTokenType)
+                {
+                    case MATHS_FUNC.ADD:
+                    case MATHS_FUNC.SUB:
+                    case MATHS_FUNC.MUL:
+                    case MATHS_FUNC.DIV:
+                        if (posOpenParenthese == -1)
+                        {
+                            ScriptParserError Err = new ScriptParserError("Syntax Error : Missing '('", m_iCurLine, ErrorType.ERROR);
+                            ErrorList.Add(Err);
+                            return;
+                        }
+                        if (posCloseParenthese == -1)
+                        {
+                            ScriptParserError Err = new ScriptParserError("Syntax Error : Missing ')'", m_iCurLine, ErrorType.ERROR);
+                            ErrorList.Add(Err);
+                            return;
+                        }
+                        // si on est ici, c'est que les parenthèses sont présentes
+                        // on regarde ce qu'il y a à l'intérieur
+                        string strParams = strTempFull.Substring(posOpenParenthese+1, strTempFull.Length - 2 - posOpenParenthese);
+                        strParams = strParams.Trim('(');
+                        strParams = strParams.Trim(')');
+                        string[] strParamList = strParams.Split(',');
+                        if (strParamList.Length < 3)
+                        {
+                            string strErr = string.Format("Invalid line, not enought parameters for Maths function");
+                            ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
+                            ErrorList.Add(Err);
+                        }
+                        else if (strParamList.Length > 3)
+                        {
+                            string strErr = string.Format("Invalid line, too many parameters for Maths function");
+                            ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
+                            ErrorList.Add(Err);
+                        }
+                        else // on en a exactement 3
+                        {
+                            for (int i = 0; i< strParamList.Length; i++)
+                            {
+                                string strTempParam = strParamList[i].Trim();
+                                if (!IsNumericValue(strTempParam))
+                                {
+                                    if (m_Document.GestData.GetFromSymbol(strTempParam) == null)
+                                    {
+                                        string strErr = string.Format("Invalid Data symbol {0}", strTempParam);
+                                        ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
+                                        ErrorList.Add(Err);
+                                    }
+                                }
+                            }
+                        }
+                        // ajouter du code ici si il faut parser le contenu des parenthèses
+                        break;
+                    case MATHS_FUNC.INVALID:
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                string strErr = string.Format("Invalid line, missing Maths function");
+                ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
+                ErrorList.Add(Err);
+            }
+        }
+
+        public static bool IsNumericValue(string strValue)
+        {
+            int value =0;
+            return int.TryParse(strValue, out value);
+        }
     }
 }
