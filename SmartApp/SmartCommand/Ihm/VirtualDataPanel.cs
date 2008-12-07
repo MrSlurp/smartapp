@@ -30,8 +30,8 @@ namespace SmartApp
                 VirtualData vData = (VirtualData)group.Items[i];
                 AddDataToDataGrid(vData);
                 vData.VirtualDataValueChanged += new EventVirtualDataValueChange(VirtualDataValueChange);
-                Data dt = (Data)m_GestData.GetFromSymbol(vData.Symbol);
-                dt.DataValueChangedPlus += new EventDataValueChangePlus(DataValueChange);
+                //Data dt = (Data)m_GestData.GetFromSymbol(vData.Symbol);
+                //dt.DataValueChangedPlus += new EventDataValueChangePlus(DataValueChange);
             }
         }
 
@@ -59,6 +59,7 @@ namespace SmartApp
             }
         }
 
+        /*
         protected void DataValueChange(Data vData)
         {
             for (int i = 0; i < m_dataGrid.Rows.Count; i++)
@@ -70,7 +71,7 @@ namespace SmartApp
                     return;
                 }
             }
-        }
+        }*/
 
         private void m_dataGrid_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {

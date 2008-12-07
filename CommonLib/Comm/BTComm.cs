@@ -222,6 +222,14 @@ namespace CommonLib
                 return false;
         }
 
+        public bool SendData(Trame TrameToSend, GestData DataGest, GestDataVirtual VirtualDataGest)
+        {
+            if (m_Comm.GetType() == typeof(VirtualComm))
+                ((VirtualComm)m_Comm).SendData(TrameToSend, DataGest, VirtualDataGest);
+
+            return true;
+        }
+
         //*****************************************************************************************************
         // Description: Réalise l'attente de récéption d'un trame
         // la sortie est automatique en cas de timeout

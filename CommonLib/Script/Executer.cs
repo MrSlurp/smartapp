@@ -316,7 +316,11 @@ namespace CommonLib
                 Byte[] buffer = TrameToSend.CreateTrameToSend(false);
                 if (m_Document.m_Comm.IsOpen)
                 {
-                    m_Document.m_Comm.SendData(buffer);
+                    if (m_Document.m_Comm.CommType == TYPE_COMM.VIRTUAL)
+                        m_Document.m_Comm.SendData(TrameToSend, m_Document.GestData, m_Document.GestDataVirtual);
+                    else
+                        m_Document.m_Comm.SendData(buffer);
+                    
                 }
                 else
                 {

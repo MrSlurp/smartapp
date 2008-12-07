@@ -20,11 +20,28 @@ namespace CommonLib
 
         public override bool SendData(Byte[] buffer)
         {
+            // ne doit pas être utilisé
+            System.Diagnostics.Debug.Assert(false);
+            return true;
+        }
+
+        public bool SendData(Trame TrameToSend, GestData DataGest, GestDataVirtual VirtualDataGest)
+        {
+            for (int i = 0; i< TrameToSend.FrameDatas.Count; i++)
+            {
+                string strDataSymb = TrameToSend.FrameDatas[i];
+                Data dt = (Data)DataGest.GetFromSymbol(strDataSymb);
+                VirtualData vdt = (VirtualData)VirtualDataGest.GetFromSymbol(strDataSymb);
+                if (dt != null && vdt != null && !dt.IsConstant)
+                    vdt.Value = dt.Value;
+            }
             return true;
         }
 
         public override Byte[] GetRecievedData(int NumberOfByte, byte[] FrameHeader)
         {
+            // ne doit pas être utilisé
+            System.Diagnostics.Debug.Assert(false);
             return null;
         }
 
