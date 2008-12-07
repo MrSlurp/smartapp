@@ -424,6 +424,7 @@ namespace SmartApp.Ihm
             m_jumpTotCmdMenuItem.Enabled = true;
             m_MenuItemM3SLWiz.Enabled = true;
             m_MenuItemTCPMBWiz.Enabled = true;
+            m_MenuItemZ2SLWiz.Enabled = true;
             m_Document.UpdateDocumentFrame += new NeedRefreshHMI(OnNeedUpdateHMI);
             m_Document.OnDocumentModified += new DocumentModifiedEvent(UpdateModifiedFlag);
             UpdateFileCommand(null, null);
@@ -445,6 +446,7 @@ namespace SmartApp.Ihm
             m_windowsMenu.Enabled = false;
             m_jumpTotCmdMenuItem.Enabled = false;
             m_MenuItemM3SLWiz.Enabled = false;
+            m_MenuItemZ2SLWiz.Enabled = false;
             m_MenuItemTCPMBWiz.Enabled = false;
             m_Document = null;
             UpdateFileCommand(null, null);
