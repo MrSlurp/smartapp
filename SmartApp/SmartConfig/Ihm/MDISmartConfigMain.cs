@@ -17,6 +17,8 @@ namespace SmartApp.Ihm
     public partial class MDISmartConfigMain : Form
     {
         protected delegate void UpdateTitleDg(string str);
+
+        #region données membres
         protected DataForm m_DataForm = new DataForm();
         protected DesignerForm m_DesignForm = new DesignerForm();
         protected FrameForm m_FrameForm = new FrameForm();
@@ -25,7 +27,9 @@ namespace SmartApp.Ihm
         IniFileParser m_IniFile = new IniFileParser();
         private string m_strIniFilePath;
         protected string m_strDocumentName = "";
+        #endregion
 
+        #region constructeurs
         //*****************************************************************************************************
         // Description: constructeur par défaut
         // Return: /
@@ -61,6 +65,7 @@ namespace SmartApp.Ihm
             UpdateFileCommand(null, null);
             OpenDoc(FileName);
         }
+        #endregion
 
         #region menu edition
         //*****************************************************************************************************
@@ -158,40 +163,6 @@ namespace SmartApp.Ihm
             }
         }
         #endregion
-
-        //*****************************************************************************************************
-        // Description: met a jour le titre de l'application en fonction du nom du document et de son état 
-        // modifié ou non
-        // Return: /
-        //*****************************************************************************************************
-        public void UpdateTitle()
-        {
-            string strTitle = "SmartConfig";
-            strTitle += " - ";
-            strTitle += m_strDocumentName;
-            if (m_Document != null)
-            {
-                if (m_Document.Modified)
-                {
-                    strTitle += "*";
-                }
-            }
-            if (this.InvokeRequired)
-            {
-                UpdateTitleDg dg = new UpdateTitleDg(SetTitle);
-                this.Invoke(dg, strTitle);
-
-            }
-            else
-            {
-                this.Text = strTitle;
-            }
-        }
-
-        private void SetTitle(string str)
-        {
-            this.Text = str;
-        }
 
         #region menu File
         //*****************************************************************************************************
@@ -362,6 +333,28 @@ namespace SmartApp.Ihm
                 m_Document.Modified = false;
             }
         }
+
+        //*****************************************************************************************************
+        // Description:
+        // Return: /
+        //*****************************************************************************************************      
+        private void m_MenuItemClose_Click(object sender, EventArgs e)
+        {
+            if (m_Document != null && m_Document.Modified)
+            {
+                DialogResult res = MessageBox.Show("File Have been modified\nDo you want to save it?", "Warning",
+                                                    MessageBoxButtons.YesNoCancel);
+                if (res == DialogResult.Yes)
+                {
+                    DoSaveDocument();
+                }
+                if (res == DialogResult.Cancel)
+                {
+                    return;
+                }
+            }
+            this.CloseDoc();
+        }
         #endregion
 
         #region fonction d'ouverture sauvegarde et fermeture du document
@@ -459,6 +452,46 @@ namespace SmartApp.Ihm
         }
         #endregion
 
+        #region Update divers
+        //*****************************************************************************************************
+        // Description: met a jour le titre de l'application en fonction du nom du document et de son état 
+        // modifié ou non
+        // Return: /
+        //*****************************************************************************************************
+        public void UpdateTitle()
+        {
+            string strTitle = "SmartConfig";
+            strTitle += " - ";
+            strTitle += m_strDocumentName;
+            if (m_Document != null)
+            {
+                if (m_Document.Modified)
+                {
+                    strTitle += "*";
+                }
+            }
+            if (this.InvokeRequired)
+            {
+                UpdateTitleDg dg = new UpdateTitleDg(SetTitle);
+                this.Invoke(dg, strTitle);
+
+            }
+            else
+            {
+                this.Text = strTitle;
+            }
+        }
+
+
+        //*****************************************************************************************************
+        // Description:
+        // Return: /
+        //*****************************************************************************************************      
+        private void SetTitle(string str)
+        {
+            this.Text = str;
+        }
+
         //*****************************************************************************************************
         // Description:
         // Return: /
@@ -509,6 +542,40 @@ namespace SmartApp.Ihm
         // Description:
         // Return: /
         //*****************************************************************************************************      
+        private void UpdateFileCommand(object sender, EventArgs e)
+        {
+            if (m_Document == null)
+            {
+                m_saveToolStripMenuItem.Enabled = false;
+                m_saveToolStripButton.Enabled = false;
+                m_saveAsToolStripMenuItem.Enabled = false;
+                m_MenuItemClose.Enabled = false;
+            }
+            else
+            {
+                m_saveToolStripMenuItem.Enabled = true;
+                m_saveToolStripButton.Enabled = true;
+                m_saveAsToolStripMenuItem.Enabled = true;
+                m_MenuItemClose.Enabled = true;
+            }
+        }
+
+        //*****************************************************************************************************
+        // Description:
+        // Return: /
+        //*****************************************************************************************************      
+        protected void UpdateModifiedFlag()
+        {
+            UpdateTitle();
+        }
+
+        #endregion
+
+        #region handler's devent
+        //*****************************************************************************************************
+        // Description:
+        // Return: /
+        //*****************************************************************************************************      
         private void OnFormClosing(object sender, FormClosingEventArgs e)
         {
             if (m_Document != null && m_Document.Modified)
@@ -535,112 +602,9 @@ namespace SmartApp.Ihm
             }
             m_IniFile.Save(m_strIniFilePath);
         }
+        #endregion
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
-        private void JumpToSmartCommandMenuItemClick(object sender, EventArgs e)
-        {
-            if (m_Document != null)
-            {
-                if (string.IsNullOrEmpty(m_Document.FileName))
-                    OnSaveAsClick();
-                else
-                {
-                    m_Document.WriteConfigDocument(false);
-                    m_Document.Modified = false;
-
-                    if (File.Exists(m_Document.FileName))
-                    {
-                        this.Hide();
-                        System.Diagnostics.Process proc = new System.Diagnostics.Process();
-                        string Arguments = "-Cmd \"" + m_Document.FileName + "\"";
-                        proc.StartInfo = new System.Diagnostics.ProcessStartInfo(Application.ExecutablePath, Arguments);
-                        proc.StartInfo.UseShellExecute = true;
-
-                        if (proc.Start())
-                        {
-                            proc.WaitForExit();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Application fail on startup.", "Error");
-                        }
-                        this.Show();
-                    }
-                }
-            }
-        }
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
-        protected void UpdateModifiedFlag()
-        {
-            UpdateTitle();
-        }
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
-        private void OnMenuItemM3SLWizClick(object sender, EventArgs e)
-        {
-            if (m_Document != null)
-            {
-                WizardSLForm wiz = new WizardSLForm();
-                wiz.m_Document = m_Document;
-                if (wiz.ShowDialog() == DialogResult.OK)
-                {
-                    this.OnNeedUpdateHMI(null);
-                    m_Document.Modified = true;
-                }
-            }
-        }
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
-        private void m_MenuItemClose_Click(object sender, EventArgs e)
-        {
-            if (m_Document != null && m_Document.Modified)
-            {
-                DialogResult res = MessageBox.Show("File Have been modified\nDo you want to save it?", "Warning",
-                                                    MessageBoxButtons.YesNoCancel);
-                if (res == DialogResult.Yes)
-                {
-                    DoSaveDocument();
-                }
-                if (res == DialogResult.Cancel)
-                {
-                    return;
-                }
-            }
-            this.CloseDoc();
-        }
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
-        private void m_MenuItemTCPMBWiz_Click(object sender, EventArgs e)
-        {
-            if (m_Document != null)
-            {
-                WizardTcpModbusForm wiz = new WizardTcpModbusForm();
-                wiz.m_Document = m_Document;
-                if (wiz.ShowDialog() == DialogResult.OK)
-                {
-                    this.OnNeedUpdateHMI(null);
-                    m_Document.Modified = true;
-                }
-            }
-
-        }
-
+        #region Base de Registre
         //*****************************************************************************************************
         // Description:
         // Return: /
@@ -685,32 +649,106 @@ namespace SmartApp.Ihm
                 Console.WriteLine(e.Message);
             }
         }
+        #endregion
 
+        #region menu ?
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AboutForm.ShowAbout();
         }
+        #endregion
 
-        private void UpdateFileCommand(object sender, EventArgs e)
+        #region Commandes du menu Tool
+        //*****************************************************************************************************
+        // Description:
+        // Return: /
+        //*****************************************************************************************************      
+        private void JumpToSmartCommandMenuItemClick(object sender, EventArgs e)
         {
-            if (m_Document == null)
+            if (m_Document != null)
             {
-                m_saveToolStripMenuItem.Enabled = false;
-                m_saveToolStripButton.Enabled = false;
-                m_saveAsToolStripMenuItem.Enabled = false;
-                m_MenuItemClose.Enabled = false;
-            }
-            else
-            {
-                m_saveToolStripMenuItem.Enabled = true;
-                m_saveToolStripButton.Enabled = true;
-                m_saveAsToolStripMenuItem.Enabled = true;
-                m_MenuItemClose.Enabled = true;
+                if (string.IsNullOrEmpty(m_Document.FileName))
+                    OnSaveAsClick();
+                else
+                {
+                    m_Document.WriteConfigDocument(false);
+                    m_Document.Modified = false;
+
+                    if (File.Exists(m_Document.FileName))
+                    {
+                        this.Hide();
+                        System.Diagnostics.Process proc = new System.Diagnostics.Process();
+                        string Arguments = "-Cmd \"" + m_Document.FileName + "\"";
+                        proc.StartInfo = new System.Diagnostics.ProcessStartInfo(Application.ExecutablePath, Arguments);
+                        proc.StartInfo.UseShellExecute = true;
+
+                        if (proc.Start())
+                        {
+                            proc.WaitForExit();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Application fail on startup.", "Error");
+                        }
+                        this.Show();
+                    }
+                }
             }
         }
 
-        private void MDISmartConfigMain_Load(object sender, EventArgs e)
+        //*****************************************************************************************************
+        // Description:
+        // Return: /
+        //*****************************************************************************************************      
+        private void m_MenuItemZ2SLWiz_Click(object sender, EventArgs e)
         {
+            if (m_Document != null)
+            {
+                WizardSLFormZ2 wiz = new WizardSLFormZ2();
+                wiz.m_Document = m_Document;
+                if (wiz.ShowDialog() == DialogResult.OK)
+                {
+                    this.OnNeedUpdateHMI(null);
+                    m_Document.Modified = true;
+                }
+            }
         }
+
+        //*****************************************************************************************************
+        // Description:
+        // Return: /
+        //*****************************************************************************************************      
+        private void m_MenuItemTCPMBWiz_Click(object sender, EventArgs e)
+        {
+            if (m_Document != null)
+            {
+                WizardTcpModbusForm wiz = new WizardTcpModbusForm();
+                wiz.m_Document = m_Document;
+                if (wiz.ShowDialog() == DialogResult.OK)
+                {
+                    this.OnNeedUpdateHMI(null);
+                    m_Document.Modified = true;
+                }
+            }
+        }
+
+        //*****************************************************************************************************
+        // Description:
+        // Return: /
+        //*****************************************************************************************************      
+        private void OnMenuItemM3SLWizClick(object sender, EventArgs e)
+        {
+            if (m_Document != null)
+            {
+                WizardSLFormM3 wiz = new WizardSLFormM3();
+                wiz.m_Document = m_Document;
+                if (wiz.ShowDialog() == DialogResult.OK)
+                {
+                    this.OnNeedUpdateHMI(null);
+                    m_Document.Modified = true;
+                }
+            }
+        }
+        #endregion
     }
 }

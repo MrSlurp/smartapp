@@ -11,20 +11,20 @@ using SmartApp.Ihm.Designer;
 
 namespace SmartApp.Ihm.Wizards
 {
-    public partial class WizardSLFormM3 : Form
+    public partial class WizardSLFormZ2 : Form
     {
         public BTDoc m_Document;
         CComboData[] m_TabCboFrameType;
         CComboData[] m_TabCboOrderType;
         CComboData[] m_TabCboAdressRange;
         protected ArrayList m_ListUserData = new ArrayList();
-        public const int M3_SL_IO_SIZE = 16;
+        public const int Z2_SL_IO_SIZE = 16;
 
         //*****************************************************************************************************
         // Description:
         // Return: /
         //*****************************************************************************************************
-        public WizardSLFormM3()
+        public WizardSLFormZ2()
         {
             InitializeComponent();
             Initialize();
@@ -38,8 +38,8 @@ namespace SmartApp.Ihm.Wizards
         public void Initialize()
         {
             m_TabCboFrameType = new CComboData[2];
-            m_TabCboFrameType[0] = new CComboData("M3 SL Input Bloc", WIZ_SL_FRAME_TYPE.SL_INPUT_BLOC);
-            m_TabCboFrameType[1] = new CComboData("M3 SL Output Bloc", WIZ_SL_FRAME_TYPE.SL_OUTPUT_BLOC);
+            m_TabCboFrameType[0] = new CComboData("Z2 SL Input Bloc", WIZ_SL_FRAME_TYPE.SL_INPUT_BLOC);
+            m_TabCboFrameType[1] = new CComboData("Z2 SL Output Bloc", WIZ_SL_FRAME_TYPE.SL_OUTPUT_BLOC);
             m_cboFrameType.DisplayMember = "DisplayedString";
             m_cboFrameType.ValueMember = "Object";
             m_cboFrameType.DataSource = m_TabCboFrameType;
@@ -172,7 +172,7 @@ namespace SmartApp.Ihm.Wizards
                 || m_cboAdressRange.SelectedValue == null)
                 return;
 
-            m_ListUserData = GenerateDefaultM3SLBlocData((WIZ_SL_FRAME_TYPE) m_cboFrameType.SelectedValue,
+            m_ListUserData = GenerateDefaultZ2SLBlocData((WIZ_SL_FRAME_TYPE) m_cboFrameType.SelectedValue,
                                                          (WIZ_SL_ADRESS_RANGE) m_cboAdressRange.SelectedValue);
 
         }
@@ -190,7 +190,7 @@ namespace SmartApp.Ihm.Wizards
                 Data dt = (Data)m_ListUserData[i];
                 ListViewItem lviData = m_ListViewDatas.Items.Add(dt.Symbol);
                 lviData.SubItems.Add(dt.SizeInBits.ToString());
-                int CurByte = CurDataBit / M3_SL_IO_SIZE +1;
+                int CurByte = CurDataBit / Z2_SL_IO_SIZE + 1;
                 lviData.SubItems.Add(CurByte.ToString());
                 lviData.Tag = dt;
 
@@ -225,33 +225,33 @@ namespace SmartApp.Ihm.Wizards
             WIZ_SL_ORDER_TYPE OrderType = (WIZ_SL_ORDER_TYPE)m_cboReadWrite.SelectedValue;
             if (OrderType == WIZ_SL_ORDER_TYPE.READ)
             {
-                ArrayList ListFrameData = WizardFrameGenerator.GenerateM3ReqReadSLFrameDatas(m_textFramesymb.Text,
+                ArrayList ListFrameData = WizardFrameGenerator.GenerateZ2ReqReadSLFrameDatas(m_textFramesymb.Text,
                                                                (WIZ_SL_ADRESS_RANGE) m_cboAdressRange.SelectedValue
                                                                );
-                Trame tr = WizardFrameGenerator.CreateM3FrameObject(m_textFramesymb.Text, ListFrameData);
+                Trame tr = WizardFrameGenerator.CreateZ2FrameObject(m_textFramesymb.Text, ListFrameData);
                 WizardFrameGenerator.InsertFrameInDoc(this.m_Document, tr, ListFrameData);
                 if (this.m_checkGenerateResp.Checked == true)
                 {
-                    ArrayList ListRespFrameData = WizardFrameGenerator.GenerateM3RespReqReadSLFrameDatas(m_textGeneFramesymb.Text,
+                    ArrayList ListRespFrameData = WizardFrameGenerator.GenerateZ2RespReqReadSLFrameDatas(m_textGeneFramesymb.Text,
                                                                    (WIZ_SL_ADRESS_RANGE)m_cboAdressRange.SelectedValue,
                                                                    m_ListUserData);
-                    Trame Resptr = WizardFrameGenerator.CreateM3FrameObject(m_textGeneFramesymb.Text, ListRespFrameData);
+                    Trame Resptr = WizardFrameGenerator.CreateZ2FrameObject(m_textGeneFramesymb.Text, ListRespFrameData);
                     WizardFrameGenerator.InsertFrameInDoc(this.m_Document, Resptr, ListRespFrameData);
                 }
             }
             else
             {
-                ArrayList ListFrameData = WizardFrameGenerator.GenerateM3WriteSLFrameDatas(m_textFramesymb.Text,
+                ArrayList ListFrameData = WizardFrameGenerator.GenerateZ2WriteSLFrameDatas(m_textFramesymb.Text,
                                                                (WIZ_SL_ADRESS_RANGE)m_cboAdressRange.SelectedValue,
                                                                m_ListUserData);
-                Trame tr = WizardFrameGenerator.CreateM3FrameObject(m_textFramesymb.Text, ListFrameData);
+                Trame tr = WizardFrameGenerator.CreateZ2FrameObject(m_textFramesymb.Text, ListFrameData);
                 WizardFrameGenerator.InsertFrameInDoc(this.m_Document, tr, ListFrameData);
                 if (this.m_checkGenerateResp.Checked == true)
                 {
-                    ArrayList ListRespFrameData = WizardFrameGenerator.GenerateM3RespWriteSLFrameDatas(m_textGeneFramesymb.Text,
+                    ArrayList ListRespFrameData = WizardFrameGenerator.GenerateZ2RespWriteSLFrameDatas(m_textGeneFramesymb.Text,
                                                                    (WIZ_SL_ADRESS_RANGE)m_cboAdressRange.SelectedValue,
                                                                    m_ListUserData);
-                    Trame Resptr = WizardFrameGenerator.CreateM3FrameObject(m_textGeneFramesymb.Text, ListRespFrameData);
+                    Trame Resptr = WizardFrameGenerator.CreateZ2FrameObject(m_textGeneFramesymb.Text, ListRespFrameData);
                     WizardFrameGenerator.InsertFrameInDoc(this.m_Document, Resptr, ListRespFrameData);
                 }
 
@@ -318,33 +318,33 @@ namespace SmartApp.Ihm.Wizards
         // Description:
         // Return: /
         //*****************************************************************************************************
-        static public ArrayList GenerateDefaultM3SLBlocData(WIZ_SL_FRAME_TYPE frType,
+        static public ArrayList GenerateDefaultZ2SLBlocData(WIZ_SL_FRAME_TYPE frType,
                                                      WIZ_SL_ADRESS_RANGE AddrRange)
         {
             int CurBitPos = 0;
             ArrayList ListData = new ArrayList();
-            string strSymb = GetDefaultSymbolM3Data(frType, AddrRange, CurBitPos, 16);
+            string strSymb = GetDefaultSymbolZ2Data(frType, AddrRange, CurBitPos, 16);
             ListData.Add(new Data(strSymb, 0, 16, false));
             CurBitPos += 16;
-            strSymb = GetDefaultSymbolM3Data(frType, AddrRange, CurBitPos, 16);
+            strSymb = GetDefaultSymbolZ2Data(frType, AddrRange, CurBitPos, 16);
             ListData.Add(new Data(strSymb, 0, 16, false));
             CurBitPos += 16;
-            strSymb = GetDefaultSymbolM3Data(frType, AddrRange, CurBitPos, 16);
+            strSymb = GetDefaultSymbolZ2Data(frType, AddrRange, CurBitPos, 16);
             ListData.Add(new Data(strSymb, 0, 16, false));
             CurBitPos += 16;
-            strSymb = GetDefaultSymbolM3Data(frType, AddrRange, CurBitPos, 16);
+            strSymb = GetDefaultSymbolZ2Data(frType, AddrRange, CurBitPos, 16);
             ListData.Add(new Data(strSymb, 0, 16, false));
             CurBitPos += 16;
-            strSymb = GetDefaultSymbolM3Data(frType, AddrRange, CurBitPos, 16);
+            strSymb = GetDefaultSymbolZ2Data(frType, AddrRange, CurBitPos, 16);
             ListData.Add(new Data(strSymb, 0, 16, false));
             CurBitPos += 16;
-            strSymb = GetDefaultSymbolM3Data(frType, AddrRange, CurBitPos, 16);
+            strSymb = GetDefaultSymbolZ2Data(frType, AddrRange, CurBitPos, 16);
             ListData.Add(new Data(strSymb, 0, 16, false));
             CurBitPos += 16;
-            strSymb = GetDefaultSymbolM3Data(frType, AddrRange, CurBitPos, 16);
+            strSymb = GetDefaultSymbolZ2Data(frType, AddrRange, CurBitPos, 16);
             ListData.Add(new Data(strSymb, 0, 16, false));
             CurBitPos += 16;
-            strSymb = GetDefaultSymbolM3Data(frType, AddrRange, CurBitPos, 16);
+            strSymb = GetDefaultSymbolZ2Data(frType, AddrRange, CurBitPos, 16);
             ListData.Add(new Data(strSymb, 0, 16, false));
             return ListData;
         }
@@ -356,7 +356,7 @@ namespace SmartApp.Ihm.Wizards
         // et la taille de la donnée en bits
         // Return: /
         //*****************************************************************************************************
-        static private string GetDefaultSymbolM3Data(WIZ_SL_FRAME_TYPE frType,
+        static private string GetDefaultSymbolZ2Data(WIZ_SL_FRAME_TYPE frType,
                                                      WIZ_SL_ADRESS_RANGE AddrRange,
                                                      int DataBitPos,
                                                      int DataSize)
@@ -398,12 +398,12 @@ namespace SmartApp.Ihm.Wizards
                     break;
             }
 
-            int iCurrentIO = (DataBitPos / M3_SL_IO_SIZE) + 1;
-            string FormatString = "M3_SL{0}{1}_{2}{3}"; // IN/OUT, 1/2/3, I/O, 1 à 8 (numéro de l'E/S du bloc)
+            int iCurrentIO = (DataBitPos / Z2_SL_IO_SIZE) + 1;
+            string FormatString = "Z2_SL{0}{1}_{2}{3}"; // IN/OUT, 1/2/3, I/O, 1 à 8 (numéro de l'E/S du bloc)
             // si la donnée ne fait pas 16 bits, on ajoute une info sur ses bits
             string FinFormatForDataOther = "_B{0}-{1}"; // 1 à 16, 1 à 16 (noméro de bit de debut, numéro du bit de fin
             string strBaseSmbol = string.Format(FormatString, InOrOutBloc, indexSLBloc, InOrOutData, iCurrentIO);
-            int DataBitPosInCurByte = DataBitPos - ((iCurrentIO - 1) * M3_SL_IO_SIZE);
+            int DataBitPosInCurByte = DataBitPos - ((iCurrentIO - 1) * Z2_SL_IO_SIZE);
             if (DataSize == (int)DATA_SIZE.DATA_SIZE_16B || DataSize == (int)DATA_SIZE.DATA_SIZE_16BU)
                 return strBaseSmbol;
             else if (DataSize == (int)DATA_SIZE.DATA_SIZE_8B)
@@ -418,11 +418,11 @@ namespace SmartApp.Ihm.Wizards
             }
             else if (DataSize == (int)DATA_SIZE.DATA_SIZE_1B)
             {
-                return strBaseSmbol + string.Format("_B{0}", M3_SL_IO_SIZE - (DataBitPosInCurByte)); // 1 à 16, 1 à 16 (noméro de bit)
+                return strBaseSmbol + string.Format("_B{0}", Z2_SL_IO_SIZE - (DataBitPosInCurByte)); // 1 à 16, 1 à 16 (noméro de bit)
             }
             else // donnée de moin de 1 octet
             {
-                return strBaseSmbol + string.Format(FinFormatForDataOther, M3_SL_IO_SIZE-(DataBitPosInCurByte + DataSize)+1, M3_SL_IO_SIZE - (DataBitPosInCurByte) ); // 1 à 16, 1 à 16 (noméro de bit de debut, numéro du bit de fin
+                return strBaseSmbol + string.Format(FinFormatForDataOther, Z2_SL_IO_SIZE - (DataBitPosInCurByte + DataSize) + 1, Z2_SL_IO_SIZE - (DataBitPosInCurByte)); // 1 à 16, 1 à 16 (noméro de bit de debut, numéro du bit de fin
             }
         }
 
@@ -432,8 +432,8 @@ namespace SmartApp.Ihm.Wizards
         //*****************************************************************************************************
         private string GetDefaultFrameSymbol(bool bResp)
         {
-            string FormatString = "M3_{0}_SL{1}_BLOC_{2}";// READ/WRITE, IN_OUT, 1/2/3 selon la plage d'adresse;
-            string RespFormatString = "M3_{0}_SL{1}_BLOC_{2}_RET";// READ/WRITE, IN_OUT, 1/2/3 selon la plage d'adresse;
+            string FormatString = "Z2_{0}_SL{1}_BLOC_{2}";// READ/WRITE, IN_OUT, 1/2/3 selon la plage d'adresse;
+            string RespFormatString = "Z2_{0}_SL{1}_BLOC_{2}_RET";// READ/WRITE, IN_OUT, 1/2/3 selon la plage d'adresse;
             if (m_cboReadWrite.SelectedValue == null
                 || m_cboFrameType.SelectedValue == null
                 || m_cboAdressRange.SelectedValue == null
@@ -558,8 +558,8 @@ namespace SmartApp.Ihm.Wizards
                         if (uData.Symbol == dt.Symbol)
                         {
                             int newDataSize = dt.SizeInBits /2;
-                            string strSymb1 = GetDefaultSymbolM3Data(frType, AddrRange, iCurUserDataBit, newDataSize);
-                            string strSymb2 = GetDefaultSymbolM3Data(frType, AddrRange, iCurUserDataBit+newDataSize, newDataSize);
+                            string strSymb1 = GetDefaultSymbolZ2Data(frType, AddrRange, iCurUserDataBit, newDataSize);
+                            string strSymb2 = GetDefaultSymbolZ2Data(frType, AddrRange, iCurUserDataBit+newDataSize, newDataSize);
                             Data newData1 = new Data(strSymb1, 0, newDataSize, false);  
                             Data newData2 = new Data(strSymb2, 0, newDataSize, false);
                             m_ListUserData[indexSplit] = newData2;
@@ -601,7 +601,7 @@ namespace SmartApp.Ihm.Wizards
                         if (uData.Symbol == FirstData.Symbol)
                         {
                             int newDataSize = dt1.SizeInBits + dt2.SizeInBits;
-                            string strSymb1 = GetDefaultSymbolM3Data(frType, AddrRange, iCurUserDataBit, newDataSize);
+                            string strSymb1 = GetDefaultSymbolZ2Data(frType, AddrRange, iCurUserDataBit, newDataSize);
                             Data newData1 = new Data(strSymb1, 0, newDataSize, false);
                             m_ListUserData[indexJoin] = newData1;
                             m_ListUserData.RemoveAt(indexJoin + 1);

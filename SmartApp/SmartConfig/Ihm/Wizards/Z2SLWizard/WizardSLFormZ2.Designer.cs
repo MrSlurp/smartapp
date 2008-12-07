@@ -1,6 +1,6 @@
 namespace SmartApp.Ihm.Wizards
 {
-    partial class WizardSLFormM3
+    partial class WizardSLFormZ2
     {
         /// <summary>
         /// Required designer variable.
@@ -250,11 +250,11 @@ namespace SmartApp.Ihm.Wizards
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(18, 235);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(97, 13);
+            this.label6.Size = new System.Drawing.Size(95, 13);
             this.label6.TabIndex = 8;
-            this.label6.Text = "M3 SL Bloc Bitmap";
+            this.label6.Text = "Z2 SL Bloc Bitmap";
             // 
-            // WizardSLForm
+            // WizardSLFormZ2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -277,8 +277,8 @@ namespace SmartApp.Ihm.Wizards
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Name = "WizardSLForm";
-            this.Text = "Wizard SL Bloc M3";
+            this.Name = "WizardSLFormZ2";
+            this.Text = "Wizard SL Bloc Z2";
             ((System.ComponentModel.ISupportInitialize)(this.m_PicSLBloc)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

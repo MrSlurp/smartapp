@@ -56,7 +56,7 @@ namespace SmartApp.Ihm
             m_TabCboCtrlDataType[0] = new CComboData("None", CTRLDATA_TYPE.NONE.ToString());
             m_TabCboCtrlDataType[1] = new CComboData("Millenium3 SL Bloc CheckSum", CTRLDATA_TYPE.SUM_COMPL_P1.ToString());
             m_TabCboCtrlDataType[2] = new CComboData("Modbus CRC 16", CTRLDATA_TYPE.MODBUS_CRC.ToString());
-            //m_TabCboCtrlDataType[2] = new CComboData("Zelio2 SL Bloc CheckSum", CTRLDATA_TYPE.SUM_COMPL_P2.ToString());
+            m_TabCboCtrlDataType[2] = new CComboData("Zelio2 SL Bloc CheckSum", CTRLDATA_TYPE.SUM_COMPL_P2.ToString());
             m_cboCtrlDataType.ValueMember = "Object";
             m_cboCtrlDataType.DisplayMember = "DisplayedString";
             m_cboCtrlDataType.DataSource = m_TabCboCtrlDataType;

@@ -83,6 +83,7 @@ namespace SmartApp.Ihm
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.m_ToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.m_MenuItemZ2SLWiz = new System.Windows.Forms.ToolStripMenuItem();
             this.m_menuStrip.SuspendLayout();
             this.m_toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
@@ -131,7 +132,7 @@ namespace SmartApp.Ihm
             this.m_newToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
             this.m_newToolStripMenuItem.Name = "m_newToolStripMenuItem";
             this.m_newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.m_newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.m_newToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.m_newToolStripMenuItem.Text = "&New";
             this.m_newToolStripMenuItem.Click += new System.EventHandler(this.OnNewMenuItemClick);
             // 
@@ -141,21 +142,21 @@ namespace SmartApp.Ihm
             this.m_openToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
             this.m_openToolStripMenuItem.Name = "m_openToolStripMenuItem";
             this.m_openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.m_openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.m_openToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.m_openToolStripMenuItem.Text = "&Open";
             this.m_openToolStripMenuItem.Click += new System.EventHandler(this.OpenFile);
             // 
             // m_MenuItemClose
             // 
             this.m_MenuItemClose.Name = "m_MenuItemClose";
-            this.m_MenuItemClose.Size = new System.Drawing.Size(152, 22);
+            this.m_MenuItemClose.Size = new System.Drawing.Size(151, 22);
             this.m_MenuItemClose.Text = "Close file";
             this.m_MenuItemClose.Click += new System.EventHandler(this.m_MenuItemClose_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(148, 6);
             // 
             // m_saveToolStripMenuItem
             // 
@@ -163,21 +164,21 @@ namespace SmartApp.Ihm
             this.m_saveToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
             this.m_saveToolStripMenuItem.Name = "m_saveToolStripMenuItem";
             this.m_saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.m_saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.m_saveToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.m_saveToolStripMenuItem.Text = "&Save";
             this.m_saveToolStripMenuItem.Click += new System.EventHandler(this.OnSaveMenuItemClick);
             // 
             // m_saveAsToolStripMenuItem
             // 
             this.m_saveAsToolStripMenuItem.Name = "m_saveAsToolStripMenuItem";
-            this.m_saveAsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.m_saveAsToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.m_saveAsToolStripMenuItem.Text = "Save &As";
             this.m_saveAsToolStripMenuItem.Click += new System.EventHandler(this.OnSaveAsMenuItemClick);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(148, 6);
             // 
             // m_printToolStripMenuItem
             // 
@@ -185,7 +186,7 @@ namespace SmartApp.Ihm
             this.m_printToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
             this.m_printToolStripMenuItem.Name = "m_printToolStripMenuItem";
             this.m_printToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
-            this.m_printToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.m_printToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.m_printToolStripMenuItem.Text = "&Print";
             this.m_printToolStripMenuItem.Visible = false;
             // 
@@ -194,27 +195,27 @@ namespace SmartApp.Ihm
             this.m_printPreviewToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("m_printPreviewToolStripMenuItem.Image")));
             this.m_printPreviewToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
             this.m_printPreviewToolStripMenuItem.Name = "m_printPreviewToolStripMenuItem";
-            this.m_printPreviewToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.m_printPreviewToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.m_printPreviewToolStripMenuItem.Text = "Print Pre&view";
             this.m_printPreviewToolStripMenuItem.Visible = false;
             // 
             // m_printSetupToolStripMenuItem
             // 
             this.m_printSetupToolStripMenuItem.Name = "m_printSetupToolStripMenuItem";
-            this.m_printSetupToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.m_printSetupToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.m_printSetupToolStripMenuItem.Text = "Print Setup";
             this.m_printSetupToolStripMenuItem.Visible = false;
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(148, 6);
             this.toolStripSeparator5.Visible = false;
             // 
             // m_exitToolStripMenuItem
             // 
             this.m_exitToolStripMenuItem.Name = "m_exitToolStripMenuItem";
-            this.m_exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.m_exitToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.m_exitToolStripMenuItem.Text = "E&xit";
             this.m_exitToolStripMenuItem.Visible = false;
             this.m_exitToolStripMenuItem.Click += new System.EventHandler(this.OnExitMenuItemClick);
@@ -307,6 +308,7 @@ namespace SmartApp.Ihm
             this.m_jumpTotCmdMenuItem,
             this.toolStripSeparator9,
             this.m_MenuItemM3SLWiz,
+            this.m_MenuItemZ2SLWiz,
             this.m_MenuItemTCPMBWiz});
             this.m_toolsMenu.Name = "m_toolsMenu";
             this.m_toolsMenu.Size = new System.Drawing.Size(44, 20);
@@ -364,7 +366,7 @@ namespace SmartApp.Ihm
             this.m_toolBarToolStripMenuItem.CheckOnClick = true;
             this.m_toolBarToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.m_toolBarToolStripMenuItem.Name = "m_toolBarToolStripMenuItem";
-            this.m_toolBarToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.m_toolBarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.m_toolBarToolStripMenuItem.Text = "&Toolbar";
             this.m_toolBarToolStripMenuItem.Click += new System.EventHandler(this.ToolBarToolStripMenuItem_Click);
             // 
@@ -374,7 +376,7 @@ namespace SmartApp.Ihm
             this.m_statusBarToolStripMenuItem.CheckOnClick = true;
             this.m_statusBarToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.m_statusBarToolStripMenuItem.Name = "m_statusBarToolStripMenuItem";
-            this.m_statusBarToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.m_statusBarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.m_statusBarToolStripMenuItem.Text = "&Status Bar";
             this.m_statusBarToolStripMenuItem.Click += new System.EventHandler(this.StatusBarToolStripMenuItem_Click);
             // 
@@ -556,6 +558,14 @@ namespace SmartApp.Ihm
             this.toolStripStatusLabel.Size = new System.Drawing.Size(38, 17);
             this.toolStripStatusLabel.Text = "Status";
             // 
+            // m_MenuItemZ2SLWiz
+            // 
+            this.m_MenuItemZ2SLWiz.Enabled = false;
+            this.m_MenuItemZ2SLWiz.Name = "m_MenuItemZ2SLWiz";
+            this.m_MenuItemZ2SLWiz.Size = new System.Drawing.Size(220, 22);
+            this.m_MenuItemZ2SLWiz.Text = "Z2 SL blocs Wizard";
+            this.m_MenuItemZ2SLWiz.Click += new System.EventHandler(this.m_MenuItemZ2SLWiz_Click);
+            // 
             // MDISmartConfigMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -570,7 +580,6 @@ namespace SmartApp.Ihm
             this.Name = "MDISmartConfigMain";
             this.Text = "SmartConfig";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnFormClosing);
-            this.Load += new System.EventHandler(this.MDISmartConfigMain_Load);
             this.m_menuStrip.ResumeLayout(false);
             this.m_menuStrip.PerformLayout();
             this.m_toolStrip.ResumeLayout(false);
@@ -637,6 +646,7 @@ namespace SmartApp.Ihm
         private System.Windows.Forms.ToolStripMenuItem m_MenuItemM3SLWiz;
         private System.Windows.Forms.ToolStripMenuItem m_MenuItemClose;
         private System.Windows.Forms.ToolStripMenuItem m_MenuItemTCPMBWiz;
+        private System.Windows.Forms.ToolStripMenuItem m_MenuItemZ2SLWiz;
     }
 }
 

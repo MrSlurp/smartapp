@@ -976,6 +976,22 @@ namespace CommonLib
                 else
                     System.Diagnostics.Debug.Assert(false);
             }
+            else if (m_strDataClcType == CTRLDATA_TYPE.SUM_COMPL_P2.ToString())
+            {
+                int Value = 0;
+                for (int i = 0; i < buffer.Length; i++)
+                {
+                    Value += buffer[i];
+                }
+                if (dat.SizeInBits == Cste.SIZE_1_BYTE)
+                {
+                    byte ByteValue = (byte)(Value & 0xFF);
+                    ByteValue = (byte)(-ByteValue);
+                    dat.Value = ByteValue+1;
+                }
+                else
+                    System.Diagnostics.Debug.Assert(false);
+            }
             else if (m_strDataClcType == CTRLDATA_TYPE.MODBUS_CRC.ToString())
             {
                 if (dat.SizeInBits == Cste.SIZE_2_BYTE)
