@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("CtrlSerpentin")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Addin control for SmartApp")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Privé")]
+[assembly: AssemblyCompany("Bigot Pascal")]
 [assembly: AssemblyProduct("CtrlSerpentin")]
-[assembly: AssemblyCopyright("Copyright © Privé 2008")]
+[assembly: AssemblyCopyright("Copyright © Bigot Pascal 2008")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

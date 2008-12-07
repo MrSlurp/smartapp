@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("CommonLib")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Comon library for SmartApp")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Privé")]
+[assembly: AssemblyCompany("Bigot Pascal")]
 [assembly: AssemblyProduct("CommonLib")]
-[assembly: AssemblyCopyright("Copyright © Privé 2008")]
+[assembly: AssemblyCopyright("Copyright © Bigot Pascal 2008")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -31,5 +31,5 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("2.2.1.0")]
-[assembly: AssemblyFileVersion("2.2.1.0")]
+[assembly: AssemblyVersion("2.3.0.0")]
+[assembly: AssemblyFileVersion("2.3.0.0")]
