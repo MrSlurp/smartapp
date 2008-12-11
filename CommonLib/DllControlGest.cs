@@ -23,7 +23,6 @@ namespace CommonLib
             //Assembly Dll = Assembly.Load();
             string strAppDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName);
             string[] filenames = Directory.GetFiles(strAppDir, "*.dll", SearchOption.AllDirectories);
-            Console.WriteLine(filenames.ToString());
             for (int i = 0; i < filenames.Length; i++)
             {
                 if (!filenames[i].Contains("CommonLib"))

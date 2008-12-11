@@ -247,9 +247,10 @@ namespace SmartApp
             this.MainMenuStrip = this.menuStrip;
             this.Name = "MDISmartCommandMain";
             this.Text = "SmartCommand";
+            this.Load += new System.EventHandler(this.MDISmartCommandMain_Load);
+            this.Shown += new System.EventHandler(this.MDISmartCommandMain_Shown);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MDISmartCommandMain_FormClosed);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnFormClosing);
-            this.Load += new System.EventHandler(this.MDISmartCommandMain_Load);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.toolStrip.ResumeLayout(false);

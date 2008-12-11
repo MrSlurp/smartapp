@@ -41,6 +41,7 @@ namespace CommonLib
             m_PortSerie.DtrEnable = true;
             m_PortSerie.Parity = Parity.Even;
             m_PortSerie.ParityReplace = ((byte)(48));
+            m_PortSerie.StopBits = StopBits.One;
             m_PortSerie.ReadTimeout = 5000;
             m_PortSerie.WriteTimeout = 5000;
             m_PortSerie.DataReceived += new SerialDataReceivedEventHandler(this.DataReceived);

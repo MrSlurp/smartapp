@@ -15,19 +15,34 @@ namespace SmartApp
 {
     public partial class MDISmartCommandMain : Form
     {
+        #region données membres
+        // fenêtre des variables (Watch)
         private VariableForm m_VariableForm;
+        // fenêtre des données virtuelles (affichée que si on utilise une connexion virtuell
         private VirtualDataForm m_VirtualDataForm;
+        // Document chargé par l'application
         private BTDoc m_Document = null;
+        // fenêtre de log des évènements
         private static AppEventLogForm m_EventLog = new AppEventLogForm();
-        CommConfiguration m_CommConfigPage = new CommConfiguration();
-        List<DynamicPanelForm> m_FormList = new List<DynamicPanelForm>();
-        IniFileParser m_IniFile = new IniFileParser();
-        private string m_strIniFilePath;
+        // fenêtre de configuration des connexions
+        private CommConfiguration m_CommConfigPage = new CommConfiguration();
+        // Liste des pages "utilisateur" ==> une par BTScreen présent dans le document
+        private List<DynamicPanelForm> m_FormList = new List<DynamicPanelForm>();
+        // fichier d'ini des options
+        private IniFileParser m_IniOptionFile = new IniFileParser();
+        // chemin du fichier d'init des options
+        private string m_strIniOptionFilePath;
+        // chemin du dossier de log utilisateurs
         private string m_strLogFilePath;
+        // booléen indiquant si il faut mémoriser les connexion utilisées pour chaque fichier
         private bool m_bSaveFileComm = true;
+        // stocke temporairement le nom de fichier passé par la ligne de commande
+        private string m_strAutoOpenFileName = "";
+        #endregion
 
+        #region attributs
         //*****************************************************************************************************
-        // Description:
+        // Description: accesseur de la fenêtre event log. Défini comme étant static (un seul event log)
         // Return: /
         //*****************************************************************************************************
         public static AppEventLogForm EventLogger
@@ -37,43 +52,71 @@ namespace SmartApp
                 return m_EventLog;
             }
         }
+        #endregion
 
+        #region constructeurs
         //*****************************************************************************************************
-        // Description:
+        // Description: constructeur par défaut
         // Return: /
         //*****************************************************************************************************
         public MDISmartCommandMain()
         {
             InitializeComponent();
+            CommonConstructorInit();
+        }
+
+        //*****************************************************************************************************
+        // Description: constructeur avec nom de fichier (ouvre le fichier passé en paramètre)
+        // Return: /
+        //*****************************************************************************************************
+        public MDISmartCommandMain(string strFileName)
+        {
+            InitializeComponent();
+            CommonConstructorInit();
+            m_strAutoOpenFileName = strFileName;
+        }
+
+        //*****************************************************************************************************
+        // Description: Initialisations communes aux deux constructeurs
+        // Return: /
+        //*****************************************************************************************************
+        public void CommonConstructorInit()
+        {
             m_EventLog.MdiParent = this;
             m_tsBtnStartStop.Enabled = false;
             m_tsBtnConnexion.Enabled = false;
             UpdateToolBarCxnItemState();
             InitCboComms();
         }
+        #endregion
+
 
         //*****************************************************************************************************
         // Description:
         // Return: /
         //*****************************************************************************************************
-        public MDISmartCommandMain(string strFileName)
+        public void TryAutoOpenDoc()
         {
-            InitializeComponent();
-            m_EventLog.MdiParent = this;
-            m_tsBtnStartStop.Enabled = false;
-            m_tsBtnConnexion.Enabled = false;
-            UpdateToolBarCxnItemState();
-            if (!string.IsNullOrEmpty(strFileName))
+            if (!string.IsNullOrEmpty(m_strAutoOpenFileName))
+        {
+                if (File.Exists(m_strAutoOpenFileName))
             {
-                if (!OpenDoc(strFileName))
+                    if (!OpenDoc(m_strAutoOpenFileName))
                 {
                     MessageBox.Show("Error while reading file. File is corrupted", "Error");
                     this.CloseDoc();
                     return;
                 }
-                InitCboComms();
+                }
+                else
+                {
+                    MessageBox.Show(string.Format("File \"{0}\" does not exists", m_strAutoOpenFileName), "Error");
+                    return;
+                }
                 UpdateToolBarCxnItemState();
             }
+            else // chaine vide
+                return; 
             if (LaunchArgParser.AutoConnect)
             {
                 if (m_Document.m_Comm.SetCommTypeAndParam(LaunchArgParser.CommType, LaunchArgParser.CommParam))
@@ -145,7 +188,7 @@ namespace SmartApp
         //*****************************************************************************************************
         private void ExitToolsStripMenuItem_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            //Application.Exit();
         }
 
         //*****************************************************************************************************
@@ -178,11 +221,11 @@ namespace SmartApp
                     this.Text += " - " + strFileName;
                     m_tsBtnConnexion.Enabled = true;
                     UpdateToolBarCxnItemState();
-                    if (m_tsCboCurConnection.Items.Count != 0)
+                    if (m_tsCboCurConnection.Items.Count != 0 && m_tsCboCurConnection.SelectedIndex == -1)
                     {
                         m_tsCboCurConnection.SelectedIndex = 0;
-                        SetTypeComeAndParamFromCbo();
                     }
+                        SetTypeComeAndParamFromCbo();
                     return true;
                 }
                 else
@@ -253,8 +296,8 @@ namespace SmartApp
                 CloseDoc();
                 return false;
             }
-            string strTypeComm = m_IniFile.GetValue(Doc.FileName, Cste.STR_FILE_DESC_COMM);
-            string strCommParam = m_IniFile.GetValue(Doc.FileName, Cste.STR_FILE_DESC_ADDR);
+            string strTypeComm = m_IniOptionFile.GetValue(Doc.FileName, Cste.STR_FILE_DESC_COMM);
+            string strCommParam = m_IniOptionFile.GetValue(Doc.FileName, Cste.STR_FILE_DESC_ADDR);
             SelectCommInComboOrCreateTemp(strTypeComm, strCommParam);
             m_EventLog.Show();
 
@@ -270,11 +313,6 @@ namespace SmartApp
                 Frm.Show();
                 Frm.DynamicPanelEnabled = false;
                 m_FormList.Add(Frm);
-                if (m_tsCboCurConnection.Items.Count != 0)
-                {
-                    m_tsCboCurConnection.SelectedIndex = 0;
-                    SetTypeComeAndParamFromCbo();
-                }
             }
             if (m_VariableForm != null)
             {
@@ -327,8 +365,8 @@ namespace SmartApp
                 {
                     string strTypeComm = m_Document.m_Comm.CommType.ToString();
                     string strCommParam = m_Document.m_Comm.CommParam;
-                    m_IniFile.SetValue(m_Document.FileName, Cste.STR_FILE_DESC_COMM, strTypeComm);
-                    m_IniFile.SetValue(m_Document.FileName, Cste.STR_FILE_DESC_ADDR, strCommParam);
+                    m_IniOptionFile.SetValue(m_Document.FileName, Cste.STR_FILE_DESC_COMM, strTypeComm);
+                    m_IniOptionFile.SetValue(m_Document.FileName, Cste.STR_FILE_DESC_ADDR, strCommParam);
                 }
                 m_Document.TraiteMessage(MESSAGE.MESS_CMD_STOP, null, Program.TypeApp);
                 m_Document.DetachCommEventHandler(OnCommStateChange);
@@ -420,12 +458,13 @@ namespace SmartApp
         private void MDISmartCommandMain_Load(object sender, EventArgs e)
         {
             string strAppDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName);
-            m_strIniFilePath = strAppDir + @"\" + Cste.STR_OPTINI_FILENAME;
-            m_IniFile.Load(m_strIniFilePath);
+            m_strIniOptionFilePath = strAppDir + @"\" + Cste.STR_OPTINI_FILENAME;
+            m_IniOptionFile.Load(m_strIniOptionFilePath);
 
-            m_strLogFilePath = m_IniFile.GetValue(Cste.STR_FILE_DESC_HEADER_OPT, Cste.STR_FILE_DESC_LOGDIR);
-            string strSaveFileComm = m_IniFile.GetValue(Cste.STR_FILE_DESC_HEADER_OPT, Cste.STR_FILE_DESC_SAVE_PREF_COMM);
+            m_strLogFilePath = m_IniOptionFile.GetValue(Cste.STR_FILE_DESC_HEADER_OPT, Cste.STR_FILE_DESC_LOGDIR);
+            string strSaveFileComm = m_IniOptionFile.GetValue(Cste.STR_FILE_DESC_HEADER_OPT, Cste.STR_FILE_DESC_SAVE_PREF_COMM);
             bool.TryParse(strSaveFileComm, out m_bSaveFileComm);
+
         }
 
         //*****************************************************************************************************
@@ -434,9 +473,9 @@ namespace SmartApp
         //*****************************************************************************************************      
         private void MDISmartCommandMain_FormClosed(object sender, FormClosedEventArgs e)
         {
-            m_IniFile.SetValue(Cste.STR_FILE_DESC_HEADER_OPT, Cste.STR_FILE_DESC_LOGDIR, m_strLogFilePath);
-            m_IniFile.SetValue(Cste.STR_FILE_DESC_HEADER_OPT, Cste.STR_FILE_DESC_SAVE_PREF_COMM, m_bSaveFileComm.ToString());
-            m_IniFile.Save(m_strIniFilePath);
+            m_IniOptionFile.SetValue(Cste.STR_FILE_DESC_HEADER_OPT, Cste.STR_FILE_DESC_LOGDIR, m_strLogFilePath);
+            m_IniOptionFile.SetValue(Cste.STR_FILE_DESC_HEADER_OPT, Cste.STR_FILE_DESC_SAVE_PREF_COMM, m_bSaveFileComm.ToString());
+            m_IniOptionFile.Save(m_strIniOptionFilePath);
         }
 
         //*****************************************************************************************************
@@ -581,6 +620,11 @@ namespace SmartApp
         protected void AddLogEvent(LogEvent Event)
         {
             m_EventLog.AddLogEvent(Event);
+        }
+
+        private void MDISmartCommandMain_Shown(object sender, EventArgs e)
+        {
+            TryAutoOpenDoc();
         }
 
     }
