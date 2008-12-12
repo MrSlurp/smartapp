@@ -405,12 +405,15 @@ namespace SmartApp.Ihm
                 {
                     Point prCurInListView = m_ListViewFrameData.PointToClient(new Point(e.X, e.Y));
                     ListViewItem lviAtCursor = m_ListViewFrameData.GetItemAt(prCurInListView.X, prCurInListView.Y);
-                    m_ListViewFrameData.Items.Remove(LvFoundItem);
-                    if (lviAtCursor != null)
-                        m_ListViewFrameData.Items.Insert(lviAtCursor.Index, LvFoundItem);
-                    else
-                        m_ListViewFrameData.Items.Add(LvFoundItem);
-                    m_Document.Modified = true;
+                    if (lviAtCursor != LvFoundItem)
+                    {
+                        m_ListViewFrameData.Items.Remove(LvFoundItem);
+                        if (lviAtCursor != null)
+                            m_ListViewFrameData.Items.Insert(lviAtCursor.Index, LvFoundItem);
+                        else
+                            m_ListViewFrameData.Items.Add(LvFoundItem);
+                        m_Document.Modified = true;
+                    }
                     UpdateListView();
                 }
                 else
@@ -471,7 +474,7 @@ namespace SmartApp.Ihm
 
         #endregion
 
-
+        #region Update divers
         //*****************************************************************************************************
         // Description:
         // Return: /
@@ -506,5 +509,6 @@ namespace SmartApp.Ihm
         {
             InitListViewFrameData();
         }
+        #endregion
     }
 }

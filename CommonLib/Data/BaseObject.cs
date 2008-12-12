@@ -188,13 +188,18 @@ namespace CommonLib
                         || ((MessAskDelete)obj).TypeOfItem == typeof(Function)
                         || ((MessAskDelete)obj).TypeOfItem == typeof(Logger)
                         || ((MessAskDelete)obj).TypeOfItem == typeof(BTTimer)
+                        || ((MessAskDelete)obj).TypeOfItem == typeof(Data)
                         )
                     {
                         MessAskDelete MessParam = (MessAskDelete)obj;
                         for (int i = 0; i < Script.Count; i++)
                         {
-                            string stritem = ScriptParser.GetLineToken(Script[i], ScriptParser.INDEX_TOKEN_SYMBOL);
-                            if (stritem == MessParam.WantDeletetItemSymbol)
+                            string stritem = "";
+                            stritem = ScriptParser.GetLineToken(Script[i], ScriptParser.INDEX_TOKEN_SYMBOL);
+
+                            if (stritem == MessParam.WantDeletetItemSymbol 
+                                || (((MessAskDelete)obj).TypeOfItem == typeof(Data) && Script[i].Contains(MessParam.WantDeletetItemSymbol))
+                                )
                             {
                                 Type tp = Sender.GetType();
                                 string strMess = "";
@@ -229,10 +234,21 @@ namespace CommonLib
                         )
                     {
                         MessDeleted MessParam = (MessDeleted)obj;
-                        for (int i = 0; i < Script.Count; i++)
+                        for (int i = Script.Count-1; i >=0 ; i--)
                         {
                             string stritem = ScriptParser.GetLineToken(Script[i], ScriptParser.INDEX_TOKEN_SYMBOL);
                             if (stritem == MessParam.DeletetedItemSymbol)
+                            {
+                                Script.RemoveAt(i);
+                            }
+                        }
+                    }
+                    else if (((MessDeleted)obj).TypeOfItem == typeof(Data))
+                    {
+                        MessDeleted MessParam = (MessDeleted)obj;
+                        for (int i = Script.Count - 1; i >= 0; i--)
+                        {
+                            if (Script[i].Contains(MessParam.DeletetedItemSymbol))
                             {
                                 Script.RemoveAt(i);
                             }
@@ -251,6 +267,17 @@ namespace CommonLib
                         {
                             string stritem = ScriptParser.GetLineToken(Script[i], ScriptParser.INDEX_TOKEN_SYMBOL);
                             if (stritem == MessParam.OldItemSymbol)
+                            {
+                                Script[i] = Script[i].Replace(MessParam.OldItemSymbol, MessParam.NewItemSymbol);
+                            }
+                        }
+                    }
+                    else if (((MessDeleted)obj).TypeOfItem == typeof(Data))
+                    {
+                        MessItemRenamed MessParam = (MessItemRenamed)obj;
+                        for (int i = 0; i < Script.Count; i++)
+                        {
+                            if (Script[i].Contains(MessParam.OldItemSymbol))
                             {
                                 Script[i] = Script[i].Replace(MessParam.OldItemSymbol, MessParam.NewItemSymbol);
                             }

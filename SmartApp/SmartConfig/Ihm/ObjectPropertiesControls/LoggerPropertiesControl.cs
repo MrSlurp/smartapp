@@ -520,11 +520,14 @@ namespace SmartApp.Ihm
                 {
                     Point prCurInListView = m_ListViewData.PointToClient(new Point(e.X, e.Y));
                     ListViewItem lviAtCursor = m_ListViewData.GetItemAt(prCurInListView.X, prCurInListView.Y);
-                    m_ListViewData.Items.Remove(LvFoundItem);
-                    if (lviAtCursor != null)
-                        m_ListViewData.Items.Insert(lviAtCursor.Index, LvFoundItem);
-                    else
-                        m_ListViewData.Items.Add(LvFoundItem);
+                    if (lviAtCursor != LvFoundItem)
+                    {
+                        m_ListViewData.Items.Remove(LvFoundItem);
+                        if (lviAtCursor != null)
+                            m_ListViewData.Items.Insert(lviAtCursor.Index, LvFoundItem);
+                        else
+                            m_ListViewData.Items.Add(LvFoundItem);
+                    }
                 }
                 else
                 {
