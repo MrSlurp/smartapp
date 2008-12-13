@@ -19,10 +19,12 @@ namespace CommonLib
         public event ControlPropertiesChange ControlPropertiesChanged;
         #endregion
 
+        #region constructeur
         public TwoColorProperties()
         {
             InitializeComponent();
         }
+        #endregion
 
         #region attribut d'accès aux valeurs de la page de propriété
         //*****************************************************************************************************
@@ -118,7 +120,7 @@ namespace CommonLib
         }
         #endregion
 
-
+        #region méthodes privées
         private void m_BtnSelectActiveColor_Click(object sender, EventArgs e)
         {
             m_clrDlg.Color = ((TwoColorProp)m_Control.SpecificProp).ColorActive;
@@ -138,5 +140,6 @@ namespace CommonLib
                 m_TextInactiveColor.BackColor = m_clrDlg.Color;
             }
         }
+        #endregion
     }
 }

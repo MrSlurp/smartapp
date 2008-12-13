@@ -11,6 +11,7 @@ namespace CommonLib
     /// </summary>
     public abstract class SpecificControlProp
     {
+        #region méthodes abstraites de la classe
         /// <summary>
         /// fonction de lecture des propriété spécifiques
         /// </summary>
@@ -31,6 +32,7 @@ namespace CommonLib
         /// </summary>
         /// <param name="SrcSpecificProp">paramètres sources</param>
         public abstract void CopyParametersFrom(SpecificControlProp SrcSpecificProp);
+        #endregion
     }
 
     /// <summary>
@@ -38,9 +40,12 @@ namespace CommonLib
     /// </summary>
     public class TwoColorProp : SpecificControlProp
     {
+        #region données membres de la classe
         private Color m_ColorInactive = Color.Black;
         private Color m_ColorActive = Color.Blue;
+        #endregion
 
+        #region attributs
         /// <summary>
         /// accesseur vers la couleur à l'état inactif
         /// </summary>
@@ -70,7 +75,9 @@ namespace CommonLib
                 m_ColorActive = value;
             }
         }
+        #endregion
 
+        #region Read In / Write Out
         /// <summary>
         /// fonction de lecture des propriété spécifiques
         /// </summary>
@@ -113,12 +120,18 @@ namespace CommonLib
             Node.Attributes.Append(AttrInactColor);
             return true;
         }
+        #endregion
 
+        #region copie des paramètres
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="SrcSpecificProp"></param>
         public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp)
         {
             ColorInactive = ((TwoColorProp)SrcSpecificProp).ColorInactive;
             ColorActive = ((TwoColorProp)SrcSpecificProp).ColorActive;
         }
-
+        #endregion
     }
 }

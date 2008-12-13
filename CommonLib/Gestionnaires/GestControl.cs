@@ -33,8 +33,11 @@ namespace CommonLib
             }
             return "";
         }
-        #endregion
 
+        //*****************************************************************************************************
+        // Description: 
+        // Return: /
+        //*****************************************************************************************************
         public void BringControlToTop(BTControl ctrl)
         {
             if (m_ListObject.Contains((BaseObject)ctrl))
@@ -43,5 +46,6 @@ namespace CommonLib
                 m_ListObject.Insert(m_ListObject.Count, ctrl);
             }
         }
+        #endregion
     }
 }

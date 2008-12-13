@@ -28,6 +28,7 @@ namespace CommonLib
         }
         #endregion
 
+        #region fonctions utilitaires
         //*****************************************************************************************************
         // Description: renvoie le prochain symbol par défaut pour une donnée
         // Return: /
@@ -44,6 +45,7 @@ namespace CommonLib
             }
             return "";
         }
+        #endregion
 
         #region ReadIn / WriteOut
         //*****************************************************************************************************

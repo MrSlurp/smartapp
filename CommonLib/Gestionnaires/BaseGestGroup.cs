@@ -178,9 +178,6 @@ namespace CommonLib
         }
         #endregion
           
-          //\\
-         //!!\\ Incohérence a régler ou a expliquer entre le read in et le write out
-        //||||\\
         #region ReadIn / WriteOut
         //*****************************************************************************************************
         // Description: Lit les données de l'objet a partir de son noeud XML
@@ -191,6 +188,10 @@ namespace CommonLib
             return ReadGestGroup(Node, TypeApp);
         }
 
+        //*****************************************************************************************************
+        // Description: 
+        // Return: /
+        //*****************************************************************************************************
         protected bool ReadGestGroup(XmlNode Node, TYPE_APP TypeApp)
         {
             XmlNode NodeSectionGroup = null;

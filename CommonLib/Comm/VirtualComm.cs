@@ -4,20 +4,27 @@ using System.Text;
 
 namespace CommonLib
 {
+    /// <summary>
+    /// classe virtuelle de communication qui permet de tester sans vraiment se connecter
+    /// </summary>
     public class VirtualComm : BaseComm
     {
-        // classe virtuelle de comminucation qui permet de tester sans vraiment se connecter
+        #region données membres
         bool m_bIsCommOpenned = false;
+        #endregion
 
         #region Events
         public event CommOpenedStateChange OnCommStateChange;
         #endregion
 
+        #region cosntructeur
         public VirtualComm()
         {
             m_bDataAvailable = true;
         }
+        #endregion
 
+        #region méthodes publiques
         public override bool SendData(Byte[] buffer)
         {
             // ne doit pas être utilisé
@@ -48,8 +55,9 @@ namespace CommonLib
         public Byte[] GetRecievedData(int ConvertedSize, Trame TrameToReturn)
         {
             Byte[] retFrame = TrameToReturn.CreateTrameToSend(true);
-            if (ConvertedSize != retFrame.Length)
+            if (retFrame != null && ConvertedSize != retFrame.Length)
                 System.Diagnostics.Debug.Assert(false);
+
             return retFrame;
         }
 
@@ -96,6 +104,6 @@ namespace CommonLib
         {
             return m_bIsCommOpenned;
         }
-
+        #endregion
     }
 }

@@ -36,6 +36,7 @@ namespace CommonLib
     }
     #endregion
 
+    #region enum des types de comm
     public enum TYPE_COMM
     {
         // communication de type liaison série ou bluetooth
@@ -47,6 +48,7 @@ namespace CommonLib
         // connexion virtuel pour test des fichiers de configuration
         VIRTUAL,
     }
+    #endregion
 
     //*****************************************************************************************************
     // Description: classe gérant la communication au travers de différents protocoles
@@ -74,6 +76,7 @@ namespace CommonLib
         public event AddLogEventDelegate EventAddLogEvent;
         #endregion
 
+        #region constructeur
         //*****************************************************************************************************
         // Description: constructeur de la classe
         // Return: /
@@ -93,7 +96,9 @@ namespace CommonLib
             m_TimerRecieveTimeout.Interval = 5000;
             m_TimerRecieveTimeout.Tick += new EventHandler(this.OnRecieveTimeOut);
         }
+        #endregion
 
+        #region attributs
         //*****************************************************************************************************
         // Description: attribut en lecture seule renvoyant les paramètres de comm (adresse)
         // Return: /
@@ -118,6 +123,32 @@ namespace CommonLib
             }
         }
 
+        //*****************************************************************************************************
+        // Description: permet de connaitre l'état actuel de la comm
+        // Return: /
+        //*****************************************************************************************************
+        public bool IsOpen
+        {
+            get
+            {
+                return m_Comm.IsOpen();
+            }
+        }
+
+        //*****************************************************************************************************
+        // Description: renvoie le code d'erreur courant
+        // Return: /
+        //*****************************************************************************************************
+        public COMM_ERROR ErrorCode
+        {
+            get
+            {
+                return m_Comm.ErrorCode;
+            }
+        }
+        #endregion
+
+        #region methodes publiques
         //*****************************************************************************************************
         // Description: permet de définir le type de comm avec ses paramètres
         // initialise la comm en fontion du type et des paramètres
@@ -222,6 +253,11 @@ namespace CommonLib
                 return false;
         }
 
+        //*****************************************************************************************************
+        // Description: Envoie les données du buffer sur le port de comm courant 
+        // version spéciale communication virtuelle
+        // Return: /
+        //*****************************************************************************************************
         public bool SendData(Trame TrameToSend, GestData DataGest, GestDataVirtual VirtualDataGest)
         {
             if (m_Comm.GetType() == typeof(VirtualComm))
@@ -254,18 +290,6 @@ namespace CommonLib
         }
 
         //*****************************************************************************************************
-        // Description: permet de connaitre l'état actuel de la comm
-        // Return: /
-        //*****************************************************************************************************
-        public bool IsOpen
-        {
-            get
-            {
-                return m_Comm.IsOpen();
-            }
-        }
-
-        //*****************************************************************************************************
         // Description: obtiens les données reçues sur le port comm
         // Return: /
         //*****************************************************************************************************
@@ -275,6 +299,11 @@ namespace CommonLib
             return buffer;
         }
 
+        //*****************************************************************************************************
+        // Description: obtiens les données reçues sur le port comm
+        // version spéciale communication virtuelle
+        // Return: /
+        //*****************************************************************************************************
         public Byte[] GetRecievedData(int ConvertedSize, Trame TrameToReturn)
         {
             Byte[] buffer = null;
@@ -283,19 +312,9 @@ namespace CommonLib
 
             return buffer;
         }
+        #endregion
 
-        //*****************************************************************************************************
-        // Description: renvoie le code d'erreur courant
-        // Return: /
-        //*****************************************************************************************************
-        public COMM_ERROR ErrorCode
-        {
-            get
-            {
-                return m_Comm.ErrorCode;
-            }
-        }
-
+        #region méthodes privées et protégées
         //*****************************************************************************************************
         // Description: callback appelé par le timer de timeout
         // Return: /
@@ -318,6 +337,10 @@ namespace CommonLib
             }
         }
 
+        //*****************************************************************************************************
+        // Description:
+        // Return: /
+        //*****************************************************************************************************
         protected void AddLogEvent(LogEvent Event)
         {
             if (EventAddLogEvent != null)
@@ -325,5 +348,6 @@ namespace CommonLib
                 EventAddLogEvent(Event);
             }
         }
+        #endregion
     }
 }

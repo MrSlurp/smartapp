@@ -179,6 +179,7 @@ namespace CommonLib
         }
         #endregion
 
+        #region Méthode de tratement des messages pour les objets scrptables
         protected void ScriptTraiteMessage(BaseObject Sender, MESSAGE Mess, StringCollection Script, object obj)
         {
             switch (Mess)
@@ -288,13 +289,16 @@ namespace CommonLib
                     break;
             }
         }
+        #endregion
 
-        public void AddLogEvent(LogEvent Event)
+        #region méthodes divers
+        private void AddLogEvent(LogEvent Event)
         {
             if (EventAddLogEvent != null)
             {
                 EventAddLogEvent(Event);
             }
         }
+        #endregion
     }
 }

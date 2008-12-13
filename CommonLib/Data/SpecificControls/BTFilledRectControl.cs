@@ -8,9 +8,15 @@ namespace CommonLib
 {
     public class BTFilledRectControl : BTControl
     {
-
+        #region données membres
         protected SpecificControlProp m_SpecificProp = null;
+        #endregion
 
+        #region constructeurs
+        //*****************************************************************************************************
+        // Description: 
+        // Return: /
+        //*****************************************************************************************************
         public BTFilledRectControl()
         {
             m_IControl = new TwoColorFilledRect();
@@ -20,6 +26,10 @@ namespace CommonLib
             m_SpecificProp = new TwoColorProp();
         }
 
+        //*****************************************************************************************************
+        // Description: 
+        // Return: /
+        //*****************************************************************************************************
         public BTFilledRectControl(InteractiveControl Ctrl)
         {
             m_IControl = Ctrl;
@@ -28,6 +38,13 @@ namespace CommonLib
 
             m_SpecificProp = new TwoColorProp();
         }
+        #endregion
+
+        #region attributs
+        //*****************************************************************************************************
+        // Description: 
+        // Return: /
+        //*****************************************************************************************************
         public override SpecificControlProp SpecificProp
         {
             get
@@ -35,6 +52,7 @@ namespace CommonLib
                 return m_SpecificProp;
             }
         }
+        #endregion
 
         #region ReadIn / WriteOut
         //*****************************************************************************************************
@@ -79,6 +97,5 @@ namespace CommonLib
             return true;
         }
         #endregion
-
     }
 }

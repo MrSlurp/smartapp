@@ -90,58 +90,7 @@ namespace SmartApp
         }
         #endregion
 
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        public void TryAutoOpenDoc()
-        {
-            if (!string.IsNullOrEmpty(m_strAutoOpenFileName))
-        {
-                if (File.Exists(m_strAutoOpenFileName))
-            {
-                    if (!OpenDoc(m_strAutoOpenFileName))
-                {
-                    MessageBox.Show("Error while reading file. File is corrupted", "Error");
-                    this.CloseDoc();
-                    return;
-                }
-                }
-                else
-                {
-                    MessageBox.Show(string.Format("File \"{0}\" does not exists", m_strAutoOpenFileName), "Error");
-                    return;
-                }
-                UpdateToolBarCxnItemState();
-            }
-            else // chaine vide
-                return; 
-            if (LaunchArgParser.AutoConnect)
-            {
-                if (m_Document.m_Comm.SetCommTypeAndParam(LaunchArgParser.CommType, LaunchArgParser.CommParam))
-                {
-                    SelectCommInComboOrCreateTemp(LaunchArgParser.CommType.ToString(), LaunchArgParser.CommParam);
-                    m_Document.OpenDocumentComm();
-                    TraiteCommStateVirtualDataForm();
-                    if (m_Document.m_Comm.IsOpen && LaunchArgParser.AutoStart)
-                    {
-                        m_tsBtnStartStop_Click(null, null);
-                    }
-                    else if (!m_Document.m_Comm.IsOpen && LaunchArgParser.AutoStart == false)
-                    {
-                        LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, "Failed to connect");
-                        MDISmartCommandMain.EventLogger.AddLogEvent(log);
-                    }
-                    else if (!m_Document.m_Comm.IsOpen && LaunchArgParser.AutoStart == false)
-                    {
-                        LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, "Failed to connect. Application not started");
-                        MDISmartCommandMain.EventLogger.AddLogEvent(log);
-                    }
-                }
-            }
-        }
-
+        #region Update de la toolbar
         //*****************************************************************************************************
         // Description:
         // Return: /
@@ -157,82 +106,6 @@ namespace SmartApp
                 m_tsBtnConfigComm.Enabled = true;
             else
                 m_tsBtnConfigComm.Enabled = false;
-        }
-
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        private void OpenFile(object sender, EventArgs e)
-        {
-            this.CloseDoc();
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "SmartApp File (*.saf)|*.saf";
-            openFileDialog.InitialDirectory = Application.StartupPath;
-            DialogResult dlgRes = openFileDialog.ShowDialog();
-            if (dlgRes == DialogResult.OK)
-            {
-                string strFileFullName = openFileDialog.FileName;
-                if (!OpenDoc(strFileFullName))
-                {
-                    MessageBox.Show("Error while reading file. File is corrupted", "Error");
-                    this.CloseDoc();
-                }
-            }
-        }
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        private void ExitToolsStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //Application.Exit();
-        }
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        private void ToolBarToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            toolStrip.Visible = toolBarToolStripMenuItem.Checked;
-        }
-
-        #region fonction d'ouverture sauvegarde et fermeture du document
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        private bool OpenDoc(string strFullFileName)
-        {
-            m_Document = new BTDoc(Program.TypeApp);
-            m_Document.OnCommStateChange += new CommOpenedStateChange(OnCommStateChange);
-            m_Document.EventAddLogEvent += new AddLogEventDelegate(AddLogEvent);
-            int lastindex = strFullFileName.LastIndexOf(@"\");
-            string DossierFichier = strFullFileName.Substring(0, strFullFileName.Length - (strFullFileName.Length - lastindex));
-            PathTranslator.BTDocPath = DossierFichier;
-            if (m_Document.ReadConfigDocument(strFullFileName, Program.TypeApp, Program.DllGest))
-            {
-                if (OpenDocument(m_Document))
-                {
-                    string strFileName = strFullFileName.Substring(lastindex + 1);
-                    this.Text += " - " + strFileName;
-                    m_tsBtnConnexion.Enabled = true;
-                    UpdateToolBarCxnItemState();
-                    if (m_tsCboCurConnection.Items.Count != 0 && m_tsCboCurConnection.SelectedIndex == -1)
-                    {
-                        m_tsCboCurConnection.SelectedIndex = 0;
-                    }
-                        SetTypeComeAndParamFromCbo();
-                    return true;
-                }
-                else
-                    return false;
-            }
-            else
-                return false;
         }
 
         //*****************************************************************************************************
@@ -281,6 +154,87 @@ namespace SmartApp
             }
         }
 
+        #endregion
+
+        #region Handlers du menu fichier
+        //*****************************************************************************************************
+        // Description:
+        // Return: /
+        //*****************************************************************************************************
+        private void OpenFile(object sender, EventArgs e)
+        {
+            this.CloseDoc();
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "SmartApp File (*.saf)|*.saf";
+            openFileDialog.InitialDirectory = Application.StartupPath;
+            DialogResult dlgRes = openFileDialog.ShowDialog();
+            if (dlgRes == DialogResult.OK)
+            {
+                string strFileFullName = openFileDialog.FileName;
+                if (!OpenDoc(strFileFullName))
+                {
+                    MessageBox.Show("Error while reading file. File is corrupted", "Error");
+                    this.CloseDoc();
+                }
+            }
+        }
+
+        //*****************************************************************************************************
+        // Description:
+        // Return: /
+        //*****************************************************************************************************
+        private void ExitToolsStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.CloseDoc();
+            Application.Exit();
+        }
+        #endregion
+
+        #region handlers du menu View
+        //*****************************************************************************************************
+        // Description:
+        // Return: /
+        //*****************************************************************************************************
+        private void ToolBarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            toolStrip.Visible = toolBarToolStripMenuItem.Checked;
+        }
+        #endregion
+
+        #region fonction d'ouverture sauvegarde et fermeture du document
+        //*****************************************************************************************************
+        // Description:
+        // Return: /
+        //*****************************************************************************************************
+        private bool OpenDoc(string strFullFileName)
+        {
+            m_Document = new BTDoc(Program.TypeApp);
+            m_Document.OnCommStateChange += new CommOpenedStateChange(OnCommStateChange);
+            m_Document.EventAddLogEvent += new AddLogEventDelegate(AddLogEvent);
+            int lastindex = strFullFileName.LastIndexOf(@"\");
+            string DossierFichier = strFullFileName.Substring(0, strFullFileName.Length - (strFullFileName.Length - lastindex));
+            PathTranslator.BTDocPath = DossierFichier;
+            if (m_Document.ReadConfigDocument(strFullFileName, Program.TypeApp, Program.DllGest))
+            {
+                if (OpenDocument(m_Document))
+                {
+                    string strFileName = strFullFileName.Substring(lastindex + 1);
+                    this.Text += " - " + strFileName;
+                    m_tsBtnConnexion.Enabled = true;
+                    UpdateToolBarCxnItemState();
+                    if (m_tsCboCurConnection.Items.Count != 0 && m_tsCboCurConnection.SelectedIndex == -1)
+                    {
+                        m_tsCboCurConnection.SelectedIndex = 0;
+                    }
+                    SetTypeComeAndParamFromCbo();
+                    return true;
+                }
+                else
+                    return false;
+            }
+            else
+                return false;
+        }
 
         //*****************************************************************************************************
         // Description:
@@ -289,17 +243,17 @@ namespace SmartApp
         private bool OpenDocument(BTDoc Doc)
         {
             Doc.LogFilePath = m_strLogFilePath;
+            m_EventLog.Show();
             if (!Doc.FinalizeRead(this))
             {
                 Console.WriteLine("Erreur lors du FinalizeRead()");
-                MessageBox.Show("Can't initialize run mode datas. Please contact developper", "Error");
+                MessageBox.Show("Can't initialize run mode datas. Please contact support", "Error");
                 CloseDoc();
                 return false;
             }
             string strTypeComm = m_IniOptionFile.GetValue(Doc.FileName, Cste.STR_FILE_DESC_COMM);
             string strCommParam = m_IniOptionFile.GetValue(Doc.FileName, Cste.STR_FILE_DESC_ADDR);
             SelectCommInComboOrCreateTemp(strTypeComm, strCommParam);
-            m_EventLog.Show();
 
             for (int i = 0; i < Doc.GestScreen.Count; i++)
             {
@@ -322,35 +276,11 @@ namespace SmartApp
             m_VariableForm = new VariableForm(m_Document.GestData);
             m_VariableForm.MdiParent = this;
             m_VariableForm.Show();
-            return true;
-        }
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        protected void SelectCommInComboOrCreateTemp(string strTypeComm, string strCommParam)
-        {
-            if (!string.IsNullOrEmpty(strTypeComm) && !string.IsNullOrEmpty(strCommParam))
+            if (!m_EventLog.IsEmpty)
             {
-                bool bCxnExist = false;
-                for (int i = 0; i < m_tsCboCurConnection.Items.Count; i++)
-                {
-                    string comm = m_tsCboCurConnection.Items[i].ToString();
-                    string[] TabComm = comm.Split('/');
-                    if (TabComm[1].Trim() == strTypeComm && TabComm[2].Trim() == strCommParam)
-                    {
-                        bCxnExist = true;
-                        m_tsCboCurConnection.SelectedIndex = i;
-                        break;
-                    }
-                }
-                if (!bCxnExist)
-                {
-                    int index = m_tsCboCurConnection.Items.Add("New connection /" + strTypeComm + "/" + strCommParam);
-                    m_tsCboCurConnection.SelectedIndex = index;
-                }
+                m_EventLog.BringToFront();
             }
+            return true;
         }
 
         //*****************************************************************************************************
@@ -394,51 +324,7 @@ namespace SmartApp
         }
         #endregion
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
-        private void m_tsBtnConnexion_Click(object sender, EventArgs e)
-        {
-            if (m_Document != null)
-            {
-                if (m_Document.m_Comm.IsOpen)
-                {
-                    m_Document.CloseDocumentComm();
-                    TraiteCommStateVirtualDataForm();
-                }
-                else
-                {
-                    m_Document.OpenDocumentComm();
-                    TraiteCommStateVirtualDataForm();
-                }
-            }
-        }
-
-        private void TraiteCommStateVirtualDataForm()
-        {
-            if (m_Document != null)
-            {
-                if (m_Document.m_Comm.IsOpen)
-                {
-                    if (m_Document.TypeComm == TYPE_COMM.VIRTUAL && m_VirtualDataForm == null)
-                    {
-                        m_VirtualDataForm = new VirtualDataForm(m_Document.GestDataVirtual, m_Document.GestData);
-                        m_VirtualDataForm.Show();
-                        m_VirtualDataForm.BringToFront();
-                    }
-                }
-                else
-                {
-                    if (m_VirtualDataForm != null)
-                    {
-                        m_VirtualDataForm.Hide();
-                        m_VirtualDataForm = null;
-                    }
-                }
-            }
-        }
-
+        #region Handlers d'event de la form
         //*****************************************************************************************************
         // Description:
         // Return: /
@@ -476,6 +362,38 @@ namespace SmartApp
             m_IniOptionFile.SetValue(Cste.STR_FILE_DESC_HEADER_OPT, Cste.STR_FILE_DESC_LOGDIR, m_strLogFilePath);
             m_IniOptionFile.SetValue(Cste.STR_FILE_DESC_HEADER_OPT, Cste.STR_FILE_DESC_SAVE_PREF_COMM, m_bSaveFileComm.ToString());
             m_IniOptionFile.Save(m_strIniOptionFilePath);
+        }
+
+        //*****************************************************************************************************
+        // Description:
+        // Return: /
+        //*****************************************************************************************************      
+        private void MDISmartCommandMain_Shown(object sender, EventArgs e)
+        {
+            TryAutoOpenDoc();
+        }
+        #endregion
+
+        #region Handlers de la tool bar
+        //*****************************************************************************************************
+        // Description:
+        // Return: /
+        //*****************************************************************************************************      
+        private void m_tsBtnConnexion_Click(object sender, EventArgs e)
+        {
+            if (m_Document != null)
+            {
+                if (m_Document.m_Comm.IsOpen)
+                {
+                    m_Document.CloseDocumentComm();
+                    TraiteCommStateVirtualDataForm();
+                }
+                else
+                {
+                    m_Document.OpenDocumentComm();
+                    TraiteCommStateVirtualDataForm();
+                }
+            }
         }
 
         //*****************************************************************************************************
@@ -532,6 +450,36 @@ namespace SmartApp
         {
             m_CommConfigPage.ShowDialog();
             InitCboComms();
+        }
+        #endregion
+
+        #region Gestion de la combo de connexion
+        //*****************************************************************************************************
+        // Description:
+        // Return: /
+        //*****************************************************************************************************
+        protected void SelectCommInComboOrCreateTemp(string strTypeComm, string strCommParam)
+        {
+            if (!string.IsNullOrEmpty(strTypeComm) && !string.IsNullOrEmpty(strCommParam))
+            {
+                bool bCxnExist = false;
+                for (int i = 0; i < m_tsCboCurConnection.Items.Count; i++)
+                {
+                    string comm = m_tsCboCurConnection.Items[i].ToString();
+                    string[] TabComm = comm.Split('/');
+                    if (TabComm[1].Trim() == strTypeComm && TabComm[2].Trim() == strCommParam)
+                    {
+                        bCxnExist = true;
+                        m_tsCboCurConnection.SelectedIndex = i;
+                        break;
+                    }
+                }
+                if (!bCxnExist)
+                {
+                    int index = m_tsCboCurConnection.Items.Add("New connection /" + strTypeComm + "/" + strCommParam);
+                    m_tsCboCurConnection.SelectedIndex = index;
+                }
+            }
         }
 
         //*****************************************************************************************************
@@ -595,7 +543,9 @@ namespace SmartApp
                 }
             }
         }
+        #endregion
 
+        #region handler du menu tool
         //*****************************************************************************************************
         // Description:
         // Return: /
@@ -611,21 +561,104 @@ namespace SmartApp
                 m_bSaveFileComm = optForm.SaveFileComm;
             }
         }
+        #endregion
 
+        #region handler du menu ?
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AboutForm.ShowAbout();
         }
+        #endregion
 
+        #region methodes divers
+        //*****************************************************************************************************
+        // Description:
+        // Return: /
+        //*****************************************************************************************************
+        public void TryAutoOpenDoc()
+        {
+            if (!string.IsNullOrEmpty(m_strAutoOpenFileName))
+            {
+                if (File.Exists(m_strAutoOpenFileName))
+                {
+                    if (!OpenDoc(m_strAutoOpenFileName))
+                    {
+                        MessageBox.Show("Error while reading file. File is corrupted", "Error");
+                        this.CloseDoc();
+                        return;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show(string.Format("File \"{0}\" does not exists", m_strAutoOpenFileName), "Error");
+                    return;
+                }
+                UpdateToolBarCxnItemState();
+            }
+            else // chaine vide
+                return;
+            if (LaunchArgParser.AutoConnect)
+            {
+                if (m_Document.m_Comm.SetCommTypeAndParam(LaunchArgParser.CommType, LaunchArgParser.CommParam))
+                {
+                    SelectCommInComboOrCreateTemp(LaunchArgParser.CommType.ToString(), LaunchArgParser.CommParam);
+                    m_Document.OpenDocumentComm();
+                    TraiteCommStateVirtualDataForm();
+                    if (m_Document.m_Comm.IsOpen && LaunchArgParser.AutoStart)
+                    {
+                        m_tsBtnStartStop_Click(null, null);
+                    }
+                    else if (!m_Document.m_Comm.IsOpen && LaunchArgParser.AutoStart == false)
+                    {
+                        LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, "Failed to connect");
+                        MDISmartCommandMain.EventLogger.AddLogEvent(log);
+                    }
+                    else if (!m_Document.m_Comm.IsOpen && LaunchArgParser.AutoStart == false)
+                    {
+                        LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, "Failed to connect. Application not started");
+                        MDISmartCommandMain.EventLogger.AddLogEvent(log);
+                    }
+                }
+            }
+        }
+
+        //*****************************************************************************************************
+        // Description:
+        // Return: /
+        //*****************************************************************************************************
+        private void TraiteCommStateVirtualDataForm()
+        {
+            if (m_Document != null)
+            {
+                if (m_Document.m_Comm.IsOpen)
+                {
+                    if (m_Document.TypeComm == TYPE_COMM.VIRTUAL && m_VirtualDataForm == null)
+                    {
+                        m_VirtualDataForm = new VirtualDataForm(m_Document.GestDataVirtual, m_Document.GestData);
+                        m_VirtualDataForm.Show();
+                        m_VirtualDataForm.BringToFront();
+                    }
+                }
+                else
+                {
+                    if (m_VirtualDataForm != null)
+                    {
+                        m_VirtualDataForm.Hide();
+                        m_VirtualDataForm = null;
+                    }
+                }
+            }
+        }
+
+        //*****************************************************************************************************
+        // Description:
+        // Return: /
+        //*****************************************************************************************************
         protected void AddLogEvent(LogEvent Event)
         {
             m_EventLog.AddLogEvent(Event);
         }
-
-        private void MDISmartCommandMain_Shown(object sender, EventArgs e)
-        {
-            TryAutoOpenDoc();
-        }
+        #endregion
 
     }
 }

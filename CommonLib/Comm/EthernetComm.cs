@@ -21,6 +21,7 @@ namespace CommonLib
 {
     public class EthernetComm : BaseComm
     {
+        #region données membres
         private BTTcpClient m_TcpClient;
         //private Byte[] m_DataBuffer;
         private eClientConnectionSate m_ConnectionState;
@@ -28,11 +29,13 @@ namespace CommonLib
 
         //Queue<byte[]> m_MessageQueue = new Queue<byte[]>();
         List<byte[]> m_MessageList = new List<byte[]>();
+        #endregion
 
         #region Events
         public event CommOpenedStateChange OnCommStateChange;
         #endregion
 
+        #region constructeurs
         //*****************************************************************************************************
         // Description: 
         // Return: /
@@ -48,7 +51,9 @@ namespace CommonLib
             Port = 502;
             m_ConnectionState = eClientConnectionSate.Disconnected;
         }
+        #endregion
 
+        #region attributs
         //*****************************************************************************************************
         // Description: 
         // Return: /
@@ -80,7 +85,9 @@ namespace CommonLib
                 m_TcpClient.Port = value;
             }
         }
+        #endregion
 
+        #region methodes publiques
         //*****************************************************************************************************
         // Description: 
         // Return: /
@@ -263,7 +270,9 @@ namespace CommonLib
             else
                 return false;
         }
+        #endregion
 
+        #region méthodes privées
         //*****************************************************************************************************
         // Description: 
         // Return: /
@@ -293,6 +302,7 @@ namespace CommonLib
             if (OnCommStateChange != null)
                 OnCommStateChange();
         }
+        #endregion
     }
 
 
@@ -370,6 +380,7 @@ namespace CommonLib
 
         #endregion
 
+        #region constructeurs
         //*****************************************************************************************************
         // Description: 
         // Return: /
@@ -378,7 +389,23 @@ namespace CommonLib
         {
             m_UniqueID = System.Guid.NewGuid().ToString();
         }
+        #endregion
 
+        #region attributs
+        //*****************************************************************************************************
+        // Description: 
+        // Return: /
+        //*****************************************************************************************************
+        public bool IsOpen
+        {
+            get
+            {
+                return m_bOpen;
+            }
+        }
+        #endregion
+
+        #region méthodes publiques
         //*****************************************************************************************************
         // Description: 
         // Return: /
@@ -393,18 +420,6 @@ namespace CommonLib
             th.Start();
             */
             StartClient();
-        }
-
-        //*****************************************************************************************************
-        // Description: 
-        // Return: /
-        //*****************************************************************************************************
-        public bool IsOpen
-        {
-            get
-            {
-                return m_bOpen;
-            }
         }
 
         //*****************************************************************************************************
@@ -449,6 +464,7 @@ namespace CommonLib
                 Stop();
             }
         }
+        #endregion
 
         #region LES METHODES LIEES AUX THREADS
 
@@ -549,7 +565,6 @@ namespace CommonLib
         }
 
         #endregion
-
     }
 
     #region ENUMERATIONS
@@ -588,6 +603,7 @@ namespace CommonLib
         private bool Bouclage = true;
         private bool readLock = false;
         private bool writeLock = false;
+        private Thread th = null;
 
         #endregion
 
@@ -642,13 +658,15 @@ namespace CommonLib
 
         #endregion
 
-        private Thread th = null;
+        #region constructeur
         public tcpServeur()
         {
             m_UniqueID = System.Guid.NewGuid().ToString();
             Bouclage = true;
         }
+        #endregion
 
+        #region méthodes publiques
         public void Start()
         {
             th = new Thread(new ThreadStart(StartServeur));
@@ -697,6 +715,7 @@ namespace CommonLib
                 return false;
             }
         }
+        #endregion
 
         #region LES METHODES LIEES AUC THREADS
 

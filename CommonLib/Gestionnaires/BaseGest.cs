@@ -254,6 +254,8 @@ namespace CommonLib
             }
         }
         #endregion
+
+        #region Méthodes diverses
         protected  void AddLogEvent(LogEvent Event)
         {
             if (EventAddLogEvent != null)
@@ -261,5 +263,6 @@ namespace CommonLib
                 EventAddLogEvent(Event);
             }
         }
+        #endregion
     }
 }

@@ -45,6 +45,7 @@
             this.m_colTime,
             this.m_colType,
             this.m_colMessage});
+            this.m_lvEvent.FullRowSelect = true;
             this.m_lvEvent.Location = new System.Drawing.Point(12, 42);
             this.m_lvEvent.Name = "m_lvEvent";
             this.m_lvEvent.Size = new System.Drawing.Size(664, 166);

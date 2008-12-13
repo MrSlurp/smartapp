@@ -6,6 +6,7 @@ using System.Text;
 
 namespace CommonLib
 {
+    #region enums
     public enum TOKEN_TYPE
     {
         NULL,
@@ -71,17 +72,22 @@ namespace CommonLib
         ERROR,
         WARNING
     }
+    #endregion
 
+    #region classe ScriptParserError
     //*****************************************************************************************************
     // Description:
     // Return: /
     //*****************************************************************************************************
     public class ScriptParserError
     {
+        #region données membres
         public string m_strMessage;
         public int m_line =0;
         public ErrorType m_ErrorType;
+        #endregion
 
+        #region constructeurs
         //*****************************************************************************************************
         // Description:
         // Return: /
@@ -101,7 +107,9 @@ namespace CommonLib
             m_line = line;
             m_ErrorType = Err;
         }
+        #endregion
     }
+    #endregion
 
     //*****************************************************************************************************
     // Description:
@@ -110,10 +118,13 @@ namespace CommonLib
     public class ScriptParser
     {
         public const int INDEX_TOKEN_SYMBOL = 1;
-        
+
+        #region données membres
         BTDoc m_Document = null;
         int m_iCurLine = 0;
+        #endregion
 
+        #region attributs
         //*****************************************************************************************************
         // Description:
         // Return: /
@@ -129,7 +140,9 @@ namespace CommonLib
                 m_Document = value;
             }
         }
+        #endregion
 
+        #region constructeur
         //*****************************************************************************************************
         // Description:
         // Return: /
@@ -138,7 +151,9 @@ namespace CommonLib
         {
 
         }
+        #endregion
 
+        #region fonction utilitaires
         //*****************************************************************************************************
         // Description: renvoie le type du token a la position pos (position du curseur sur la ligne)
         // Return: /
@@ -301,7 +316,9 @@ namespace CommonLib
             }
             return AutoCompleteStrings;
         }
+        #endregion
 
+        #region méthodes de parsing principales
         //*****************************************************************************************************
         // Description:
         // Return: /
@@ -409,7 +426,9 @@ namespace CommonLib
             }
             return SCR_OBJECT.INVALID;
         }
+        #endregion
 
+        #region parsing des trames
         //*****************************************************************************************************
         // Description:
         // Return: /
@@ -444,98 +463,6 @@ namespace CommonLib
         // Description:
         // Return: /
         //*****************************************************************************************************
-        protected bool ParseFunction(string line, List<ScriptParserError> ErrorList)
-        {
-            string[] strTab = line.Split('.');
-            if (strTab.Length > 1)
-            {
-                string strTemp = strTab[1];
-                int posOpenParenthese = strTemp.LastIndexOf('(');
-                if (posOpenParenthese != -1)
-                    strTemp = strTemp.Remove(posOpenParenthese);
-
-                string strFunc = strTemp;
-                strFunc = strFunc.Trim();
-                // todo Gsetionaire de timer, gestionaire de log
-
-                if (m_Document.GestFunction.GetFromSymbol(strFunc) == null)
-                {
-                    string strErr = string.Format("Invalid Function symbol {0}", strFunc);
-                    ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
-                    ErrorList.Add(Err);
-                    return false;
-                }
-
-                return true;
-            }
-            else
-            {
-                string strErr = string.Format("Invalid line, missing function symbol");
-                ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
-                ErrorList.Add(Err);
-            }
-            return false;
-
-        }
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        protected bool ParseLogger(string line, List<ScriptParserError> ErrorList)
-        {
-            string[] strTab = line.Split('.');
-            if (strTab.Length > 1)
-            {
-                string strLog = strTab[1];
-                strLog = strLog.Trim();
-                if (m_Document.GestLogger.GetFromSymbol(strLog) == null)
-                {
-                    string strErr = string.Format("Invalid Logger symbol {0}", strLog);
-                    ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
-                    ErrorList.Add(Err);
-                    return false;
-                }
-                return true;
-            }
-            else
-            {
-                string strErr = string.Format("Invalid line, missing Logger symbol");
-                ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
-                ErrorList.Add(Err);
-            }
-            return false;
-
-        }
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        protected bool ParseTimer(string line, List<ScriptParserError> ErrorList)
-        {
-            string[] strTab = line.Split('.');
-            if (strTab.Length > 1)
-            {
-                string strTimer = strTab[1];
-                strTimer = strTimer.Trim();
-                if (m_Document.GestTimer.GetFromSymbol(strTimer) == null)
-                {
-                    string strErr = string.Format("Invalid Timer symbol {0}", strTimer);
-                    ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
-                    ErrorList.Add(Err);
-                    return false;
-                }
-                return true;
-            }
-            return false;
-
-        }
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
         protected void ParseFrameFunction(string line, List<ScriptParserError> ErrorList)
         {
             string[] strTab = line.Split('.');
@@ -544,7 +471,7 @@ namespace CommonLib
                 string strTemp = strTab[2];
                 string strTempFull = strTemp;
                 int posOpenParenthese = strTemp.LastIndexOf('(');
-                if (posOpenParenthese>=0)
+                if (posOpenParenthese >= 0)
                     strTemp = strTemp.Remove(posOpenParenthese);
 
                 string strScrObject = strTemp;
@@ -599,6 +526,78 @@ namespace CommonLib
                 ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
                 ErrorList.Add(Err);
             }
+
+        }
+        #endregion
+
+        #region parsing des fonction
+        //*****************************************************************************************************
+        // Description:
+        // Return: /
+        //*****************************************************************************************************
+        protected bool ParseFunction(string line, List<ScriptParserError> ErrorList)
+        {
+            string[] strTab = line.Split('.');
+            if (strTab.Length > 1)
+            {
+                string strTemp = strTab[1];
+                int posOpenParenthese = strTemp.LastIndexOf('(');
+                if (posOpenParenthese != -1)
+                    strTemp = strTemp.Remove(posOpenParenthese);
+
+                string strFunc = strTemp;
+                strFunc = strFunc.Trim();
+                // todo Gsetionaire de timer, gestionaire de log
+
+                if (m_Document.GestFunction.GetFromSymbol(strFunc) == null)
+                {
+                    string strErr = string.Format("Invalid Function symbol {0}", strFunc);
+                    ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
+                    ErrorList.Add(Err);
+                    return false;
+                }
+
+                return true;
+            }
+            else
+            {
+                string strErr = string.Format("Invalid line, missing function symbol");
+                ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
+                ErrorList.Add(Err);
+            }
+            return false;
+
+        }
+        #endregion
+
+        #region paring des loggers
+        //*****************************************************************************************************
+        // Description:
+        // Return: /
+        //*****************************************************************************************************
+        protected bool ParseLogger(string line, List<ScriptParserError> ErrorList)
+        {
+            string[] strTab = line.Split('.');
+            if (strTab.Length > 1)
+            {
+                string strLog = strTab[1];
+                strLog = strLog.Trim();
+                if (m_Document.GestLogger.GetFromSymbol(strLog) == null)
+                {
+                    string strErr = string.Format("Invalid Logger symbol {0}", strLog);
+                    ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
+                    ErrorList.Add(Err);
+                    return false;
+                }
+                return true;
+            }
+            else
+            {
+                string strErr = string.Format("Invalid line, missing Logger symbol");
+                ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
+                ErrorList.Add(Err);
+            }
+            return false;
 
         }
 
@@ -668,6 +667,32 @@ namespace CommonLib
             }
 
         }
+        #endregion
+
+        #region parsing des timers
+        //*****************************************************************************************************
+        // Description:
+        // Return: /
+        //*****************************************************************************************************
+        protected bool ParseTimer(string line, List<ScriptParserError> ErrorList)
+        {
+            string[] strTab = line.Split('.');
+            if (strTab.Length > 1)
+            {
+                string strTimer = strTab[1];
+                strTimer = strTimer.Trim();
+                if (m_Document.GestTimer.GetFromSymbol(strTimer) == null)
+                {
+                    string strErr = string.Format("Invalid Timer symbol {0}", strTimer);
+                    ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
+                    ErrorList.Add(Err);
+                    return false;
+                }
+                return true;
+            }
+            return false;
+
+        }
 
         //*****************************************************************************************************
         // Description:
@@ -728,7 +753,13 @@ namespace CommonLib
                 ErrorList.Add(Err);
             }
         }
+        #endregion
 
+        #region parsing des maths
+        //*****************************************************************************************************
+        // Description:
+        // Return: /
+        //*****************************************************************************************************
         protected void ParseMathsFunction(string line, List<ScriptParserError> ErrorList)
         {
             string[] strTab = line.Split('.');
@@ -822,11 +853,18 @@ namespace CommonLib
                 ErrorList.Add(Err);
             }
         }
+        #endregion
 
+        #region fonction utiles
+        //*****************************************************************************************************
+        // Description:
+        // Return: /
+        //*****************************************************************************************************
         public static bool IsNumericValue(string strValue)
         {
             int value =0;
             return int.TryParse(strValue, out value);
         }
+        #endregion
     }
 }

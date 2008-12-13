@@ -43,7 +43,7 @@ namespace CommonLib
 
         #endregion
 
-        #region Fonction pour BTCommand
+        #region Fonctions pour BTCommand
         //*****************************************************************************************************
         // Description:
         // Return: /

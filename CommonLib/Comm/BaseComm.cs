@@ -14,6 +14,8 @@ using System.Text;
 namespace CommonLib
 {
     public delegate void CommOpenedStateChange();
+
+    #region enums
     public enum COMM_ERROR
     {
         ERROR_NONE = 0,
@@ -23,6 +25,11 @@ namespace CommonLib
         ERROR_SEND_DATA,
         ERROR_UNKNOWN,
     }
+    #endregion
+
+    /// <summary>
+    /// classe de base dont doivent hériter les diverses classes de communication
+    /// </summary>
     public abstract class BaseComm : Object
     {
         #region Déclaration des données de la classe
@@ -30,8 +37,11 @@ namespace CommonLib
         protected bool m_bDataAvailable;
         #endregion
 
+        #region Events
         public event AddLogEventDelegate EventAddLogEvent;
+        #endregion
 
+        #region constructeur
         /// <summary>
         /// 
         /// </summary>
@@ -40,7 +50,9 @@ namespace CommonLib
             m_bDataAvailable = false;
             m_CommErrorCode = COMM_ERROR.ERROR_NONE;
         }
+        #endregion
 
+        #region methodes abstraites
         /// <summary>
         /// 
         /// </summary>
@@ -75,6 +87,16 @@ namespace CommonLib
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="FrameLenght"></param>
+        /// <param name="FrameHeader"></param>
+        /// <returns></returns>
+        public abstract bool TestFrame(int FrameLenght, byte[] FrameHeader);
+        #endregion
+
+        #region Attributs
+        /// <summary>
+        /// 
+        /// </summary>
         public bool DataRecieved
         {
             get
@@ -97,7 +119,9 @@ namespace CommonLib
                 m_CommErrorCode = value;
             }
         }
+        #endregion
 
+        #region methodes publiques
         /// <summary>
         /// 
         /// </summary>
@@ -106,9 +130,10 @@ namespace CommonLib
             m_CommErrorCode = COMM_ERROR.ERROR_NONE;
         }
 
-        public abstract bool TestFrame(int FrameLenght , byte[] FrameHeader);
-        //public abstract void DiscardRecievedDatas();
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Event"></param>
         public void AddLogEvent(LogEvent Event)
         {
             if (EventAddLogEvent != null)
@@ -116,6 +141,7 @@ namespace CommonLib
                 EventAddLogEvent(Event);
             }
         }
+        #endregion
 
     }
 }

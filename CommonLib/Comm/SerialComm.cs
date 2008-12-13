@@ -18,12 +18,16 @@ namespace CommonLib
 {
     public class SerialComm : BaseComm
     {
+        #region données membres
         private SerialPort m_PortSerie;
         List<byte[]> m_MessageList = new List<byte[]>();
+        #endregion
 
         #region Events
         public event CommOpenedStateChange OnCommStateChange;
         #endregion
+
+        #region cosntructeurs
         /////////////////////////////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////////////////////////
         /// <summary>
@@ -50,7 +54,9 @@ namespace CommonLib
             m_bDataAvailable = false;
             m_CommErrorCode = COMM_ERROR.ERROR_NONE;
         }
+        #endregion
 
+        #region attributs
         /////////////////////////////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////////////////////////
         /// <summary>
@@ -101,7 +107,9 @@ namespace CommonLib
                 m_PortSerie.Parity = value;
             }
         }
+        #endregion
 
+        #region méthodes publiques
         /////////////////////////////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////////////////////////
         /// <summary>
@@ -305,8 +313,9 @@ namespace CommonLib
             }
             return false;
         }
+        #endregion
 
-
+        #region méthodes privées
         /////////////////////////////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////////////////////////
         /// <summary>
@@ -380,19 +389,6 @@ namespace CommonLib
                 OnCommStateChange();
 
         }
-
-        /*
-        public override void DiscardRecievedDatas()
-        {
-            try
-            {
-                m_PortSerie.DiscardInBuffer();
-            }
-            catch (Exception)
-            {
-
-            }
-        }
-        */
+        #endregion
     }
 }

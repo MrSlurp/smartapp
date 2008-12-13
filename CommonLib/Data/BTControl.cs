@@ -493,6 +493,7 @@ namespace CommonLib
 
         #endregion
 
+        #region Méthodes diverses
         public void CopyParametersFrom(BTControl SrcBtControl)
         {
             m_strAssociateData = SrcBtControl.m_strAssociateData;
@@ -502,5 +503,6 @@ namespace CommonLib
                 SpecificProp.CopyParametersFrom(SrcBtControl.SpecificProp);
             }
         }
+        #endregion
     }
 }

@@ -12,9 +12,21 @@ namespace SmartApp.AppEventLog
     public partial class AppEventLogForm : Form
     {
         private delegate void delegateAddLog(LogEvent ev);
+        #region donnés membres
         private int m_iMaxEventLine = 100;
-        
+        #endregion
 
+        #region attributs
+        public bool IsEmpty
+        {
+            get
+            {
+                return !(m_lvEvent.Items.Count > 0);
+            }
+        }
+        #endregion
+
+        #region constructeur
         //*****************************************************************************************************
         // Description:
         // Return: /
@@ -23,7 +35,9 @@ namespace SmartApp.AppEventLog
         {
             InitializeComponent();
         }
+        #endregion
 
+        #region methodes publiques
         //*****************************************************************************************************
         // Description:
         // Return: /
@@ -40,7 +54,13 @@ namespace SmartApp.AppEventLog
                 AddLog(ev);
             }
         }
+        #endregion
 
+        #region Methodes privées
+        //*****************************************************************************************************
+        // Description:
+        // Return: /
+        //*****************************************************************************************************
         private void AddLog(LogEvent ev)
         {
             if (m_lvEvent.Items.Count < m_iMaxEventLine)
@@ -61,7 +81,7 @@ namespace SmartApp.AppEventLog
         // Description:
         // Return: /
         //*****************************************************************************************************
-        protected void AddEventToListView(LogEvent ev)
+        private void AddEventToListView(LogEvent ev)
         {
             if (m_lvEvent.Items.Count >= m_iMaxEventLine)
             {
@@ -93,10 +113,17 @@ namespace SmartApp.AppEventLog
                 this.WindowState = FormWindowState.Minimized;
             }
         }
+        #endregion
 
+        #region Handler d'évènements des objets de la form
+        //*****************************************************************************************************
+        // Description:
+        // Return: /
+        //*****************************************************************************************************
         private void m_btnClearLog_Click(object sender, EventArgs e)
         {
             m_lvEvent.Items.Clear();
         }
+        #endregion
     }
 }

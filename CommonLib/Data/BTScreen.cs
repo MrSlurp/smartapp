@@ -41,24 +41,6 @@ namespace CommonLib
         protected ScriptExecuter m_Executer = null;
         #endregion
 
-
-        //*****************************************************************************************************
-        // Description: accesseur sur l'executer de script
-        // Return: /
-        //*****************************************************************************************************
-        public ScriptExecuter Executer
-        {
-            get
-            {
-                return m_Executer;
-            }
-            set
-            {
-                m_Executer = value;
-            }
-        }
-
-
         #region constructeur
         //*****************************************************************************************************
         // Description:
@@ -168,8 +150,22 @@ namespace CommonLib
                 m_strBackPictureFile = value;
             }
         }
-           
-        #endregion
+
+        //*****************************************************************************************************
+        // Description: accesseur sur l'executer de script
+        // Return: /
+        //*****************************************************************************************************
+        public ScriptExecuter Executer
+        {
+            get
+            {
+                return m_Executer;
+            }
+            set
+            {
+                m_Executer = value;
+            }
+        }
 
         //*****************************************************************************************************
         // Description: accesseur sur le Dynamic Panel a afficher
@@ -182,6 +178,8 @@ namespace CommonLib
                 return m_DynamicPanel;
             }
         }
+
+        #endregion
 
         #region ReadIn / WriteOut
         //*****************************************************************************************************
@@ -396,7 +394,10 @@ namespace CommonLib
                             break;
                     }
                     if (NewControl != null)
+                    {
+                        NewControl.EventAddLogEvent += new AddLogEventDelegate(this.AddLogEvent);
                         m_ListControls.Add(NewControl);
+                    }
                 }
                 else if (ChildNode.Name == XML_CF_TAG.SpecificControl.ToString())
                 {
@@ -418,7 +419,10 @@ namespace CommonLib
                             break;
                     }
                     if (NewControl != null)
+                    {
+                        NewControl.EventAddLogEvent += new AddLogEventDelegate(this.AddLogEvent);
                         m_ListControls.Add(NewControl);
+                    }
                 }
                 else if (ChildNode.Name == XML_CF_TAG.DllControl.ToString())
                 {
@@ -426,7 +430,10 @@ namespace CommonLib
                     BTControl NewControl = GestDll[DllID].CreateCommandBTControl();
                     NewControl.ReadIn(ChildNode, TYPE_APP.SMART_COMMAND);
                     if (NewControl != null)
+                    {
+                        NewControl.EventAddLogEvent += new AddLogEventDelegate(this.AddLogEvent);
                         m_ListControls.Add(NewControl);
+                    }
                 }
                 else
                 {

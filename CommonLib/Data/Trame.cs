@@ -358,6 +358,12 @@ namespace CommonLib
 
             // cette première passe permet d'initialiser le buffer contenant le header de la trame
             int Taille = GetTrameSizeInByte();
+            if (Taille == 0)
+            {
+                string strmess = string.Format("Error Frame {0} : frame size is inferior to one Byte", Symbol);
+                LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, strmess);
+                AddLogEvent(log);
+            }
             // crée le buffer
             Byte[] buffer = new Byte[Taille];
             // on initialise le buffer

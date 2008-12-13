@@ -8,8 +8,15 @@ namespace CommonLib
     public delegate void EventVirtualDataValueChange(VirtualData vData);
     public class VirtualData : Data
     {
+        #region Events
         public event EventVirtualDataValueChange VirtualDataValueChanged;
+        #endregion
 
+        #region attributs
+        /// <summary>
+        /// surchargé de la classe Data pour appeler le bon évènements
+        /// oui c'est juste pour ca
+        /// </summary>
         public override int Value
         {
             get
@@ -53,7 +60,9 @@ namespace CommonLib
                     VirtualDataValueChanged(this);
             }
         }
+        #endregion
 
+        #region méthodes publiques
         public bool TestValue(int Value)
         {
             // ...ou la saturation en cas de dépassement des bornes
@@ -67,10 +76,12 @@ namespace CommonLib
             }
             return true;
         }
+        #endregion
 
+        #region Read In / Write Out
         public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
         {
-            // il est interdit de faire une écriture complète des paramètres pour un
+            // il est interdit de faire une écriture complète des paramètres pour une données virtuelle
             return false;
         }
 
@@ -94,6 +105,7 @@ namespace CommonLib
             Node.Attributes.Append(AttrDefVal);
             return true;
         }
+        #endregion
 
     }
 }

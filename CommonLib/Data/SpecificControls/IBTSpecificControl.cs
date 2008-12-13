@@ -11,6 +11,7 @@ namespace CommonLib
     /// </summary>
     public static class SpecificControlParser
     {
+        #region méthodes pour les constroles spécifiques
         /// <summary>
         /// détermine et crée un BTControle spécifique en fonction de l'attribut du fichier XML
         /// </summary>
@@ -71,7 +72,9 @@ namespace CommonLib
 
             return TypeId;
         }
+        #endregion
 
+        #region méthodes pour les controls DLLs
         /// <summary>
         /// détermine l'identifiant DLL de l'objet DLL control en fonction de l'attribut du fichier XML
         /// </summary>
@@ -85,5 +88,6 @@ namespace CommonLib
             else
                 return 0;
         }
+        #endregion
     }
 }

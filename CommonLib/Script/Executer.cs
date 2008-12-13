@@ -8,39 +8,41 @@ namespace CommonLib
     public class ScriptExecuter
     {
         private delegate void ScriptAddedToExecute();
+
+        #region données membres
         BTDoc m_Document = null;
         static bool m_bIsWaiting = false;
         static int nbinstanceexecuter = 0;
         Queue<StringCollection> m_PileScriptsToExecute = new Queue<StringCollection>();
+        #endregion
 
+        #region events
         private event ScriptAddedToExecute EvScriptToExecute;
         public event AddLogEventDelegate EventAddLogEvent;
+        #endregion
 
+        #region cosntructeur / destructeur
+        //*****************************************************************************************************
+        // Description:
+        // Return: /
+        //*****************************************************************************************************
         public ScriptExecuter()
         {
             EvScriptToExecute += new ScriptAddedToExecute(ScriptExecuter_EvScriptToExecute);
             nbinstanceexecuter++;
         }
 
-         ~ScriptExecuter()
+        //*****************************************************************************************************
+        // Description:
+        // Return: /
+        //*****************************************************************************************************
+        ~ScriptExecuter()
         {
             nbinstanceexecuter--;
         }
+        #endregion
 
-        void ScriptExecuter_EvScriptToExecute()
-        {
-            while (m_PileScriptsToExecute.Count != 0)
-            {
-                // on prend le script sans l'enlever afin de savoir qu'il n'est pas encore executé
-                StringCollection Script = m_PileScriptsToExecute.Peek();
-                if (m_bIsWaiting)
-                    System.Diagnostics.Debug.Assert(false, "appel en trop");
-
-                InternalExecuteScript(Script);
-                // il est éxécuté, on l'enlève de la liste.
-                m_PileScriptsToExecute.Dequeue();
-            }
-        }
+        #region attributs
         //*****************************************************************************************************
         // Description:
         // Return: /
@@ -56,6 +58,28 @@ namespace CommonLib
                 m_Document = value;
             }
         }
+        #endregion
+
+        #region boucle d'execution
+        //*****************************************************************************************************
+        // Description:
+        // Return: /
+        //*****************************************************************************************************
+        void ScriptExecuter_EvScriptToExecute()
+        {
+            while (m_PileScriptsToExecute.Count != 0)
+            {
+                // on prend le script sans l'enlever afin de savoir qu'il n'est pas encore executé
+                StringCollection Script = m_PileScriptsToExecute.Peek();
+                if (m_bIsWaiting)
+                    System.Diagnostics.Debug.Assert(false, "appel en trop");
+
+                InternalExecuteScript(Script);
+                // il est éxécuté, on l'enlève de la liste.
+                m_PileScriptsToExecute.Dequeue();
+            }
+        }
+        #endregion
 
         #region Fonction d'execution des scripts
         public void ExecuteScript(string[] ScriptLines)
@@ -511,7 +535,7 @@ namespace CommonLib
 
         #endregion
 
-        #region execution des Loggers
+        #region execution des fonction mathématiques
         //*****************************************************************************************************
         // Description:
         // Return: /
@@ -657,6 +681,7 @@ namespace CommonLib
 
         #endregion
 
+        #region fonction diverses
         public void AddLogEvent(LogEvent Event)
         {
             if (EventAddLogEvent != null)
@@ -664,8 +689,6 @@ namespace CommonLib
                 EventAddLogEvent(Event);
             }
         }
-
-
-
+        #endregion
     }
 }
