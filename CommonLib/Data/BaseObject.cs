@@ -292,7 +292,7 @@ namespace CommonLib
         #endregion
 
         #region méthodes divers
-        private void AddLogEvent(LogEvent Event)
+        protected void AddLogEvent(LogEvent Event)
         {
             if (EventAddLogEvent != null)
             {
