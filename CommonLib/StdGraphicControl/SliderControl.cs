@@ -55,9 +55,9 @@ namespace CommonLib
 
                     ((TrackBar)m_Ctrl).TickFrequency = TickFreq;
                     ((TrackBar)m_Ctrl).LargeChange = TickFreq;
-//                    ((TrackBar)m_Ctrl).BackColor = Color.Transparent;
                 }
                 ((TrackBar)m_Ctrl).ValueChanged += new System.EventHandler(this.OnControlEvent);
+                UpdateFromData();
             }
         }
 

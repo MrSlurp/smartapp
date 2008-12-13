@@ -76,7 +76,7 @@ namespace FourBitmap
                     LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format("Control {0} Failed to load file {1}", Symbol, strImageFullPath));
                     AddLogEvent(log);
                 }
-
+                UpdateFromData();
             }
         }
 

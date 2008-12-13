@@ -38,6 +38,7 @@ namespace GradientBaloon
                     ((GradientBaloonDispCtrl)m_Ctrl).MinVal = m_AssociateData.Minimum;
                     ((GradientBaloonDispCtrl)m_Ctrl).MaxVal = m_AssociateData.Maximum;
                 }
+                UpdateFromData();
             }
         }
 
@@ -55,7 +56,6 @@ namespace GradientBaloon
         {
             if (m_AssociateData != null && m_Ctrl != null)
             {
-                // effectuez ici le traitement à executer lorsque la valeur change
                 ((GradientBaloonDispCtrl)m_Ctrl).Value = m_AssociateData.Value;
             }
         }

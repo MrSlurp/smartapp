@@ -35,6 +35,7 @@ namespace CtrlSerpentin
                 ((Serpentin)m_Ctrl).ColorActive = ((TwoColorProp)SpecificProp).ColorActive;
                 ((Serpentin)m_Ctrl).ColorInactive = ((TwoColorProp)SpecificProp).ColorInactive;
                 ((Serpentin)m_Ctrl).InitSerpentinDraw();
+                UpdateFromData();
             }
         }
 
@@ -55,8 +56,6 @@ namespace CtrlSerpentin
                     ((Serpentin)m_Ctrl).IsActive = true;
                 else
                     ((Serpentin)m_Ctrl).IsActive = false;
-
-                m_Ctrl.Refresh();
             }
         }
     }
@@ -83,6 +82,7 @@ namespace CtrlSerpentin
             set
             {
                 m_bIsActive = value;
+                Refresh();
             }
         }
 

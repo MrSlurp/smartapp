@@ -32,6 +32,7 @@ namespace FormatedDisplay
                 m_Ctrl.Name = m_strSymbol;
                 m_Ctrl.Size = m_RectControl.Size;
                 ((FormatedDisplayDispCtrl)m_Ctrl).FormatString = ((DllFormatedDisplayProp)this.m_SpecificProp).FormatString;
+                UpdateFromData();
             }
         }
 

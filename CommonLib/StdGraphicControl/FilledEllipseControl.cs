@@ -32,6 +32,7 @@ namespace CommonLib
                 m_Ctrl.BackColor = Color.Transparent;
                 ((FilledEllipse)m_Ctrl).ColorActive = ((TwoColorProp)SpecificProp).ColorActive;
                 ((FilledEllipse)m_Ctrl).ColorInactive = ((TwoColorProp)SpecificProp).ColorInactive;
+                UpdateFromData();
             }
         }
 
@@ -52,8 +53,6 @@ namespace CommonLib
                     ((FilledEllipse)m_Ctrl).IsActive = true;
                 else
                     ((FilledEllipse)m_Ctrl).IsActive = false;
-
-                m_Ctrl.Refresh();
             }
         }
     }
@@ -78,6 +77,7 @@ namespace CommonLib
             set
             {
                 m_bIsActive = value;
+                Refresh();
             }
         }
 

@@ -71,6 +71,7 @@ namespace DigitalDisplay
                             break;
                     }
                     m_TextColor.BackColor = CtrlProp.DigitColor;
+                    m_TextBackColor.BackColor = CtrlProp.BackColor;
                 }
                 else
                 {
@@ -80,6 +81,7 @@ namespace DigitalDisplay
                     m_rdBtn2.Checked = false;
                     m_rdBtn3.Checked = false;
                     m_TextColor.BackColor = Color.GreenYellow;
+                    m_TextBackColor.BackColor = Color.Black;
                 }
             }
         }
@@ -138,11 +140,14 @@ namespace DigitalDisplay
                 bDataPropChange = true;
             if (m_TextColor.BackColor != CtrlProp.DigitColor)
                 bDataPropChange = true;
+            if (m_TextBackColor.BackColor != CtrlProp.BackColor)
+                bDataPropChange = true;
 
             if (bDataPropChange)
             {
                 ((DllDigitalDisplayProp)m_Control.SpecificProp).FormatString = m_FormatString;
                 ((DllDigitalDisplayProp)m_Control.SpecificProp).DigitColor = m_TextColor.BackColor;
+                ((DllDigitalDisplayProp)m_Control.SpecificProp).BackColor = m_TextBackColor.BackColor;
                 Doc.Modified = true;
                 m_Control.IControl.Refresh();
             }
@@ -161,6 +166,17 @@ namespace DigitalDisplay
                 m_TextColor.BackColor = m_clrDlg.Color;
             }
         }
+
+        private void m_BtnSelectBackColor_Click(object sender, EventArgs e)
+        {
+            m_clrDlg.Color = m_TextBackColor.BackColor;
+            DialogResult DlgRes = m_clrDlg.ShowDialog();
+            if (DlgRes == DialogResult.OK)
+            {
+                m_TextBackColor.BackColor = m_clrDlg.Color;
+            }
+        }
+
 
         private void m_rdBtn_CheckedChanged(object sender, EventArgs e)
         {
@@ -181,6 +197,5 @@ namespace DigitalDisplay
                 m_FormatString = ":F3";
             }
         }
-
     }
 }

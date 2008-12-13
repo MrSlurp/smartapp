@@ -14,9 +14,11 @@ namespace DigitalDisplay
     {
         private string m_FormatString = ":F0";
         Color m_DigitColor = Color.GreenYellow;
+        Color m_BackColor = Color.Black;
 
         private const string NOM_ATTRIB_FORMAT = "Format";
         private const string NOM_ATTRIB_COLOR = "DigitColor";
+        private const string NOM_ATTRIB_BACKCOLOR = "DigitBackColor";
 
         public Color DigitColor
         {
@@ -26,6 +28,13 @@ namespace DigitalDisplay
             { m_DigitColor = value; }
         }
 
+        public Color BackColor
+        {
+            get
+            { return m_BackColor; }
+            set
+            { m_BackColor = value; }
+        }
 
         public string FormatString
         {
@@ -39,7 +48,8 @@ namespace DigitalDisplay
         {
             XmlNode AttrFormat = Node.Attributes.GetNamedItem(NOM_ATTRIB_FORMAT);
             XmlNode AttrColor = Node.Attributes.GetNamedItem(NOM_ATTRIB_COLOR);
-            if (AttrFormat == null || AttrColor == null)
+            XmlNode AttrBackColor = Node.Attributes.GetNamedItem(NOM_ATTRIB_BACKCOLOR);
+            if (AttrFormat == null || AttrColor == null || AttrBackColor == null)
                 return false;
             FormatString = AttrFormat.Value;
 
@@ -49,6 +59,12 @@ namespace DigitalDisplay
             int b = int.Parse(rgbVal[2]);
             this.DigitColor = Color.FromArgb(r, g, b);
 
+            string[] rgbValBack = AttrBackColor.Value.Split(',');
+            int r2 = int.Parse(rgbValBack[0]);
+            int g2 = int.Parse(rgbValBack[1]);
+            int b2 = int.Parse(rgbValBack[2]);
+            this.BackColor = Color.FromArgb(r2, g2, b2);
+
             return true;
         }
 
@@ -56,10 +72,13 @@ namespace DigitalDisplay
         {
             XmlAttribute AttrFormat = XmlDoc.CreateAttribute(NOM_ATTRIB_FORMAT);
             XmlAttribute AttrColor = XmlDoc.CreateAttribute(NOM_ATTRIB_COLOR);
+            XmlAttribute AttrColorBack = XmlDoc.CreateAttribute(NOM_ATTRIB_BACKCOLOR);
             AttrFormat.Value = FormatString;
             AttrColor.Value = string.Format("{0}, {1}, {2}", DigitColor.R, DigitColor.G, DigitColor.B);
+            AttrColorBack.Value = string.Format("{0}, {1}, {2}", BackColor.R, BackColor.G, BackColor.B);
 
             Node.Attributes.Append(AttrColor);
+            Node.Attributes.Append(AttrColorBack);
             Node.Attributes.Append(AttrFormat);
             return true;
         }
@@ -68,6 +87,7 @@ namespace DigitalDisplay
         {
             FormatString = ((DllDigitalDisplayProp)SrcSpecificProp).FormatString;
             DigitColor = ((DllDigitalDisplayProp)SrcSpecificProp).DigitColor;
+            BackColor = ((DllDigitalDisplayProp)SrcSpecificProp).BackColor;
         }
     }
 }

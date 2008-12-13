@@ -41,6 +41,7 @@ namespace CtrlJauge
                     ((CtrlJaugeDispCtrl)m_Ctrl).ColorMin = ((DllCtrlJaugeProp)SpecificProp).ColorMin;
                     ((CtrlJaugeDispCtrl)m_Ctrl).ColorMax = ((DllCtrlJaugeProp)SpecificProp).ColorMax;
                 }
+                UpdateFromData();
             }
         }
 
@@ -58,9 +59,7 @@ namespace CtrlJauge
         {
             if (m_AssociateData != null && m_Ctrl != null)
             {
-                // effectuez ici le traitement à executer lorsque la valeur change
                 ((CtrlJaugeDispCtrl)m_Ctrl).Value = m_AssociateData.Value;
-                m_Ctrl.Refresh();
             }
         }
 
@@ -106,6 +105,7 @@ namespace CtrlJauge
                 if (m_Value != value)
                 {
                     m_Value = value;
+                    Refresh();
                 }
             }
         }

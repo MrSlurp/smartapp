@@ -54,6 +54,7 @@ namespace CtrlTwoBitmap
                     LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format("Control {0} Failed to load file {1}", Symbol, strImageFullPath));
                     AddLogEvent(log);
                 }
+                UpdateFromData();
             }
         }
 
@@ -74,8 +75,6 @@ namespace CtrlTwoBitmap
                     ((TwoBitmap)m_Ctrl).IsActive = true;
                 else
                     ((TwoBitmap)m_Ctrl).IsActive = false;
-
-                m_Ctrl.Refresh();
             }
         }
 

@@ -39,7 +39,7 @@ namespace DigitalDisplay
             m_SpecGraphicProp.m_bcanResizeWidth = true;
             m_SpecGraphicProp.m_bcanResizeHeight = true;
             m_SpecGraphicProp.m_MinSize = new Size(5, 5);
-
+            this.ControlType = InteractiveControlType.DllControl;
         }
 
         public override InteractiveControl CreateNew()
@@ -86,6 +86,15 @@ namespace DigitalDisplay
         public void SelfPaint(Graphics gr, Control ctrl)
         {
             gr.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            Color crBack = Color.Black;
+            if (this.SourceBTControl != null)
+            {
+                crBack = ((DllDigitalDisplayProp)this.SourceBTControl.SpecificProp).BackColor;
+            }
+            using (SolidBrush brushBack = new SolidBrush(crBack))
+            {
+                gr.FillRectangle(brushBack, this.ClientRectangle);
+            }
             Color cr = Color.GreenYellow;
             SevenSegmentHelper sevenSegmentHelper = new SevenSegmentHelper(gr);
 

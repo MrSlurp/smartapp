@@ -436,6 +436,13 @@ namespace CommonLib
         {
             // Obtenir la taille totale en octets
             int Taille = GetTrameSizeInByte();
+            if (Taille == 0)
+            {
+                string strmess = string.Format("Error Frame {0} : frame size is inferior to one Byte", Symbol);
+                LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, strmess);
+                AddLogEvent(log);
+                return null;
+            }
             // crée le buffer
             Byte[] buffer = new Byte[Taille];
             // on initialise le buffer
@@ -488,157 +495,160 @@ namespace CommonLib
         //*****************************************************************************************************
         private void PrepareSendBuffer(byte[] buffer, bool forVirtualComm)
         {
-            int CurrentDataPos = 0;
-            int ByteWhereBeginDataCtrl = 0;
-            int ByteWhereEndDataCtrl = 0;
-            bool bNonConstantDataFound = false;
-            int iTempHeaderLenght = 0;
-            for (int i = 0; i < m_ListRefDatas.Count; i++)
+            if (buffer != null && buffer.Length > 0)
             {
-                Data dat = null;
-                if (forVirtualComm)
-                    dat = (Data)m_ListRefVirtualDatas[i];
-                else
-                    dat = (Data)m_ListRefDatas[i];
-
-                int DataSz = dat.SizeInBits;
-                int BeginData = CurrentDataPos;
-                // -1 car l'index des bits est basé a 0;
-                int EndData = (CurrentDataPos - 1) + DataSz;
-                int byteBegin = BeginData / Cste.SIZE_1_BYTE;
-                int byteEnd = EndData / Cste.SIZE_1_BYTE;
-
-                #region Traitement de la donnée de controle
-                // on se fou du fait qu'on utilise une donnée de control ou non
-                // car si on ne l'utilise pas, ses valeurs ne seront pas utilisées
-                if (i == m_iDataClcFrom)
+                int CurrentDataPos = 0;
+                int ByteWhereBeginDataCtrl = 0;
+                int ByteWhereEndDataCtrl = 0;
+                bool bNonConstantDataFound = false;
+                int iTempHeaderLenght = 0;
+                for (int i = 0; i < m_ListRefDatas.Count; i++)
                 {
-                    ByteWhereBeginDataCtrl = byteBegin;
-                }
-                if (i == m_iDataClcTo)
-                {
-                    ByteWhereEndDataCtrl = byteEnd;
-                }
+                    Data dat = null;
+                    if (forVirtualComm)
+                        dat = (Data)m_ListRefVirtualDatas[i];
+                    else
+                        dat = (Data)m_ListRefDatas[i];
 
-                // si il doit y avoir donnée de control, et qu'on est dessus,
-                // alors on la calcul avant de la positionner
+                    int DataSz = dat.SizeInBits;
+                    int BeginData = CurrentDataPos;
+                    // -1 car l'index des bits est basé a 0;
+                    int EndData = (CurrentDataPos - 1) + DataSz;
+                    int byteBegin = BeginData / Cste.SIZE_1_BYTE;
+                    int byteEnd = EndData / Cste.SIZE_1_BYTE;
 
-                if (m_strDataClcType != CTRLDATA_TYPE.NONE.ToString() && dat.Symbol.EndsWith(Cste.STR_SUFFIX_CTRLDATA)) 
-                {
-                    // en toutes logique la donnée de control ne doit pas etre positionnée n'importe comment
-                    int leftOffset = CurrentDataPos % Cste.SIZE_1_BYTE;
-                    if (leftOffset != 0)
-                        System.Diagnostics.Debug.Assert(false, "erreur sur la position de la donnée de control");
-
-                    Byte[] tempBuffer = new Byte[(ByteWhereEndDataCtrl - ByteWhereBeginDataCtrl)+1];
-                    int tempIndex = 0;
-                    for (int k = ByteWhereBeginDataCtrl; k <= ByteWhereEndDataCtrl; k++)
+                    #region Traitement de la donnée de controle
+                    // on se fou du fait qu'on utilise une donnée de control ou non
+                    // car si on ne l'utilise pas, ses valeurs ne seront pas utilisées
+                    if (i == m_iDataClcFrom)
                     {
-                        tempBuffer[tempIndex] = buffer[k];
-                        tempIndex ++;
+                        ByteWhereBeginDataCtrl = byteBegin;
                     }
-                    CalcCtrlData(tempBuffer, dat);
-                }
-                #endregion // traitement de la donnée de control
-
-                int DataValue = dat.Value;
-
-                // si le header de trame n'est encore crée, regarde (en octet) sa taille (non convertie)
-                if (m_FrameHeader == null)
-                {
-                    // si on a pos encore été coupé par une donné non constante
-                    if (!bNonConstantDataFound && dat.IsConstant)
+                    if (i == m_iDataClcTo)
                     {
-                        // la taille = la taille de l'octet de fin de la donnée
-                        iTempHeaderLenght = byteEnd;
+                        ByteWhereEndDataCtrl = byteEnd;
+                    }
+
+                    // si il doit y avoir donnée de control, et qu'on est dessus,
+                    // alors on la calcul avant de la positionner
+
+                    if (m_strDataClcType != CTRLDATA_TYPE.NONE.ToString() && dat.Symbol.EndsWith(Cste.STR_SUFFIX_CTRLDATA))
+                    {
+                        // en toutes logique la donnée de control ne doit pas etre positionnée n'importe comment
+                        int leftOffset = CurrentDataPos % Cste.SIZE_1_BYTE;
+                        if (leftOffset != 0)
+                            System.Diagnostics.Debug.Assert(false, "erreur sur la position de la donnée de control");
+
+                        Byte[] tempBuffer = new Byte[(ByteWhereEndDataCtrl - ByteWhereBeginDataCtrl) + 1];
+                        int tempIndex = 0;
+                        for (int k = ByteWhereBeginDataCtrl; k <= ByteWhereEndDataCtrl; k++)
+                        {
+                            tempBuffer[tempIndex] = buffer[k];
+                            tempIndex++;
+                        }
+                        CalcCtrlData(tempBuffer, dat);
+                    }
+                    #endregion // traitement de la donnée de control
+
+                    int DataValue = dat.Value;
+
+                    // si le header de trame n'est encore crée, regarde (en octet) sa taille (non convertie)
+                    if (m_FrameHeader == null)
+                    {
+                        // si on a pos encore été coupé par une donné non constante
+                        if (!bNonConstantDataFound && dat.IsConstant)
+                        {
+                            // la taille = la taille de l'octet de fin de la donnée
+                            iTempHeaderLenght = byteEnd;
+                        }
+                        else
+                            bNonConstantDataFound = true;
+                    }
+                    // la fin dans la conversion...
+
+                    //si la donnée n'est pas comprise sur une seul octet, on la répartie sur la place qu'elle doit prendre
+                    if (byteBegin != byteEnd)
+                    {
+                        #region traitement de la répartition de la donnée sur plusieurs octets
+                        //on calcule le nombres de coupures
+                        // pour une donnée 32 bits on peut être a cheval sur 5 octets
+                        int nbCut = byteEnd - byteBegin;
+                        int NextByteBegin = ((byteEnd + 1) * Cste.SIZE_1_BYTE);
+                        int CurrentPosInBit = BeginData;
+                        int CurrentByte = byteBegin;
+                        int bitsWriten = 0;
+
+                        for (int j = 0; j <= nbCut; j++)
+                        {
+                            //on est au début de la donnée, on peux avoir a décaler la valeur vers la droite
+                            // on ne prend que les derniers bits de la donnée
+                            int TmpValue = 0;
+                            if (CurrentByte == byteBegin)
+                            {
+                                int leftOffset = CurrentPosInBit % Cste.SIZE_1_BYTE;
+                                byte mask1 = (byte)(0xFF >> leftOffset);
+                                int nbAvailableBits = Cste.SIZE_1_BYTE - leftOffset;
+                                // on ne prend que le nombre de bits qu'on peu écrire sur la donnée
+                                TmpValue = DataValue >> (DataSz - nbAvailableBits);
+                                TmpValue = TmpValue & mask1;
+                                buffer[CurrentByte] |= (byte)TmpValue;
+                                CurrentPosInBit += nbAvailableBits;
+                                bitsWriten = nbAvailableBits;
+                            }
+                            // on est a la fin de la donnée, on peut avoir a décaler la valeur vers la gauche
+                            else if (CurrentByte == byteEnd)
+                            {
+                                int nbBitsRestants = DataSz - bitsWriten;
+                                //int rightOffset = ((byteEnd + 1) * 8) - (CurrentPosInBit + nbBitsRestants);
+                                int rightOffset = Cste.SIZE_1_BYTE - nbBitsRestants;
+                                int tmpValue = DataValue;
+                                int mask1 = (int)(0xFFFFFFFF >> (DataSz - bitsWriten));
+                                tmpValue = tmpValue & mask1;
+                                tmpValue = tmpValue << rightOffset;
+                                buffer[CurrentByte] |= (byte)tmpValue;
+                                CurrentPosInBit += nbBitsRestants;
+                            }
+                            // on est "au mileu", on prend juste les 8 bits a écrire
+                            else
+                            {
+                                TmpValue = DataValue >> (DataSz - (bitsWriten + Cste.SIZE_1_BYTE));
+                                buffer[CurrentByte] |= (byte)TmpValue;
+                                CurrentPosInBit += Cste.SIZE_1_BYTE;
+                                bitsWriten += Cste.SIZE_1_BYTE;
+                            }
+                            CurrentByte++;
+                        }
+                        #endregion
                     }
                     else
-                        bNonConstantDataFound = true;
-                }
-                // la fin dans la conversion...
-
-                //si la donnée n'est pas comprise sur une seul octet, on la répartie sur la place qu'elle doit prendre
-                if (byteBegin != byteEnd)
-                {
-                    #region traitement de la répartition de la donnée sur plusieurs octets
-                    //on calcule le nombres de coupures
-                    // pour une donnée 32 bits on peut être a cheval sur 5 octets
-                    int nbCut = byteEnd - byteBegin;
-                    int NextByteBegin = ((byteEnd + 1) * Cste.SIZE_1_BYTE);
-                    int CurrentPosInBit = BeginData;
-                    int CurrentByte = byteBegin;
-                    int bitsWriten = 0;
-
-                    for (int j = 0; j <= nbCut; j++)
                     {
-                        //on est au début de la donnée, on peux avoir a décaler la valeur vers la droite
-                        // on ne prend que les derniers bits de la donnée
-                        int TmpValue  = 0;
-                        if (CurrentByte == byteBegin)
-                        {
-                            int leftOffset = CurrentPosInBit % Cste.SIZE_1_BYTE;
-                            byte mask1 = (byte)(0xFF >> leftOffset);
-                            int nbAvailableBits = Cste.SIZE_1_BYTE - leftOffset;
-                            // on ne prend que le nombre de bits qu'on peu écrire sur la donnée
-                            TmpValue = DataValue >> (DataSz - nbAvailableBits);
-                            TmpValue = TmpValue & mask1;
-                            buffer[CurrentByte] |= (byte)TmpValue;
-                            CurrentPosInBit += nbAvailableBits;
-                            bitsWriten = nbAvailableBits;
-                        }
-                        // on est a la fin de la donnée, on peut avoir a décaler la valeur vers la gauche
-                        else if (CurrentByte == byteEnd)
-                        {
-                            int nbBitsRestants = DataSz - bitsWriten;
-                            //int rightOffset = ((byteEnd + 1) * 8) - (CurrentPosInBit + nbBitsRestants);
-                            int rightOffset = Cste.SIZE_1_BYTE - nbBitsRestants;
-                            int tmpValue = DataValue;
-                            int mask1 = (int) (0xFFFFFFFF >> (DataSz - bitsWriten));
-                            tmpValue = tmpValue & mask1;
-                            tmpValue = tmpValue << rightOffset;
-                            buffer[CurrentByte] |= (byte)tmpValue;
-                            CurrentPosInBit += nbBitsRestants;
-                        }
-                        // on est "au mileu", on prend juste les 8 bits a écrire
-                        else
-                        {
-                            TmpValue = DataValue >> (DataSz - (bitsWriten + Cste.SIZE_1_BYTE));
-                            buffer[CurrentByte] |= (byte)TmpValue;
-                            CurrentPosInBit += Cste.SIZE_1_BYTE;
-                            bitsWriten += Cste.SIZE_1_BYTE;
-                        }
-                        CurrentByte++;
+                        #region traitement du positionement de la donnée sur un seul octet
+                        // on calcule le décallage de la donnée a gauche par rapport a sa place
+                        int leftOffset = BeginData % Cste.SIZE_1_BYTE;
+                        // on calcule le décallage de droite par rapport au prochain octet 
+                        // (d'ou le byteEnd+1)
+                        int rightOffset = ((byteEnd + 1) * Cste.SIZE_1_BYTE) - (CurrentDataPos + DataSz);
+                        // on crée deux masques complémentaires
+                        // mask1 s'occuper de "couper" ce qui est a gauche
+                        // mask2 s'occuper de "couper" ce qui est droite
+                        byte mask1 = (byte)(0xFF >> (BeginData % Cste.SIZE_1_BYTE));
+                        byte mask2 = (byte)(0xFF << rightOffset);
+                        // on crée le mask complet
+                        byte Mask = (byte)(mask1 & mask2);
+                        // on obtien une donnée ou les seul bits qui peuvent etre a 1,
+                        // sont ceux qui représentent la valeur dans l'octet de la trame;
+                        byte byteVal = (byte)((DataValue << rightOffset) & Mask);
+
+                        buffer[byteBegin] |= byteVal;
+                        #endregion
+
                     }
-                    #endregion
+                    CurrentDataPos += DataSz;
                 }
-                else
+                if (m_FrameHeader == null)
                 {
-                    #region traitement du positionement de la donnée sur un seul octet
-                    // on calcule le décallage de la donnée a gauche par rapport a sa place
-                    int leftOffset = BeginData % Cste.SIZE_1_BYTE;
-                    // on calcule le décallage de droite par rapport au prochain octet 
-                    // (d'ou le byteEnd+1)
-                    int rightOffset = ((byteEnd + 1) * Cste.SIZE_1_BYTE) - (CurrentDataPos + DataSz);
-                    // on crée deux masques complémentaires
-                    // mask1 s'occuper de "couper" ce qui est a gauche
-                    // mask2 s'occuper de "couper" ce qui est droite
-                    byte mask1 = (byte)(0xFF >> (BeginData % Cste.SIZE_1_BYTE));
-                    byte mask2 = (byte)(0xFF << rightOffset);
-                    // on crée le mask complet
-                    byte Mask = (byte)(mask1 & mask2);
-                    // on obtien une donnée ou les seul bits qui peuvent etre a 1,
-                    // sont ceux qui représentent la valeur dans l'octet de la trame;
-                    byte byteVal = (byte)((DataValue << rightOffset ) & Mask);
-
-                    buffer[byteBegin] |= byteVal;
-                    #endregion
-
+                    m_iHeaderLenght = iTempHeaderLenght;
                 }
-                CurrentDataPos += DataSz;
-            }
-            if (m_FrameHeader == null)
-            {
-                m_iHeaderLenght = iTempHeaderLenght;
             }
         }
 
@@ -765,52 +775,56 @@ namespace CommonLib
         //*****************************************************************************************************
         private Byte[] TreatWriteConversion(Byte[] buffer)
         {
-            Byte[] FinalBuffer;
-            // facteur de conversion: 1 = pas d'octets supplémentaire
-            // 2= chaque octet converti prend deux octets
-            // etc...
-            //int CurrentDataPos = 0;
-            //int ByteWhereBeginConvert = 0;
-            //int ByteWhereEndConvert = 0;
-
-            // +1 car la première donnée est comprise, et la dernière aussi
-            int NbByteToConvert = (m_iByteConvertTo - m_iByteConvertFrom) + 1;
-            FinalBuffer = new Byte[GetConvertedTrameSizeInByte()];
-
-            int indexInFinalBuffer = 0;
-            //
-            for (int i = 0; i < buffer.Length; i++)
+            if (buffer != null && buffer.Length > 0)
             {
-                // conversion ascii
-                if (m_strConvertType == CONVERT_TYPE.ASCII.ToString())
+                Byte[] FinalBuffer;
+                // facteur de conversion: 1 = pas d'octets supplémentaire
+                // 2= chaque octet converti prend deux octets
+                // etc...
+                //int CurrentDataPos = 0;
+                //int ByteWhereBeginConvert = 0;
+                //int ByteWhereEndConvert = 0;
+
+                // +1 car la première donnée est comprise, et la dernière aussi
+                int NbByteToConvert = (m_iByteConvertTo - m_iByteConvertFrom) + 1;
+                FinalBuffer = new Byte[GetConvertedTrameSizeInByte()];
+
+                int indexInFinalBuffer = 0;
+                //
+                for (int i = 0; i < buffer.Length; i++)
                 {
-                    if (i >= m_iByteConvertFrom && i <= m_iByteConvertTo)
+                    // conversion ascii
+                    if (m_strConvertType == CONVERT_TYPE.ASCII.ToString())
                     {
-                        byte Tmp = Bin2Ascii((byte)((buffer[i] & 0xf0) >> 4));
-                        FinalBuffer[indexInFinalBuffer++] = Tmp;
-                        Tmp = Bin2Ascii((byte)(buffer[i] & 0x0f));
-                        FinalBuffer[indexInFinalBuffer++] = Tmp;
+                        if (i >= m_iByteConvertFrom && i <= m_iByteConvertTo)
+                        {
+                            byte Tmp = Bin2Ascii((byte)((buffer[i] & 0xf0) >> 4));
+                            FinalBuffer[indexInFinalBuffer++] = Tmp;
+                            Tmp = Bin2Ascii((byte)(buffer[i] & 0x0f));
+                            FinalBuffer[indexInFinalBuffer++] = Tmp;
+                        }
+                        else
+                        {
+                            FinalBuffer[indexInFinalBuffer++] = buffer[i];
+                        }
                     }
+                    // pas de conversion
                     else
+                        FinalBuffer[i] = buffer[i];
+                }
+                // si on a pas encore initialisé le header
+                if (m_FrameHeader == null)
+                {
+                    m_FrameHeader = new byte[m_iHeaderLenght];
+                    for (int i = 0; i < m_FrameHeader.Length; i++)
                     {
-                        FinalBuffer[indexInFinalBuffer++] = buffer[i];
+                        m_FrameHeader[i] = FinalBuffer[i];
                     }
                 }
-                // pas de conversion
-                else
-                    FinalBuffer[i] = buffer[i];
-            }
-            // si on a pas encore initialisé le header
-            if (m_FrameHeader == null)
-            {
-                m_FrameHeader = new byte[m_iHeaderLenght];
-                for (int i = 0; i < m_FrameHeader.Length; i++)
-                {
-                    m_FrameHeader[i] = FinalBuffer[i];
-                }
-            }
 
-            return FinalBuffer;
+                return FinalBuffer;
+            }
+            return null;
         }
 
         //*****************************************************************************************************

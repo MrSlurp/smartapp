@@ -31,6 +31,7 @@ namespace CommonLib
                 m_Ctrl.Size = m_RectControl.Size;
                 ((FilledRect)m_Ctrl).ColorActive = ((TwoColorProp)SpecificProp).ColorActive;
                 ((FilledRect)m_Ctrl).ColorInactive = ((TwoColorProp)SpecificProp).ColorInactive;
+                UpdateFromData();
             }
         }
 

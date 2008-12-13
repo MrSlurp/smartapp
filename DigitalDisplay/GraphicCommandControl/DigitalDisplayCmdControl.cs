@@ -32,7 +32,10 @@ namespace DigitalDisplay
                 m_Ctrl.Name = m_strSymbol;
                 m_Ctrl.Size = m_RectControl.Size;
                 m_Ctrl.BackColor = Color.Transparent;
-                // faites ici les initialisation spécifiques du control affiché
+                ((DigitalDisplayDispCtrl)m_Ctrl).FormatString = ((DllDigitalDisplayProp)this.m_SpecificProp).FormatString;
+                ((DigitalDisplayDispCtrl)m_Ctrl).DigitColor = ((DllDigitalDisplayProp)this.m_SpecificProp).DigitColor;
+                ((DigitalDisplayDispCtrl)m_Ctrl).LocalBackColor = ((DllDigitalDisplayProp)this.m_SpecificProp).BackColor;
+                UpdateFromData();
             }
         }
 
@@ -50,7 +53,7 @@ namespace DigitalDisplay
         {
             if (m_AssociateData != null && m_Ctrl != null)
             {
-                // effectuez ici le traitement à executer lorsque la valeur change
+                ((DigitalDisplayDispCtrl)m_Ctrl).Value = m_AssociateData.Value;
             }
         }
 
@@ -78,9 +81,11 @@ namespace DigitalDisplay
     public class DigitalDisplayDispCtrl : UserControl
     {
 		private Color m_digitColor = Color.GreenYellow;
+        Color m_BackColor = Color.Black;
         string m_FormatString = ":F0";
-        private string m_digitText = "88.88";
+        private string m_digitText = "0";
         int m_Value = 0;
+
         public int Value
         {
             get
@@ -90,7 +95,7 @@ namespace DigitalDisplay
             set
             {
                 m_Value = value;
-                string dispText = "1234.5";
+                string dispText = "0";
                 float diviseur = 1;
                 switch (FormatString)
                 {
@@ -117,25 +122,34 @@ namespace DigitalDisplay
         public string FormatString
         {
             get
-            {
-                return m_FormatString;
-            }
+            { return m_FormatString; }
             set
-            {
-                m_FormatString = value;
-            }
+            { m_FormatString = value; }
         }
 
 		public Color DigitColor
 		{
-			get { return m_digitColor; }
-			set { m_digitColor = value; Invalidate(); }
+			get 
+            { return m_digitColor; }
+			set 
+            { m_digitColor = value; Invalidate(); }
 		}
+
+        public Color LocalBackColor
+        {
+            get
+            { return m_BackColor; }
+            set
+            { m_BackColor = value; }
+        }
+
 
 		protected string DigitText
 		{
-			get { return m_digitText; }
-			set { m_digitText = value; Refresh(); }
+			get 
+            { return m_digitText; }
+			set 
+            { m_digitText = value; Refresh(); }
 		}
 
         public DigitalDisplayDispCtrl()
@@ -150,7 +164,11 @@ namespace DigitalDisplay
 
 		protected override void  OnPaint(PaintEventArgs e)
 		{
-			e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            using (SolidBrush brushBack = new SolidBrush(LocalBackColor))
+            {
+                e.Graphics.FillRectangle(brushBack, this.ClientRectangle);
+            }
 
 			SevenSegmentHelper sevenSegmentHelper = new SevenSegmentHelper(e.Graphics);
 
