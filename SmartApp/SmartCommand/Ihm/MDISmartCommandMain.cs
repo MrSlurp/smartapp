@@ -150,6 +150,7 @@ namespace SmartApp
                 m_tsBtnStartStop.Enabled = false;
                 m_Document.TraiteMessage(MESSAGE.MESS_CMD_STOP, null, Program.TypeApp);
                 m_tsBtnStartStop.Checked = false;
+                UpdateStartStopButtonState();
                 UpdateToolBarCxnItemState();
             }
         }
@@ -411,8 +412,7 @@ namespace SmartApp
                         m_FormList[i].DynamicPanelEnabled = true;
                     }
                     m_tsBtnStartStop.Checked = true;
-                    m_tsBtnStartStop.Text = "Running";
-                    m_tsBtnStartStop.Image = Resources.CxnOn;
+                    UpdateStartStopButtonState();
                     m_Document.TraiteMessage(MESSAGE.MESS_CMD_RUN, null, Program.TypeApp);
                     UpdateToolBarCxnItemState();
                 }
@@ -423,8 +423,7 @@ namespace SmartApp
                         m_FormList[i].DynamicPanelEnabled = false;
                     }
                     m_tsBtnStartStop.Checked = false;
-                    m_tsBtnStartStop.Text = "Stoppped";
-                    m_tsBtnStartStop.Image = Resources.CxnOff;
+                    UpdateStartStopButtonState();
                     m_Document.TraiteMessage(MESSAGE.MESS_CMD_STOP, null, Program.TypeApp);
                     UpdateToolBarCxnItemState();
                 }
@@ -435,11 +434,28 @@ namespace SmartApp
                 {
                     m_FormList[i].DynamicPanelEnabled = false;
                 }
-                m_tsBtnStartStop.Checked = false;
-                m_tsBtnStartStop.Text = "Stoppped";
+                UpdateStartStopButtonState();
                 m_tsBtnStartStop.Image = Resources.CxnOff;
             }
 
+        }
+
+        //*****************************************************************************************************
+        // Description:
+        // Return: /
+        //*****************************************************************************************************      
+        private void UpdateStartStopButtonState()
+        {
+            if (m_tsBtnStartStop.Checked == true)
+            {
+                m_tsBtnStartStop.Text = "Running";
+                m_tsBtnStartStop.Image = Resources.CxnOn;
+            }
+            else
+            {
+                m_tsBtnStartStop.Text = "Stoppped";
+                m_tsBtnStartStop.Image = Resources.CxnOff;
+            }
         }
 
         //*****************************************************************************************************

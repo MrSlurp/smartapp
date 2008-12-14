@@ -9,18 +9,20 @@ namespace DigitalDisplay
     internal class SevenSegmentHelper
     {
         Graphics m_graphics;
+        private const int MINUS_SIGN_IDX = 10;
 
         // Indicates what segments are illuminated for all 10 digits
-        static byte[,] m_segmentData = {{1, 1, 1, 0, 1, 1, 1},
-							 {0, 0, 1, 0, 0, 1, 0},  
-							 {1, 0, 1, 1, 1, 0, 1},  
-							 {1, 0, 1, 1, 0, 1, 1},  
-							 {0, 1, 1, 1, 0, 1, 0},  
-							 {1, 1, 0, 1, 0, 1, 1},  
-							 {1, 1, 0, 1, 1, 1, 1},  
-							 {1, 0, 1, 0, 0, 1, 0},  
-							 {1, 1, 1, 1, 1, 1, 1},  
-							 {1, 1, 1, 1, 0, 1, 1}};
+        static byte[,] m_segmentData = {{1, 1, 1, 0, 1, 1, 1}, // 0
+							            {0, 0, 1, 0, 0, 1, 0}, // 1
+							            {1, 0, 1, 1, 1, 0, 1}, // 2
+							            {1, 0, 1, 1, 0, 1, 1}, // 3
+							            {0, 1, 1, 1, 0, 1, 0}, // 4
+							            {1, 1, 0, 1, 0, 1, 1}, // 5
+							            {1, 1, 0, 1, 1, 1, 1}, // 6
+							            {1, 0, 1, 0, 0, 1, 0}, // 7
+							            {1, 1, 1, 1, 1, 1, 1}, // 8
+							            {1, 1, 1, 1, 0, 1, 1}, // 9
+							            {0, 0, 0, 1, 0, 0, 0}};// -
 
         // Points that define each of the seven segments
         readonly Point[][] m_segmentPoints = new Point[7][];
@@ -43,7 +45,7 @@ namespace DigitalDisplay
 
             for (int i = 0; i < text.Length; i++)
             {
-                if (Char.IsDigit(text[i]))
+                if (Char.IsDigit(text[i]) || text[i] == '-')
                     sizef.Width += 42 * m_graphics.DpiX * font.SizeInPoints / 72 / 72;
                 else if (text[i] == ':' || text[i] == '.' || text[i] == ',')
                     sizef.Width += 12 * m_graphics.DpiX * font.SizeInPoints / 72 / 72;
@@ -64,9 +66,10 @@ namespace DigitalDisplay
                 // For dot .
                 else if (text[cnt] == '.')
                     x = DrawDot(font, brush, x, y);
-
                 else if (text[cnt] == ',')
                     x = DrawDot(font, brush, x, y);
+                else if (text[cnt] == '-')
+                    x = DrawDigit(MINUS_SIGN_IDX, font, brush, brushLight, x, y);
             }
         }
 
