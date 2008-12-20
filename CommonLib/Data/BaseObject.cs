@@ -273,7 +273,7 @@ namespace CommonLib
                             }
                         }
                     }
-                    else if (((MessDeleted)obj).TypeOfItem == typeof(Data))
+                    else if (((MessItemRenamed)obj).TypeOfItem == typeof(Data))
                     {
                         MessItemRenamed MessParam = (MessItemRenamed)obj;
                         for (int i = 0; i < Script.Count; i++)

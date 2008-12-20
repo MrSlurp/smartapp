@@ -149,6 +149,11 @@ namespace SmartApp
                 m_tsBtnConnexion.Image = Resources.CxnOff;
                 m_tsBtnStartStop.Enabled = false;
                 m_Document.TraiteMessage(MESSAGE.MESS_CMD_STOP, null, Program.TypeApp);
+                for (int i = 0; i < m_FormList.Count; i++)
+                {
+                    m_FormList[i].DynamicPanelEnabled = false;
+                }
+
                 m_tsBtnStartStop.Checked = false;
                 UpdateStartStopButtonState();
                 UpdateToolBarCxnItemState();
