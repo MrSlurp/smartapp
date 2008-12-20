@@ -100,13 +100,13 @@
         "Entry"
         {
         "MsmKey" = "8:_BE4FC4B4529573AC5B873BF5094B5E5A"
-        "OwnerKey" = "8:_BB858A71E3BC4B3F865A62D0D2D5D75F"
+        "OwnerKey" = "8:_ED6AD66369934C128648CBD99834A9DC"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_BE4FC4B4529573AC5B873BF5094B5E5A"
-        "OwnerKey" = "8:_ED6AD66369934C128648CBD99834A9DC"
+        "OwnerKey" = "8:_BB858A71E3BC4B3F865A62D0D2D5D75F"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -166,19 +166,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_BB858A71E3BC4B3F865A62D0D2D5D75F"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_BE4FC4B4529573AC5B873BF5094B5E5A"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_ED6AD66369934C128648CBD99834A9DC"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_BB858A71E3BC4B3F865A62D0D2D5D75F"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -209,6 +203,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_02E63C948F23424D8DD7AA34561CC24D"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_BE4FC4B4529573AC5B873BF5094B5E5A"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -331,7 +331,7 @@
                 "Name" = "8:.NET Framework"
                 "Message" = "8:[VSDNETMSG]"
                 "Version" = "8:2.0.50727"
-                "AllowLaterVersions" = "11:FALSE"
+                "AllowLaterVersions" = "11:TRUE"
                 "InstallUrl" = "8:http://go.microsoft.com/fwlink/?LinkId=9832"
                 }
             }
@@ -462,7 +462,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:CommonLib, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:CommonLib, Version=2.3.2.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_BE4FC4B4529573AC5B873BF5094B5E5A"
@@ -621,10 +621,10 @@
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:2.0.0"
+        "ProductVersion" = "8:2.3.2"
         "Manufacturer" = "8:Bigot Pascal"
         "ARPHELPTELEPHONE" = "8:"
-        "ARPHELPLINK" = "8:"
+        "ARPHELPLINK" = "8:http://parapasquall.free.fr"
         "Title" = "8:Setup Smart Application"
         "Subject" = "8:"
         "ARPCONTACT" = "8:Bigot Pascal"
@@ -851,7 +851,7 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:0"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "ShowProgress"
@@ -895,7 +895,7 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:0"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "UpdateText"
@@ -945,7 +945,7 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:0"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "CopyrightWarning"
@@ -993,7 +993,7 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:0"
                             "UsePlugInResources" = "11:TRUE"
                             }
                         }
@@ -1015,7 +1015,7 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:0"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "InstallAllUsersVisible"
@@ -1059,7 +1059,7 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:0"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "CopyrightWarning"
@@ -1107,7 +1107,7 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:0"
                             "UsePlugInResources" = "11:TRUE"
                             }
                         }
@@ -1129,7 +1129,7 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:0"
                             "UsePlugInResources" = "11:TRUE"
                             }
                         }
@@ -1160,7 +1160,7 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:0"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "ShowProgress"
@@ -1204,7 +1204,7 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:0"
                             "UsePlugInResources" = "11:TRUE"
                             }
                         }
