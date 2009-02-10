@@ -60,6 +60,7 @@ namespace SmartApp
         [STAThread]
         static void Main(string[] strArgsList)
         {
+            Traces.Initialize(Application.StartupPath, "TraceSmartApp.txt", Traces.LOG_LEVEL_NOLOG);
             CommonLib.Resources.InitializeBitmap();
             m_GestDlls.LoadExistingDlls();
             Application.EnableVisualStyles();

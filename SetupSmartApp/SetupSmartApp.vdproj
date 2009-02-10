@@ -462,7 +462,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:CommonLib, Version=2.3.2.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:CommonLib, Version=2.3.3.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_BE4FC4B4529573AC5B873BF5094B5E5A"
@@ -614,14 +614,14 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Smart Application"
-        "ProductCode" = "8:{E6101A18-F71A-4DCD-A791-3C76DB100D55}"
-        "PackageCode" = "8:{644C7014-D900-4B23-9E6E-B1EAC3EE4B0D}"
+        "ProductCode" = "8:{206ED63A-AA5D-4FCF-9EA0-6BF2189EA3F6}"
+        "PackageCode" = "8:{8BCF9DCA-20C6-46C8-B831-ECAAB2DB7B46}"
         "UpgradeCode" = "8:{D5DB5027-D729-4E56-87EB-273CB32671B6}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:2.3.2"
+        "ProductVersion" = "8:2.3.3"
         "Manufacturer" = "8:Bigot Pascal"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:http://parapasquall.free.fr"

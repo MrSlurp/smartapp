@@ -40,8 +40,8 @@ namespace CommonLib
             m_PortSerie = new SerialPort();
             // conf par défaut
             m_PortSerie.PortName = "COM6";
-            m_PortSerie.BaudRate = (int) SERIAL_BAUD_RATE.BR_115200;
-            m_PortSerie.DataBits = (int) NB_DATA_BITS.NB_DB7;
+            m_PortSerie.BaudRate = (int)SERIAL_BAUD_RATE.BR_115200;
+            m_PortSerie.DataBits = (int)NB_DATA_BITS.NB_DB7;
             m_PortSerie.DtrEnable = true;
             m_PortSerie.Parity = Parity.Even;
             m_PortSerie.ParityReplace = ((byte)(48));
@@ -50,6 +50,13 @@ namespace CommonLib
             m_PortSerie.WriteTimeout = 5000;
             m_PortSerie.DataReceived += new SerialDataReceivedEventHandler(this.DataReceived);
             m_PortSerie.ErrorReceived += new SerialErrorReceivedEventHandler(this.ErrorReceived);
+
+            Traces.LogAddDebug("Configuration du port com", "");
+            Traces.LogAddDebug("Bits de donnée", m_PortSerie.DataBits.ToString());
+            Traces.LogAddDebug("DTR", m_PortSerie.DtrEnable.ToString());
+            Traces.LogAddDebug("Bits de stop", m_PortSerie.StopBits.ToString());
+            Traces.LogAddDebug("Read Timeout", m_PortSerie.ReadTimeout.ToString());
+            Traces.LogAddDebug("Write Timeout", m_PortSerie.WriteTimeout.ToString());
 
             m_bDataAvailable = false;
             m_CommErrorCode = COMM_ERROR.ERROR_NONE;
@@ -67,6 +74,7 @@ namespace CommonLib
             set
             {
                 m_PortSerie.PortName = value;
+                Traces.LogAddDebug("Port COM", value);
             }
             get
             {
@@ -88,6 +96,7 @@ namespace CommonLib
             set
             {
                 m_PortSerie.BaudRate = (int)value;
+                Traces.LogAddDebug("BaudRate", value.ToString());
             }
         }
 
@@ -105,6 +114,7 @@ namespace CommonLib
             set
             {
                 m_PortSerie.Parity = value;
+                Traces.LogAddDebug("Paritée", value.ToString());
             }
         }
         #endregion
@@ -191,20 +201,23 @@ namespace CommonLib
                 }
                 bReturnValue = false;
             }
-            catch (TimeoutException )
+            catch (TimeoutException te)
             {
                 m_CommErrorCode = COMM_ERROR.ERROR_TIMEOUT;
                 bReturnValue = false;
+                Traces.LogAddDebug("SendData", "Erreur timeour exception : " + te.Message + "\n" + te.StackTrace);
             }
-            catch (IOException )
+            catch (IOException ioe)
             {
                 m_CommErrorCode = COMM_ERROR.ERROR_UNKNOWN;
                 bReturnValue = false;
+                Traces.LogAddDebug("SendData", "Erreur IO exception : " + ioe.Message + "\n" + ioe.StackTrace);
             }
-            catch (Exception )
+            catch (Exception e)
             {
                 m_CommErrorCode = COMM_ERROR.ERROR_UNKNOWN;
                 bReturnValue = false;
+                Traces.LogAddDebug("SendData", "Erreur exception : " + e.Message + "\n" + e.StackTrace);
             }
             if (!bReturnValue)
             {
@@ -226,6 +239,7 @@ namespace CommonLib
         {
             if (m_PortSerie.IsOpen && m_bDataAvailable)
             {
+                Traces.LogAddDebug("GetRecievedData", "Nombre de messages dans la file = " + m_MessageList.Count);
                 if (m_MessageList.Count != 0)
                 {
                     // on parcour la liste des trames reçues pour vois si par hasard on en aurai
@@ -233,9 +247,12 @@ namespace CommonLib
                     int indexOfFrame = -1;
                     for (int i = 0; i < m_MessageList.Count; i++)
                     {
+                        Traces.LogAddDebug("GetRecievedData", "Longueur de la trame n°" + i + " dans la file = " + m_MessageList[i].Length);
+                        Traces.LogAddDebug("GetRecievedData", "Longueur de la trame attendue = " + NumberOfByte);
                         if (m_MessageList[i].Length == NumberOfByte)
                         {
                             indexOfFrame = i;
+                            Traces.LogAddDebug("GetRecievedData", "Trame attendu trouvée");
                             break;
                         }
                     }
@@ -263,12 +280,15 @@ namespace CommonLib
             {
                 // on parcour la liste des trames reçues pour vois si par hasard on en aurai
                 // pas une de la bonne taille
-
+                // si on en a une de la bonne taille, on vérifie le header
                 int indexOfFrame = -1;
                 try
                 {
+                    Traces.LogAddDebug("TestFrame", "Nombre de messages dans la file = " + m_MessageList.Count);
                     for (int i = 0; i < m_MessageList.Count; i++)
                     {
+                        Traces.LogAddDebug("TestFrame", "Longueur de la trame " + i + " dans la file = " + m_MessageList[i].Length);
+                        Traces.LogAddDebug("TestFrame", "Longueur de la trame attendue = " + FrameLenght);
                         if (m_MessageList[i].Length == FrameLenght)
                         {
                             if (FrameHeader == null)
@@ -301,6 +321,21 @@ namespace CommonLib
                     {
                         return true;
                     }
+                    else
+                    {
+                        Traces.LogAddDebug("TestFrame", "Aucune trame correspondante");
+                        Traces.LogAddDebug("TestFrame", "Dump des trames");
+                        for (int i = 0; i < m_MessageList.Count; i++)
+                        {
+                            string trame = "";
+                            for (int t = 0; t < m_MessageList[i].Length; t++ )
+                            {
+                                trame += m_MessageList[i][t];
+                                trame += " ";
+                            }
+                            Traces.LogAddDebug("TestFrame", "trame" + i + " = "+ trame);
+                        }
+                    }
                 }
                 catch (NullReferenceException e)
                 {
@@ -328,11 +363,23 @@ namespace CommonLib
             bool bSuccess = false;
             try
             {
-                m_bDataAvailable = true;
                 string strDataRecieved = "";
-                while (m_PortSerie.BytesToRead != 0)
+                bool bFullTrameRecieved = false;
+                bool bBeginFrameRecieved = false;
+                bool bEndFrameRecieved = false;
+                int count = 0;
+                while (!bFullTrameRecieved && count < 1000)
                 {
                     strDataRecieved += m_PortSerie.ReadExisting();
+                    if (!bBeginFrameRecieved && strDataRecieved.Contains(":"))
+                        bBeginFrameRecieved = true;
+
+                    if (!bEndFrameRecieved && strDataRecieved.EndsWith("\r\n"))
+                        bEndFrameRecieved = true;
+
+                    if (bBeginFrameRecieved && bEndFrameRecieved)
+                        bFullTrameRecieved = true;
+
                     System.Threading.Thread.Sleep(0);
                 }
                 Byte[] buffer = new Byte[strDataRecieved.Length];
@@ -342,6 +389,7 @@ namespace CommonLib
                 }
                 m_MessageList.Add(buffer);
                 bSuccess = true;
+                m_bDataAvailable = true;
             }
             catch (Exception)
             {
@@ -350,6 +398,7 @@ namespace CommonLib
             if (!bSuccess)
             {
                 // on vide les buffers
+                m_bDataAvailable = false;
                 m_PortSerie.DiscardInBuffer();
                 m_PortSerie.DiscardOutBuffer();
             }

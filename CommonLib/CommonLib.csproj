@@ -161,6 +161,7 @@
     <Compile Include="StdGraphicControl\StaticControl.cs" />
     <Compile Include="StdGraphicControl\UpDownControl.cs" />
     <Compile Include="Utils\PathTranslator.cs" />
+    <Compile Include="Utils\Traces.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ConfigForms\TwoColorProperties.resx">
