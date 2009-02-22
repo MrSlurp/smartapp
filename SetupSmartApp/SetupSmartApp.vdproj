@@ -57,6 +57,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_40E7C4B65EF94C269E868C1D8055095D"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_4738DB85A6744663914E696F08920022"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -384,6 +390,26 @@
             "TargetName" = "8:Example SL Bloc SmartApp.saf"
             "Tag" = "8:"
             "Folder" = "8:_EBBB34434F0B4F8F91DEB736FE51356D"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_40E7C4B65EF94C269E868C1D8055095D"
+            {
+            "SourcePath" = "8:..\\Prod\\Release\\SmartApp.exe.config"
+            "TargetName" = "8:SmartApp.exe.config"
+            "Tag" = "8:"
+            "Folder" = "8:_8421F5FDC69F48CA8248FC20B9EEBC38"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"

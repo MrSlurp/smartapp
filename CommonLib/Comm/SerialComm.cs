@@ -380,7 +380,7 @@ namespace CommonLib
                     if (bBeginFrameRecieved && bEndFrameRecieved)
                         bFullTrameRecieved = true;
 
-                    System.Threading.Thread.Sleep(0);
+                    System.Threading.Thread.Sleep(1);
                 }
                 Byte[] buffer = new Byte[strDataRecieved.Length];
                 for (int i = 0; i < strDataRecieved.Length; i++)

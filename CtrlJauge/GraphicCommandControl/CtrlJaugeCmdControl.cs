@@ -37,10 +37,10 @@ namespace CtrlJauge
                     ((CtrlJaugeDispCtrl)m_Ctrl).Value = m_AssociateData.Value;
                     ((CtrlJaugeDispCtrl)m_Ctrl).MinVal = m_AssociateData.Minimum;
                     ((CtrlJaugeDispCtrl)m_Ctrl).MaxVal = m_AssociateData.Maximum;
-                    ((CtrlJaugeDispCtrl)m_Ctrl).Orientation = ((DllCtrlJaugeProp)SpecificProp).Orientation;
-                    ((CtrlJaugeDispCtrl)m_Ctrl).ColorMin = ((DllCtrlJaugeProp)SpecificProp).ColorMin;
-                    ((CtrlJaugeDispCtrl)m_Ctrl).ColorMax = ((DllCtrlJaugeProp)SpecificProp).ColorMax;
                 }
+                ((CtrlJaugeDispCtrl)m_Ctrl).Orientation = ((DllCtrlJaugeProp)SpecificProp).Orientation;
+                ((CtrlJaugeDispCtrl)m_Ctrl).ColorMin = ((DllCtrlJaugeProp)SpecificProp).ColorMin;
+                ((CtrlJaugeDispCtrl)m_Ctrl).ColorMax = ((DllCtrlJaugeProp)SpecificProp).ColorMax;
                 UpdateFromData();
             }
         }
