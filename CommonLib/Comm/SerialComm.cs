@@ -50,6 +50,7 @@ namespace CommonLib
             m_PortSerie.WriteTimeout = 5000;
             m_PortSerie.DataReceived += new SerialDataReceivedEventHandler(this.DataReceived);
             m_PortSerie.ErrorReceived += new SerialErrorReceivedEventHandler(this.ErrorReceived);
+            m_PortSerie.ReceivedBytesThreshold = 1;
 
             Traces.LogAddDebug("Configuration du port com", "");
             Traces.LogAddDebug("Bits de donnée", m_PortSerie.DataBits.ToString());
@@ -198,6 +199,16 @@ namespace CommonLib
                     m_PortSerie.DiscardInBuffer();
                     m_PortSerie.DiscardOutBuffer();
                     m_PortSerie.Write(buffer, 0, buffer.Length);
+                    Traces.LogAddDebug("SendData", "envoie de la trame :");
+                    string strSendData = "";
+                    if (Traces.IsLogLevelOK(Traces.LOG_LEVEL_DEBUG))
+                    {
+                        for (int i = 0; i < buffer.Length; i++)
+                        {
+                            strSendData += string.Format(" {0:x2}", buffer[i]);
+                        }
+                        Traces.LogAddDebug("SendData", strSendData);
+                    }
                 }
                 bReturnValue = false;
             }
@@ -363,6 +374,7 @@ namespace CommonLib
             bool bSuccess = false;
             try
             {
+                Traces.LogAddDebug("DataRecieved", m_PortSerie.BytesToRead + " octets à lire");
                 string strDataRecieved = "";
                 bool bFullTrameRecieved = false;
                 bool bBeginFrameRecieved = false;
@@ -391,8 +403,11 @@ namespace CommonLib
                 bSuccess = true;
                 m_bDataAvailable = true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Traces.LogAddDebug("DataRecieved", "Exception lors de la récéption de données");
+                Traces.LogAddDebug("DataRecieved", ex.StackTrace);
+                Traces.LogAddDebug("DataRecieved", ex.Message);
                 bSuccess = false;
             }
             if (!bSuccess)

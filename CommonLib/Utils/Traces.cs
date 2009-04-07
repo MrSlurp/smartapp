@@ -56,7 +56,15 @@ namespace CommonLib
 			if(iTracesLevel < LOG_LEVEL_DEBUG) iTracesLevel = LOG_LEVEL_DEBUG ;
 			iLogTracesLevel = iTracesLevel ;
 		}
-		
+
+        public static bool IsLogLevelOK(int LogLevelTest)
+        {
+            if (iLogTracesLevel <= LogLevelTest)
+            {
+                return true;
+            }
+            return false;
+        }
 		// Routine permettant de déterminer le répertoire dans lequel va se trouver
 		// le fichier de Logs. Celui-ci est construit avec les paramètres du constructeur
 		// plus un répertoire du jour : ex : C:\Repertoire\20071023\

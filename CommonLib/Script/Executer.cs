@@ -132,6 +132,7 @@ namespace CommonLib
         {
             for (int i = 0; i < Lines.Count; i++)
             {
+                Traces.LogAddDebug("ScriptExecuter", "Execution de la ligne : \"" + Lines[i] + "\"");
                 if (Lines[i].Length > 0)
                 {
                     string Line = Lines[i];

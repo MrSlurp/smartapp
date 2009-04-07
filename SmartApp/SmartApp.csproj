@@ -778,12 +778,6 @@
       <Name>CommonLib</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ImgLib\Anti retour\.svn\props\" />
-    <Folder Include="ImgLib\Anti retour\.svn\tmp\prop-base\" />
-    <Folder Include="ImgLib\Anti retour\.svn\tmp\props\" />
-    <Folder Include="ImgLib\Anti retour\.svn\tmp\text-base\" />
-  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
