@@ -136,7 +136,14 @@ namespace SmartApp.Ihm
             }
             set
             {
-                m_EditScript.Lines = value;
+                if (value != null)
+                    m_EditScript.Lines = value;
+                else
+                {
+                    string[] strTabTmp = new string[1];
+                    strTabTmp[0] = string.Empty;
+                    m_EditScript.Lines = strTabTmp;
+                }
             }
         }
         #endregion

@@ -253,7 +253,8 @@ namespace SmartApp.Ihm
             DialogResult dlgRes = openFileDialog.ShowDialog();
             if (dlgRes == DialogResult.OK)
             {
-                BackPictureFile = PathTranslator.AbsolutePathToRelative(openFileDialog.FileName); ;
+                BackPictureFile = PathTranslator.AbsolutePathToRelative(openFileDialog.FileName);
+                BackPictureFile = PathTranslator.LinuxVsWindowsPathStore(BackPictureFile);
             }
         }
 

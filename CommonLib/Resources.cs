@@ -64,41 +64,45 @@ namespace CommonLib
 		public static void InitializeBitmap()
 		{
             string strAppDir = Path.GetDirectoryName(Application.ExecutablePath);
-			AlignLeft = new Bitmap(strAppDir + "\\Res\\ToolBar\\AlignLeft.bmp");
-			AlignTop = new Bitmap(strAppDir + "\\Res\\ToolBar\\AlignTop.bmp");
-			ArrangeAcross = new Bitmap(strAppDir + "\\Res\\ToolBar\\ArrangeAcross.bmp");
-			ArrangeDown = new Bitmap(strAppDir + "\\Res\\ToolBar\\ArrangeDown.bmp");
-			BottomBtn = new Bitmap(strAppDir + "\\Res\\DownBtn.bmp");
-			BottomLeftBtn = new Bitmap(strAppDir + "\\Res\\BottomLeftBtn.bmp");
-			BottomRightBtn = new Bitmap(strAppDir + "\\Res\\BottomRightBtn.bmp");
-			CheckBox = new Bitmap(strAppDir + "\\Res\\CheckBox.bmp");
-			DropBtn = new Bitmap(strAppDir + "\\Res\\DropBtn.bmp");
-			LeftBtn = new Bitmap(strAppDir + "\\Res\\LeftBtn.bmp");
-			MakeSameBoth = new Bitmap(strAppDir + "\\Res\\ToolBar\\MakeSameBoth.bmp");
-			MakeSameHeight = new Bitmap(strAppDir + "\\Res\\ToolBar\\MakeSameHeight.bmp");
-			MakeSameWidth = new Bitmap(strAppDir + "\\Res\\ToolBar\\MakeSameWidth.bmp");
-			PresAssData = new Bitmap(strAppDir + "\\Res\\PresAssData.bmp");
-			RightBtn = new Bitmap(strAppDir + "\\Res\\RightBtn.bmp");
-			SliderBar = new Bitmap(strAppDir + "\\Res\\SliderBar.bmp");
-			SliderCursor = new Bitmap(strAppDir + "\\Res\\SliderCursor.bmp");
-			TopBtn = new Bitmap(strAppDir + "\\Res\\TopBtn.bmp");
-			TopLeftBtn = new Bitmap(strAppDir + "\\Res\\TopLeftBtn.bmp");
-			TopRightBtn = new Bitmap(strAppDir + "\\Res\\TopRightBtn.bmp");
-			UpDownBtn = new Bitmap(strAppDir + "\\Res\\UpDownBtn.bmp");
-			
-			SLI1 = new Bitmap(strAppDir + "\\Res\\WizRes\\SLI1.bmp");
-			SLI2 = new Bitmap(strAppDir + "\\Res\\WizRes\\SLI2.bmp");
-			SLI3= new Bitmap(strAppDir + "\\Res\\WizRes\\SLI3.bmp");
-			SLO1 = new Bitmap(strAppDir + "\\Res\\WizRes\\SLO1.bmp");
-			SLO2 = new Bitmap(strAppDir + "\\Res\\WizRes\\SLO2.bmp");
-			SLO3 = new Bitmap(strAppDir + "\\Res\\WizRes\\SLO3.bmp");
-			
-			move = new Bitmap(strAppDir + "\\Res\\move.bmp");			
+            AlignLeft = NewBmpTrPath(strAppDir + "\\Res\\ToolBar\\AlignLeft.bmp");
+            AlignTop = NewBmpTrPath(strAppDir + "\\Res\\ToolBar\\AlignTop.bmp");
+            ArrangeAcross = NewBmpTrPath(strAppDir + "\\Res\\ToolBar\\ArrangeAcross.bmp");
+            ArrangeDown = NewBmpTrPath(strAppDir + "\\Res\\ToolBar\\ArrangeDown.bmp");
+            BottomBtn = NewBmpTrPath(strAppDir + "\\Res\\DownBtn.bmp");
+            BottomLeftBtn = NewBmpTrPath(strAppDir + "\\Res\\BottomLeftBtn.bmp");
+            BottomRightBtn = NewBmpTrPath(strAppDir + "\\Res\\BottomRightBtn.bmp");
+            CheckBox = NewBmpTrPath(strAppDir + "\\Res\\CheckBox.bmp");
+            DropBtn = NewBmpTrPath(strAppDir + "\\Res\\DropBtn.bmp");
+            LeftBtn = NewBmpTrPath(strAppDir + "\\Res\\LeftBtn.bmp");
+            MakeSameBoth = NewBmpTrPath(strAppDir + "\\Res\\ToolBar\\MakeSameBoth.bmp");
+            MakeSameHeight = NewBmpTrPath(strAppDir + "\\Res\\ToolBar\\MakeSameHeight.bmp");
+            MakeSameWidth = NewBmpTrPath(strAppDir + "\\Res\\ToolBar\\MakeSameWidth.bmp");
+            PresAssData = NewBmpTrPath(strAppDir + "\\Res\\PresAssData.bmp");
+            RightBtn = NewBmpTrPath(strAppDir + "\\Res\\RightBtn.bmp");
+            SliderBar = NewBmpTrPath(strAppDir + "\\Res\\SliderBar.bmp");
+            SliderCursor = NewBmpTrPath(strAppDir + "\\Res\\SliderCursor.bmp");
+            TopBtn = NewBmpTrPath(strAppDir + "\\Res\\TopBtn.bmp");
+            TopLeftBtn = NewBmpTrPath(strAppDir + "\\Res\\TopLeftBtn.bmp");
+            TopRightBtn = NewBmpTrPath(strAppDir + "\\Res\\TopRightBtn.bmp");
+            UpDownBtn = NewBmpTrPath(strAppDir + "\\Res\\UpDownBtn.bmp");
 
-			CxnOn = new Bitmap(strAppDir + "\\Res\\CxnOn.bmp");			
-			CxnOff = new Bitmap(strAppDir + "\\Res\\CxnOff.bmp");			
-            Empty = new Bitmap(strAppDir + "\\Res\\EmptyImg.bmp");			
+            SLI1 = NewBmpTrPath(strAppDir + "\\Res\\WizRes\\SLI1.bmp");
+            SLI2 = NewBmpTrPath(strAppDir + "\\Res\\WizRes\\SLI2.bmp");
+            SLI3 = NewBmpTrPath(strAppDir + "\\Res\\WizRes\\SLI3.bmp");
+            SLO1 = NewBmpTrPath(strAppDir + "\\Res\\WizRes\\SLO1.bmp");
+            SLO2 = NewBmpTrPath(strAppDir + "\\Res\\WizRes\\SLO2.bmp");
+            SLO3 = NewBmpTrPath(strAppDir + "\\Res\\WizRes\\SLO3.bmp");
+
+            move = NewBmpTrPath(strAppDir + "\\Res\\move.bmp");
+
+            CxnOn = NewBmpTrPath(strAppDir + "\\Res\\CxnOn.bmp");
+            CxnOff = NewBmpTrPath(strAppDir + "\\Res\\CxnOff.bmp");
+            Empty = NewBmpTrPath(strAppDir + "\\Res\\EmptyImg.bmp");			
 		}
-		
+
+        public static Bitmap NewBmpTrPath(string path)
+        {
+            return new Bitmap(PathTranslator.LinuxVsWindowsPathUse(path));
+        }
 	}
 }

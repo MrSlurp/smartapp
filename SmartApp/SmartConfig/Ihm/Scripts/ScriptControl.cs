@@ -129,7 +129,14 @@ namespace SmartApp.Ihm
             }
             set
             {
-                m_TextScript.Lines = value;
+                if (value != null)
+                    m_TextScript.Lines = value;
+                else
+                {
+                    string[] strTabTmp = new string[1];
+                    strTabTmp[0] = string.Empty;
+                    m_TextScript.Lines = strTabTmp;
+                }
             }
         }
 

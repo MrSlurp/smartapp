@@ -120,7 +120,9 @@ namespace CtrlTwoBitmap
             DialogResult dlgRes = m_openFileDialog.ShowDialog();
             if (dlgRes == DialogResult.OK)
             {
-                m_txtBoxImg1.Text = PathTranslator.AbsolutePathToRelative(m_openFileDialog.FileName);
+
+                m_txtBoxImg1.Text = PathTranslator.LinuxVsWindowsPathStore(
+                                    PathTranslator.AbsolutePathToRelative(m_openFileDialog.FileName));
             }
 
         }
@@ -135,7 +137,8 @@ namespace CtrlTwoBitmap
             DialogResult dlgRes = m_openFileDialog.ShowDialog();
             if (dlgRes == DialogResult.OK)
             {
-                m_txtBoxImg2.Text = PathTranslator.AbsolutePathToRelative(m_openFileDialog.FileName);
+                m_txtBoxImg2.Text = PathTranslator.LinuxVsWindowsPathStore(
+                                    PathTranslator.AbsolutePathToRelative(m_openFileDialog.FileName));
             }
         }
     }

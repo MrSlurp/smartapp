@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
 using System.Windows.Forms;
+using CommonLib;
 
 namespace FourBitmap
 {
@@ -17,7 +18,7 @@ namespace FourBitmap
         {
             // adaptez le code ici afin de charger l'image souhaité
             string strAppDir = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
-            DefaultBmp = new Bitmap(strAppDir + "\\Res\\DefaultImage2.bmp");
+            DefaultBmp = new Bitmap(PathTranslator.LinuxVsWindowsPathUse(strAppDir + "\\Res\\DefaultImage2.bmp"));
         }
     }
 }

@@ -34,6 +34,7 @@ namespace CtrlTwoBitmap
                 m_Ctrl.BackColor = Color.Transparent;
                 
                 string strImageFullPath = PathTranslator.RelativePathToAbsolute(((TwoBitmapProp)this.m_SpecificProp).NomFichierInactif);
+                strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
                 try
                 {
                     ((TwoBitmap)m_Ctrl).BmpInact = new Bitmap(strImageFullPath);
@@ -45,6 +46,7 @@ namespace CtrlTwoBitmap
                 }
                 
                 strImageFullPath = PathTranslator.RelativePathToAbsolute(((TwoBitmapProp)this.m_SpecificProp).NomFichierActif);
+                strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
                 try
                 {
                     ((TwoBitmap)m_Ctrl).BmpAct = new Bitmap(strImageFullPath);

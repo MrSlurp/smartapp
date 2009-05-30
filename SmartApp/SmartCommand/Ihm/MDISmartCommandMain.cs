@@ -217,7 +217,11 @@ namespace SmartApp
             m_Document = new BTDoc(Program.TypeApp);
             m_Document.OnCommStateChange += new CommOpenedStateChange(OnCommStateChange);
             m_Document.EventAddLogEvent += new AddLogEventDelegate(AddLogEvent);
+#if LINUX
+            int lastindex = strFullFileName.LastIndexOf(@"/");
+#else
             int lastindex = strFullFileName.LastIndexOf(@"\");
+#endif
             string DossierFichier = strFullFileName.Substring(0, strFullFileName.Length - (strFullFileName.Length - lastindex));
             PathTranslator.BTDocPath = DossierFichier;
             if (m_Document.ReadConfigDocument(strFullFileName, Program.TypeApp, Program.DllGest))

@@ -113,7 +113,10 @@ namespace SmartApp.Ihm
             }
             set
             {
-                m_richTextDesc.Text = value;
+                if (value != null)
+                    m_richTextDesc.Text = value;
+                else
+                    m_richTextDesc.Text = string.Empty;
             }
         }
 
@@ -129,7 +132,10 @@ namespace SmartApp.Ihm
             }
             set
             {
-                m_textSymbol.Text = value;
+                if (value != null)
+                    m_textSymbol.Text = value;
+                else
+                    m_textSymbol.Text = string.Empty;
             }
         }
 
@@ -174,7 +180,14 @@ namespace SmartApp.Ihm
             }
             set
             {
-                m_EditScript.Lines = value;
+                if (value != null)
+                    m_EditScript.Lines = value;
+                else
+                {
+                    string[] strTabTmp = new string[1];
+                    strTabTmp[0] = string.Empty;
+                    m_EditScript.Lines = strTabTmp;
+                }
             }
         }
         #endregion

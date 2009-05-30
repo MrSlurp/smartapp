@@ -132,7 +132,8 @@ namespace FourBitmap
             DialogResult dlgRes = m_openFileDialog.ShowDialog();
             if (dlgRes == DialogResult.OK)
             {
-                m_txtBoxImg0.Text = PathTranslator.AbsolutePathToRelative(m_openFileDialog.FileName);
+                m_txtBoxImg0.Text = PathTranslator.LinuxVsWindowsPathStore(
+                                    PathTranslator.AbsolutePathToRelative(m_openFileDialog.FileName));
             }
         }
 
@@ -146,7 +147,8 @@ namespace FourBitmap
             DialogResult dlgRes = m_openFileDialog.ShowDialog();
             if (dlgRes == DialogResult.OK)
             {
-                m_txtBoxImg1.Text = PathTranslator.AbsolutePathToRelative(m_openFileDialog.FileName);
+                m_txtBoxImg1.Text = PathTranslator.LinuxVsWindowsPathStore(
+                                    PathTranslator.AbsolutePathToRelative(m_openFileDialog.FileName));
             }
         }
 
@@ -160,7 +162,8 @@ namespace FourBitmap
             DialogResult dlgRes = m_openFileDialog.ShowDialog();
             if (dlgRes == DialogResult.OK)
             {
-                m_txtBoxImg2.Text = PathTranslator.AbsolutePathToRelative(m_openFileDialog.FileName);
+                m_txtBoxImg2.Text = PathTranslator.LinuxVsWindowsPathStore(
+                                    PathTranslator.AbsolutePathToRelative(m_openFileDialog.FileName));
             }
         }
 
@@ -174,7 +177,8 @@ namespace FourBitmap
             DialogResult dlgRes = m_openFileDialog.ShowDialog();
             if (dlgRes == DialogResult.OK)
             {
-                m_txtBoxImg3.Text = PathTranslator.AbsolutePathToRelative(m_openFileDialog.FileName);
+                m_txtBoxImg3.Text = PathTranslator.LinuxVsWindowsPathStore(
+                                    PathTranslator.AbsolutePathToRelative(m_openFileDialog.FileName));
             }
         }
     }

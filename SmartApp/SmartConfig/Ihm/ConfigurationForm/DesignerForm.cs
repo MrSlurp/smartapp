@@ -355,6 +355,7 @@ namespace SmartApp.Ihm
             try
             {
                 string chemincomplet = PathTranslator.RelativePathToAbsolute(m_Currentscreen.BackPictureFile);
+                chemincomplet = PathTranslator.LinuxVsWindowsPathUse(chemincomplet);
                 if (!string.IsNullOrEmpty(chemincomplet)
                     && File.Exists(chemincomplet))
                 {

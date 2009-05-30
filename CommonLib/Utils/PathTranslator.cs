@@ -49,20 +49,39 @@ namespace CommonLib
         /// <returns></returns>
         public static string RelativePathToAbsolute(string CheminRelatifFichier)
         {
+            string strRet = string.Empty;
+            strRet = CheminRelatifFichier;
             if (CheminRelatifFichier.Contains(DOC_KEY))
             {
-                return CheminRelatifFichier.Replace(DOC_KEY, m_BTDocPath);
+                strRet = CheminRelatifFichier.Replace(DOC_KEY, m_BTDocPath);
             }
             else if (CheminRelatifFichier.Contains(EXE_KEY))
             {
-                return CheminRelatifFichier.Replace(EXE_KEY, Application.StartupPath);
+                strRet = CheminRelatifFichier.Replace(EXE_KEY, Application.StartupPath);
             }
             else if (CheminRelatifFichier.Contains(@".\"))
             {
-                return CheminRelatifFichier.Replace(@".\", Application.StartupPath + @"\");
+                strRet = CheminRelatifFichier.Replace(@".\", Application.StartupPath + @"\");
             }
-            else
-                return CheminRelatifFichier;
+            return strRet;
+        }
+
+        public static string LinuxVsWindowsPathUse(string strPath)
+        {
+#if LINUX
+            return strPath.Replace(@"\", @"/");
+#else
+            return strPath;
+#endif
+        }
+
+        public static string LinuxVsWindowsPathStore(string strPath)
+        {
+#if LINUX
+            return strPath.Replace(@"/", @"\");
+#else
+            return strPath;
+#endif
         }
 
     }

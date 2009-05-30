@@ -11,6 +11,7 @@ using System;
 using System.IO; 
 using System.Text; 
 using System.Collections;
+using CommonLib;
 
 namespace SmartApp
 {
@@ -158,8 +159,9 @@ namespace SmartApp
         /// </summary> 
         /// <param name="fileName">Nom de fichier</param> 
         public void Save (string fileName) 
-        { 
-            StreamWriter str = new StreamWriter(fileName,false); 
+        {
+            fileName = PathTranslator.LinuxVsWindowsPathUse(fileName);
+            StreamWriter str = new StreamWriter(fileName, false); 
   
             foreach (object okey in Sections.Keys) 
             { 
@@ -182,7 +184,8 @@ namespace SmartApp
         /// </summary> 
         /// <param name="fileName">Nom du fichier à charger</param> 
         public void Load (string fileName) 
-        { 
+        {
+            fileName = PathTranslator.LinuxVsWindowsPathUse(fileName);
             Sections = new Hashtable(); 
   
             StreamReader str = new StreamReader(File.Open(fileName,FileMode.OpenOrCreate)); 

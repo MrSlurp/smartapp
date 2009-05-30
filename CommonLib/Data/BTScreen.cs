@@ -484,7 +484,9 @@ namespace CommonLib
             }
             // et le chemin du de l'image de fond
             XmlNode NodeImage = XmlDoc.CreateElement(XML_CF_TAG.ImagePath.ToString());
-            XmlNode NodeTextImage = XmlDoc.CreateTextNode(PathTranslator.AbsolutePathToRelative(m_strBackPictureFile));
+            string strTemp = PathTranslator.AbsolutePathToRelative(m_strBackPictureFile);
+            strTemp = PathTranslator.LinuxVsWindowsPathStore(strTemp);
+            XmlNode NodeTextImage = XmlDoc.CreateTextNode(strTemp);
             NodeImage.AppendChild(NodeTextImage);
             Node.AppendChild(NodeImage);
             return true;
@@ -524,6 +526,7 @@ namespace CommonLib
                 // on ajuste la taille du dynamic Panel
                 m_DynamicPanel.Size = new Size(pt.X + 10, pt.Y + 10);
                 string strImageFullPath = PathTranslator.RelativePathToAbsolute(BackPictureFile);
+                strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
                 try
                 {
                     // si il y a une image, on la charge
@@ -540,7 +543,7 @@ namespace CommonLib
                 catch (Exception)
                 {
                     // en cas d'ereur on logue al'utilisateur que l'image n'as pas été chargée
-                    if (!string.IsNullOrEmpty(m_strBackPictureFile))
+                    if (!string.IsNullOrEmpty(strImageFullPath))
                     {
                         LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format("Screen {0} Failed to load file {1}", Symbol, strImageFullPath));
                         AddLogEvent(log);

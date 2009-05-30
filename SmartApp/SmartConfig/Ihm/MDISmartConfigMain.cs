@@ -324,11 +324,19 @@ namespace SmartApp.Ihm
             if (dlgRes == DialogResult.OK)
             {
                 string strFileFullName = saveFileDialog.FileName;
-                int idxOfLastAntiSlash = strFileFullName.LastIndexOf('\\');
+#if LINUX
+                int idxOfLastAntiSlash = strFileFullName.LastIndexOf(@"/");
+#else
+                int idxOfLastAntiSlash = strFileFullName.LastIndexOf(@"\");
+#endif
                 string DossierFichier = strFileFullName.Substring(0, strFileFullName.Length - (strFileFullName.Length - idxOfLastAntiSlash));
                 PathTranslator.BTDocPath = DossierFichier;
                 m_Document.WriteConfigDocument(strFileFullName, true);
+#if LINUX
+                int lastindex = strFileFullName.LastIndexOf(@"/");
+#else
                 int lastindex = strFileFullName.LastIndexOf(@"\");
+#endif
                 m_strDocumentName = strFileFullName.Substring(lastindex + 1);
                 m_Document.Modified = false;
             }
@@ -371,10 +379,18 @@ namespace SmartApp.Ihm
             {
                 if (OpenDocument(m_Document))
                 {
-                    int idxOfLastAntiSlash = strFullFileName.LastIndexOf('\\');
+#if LINUX
+                    int idxOfLastAntiSlash = strFullFileName.LastIndexOf(@"/");
+#else
+                    int idxOfLastAntiSlash = strFullFileName.LastIndexOf(@"\");
+#endif
                     string DossierFichier = strFullFileName.Substring(0, strFullFileName.Length - (strFullFileName.Length - idxOfLastAntiSlash));
                     PathTranslator.BTDocPath = DossierFichier;
+#if LINUX
+                    int lastindex = strFullFileName.LastIndexOf(@"/");
+#else
                     int lastindex = strFullFileName.LastIndexOf(@"\");
+#endif
                     m_strDocumentName = strFullFileName.Substring(lastindex+1);
                     UpdateTitle();
                     return true;

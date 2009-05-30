@@ -84,7 +84,6 @@
     <Compile Include="Defines.cs" />
     <Compile Include="DllControlGest.cs" />
     <Compile Include="DllControlInterface.cs" />
-    <Compile Include="FileTrace.cs" />
     <Compile Include="Gestionnaires\BaseGest.cs" />
     <Compile Include="Gestionnaires\BaseGestGroup.cs" />
     <Compile Include="Gestionnaires\GestControl.cs" />

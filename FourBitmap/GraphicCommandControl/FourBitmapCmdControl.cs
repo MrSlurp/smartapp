@@ -34,6 +34,7 @@ namespace FourBitmap
                 m_Ctrl.BackColor = Color.Transparent;
 
                 string strImageFullPath = PathTranslator.RelativePathToAbsolute(((DllFourBitmapProp)this.m_SpecificProp).NomFichier0);
+                strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
                 try
                 {
                     ((FourBitmapDispCtrl)m_Ctrl).Bmp0 = new Bitmap(strImageFullPath);
@@ -45,6 +46,7 @@ namespace FourBitmap
                 }
 
                 strImageFullPath = PathTranslator.RelativePathToAbsolute(((DllFourBitmapProp)this.m_SpecificProp).NomFichier1);
+                strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
                 try
                 {
                     ((FourBitmapDispCtrl)m_Ctrl).Bmp1 = new Bitmap(strImageFullPath);
@@ -56,6 +58,7 @@ namespace FourBitmap
                 }
 
                 strImageFullPath = PathTranslator.RelativePathToAbsolute(((DllFourBitmapProp)this.m_SpecificProp).NomFichier2);
+                strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
                 try
                 {
                     ((FourBitmapDispCtrl)m_Ctrl).Bmp2 = new Bitmap(strImageFullPath);
@@ -67,6 +70,7 @@ namespace FourBitmap
                 }
 
                 strImageFullPath = PathTranslator.RelativePathToAbsolute(((DllFourBitmapProp)this.m_SpecificProp).NomFichier3);
+                strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
                 try
                 {
                     ((FourBitmapDispCtrl)m_Ctrl).Bmp3 = new Bitmap(strImageFullPath);

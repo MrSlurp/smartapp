@@ -84,9 +84,9 @@ namespace CommonLib
 			// Si le répertoire n'existe pas, on le créé
 			try
 			{
-				if(! Directory.Exists(sLogDirectory + "\\" + sRepDuJour))
+				if(! Directory.Exists(PathTranslator.LinuxVsWindowsPathUse(sLogDirectory + @"\" + sRepDuJour)))
 				{
-					Directory.CreateDirectory(sLogDirectory + "\\" + sRepDuJour);
+					Directory.CreateDirectory(PathTranslator.LinuxVsWindowsPathUse(sLogDirectory + @"\" + sRepDuJour));
 					
 					// Si le répertoire a été créé, on 
 					LogPurge(NBR_JOURS) ;
@@ -98,7 +98,7 @@ namespace CommonLib
 			}
 			finally	
 			{
-				sRepertoire = sLogDirectory + "\\" + sRepDuJour + "\\" ;	
+				sRepertoire = PathTranslator.LinuxVsWindowsPathUse(sLogDirectory + @"\" + sRepDuJour + @"\");	
 			}
 			
 			return bRetour ;
@@ -147,8 +147,8 @@ namespace CommonLib
 							// DateHeure de l'écriture : LEVEL : Message1 : Message 2
 							// Message 1 est tronqué à TAILLEMAX_MESSAGE1 caractères ou complété par des espaces
 
-                            string strLog = oDHSysteme.ToString("dd") + "/" + oDHSysteme.ToString("MM") +
-                                "/" + oDHSysteme.ToString("yyyy") + " " + oDHSysteme.ToString("HH") + ":"
+                            string strLog = oDHSysteme.ToString("dd") + @"/" + oDHSysteme.ToString("MM") +
+                                @"/" + oDHSysteme.ToString("yyyy") + " " + oDHSysteme.ToString("HH") + ":"
                                 + oDHSysteme.ToString("mm") + ":" + oDHSysteme.ToString("ss") + " " +
                                 LOG_LEVEL_DESCRIPTIONS[iTracesLevel].PadRight(8, ' ') + " " +
                                 sMessage1.PadRight(TAILLEMAX_MESSAGE1, ' ').Substring(0, TAILLEMAX_MESSAGE1) + " " +
