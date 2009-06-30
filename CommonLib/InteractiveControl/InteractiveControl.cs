@@ -438,7 +438,7 @@ namespace CommonLib
             else
             {
                 resizeButton[1].CanBeVisible = false;
-                resizeButton[3].CanBeVisible = true;
+                resizeButton[3].CanBeVisible = false;
             }
 
             if (canResizeHeight)
