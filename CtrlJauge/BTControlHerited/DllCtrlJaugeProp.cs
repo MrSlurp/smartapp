@@ -64,16 +64,8 @@ namespace CtrlJauge
                 return false;
 
             Orientation = (eOrientationJauge)int.Parse(AttrOrient.Value);
-            string[] rgbVal = AttrColorMin.Value.Split(',');
-            int r = int.Parse(rgbVal[0]);
-            int g = int.Parse(rgbVal[1]);
-            int b = int.Parse(rgbVal[2]);
-            this.ColorMin = Color.FromArgb(r, g, b);
-            string[] rgbVal2 = AttrColorMax.Value.Split(',');
-            int r2 = int.Parse(rgbVal2[0]);
-            int g2 = int.Parse(rgbVal2[1]);
-            int b2 = int.Parse(rgbVal2[2]);
-            this.ColorMax = Color.FromArgb(r2, g2, b2);
+            this.ColorMin = ColorTranslate.StringToColor(AttrColorMin.Value);
+            this.ColorMax = ColorTranslate.StringToColor(AttrColorMax.Value);
             return true;
         }
 
@@ -82,8 +74,8 @@ namespace CtrlJauge
             XmlAttribute AttrColorMin = XmlDoc.CreateAttribute(COLOR_MIN);
             XmlAttribute AttrColorMax = XmlDoc.CreateAttribute(COLOR_MAX);
             XmlAttribute AttrOrient = XmlDoc.CreateAttribute(ORIENTATION);
-            AttrColorMin.Value = string.Format("{0}, {1}, {2}", ColorMin.R, ColorMin.G, ColorMin.B);
-            AttrColorMax.Value = string.Format("{0}, {1}, {2}", ColorMax.R, ColorMax.G, ColorMax.B);
+            AttrColorMin.Value = ColorTranslate.ColorToString(ColorMin);
+            AttrColorMax.Value = ColorTranslate.ColorToString(ColorMax); ;
             AttrOrient.Value = ((int)Orientation).ToString();
             Node.Attributes.Append(AttrColorMin);
             Node.Attributes.Append(AttrColorMax);

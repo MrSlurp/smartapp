@@ -275,11 +275,14 @@ namespace SmartApp.Ihm
                 strMessage = "Symbol must not be empty";
                 bRet = false;
             }
-            BTControl Sc = (BTControl)GestControl.GetFromSymbol(this.Symbol);
-            if (bRet && Sc != null && Sc != this.BTControl)
+            if (GestControl != null)
             {
-                strMessage = string.Format("A control with symbol {0} already exist", Symbol);
-                bRet = false;
+                BTControl Sc = (BTControl)GestControl.GetFromSymbol(this.Symbol);
+                if (bRet && Sc != null && Sc != this.BTControl)
+                {
+                    strMessage = string.Format("A control with symbol {0} already exist", Symbol);
+                    bRet = false;
+                }
             }
             if (!string.IsNullOrEmpty(this.AssociateData))
             {

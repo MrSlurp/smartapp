@@ -82,9 +82,9 @@ namespace SmartApp
                 case TYPE_APP.SMART_COMMAND:
                     m_TypeApp = TYPE_APP.SMART_COMMAND;
                     if (LaunchArgParser.File != null)
-                        m_CommandApp = new MDISmartCommandMain(LaunchArgParser.File);
+                        m_CommandApp = MDISmartCommandMain.CreateInstance(LaunchArgParser.File);
                     else
-                        m_CommandApp = new MDISmartCommandMain();
+                        m_CommandApp = MDISmartCommandMain.Instance;
                     Application.Run(m_CommandApp);
                     break;
             }

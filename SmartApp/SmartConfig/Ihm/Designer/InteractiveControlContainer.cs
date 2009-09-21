@@ -594,7 +594,15 @@ namespace SmartApp.Ihm.Designer
                 if (!newControl.IsDllControl)
                     newControl.ControlType = DropedItem.ControlType;
 
-                newControl.Size = DropedItem.Size;
+                int newHeigh = DropedItem.Size.Height;
+                int newWidth = DropedItem.Size.Width;
+                if (newControl.Size.Height < DropedItem.MinSize.Height)
+                    newHeigh = DropedItem.MinSize.Height;
+
+                if (newControl.Size.Width < DropedItem.MinSize.Width)
+                    newWidth = DropedItem.MinSize.Width;
+
+                newControl.Size = new Size(newWidth, newHeigh);
                 newControl.Text = DropedItem.Text;
                 // lorsqu'un control est ajouté, on supprime la séléction
                 for (int i = 0; i < m_ListSelection.Count; i++)

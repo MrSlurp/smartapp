@@ -381,15 +381,22 @@ namespace CommonLib
         protected void ReadScript(XmlNode Node)
         {
             // on lit le script si il y en a un
-            if (Node.FirstChild != null && Node.FirstChild.Name == XML_CF_TAG.EventScript.ToString())
+            if (Node.FirstChild != null)
             {
-                for (int i = 0; i < Node.FirstChild.ChildNodes.Count; i++)
+                for (int ch = 0; ch < Node.ChildNodes.Count; ch++)
                 {
-                    if (Node.FirstChild.ChildNodes[i].Name == XML_CF_TAG.Line.ToString()
-                        && Node.FirstChild.ChildNodes[i].FirstChild != null)
+                    if (Node.ChildNodes[ch].Name == XML_CF_TAG.EventScript.ToString())
                     {
+                        for (int i = 0; i < Node.ChildNodes[ch].ChildNodes.Count; i++)
+                        {
+                            if (Node.ChildNodes[ch].ChildNodes[i].Name == XML_CF_TAG.Line.ToString()
+                                && Node.ChildNodes[ch].ChildNodes[i].FirstChild != null)
+                            {
 
-                        m_ScriptLines.Add(Node.FirstChild.ChildNodes[i].FirstChild.Value);
+                                m_ScriptLines.Add(Node.ChildNodes[ch].ChildNodes[i].FirstChild.Value);
+                            }
+                        }
+                        break;
                     }
                 }
             }

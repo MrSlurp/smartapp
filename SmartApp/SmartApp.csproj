@@ -249,7 +249,6 @@
     <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\SpecificProperties\TwoColorProperties.Designer.cs">
       <DependentUpon>TwoColorProperties.cs</DependentUpon>
     </Compile>
-    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\UtilsClasses.cs" />
     <Compile Include="SmartConfig\Ihm\ProgItemPanels\FunctionPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -285,12 +284,6 @@
     </Compile>
     <Compile Include="SmartConfig\Ihm\VariousFormAndControls\SymbolTextBox.Designer.cs">
       <DependentUpon>SymbolTextBox.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\VariousFormAndControls\ChangeListForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\VariousFormAndControls\ChangeListForm.Designer.cs">
-      <DependentUpon>ChangeListForm.cs</DependentUpon>
     </Compile>
     <Compile Include="SmartConfig\Ihm\VariousFormAndControls\ManageGroupForm.cs">
       <SubType>Form</SubType>
@@ -423,10 +416,6 @@
     <EmbeddedResource Include="SmartConfig\Ihm\Scripts\ScriptEditordialog.resx">
       <SubType>Designer</SubType>
       <DependentUpon>ScriptEditordialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SmartConfig\Ihm\VariousFormAndControls\ChangeListForm.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>ChangeListForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SmartConfig\Ihm\VariousFormAndControls\ManageGroupForm.resx">
       <SubType>Designer</SubType>

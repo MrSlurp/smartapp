@@ -377,7 +377,7 @@ namespace CommonLib
                 string fileFullPath = m_strLogFilePath + @"\" + m_strFileName;
                 try
                 {
-                    m_FileWriter = new StreamWriter(File.Open(fileFullPath, FileMode.Append));
+                    m_FileWriter = new StreamWriter(File.Open(fileFullPath, FileMode.Append, FileAccess.Write, FileShare.Read));
                 }
                 catch (Exception)
                 {
@@ -405,7 +405,7 @@ namespace CommonLib
                 // on supprime son contenu
                 try
                 {
-                    m_FileWriter = new StreamWriter(File.Open(fileFullPath, FileMode.Truncate));
+                    m_FileWriter = new StreamWriter(File.Open(fileFullPath, FileMode.Truncate, FileAccess.Write, FileShare.Read));
                 }
                 catch (Exception )
                 {
@@ -420,7 +420,7 @@ namespace CommonLib
                 // on dois ensuite le réouvrir en ecriture
                 try
                 {
-                    m_FileWriter = new StreamWriter(File.Open(fileFullPath, FileMode.Append));
+                    m_FileWriter = new StreamWriter(File.Open(fileFullPath, FileMode.Append, FileAccess.Write, FileShare.Read));
                 }
                 catch (Exception )
                 {
@@ -435,7 +435,7 @@ namespace CommonLib
                 string fileFullPath = m_strLogFilePath + @"\" + m_strFileName;
                 try
                 {
-                    m_FileWriter = new StreamWriter(File.Open(fileFullPath, FileMode.Truncate));
+                    m_FileWriter = new StreamWriter(File.Open(fileFullPath, FileMode.Truncate, FileAccess.Write, FileShare.Read));
                 }
                 catch (Exception )
                 {

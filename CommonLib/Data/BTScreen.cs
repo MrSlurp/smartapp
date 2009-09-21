@@ -618,5 +618,20 @@ namespace CommonLib
         }
 
         #endregion
+
+        #region fonction SmartCommand
+        //*****************************************************************************************************
+        // Description:
+        // Return: /
+        //*****************************************************************************************************
+        public void ShowScreenToTop()
+        {
+            if (m_DynamicPanel != null)
+            {
+                m_DynamicPanel.SetToTop();
+            }
+        }
+        #endregion
+
     }
 }

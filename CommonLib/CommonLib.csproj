@@ -137,6 +137,12 @@
     <Compile Include="StdForms\ChangeListForm.Designer.cs">
       <DependentUpon>ChangeListForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="StdForms\PickDataForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StdForms\PickDataForm.Designer.cs">
+      <DependentUpon>PickDataForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="StdForms\WaitOpenCommForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -159,8 +165,10 @@
     <Compile Include="StdGraphicControl\SliderControl.cs" />
     <Compile Include="StdGraphicControl\StaticControl.cs" />
     <Compile Include="StdGraphicControl\UpDownControl.cs" />
+    <Compile Include="Utils\ColorTranslate.cs" />
     <Compile Include="Utils\PathTranslator.cs" />
     <Compile Include="Utils\Traces.cs" />
+    <Compile Include="Utils\UtilsClasses.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ConfigForms\TwoColorProperties.resx">
@@ -186,6 +194,10 @@
     <EmbeddedResource Include="StdForms\ChangeListForm.resx">
       <DependentUpon>ChangeListForm.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StdForms\PickDataForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>PickDataForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StdForms\WaitOpenCommForm.resx">
       <DependentUpon>WaitOpenCommForm.cs</DependentUpon>

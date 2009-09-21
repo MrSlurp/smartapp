@@ -90,6 +90,13 @@ namespace CommonLib
         #endregion
 
         #region attributs
+        public Size MinSize
+        {
+            get
+            {
+                return minSize;
+            }
+        }
         //*****************************************************************************************************
         // Description: accesseur pour le type, modifie atomatiquement les propriété de redimensionement et 
         // la taille du control quand le type change

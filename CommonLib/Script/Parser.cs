@@ -21,6 +21,8 @@ namespace CommonLib
         MATHS,
         MATHS_FUNC,
         DATA,
+        SCREEN,
+        SCREEN_FUNC,
     }
 
     // mots clef de base du langage BTScript
@@ -32,6 +34,7 @@ namespace CommonLib
         LOGGERS,
         TIMERS,
         MATHS,
+        SCREEN,
     }
 
     public enum FRAME_FUNC
@@ -64,6 +67,12 @@ namespace CommonLib
         SUB,
         MUL,
         DIV,
+    }
+
+    public enum SCREEN_FUNC
+    {
+        INVALID,
+        SHOW_ON_TOP,
     }
 
     public enum ErrorType
@@ -234,6 +243,11 @@ namespace CommonLib
                         IsParameter = true;
                     }
                     break;
+                case SCR_OBJECT.SCREEN:
+                    retTokenType = TOKEN_TYPE.SCREEN;
+                    if (TokenNumAtPos == 2)
+                        retTokenType = TOKEN_TYPE.SCREEN_FUNC;
+                    break;
                 case SCR_OBJECT.INVALID:
                 default:
                     break;
@@ -259,6 +273,7 @@ namespace CommonLib
                     AutoCompleteStrings.Add(SCR_OBJECT.LOGGERS.ToString());
                     AutoCompleteStrings.Add(SCR_OBJECT.TIMERS.ToString());
                     AutoCompleteStrings.Add(SCR_OBJECT.MATHS.ToString());
+                    AutoCompleteStrings.Add(SCR_OBJECT.SCREEN.ToString());
                     break;
                 case TOKEN_TYPE.FRAME:
                     for (int i = 0; i < m_Document.GestTrame.Count; i++)
@@ -310,6 +325,15 @@ namespace CommonLib
                         AutoCompleteStrings.Add(m_Document.GestData[i].Symbol);
                     }
                     break;
+                case TOKEN_TYPE.SCREEN_FUNC:
+                    AutoCompleteStrings.Add(SCREEN_FUNC.SHOW_ON_TOP.ToString());
+                    break;
+                case TOKEN_TYPE.SCREEN:
+                    for (int i = 0; i < m_Document.GestScreen.Count; i++)
+                    {
+                        AutoCompleteStrings.Add(m_Document.GestScreen[i].Symbol);
+                    }
+                    break;
                 case TOKEN_TYPE.NULL:
                 default:
                     break;
@@ -356,8 +380,14 @@ namespace CommonLib
                             case SCR_OBJECT.MATHS:
                                 ParseMathsFunction(Line, ErrorList);
                                 break;
+                            case SCR_OBJECT.SCREEN:
+                                if (ParseScreen(Line, ErrorList))
+                                    ParseScreenFunction(Line, ErrorList);
+                                break;
                             case SCR_OBJECT.INVALID:
                             default:
+                                ScriptParserError Err = new ScriptParserError("Unkown keyword", m_iCurLine, ErrorType.ERROR);
+                                ErrorList.Add(Err);
                                 break;
                         }
                     }
@@ -849,6 +879,89 @@ namespace CommonLib
             else
             {
                 string strErr = string.Format("Invalid line, missing Maths function");
+                ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
+                ErrorList.Add(Err);
+            }
+        }
+        #endregion
+
+        #region parsing des screen
+        //*****************************************************************************************************
+        // Description:
+        // Return: /
+        //*****************************************************************************************************
+        protected bool ParseScreen(string line, List<ScriptParserError> ErrorList)
+        {
+            string[] strTab = line.Split('.');
+            if (strTab.Length > 1)
+            {
+                string strScreen = strTab[1];
+                strScreen = strScreen.Trim();
+                if (m_Document.GestScreen.GetFromSymbol(strScreen) == null)
+                {
+                    string strErr = string.Format("Invalid Screen symbol {0}", strScreen);
+                    ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
+                    ErrorList.Add(Err);
+                    return false;
+                }
+                return true;
+            }
+            return false;
+
+        }
+
+        //*****************************************************************************************************
+        // Description:
+        // Return: /
+        //*****************************************************************************************************
+        protected void ParseScreenFunction(string line, List<ScriptParserError> ErrorList)
+        {
+            string[] strTab = line.Split('.');
+            if (strTab.Length > 2)
+            {
+                string strTemp = strTab[2];
+                int posOpenParenthese = strTemp.LastIndexOf('(');
+                if (posOpenParenthese == -1)
+                {
+                    ScriptParserError Err = new ScriptParserError("Syntax Error : Missing '('", m_iCurLine, ErrorType.ERROR);
+                    ErrorList.Add(Err);
+                    return;
+                }
+                int posCloseParenthese = strTemp.LastIndexOf(')');
+                if (posCloseParenthese == -1)
+                {
+                    ScriptParserError Err = new ScriptParserError("Syntax Error : Missing ')'", m_iCurLine, ErrorType.ERROR);
+                    ErrorList.Add(Err);
+                    return;
+                }
+
+                strTemp = strTemp.Remove(posOpenParenthese);
+                string strScrObject = strTemp;
+                SCREEN_FUNC SecondTokenType = SCREEN_FUNC.INVALID;
+                try
+                {
+                    SecondTokenType = (SCREEN_FUNC)Enum.Parse(typeof(SCREEN_FUNC), strScrObject);
+                }
+                catch (Exception)
+                {
+                    string strErr = string.Format("Invalid Screen function {0}", strScrObject);
+                    ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
+                    ErrorList.Add(Err);
+                }
+
+                switch (SecondTokenType)
+                {
+                    case SCREEN_FUNC.SHOW_ON_TOP:
+                        // ajouter du code ici si il faut parser le contenu des parenthèses
+                        break;
+                    case SCREEN_FUNC.INVALID:
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                string strErr = string.Format("Invalid line, missing screen function");
                 ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
                 ErrorList.Add(Err);
             }

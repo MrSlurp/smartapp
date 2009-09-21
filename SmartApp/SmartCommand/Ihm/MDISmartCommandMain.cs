@@ -38,6 +38,33 @@ namespace SmartApp
         private bool m_bSaveFileComm = true;
         // stocke temporairement le nom de fichier passé par la ligne de commande
         private string m_strAutoOpenFileName = "";
+
+        private bool m_bFullScreenMode = false;
+        private FormWindowState m_PrevFullScreenState = FormWindowState.Normal;
+        #endregion
+
+        #region singleton
+        private static MDISmartCommandMain _Instance;
+
+        public static MDISmartCommandMain Instance
+        {
+            get
+            {
+                if (_Instance == null)
+                    _Instance = new MDISmartCommandMain();
+
+                return _Instance;
+            }
+        }
+
+        public static MDISmartCommandMain CreateInstance(string strFileName)
+        {
+            if (_Instance == null)
+                _Instance = new MDISmartCommandMain(strFileName);
+
+            return _Instance;
+        }
+
         #endregion
 
         #region attributs
@@ -59,7 +86,7 @@ namespace SmartApp
         // Description: constructeur par défaut
         // Return: /
         //*****************************************************************************************************
-        public MDISmartCommandMain()
+        private MDISmartCommandMain()
         {
             InitializeComponent();
             CommonConstructorInit();
@@ -69,7 +96,7 @@ namespace SmartApp
         // Description: constructeur avec nom de fichier (ouvre le fichier passé en paramètre)
         // Return: /
         //*****************************************************************************************************
-        public MDISmartCommandMain(string strFileName)
+        private MDISmartCommandMain(string strFileName)
         {
             InitializeComponent();
             CommonConstructorInit();
@@ -86,6 +113,7 @@ namespace SmartApp
             m_tsBtnStartStop.Enabled = false;
             m_tsBtnConnexion.Enabled = false;
             UpdateToolBarCxnItemState();
+            AsyncUpdater();
             InitCboComms();
         }
         #endregion
@@ -134,13 +162,32 @@ namespace SmartApp
         //*****************************************************************************************************      
         protected void AsyncUpdater()
         {
-            if (m_Document.m_Comm.IsOpen)
+            if (m_Document != null && m_Document.m_Comm != null)
             {
-                m_tsBtnConnexion.Checked = true;
-                m_tsBtnConnexion.Text = "Connected";
-                m_tsBtnConnexion.Image = Resources.CxnOn;
-                m_tsBtnStartStop.Enabled = true;
-                UpdateToolBarCxnItemState();
+                if (m_Document.m_Comm.IsOpen)
+                {
+                    m_tsBtnConnexion.Checked = true;
+                    m_tsBtnConnexion.Text = "Connected";
+                    m_tsBtnConnexion.Image = Resources.CxnOn;
+                    m_tsBtnStartStop.Enabled = true;
+                    UpdateToolBarCxnItemState();
+                }
+                else
+                {
+                    m_tsBtnConnexion.Checked = false;
+                    m_tsBtnConnexion.Text = "Disconnected";
+                    m_tsBtnConnexion.Image = Resources.CxnOff;
+                    m_tsBtnStartStop.Enabled = false;
+                    m_Document.TraiteMessage(MESSAGE.MESS_CMD_STOP, null, Program.TypeApp);
+                    for (int i = 0; i < m_FormList.Count; i++)
+                    {
+                        m_FormList[i].DynamicPanelEnabled = false;
+                    }
+
+                    m_tsBtnStartStop.Checked = false;
+                    UpdateStartStopButtonState();
+                    UpdateToolBarCxnItemState();
+                }
             }
             else
             {
@@ -148,15 +195,7 @@ namespace SmartApp
                 m_tsBtnConnexion.Text = "Disconnected";
                 m_tsBtnConnexion.Image = Resources.CxnOff;
                 m_tsBtnStartStop.Enabled = false;
-                m_Document.TraiteMessage(MESSAGE.MESS_CMD_STOP, null, Program.TypeApp);
-                for (int i = 0; i < m_FormList.Count; i++)
-                {
-                    m_FormList[i].DynamicPanelEnabled = false;
-                }
-
-                m_tsBtnStartStop.Checked = false;
                 UpdateStartStopButtonState();
-                UpdateToolBarCxnItemState();
             }
         }
 
@@ -268,6 +307,7 @@ namespace SmartApp
             for (int i = 0; i < Doc.GestScreen.Count; i++)
             {
                 BTScreen Scr = (BTScreen)Doc.GestScreen[i];
+                Scr.Panel.SetMeToTop += new DynamicPanel.SetMeToTopEvent(SetClientFormToTop);
                 DynamicPanelForm Frm = new DynamicPanelForm(Scr.Panel);
                 Scr.Panel.Location = new Point(10, 10);                
                 Frm.ClientSize = new System.Drawing.Size(Scr.Panel.Width + Scr.Panel.Left+10,
@@ -685,5 +725,43 @@ namespace SmartApp
         }
         #endregion
 
+
+        private void m_tsBtnFullScreen_Click(object sender, EventArgs e)
+        {
+            if (!m_bFullScreenMode)
+                m_PrevFullScreenState = this.WindowState;
+
+            m_bFullScreenMode = !m_bFullScreenMode;
+            if (m_bFullScreenMode)
+            {
+                this.SuspendLayout();
+                // on cache le menu, la bare de status
+                this.menuStrip.Visible = false;
+                this.m_StatusBar.Visible = false;
+                // on enlève les bouton des la barre de titre
+                this.ControlBox = false;
+                // one enlève les bord
+                this.FormBorderStyle = FormBorderStyle.None;
+                // on maximise la fenêtre principale 
+                this.WindowState = FormWindowState.Maximized;
+                this.ResumeLayout();
+            }
+            else
+            {
+                this.SuspendLayout();
+                // tout l'inverse de ce qui est fait au dessus
+                this.menuStrip.Visible = true;
+                this.m_StatusBar.Visible = true;
+                this.WindowState = m_PrevFullScreenState;
+                this.ControlBox = true;
+                this.FormBorderStyle = FormBorderStyle.Sizable;
+                this.ResumeLayout();
+            }
+        }
+
+        private void SetClientFormToTop(Form ClientForm)
+        {
+            ClientForm.BringToFront();
+        }
     }
 }

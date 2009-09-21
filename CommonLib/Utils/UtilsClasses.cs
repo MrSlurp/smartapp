@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SmartApp.Ihm
+namespace CommonLib
 {
     public delegate void CurrentDataListChanged();
     public delegate void BeforeCurrentDataListChange();
@@ -13,7 +13,7 @@ namespace SmartApp.Ihm
     // classe "utilitaire" pour afficher les texte de la combo et avoir une valeur associée
     // (utilisation de l'attribut DataSource)
     //*****************************************************************************************************
-    class CComboData : Object
+    public class CComboData : Object
     {
         private string m_String;
         private int m_Value;

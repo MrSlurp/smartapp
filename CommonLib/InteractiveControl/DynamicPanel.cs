@@ -22,12 +22,14 @@ namespace CommonLib
 {
     public partial class DynamicPanel : UserControl
     {
-
+        public delegate void SetMeToTopEvent(Form MyParent);
         //ControlCollection m_ListToDrawManually = null;
         List<Control> m_ListToDrawManually = new List<Control>();
         // optimisation
         // pour chaque objet dessiner en fond il y a une liste des controls à rafraichir qui vont avec
         Hashtable m_MapBackDrawToListRefresh = new Hashtable();
+
+        public event SetMeToTopEvent SetMeToTop;
         /// <summary>
         /// 
         /// </summary>
@@ -84,6 +86,12 @@ namespace CommonLib
                 }
                 m_MapBackDrawToListRefresh.Add(dpCtrl, listCtrlToRef);
             }
+        }
+
+        public void SetToTop()
+        {
+            if (SetMeToTop != null)
+                SetMeToTop((Form)this.Parent);
         }
 
         protected void TraiteRefreshSuperposedItem(Control ctrl)
