@@ -58,6 +58,7 @@ namespace SmartApp.Ihm
             this.m_jumpTotCmdMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             this.m_MenuItemM3SLWiz = new System.Windows.Forms.ToolStripMenuItem();
+            this.m_MenuItemZ2SLWiz = new System.Windows.Forms.ToolStripMenuItem();
             this.m_MenuItemTCPMBWiz = new System.Windows.Forms.ToolStripMenuItem();
             this.m_viewMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.m_toolBarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -83,7 +84,7 @@ namespace SmartApp.Ihm
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.m_ToolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.m_MenuItemZ2SLWiz = new System.Windows.Forms.ToolStripMenuItem();
+            this.pluginsVersionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.m_menuStrip.SuspendLayout();
             this.m_toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
@@ -343,6 +344,14 @@ namespace SmartApp.Ihm
             this.m_MenuItemM3SLWiz.Text = "M3 SL blocs Wizard";
             this.m_MenuItemM3SLWiz.Click += new System.EventHandler(this.OnMenuItemM3SLWizClick);
             // 
+            // m_MenuItemZ2SLWiz
+            // 
+            this.m_MenuItemZ2SLWiz.Enabled = false;
+            this.m_MenuItemZ2SLWiz.Name = "m_MenuItemZ2SLWiz";
+            this.m_MenuItemZ2SLWiz.Size = new System.Drawing.Size(220, 22);
+            this.m_MenuItemZ2SLWiz.Text = "Z2 SL blocs Wizard";
+            this.m_MenuItemZ2SLWiz.Click += new System.EventHandler(this.m_MenuItemZ2SLWiz_Click);
+            // 
             // m_MenuItemTCPMBWiz
             // 
             this.m_MenuItemTCPMBWiz.Enabled = false;
@@ -366,7 +375,7 @@ namespace SmartApp.Ihm
             this.m_toolBarToolStripMenuItem.CheckOnClick = true;
             this.m_toolBarToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.m_toolBarToolStripMenuItem.Name = "m_toolBarToolStripMenuItem";
-            this.m_toolBarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.m_toolBarToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.m_toolBarToolStripMenuItem.Text = "&Toolbar";
             this.m_toolBarToolStripMenuItem.Click += new System.EventHandler(this.ToolBarToolStripMenuItem_Click);
             // 
@@ -376,7 +385,7 @@ namespace SmartApp.Ihm
             this.m_statusBarToolStripMenuItem.CheckOnClick = true;
             this.m_statusBarToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.m_statusBarToolStripMenuItem.Name = "m_statusBarToolStripMenuItem";
-            this.m_statusBarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.m_statusBarToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.m_statusBarToolStripMenuItem.Text = "&Status Bar";
             this.m_statusBarToolStripMenuItem.Click += new System.EventHandler(this.StatusBarToolStripMenuItem_Click);
             // 
@@ -433,7 +442,8 @@ namespace SmartApp.Ihm
             // 
             this.m_helpMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.m_indexToolStripMenuItem,
-            this.m_aboutToolStripMenuItem});
+            this.m_aboutToolStripMenuItem,
+            this.pluginsVersionsToolStripMenuItem});
             this.m_helpMenu.Name = "m_helpMenu";
             this.m_helpMenu.Size = new System.Drawing.Size(40, 20);
             this.m_helpMenu.Text = "&Help";
@@ -443,14 +453,14 @@ namespace SmartApp.Ihm
             this.m_indexToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("m_indexToolStripMenuItem.Image")));
             this.m_indexToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
             this.m_indexToolStripMenuItem.Name = "m_indexToolStripMenuItem";
-            this.m_indexToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.m_indexToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.m_indexToolStripMenuItem.Text = "&Index";
             this.m_indexToolStripMenuItem.Visible = false;
             // 
             // m_aboutToolStripMenuItem
             // 
             this.m_aboutToolStripMenuItem.Name = "m_aboutToolStripMenuItem";
-            this.m_aboutToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.m_aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.m_aboutToolStripMenuItem.Text = "&About ...";
             this.m_aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -558,13 +568,12 @@ namespace SmartApp.Ihm
             this.toolStripStatusLabel.Size = new System.Drawing.Size(38, 17);
             this.toolStripStatusLabel.Text = "Status";
             // 
-            // m_MenuItemZ2SLWiz
+            // pluginsVersionsToolStripMenuItem
             // 
-            this.m_MenuItemZ2SLWiz.Enabled = false;
-            this.m_MenuItemZ2SLWiz.Name = "m_MenuItemZ2SLWiz";
-            this.m_MenuItemZ2SLWiz.Size = new System.Drawing.Size(220, 22);
-            this.m_MenuItemZ2SLWiz.Text = "Z2 SL blocs Wizard";
-            this.m_MenuItemZ2SLWiz.Click += new System.EventHandler(this.m_MenuItemZ2SLWiz_Click);
+            this.pluginsVersionsToolStripMenuItem.Name = "pluginsVersionsToolStripMenuItem";
+            this.pluginsVersionsToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.pluginsVersionsToolStripMenuItem.Text = "Plugins versions";
+            this.pluginsVersionsToolStripMenuItem.Click += new System.EventHandler(this.pluginsVersionsToolStripMenuItem_Click);
             // 
             // MDISmartConfigMain
             // 
@@ -647,6 +656,7 @@ namespace SmartApp.Ihm
         private System.Windows.Forms.ToolStripMenuItem m_MenuItemClose;
         private System.Windows.Forms.ToolStripMenuItem m_MenuItemTCPMBWiz;
         private System.Windows.Forms.ToolStripMenuItem m_MenuItemZ2SLWiz;
+        private System.Windows.Forms.ToolStripMenuItem pluginsVersionsToolStripMenuItem;
     }
 }
 

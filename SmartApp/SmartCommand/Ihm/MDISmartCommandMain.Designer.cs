@@ -50,9 +50,10 @@ namespace SmartApp
             this.m_tsBtnStartStop = new System.Windows.Forms.ToolStripButton();
             this.m_tsCboCurConnection = new System.Windows.Forms.ToolStripComboBox();
             this.m_tsBtnConfigComm = new System.Windows.Forms.ToolStripButton();
+            this.m_tsBtnFullScreen = new System.Windows.Forms.ToolStripButton();
             this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.m_StatusBar = new System.Windows.Forms.StatusStrip();
-            this.m_tsBtnFullScreen = new System.Windows.Forms.ToolStripButton();
+            this.pluginsVersionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.SuspendLayout();
@@ -140,7 +141,8 @@ namespace SmartApp
             // 
             this.helpMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.indexToolStripMenuItem,
-            this.aboutToolStripMenuItem});
+            this.aboutToolStripMenuItem,
+            this.pluginsVersionsToolStripMenuItem});
             this.helpMenu.Name = "helpMenu";
             this.helpMenu.Size = new System.Drawing.Size(40, 20);
             this.helpMenu.Text = "&Help";
@@ -150,14 +152,14 @@ namespace SmartApp
             this.indexToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("indexToolStripMenuItem.Image")));
             this.indexToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
             this.indexToolStripMenuItem.Name = "indexToolStripMenuItem";
-            this.indexToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.indexToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
             this.indexToolStripMenuItem.Text = "&Help";
             this.indexToolStripMenuItem.Visible = false;
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
             this.aboutToolStripMenuItem.Text = "&About ...";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -226,14 +228,6 @@ namespace SmartApp
             this.m_tsBtnConfigComm.Text = "Configure connections";
             this.m_tsBtnConfigComm.Click += new System.EventHandler(this.m_tsBtnConfigComm_Click);
             // 
-            // m_StatusBar
-            // 
-            this.m_StatusBar.Location = new System.Drawing.Point(0, 644);
-            this.m_StatusBar.Name = "m_StatusBar";
-            this.m_StatusBar.Size = new System.Drawing.Size(992, 22);
-            this.m_StatusBar.TabIndex = 3;
-            this.m_StatusBar.Text = "statusStrip1";
-            // 
             // m_tsBtnFullScreen
             // 
             this.m_tsBtnFullScreen.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
@@ -243,6 +237,21 @@ namespace SmartApp
             this.m_tsBtnFullScreen.Size = new System.Drawing.Size(98, 22);
             this.m_tsBtnFullScreen.Text = "Toggle Full Screen";
             this.m_tsBtnFullScreen.Click += new System.EventHandler(this.m_tsBtnFullScreen_Click);
+            // 
+            // m_StatusBar
+            // 
+            this.m_StatusBar.Location = new System.Drawing.Point(0, 644);
+            this.m_StatusBar.Name = "m_StatusBar";
+            this.m_StatusBar.Size = new System.Drawing.Size(992, 22);
+            this.m_StatusBar.TabIndex = 3;
+            this.m_StatusBar.Text = "statusStrip1";
+            // 
+            // pluginsVersionsToolStripMenuItem
+            // 
+            this.pluginsVersionsToolStripMenuItem.Name = "pluginsVersionsToolStripMenuItem";
+            this.pluginsVersionsToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.pluginsVersionsToolStripMenuItem.Text = "Plugins versions";
+            this.pluginsVersionsToolStripMenuItem.Click += new System.EventHandler(this.pluginsVersionsToolStripMenuItem_Click);
             // 
             // MDISmartCommandMain
             // 
@@ -295,6 +304,7 @@ namespace SmartApp
         private System.Windows.Forms.ToolStripComboBox m_tsCboCurConnection;
         private System.Windows.Forms.ToolStripButton m_tsBtnConfigComm;
         private System.Windows.Forms.ToolStripButton m_tsBtnFullScreen;
+        private System.Windows.Forms.ToolStripMenuItem pluginsVersionsToolStripMenuItem;
     }
 }
 

@@ -763,5 +763,11 @@ namespace SmartApp
         {
             ClientForm.BringToFront();
         }
+
+        private void pluginsVersionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PluginsVersionsForm plVer = new PluginsVersionsForm();
+            plVer.ShowDialog();
+        }
     }
 }
