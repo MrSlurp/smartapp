@@ -40,7 +40,7 @@ namespace FourBitmap
 
             // modifiez ici les valeur afin que le control ai la taille min souhaité et ses possibilité de redimensionnement
             m_SpecGraphicProp.m_bcanResizeWidth = true;
-            m_SpecGraphicProp.m_bcanResizeHeight = false;
+            m_SpecGraphicProp.m_bcanResizeHeight = true;
             m_SpecGraphicProp.m_MinSize = new Size(5, 5);
             this.ControlType = InteractiveControlType.DllControl;
         }

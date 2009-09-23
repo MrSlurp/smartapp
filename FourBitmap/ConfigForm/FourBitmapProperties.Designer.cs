@@ -38,7 +38,6 @@
             this.m_txtBoxImg3 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.m_btnImg3 = new System.Windows.Forms.Button();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.m_txtBoxImg2 = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.m_btnImg2 = new System.Windows.Forms.Button();
@@ -70,10 +69,6 @@
             this.m_btnImg1.Text = "...";
             this.m_btnImg1.UseVisualStyleBackColor = true;
             this.m_btnImg1.Click += new System.EventHandler(this.m_btnImg1_Click);
-            // 
-            // m_openFileDialog
-            // 
-            this.m_openFileDialog.FileName = "openFileDialog1";
             // 
             // m_txtBoxImg0
             // 
@@ -128,10 +123,6 @@
             this.m_btnImg3.Text = "...";
             this.m_btnImg3.UseVisualStyleBackColor = true;
             this.m_btnImg3.Click += new System.EventHandler(this.m_btnImg3_Click);
-            // 
-            // openFileDialog1
-            // 
-            this.openFileDialog1.FileName = "openFileDialog1";
             // 
             // m_txtBoxImg2
             // 
@@ -196,7 +187,6 @@
         private System.Windows.Forms.TextBox m_txtBoxImg3;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button m_btnImg3;
-        private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.TextBox m_txtBoxImg2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button m_btnImg2;

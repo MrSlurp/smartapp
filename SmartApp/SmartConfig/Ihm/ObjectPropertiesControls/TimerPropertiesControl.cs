@@ -7,8 +7,6 @@ using System.Text;
 using System.Windows.Forms;
 using CommonLib;
 
-using SmartApp.Scripts;
-
 namespace SmartApp.Ihm
 {
     public partial class TimerPropertiesControl : UserControl

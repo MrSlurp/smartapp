@@ -10,6 +10,16 @@ namespace CtrlDataTrigger
 {
     internal class CtrlDataTriggerCmdControl : BTDllCtrlDataTriggerControl
     {
+        private enum TriggerState
+        {
+            STATE_ON,
+            STATE_OFF
+        };
+        Data m_AssocDataOnToOff = null;
+        Data m_AssocDataOffToOn = null;
+        int m_iValueOnToOff = 0;
+        int m_iValueOffToOn = 0;
+        TriggerState m_TriggerState = TriggerState.STATE_OFF;
         //*****************************************************************************************************
         // Description:
         // Return: /
@@ -36,6 +46,7 @@ namespace CtrlDataTrigger
             }
         }
 
+
         public override void OnControlEvent(object Sender, EventArgs Args)
         {
             // traitez ici les évènement déclenché par le control (click souris par exemple)
@@ -50,16 +61,101 @@ namespace CtrlDataTrigger
         {
             if (m_AssociateData != null && m_Ctrl != null)
             {
-                if (m_ScriptLines.Count != 0)
+                // système normal ou il appel le script à chaque fois
+                DllCtrlDataTriggerProp prop = (DllCtrlDataTriggerProp)m_SpecificProp;
+                if (prop.BehaveLikeTrigger == false)
                 {
-                    m_Executer.ExecuteScript(this.ScriptLines);
+                    if (m_ScriptLines.Count != 0)
+                    {
+                        m_Executer.ExecuteScript(this.ScriptLines);
+                    }
+                    if (m_bUseScreenEvent)
+                    {
+                        m_Parent.ControlEvent();
+                    }
                 }
-
-                if (m_bUseScreenEvent)
+                else
                 {
-                    m_Parent.ControlEvent();
+                    UpdateTriggerInputValues();
+                    //bFirstValueOK = true;
+                    //m_AssociateData.Value;
+                    TriggerState NextTriggerState = TriggerState.STATE_OFF;
+                    int valeur_testee = m_AssociateData.Value;
+                    if (m_iValueOnToOff == m_iValueOffToOn)
+                    {
+                        if (m_iValueOnToOff == valeur_testee)
+                            NextTriggerState = TriggerState.STATE_ON;
+                        else
+                            NextTriggerState = TriggerState.STATE_OFF;
+                    }
+                    else
+                    {
+                        if (m_iValueOnToOff < m_iValueOffToOn)
+                        {
+                            if (valeur_testee >= m_iValueOffToOn)
+                                NextTriggerState = TriggerState.STATE_ON;
+                            else if (valeur_testee <= m_iValueOnToOff)
+                                NextTriggerState = TriggerState.STATE_OFF;
+                        }
+                        else
+                        {
+                            if (valeur_testee <= m_iValueOffToOn)
+                                NextTriggerState = TriggerState.STATE_ON;
+                            else if (valeur_testee >= m_iValueOnToOff)
+                                NextTriggerState = TriggerState.STATE_OFF;
+                        }
+                    }
+                    if (NextTriggerState != m_TriggerState)
+                    {
+                        if (NextTriggerState == TriggerState.STATE_ON)
+                            m_Executer.ExecuteScript(prop.ScriptOffToOn);
+                        else
+                            m_Executer.ExecuteScript(prop.ScriptOnToOff);
+                    }
                 }
             }
+        }
+
+        public void UpdateTriggerInputValues()
+        {
+            //on update que si on a une donnée associée (sinon c'est une constante
+            if (m_AssocDataOnToOff != null)
+                m_iValueOnToOff = m_AssocDataOnToOff.DefaultValue;
+
+            if (m_AssocDataOffToOn != null)
+                m_iValueOffToOn = m_AssocDataOffToOn.DefaultValue;
+        }
+
+        public override bool FinalizeRead(BTDoc Doc)
+        {
+            bool bret = base.FinalizeRead(Doc);
+
+            DllCtrlDataTriggerProp prop = (DllCtrlDataTriggerProp)m_SpecificProp;
+            if (prop.BehaveLikeTrigger == false)
+            {
+                bool ParseRes = false;
+                if (!string.IsNullOrEmpty(prop.DataOnToOff))
+                {
+                    ParseRes = int.TryParse(prop.DataOnToOff, out m_iValueOnToOff);
+                    if (!ParseRes)
+                    {
+                        m_AssocDataOnToOff = (Data)Doc.GestData.GetFromSymbol(prop.DataOnToOff);
+                        if (m_AssocDataOnToOff != null)
+                            m_iValueOnToOff = m_AssocDataOnToOff.DefaultValue;
+                    }
+                }
+                if (!string.IsNullOrEmpty(prop.DataOffToOn))
+                {
+                    ParseRes = int.TryParse(prop.DataOffToOn, out m_iValueOffToOn);
+                    if (!ParseRes)
+                    {
+                        m_AssocDataOffToOn = (Data)Doc.GestData.GetFromSymbol(prop.DataOffToOn);
+                        if (m_AssocDataOffToOn != null)
+                            m_iValueOffToOn = m_AssocDataOffToOn.DefaultValue;
+                    }
+                }
+            }
+            return bret;
         }
 
         public override void TraiteMessage(MESSAGE Mess, object obj, TYPE_APP TypeApp)
@@ -74,7 +170,7 @@ namespace CtrlDataTrigger
                         // traitez ici le passage en mode stop du control si nécessaire
                         break;
                     case MESSAGE.MESS_CMD_RUN:
-                        // traitez ici le passage en mode run du control si nécessaire
+                        m_TriggerState = TriggerState.STATE_OFF;
                         break;
                     default:
                         break;

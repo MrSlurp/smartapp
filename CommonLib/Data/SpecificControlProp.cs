@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Text;
 using System.Drawing;
 using System.Xml;
@@ -32,6 +33,166 @@ namespace CommonLib
         /// </summary>
         /// <param name="SrcSpecificProp">paramètres sources</param>
         public abstract void CopyParametersFrom(SpecificControlProp SrcSpecificProp);
+        #endregion
+
+        #region methodes utiles pour la lecture et l'ecriture de script
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Script"></param>
+        /// <param name="Node"></param>
+        /// <param name="strNameScriptSection"></param>
+        protected void ReadScript(ref StringCollection Script, XmlNode Node, string strNameScriptSection)
+        {
+            // on lit le script si il y en a un
+            if (Node.FirstChild != null)
+            {
+                for (int ch = 0; ch < Node.ChildNodes.Count; ch++)
+                {
+                    if (Node.ChildNodes[ch].Name == strNameScriptSection)
+                    {
+                        for (int i = 0; i < Node.ChildNodes[ch].ChildNodes.Count; i++)
+                        {
+                            if (Node.ChildNodes[ch].ChildNodes[i].Name == XML_CF_TAG.Line.ToString()
+                                && Node.ChildNodes[ch].ChildNodes[i].FirstChild != null)
+                            {
+
+                                Script.Add(Node.ChildNodes[ch].ChildNodes[i].FirstChild.Value);
+                            }
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Script"></param>
+        /// <param name="XmlDoc"></param>
+        /// <param name="NodeControl"></param>
+        /// <param name="strNameScriptSection"></param>
+        protected void WriteScript(StringCollection Script, XmlDocument XmlDoc, XmlNode NodeControl, string strNameScriptSection)
+        {
+            XmlNode XmlEventScript = XmlDoc.CreateElement(strNameScriptSection);
+            for (int i = 0; i < Script.Count; i++)
+            {
+                XmlNode NodeLine = XmlDoc.CreateElement(XML_CF_TAG.Line.ToString());
+                XmlNode NodeText = XmlDoc.CreateTextNode(Script[i]);
+                NodeLine.AppendChild(NodeText);
+                XmlEventScript.AppendChild(NodeLine);
+            }
+            NodeControl.AppendChild(XmlEventScript);
+        }
+        #endregion
+
+        #region methode utile pour la copie de script
+        protected void CopyScript(ref StringCollection DestScript, StringCollection SrcScript)
+        {
+            DestScript.Clear();
+            for (int i = 0; i < SrcScript.Count; i++)
+            {
+                DestScript.Add(SrcScript[i]);
+            }
+        }
+        #endregion
+
+        #region methodes pour le traitement des messages
+        // la classe de base n'ayant pas de paramètres, le traitement est vide
+        public virtual void TraiteMessage(MESSAGE Mess, object obj, TYPE_APP TypeApp, BTControl PropOwner)
+        {
+
+        }
+        #endregion
+
+        #region Méthode de tratement des messages pour les objets scriptables
+        protected void ScriptTraiteMessage(MESSAGE Mess, StringCollection Script, object obj, BTControl PropOwner)
+        {
+            switch (Mess)
+            {
+                case MESSAGE.MESS_ASK_ITEM_DELETE:
+                    {
+                        MessAskDelete MessParam = (MessAskDelete)obj;
+                        for (int i = 0; i < Script.Count; i++)
+                        {
+                            string stritem = "";
+                            stritem = ScriptParser.GetLineToken(Script[i], ScriptParser.INDEX_TOKEN_SYMBOL);
+
+                            if (stritem == MessParam.WantDeletetItemSymbol
+                                || (((MessAskDelete)obj).TypeOfItem == typeof(Data) && Script[i].Contains(MessParam.WantDeletetItemSymbol))
+                                )
+                            {
+                                string strMess = string.Format("Control {0} Script: Line {1} will be removed", PropOwner.Symbol, i + 1);
+                                MessParam.ListStrReturns.Add(strMess);
+                            }
+                        }
+                    }
+                    break;
+                case MESSAGE.MESS_ITEM_DELETED:
+                    if (((MessDeleted)obj).TypeOfItem == typeof(Trame)
+                        || ((MessDeleted)obj).TypeOfItem == typeof(Function)
+                        || ((MessDeleted)obj).TypeOfItem == typeof(Logger)
+                        || ((MessDeleted)obj).TypeOfItem == typeof(BTTimer)
+                        )
+                    {
+                        MessDeleted MessParam = (MessDeleted)obj;
+                        for (int i = Script.Count - 1; i >= 0; i--)
+                        {
+                            string stritem = ScriptParser.GetLineToken(Script[i], ScriptParser.INDEX_TOKEN_SYMBOL);
+                            if (stritem == MessParam.DeletetedItemSymbol)
+                            {
+                                Script.RemoveAt(i);
+                            }
+                        }
+                    }
+                    else if (((MessDeleted)obj).TypeOfItem == typeof(Data))
+                    {
+                        MessDeleted MessParam = (MessDeleted)obj;
+                        for (int i = Script.Count - 1; i >= 0; i--)
+                        {
+                            if (Script[i].Contains(MessParam.DeletetedItemSymbol))
+                            {
+                                Script.RemoveAt(i);
+                            }
+                        }
+                    }
+                    break;
+                case MESSAGE.MESS_ITEM_RENAMED:
+                    {
+                        if (((MessItemRenamed)obj).TypeOfItem == typeof(Trame)
+                            || ((MessItemRenamed)obj).TypeOfItem == typeof(Function)
+                            || ((MessItemRenamed)obj).TypeOfItem == typeof(Logger)
+                            || ((MessItemRenamed)obj).TypeOfItem == typeof(BTTimer)
+                            )
+                        {
+                            MessItemRenamed MessParam = (MessItemRenamed)obj;
+                            for (int i = 0; i < Script.Count; i++)
+                            {
+                                string stritem = ScriptParser.GetLineToken(Script[i], ScriptParser.INDEX_TOKEN_SYMBOL);
+                                if (stritem == MessParam.OldItemSymbol)
+                                {
+                                    Script[i] = Script[i].Replace(MessParam.OldItemSymbol, MessParam.NewItemSymbol);
+                                }
+                            }
+                        }
+                        else if (((MessItemRenamed)obj).TypeOfItem == typeof(Data))
+                        {
+                            MessItemRenamed MessParam = (MessItemRenamed)obj;
+                            for (int i = 0; i < Script.Count; i++)
+                            {
+                                if (Script[i].Contains(MessParam.OldItemSymbol))
+                                {
+                                    Script[i] = Script[i].Replace(MessParam.OldItemSymbol, MessParam.NewItemSymbol);
+                                }
+                            }
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
         #endregion
     }
 

@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("Common library for SmartApp")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Bigot Pascal")]
-[assembly: AssemblyProduct("CommonLib")]
+[assembly: AssemblyProduct("SmartApp CommonLib")]
 [assembly: AssemblyCopyright("Copyright © Bigot Pascal 2008")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

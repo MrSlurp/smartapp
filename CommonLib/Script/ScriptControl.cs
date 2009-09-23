@@ -5,10 +5,8 @@ using System.Drawing;
 using System.Data;
 using System.Text;
 using System.Windows.Forms;
-using CommonLib;
-using SmartApp.Scripts;
 
-namespace SmartApp.Ihm
+namespace CommonLib
 {
     public partial class ScriptControl : UserControl
     {

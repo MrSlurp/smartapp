@@ -42,9 +42,9 @@ namespace SmartApp.Ihm
             this.m_TabItemOption = new System.Windows.Forms.TabPage();
             this.m_PanelControlProperties = new SmartApp.Ihm.ScreenItemPropertiesControl();
             this.m_TabScript = new System.Windows.Forms.TabPage();
-            this.m_PanelScreenInitScript = new SmartApp.Ihm.ScriptControl();
-            this.m_PanelScreenEventScript = new SmartApp.Ihm.ScriptControl();
-            this.m_PanelCtrlEventScript = new SmartApp.Ihm.ScriptControl();
+            this.m_PanelScreenInitScript = new CommonLib.ScriptControl();
+            this.m_PanelScreenEventScript = new CommonLib.ScriptControl();
+            this.m_PanelCtrlEventScript = new CommonLib.ScriptControl();
             this.m_splitterDesigner_Tool = new System.Windows.Forms.SplitContainer();
             this.m_LabelSelectedScreen = new System.Windows.Forms.Label();
             this.m_toolStripDesignLayout = new System.Windows.Forms.ToolStrip();
@@ -413,7 +413,7 @@ namespace SmartApp.Ihm
             this.m_InteractiveControlContainer.Margin = new System.Windows.Forms.Padding(0);
             this.m_InteractiveControlContainer.Name = "m_InteractiveControlContainer";
             this.m_InteractiveControlContainer.ScreenBckImage = null;
-            this.m_InteractiveControlContainer.Size = new System.Drawing.Size(1280, 1024);
+            this.m_InteractiveControlContainer.Size = new System.Drawing.Size(1920, 1210);
             this.m_InteractiveControlContainer.TabIndex = 8;
             this.m_InteractiveControlContainer.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnDesignerKeyDown);
             // 

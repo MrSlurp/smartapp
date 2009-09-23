@@ -273,18 +273,6 @@
     <Compile Include="SmartConfig\Ihm\ProgItemPanels\TimerPanel.Designer.cs">
       <DependentUpon>TimerPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="SmartConfig\Ihm\Scripts\ScriptControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\Scripts\ScriptControl.Designer.cs">
-      <DependentUpon>ScriptControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\Scripts\ScriptEditordialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\Scripts\ScriptEditordialog.Designer.cs">
-      <DependentUpon>ScriptEditordialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="SmartConfig\Ihm\VariousFormAndControls\SymbolTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -418,14 +406,6 @@
     <EmbeddedResource Include="SmartConfig\Ihm\ProgItemPanels\TimerPanel.resx">
       <SubType>Designer</SubType>
       <DependentUpon>TimerPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SmartConfig\Ihm\Scripts\ScriptControl.resx">
-      <DependentUpon>ScriptControl.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SmartConfig\Ihm\Scripts\ScriptEditordialog.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>ScriptEditordialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SmartConfig\Ihm\VariousFormAndControls\ManageGroupForm.resx">
       <SubType>Designer</SubType>

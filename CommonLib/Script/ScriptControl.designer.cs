@@ -1,4 +1,4 @@
-namespace SmartApp.Ihm
+namespace CommonLib
 {
     partial class ScriptControl
     {

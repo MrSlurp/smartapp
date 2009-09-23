@@ -1,4 +1,4 @@
-namespace SmartApp.Scripts
+namespace CommonLib
 {
     partial class ScriptEditordialog
     {

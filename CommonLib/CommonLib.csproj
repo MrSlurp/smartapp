@@ -131,6 +131,18 @@
     <Compile Include="Resources.cs" />
     <Compile Include="Script\Executer.cs" />
     <Compile Include="Script\Parser.cs" />
+    <Compile Include="Script\ScriptControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Script\ScriptControl.designer.cs">
+      <DependentUpon>ScriptControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Script\ScriptEditordialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Script\ScriptEditordialog.designer.cs">
+      <DependentUpon>ScriptEditordialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="StdForms\ChangeListForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -189,6 +201,14 @@
     </EmbeddedResource>
     <EmbeddedResource Include="InteractiveControl\SpecificControls\TwoColorFilledRect.resx">
       <DependentUpon>TwoColorFilledRect.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Script\ScriptControl.resx">
+      <DependentUpon>ScriptControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Script\ScriptEditordialog.resx">
+      <DependentUpon>ScriptEditordialog.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="StdForms\ChangeListForm.resx">

@@ -267,5 +267,57 @@ namespace CtrlGraph
             }
         }
         #endregion
+
+        public override void TraiteMessage(MESSAGE Mess, object obj, TYPE_APP TypeApp, BTControl PropOwner)
+        {
+            if (TypeApp == TYPE_APP.SMART_CONFIG)
+            {
+                switch (Mess)
+                {
+                    case MESSAGE.MESS_ASK_ITEM_DELETE:
+                        if (((MessAskDelete)obj).TypeOfItem == typeof(Data))
+                        {
+                            MessAskDelete MessParam = (MessAskDelete)obj;
+                            for (int i = 0; i < DllCtrlGraphProp.NB_CURVE; i++)
+                            {
+                                if (ListDataSymbol[i] == MessParam.WantDeletetItemSymbol)
+                                {
+                                    string strMess = string.Format("Graphic {0} will lost data", PropOwner.Symbol);
+                                    MessParam.ListStrReturns.Add(strMess);
+                                }
+                            }
+                        }
+                        break;
+                    case MESSAGE.MESS_ITEM_DELETED:
+                        if (((MessDeleted)obj).TypeOfItem == typeof(Data))
+                        {
+                            MessDeleted MessParam = (MessDeleted)obj;
+                            for (int i = 0; i < DllCtrlGraphProp.NB_CURVE; i++)
+                            {
+                                if (ListDataSymbol[i] == MessParam.DeletetedItemSymbol)
+                                {
+                                    ListDataSymbol[i] = string.Empty;
+                                }
+                            }
+                        }
+                        break;
+                    case MESSAGE.MESS_ITEM_RENAMED:
+                        if (((MessItemRenamed)obj).TypeOfItem == typeof(Data))
+                        {
+                            MessItemRenamed MessParam = (MessItemRenamed)obj;
+                            for (int i = 0; i < DllCtrlGraphProp.NB_CURVE; i++)
+                            {
+                                if (ListDataSymbol[i] == MessParam.OldItemSymbol)
+                                {
+                                    ListDataSymbol[i] = MessParam.NewItemSymbol;
+                                }
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
     }
 }

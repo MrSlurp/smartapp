@@ -14,6 +14,8 @@ namespace CommonLib
 
         Data m_SelectedData = null;
 
+        bool m_HaveEmptyItem = true;
+
         public PickDataForm()
         {
             InitializeComponent();
@@ -51,9 +53,18 @@ namespace CommonLib
             if (m_Document == null)
                 return;
 
+            // on ajoute un élément vide
+            if (m_HaveEmptyItem)
+            {
+                ListViewItem lviData = new ListViewItem("No Data");
+                lviData.SubItems.Add("NA");
+                m_listViewData.Items.Add(lviData);
+            }
+
             GestData DataGest = Document.GestData;
             for (int i = 0; i < DataGest.GroupCount; i++)
             {
+
                 BaseGestGroup.Group grp = DataGest.Groups[i];
                 for (int j = 0; j < grp.Items.Count; j++)
                 {
@@ -86,9 +97,6 @@ namespace CommonLib
             {
                 m_SelectedData = (Data)lviData.Tag;
             }
-            else
-                m_SelectedData = null;
-
         }
     }
 }

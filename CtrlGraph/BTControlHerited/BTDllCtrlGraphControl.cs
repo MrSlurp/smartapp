@@ -96,58 +96,12 @@ namespace CtrlGraph
             }
         }
 
+        // le traite message dans smart config
+        // n'a lieu d'être que si dans le paramétrage on trouve des symboles d'objets
         public override void TraiteMessage(MESSAGE Mess, object obj, TYPE_APP TypeApp)
         {
             base.TraiteMessage(Mess, obj, TypeApp);
-            if (TypeApp == TYPE_APP.SMART_CONFIG)
-            {
-                DllCtrlGraphProp Props = (DllCtrlGraphProp)m_SpecificProp;
-                switch (Mess)
-                {
-                    case MESSAGE.MESS_ASK_ITEM_DELETE:
-                        if (((MessAskDelete)obj).TypeOfItem == typeof(Data))
-                        {
-                            MessAskDelete MessParam = (MessAskDelete)obj;
-                            for (int i = 0; i < DllCtrlGraphProp.NB_CURVE; i++)
-                            {
-                                if (Props.GetSymbol(i) == MessParam.WantDeletetItemSymbol)
-                                {
-                                    string strMess = string.Format("Graphic {0} will lost data", Symbol);
-                                    MessParam.ListStrReturns.Add(strMess);
-                                }
-                            }
-                        }
-                        break;
-                    case MESSAGE.MESS_ITEM_DELETED:
-                        if (((MessDeleted)obj).TypeOfItem == typeof(Data))
-                        {
-                            MessDeleted MessParam = (MessDeleted)obj;
-                            for (int i = 0; i < DllCtrlGraphProp.NB_CURVE; i++)
-                            {
-                                if (Props.GetSymbol(i) == MessParam.DeletetedItemSymbol)
-                                {
-                                    Props.SetSymbol(i, "");
-                                }
-                            }
-                        }
-                        break;
-                    case MESSAGE.MESS_ITEM_RENAMED:
-                        if (((MessItemRenamed)obj).TypeOfItem == typeof(Data))
-                        {
-                            MessItemRenamed MessParam = (MessItemRenamed)obj;
-                            for (int i = 0; i < DllCtrlGraphProp.NB_CURVE; i++)
-                            {
-                                if (Props.GetSymbol(i) == MessParam.OldItemSymbol)
-                                {
-                                    Props.SetSymbol(i,MessParam.NewItemSymbol);
-                                }
-                            }
-                        }
-                        break;
-                    default:
-                        break;
-                }
-            }
+            m_SpecificProp.TraiteMessage(Mess, obj, TypeApp, this);
         }
     }
 }

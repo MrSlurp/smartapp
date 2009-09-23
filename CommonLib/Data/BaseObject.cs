@@ -185,11 +185,13 @@ namespace CommonLib
             switch (Mess)
             {
                 case MESSAGE.MESS_ASK_ITEM_DELETE:
-                    if (((MessAskDelete)obj).TypeOfItem == typeof(Trame)
+                    if (
+                           ((MessAskDelete)obj).TypeOfItem == typeof(Trame)
                         || ((MessAskDelete)obj).TypeOfItem == typeof(Function)
                         || ((MessAskDelete)obj).TypeOfItem == typeof(Logger)
                         || ((MessAskDelete)obj).TypeOfItem == typeof(BTTimer)
                         || ((MessAskDelete)obj).TypeOfItem == typeof(Data)
+                        || ((MessAskDelete)obj).TypeOfItem == typeof(BTScreen)
                         )
                     {
                         MessAskDelete MessParam = (MessAskDelete)obj;
@@ -228,10 +230,12 @@ namespace CommonLib
                     }
                     break;
                 case MESSAGE.MESS_ITEM_DELETED:
-                    if (((MessDeleted)obj).TypeOfItem == typeof(Trame)
-                        || ((MessDeleted)obj).TypeOfItem == typeof(Function)
-                        || ((MessDeleted)obj).TypeOfItem == typeof(Logger)
-                        || ((MessDeleted)obj).TypeOfItem == typeof(BTTimer)
+                    if (
+                           ((MessAskDelete)obj).TypeOfItem == typeof(Trame)
+                        || ((MessAskDelete)obj).TypeOfItem == typeof(Function)
+                        || ((MessAskDelete)obj).TypeOfItem == typeof(Logger)
+                        || ((MessAskDelete)obj).TypeOfItem == typeof(BTTimer)
+                        || ((MessAskDelete)obj).TypeOfItem == typeof(BTScreen)
                         )
                     {
                         MessDeleted MessParam = (MessDeleted)obj;
@@ -257,10 +261,12 @@ namespace CommonLib
                     }
                     break;
                 case MESSAGE.MESS_ITEM_RENAMED:
-                    if (((MessItemRenamed)obj).TypeOfItem == typeof(Trame)
-                        || ((MessItemRenamed)obj).TypeOfItem == typeof(Function)
-                        || ((MessItemRenamed)obj).TypeOfItem == typeof(Logger)
-                        || ((MessItemRenamed)obj).TypeOfItem == typeof(BTTimer)
+                    if (
+                           ((MessAskDelete)obj).TypeOfItem == typeof(Trame)
+                        || ((MessAskDelete)obj).TypeOfItem == typeof(Function)
+                        || ((MessAskDelete)obj).TypeOfItem == typeof(Logger)
+                        || ((MessAskDelete)obj).TypeOfItem == typeof(BTTimer)
+                        || ((MessAskDelete)obj).TypeOfItem == typeof(BTScreen)
                         )
                     {
                         MessItemRenamed MessParam = (MessItemRenamed)obj;

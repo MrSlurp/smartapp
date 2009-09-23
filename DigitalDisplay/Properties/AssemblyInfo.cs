@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("DigitalDisplay")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Privé")]
-[assembly: AssemblyProduct("DigitalDisplay")]
-[assembly: AssemblyCopyright("Copyright © Privé 2008")]
+[assembly: AssemblyCompany("Bigot Pascal")]
+[assembly: AssemblyProduct("SmartApp plugin")]
+[assembly: AssemblyCopyright("Copyright © Bigot Pascal 2008")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

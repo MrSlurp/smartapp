@@ -66,7 +66,7 @@
             // 
             // m_openFileDialog
             // 
-            this.m_openFileDialog.FileName = "openFileDialog1";
+            this.m_openFileDialog.FileName = "";
             // 
             // m_btnImg2
             // 

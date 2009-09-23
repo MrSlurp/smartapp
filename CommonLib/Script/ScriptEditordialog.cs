@@ -6,10 +6,9 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using SmartApp.Ihm;
 using CommonLib;
 
-namespace SmartApp.Scripts
+namespace CommonLib
 {
     public partial class ScriptEditordialog : Form
     {
