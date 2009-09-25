@@ -111,6 +111,8 @@ namespace CtrlDataTrigger
                             m_Executer.ExecuteScript(prop.ScriptOffToOn);
                         else
                             m_Executer.ExecuteScript(prop.ScriptOnToOff);
+
+                        m_TriggerState = NextTriggerState;
                     }
                 }
             }
@@ -131,7 +133,7 @@ namespace CtrlDataTrigger
             bool bret = base.FinalizeRead(Doc);
 
             DllCtrlDataTriggerProp prop = (DllCtrlDataTriggerProp)m_SpecificProp;
-            if (prop.BehaveLikeTrigger == false)
+            if (prop.BehaveLikeTrigger == true)
             {
                 bool ParseRes = false;
                 if (!string.IsNullOrEmpty(prop.DataOnToOff))
@@ -171,6 +173,7 @@ namespace CtrlDataTrigger
                         break;
                     case MESSAGE.MESS_CMD_RUN:
                         m_TriggerState = TriggerState.STATE_OFF;
+                        UpdateFromData();
                         break;
                     default:
                         break;

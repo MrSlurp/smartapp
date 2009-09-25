@@ -43,6 +43,7 @@ namespace CtrlDataTrigger
                     DllCtrlDataTriggerProp Props = (DllCtrlDataTriggerProp)m_Control.SpecificProp;
                     this.Enabled = true;
                     this.cbxSchmitt.Checked = Props.BehaveLikeTrigger;
+                    this.AdvPropEnable(this.cbxSchmitt.Checked);
                     this.edtOffToOn.Text = Props.DataOffToOn;
                     this.edtOnToOff.Text = Props.DataOnToOff;
                 }
@@ -94,17 +95,25 @@ namespace CtrlDataTrigger
 
                 if (this.cbxSchmitt.Checked)
                 {
-                    Data dt = (Data)this.Doc.GestData.GetFromSymbol(this.edtOffToOn.Text);
-                    if (dt != null)
-                        bRet = false;
+                    int dummy;
+                    bool parseResOffOn = int.TryParse(this.edtOffToOn.Text, out dummy);
+                    if (!parseResOffOn)
+                    {
+                        Data dt = (Data)this.Doc.GestData.GetFromSymbol(this.edtOffToOn.Text);
+                        if (dt == null)
+                            bRet = false;
+                    }
 
-                    dt = (Data)this.Doc.GestData.GetFromSymbol(this.edtOnToOff.Text);
-                    if (dt != null)
-                        bRet = false;
+                    bool parseResOnOff = int.TryParse(this.edtOnToOff.Text, out dummy);
+                    if (!parseResOnOff)
+                    {
+                        Data dt = (Data)this.Doc.GestData.GetFromSymbol(this.edtOnToOff.Text);
+                        if (dt == null)
+                            bRet = false;
 
+                    }
                     return bRet;
                 }
-
                 return true;
             }
         }
@@ -138,13 +147,13 @@ namespace CtrlDataTrigger
                 }
 
                 bool parseResOnOff = int.TryParse(this.edtOnToOff.Text, out dummy);
-
                 if (!parseResOnOff)
                 {
                     dt = (Data)this.Doc.GestData.GetFromSymbol(this.edtOnToOff.Text);
                     if (dt == null)
                     {
                         bRet = false;
+                        strMessage = string.Format("Associate \"On to Off\" data {0} is not valid", this.edtOnToOff.Text);
                     }
                 }
             }
@@ -158,6 +167,9 @@ namespace CtrlDataTrigger
             DllCtrlDataTriggerProp prop = (DllCtrlDataTriggerProp)m_Control.SpecificProp;
 
             bool bDataPropChange = false;
+            if (this.cbxSchmitt.Checked != prop.BehaveLikeTrigger)
+                bDataPropChange = true;
+
             if (this.edtOffToOn.Text != prop.DataOffToOn)
                 bDataPropChange = true;
 
@@ -170,8 +182,9 @@ namespace CtrlDataTrigger
             if (bDataPropChange)
             {
                 Doc.Modified = true;
-                //dans ce cas les propriété sont directement celle de l'objet
-                //on a pas à les réassigner ici
+                prop.BehaveLikeTrigger = this.cbxSchmitt.Checked;
+                prop.DataOnToOff = this.edtOnToOff.Text;
+                prop.DataOffToOn = this.edtOffToOn.Text;
                 m_Control.IControl.Refresh();
             }
             if (bDataPropChange && ControlPropertiesChanged != null)

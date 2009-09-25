@@ -119,6 +119,7 @@ namespace CtrlDataTrigger
                     m_bBehaveLikeTrigger = bool.Parse(AttrBehaveTrigger.Value);
                     m_strDataOnToOff = AttrOnOff.Value;
                     m_strDataOffToOn = AttrOffOn.Value;
+                    break;
                 }
             }
             base.ReadScript(ref m_ScriptOnToOff, Node, SCRIPT_ON_OFF);
@@ -140,7 +141,7 @@ namespace CtrlDataTrigger
             ElemSpecSection.Attributes.Append(AttrBehaveTrigger);
             ElemSpecSection.Attributes.Append(AttrOnOff);
             ElemSpecSection.Attributes.Append(AttrOffOn);
-            Node.AppendChild(AttrBehaveTrigger);
+            Node.AppendChild(ElemSpecSection);
             base.WriteScript(m_ScriptOnToOff, XmlDoc, Node, SCRIPT_ON_OFF);
             base.WriteScript(m_ScriptOffToOn, XmlDoc, Node, SCRIPT_OFF_ON);
             return true;
