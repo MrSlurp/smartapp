@@ -43,6 +43,7 @@ namespace SmartApp
             this.helpMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.indexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pluginsVersionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.openToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -53,7 +54,6 @@ namespace SmartApp
             this.m_tsBtnFullScreen = new System.Windows.Forms.ToolStripButton();
             this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.m_StatusBar = new System.Windows.Forms.StatusStrip();
-            this.pluginsVersionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.SuspendLayout();
@@ -163,6 +163,13 @@ namespace SmartApp
             this.aboutToolStripMenuItem.Text = "&About ...";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
+            // pluginsVersionsToolStripMenuItem
+            // 
+            this.pluginsVersionsToolStripMenuItem.Name = "pluginsVersionsToolStripMenuItem";
+            this.pluginsVersionsToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.pluginsVersionsToolStripMenuItem.Text = "Plugins versions";
+            this.pluginsVersionsToolStripMenuItem.Click += new System.EventHandler(this.pluginsVersionsToolStripMenuItem_Click);
+            // 
             // toolStrip
             // 
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -246,13 +253,6 @@ namespace SmartApp
             this.m_StatusBar.TabIndex = 3;
             this.m_StatusBar.Text = "statusStrip1";
             // 
-            // pluginsVersionsToolStripMenuItem
-            // 
-            this.pluginsVersionsToolStripMenuItem.Name = "pluginsVersionsToolStripMenuItem";
-            this.pluginsVersionsToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
-            this.pluginsVersionsToolStripMenuItem.Text = "Plugins versions";
-            this.pluginsVersionsToolStripMenuItem.Click += new System.EventHandler(this.pluginsVersionsToolStripMenuItem_Click);
-            // 
             // MDISmartCommandMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -262,11 +262,9 @@ namespace SmartApp
             this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.menuStrip);
             this.DoubleBuffered = true;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip;
             this.Name = "MDISmartCommandMain";
-            this.Text = "SmartCommand";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MDISmartCommandMain_FormClosed);
             this.Shown += new System.EventHandler(this.MDISmartCommandMain_Shown);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnFormClosing);

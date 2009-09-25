@@ -59,7 +59,6 @@ namespace SmartApp
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(119, 13);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Smart Application Suite.";
             // 
             // label2
             // 
@@ -68,7 +67,6 @@ namespace SmartApp
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(140, 13);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Copyright Pascal Bigot 2007";
             // 
             // label3
             // 
@@ -77,7 +75,6 @@ namespace SmartApp
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(301, 13);
             this.label3.TabIndex = 3;
-            this.label3.Text = "This development is realized totally outside of any professional ";
             // 
             // label4
             // 
@@ -86,7 +83,6 @@ namespace SmartApp
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(302, 13);
             this.label4.TabIndex = 4;
-            this.label4.Text = "activities and with no support of Crouzet. Crouzet or developer ";
             // 
             // label5
             // 
@@ -95,7 +91,6 @@ namespace SmartApp
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(327, 13);
             this.label5.TabIndex = 4;
-            this.label5.Text = "can’t be responsible for any damages or miss-functioning that occur ";
             // 
             // label6
             // 
@@ -104,7 +99,6 @@ namespace SmartApp
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(319, 13);
             this.label6.TabIndex = 4;
-            this.label6.Text = "through the use of this free software witch is developed only under";
             // 
             // label7
             // 
@@ -113,7 +107,6 @@ namespace SmartApp
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(91, 13);
             this.label7.TabIndex = 4;
-            this.label7.Text = "privates activities.";
             // 
             // pictureBox1
             // 

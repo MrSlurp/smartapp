@@ -16,6 +16,11 @@ namespace SmartApp.Ihm
 {
     public partial class MDISmartConfigMain : Form
     {
+#if KENNEN
+        private const string APP_TITLE = "Kennen";
+#else
+        private const string APP_TITLE = "SmartConfig";
+#endif
         protected delegate void UpdateTitleDg(string str);
 
         #region données membres
@@ -38,14 +43,7 @@ namespace SmartApp.Ihm
         {
             DoFileFormatRegistration();
             InitializeComponent();
-            string strAppDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName);
-            m_strIniFilePath = strAppDir + @"\" + Cste.STR_FORMPOSINI_FILENAME;
-            m_IniFile.Load(m_strIniFilePath);
-            m_DataForm.MdiParent = this;
-            m_DesignForm.MdiParent = this;
-            m_FrameForm.MdiParent = this;
-            m_ProgForm.MdiParent = this;
-            UpdateFileCommand(null, null);
+            CommonConstructorInit();
         }
         //*****************************************************************************************************
         // Description: constructeur ouvrant le fichier passé en paramètre dès la fin de l'initialisation
@@ -55,6 +53,14 @@ namespace SmartApp.Ihm
         {
             DoFileFormatRegistration();
             InitializeComponent();
+            CommonConstructorInit();
+            OpenDoc(FileName);
+        }
+
+        private void CommonConstructorInit()
+        {
+            this.Text = APP_TITLE;
+            this.Icon = CommonLib.Resources.AppIcon;
             string strAppDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName);
             m_strIniFilePath = strAppDir + @"\" + Cste.STR_FORMPOSINI_FILENAME;
             m_IniFile.Load(m_strIniFilePath);
@@ -63,7 +69,6 @@ namespace SmartApp.Ihm
             m_FrameForm.MdiParent = this;
             m_ProgForm.MdiParent = this;
             UpdateFileCommand(null, null);
-            OpenDoc(FileName);
         }
         #endregion
 
@@ -478,7 +483,7 @@ namespace SmartApp.Ihm
         //*****************************************************************************************************
         public void UpdateTitle()
         {
-            string strTitle = "SmartConfig";
+            string strTitle = APP_TITLE;
             strTitle += " - ";
             strTitle += m_strDocumentName;
             if (m_Document != null)

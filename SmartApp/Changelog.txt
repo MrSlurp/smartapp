@@ -1,0 +1,28 @@
+changelog:
+
+Version 2.4.0.0
+
+Smart Config:
+- Evolution : Ajout de fonction au script pour forcer l'affichage d'écrans
+- Evolution : Les dimensions de la surface de dessin est passé de 1024 par 768 à 1920 par 1200. 
+Des lignes de repère des différentes dimensions standard d'écran sont également dessinée afin d'aider au placement des objets
+
+Smart Command
+- Evolution : Possibilité de passer l'application en plein écran
+- Evolution : Les logger ne vérouillent plus le fichier CSV en lecture seule
+
+Commun aux deux
+- Evolution : une commande à été ajoutée dans le menu help, elle permet d'afficher la version des plugins présents.
+
+plugin Jauge
+- correction : comportement sans donnée associée
+
+plugin 4 images
+- correction : l'objet est redimensionable en hauteur dans la surface de dessin
+
+
+
+nouveaux plugins:
+- Data Trigger : peut déclencher du script sur le changement de valeur d'une donnée
+
+- Graph Control : permet d'afficher un graphique courbe. il peut afficher jusuq'à 4 courbes.

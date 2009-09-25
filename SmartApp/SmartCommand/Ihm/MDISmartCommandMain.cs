@@ -15,6 +15,12 @@ namespace SmartApp
 {
     public partial class MDISmartCommandMain : Form
     {
+#if KENNEN
+        private const string APP_TITLE = "Kennen";
+#else
+        private const string APP_TITLE = "SmartCommand";
+#endif
+
         #region données membres
         // fenêtre des variables (Watch)
         private VariableForm m_VariableForm;
@@ -109,6 +115,8 @@ namespace SmartApp
         //*****************************************************************************************************
         public void CommonConstructorInit()
         {
+            this.Text = APP_TITLE;
+            this.Icon = CommonLib.Resources.AppIcon;
             m_EventLog.MdiParent = this;
             m_tsBtnStartStop.Enabled = false;
             m_tsBtnConnexion.Enabled = false;
@@ -597,14 +605,20 @@ namespace SmartApp
         //*****************************************************************************************************      
         private void SetTypeComeAndParamFromCbo()
         {
-            string comm = m_tsCboCurConnection.SelectedItem.ToString();
-            string[] TabComm = comm.Split('/');
-            if (m_Document != null)
+            if (m_tsCboCurConnection.SelectedItem != null)
             {
-                if (!m_Document.m_Comm.IsOpen)
+                string comm = m_tsCboCurConnection.SelectedItem.ToString();
+                if (!string.IsNullOrEmpty(comm))
                 {
-                    TYPE_COMM type = (TYPE_COMM)Enum.Parse(typeof(TYPE_COMM), TabComm[1].Trim());
-                    m_Document.m_Comm.SetCommTypeAndParam(type, TabComm[2]);
+                    string[] TabComm = comm.Split('/');
+                    if (m_Document != null)
+                    {
+                        if (!m_Document.m_Comm.IsOpen)
+                        {
+                            TYPE_COMM type = (TYPE_COMM)Enum.Parse(typeof(TYPE_COMM), TabComm[1].Trim());
+                            m_Document.m_Comm.SetCommTypeAndParam(type, TabComm[2]);
+                        }
+                    }
                 }
             }
         }

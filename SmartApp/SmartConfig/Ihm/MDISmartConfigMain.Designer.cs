@@ -72,6 +72,7 @@ namespace SmartApp.Ihm
             this.m_helpMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.m_indexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.m_aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pluginsVersionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.m_toolStrip = new System.Windows.Forms.ToolStrip();
             this.m_newToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.m_openToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -84,7 +85,6 @@ namespace SmartApp.Ihm
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.m_ToolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.pluginsVersionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.m_menuStrip.SuspendLayout();
             this.m_toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
@@ -453,16 +453,23 @@ namespace SmartApp.Ihm
             this.m_indexToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("m_indexToolStripMenuItem.Image")));
             this.m_indexToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
             this.m_indexToolStripMenuItem.Name = "m_indexToolStripMenuItem";
-            this.m_indexToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.m_indexToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
             this.m_indexToolStripMenuItem.Text = "&Index";
             this.m_indexToolStripMenuItem.Visible = false;
             // 
             // m_aboutToolStripMenuItem
             // 
             this.m_aboutToolStripMenuItem.Name = "m_aboutToolStripMenuItem";
-            this.m_aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.m_aboutToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
             this.m_aboutToolStripMenuItem.Text = "&About ...";
             this.m_aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
+            // pluginsVersionsToolStripMenuItem
+            // 
+            this.pluginsVersionsToolStripMenuItem.Name = "pluginsVersionsToolStripMenuItem";
+            this.pluginsVersionsToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.pluginsVersionsToolStripMenuItem.Text = "Plugins versions";
+            this.pluginsVersionsToolStripMenuItem.Click += new System.EventHandler(this.pluginsVersionsToolStripMenuItem_Click);
             // 
             // m_toolStrip
             // 
@@ -568,13 +575,6 @@ namespace SmartApp.Ihm
             this.toolStripStatusLabel.Size = new System.Drawing.Size(38, 17);
             this.toolStripStatusLabel.Text = "Status";
             // 
-            // pluginsVersionsToolStripMenuItem
-            // 
-            this.pluginsVersionsToolStripMenuItem.Name = "pluginsVersionsToolStripMenuItem";
-            this.pluginsVersionsToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
-            this.pluginsVersionsToolStripMenuItem.Text = "Plugins versions";
-            this.pluginsVersionsToolStripMenuItem.Click += new System.EventHandler(this.pluginsVersionsToolStripMenuItem_Click);
-            // 
             // MDISmartConfigMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -583,11 +583,9 @@ namespace SmartApp.Ihm
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.m_toolStrip);
             this.Controls.Add(this.m_menuStrip);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.m_menuStrip;
             this.Name = "MDISmartConfigMain";
-            this.Text = "SmartConfig";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnFormClosing);
             this.m_menuStrip.ResumeLayout(false);
             this.m_menuStrip.PerformLayout();

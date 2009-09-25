@@ -60,10 +60,16 @@ namespace CommonLib
 		public static Bitmap CxnOn;
 		public static Bitmap CxnOff;
         public static Bitmap Empty;
+        public static Icon AppIcon;
 		
 		public static void InitializeBitmap()
 		{
             string strAppDir = Path.GetDirectoryName(Application.ExecutablePath);
+#if KENNEN
+            AppIcon = NewIcoTrPath(strAppDir + "\\Kennen.ico");
+#else
+            AppIcon = NewIcoTrPath(strAppDir + "\\SmartApp.ico");
+#endif
             AlignLeft = NewBmpTrPath(strAppDir + "\\Res\\ToolBar\\AlignLeft.bmp");
             AlignTop = NewBmpTrPath(strAppDir + "\\Res\\ToolBar\\AlignTop.bmp");
             ArrangeAcross = NewBmpTrPath(strAppDir + "\\Res\\ToolBar\\ArrangeAcross.bmp");
@@ -104,5 +110,10 @@ namespace CommonLib
         {
             return new Bitmap(PathTranslator.LinuxVsWindowsPathUse(path));
         }
-	}
+
+        public static Icon NewIcoTrPath(string path)
+        {
+            return new Icon(PathTranslator.LinuxVsWindowsPathUse(path));
+        }
+    }
 }
