@@ -17,10 +17,10 @@ namespace CommonLib
     public class GestControl : BaseGest
     {
         #region fonction "utilitaires"
-        //*****************************************************************************************************
-        // Description: renvoie le prochain symbol par défaut pour une donnée
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// renvoie le prochain symbol par défaut pour une donnée
+        /// </summary>
+        /// <returns>symbol du nouvel objet</returns>
         public override string GetNextDefaultSymbol()
         {
             for (int i = 0; i < MAX_DEFAULT_ITEM_SYMBOL; i++)
@@ -34,10 +34,10 @@ namespace CommonLib
             return "";
         }
 
-        //*****************************************************************************************************
-        // Description: 
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// change la position du control donné afin qu'il passe au premier plan
+        /// </summary>
+        /// <param name="ctrl"></param>
         public void BringControlToTop(BTControl ctrl)
         {
             if (m_ListObject.Contains((BaseObject)ctrl))

@@ -9,7 +9,7 @@ namespace CommonLib
     /// le gestionaire virtuel représente la copie de toutes les données utilisée par le fichier de configuration
     /// c'est dans ce gestionnaire qu'on va venir chercher les donnée pour construire automatiquement les trames de réponses
     /// attendues. Et c'est aussi les valeurs des objet Data contenu dans ce gestionaire qu'on va modifier afin de simuler
-    /// un vrai retour de la trame par le contoleur distant.
+    /// un "vrai" (c'est un bien grand mot) retour de la trame par le contoleur distant.
     /// on sera aussi capable de prendre des clichés de valeurs!
     /// putain ca va être beau!!!!!
     /// </summary>
@@ -17,6 +17,12 @@ namespace CommonLib
     {
         #region ReadIn  / WriteOut
 
+        /// <summary>
+        /// Lit les données de l'objet a partir de son noeud XML
+        /// </summary>
+        /// <param name="Node">Noeud Xml de l'objet</param>
+        /// <param name="TypeApp">type d'application courante</param>
+        /// <returns>true si la lecture s'est bien passé</returns>
         public override bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
         {
             for (int i = 0; i < Node.ChildNodes.Count; i++)
@@ -39,10 +45,13 @@ namespace CommonLib
 
             return true;
         }
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+
+        /// <summary>
+        /// lit un "cliché" de la valeur (fichier contenant juste la valeur des données)
+        /// </summary>
+        /// <param name="Node">Noeud de a donnée</param>
+        /// <param name="TypeApp">Type de l'application</param>
+        /// <returns>true en cas de succès</returns>
         public bool ReadInInstantImage(XmlNode Node, TYPE_APP TypeApp)
         {
             for (int i = 0; i < Node.ChildNodes.Count; i++)
@@ -68,16 +77,25 @@ namespace CommonLib
 
             return true;
         }
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+
+        /// <summary>
+        /// NE JAMAIS UTILISER
+        /// </summary>
+        /// <param name="XmlDoc"></param>
+        /// <param name="Node"></param>
+        /// <returns></returns>
         public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
         {
             // le gestionaire virtuel n'a pas le droit de se sauvegarder normalement
             return false;
         }
 
+        /// <summary>
+        /// écrit un "cliché" de la valeur (fichier contenant juste la valeur des données)
+        /// </summary>
+        /// <param name="XmlDoc">document XML</param>
+        /// <param name="Node">noeud du gestionnaire</param>
+        /// <returns></returns>
         public bool WriteOutInstantImage(XmlDocument XmlDoc, XmlNode Node)
         {
             for (int i = 0; i < this.m_ListObject.Count; i++)

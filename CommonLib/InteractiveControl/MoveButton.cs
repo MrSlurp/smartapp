@@ -6,7 +6,7 @@ using System.Drawing;
 
 namespace CommonLib
 {
-    public partial class MoveButton : Control
+    public class MoveButton : Control
     {
         #region variables
         //contrôle à bouger
@@ -18,10 +18,10 @@ namespace CommonLib
         #endregion
 
         #region Constructeur
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// contsructeur
+        /// </summary>
+        /// <param name="interactiveControl">control interactif associé</param>
         public MoveButton(IInteractive interactiveControl)
         {
             InitializeComponent();
@@ -36,26 +36,25 @@ namespace CommonLib
         #endregion
 
         #region UpdateLocation
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        //cette fonction met à jour la position du contrôle en fonction
-        //du contrôle à bouger
+        /// <summary>
+        /// cette fonction met à jour la position du contrôle en fonction du control à bouger
+        /// </summary>
+        /// <returns></returns>
         public bool UpdateLocation()
         {
-            if (interactiveControl == null) return false;
+            if (interactiveControl == null) 
+                return false;
+
             this.Location = new Point(interactiveControl.Left + 9, interactiveControl.Top - (int)(this.Height / 2));
             return true;
         }
         #endregion
 
         #region ShowControl
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        //cette fonction affiche le contrôle
+        /// <summary>
+        /// cette fonction affiche ou masque le contrôle
+        /// </summary>
+        /// <param name="show">afficher ou masquer</param>
         public void ShowControl(bool show)
         {
             if (!show) 
@@ -72,10 +71,10 @@ namespace CommonLib
         #endregion
 
         #region Mouse Events
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// évènement lors que le move button est enfoncé
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnMouseDown(MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -90,10 +89,11 @@ namespace CommonLib
             }
             base.OnMouseDown(e);
         }
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+
+        /// <summary>
+        /// évènement lors que le move button est relaché
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnMouseUp(MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -106,10 +106,11 @@ namespace CommonLib
             }
             base.OnMouseUp(e);
         }
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+
+        /// <summary>
+        /// évènement appelé lorsque le curseur est déplacé
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnMouseMove(MouseEventArgs e)
         {
             if (isPressed)
@@ -122,10 +123,9 @@ namespace CommonLib
         #endregion
 
         #region Code généré par le Concepteur de composants
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// initialise le composant
+        /// </summary>
         private void InitializeComponent()
         {
             this.SuspendLayout();

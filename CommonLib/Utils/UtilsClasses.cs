@@ -8,67 +8,39 @@ namespace CommonLib
     public delegate void BeforeCurrentDataListChange();
 
     #region classe CComboData
-    //*****************************************************************************************************
-    // Description:
-    // classe "utilitaire" pour afficher les texte de la combo et avoir une valeur associée
-    // (utilisation de l'attribut DataSource)
-    //*****************************************************************************************************
+    /// <summary>
+    /// classe "utilitaire" pour afficher les texte de la combo et avoir une valeur associée
+    /// (utilisation de l'attribut DataSource)
+    /// </summary>
     public class CComboData : Object
     {
         private string m_String;
-        private int m_Value;
+        //private int m_Value;
         object m_refObject;
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// constructeur par défaut
+        /// </summary>
         public CComboData()
         {
             m_String = "";
-            m_Value = 0;
             m_refObject = null;
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        /*
-        public CComboData(string strToDisplay, int value)
-        {
-            m_String = strToDisplay;
-            m_Value = value;
-            m_refObject = null;
-        }
-        */
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// constructeur paramétré
+        /// </summary>
+        /// <param name="strToDisplay">chaine à afficher dans la combo</param>
+        /// <param name="value">valeur associé au texte</param>
         public CComboData(string strToDisplay, object value)
         {
             m_String = strToDisplay;
-            m_Value = 0;
             m_refObject = value;
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        public int ItemValue
-        {
-            get
-            {
-                return m_Value;
-            }
-        }
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// accesseur de la chaine affiché dans la combo
+        /// </summary>
         public string DisplayedString
         {
             get
@@ -77,10 +49,9 @@ namespace CommonLib
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// accesseur de la valeur associée à la chaine
+        /// </summary>
         public object Object
         {
             get

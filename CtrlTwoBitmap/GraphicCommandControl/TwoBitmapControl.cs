@@ -53,8 +53,11 @@ namespace CtrlTwoBitmap
                 }
                 catch (Exception)
                 {
-                    LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format("Control {0} Failed to load file {1}", Symbol, strImageFullPath));
-                    AddLogEvent(log);
+                    if (m_AssociateData != null)
+                    {
+                        LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format("Control {0} Failed to load file {1}", Symbol, strImageFullPath));
+                        AddLogEvent(log);
+                    }
                 }
                 UpdateFromData();
             }

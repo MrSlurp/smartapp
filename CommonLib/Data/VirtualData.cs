@@ -79,12 +79,24 @@ namespace CommonLib
         #endregion
 
         #region Read In / Write Out
+        /// <summary>
+        /// NE JAMAIS UTILISER
+        /// </summary>
+        /// <param name="XmlDoc"></param>
+        /// <param name="Node"></param>
+        /// <returns></returns>
         public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
         {
             // il est interdit de faire une écriture complète des paramètres pour une données virtuelle
             return false;
         }
 
+        /// <summary>
+        /// lit un "cliché" de la valeur (fichier contenant juste la valeur des données)
+        /// </summary>
+        /// <param name="Node">Noeud de a donnée</param>
+        /// <param name="TypeApp">Type de l'application</param>
+        /// <returns>true en cas de succès</returns>
         public bool ReadInInstantImage(XmlNode Node, TYPE_APP TypeApp)
         {
             XmlNode AttrDefVal = Node.Attributes.GetNamedItem(XML_CF_ATTRIB.DefVal.ToString());
@@ -95,6 +107,12 @@ namespace CommonLib
             return true;
         }
 
+        /// <summary>
+        /// écrit un "cliché" de la valeur (fichier contenant juste la valeur des données)
+        /// </summary>
+        /// <param name="XmlDoc"></param>
+        /// <param name="Node"></param>
+        /// <returns></returns>
         public bool WriteOutInstantImage(XmlDocument XmlDoc, XmlNode Node)
         {
             // on écrit la base pour avoir le symbole

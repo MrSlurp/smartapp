@@ -42,10 +42,9 @@ namespace CommonLib
         #endregion
 
         #region constructeur
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// Constructeur par défaut
+        /// </summary>
         public BTScreen()
         {
             m_GestControl = new GestControl();
@@ -54,10 +53,9 @@ namespace CommonLib
         #endregion
 
         #region attributs
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// obtient le gestionnaire de control de l'écran
+        /// </summary>
         public GestControl Controls
         {
             get
@@ -66,10 +64,9 @@ namespace CommonLib
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// obtient ou assigne le tire de l'écran
+        /// </summary>
         public string Title
         {
             get
@@ -82,10 +79,9 @@ namespace CommonLib
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// obtient ou assigne le script de l'évènement écran
+        /// </summary>
         public string[] ScriptLines
         {
             get
@@ -99,7 +95,6 @@ namespace CommonLib
             }
             set
             {
-                //string[] TabLines = new string[m_ScriptLines.Count];
                 m_ScriptLines.Clear();
                 for (int i = 0; i < value.Length; i++)
                 {
@@ -109,10 +104,9 @@ namespace CommonLib
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// obtient ou assigne le script d'init de l'écran
+        /// </summary>
         public string[] InitScriptLines
         {
             get
@@ -135,10 +129,9 @@ namespace CommonLib
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// obtient ou assigne le chemin du fichier d'arrière plan de l'écran
+        /// </summary>
         public string BackPictureFile
         {
             get
@@ -151,10 +144,9 @@ namespace CommonLib
             }
         }
 
-        //*****************************************************************************************************
-        // Description: accesseur sur l'executer de script
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// obtient ou assigne l'executer de l'écran
+        /// </summary>
         public ScriptExecuter Executer
         {
             get
@@ -167,10 +159,10 @@ namespace CommonLib
             }
         }
 
-        //*****************************************************************************************************
-        // Description: accesseur sur le Dynamic Panel a afficher
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// valide uniquement dans SmartCommand
+        /// obtient ou assigne le dynamic panel associé à l'écran
+        /// </summary>
         public DynamicPanel Panel
         {
             get
@@ -178,20 +170,29 @@ namespace CommonLib
                 return m_DynamicPanel;
             }
         }
-
         #endregion
 
         #region ReadIn / WriteOut
-        //*****************************************************************************************************
-        // Description: Lit les données de l'objet a partir de son noeud XML
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// Lit les données de l'objet a partir de son noeud XML
+        /// NE PAS UTILISER
+        /// </summary>
+        /// <param name="Node">Noeud Xml de l'objet</param>
+        /// <param name="TypeApp">type d'application courante</param>
+        /// <returns>true si la lecture s'est bien passé</returns>
         public override bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
         {
             System.Diagnostics.Debug.Assert(false);
             return false;
         }
 
+        /// <summary>
+        /// Lit les données de l'objet a partir de son noeud XML
+        /// </summary>
+        /// <param name="Node">Noeud Xml de l'objet</param>
+        /// <param name="TypeApp">type d'application courante</param>
+        /// <param name="GestDLL">Getsionnaire des DLL plugin</param>
+        /// <returns>true si la lecture s'est bien passé</returns>
         public bool ReadIn(XmlNode Node, TYPE_APP TypeApp, DllControlGest GestDLL)
         {
             if (!base.ReadIn(Node, TypeApp))
@@ -330,10 +331,12 @@ namespace CommonLib
             return true;
         }
 
-        //*****************************************************************************************************
-        // Description: ecrit les données de l'objet a partir de son noeud XML
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// Lit les données de l'objet a partir de son noeud XML spécialement pour SmartCommand
+        /// </summary>
+        /// <param name="Node">Noeud Xml de l'objet</param>
+        /// <param name="GestDLL">Getsionnaire des DLL plugin</param>
+        /// <returns>true si la lecture s'est bien passé</returns>
         private bool ReadControlForCommandMode(XmlNode Node, DllControlGest GestDll)
         {
             // En mode Commande on doit crée des objets pouvant afficher des vrais controls du framework
@@ -444,10 +447,12 @@ namespace CommonLib
             return true;
         }
 
-        //*****************************************************************************************************
-        // Description: ecrit les données de l'objet a partir de son noeud XML
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// écrit les données de l'objet dans le fichier XML
+        /// </summary>
+        /// <param name="XmlDoc">Document XML courant</param>
+        /// <param name="Node">Noeud parent du controle dans le document</param>
+        /// <returns>true si l'écriture s'est déroulée avec succès</returns>
         public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
         {
             // on écrit les attributs de l'écran
@@ -492,11 +497,11 @@ namespace CommonLib
             return true;
         }
 
-        //*****************************************************************************************************
-        // Description: termine la lecture de l'objet. utilisé en mode Commande pour récupérer les référence
-        // vers les objets utilisés et effectuer d'autre traitements
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// termine la lecture de l'objet. utilisé en mode Commande pour générer les objets graphiques affichés
+        /// </summary>
+        /// <param name="Doc">Document courant</param>
+        /// <returns>true si tout s'est bien passé</returns>
         public override bool FinalizeRead(BTDoc Doc)
         {
             // en mode command, on crée les controls et on les ajoute aux dynamic panel
@@ -558,10 +563,12 @@ namespace CommonLib
         #endregion
 
         #region Gestion des AppMessages
-        //*****************************************************************************************************
-        // Description: effectue les opération nécessaire lors de la récéption d'un message
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// effectue les opération nécessaire lors de la récéption d'un message
+        /// </summary>
+        /// <param name="Mess">Type de message</param>
+        /// <param name="obj">objet contenant les paramètres du messages</param>
+        /// <param name="TypeApp">Type d'application courante</param>
         public override void TraiteMessage(MESSAGE Mess, object obj, TYPE_APP TypeApp)
         {
             // en mode config, on execute les différents traitements sur les scripts
@@ -585,10 +592,10 @@ namespace CommonLib
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// appelé par les controles lorsqu'ils ont l'option "Use Screen Event Script"
+        /// en mode SmartCommande uniquement
+        /// </summary>
         public void ControlEvent()
         {
             if (m_ScriptLines.Count != 0)
@@ -597,10 +604,9 @@ namespace CommonLib
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// Execute le script d'initialisation
+        /// </summary>
         protected void ExecuteInitScript()
         {
             if (m_InitScriptLines.Count != 0)
@@ -608,10 +614,14 @@ namespace CommonLib
                 m_Executer.ExecuteScript(this.InitScriptLines);
             }
         }
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+
+        /// <summary>
+        /// handler d'event appelé par le gestionnnaire de controle lors que les objets qu'ils contiens 
+        /// déclenchent l'envoie d'un message
+        /// </summary>
+        /// <param name="Mess">Type de message</param>
+        /// <param name="obj">objet contenant les paramètres du messages</param>
+        /// <param name="TypeApp">Type d'application courante</param>
         public virtual void ObjectSendMessage(MESSAGE Mess, object Param, TYPE_APP TypeApp)
         {
             ProcessSendMessage(Mess, Param, TypeApp);
@@ -620,10 +630,9 @@ namespace CommonLib
         #endregion
 
         #region fonction SmartCommand
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// Affiche l'écran au premier plan dans smart commande (fonction de script)
+        /// </summary>
         public void ShowScreenToTop()
         {
             if (m_DynamicPanel != null)

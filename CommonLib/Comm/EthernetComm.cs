@@ -36,10 +36,9 @@ namespace CommonLib
         #endregion
 
         #region constructeurs
-        //*****************************************************************************************************
-        // Description: 
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// constructeur par défaut
+        /// </summary>
         public EthernetComm()
         {
             m_TcpClient = new BTTcpClient();
@@ -54,10 +53,9 @@ namespace CommonLib
         #endregion
 
         #region attributs
-        //*****************************************************************************************************
-        // Description: 
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// obteint ou assigne l'adresse IP 
+        /// </summary>
         public string IpAddr
         {
             get
@@ -70,10 +68,9 @@ namespace CommonLib
             }
         }
 
-        //*****************************************************************************************************
-        // Description: 
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// port de la connexion
+        /// </summary>
         public int Port
         {
             get
@@ -88,10 +85,11 @@ namespace CommonLib
         #endregion
 
         #region methodes publiques
-        //*****************************************************************************************************
-        // Description: 
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// Envoie les données du buffer sur la comm courante
+        /// </summary>
+        /// <param name="buffer">buffer des données à envoyer</param>
+        /// <returns>true en cas de succès</returns>
         public override bool SendData(Byte[] buffer)
         {
             if (m_TcpClient.IsOpen)
@@ -103,10 +101,12 @@ namespace CommonLib
             return false;
         }
 
-        //*****************************************************************************************************
-        // Description: 
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// obtiens les données reçues sur la comm
+        /// </summary>
+        /// <param name="NumberOfByte">nombre d'octet à lire</param>
+        /// <param name="FrameHeader">header de trame</param>
+        /// <returns>données reçues sur la comm</returns>
         public override Byte[] GetRecievedData(int NumberOfByte, byte[] FrameHeader)
         {
             if (m_TcpClient.IsOpen && m_bDataAvailable)
@@ -160,10 +160,12 @@ namespace CommonLib
             return null;
         }
 
-        //*****************************************************************************************************
-        // Description: 
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// test si une trame reçu correspond en longueur et en header.
+        /// </summary>
+        /// <param name="FrameLenght">longueur de la trame recherchée</param>
+        /// <param name="FrameHeader">header de la trame recherchée</param>
+        /// <returns>true si une trame correpond</returns>
         public override bool TestFrame(int FrameLenght, byte[] FrameHeader)
         {
             if (m_MessageList.Count != 0)
@@ -220,10 +222,10 @@ namespace CommonLib
             return false;
         }
 
-        //*****************************************************************************************************
-        // Description: 
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// Ouvre la communication ethernet
+        /// </summary>
+        /// <returns>true en cas de succès</returns>
         public override bool OpenComm()
         {
             m_TcpClient.Start();
@@ -242,10 +244,10 @@ namespace CommonLib
                 return false;
         }
 
-        //*****************************************************************************************************
-        // Description: 
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// Ferme la communication courante
+        /// </summary>
+        /// <returns>true en cas de succès</returns>
         public override bool CloseComm()
         {
             m_bUserDisconnectDemande = true;
@@ -259,10 +261,10 @@ namespace CommonLib
                 return false;
         }
 
-        //*****************************************************************************************************
-        // Description: 
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// indique si la communication est ouverte
+        /// </summary>
+        /// <returns>true si elle est ouverte</returns>
         public override bool IsOpen()
         {
             if (m_TcpClient.IsOpen)
@@ -273,20 +275,23 @@ namespace CommonLib
         #endregion
 
         #region méthodes privées
-        //*****************************************************************************************************
-        // Description: 
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// handler appelé lorsque des données sont reçues
+        /// </summary>
+        /// <param name="sender">objet ayant envoyé l'évènement</param>
+        /// <param name="length">longueur de des données reçues</param>
+        /// <param name="datas">données reçues</param>
         private void OnDataRecieved(object sender, int length, byte[] datas)
         {
             m_bDataAvailable = true;
             m_MessageList.Add(datas);
         }
 
-        //*****************************************************************************************************
-        // Description: 
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// handler appelé lorsque l'état de la connexion change
+        /// </summary>
+        /// <param name="sender">objet ayant envoyé l'évènement</param>
+        /// <param name="state">nouvel etat de la connexion</param>
         private void OnConnectionStateChange(object sender, eClientConnectionSate state)
         {
             eClientConnectionSate PreviousState = m_ConnectionState;

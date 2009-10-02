@@ -21,6 +21,7 @@ namespace CtrlGraph
         SAVE_12_h = 720,
         SAVE_1_j = 1440,
         SAVE_2_j = 2880,
+        SAVE_4_j = 5760,
         SAVE_7_j = 10080,
     }
 

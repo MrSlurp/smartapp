@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Globalization;
 using System.ComponentModel;
 using System.Text;
 using System.Drawing;
@@ -195,18 +196,28 @@ namespace CtrlGraph
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        int tickStart = 0;
+        double m_DisplayedRange = 0;
+
+        double MinStep = 0;
+        SAVE_PERIOD CurrentDispPeriod = SAVE_PERIOD.SAVE_1_h;
 
         // ajouter ici les données membres du control affiché
         ZedGraphControl m_ZedGraphCtrl = null;
         CtrlGraphCmdControl m_SourceCtrl = null;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="srcCtrl"></param>
         public CtrlGraphDispCtrl(CtrlGraphCmdControl srcCtrl)
         {
             m_SourceCtrl = srcCtrl;
             InitializeComponent();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
@@ -223,20 +234,205 @@ namespace CtrlGraph
             this.m_ZedGraphCtrl.ScrollMinX = 0;
             this.m_ZedGraphCtrl.ScrollMinY = 0;
             this.m_ZedGraphCtrl.ScrollMinY2 = 0;
+            this.m_ZedGraphCtrl.IsEnableVPan = false;
+            this.m_ZedGraphCtrl.IsEnableVZoom = false;
             this.m_ZedGraphCtrl.Size = this.Size;
             this.m_ZedGraphCtrl.TabIndex = 0;
+            this.m_ZedGraphCtrl.ContextMenuBuilder += new ZedGraphControl.ContextMenuBuilderEventHandler(ZedGraphCtrl_ContextMenuBuilder);
 
             this.Controls.Add(this.m_ZedGraphCtrl);
             this.ResumeLayout(false);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="menuStrip"></param>
+        /// <param name="mousePt"></param>
+        /// <param name="objState"></param>
+        void ZedGraphCtrl_ContextMenuBuilder(ZedGraphControl sender, ContextMenuStrip menuStrip, Point mousePt, ZedGraphControl.ContextMenuObjectState objState)
+        {
+            // create a new menu item
+            ToolStripMenuItem itemDropDispPer = new ToolStripMenuItem();
+            // This is the user-defined Tag so you can find this menu item later if necessary
+            itemDropDispPer.Name = "Disp_Period";
+            itemDropDispPer.Tag = "Disp_Period";
+            // This is the text that will show up in the menu
+            itemDropDispPer.Text = "Displayed Period";
+            // Add a handler that will respond when that menu item is selected
+            // Add the menu item to the menu
+            menuStrip.Items.Add(itemDropDispPer);
+
+
+            DllCtrlGraphProp specProps = (DllCtrlGraphProp)m_SourceCtrl.SpecificProp;
+
+            if ((int)specProps.SavePeriod >= (int)SAVE_PERIOD.SAVE_10_min)
+            {
+                ToolStripMenuItem Disp10Min = new ToolStripMenuItem();
+                Disp10Min.Name = "10Min";
+                Disp10Min.Text = "10 Minutes";
+                Disp10Min.Tag = SAVE_PERIOD.SAVE_10_min;
+                Disp10Min.Click += new EventHandler(DispPerdiodIem_Click);
+                itemDropDispPer.DropDownItems.Add(Disp10Min);
+            }
+            if ((int)specProps.SavePeriod >= (int)SAVE_PERIOD.SAVE_1_h)
+            {
+                ToolStripMenuItem Disp1Hour = new ToolStripMenuItem();
+                Disp1Hour.Name = "1Hour";
+                Disp1Hour.Text = "1 Hour";
+                Disp1Hour.Tag = SAVE_PERIOD.SAVE_1_h;
+                Disp1Hour.Click += new EventHandler(DispPerdiodIem_Click);
+                itemDropDispPer.DropDownItems.Add(Disp1Hour);
+            }
+            if ((int)specProps.SavePeriod >= (int)SAVE_PERIOD.SAVE_2_h)
+            {
+                ToolStripMenuItem Disp2Hour = new ToolStripMenuItem();
+                Disp2Hour.Name = "2Hours";
+                Disp2Hour.Text = "2 Hours";
+                Disp2Hour.Tag = SAVE_PERIOD.SAVE_2_h;
+                Disp2Hour.Click += new EventHandler(DispPerdiodIem_Click);
+                itemDropDispPer.DropDownItems.Add(Disp2Hour);
+            }
+            if ((int)specProps.SavePeriod >= (int)SAVE_PERIOD.SAVE_6_h)
+            {
+                ToolStripMenuItem Disp6Hour = new ToolStripMenuItem();
+                Disp6Hour.Name = "6Hours";
+                Disp6Hour.Text = "6 Hours";
+                Disp6Hour.Tag = SAVE_PERIOD.SAVE_6_h;
+                Disp6Hour.Click += new EventHandler(DispPerdiodIem_Click);
+                itemDropDispPer.DropDownItems.Add(Disp6Hour);
+            }
+            if ((int)specProps.SavePeriod >= (int)SAVE_PERIOD.SAVE_12_h)
+            {
+                ToolStripMenuItem Disp12Hour = new ToolStripMenuItem();
+                Disp12Hour.Name = "12Hours";
+                Disp12Hour.Text = "12 Hours";
+                Disp12Hour.Tag = SAVE_PERIOD.SAVE_12_h;
+                Disp12Hour.Click += new EventHandler(DispPerdiodIem_Click);
+                itemDropDispPer.DropDownItems.Add(Disp12Hour);
+            }
+            if ((int)specProps.SavePeriod >= (int)SAVE_PERIOD.SAVE_1_j)
+            {
+                ToolStripMenuItem Disp1Day = new ToolStripMenuItem();
+                Disp1Day.Name = "1Day";
+                Disp1Day.Text = "1 Day";
+                Disp1Day.Tag = SAVE_PERIOD.SAVE_1_j;
+                Disp1Day.Click += new EventHandler(DispPerdiodIem_Click);
+                itemDropDispPer.DropDownItems.Add(Disp1Day);
+            }
+            if ((int)specProps.SavePeriod >= (int)SAVE_PERIOD.SAVE_2_j)
+            {
+                ToolStripMenuItem Disp2Day = new ToolStripMenuItem();
+                Disp2Day.Name = "2Days";
+                Disp2Day.Text = "2 Days";
+                Disp2Day.Tag = SAVE_PERIOD.SAVE_2_j;
+                Disp2Day.Click += new EventHandler(DispPerdiodIem_Click);
+                itemDropDispPer.DropDownItems.Add(Disp2Day);
+            }
+            if ((int)specProps.SavePeriod >= (int)SAVE_PERIOD.SAVE_4_j)
+            {
+                ToolStripMenuItem Disp4Day = new ToolStripMenuItem();
+                Disp4Day.Name = "4Days";
+                Disp4Day.Text = "4 Days";
+                Disp4Day.Tag = SAVE_PERIOD.SAVE_4_j;
+                Disp4Day.Click += new EventHandler(DispPerdiodIem_Click);
+                itemDropDispPer.DropDownItems.Add(Disp4Day);
+            }
+            if ((int)specProps.SavePeriod >= (int)SAVE_PERIOD.SAVE_7_j)
+            {
+                ToolStripMenuItem Disp1Week = new ToolStripMenuItem();
+                Disp1Week.Name = "1 Week";
+                Disp1Week.Text = "2 Week";
+                Disp1Week.Tag = SAVE_PERIOD.SAVE_7_j;
+                Disp1Week.Click += new EventHandler(DispPerdiodIem_Click);
+                itemDropDispPer.DropDownItems.Add(Disp1Week);
+            }
+
+        }
+
+        void DispPerdiodIem_Click(object sender, EventArgs e)
+        {
+            DllCtrlGraphProp specProps = (DllCtrlGraphProp)m_SourceCtrl.SpecificProp;
+            CurrentDispPeriod = specProps.SavePeriod;
+            if (sender != null)
+            {
+                CurrentDispPeriod = (SAVE_PERIOD)((ToolStripMenuItem)sender).Tag;
+            }
+            XDate BaseDate = new XDate(1899, 12, 30, 0, 0, 0);
+            switch (CurrentDispPeriod)
+            {
+                case SAVE_PERIOD.SAVE_10_min:
+                    BaseDate.AddMinutes(10);
+                    break;
+                case SAVE_PERIOD.SAVE_1_h:
+                    BaseDate.AddHours(1);
+                    break;
+                case SAVE_PERIOD.SAVE_2_h:
+                    BaseDate.AddHours(2);
+                    break;
+                case SAVE_PERIOD.SAVE_6_h:
+                    BaseDate.AddHours(6);
+                    break;
+                case SAVE_PERIOD.SAVE_12_h:
+                    BaseDate.AddHours(12);
+                    break;
+                case SAVE_PERIOD.SAVE_1_j:
+                    BaseDate.AddDays(1);
+                    break;
+                case SAVE_PERIOD.SAVE_2_j:
+                    BaseDate.AddDays(2);
+                    break;
+                case SAVE_PERIOD.SAVE_4_j:
+                    BaseDate.AddDays(4);
+                    break;
+                case SAVE_PERIOD.SAVE_7_j:
+                    BaseDate.AddDays(7);
+                    break;
+            }
+            m_DisplayedRange = BaseDate;
+            UpdateDispRange();
+        }
+
+        protected void UpdateDispRange()
+        {
+            if (m_ZedGraphCtrl.GraphPane.IsZoomed)
+                m_ZedGraphCtrl.ZoomOutAll(m_ZedGraphCtrl.GraphPane);
+
+            double XDateNow = new XDate(DateTime.Now);
+            double XDateMax = XDateNow + (m_DisplayedRange / 10);
+            double XDateMin = XDateMax - m_DisplayedRange;
+            Scale xScale = m_ZedGraphCtrl.GraphPane.XAxis.Scale;
+            xScale.Max = XDateMax;
+            xScale.Min = XDateMin;
+            CalcScaleSteps();
+            // Scale the axes
+            m_ZedGraphCtrl.AxisChange();
+            // Force a redraw
+            m_ZedGraphCtrl.Invalidate();
+        }
+
+        protected void CalcScaleSteps()
+        {
+            double TimeInMin = (double)CurrentDispPeriod;
+            double MinStepInSec = (TimeInMin*60) / 100;
+            MinStep = new XDate(0, 0, 0, 0, 0, MinStepInSec);
+            Scale xScale = m_ZedGraphCtrl.GraphPane.XAxis.Scale;
+            xScale.MinorStep = MinStep;
+            xScale.MajorStep = MinStep * 10;
         }
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
             InitGraphs();
+            DispPerdiodIem_Click(null, null);
+            UpdateDispRange();
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
         public void InitGraphs()
         {
             GraphPane myPane = m_ZedGraphCtrl.GraphPane;
@@ -254,15 +450,7 @@ namespace CtrlGraph
                 LineItem curve = myPane.AddCurve(usedText, ptsList, m_SourceCtrl.ColorList[i], SymbolType.None);
                 curve.Tag = Data;
             }
-            myPane.XAxis.Scale.Min = 0;
-            myPane.XAxis.Scale.Max = (int)specProps.LogPeriod * 60;
-            myPane.XAxis.Scale.MinorStep = (int)specProps.LogPeriod;
-            myPane.XAxis.Scale.MajorStep = 5 * (int)specProps.LogPeriod;
-            // Scale the axes
-            m_ZedGraphCtrl.AxisChange();
-
-            // Save the beginning time for reference
-            tickStart = Environment.TickCount;
+            myPane.XAxis.Type = AxisType.Date;
         }
 
         public void DataLogNotify()
@@ -270,8 +458,8 @@ namespace CtrlGraph
             if (m_ZedGraphCtrl.GraphPane.CurveList.Count <= 0)
                 return;
 
-            double time = (Environment.TickCount - tickStart) / 1000.0;
-
+            PointPair ptPair = new PointPair();
+            
             for (int i = 0; i < m_ZedGraphCtrl.GraphPane.CurveList.Count; i++)
             {
                 LineItem curve = m_ZedGraphCtrl.GraphPane.CurveList[i] as LineItem;
@@ -282,19 +470,20 @@ namespace CtrlGraph
                     continue;
 
                 // Time is measured in seconds
-                list.Add(time, ((Data)curve.Tag).Value);
-            }
-            // Keep the X scale at a rolling 30 second interval, with one
-            // major step between the max X value and the end of the axis
-            Scale xScale = m_ZedGraphCtrl.GraphPane.XAxis.Scale;
-            DllCtrlGraphProp specProps = (DllCtrlGraphProp)m_SourceCtrl.SpecificProp;
-            if (time > xScale.Max - xScale.MajorStep)
-            {
-                xScale.Max = time + xScale.MajorStep;
-                xScale.Min = xScale.Max - ((int)specProps.LogPeriod * 60);
+                double X = new XDate(DateTime.Now);
+                list.Add(X, ((Data)curve.Tag).Value);
             }
 
-            // Make sure the Y axis is rescaled to accommodate actual data
+            Scale xScale = m_ZedGraphCtrl.GraphPane.XAxis.Scale;
+            double XDateNow = new XDate(DateTime.Now);
+            double XDateTemp = (m_DisplayedRange / 20);
+            if (XDateNow > xScale.Max - XDateTemp && !m_ZedGraphCtrl.GraphPane.IsZoomed)
+            {
+                UpdateDispRange();
+                //si on entre ici, l'invalidate est déja fait donc on return;
+                return;
+            }
+
             m_ZedGraphCtrl.AxisChange();
             // Force a redraw
             m_ZedGraphCtrl.Invalidate();
@@ -317,8 +506,9 @@ namespace CtrlGraph
                 // Force a redraw
                 m_ZedGraphCtrl.Invalidate();
             }
-            // on reprend le temps de base
-            tickStart = Environment.TickCount;
+            DllCtrlGraphProp specProps = (DllCtrlGraphProp)m_SourceCtrl.SpecificProp;
+            GraphPane myPane = m_ZedGraphCtrl.GraphPane;
+            UpdateDispRange();
         }
     }
 }

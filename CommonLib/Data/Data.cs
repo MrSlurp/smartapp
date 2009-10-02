@@ -43,10 +43,9 @@ namespace CommonLib
         #endregion
 
         #region constructeur et init
-        //*****************************************************************************************************
-        // Description: constructeur par défaut
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// constructeur par défaut
+        /// </summary>
         public Data()
         {
             m_MinVal = 0;
@@ -56,10 +55,13 @@ namespace CommonLib
             m_bConstant = false;
         }
 
-        //*****************************************************************************************************
-        // Description: constructeur "paramétré" principalement utilisé par les wizards
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// constructeur "paramétré" principalement utilisé par les wizards
+        /// </summary>
+        /// <param name="strSymbol">Symbol de la donnée</param>
+        /// <param name="DefaultValue">valeur par défaut</param>
+        /// <param name="size">Taille de la donnée</param>
+        /// <param name="bIsConstant">indique si la donnée est une constante</param>
         public Data(string strSymbol, int DefaultValue, int size, bool bIsConstant)
         {
             m_strSymbol = strSymbol;
@@ -101,9 +103,15 @@ namespace CommonLib
                     break;
             }
             this.UpdateUserVisibility();
-
         }
 
+        /// <summary>
+        /// constructeur "paramétré" principalement utilisé par les wizards
+        /// </summary>
+        /// <param name="strSymbol">Symbol de la donnée</param>
+        /// <param name="DefaultValue">valeur par défaut</param>
+        /// <param name="size">Taille de la donnée</param>
+        /// <param name="bIsConstant">indique si la donnée est une constante</param>
         public Data(string strSymbol, int DefaultValue, DATA_SIZE size, bool bIsConstant)
         {
             m_strSymbol = strSymbol;
@@ -147,10 +155,10 @@ namespace CommonLib
             this.UpdateUserVisibility();
 
         }
-        //*****************************************************************************************************
-        // Description: appelé au lancement en mode Commande, initialise la valeur courante
-        // Return: /
-        //*****************************************************************************************************
+
+        /// <summary>
+        /// appelé au lancement en mode Commande, initialise la valeur courante à la valeur par défaut
+        /// </summary>
         public void InitVal()
         {
             m_CurrentVal = m_DefVal;
@@ -158,10 +166,9 @@ namespace CommonLib
         #endregion
 
         #region attributs
-        //*****************************************************************************************************
-        // Description: accesseur de la valeur par défaut
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// obtient ou assigne la valeur par défaut
+        /// </summary>
         public int DefaultValue
         {
             get
@@ -174,11 +181,10 @@ namespace CommonLib
             }
         }
 
-        //*****************************************************************************************************
-        // Description: accesseur de la valeur courante
-        // protégé en écriture par les bornes de la donnée ou l'attribut "constant"
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// assigne ou obtient la valeur courante de la donnée
+        /// protégé en écriture par les bornes min et max, et lance des event en cas de saturation
+        /// </summary>
         public virtual int Value
         {
             get
@@ -247,10 +253,9 @@ namespace CommonLib
             }
         }
 
-        //*****************************************************************************************************
-        // Description: accesseur sur le minimum
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// accesseur sur la valeur minimum
+        /// </summary>
         public int Minimum
         {
             get
@@ -264,10 +269,9 @@ namespace CommonLib
 
         }
 
-        //*****************************************************************************************************
-        // Description: accesseur sur le maximum
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// accesseur sur la valeur maximum
+        /// </summary>
         public int Maximum
         {
             get
@@ -280,10 +284,9 @@ namespace CommonLib
             }
         }
 
-        //*****************************************************************************************************
-        // Description: acceseur sur la Taille de la donnée en bits
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// obtient la taille en bit de la donnée
+        /// </summary>
         public int SizeInBits
         {
             get
@@ -294,6 +297,9 @@ namespace CommonLib
             }
         }
 
+        /// <summary>
+        /// obtient ou assigne la taille et le signage de la donnée
+        /// </summary>
         public int SizeAndSign
         {
             get
@@ -308,10 +314,9 @@ namespace CommonLib
             }
         }
 
-        //*****************************************************************************************************
-        // Description: accesseur de la propriété "Constant"
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// obtient ou définit si la valeur est constante
+        /// </summary>
         public bool IsConstant
         {
             get
@@ -324,10 +329,10 @@ namespace CommonLib
             }
         }
 
-        //*****************************************************************************************************
-        // Description: accesseur de l'attribut "UserVisible"
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// obtient ou assigne si la valeur est visible à l'utilisateur
+        /// (les données de controle des protocoles ne sont pas visibles)
+        /// </summary>
         public bool IsUserVisible
         {
             get
@@ -342,10 +347,12 @@ namespace CommonLib
         #endregion
 
         #region ReadIn / WriteOut
-        //*****************************************************************************************************
-        // Description: Lit les données de l'objet a partir de son noeud XML
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// Lit les données de l'objet a partir de son noeud XML
+        /// </summary>
+        /// <param name="Node">Noeud Xml de l'objet</param>
+        /// <param name="TypeApp">type d'application courante</param>
+        /// <returns>true si la lecture s'est bien passé</returns>
         public override bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
         {
             if (!base.ReadIn(Node, TypeApp))
@@ -373,10 +380,12 @@ namespace CommonLib
             return true;
         }
 
-        //*****************************************************************************************************
-        // Description: ecrit les données de l'objet a partir de son noeud XML
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// écrit les données de l'objet dans le fichier XML
+        /// </summary>
+        /// <param name="XmlDoc">Document XML courant</param>
+        /// <param name="Node">Noeud parent du controle dans le document</param>
+        /// <returns>true si l'écriture s'est déroulée avec succès</returns>
         public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
         {
             base.WriteOut(XmlDoc, Node);
@@ -399,10 +408,12 @@ namespace CommonLib
             return true;
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// termine la lecture de l'objet. utilisé en mode Commande pour récupérer les référence
+        /// vers les objets utilisés
+        /// </summary>
+        /// <param name="Doc">Document courant</param>
+        /// <returns>true si tout s'est bien passé</returns>
         public override bool FinalizeRead(BTDoc Doc)
         {
             //  on a juste a initialiser la valeur courante avec la valeur par défaut
@@ -413,11 +424,10 @@ namespace CommonLib
         #endregion
 
         #region fonctions specifiques aux données
-        //*****************************************************************************************************
-        // Description: utilisé pour mettre a jour l'attribut "user visible" de la données
-        // les données de controls sont invisibles en dehors de la liste des données de la trame
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// utilisé pour mettre a jour l'attribut "user visible" de la données
+        /// les données de controls sont invisibles en dehors de la liste des données de la trame
+        /// </summary>
         public void UpdateUserVisibility()
         {
             // met a jour l'attribut UserVisible en fonction du symbol (données de control invisible)
@@ -427,11 +437,12 @@ namespace CommonLib
         #endregion
 
         #region Gestion des AppMessages
-        //*****************************************************************************************************
-        // Description: termine la lecture de l'objet. utilisé en mode Commande pour récupérer les référence
-        // vers les objets utilisés et effectuer d'autre traitements
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// effectue les opération nécessaire lors de la récéption d'un message
+        /// </summary>
+        /// <param name="Mess">Type de message</param>
+        /// <param name="obj">objet contenant les paramètres du messages</param>
+        /// <param name="TypeApp">Type d'application courante</param>
         public override void TraiteMessage(MESSAGE Mess, object obj, TYPE_APP TypeApp)
         {
             //  rien a faire

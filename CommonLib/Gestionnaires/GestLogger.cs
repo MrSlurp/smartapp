@@ -8,10 +8,10 @@ namespace CommonLib
     public class GestLogger : BaseGest
     {
         #region fonction "utilitaires"
-        //*****************************************************************************************************
-        // Description: renvoie le prochain symbol par défaut pour une donnée
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// renvoie le prochain symbol libre pour une nouvelle donnée
+        /// </summary>
+        /// <returns>prochain symbol libre</returns>
         public override string GetNextDefaultSymbol()
         {
             for (int i = 0; i < MAX_DEFAULT_ITEM_SYMBOL; i++)
@@ -27,10 +27,12 @@ namespace CommonLib
         #endregion
 
         #region ReadIn  / WriteOut
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// Lit les données de l'objet a partir de son noeud XML
+        /// </summary>
+        /// <param name="Node">Noeud Xml de l'objet</param>
+        /// <param name="TypeApp">type d'application courante</param>
+        /// <returns>true si la lecture s'est bien passé</returns>
         public override bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
         {
             XmlNode NodeLoggerSection = null;
@@ -60,10 +62,12 @@ namespace CommonLib
             return true;
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// écrit les données de l'objet dans le fichier XML
+        /// </summary>
+        /// <param name="XmlDoc">Document XML courant</param>
+        /// <param name="Node">Noeud parent du controle dans le document</param>
+        /// <returns>true si l'écriture s'est déroulée avec succès</returns>
         public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
         {
             XmlNode NodeLoggerSection = XmlDoc.CreateElement(XML_CF_TAG.LoggerSection.ToString());

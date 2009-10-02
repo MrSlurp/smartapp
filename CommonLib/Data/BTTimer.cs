@@ -27,10 +27,9 @@ namespace CommonLib
         #endregion
 
         #region propriétées de la classe
-        //*****************************************************************************************************
-        // Description: accesseur sur la période
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// obtient ou assigne la période du timer en ms
+        /// </summary>
         public int Period
         {
             get
@@ -43,10 +42,9 @@ namespace CommonLib
             }
         }
 
-        //*****************************************************************************************************
-        // Description: accesseur sur le script
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// obtient ou assigne le script executé par le timer
+        /// </summary>
         public string[] ScriptLines
         {
             get
@@ -69,6 +67,9 @@ namespace CommonLib
             }
         }
 
+        /// <summary>
+        /// obtient ou assigne la booléen indiquant si le timer est activé automatiquement au démarrage
+        /// </summary>
         public bool AutoStart
         {
             get
@@ -81,10 +82,9 @@ namespace CommonLib
             }
         }
 
-        //*****************************************************************************************************
-        // Description: accesseur de l'executeur de script
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// obtient ou assigne l'executer de l'écran
+        /// </summary>
         public ScriptExecuter Executer
         {
             get
@@ -99,11 +99,13 @@ namespace CommonLib
         #endregion
 
         #region ReadIn / WriteOut
-        //*****************************************************************************************************
-        // Description: ecrit les données de l'objet a partir de son noeud XML
-        // Return: /
-        //*****************************************************************************************************
-        public override bool ReadIn(System.Xml.XmlNode Node, TYPE_APP TypeApp)
+        /// <summary>
+        /// Lit les données de l'objet a partir de son noeud XML
+        /// </summary>
+        /// <param name="Node">Noeud Xml de l'objet</param>
+        /// <param name="TypeApp">type d'application courante</param>
+        /// <returns>true si la lecture s'est bien passé</returns>
+        public override bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
         {
             bool bRet = base.ReadIn(Node, TypeApp);
             // on lit l'attribut
@@ -129,11 +131,13 @@ namespace CommonLib
             return bRet;
         }
 
-        //*****************************************************************************************************
-        // Description: ecrit les données de l'objet a partir de son noeud XML
-        // Return: /
-        //*****************************************************************************************************
-        public override bool WriteOut(System.Xml.XmlDocument XmlDoc, System.Xml.XmlNode Node)
+        /// <summary>
+        /// écrit les données de l'objet dans le fichier XML
+        /// </summary>
+        /// <param name="XmlDoc">Document XML courant</param>
+        /// <param name="Node">Noeud parent du controle dans le document</param>
+        /// <returns>true si l'écriture s'est déroulée avec succès</returns>
+        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
         {
             base.WriteOut(XmlDoc, Node);
             // on écrit la période
@@ -154,11 +158,12 @@ namespace CommonLib
             return true;
         }
 
-        //*****************************************************************************************************
-        // Description: termine la lecture de l'objet. utilisé en mode Commande pour récupérer les référence
-        // vers les objets utilisés
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// termine la lecture de l'objet. utilisé en mode Commande initialiser les donnes spécifiques 
+        /// au mode SmartCommand
+        /// </summary>
+        /// <param name="Doc">Document courant</param>
+        /// <returns>true si tout s'est bien passé</returns>
         public override bool FinalizeRead(BTDoc Doc)
         {
             // initialisation de l'objet Timer
@@ -171,10 +176,12 @@ namespace CommonLib
         #endregion
 
         #region Gestion des AppMessages
-        //*****************************************************************************************************
-        // Description: effectue les opération nécessaire lors de la récéption d'un message
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// effectue les opération nécessaire lors de la récéption d'un message
+        /// </summary>
+        /// <param name="Mess">Type de message</param>
+        /// <param name="obj">objet contenant les paramètres du messages</param>
+        /// <param name="TypeApp">Type d'application courante</param>
         public override void TraiteMessage(MESSAGE Mess, object obj, TYPE_APP TypeApp)
         {
             // en mode config, on execute les différents traitements sur les scripts
@@ -204,30 +211,29 @@ namespace CommonLib
         #endregion
 
         #region fonction d'execution en mode Command
-        //*****************************************************************************************************
-        // Description: démmare le Timer
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// démarre le timer
+        /// </summary>
         public void StartTimer()
         {
             m_Timer.Start();
             m_bTimerEnabled = true;
         }
 
-        //*****************************************************************************************************
-        // Description: Arrète le timer
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// stop le timer
+        /// </summary>
         public void StopTimer()
         {
             m_Timer.Stop();
             m_bTimerEnabled = false;
         }
 
-        //*****************************************************************************************************
-        // Description: execute le script lors que l'évènement de l'objet timer est levé
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// execute le script lors que l'évènement de l'objet timer est levé
+        /// </summary>
+        /// <param name="sender">timer ayant levé l'évènement</param>
+        /// <param name="e">argument de l'event</param>
         private void OnTimerTick(object sender, EventArgs e)
         {
             if (m_bTimerEnabled)

@@ -13,10 +13,9 @@ namespace CommonLib
         #endregion
 
         #region constructeurs
-        //*****************************************************************************************************
-        // Description: 
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// constructeur par défaut
+        /// </summary>
         public BTFilledRectControl()
         {
             m_IControl = new TwoColorFilledRect();
@@ -26,10 +25,10 @@ namespace CommonLib
             m_SpecificProp = new TwoColorProp();
         }
 
-        //*****************************************************************************************************
-        // Description: 
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// constructeur initialisant l'objet interactif associé
+        /// </summary>
+        /// <param name="Ctrl">objet interactif</param>
         public BTFilledRectControl(InteractiveControl Ctrl)
         {
             m_IControl = Ctrl;
@@ -41,10 +40,9 @@ namespace CommonLib
         #endregion
 
         #region attributs
-        //*****************************************************************************************************
-        // Description: 
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// obtiens les propriété spéficiques du controle
+        /// </summary>
         public override SpecificControlProp SpecificProp
         {
             get
@@ -55,10 +53,12 @@ namespace CommonLib
         #endregion
 
         #region ReadIn / WriteOut
-        //*****************************************************************************************************
-        // Description: Lit les données de l'objet a partir de son noeud XML
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// Lit les données de l'objet a partir de son noeud XML
+        /// </summary>
+        /// <param name="Node">Noeud Xml de l'objet</param>
+        /// <param name="TypeApp">type d'application courante</param>
+        /// <returns>true si la lecture s'est bien passé</returns>
         public override bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
         {
             if (!ReadInBaseObject(Node))
@@ -73,10 +73,12 @@ namespace CommonLib
             return true;
         }
 
-        //*****************************************************************************************************
-        // Description: ecrit les données de l'objet a partir de son noeud XML
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// écrit les données de l'objet dans le fichier XML
+        /// </summary>
+        /// <param name="XmlDoc">Document XML courant</param>
+        /// <param name="Node">Noeud parent du controle dans le document</param>
+        /// <returns>true si l'écriture s'est déroulée avec succès</returns>
         public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
         {
             XmlNode NodeControl = XmlDoc.CreateElement(XML_CF_TAG.SpecificControl.ToString());

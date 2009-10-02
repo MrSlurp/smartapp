@@ -46,10 +46,9 @@ namespace CommonLib
         #endregion
 
         #region constructeur
-        //*****************************************************************************************************
-        // Description: constructeur
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// constructeur par défaut
+        /// </summary>
         public BaseObject()
         {
             m_strSymbol = "";
@@ -58,10 +57,9 @@ namespace CommonLib
         #endregion
 
         #region propriétées de la classe
-        //*****************************************************************************************************
-        // Description: accesseur pour la description de l'objet
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// assigne ou obtient la description de l'objet
+        /// </summary>
         public String Description
         {
             get
@@ -73,10 +71,10 @@ namespace CommonLib
                 m_strName = value;
             }
         }
-        //*****************************************************************************************************
-        // Description: accesseur pour le symbol de l'objet
-        // Return: /
-        //*****************************************************************************************************
+
+        /// <summary>
+        /// assigne ou obtient le symbol de l'objet
+        /// </summary>
         public String Symbol
         {
             get
@@ -100,15 +98,22 @@ namespace CommonLib
         #endregion
 
         #region ReadIn / WriteOut
-        //*****************************************************************************************************
-        // Description: Lit les données de l'objet a partir de son noeud XML
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// Lit les données de l'objet a partir de son noeud XML
+        /// </summary>
+        /// <param name="Node">Noeud Xml de l'objet</param>
+        /// <param name="TypeApp">type d'application courante</param>
+        /// <returns>true si la lecture s'est bien passé</returns>
         public virtual bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
         {
             return ReadInBaseObject(Node);
         }
 
+        /// <summary>
+        /// lit les paramètres de l'objet de base
+        /// </summary>
+        /// <param name="Node">noeud de l'objet</param>
+        /// <returns>true si tout s'est bien passé</returns>
         protected bool ReadInBaseObject(XmlNode Node)
         {
             // lecture de l'attribut "nom" (description)
@@ -125,15 +130,24 @@ namespace CommonLib
             m_strSymbol = SymbolAttrib.Value;
             return true;
         }
-        //*****************************************************************************************************
-        // Description: ecrit les données de l'objet a partir de son noeud XML
-        // Return: /
-        //*****************************************************************************************************
+
+        /// <summary>
+        /// écrit les données de l'objet dans le fichier XML
+        /// </summary>
+        /// <param name="XmlDoc">Document XML courant</param>
+        /// <param name="Node">Noeud parent du controle dans le document</param>
+        /// <returns>true si l'écriture s'est déroulée avec succès</returns>
         public virtual bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
         {
             return WriteOutBaseObject(XmlDoc, Node);
         }
 
+        /// <summary>
+        /// écrit les paramètres de l'objet de base
+        /// </summary>
+        /// <param name="XmlDoc">document XML</param>
+        /// <param name="Node">noeud de l'objet courant</param>
+        /// <returns>true si tout s'est bien passé</returns>
         protected bool WriteOutBaseObject(XmlDocument XmlDoc, XmlNode Node)
         {
             // écriture de l'attribut "nom" (description)
@@ -147,11 +161,12 @@ namespace CommonLib
             return true;
         }
 
-        //*****************************************************************************************************
-        // Description: termine la lecture de l'objet. utilisé en mode Commande pour récupérer les référence
-        // vers les objets utilisés
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// termine la lecture de l'objet. utilisé en mode Commande pour récupérer les référence
+        /// vers les objets utilisés
+        /// </summary>
+        /// <param name="Doc">Document courant</param>
+        /// <returns>true si tout s'est bien passé</returns>
         public virtual bool FinalizeRead(BTDoc Doc)
         {
             return true;
@@ -159,17 +174,20 @@ namespace CommonLib
         #endregion
 
         #region Gestion des AppMessages
-        //*****************************************************************************************************
-        // Description: effectue les opération nécessaire lors de la récéption d'un message
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// effectue les opération nécessaire lors de la récéption d'un message
+        /// </summary>
+        /// <param name="Mess">Type de message</param>
+        /// <param name="obj">objet contenant les paramètres du messages</param>
+        /// <param name="TypeApp">Type d'application courante</param>
         public abstract void TraiteMessage(MESSAGE Mess, object obj, TYPE_APP TypeApp);
 
-        //*****************************************************************************************************
-        // Description: appel l'évènement DoSendMessage. cette methode permet aux classes filles 
-        // d'utiliser l'event de la classe de base
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// effectue l'envoie d'un message vers les objet s'étant enregistré comme récépeteur (i.e. les gestionnaires)
+        /// </summary>
+        /// <param name="Mess">Type de message</param>
+        /// <param name="Param">objet contenant les paramètres du messages</param>
+        /// <param name="TypeApp">Type d'application courante</param>
         protected void ProcessSendMessage(MESSAGE Mess, object Param, TYPE_APP TypeApp)
         {
             if (this.DoSendMessage != null)
@@ -180,6 +198,13 @@ namespace CommonLib
         #endregion
 
         #region Méthode de tratement des messages pour les objets scrptables
+        /// <summary>
+        /// traite les message dans les scripts de l'objet
+        /// </summary>
+        /// <param name="Sender">objet possédant le script</param>
+        /// <param name="Mess">Type de message</param>
+        /// <param name="Script">script à traiter</param>
+        /// <param name="obj">objet contenant les paramètres du messages</param>
         protected void ScriptTraiteMessage(BaseObject Sender, MESSAGE Mess, StringCollection Script, object obj)
         {
             switch (Mess)
@@ -298,6 +323,10 @@ namespace CommonLib
         #endregion
 
         #region méthodes divers
+        /// <summary>
+        /// ajoute un évènement dans le logger d'event de SmartCommand
+        /// </summary>
+        /// <param name="Event">évènement à loguer</param>
         protected void AddLogEvent(LogEvent Event)
         {
             if (EventAddLogEvent != null)

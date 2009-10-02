@@ -11,6 +11,9 @@ namespace CommonLib
         public const string EXE_KEY = "$ExePath$";
         static string m_BTDocPath = "";
 
+        /// <summary>
+        /// accesseur du chemin du document, valide dès qu'un document est ouvert
+        /// </summary>
         public static string BTDocPath
         {
             get
@@ -24,8 +27,8 @@ namespace CommonLib
         /// si le chemin du fichier ne contiens ni le chemin de l'exe, ni le chemin du document
         /// on renvoie le chemin complet
         /// </summary>
-        /// <param name="CheminCompletFichier"></param>
-        /// <returns></returns>
+        /// <param name="CheminCompletFichier">chemin du fichier</param>
+        /// <returns>chemin relatif du fichier</returns>
         public static string AbsolutePathToRelative(string CheminCompletFichier)
         {
             if (!string.IsNullOrEmpty(m_BTDocPath) && CheminCompletFichier.Contains(m_BTDocPath))
@@ -45,8 +48,8 @@ namespace CommonLib
         /// si le chemin du fichier ne contiens ni la clef exe, ni la clef document
         /// on renvoie le chemin complet
         /// </summary>
-        /// <param name="CheminRelatifFichier"></param>
-        /// <returns></returns>
+        /// <param name="CheminRelatifFichier">chemin relatif du fichier</param>
+        /// <returns>chemin complet du fichier</returns>
         public static string RelativePathToAbsolute(string CheminRelatifFichier)
         {
             string strRet = string.Empty;
@@ -66,6 +69,11 @@ namespace CommonLib
             return strRet;
         }
 
+        /// <summary>
+        /// traduction des chemin entre OS Linux et Windows pour l'utilisation
+        /// </summary>
+        /// <param name="strPath">chemin à traduire</param>
+        /// <returns>chemin traduit</returns>
         public static string LinuxVsWindowsPathUse(string strPath)
         {
 #if LINUX
@@ -75,6 +83,11 @@ namespace CommonLib
 #endif
         }
 
+        /// <summary>
+        /// traduction des chemin entre OS Linux et Windows pour la sauvegarde
+        /// </summary>
+        /// <param name="strPath">chemin à traduire</param>
+        /// <returns>chemin traduit</returns>
         public static string LinuxVsWindowsPathStore(string strPath)
         {
 #if LINUX

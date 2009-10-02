@@ -79,7 +79,6 @@ namespace SmartApp.Ihm
         //*****************************************************************************************************
         private void CutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // TODO: Use System.Windows.Forms.Clipboard to insert the selected text or images into the clipboard
         }
 
         //*****************************************************************************************************
@@ -88,7 +87,6 @@ namespace SmartApp.Ihm
         //*****************************************************************************************************
         private void CopyToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // TODO: Use System.Windows.Forms.Clipboard to insert the selected text or images into the clipboard
         }
 
         //*****************************************************************************************************
@@ -97,7 +95,6 @@ namespace SmartApp.Ihm
         //*****************************************************************************************************
         private void PasteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // TODO: Use System.Windows.Forms.Clipboard.GetText() or System.Windows.Forms.GetData to retrieve information from the clipboard.
         }
 
         //*****************************************************************************************************

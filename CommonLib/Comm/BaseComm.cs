@@ -43,7 +43,7 @@ namespace CommonLib
 
         #region constructeur
         /// <summary>
-        /// 
+        /// constructeur par défaut
         /// </summary>
         public BaseComm()
         {
@@ -54,34 +54,36 @@ namespace CommonLib
 
         #region methodes abstraites
         /// <summary>
-        /// 
+        /// envoie des le buffer donné sur la communication
         /// </summary>
-        /// <param name="buffer"></param>
+        /// <param name="buffer">buffer contenant les données à envoyer</param>
         /// <returns></returns>
         public abstract bool SendData(Byte[] buffer);
 
         /// <summary>
-        /// 
+        /// obtiens les données reçu sur la communication
         /// </summary>
-        /// <returns></returns>
+        /// <param name="NumberOfByte">Nombre d'octet à lire</param>
+        /// <param name="FrameHeader">Header de trame (peut être null)</param>
+        /// <returns>tableau contenant les données reçues</returns>
         public abstract byte[] GetRecievedData(int NumberOfByte, byte[] FrameHeader);
 
         /// <summary>
-        /// 
+        /// ouvre la communication
         /// </summary>
-        /// <returns></returns>
+        /// <returns>true en cas de succès</returns>
         public abstract bool OpenComm();
 
         /// <summary>
-        /// 
+        /// ferme la communication
         /// </summary>
-        /// <returns></returns>
+        /// <returns>true en cas de succès</returns>
         public abstract bool CloseComm();
 
         /// <summary>
-        /// 
+        /// indique si la communication est ouverte
         /// </summary>
-        /// <returns></returns>
+        /// <returns>true si elle est ouverte</returns>
         public abstract bool IsOpen();
 
         /// <summary>
@@ -95,7 +97,7 @@ namespace CommonLib
 
         #region Attributs
         /// <summary>
-        /// 
+        /// indique si des données on été reçues sur la communication
         /// </summary>
         public bool DataRecieved
         {
@@ -106,7 +108,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// 
+        /// dernier code d'erreur de la communication
         /// </summary>
         public COMM_ERROR ErrorCode
         {
@@ -123,7 +125,7 @@ namespace CommonLib
 
         #region methodes publiques
         /// <summary>
-        /// 
+        /// réinitialise la dernière erreur
         /// </summary>
         public void ResetError()
         {
@@ -131,9 +133,9 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// 
+        /// envoie un évènement vers le logger de SmartCommand
         /// </summary>
-        /// <param name="Event"></param>
+        /// <param name="Event">objet évènement</param>
         public void AddLogEvent(LogEvent Event)
         {
             if (EventAddLogEvent != null)

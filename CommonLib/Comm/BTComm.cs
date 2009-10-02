@@ -77,10 +77,9 @@ namespace CommonLib
         #endregion
 
         #region constructeur
-        //*****************************************************************************************************
-        // Description: constructeur de la classe
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// Constructeur par défaut, initialise les paramètres pour une communication éthernet
+        /// </summary>
         public BTComm()
         {
             // init par défaut
@@ -99,10 +98,9 @@ namespace CommonLib
         #endregion
 
         #region attributs
-        //*****************************************************************************************************
-        // Description: attribut en lecture seule renvoyant les paramètres de comm (adresse)
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// attribut en lecture seule renvoyant les paramètres de comm (adresse/port)
+        /// </summary>
         public string CommParam
         {
             get
@@ -111,10 +109,9 @@ namespace CommonLib
             }
         }
 
-        //*****************************************************************************************************
-        // Description: attribut en lecture seule renvoyant le type de comm
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// attribut en lecture seule renvoyant le type de comm
+        /// </summary>
         public TYPE_COMM CommType
         {
             get
@@ -123,10 +120,9 @@ namespace CommonLib
             }
         }
 
-        //*****************************************************************************************************
-        // Description: permet de connaitre l'état actuel de la comm
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// permet de connaitre l'état actuel de la comm
+        /// </summary>
         public bool IsOpen
         {
             get
@@ -135,10 +131,9 @@ namespace CommonLib
             }
         }
 
-        //*****************************************************************************************************
-        // Description: renvoie le code d'erreur courant
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// renvoie le code d'erreur courant
+        /// </summary>
         public COMM_ERROR ErrorCode
         {
             get
@@ -149,11 +144,13 @@ namespace CommonLib
         #endregion
 
         #region methodes publiques
-        //*****************************************************************************************************
-        // Description: permet de définir le type de comm avec ses paramètres
-        // initialise la comm en fontion du type et des paramètres
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// permet de définir le type de comm avec ses paramètres
+        /// initialise la comm en fontion du type et des paramètres
+        /// </summary>
+        /// <param name="CommType">Type de communication</param>
+        /// <param name="strParam">paramètres de la communication</param>
+        /// <returns>true si les paramètres sont valides</returns>
         public bool SetCommTypeAndParam(TYPE_COMM CommType, string strParam)
         {
             if (!this.IsOpen)
@@ -200,10 +197,10 @@ namespace CommonLib
             return true;
         }
 
-        //*****************************************************************************************************
-        // Description: Ouvre la communication courante
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// Ouvre la communication courante
+        /// </summary>
+        /// <returns>true en cas de succès</returns>
         public bool OpenComm()
         {
             if (m_Comm.IsOpen())
@@ -225,10 +222,10 @@ namespace CommonLib
             }
         }
 
-        //*****************************************************************************************************
-        // Description: Ferme la communication courante
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// Ferme la communication courante
+        /// </summary>
+        /// <returns>true en cas de succès</returns>
         public bool CloseComm()
         {
             if (!m_Comm.IsOpen())
@@ -240,10 +237,11 @@ namespace CommonLib
                 return false;
         }
 
-        //*****************************************************************************************************
-        // Description: Envoie les données du buffer sur le port de comm courant
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// Envoie les données du buffer sur la comm courante
+        /// </summary>
+        /// <param name="buffer">buffer des données à envoyer</param>
+        /// <returns>true en cas de succès</returns>
         public bool SendData(Byte[] buffer)
         {
             m_Comm.ResetError();
@@ -253,11 +251,14 @@ namespace CommonLib
                 return false;
         }
 
-        //*****************************************************************************************************
-        // Description: Envoie les données du buffer sur le port de comm courant 
-        // version spéciale communication virtuelle
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// Envoie les données du buffer sur le port de comm courant
+        /// spéciale communication virtuelle
+        /// </summary>
+        /// <param name="TrameToSend">Objet trame à envoyer</param>
+        /// <param name="DataGest">gestionnaire de données</param>
+        /// <param name="VirtualDataGest">gestionnaire de données virtuelles</param>
+        /// <returns></returns>
         public bool SendData(Trame TrameToSend, GestData DataGest, GestDataVirtual VirtualDataGest)
         {
             if (m_Comm.GetType() == typeof(VirtualComm))
@@ -266,18 +267,18 @@ namespace CommonLib
             return true;
         }
 
-        //*****************************************************************************************************
-        // Description: Réalise l'attente de récéption d'un trame
-        // la sortie est automatique en cas de timeout
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// Réalise l'attente de récéption d'un trame
+        /// la sortie est automatique en cas de timeout
+        /// </summary>
+        /// <param name="FrameLenght">longueur de la trame en octet</param>
+        /// <param name="FrameHeader">header de la trame</param>
+        /// <returns>true si une trame à été reçue</returns>
         public bool WaitTrameRecieved(int FrameLenght, byte[] FrameHeader)
         {
             m_TimerRecieveTimeout.Enabled = true;
             while (!m_Comm.TestFrame(FrameLenght, FrameHeader) && m_Comm.ErrorCode == COMM_ERROR.ERROR_NONE)
             {
-                //nan, car si on le laisse executer les action et qu'une nouvelle demande 
-                // d'envoie de trame est postée, on crash
                 Application.DoEvents();
                 System.Threading.Thread.Sleep(1);
             }
@@ -289,21 +290,25 @@ namespace CommonLib
             return false;
         }
 
-        //*****************************************************************************************************
-        // Description: obtiens les données reçues sur le port comm
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// obtiens les données reçues sur la comm
+        /// </summary>
+        /// <param name="NumberOfByte">nombre d'octet à lire</param>
+        /// <param name="FrameHeader">header de trame</param>
+        /// <returns>données reçues sur la comm</returns>
         public Byte[] GetRecievedData(int NumberOfByte, byte[] FrameHeader)
         {
             Byte[] buffer = m_Comm.GetRecievedData(NumberOfByte, FrameHeader);
             return buffer;
         }
 
-        //*****************************************************************************************************
-        // Description: obtiens les données reçues sur le port comm
-        // version spéciale communication virtuelle
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// obtiens les données reçues sur le port comm
+        /// version spéciale communication virtuelle
+        /// </summary>
+        /// <param name="ConvertedSize">taille de la trame convertie</param>
+        /// <param name="TrameToReturn">objet trame qui doit être reçu</param>
+        /// <returns>données de la trame reçue</returns>
         public Byte[] GetRecievedData(int ConvertedSize, Trame TrameToReturn)
         {
             Byte[] buffer = null;
@@ -315,20 +320,20 @@ namespace CommonLib
         #endregion
 
         #region méthodes privées et protégées
-        //*****************************************************************************************************
-        // Description: callback appelé par le timer de timeout
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// callback appelé par le timer de timeout
+        /// </summary>
+        /// <param name="sender">event sender object</param>
+        /// <param name="e">event args</param>
         private void OnRecieveTimeOut(object sender, EventArgs e)
         {
             m_Comm.ErrorCode = COMM_ERROR.ERROR_TIMEOUT;
             m_TimerRecieveTimeout.Enabled = false;
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// handler de changement du type de comm
+        /// </summary>
         private void ConnectionStateChangeEvent()
         {
             if (OnCommStateChange != null)
@@ -337,10 +342,10 @@ namespace CommonLib
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// ajoute un évènement au logger de SmartCommand
+        /// </summary>
+        /// <param name="Event"></param>
         protected void AddLogEvent(LogEvent Event)
         {
             if (EventAddLogEvent != null)

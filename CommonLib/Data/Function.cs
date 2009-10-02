@@ -14,10 +14,9 @@ namespace CommonLib
         #endregion
 
         #region propriétées de la classe
-        //*****************************************************************************************************
-        // Description: accesseur sur le script
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// obtient ou assigne le script du controle
+        /// </summary>
         public string[] ScriptLines
         {
             get 
@@ -36,16 +35,17 @@ namespace CommonLib
                 {
                     m_ScriptLines.Add(value[i]);
                 }
-
             }
         }
         #endregion
 
         #region ReadIn / WriteOut
-        //*****************************************************************************************************
-        // Description: ecrit les données de l'objet a partir de son noeud XML
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// Lit les données de l'objet a partir de son noeud XML
+        /// </summary>
+        /// <param name="Node">Noeud Xml de l'objet</param>
+        /// <param name="TypeApp">type d'application courante</param>
+        /// <returns>true si la lecture s'est bien passé</returns>
         public override bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
         {
             bool bRet = base.ReadIn(Node, TypeApp);
@@ -60,10 +60,12 @@ namespace CommonLib
             return bRet;
         }
 
-        //*****************************************************************************************************
-        // Description: ecrit les données de l'objet a partir de son noeud XML
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// écrit les données de l'objet dans le fichier XML
+        /// </summary>
+        /// <param name="XmlDoc">Document XML courant</param>
+        /// <param name="Node">Noeud parent du controle dans le document</param>
+        /// <returns>true si l'écriture s'est déroulée avec succès</returns>
         public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
         {
             base.WriteOut(XmlDoc, Node);
@@ -77,11 +79,12 @@ namespace CommonLib
             return true;
         }
 
-        //*****************************************************************************************************
-        // Description: termine la lecture de l'objet. utilisé en mode Commande pour récupérer les référence
-        // vers les objets utilisés
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// termine la lecture de l'objet. utilisé en mode Commande initialiser les donnes spécifiques 
+        /// au mode SmartCommand
+        /// </summary>
+        /// <param name="Doc">Document courant</param>
+        /// <returns>true si tout s'est bien passé</returns>
         public override bool FinalizeRead(BTDoc Doc)
         {
             return true;
@@ -90,10 +93,12 @@ namespace CommonLib
         #endregion
 
         #region Gestion des AppMessages
-        //*****************************************************************************************************
-        // Description: effectue les opération nécessaire lors de la récéption d'un message
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// effectue les opération nécessaire lors de la récéption d'un message
+        /// </summary>
+        /// <param name="Mess">Type de message</param>
+        /// <param name="obj">objet contenant les paramètres du messages</param>
+        /// <param name="TypeApp">Type d'application courante</param>
         public override void TraiteMessage(MESSAGE Mess, object obj, TYPE_APP TypeApp)
         {
             ScriptTraiteMessage(this, Mess, m_ScriptLines, obj);

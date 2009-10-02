@@ -20,6 +20,9 @@ namespace CommonLib
         #endregion
 
         #region constructeur
+        /// <summary>
+        /// constructeur par défaut
+        /// </summary>
         public TwoColorProperties()
         {
             InitializeComponent();
@@ -27,10 +30,9 @@ namespace CommonLib
         #endregion
 
         #region attribut d'accès aux valeurs de la page de propriété
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// assigne ou récupère le BT control à paramétrer
+        /// </summary>
         public BTControl BTControl
         {
             get
@@ -58,10 +60,9 @@ namespace CommonLib
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// assigne ou obtiens le document courant
+        /// </summary>
         public BTDoc Doc
         {
             get
@@ -76,10 +77,9 @@ namespace CommonLib
         #endregion
 
         #region validation des données
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// attribut en lecture seul qui indique si les propriété courantes sont valides
+        /// </summary>
         public bool IsDataValuesValid
         {
             get
@@ -91,11 +91,10 @@ namespace CommonLib
             }
         }
 
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// valide les paramètres et affiche un message en cas d'erreur
+        /// </summary>
+        /// <returns>true si les paramètres sont valides</returns>
         public bool ValidateValues()
         {
             if (this.BTControl == null)
@@ -121,6 +120,11 @@ namespace CommonLib
         #endregion
 
         #region méthodes privées
+        /// <summary>
+        /// callback de choix de la couleur active
+        /// </summary>
+        /// <param name="sender">objet ayant envoyé l'event</param>
+        /// <param name="e">paramètres de l'event</param>
         private void m_BtnSelectActiveColor_Click(object sender, EventArgs e)
         {
             m_clrDlg.Color = ((TwoColorProp)m_Control.SpecificProp).ColorActive;
@@ -131,6 +135,11 @@ namespace CommonLib
             }
         }
 
+        /// <summary>
+        /// callback de choix de la couleur inactive
+        /// </summary>
+        /// <param name="sender">objet ayant envoyé l'event</param>
+        /// <param name="e">paramètres de l'event</param>
         private void m_BtnSelectInactiveColor_Click(object sender, EventArgs e)
         {
             m_clrDlg.Color = ((TwoColorProp)m_Control.SpecificProp).ColorInactive;

@@ -53,8 +53,11 @@ namespace FourBitmap
                 }
                 catch (Exception)
                 {
-                    LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format("Control {0} Failed to load file {1}", Symbol, strImageFullPath));
-                    AddLogEvent(log);
+                    if (m_AssociateData != null)
+                    {
+                        LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format("Control {0} Failed to load file {1}", Symbol, strImageFullPath));
+                        AddLogEvent(log);
+                    }
                 }
 
                 strImageFullPath = PathTranslator.RelativePathToAbsolute(((DllFourBitmapProp)this.m_SpecificProp).NomFichier2);
@@ -65,8 +68,11 @@ namespace FourBitmap
                 }
                 catch (Exception)
                 {
-                    LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format("Control {0} Failed to load file {1}", Symbol, strImageFullPath));
-                    AddLogEvent(log);
+                    if (m_AssociateData != null)
+                    {
+                        LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format("Control {0} Failed to load file {1}", Symbol, strImageFullPath));
+                        AddLogEvent(log);
+                    }
                 }
 
                 strImageFullPath = PathTranslator.RelativePathToAbsolute(((DllFourBitmapProp)this.m_SpecificProp).NomFichier3);
@@ -77,8 +83,11 @@ namespace FourBitmap
                 }
                 catch (Exception)
                 {
-                    LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format("Control {0} Failed to load file {1}", Symbol, strImageFullPath));
-                    AddLogEvent(log);
+                    if (m_AssociateData != null)
+                    {
+                        LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format("Control {0} Failed to load file {1}", Symbol, strImageFullPath));
+                        AddLogEvent(log);
+                    }
                 }
                 UpdateFromData();
             }

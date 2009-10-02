@@ -6,7 +6,9 @@ using System.Drawing;
 
 namespace CommonLib
 {
-    //positions possible des bouttons de redimensionnement
+    /// <summary>
+    /// positions possible des bouttons de redimensionnement
+    /// </summary>
     public enum ResizeButtonPosition
     {
         MiddleRight,
@@ -16,7 +18,7 @@ namespace CommonLib
         TopCenter,
     }
 
-    public partial class ResizeButton : Panel
+    public class ResizeButton : Panel
     {
         #region données membres
         //position du bouton de redimenssionement
@@ -31,10 +33,9 @@ namespace CommonLib
         #endregion
 
         #region attributes
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// assigne ou obtiens la l'autrorisation d'affichage du control
+        /// </summary>
         public bool CanBeVisible
         {
             get
@@ -51,10 +52,11 @@ namespace CommonLib
         #endregion
 
         #region Constructeur
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// constructeur
+        /// </summary>
+        /// <param name="resizeButtonPosition">position du bouton</param>
+        /// <param name="interactiveControl">control interactif associé</param>
         public ResizeButton(ResizeButtonPosition resizeButtonPosition, IInteractive interactiveControl)
         {
             InitializeComponent();
@@ -65,10 +67,10 @@ namespace CommonLib
         #endregion
 
         #region Mouse Events
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// évènement lors que le move button est enfoncé
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnMouseDown(MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -80,20 +82,20 @@ namespace CommonLib
             base.OnMouseDown(e);
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// évènement lors que le move button est relaché
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnMouseUp(MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left) isPressed = false;
             base.OnMouseUp(e);
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// évènement appelé lorsque le curseur est déplacé
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnMouseMove(MouseEventArgs e)
         {
             if (isPressed)
@@ -137,12 +139,10 @@ namespace CommonLib
         #endregion
 
         #region UpdateLocation
-        //cette fonction met à jour la position des boutons de redimenssionement
-        //en fonction du boutton à redimenssioner
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// cette fonction met à jour la position du contrôle en fonction du control à bouger
+        /// </summary>
+        /// <returns></returns>
         public bool UpdateLocation()
         {
             if (interactiveControl == null) return false;
@@ -182,12 +182,10 @@ namespace CommonLib
         #endregion
 
         #region SetCursor
-        //cette fonction ajuste le curseur du bouton de redimenssionement
-        //selon sa position
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// cette fonction ajuste le curseur du bouton de redimenssionement selon sa position
+        /// </summary>
+        /// <returns></returns>
         public bool SetCursor()
         {
             switch (this.resizeButtonPosition)
@@ -213,11 +211,10 @@ namespace CommonLib
         #endregion
 
         #region ShowControl
-        //cette fonction affiche le contrôle
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// cette fonction affiche ou masque le contrôle
+        /// </summary>
+        /// <param name="show">afficher ou masquer</param>
         public void ShowControl(bool show)
         {
             if (!show)
@@ -237,10 +234,9 @@ namespace CommonLib
         #endregion
 
         #region Code généré par le Concepteur de composants
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// initialise le composant
+        /// </summary>
         private void InitializeComponent()
         {
             this.SuspendLayout();

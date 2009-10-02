@@ -55,10 +55,9 @@ namespace CommonLib
         #endregion
 
         #region constructeur
-        //*****************************************************************************************************
-        // Description: constructeur
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// Constructeur par défaut
+        /// </summary>
         public Trame()
         {
             m_ListStrDatas = new StringCollection();
@@ -71,10 +70,9 @@ namespace CommonLib
         #endregion
 
         #region attribut
-        //*****************************************************************************************************
-        // Description: accesseur vers la list des données de la trame
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// liste des symboles des données de la trames
+        /// </summary>
         public StringCollection FrameDatas
         {
             get
@@ -83,10 +81,9 @@ namespace CommonLib
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// Header de trame, initialisé uniquement dans SmartCommand
+        /// </summary>
         public byte[] FrameHeader
         {
             get
@@ -96,10 +93,9 @@ namespace CommonLib
         }
 
         #region Donnée de control
-        //*****************************************************************************************************
-        // Description: accesseur sur le type de la donnée de control
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// Type de la donnée de controle sous forme de chaine
+        /// </summary>
         public string CtrlDataType
         {
             get
@@ -112,10 +108,9 @@ namespace CommonLib
             }
         }
 
-        //*****************************************************************************************************
-        // Description: accesseur sur la taille de la donnée de control
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// Taille de la donnée de controle
+        /// </summary>
         public int CtrlDataSize
         {
             get
@@ -128,10 +123,9 @@ namespace CommonLib
             }
         }
 
-        //*****************************************************************************************************
-        // Description: accesseur sur l'index de début du calcul de la donnée de control
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// Obtient ou assigne l'index de la donnée de début de calcul de la donnée de control
+        /// </summary>
         public int CtrlDataFrom
         {
             get
@@ -144,10 +138,9 @@ namespace CommonLib
             }
         }
 
-        //*****************************************************************************************************
-        // Description: accesseur sur l'index de fin du calcul de la donnée de control
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// Obtient ou assigne l'index de la donnée de fin de calcul de la donnée de control
+        /// </summary>
         public int CtrlDataTo
         {
             get
@@ -162,10 +155,9 @@ namespace CommonLib
         #endregion
 
         #region type de conversion
-        //*****************************************************************************************************
-        // Description: accesseur sur le type de conversion
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// Type de conversion appliqué sur la trame
+        /// </summary>
         public string ConvType
         {
             get
@@ -178,10 +170,9 @@ namespace CommonLib
             }
         }
 
-        //*****************************************************************************************************
-        // Description: accesseur sur l'index de début de la conversion
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// accesseur sur l'index de début de la conversion
+        /// </summary>
         public int ConvFrom
         {
             get
@@ -194,10 +185,9 @@ namespace CommonLib
             }
         }
 
-        //*****************************************************************************************************
-        // Description: accesseur sur l'index de fin de la conversion
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// accesseur sur l'index de fin de la conversion
+        /// </summary>
         public int ConvTo
         {
             get
@@ -213,10 +203,12 @@ namespace CommonLib
         #endregion
 
         #region ReadIn / WriteOut
-        //*****************************************************************************************************
-        // Description: Lit les données de l'objet a partir de son noeud XML
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// Lit les données de l'objet a partir de son noeud XML
+        /// </summary>
+        /// <param name="Node">Noeud Xml de l'objet</param>
+        /// <param name="TypeApp">type d'application courante</param>
+        /// <returns>true si la lecture s'est bien passé</returns>
         public override bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
         {
             base.ReadIn(Node, TypeApp);
@@ -279,10 +271,12 @@ namespace CommonLib
             return true;
         }
 
-        //*****************************************************************************************************
-        // Description: ecrit les données de l'objet a partir de son noeud XML
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// écrit les données de l'objet dans le fichier XML
+        /// </summary>
+        /// <param name="XmlDoc">Document XML courant</param>
+        /// <param name="Node">Noeud parent du controle dans le document</param>
+        /// <returns>true si l'écriture s'est déroulée avec succès</returns>
         public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
         {
             base.WriteOut(XmlDoc, Node);
@@ -324,11 +318,12 @@ namespace CommonLib
             return true;
         }
 
-        //*****************************************************************************************************
-        // Description: termine la lecture de l'objet. utilisé en mode Commande pour récupérer les référence
-        // vers les objets utilisés
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// termine la lecture de l'objet. utilisé en mode Commande pour récupérer les référence
+        /// vers les objets utilisés
+        /// </summary>
+        /// <param name="Doc">Document courant</param>
+        /// <returns>true si tout s'est bien passé</returns>
         public override bool FinalizeRead(BTDoc Doc)
         {
             for (int i = 0; i < m_ListStrDatas.Count; i++)
@@ -379,10 +374,12 @@ namespace CommonLib
         #endregion
 
         #region Gestion des AppMessages
-        //*****************************************************************************************************
-        // Description: effectue les opération nécessaire lors de la récéption d'un message
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// effectue les opération nécessaire lors de la récéption d'un message
+        /// </summary>
+        /// <param name="Mess">Type de message</param>
+        /// <param name="obj">objet contenant les paramètres du messages</param>
+        /// <param name="TypeApp">Type d'application courante</param>
         public override void TraiteMessage(MESSAGE Mess, object obj, TYPE_APP TypeApp)
         {
             switch (Mess)
@@ -434,10 +431,11 @@ namespace CommonLib
         #endregion
 
         #region fonction utilisées dans SmartCommand pour créer et lire les trames
-        //*****************************************************************************************************
-        // Description: crée la trame a envoyer a partir des données qu'elle contien et renvoie le buffer
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// créer la trame à envoyer lors de l'appel à la fonction de script "SEND"
+        /// </summary>
+        /// <param name="forVirtualComm">indique si la trame à crée est pour la connexion virtuelle</param>
+        /// <returns>tableau d'octet contenant la trame</returns>
         public Byte[] CreateTrameToSend(bool forVirtualComm )
         {
             // Obtenir la taille totale en octets
@@ -462,11 +460,11 @@ namespace CommonLib
             return buffer;
         }
 
-        //*****************************************************************************************************
-        // Description: a partir d'une trame donnée, met a jour les valeurs des données
-        // effectue les controls sur la taille de la trame et la donnée de control
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// traite la récéption d'un trame, et met a jour les valeurs des données
+        /// </summary>
+        /// <param name="buffer">tableau contenant la trace reçue à décrypter</param>
+        /// <returns>true en cas succès</returns>
         public bool TreatRecieveTrame(Byte[] buffer)
         {
             // vérifier que les tailles sont identiques
@@ -493,12 +491,14 @@ namespace CommonLib
                 return true;
         }
 
-        //*****************************************************************************************************
-        // Description: effectue la première étape de création de la trame
-        // en prenant les données une par une, reconstruit la trame sous forme de données binaires.
-        // si une donnée de control existe, celle ci est calculée avant d'être assignée dans la trame
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// prépare le buffer contenant la trame à envoyer
+        /// effectue la première étape de création de la trame
+        /// en prenant les données une par une, reconstruit la trame sous forme de données binaires.
+        /// si une donnée de control existe, celle ci est calculée avant d'être assignée dans la trame
+        /// </summary>
+        /// <param name="buffer">buffer de la taille final de la trame</param>
+        /// <param name="forVirtualComm">indique si la trame est crée pour la communication virtuelle</param>
         private void PrepareSendBuffer(byte[] buffer, bool forVirtualComm)
         {
             if (buffer != null && buffer.Length > 0)
@@ -658,11 +658,11 @@ namespace CommonLib
             }
         }
 
-        //*****************************************************************************************************
-        // Description: a partir d'une trame binaire, relis les données qui y sont contenu
-        //              les données constantes ne sont pas modifiées
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// lit les données reçues
+        /// </summary>
+        /// <param name="buffer">buffer des données de la trame reçue</param>
+        /// <returns>true en cas de succès</returns>
         private bool ReadRecievedBuffer(Byte[] buffer)
         {
             int CurrentDataPos = 0;
@@ -775,10 +775,11 @@ namespace CommonLib
             return true;
         }
 
-        //*****************************************************************************************************
-        // Description: traite la conversion de la trame après qu'elle ai été crée avec PrepareSendBuffer(...)
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// traite la conversion de la trame après qu'elle ai été crée avec PrepareSendBuffer(...)
+        /// </summary>
+        /// <param name="buffer">buffer des données non converties</param>
+        /// <returns>trame convertie</returns>
         private Byte[] TreatWriteConversion(Byte[] buffer)
         {
             if (buffer != null && buffer.Length > 0)
@@ -833,10 +834,11 @@ namespace CommonLib
             return null;
         }
 
-        //*****************************************************************************************************
-        // Description: traite la conversion de la trame avant qu'elle soit traitée par ReadRecievedBuffer(...)
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// traite la conversion de la trame avant qu'elle soit traitée par ReadRecievedBuffer(...)
+        /// </summary>
+        /// <param name="buffer">buffer des données converties</param>
+        /// <returns>trame "dé-convertie"</returns>
         private Byte[] TreatReadConversion(Byte[] buffer)
         {
             Byte[] FinalBuffer;
@@ -909,10 +911,10 @@ namespace CommonLib
             return FinalBuffer;
         }
 
-        //*****************************************************************************************************
-        // Description: calcule la taille en octets de la trame (taille brute de la trame)
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// calcule la taille de la trame (sans conversion) en octet
+        /// </summary>
+        /// <returns>taille de la trame</returns>
         private int GetTrameSizeInByte()
         {
             int sizeInBits = 0;
@@ -930,10 +932,10 @@ namespace CommonLib
             return sizeInByte;
         }
 
-        //*****************************************************************************************************
-        // Description: calcule la taille en octets de la trame (taille convertie de la trame)
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// calcule la taille de la trame aprèss conversion, en octet
+        /// </summary>
+        /// <returns>taille de la trame</returns>
         public int GetConvertedTrameSizeInByte()
         {
             int sizeInBytes = GetTrameSizeInByte();
@@ -973,11 +975,12 @@ namespace CommonLib
             return FinalSize;
         }
 
-        //*****************************************************************************************************
-        // Description: calcule la donnée de control "dat" a partir des octets passés dans "buffer"
-        //              le buffer ne dois contenir que les octets qui sont utilisé pour le calcule de la donnée de control
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// calcule la donnée de control "dat" a partir des octets passés dans "buffer"
+        /// le buffer ne dois contenir que les octets qui sont utilisé pour le calcule de la donnée de control
+        /// </summary>
+        /// <param name="buffer">buffer des données sur lesquel est calculé la donnée de controle</param>
+        /// <param name="dat">référence vers l'objet étant la donnée de control</param>
         private void CalcCtrlData(Byte[] buffer, Data dat)
         {
             if (m_strDataClcType == CTRLDATA_TYPE.SUM_COMPL_P1.ToString())
@@ -1028,10 +1031,11 @@ namespace CommonLib
                 System.Diagnostics.Debug.Assert(false, "Type de calcul de donnée de control pas codé");
         }
 
-        //*****************************************************************************************************
-        // Description: En lecture, avant de commencer a relire les valeurs, on vérifie la valididtée de la donnée de control
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// En récéption, avant de commencer a relire les valeurs, on vérifie la valididtée de la donnée de control
+        /// </summary>
+        /// <param name="buffer"></param>
+        /// <returns></returns>
         private bool CheckCtrlData(Byte[] buffer)
         {
             int RecievedCtrlDataVal = 0;
@@ -1111,6 +1115,9 @@ namespace CommonLib
             return true;
         }
 
+        /// <summary>
+        /// calcule la position de départ et de fin de la conversion en octet
+        /// </summary>
         private void CalcBeginAndEndConversion()
         {
             int CurrentDataPos = 0;
@@ -1149,10 +1156,11 @@ namespace CommonLib
             }
         }
 
-        //*****************************************************************************************************
-        // Description: convertir une donnée binaire en ascii
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// convertit un digit (0 à 9) en sa valeur ASCII
+        /// </summary>
+        /// <param name="Data">digit à convertir</param>
+        /// <returns>valeur ASCII du digit</returns>
         private byte Bin2Ascii(byte Data)
         {
             byte Out = 0;
@@ -1168,10 +1176,11 @@ namespace CommonLib
             return Out;
         }
 
-        //*****************************************************************************************************
-        // Description: concertie la donnée ascii en binaires
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// convertis un digit codé en ASCII en sa valeur décimale
+        /// </summary>
+        /// <param name="Data">valeur ASCII du digit</param>
+        /// <returns>valeur décimal du digit</returns>
         private byte Ascii2Bin(byte Data)
         {
             byte Out;
@@ -1186,10 +1195,11 @@ namespace CommonLib
         #endregion
 
         #region fonction de calcul du CRC 16 modbus
-        //*****************************************************************************************************
-        // Description: Calcul du CRC
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// calcul le CRC16 modbus sur c
+        /// </summary>
+        /// <param name="Buf">buffer sur lequel le CRC est calculé</param>
+        /// <returns>la valeur du CRC</returns>
         uint CalculCRC(byte[] Buf)
         {
             ulong crccode = 0xFFFF;
@@ -1200,10 +1210,12 @@ namespace CommonLib
             return (uint)crccode; 
         }
 
-        //*****************************************************************************************************
-        // Description: Accumulation du CRC
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// Accumulation du CRC
+        /// </summary>
+        /// <param name="item">octet courant</param>
+        /// <param name="start">valeur accumulé du CRC</param>
+        /// <returns>nouvelle valeur accumulée du CRC</returns>
         uint onecrc(uint item, uint start)
         {
             int i;

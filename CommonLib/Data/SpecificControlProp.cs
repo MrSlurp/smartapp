@@ -37,11 +37,11 @@ namespace CommonLib
 
         #region methodes utiles pour la lecture et l'ecriture de script
         /// <summary>
-        /// 
+        /// Lit le script depuis le document XML et le charge dans la string collection passé en paramètre
         /// </summary>
-        /// <param name="Script"></param>
-        /// <param name="Node"></param>
-        /// <param name="strNameScriptSection"></param>
+        /// <param name="Script">contiens le script à la sortie</param>
+        /// <param name="Node">neud de l'objet (control) courant</param>
+        /// <param name="strNameScriptSection">nom du noeud contenant le script</param>
         protected void ReadScript(ref StringCollection Script, XmlNode Node, string strNameScriptSection)
         {
             // on lit le script si il y en a un
@@ -67,12 +67,12 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// 
+        /// écrit le script passé en paramètre dans le document
         /// </summary>
-        /// <param name="Script"></param>
-        /// <param name="XmlDoc"></param>
-        /// <param name="NodeControl"></param>
-        /// <param name="strNameScriptSection"></param>
+        /// <param name="Script">script à écrire</param>
+        /// <param name="XmlDoc">document XML</param>
+        /// <param name="NodeControl">noeud du controle</param>
+        /// <param name="strNameScriptSection">nom du noeud ou sera stocké le script</param>
         protected void WriteScript(StringCollection Script, XmlDocument XmlDoc, XmlNode NodeControl, string strNameScriptSection)
         {
             XmlNode XmlEventScript = XmlDoc.CreateElement(strNameScriptSection);
@@ -88,6 +88,11 @@ namespace CommonLib
         #endregion
 
         #region methode utile pour la copie de script
+        /// <summary>
+        /// fonction utilitaire permettant de copier un script vers un autre
+        /// </summary>
+        /// <param name="DestScript">script de destination</param>
+        /// <param name="SrcScript">script source</param>
         protected void CopyScript(ref StringCollection DestScript, StringCollection SrcScript)
         {
             DestScript.Clear();
@@ -99,7 +104,12 @@ namespace CommonLib
         #endregion
 
         #region methodes pour le traitement des messages
-        // la classe de base n'ayant pas de paramètres, le traitement est vide
+        /// <summary>
+        /// effectue les opération nécessaire lors de la récéption d'un message
+        /// </summary>
+        /// <param name="Mess">Type de message</param>
+        /// <param name="obj">objet contenant les paramètres du messages</param>
+        /// <param name="TypeApp">Type d'application courante</param>
         public virtual void TraiteMessage(MESSAGE Mess, object obj, TYPE_APP TypeApp, BTControl PropOwner)
         {
 
@@ -107,6 +117,13 @@ namespace CommonLib
         #endregion
 
         #region Méthode de tratement des messages pour les objets scriptables
+        /// <summary>
+        /// traite les message dans les scripts de l'objet
+        /// </summary>
+        /// <param name="Mess">Type de message</param>
+        /// <param name="Script">script à traiter</param>
+        /// <param name="obj">objet contenant les paramètres du messages</param>
+        /// <param name="PropOwner">control possédant les propriété</param>
         protected void ScriptTraiteMessage(MESSAGE Mess, StringCollection Script, object obj, BTControl PropOwner)
         {
             switch (Mess)
@@ -285,9 +302,9 @@ namespace CommonLib
 
         #region copie des paramètres
         /// <summary>
-        /// 
+        /// copie les paramètre des propriété spécifiques passé en paramètre
         /// </summary>
-        /// <param name="SrcSpecificProp"></param>
+        /// <param name="SrcSpecificProp">propriété sources</param>
         public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp)
         {
             ColorInactive = ((TwoColorProp)SrcSpecificProp).ColorInactive;

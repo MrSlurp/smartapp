@@ -7,11 +7,21 @@ namespace CommonLib
 {
     public class ColorTranslate
     {
+        /// <summary>
+        /// convertit une couleur en chaine
+        /// </summary>
+        /// <param name="cr">couleur</param>
+        /// <returns>chaine représentant la couleur en RGB</returns>
         public static string ColorToString(Color cr)
         {
             return string.Format("{0}, {1}, {2}", cr.R, cr.G, cr.B);
         }
 
+        /// <summary>
+        /// convertit une chaine en couleur
+        /// </summary>
+        /// <param name="strCr">chaine RGB</param>
+        /// <returns>couleur</returns>
         public static Color StringToColor(string strCr)
         {
             string[] rgbVal = strCr.Split(',');

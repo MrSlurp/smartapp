@@ -28,8 +28,6 @@ namespace CommonLib
         #endregion
 
         #region cosntructeurs
-        /////////////////////////////////////////////////////////////////////////////////
-        /////////////////////////////////////////////////////////////////////////////////
         /// <summary>
         /// constructeur de la classe
         /// initialise par défaut le port comm sur le port COM6(port BlueTooth PPC)
@@ -65,8 +63,6 @@ namespace CommonLib
         #endregion
 
         #region attributs
-        /////////////////////////////////////////////////////////////////////////////////
-        /////////////////////////////////////////////////////////////////////////////////
         /// <summary>
         /// attribut permettant de d'assigner ou connaitre le nom du port configurée sur le port
         /// </summary>
@@ -83,8 +79,6 @@ namespace CommonLib
             }
         }
 
-        /////////////////////////////////////////////////////////////////////////////////
-        /////////////////////////////////////////////////////////////////////////////////
         /// <summary>
         /// attribut permettant de d'assigner ou connaitre le BaudRate configurée sur le port
         /// </summary>
@@ -101,8 +95,6 @@ namespace CommonLib
             }
         }
 
-        /////////////////////////////////////////////////////////////////////////////////
-        /////////////////////////////////////////////////////////////////////////////////
         /// <summary>
         /// attribut permettant de d'assigner ou connaitre la paritée configurée sur le port
         /// </summary>
@@ -121,8 +113,6 @@ namespace CommonLib
         #endregion
 
         #region méthodes publiques
-        /////////////////////////////////////////////////////////////////////////////////
-        /////////////////////////////////////////////////////////////////////////////////
         /// <summary>
         /// ouvre le port de communication
         /// </summary>
@@ -155,8 +145,6 @@ namespace CommonLib
                 return false;
         }
 
-        /////////////////////////////////////////////////////////////////////////////////
-        /////////////////////////////////////////////////////////////////////////////////
         /// <summary>
         /// ferme le port de communication
         /// </summary>
@@ -170,8 +158,6 @@ namespace CommonLib
             return true;
         }
 
-        /////////////////////////////////////////////////////////////////////////////////
-        /////////////////////////////////////////////////////////////////////////////////
         /// <summary>
         /// vérifie l'état d'ouverture du port série
         /// </summary>
@@ -181,8 +167,6 @@ namespace CommonLib
             return m_PortSerie.IsOpen;
         }
 
-        /////////////////////////////////////////////////////////////////////////////////
-        /////////////////////////////////////////////////////////////////////////////////
         /// <summary>
         /// Envoie les données contenues dans le buffer passé en paramètres
         /// </summary>
@@ -239,12 +223,12 @@ namespace CommonLib
             return bReturnValue;
         }
 
-        /////////////////////////////////////////////////////////////////////////////////
-        /////////////////////////////////////////////////////////////////////////////////
         /// <summary>
         /// renvoie les données reçues par le port série
         /// (renvoie null si aucune donnée n'a été reçu au moment de l'appel a cette fonction
         /// </summary>
+        /// <param name="NumberOfByte">nombre d'octet de la trame à extraire</param>
+        /// <param name="FrameHeader">header de la trame à extraire</param>
         /// <returns>un tableau de Byte contenant les données reçues</returns>
         public override Byte[] GetRecievedData(int NumberOfByte, byte[] FrameHeader)
         {
@@ -281,10 +265,12 @@ namespace CommonLib
             return null;
         }
 
-        //*****************************************************************************************************
-        // Description: 
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// test si une trame reçu correspond en longueur et en header.
+        /// </summary>
+        /// <param name="FrameLenght">longueur de la trame recherchée</param>
+        /// <param name="FrameHeader">header de la trame recherchée</param>
+        /// <returns>true si une trame correpond</returns>
         public override bool TestFrame(int FrameLenght, byte[] FrameHeader)
         {
             if (m_MessageList.Count != 0)
@@ -362,8 +348,6 @@ namespace CommonLib
         #endregion
 
         #region méthodes privées
-        /////////////////////////////////////////////////////////////////////////////////
-        /////////////////////////////////////////////////////////////////////////////////
         /// <summary>
         /// Callback appelé lorsque des données sont reçues sur le port série
         /// </summary>
@@ -419,8 +403,6 @@ namespace CommonLib
             }
         }
 
-        /////////////////////////////////////////////////////////////////////////////////
-        /////////////////////////////////////////////////////////////////////////////////
         /// <summary>
         /// Callback appelé lorsqu'une erreur se produit sur le port série
         /// </summary>

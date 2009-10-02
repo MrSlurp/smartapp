@@ -29,10 +29,12 @@ namespace CommonLib
         #endregion
 
         #region ReadIn  / WriteOut
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// Lit les données de l'objet a partir de son noeud XML
+        /// </summary>
+        /// <param name="Node">Noeud Xml de l'objet</param>
+        /// <param name="TypeApp">type d'application courante</param>
+        /// <returns>true si la lecture s'est bien passé</returns>
         public override bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
         {
             // relecture des données
@@ -46,6 +48,12 @@ namespace CommonLib
             return true;
         }
 
+        /// <summary>
+        /// effectue la lecture spécialement pour le gestionnaire de donnée
+        /// </summary>
+        /// <param name="Node">Noeud Xml de l'objet</param>
+        /// <param name="TypeApp">type d'application courante</param>
+        /// <returns>true si la lecture s'est bien passé</returns>
         private bool ReadForGestData(XmlNode Node, TYPE_APP TypeApp)
         {
             for (int i = 0; i < Node.ChildNodes.Count; i++)
@@ -66,10 +74,12 @@ namespace CommonLib
             return true;
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// écrit les données de l'objet dans le fichier XML
+        /// </summary>
+        /// <param name="XmlDoc">Document XML courant</param>
+        /// <param name="Node">Noeud parent du controle dans le document</param>
+        /// <returns>true si l'écriture s'est déroulée avec succès</returns>
         public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
         {
             for (int i = 0; i < this.m_ListObject.Count; i++)
@@ -86,10 +96,10 @@ namespace CommonLib
         #endregion
 
         #region fonction "utilitaires"
-        //*****************************************************************************************************
-        // Description: renvoie le prochain symbol par défaut pour une donnée
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// renvoie le prochain symbol libre pour une nouvelle donnée
+        /// </summary>
+        /// <returns>prochaine symbol libre</returns>
         public override string GetNextDefaultSymbol()
         {
             for (int i = 0; i < MAX_DEFAULT_ITEM_SYMBOL; i++)
@@ -103,13 +113,12 @@ namespace CommonLib
             return "";
         }
 
-        //*****************************************************************************************************
-        // Description: met a jour les données de control de l'application
-        // ne fait que créer les données nécessaire et les maintenanir a jour en fonctions des paramètres
-        // des trames
-        // n'ajoute pas, ni ne supprime les données dans la trame
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// met a jour les données de control de l'application
+        /// ne fait que créer les données nécessaire et les maintenanir a jour en fonctions des paramètres des trames
+        /// n'ajoute pas, ni ne supprime les données dans la trame
+        /// </summary>
+        /// <param name="GestTr">Gestionnaire de trame de l'application</param>
         public void UpdateAllControlDatas(GestTrame GestTr)
         {
             //Liste des données de control nécessaires

@@ -6,6 +6,10 @@ using System.Drawing;
 
 namespace CommonLib
 {
+    /// <summary>
+    /// suite de la classe BTControl, contient les fonction spéficique à leur fonctionnement
+    /// dans SmartCommand
+    /// </summary>
     public partial class BTControl
     {
         #region Déclaration des données de la classe pour BTCommand
@@ -17,6 +21,9 @@ namespace CommonLib
         #endregion
 
         #region attributs
+        /// <summary>
+        /// assigne ou obtient le script executer de l'objet
+        /// </summary>
         public ScriptExecuter Executer
         {
             get
@@ -29,10 +36,9 @@ namespace CommonLib
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// obtient l'objet affiché par le control
+        /// </summary>
         public Control DisplayedControl
         {
             get
@@ -44,36 +50,38 @@ namespace CommonLib
         #endregion
 
         #region Fonctions pour BTCommand
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// définit l'écran possédant le control
+        /// </summary>
+        /// <param name="btScreen">écran parent</param>
         public void SetParent(BTScreen btScreen)
         {
             m_Parent = btScreen;
         }
 
+        /// <summary>
+        /// définit le rectangle de l'objet a partir du control intéractif de smart Config
+        /// </summary>
         public void SetControlRect()
         {
             m_RectControl = new Rectangle(this.IControl.Location, this.IControl.Size);
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// crée l'objet affiché en mode commande et le paramètre
+        /// </summary>
         public virtual void CreateControl() { }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// callback appelé lors que le control affiché déclenche un évènement
+        /// </summary>
+        /// <param name="Sender"></param>
+        /// <param name="Args"></param>
         public virtual void OnControlEvent(Object Sender, EventArgs Args) { }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// met a jour le controle affiché lorsque sa donnée associée à changé
+        /// </summary>
         public virtual void UpdateFromData() { }
         #endregion
     }

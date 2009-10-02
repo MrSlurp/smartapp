@@ -577,7 +577,6 @@ namespace CommonLib
 
                 string strFunc = strTemp;
                 strFunc = strFunc.Trim();
-                // todo Gsetionaire de timer, gestionaire de log
 
                 if (m_Document.GestFunction.GetFromSymbol(strFunc) == null)
                 {

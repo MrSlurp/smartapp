@@ -85,6 +85,10 @@ namespace CtrlGraph
                                                      {LOG_PERIOD.LOG_30_sec, LOG_PERIOD.LOG_1_min,
                                                       LOG_PERIOD.LOG_2_min,  LOG_PERIOD.LOG_5_min,   
                                                       LOG_PERIOD.LOG_10_min}),
+            new DispLogAsso(SAVE_PERIOD.SAVE_4_j,    new LOG_PERIOD[] 
+                                                     {LOG_PERIOD.LOG_30_sec, LOG_PERIOD.LOG_1_min,
+                                                      LOG_PERIOD.LOG_2_min,  LOG_PERIOD.LOG_5_min,   
+                                                      LOG_PERIOD.LOG_10_min}),
             new DispLogAsso(SAVE_PERIOD.SAVE_7_j,    new LOG_PERIOD[] 
                                                      {LOG_PERIOD.LOG_1_min, LOG_PERIOD.LOG_2_min, 
                                                       LOG_PERIOD.LOG_5_min, LOG_PERIOD.LOG_10_min})
@@ -104,7 +108,7 @@ namespace CtrlGraph
             m_ListColors[0] = edtColor1; m_ListColors[1] = edtColor2;
             m_ListColors[2] = edtColor3; m_ListColors[3] = edtColor4;
 
-            m_CboDataDispPeriod = new CComboData[8];
+            m_CboDataDispPeriod = new CComboData[9];
             m_CboDataDispPeriod[0] = new CComboData("10 minutes", SAVE_PERIOD.SAVE_10_min);
             m_CboDataDispPeriod[1] = new CComboData("1 hour", SAVE_PERIOD.SAVE_1_h);
             m_CboDataDispPeriod[2] = new CComboData("2 hours", SAVE_PERIOD.SAVE_2_h);
@@ -112,7 +116,8 @@ namespace CtrlGraph
             m_CboDataDispPeriod[4] = new CComboData("12 hours", SAVE_PERIOD.SAVE_12_h);
             m_CboDataDispPeriod[5] = new CComboData("1 day", SAVE_PERIOD.SAVE_1_j);
             m_CboDataDispPeriod[6] = new CComboData("2 days", SAVE_PERIOD.SAVE_2_j);
-            m_CboDataDispPeriod[7] = new CComboData("1 week", SAVE_PERIOD.SAVE_7_j);
+            m_CboDataDispPeriod[7] = new CComboData("4 days", SAVE_PERIOD.SAVE_4_j);
+            m_CboDataDispPeriod[8] = new CComboData("1 week", SAVE_PERIOD.SAVE_7_j);
 
             m_CboDataLogPeriod = new CComboData[7];
             m_CboDataLogPeriod[0] = new CComboData("1 sec", LOG_PERIOD.LOG_1_sec);

@@ -45,6 +45,12 @@ namespace CommonLib
 		{
 		}
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sDirectory"></param>
+        /// <param name="sFileName"></param>
+        /// <param name="iTracesLevel"></param>
 		public static void Initialize(string sDirectory,string sFileName,int iTracesLevel)
 		{
 			sLogDirectory = sDirectory ;
@@ -57,6 +63,11 @@ namespace CommonLib
 			iLogTracesLevel = iTracesLevel ;
 		}
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="LogLevelTest"></param>
+        /// <returns></returns>
         public static bool IsLogLevelOK(int LogLevelTest)
         {
             if (iLogTracesLevel <= LogLevelTest)
@@ -65,10 +76,16 @@ namespace CommonLib
             }
             return false;
         }
+        
 		// Routine permettant de déterminer le répertoire dans lequel va se trouver
 		// le fichier de Logs. Celui-ci est construit avec les paramètres du constructeur
 		// plus un répertoire du jour : ex : C:\Repertoire\20071023\
 		// Cette routine est protégée par la section critique de la procédure qui l'appelle
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sRepertoire"></param>
+        /// <returns></returns>
 		private static bool LogDirectory(out string sRepertoire)
 		{
 			string sRepDuJour ;
@@ -104,17 +121,36 @@ namespace CommonLib
 			return bRetour ;
 		}
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sMessage1"></param>
+        /// <param name="sMessage2"></param>
+        /// <returns></returns>
         public static bool LogAddDebug(string sMessage1, string sMessage2)
         {
             return LogAdd(LOG_LEVEL_DEBUG, sMessage1, sMessage2);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="iTracesLevel"></param>
+        /// <param name="sMessage1"></param>
+        /// <returns></returns>
         public static bool LogAdd(int iTracesLevel, string sMessage1)
         {
             return LogAdd(iTracesLevel, sMessage1, "");
         }
 
 		// Routine permettant d'ajouter une trace au fichier de logs
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="iTracesLevel"></param>
+        /// <param name="sMessage1"></param>
+        /// <param name="sMessage2"></param>
+        /// <returns></returns>
 		public static bool LogAdd(int iTracesLevel, string sMessage1, string sMessage2)
 		{
 			string sFileName ;
@@ -178,6 +214,11 @@ namespace CommonLib
 		}
 		
 		// Routine permettant d'indiquer si la chaine n'est composée que de chiffres
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sReceive"></param>
+        /// <returns></returns>
 		private static bool isDigit(string sReceive) 
 		{ 
 			bool bResult; 
@@ -193,6 +234,11 @@ namespace CommonLib
 		} 		
 
 		// Routine permettant de supprimer les répertoires de trace anciens de plus de N jours
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="iNbrJours"></param>
+        /// <returns></returns>
 		public static bool LogPurge(int iNbrJours)
 		{
 			string[] dirs ;

@@ -41,11 +41,10 @@ namespace CommonLib
         #endregion
 
         #region Methodes d'accès aux objets stocké par le gestionnaire
-        //*****************************************************************************************************
-        // Description: ajoute un objet
-        // Return: /
-        //*****************************************************************************************************
-        /// Ajoute un objet au gestionnaire
+        /// <summary>
+        /// Ajoute un objet dans le gestionnaire
+        /// </summary>
+        /// <param name="Obj">objet à ajouter au gestionnaire</param>
         public virtual void AddObj(BaseObject Obj)
         {
             m_ListObject.Add(Obj);
@@ -54,10 +53,11 @@ namespace CommonLib
             Obj.EventAddLogEvent += new AddLogEventDelegate(AddLogEvent); 
         }
 
-        //*****************************************************************************************************
-        // Description: enlève un objet 
-        // Return: renvoie true si l'objet a bien été enlevé
-        //*****************************************************************************************************
+        /// <summary>
+        /// enlève un objet 
+        /// </summary>
+        /// <param name="Obj">objet à enlever</param>
+        /// <returns>true si l'objet à bien été enlevé</returns>
         public virtual bool RemoveObj(BaseObject Obj)
         {
             // avant de supprimer l'objet on fait tout plein de chose
@@ -107,20 +107,22 @@ namespace CommonLib
                 return false;
         }
 
-        //*****************************************************************************************************
-        // Description: enlève un objet 
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// enlève un objet 
+        /// </summary>
+        /// <param name="strSymbol">symbole de l'objet à enlever</param>
+        /// <returns>true si l'objet à bien été enlevé</returns>
         public virtual bool RemoveObj(string strSymbol)
         {
             BaseObject obj = GetFromSymbol(strSymbol);
             return RemoveObj(obj);
         }
 
-        //*****************************************************************************************************
-        // Description: renvoie l'objet a l'index donné
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// indexeur permettant d'accéder aux objets du gestionnaire comme pour un tableau
+        /// </summary>
+        /// <param name="i">index</param>
+        /// <returns>l'objet à l'index i</returns>
         public BaseObject this[int i]
         {
             get
@@ -129,10 +131,9 @@ namespace CommonLib
             }
         }
 
-        //*****************************************************************************************************
-        // Description: obtient le nombre d'objet contenu dans le gestionaire
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// obtient le nombre d'objet contenu dans le gestionaire
+        /// </summary>
         public int Count
         {
             get
@@ -141,10 +142,11 @@ namespace CommonLib
             }
         }
 
-        //*****************************************************************************************************
-        // Description: renvoie l'objet a partir du symbol donné
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// renvoie l'objet a partir du symbol donné
+        /// </summary>
+        /// <param name="strSymbol">Symbol de l'objet recherché</param>
+        /// <returns>objet ayant le symbol donné</returns>
         public BaseObject GetFromSymbol(string strSymbol)
         {
             int nbItem = m_ListObject.Count;
@@ -157,13 +159,11 @@ namespace CommonLib
             return null;
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // obtien l'index de l'objet ayant le symbol passé en paramètres
-        // L'ArrayList étant une donné protégé, et cette classe n'étant pas indexé
-        // cette methode n'est utilisable qu'en interne
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// utilisé uniquement en interne et dans la classé hérité, renvoie l'index d'un objet ayant le symbol donné
+        /// </summary>
+        /// <param name="strSymbol">symbol de l'objet dont on veut l'index</param>
+        /// <returns>index de l'objet</returns>
         protected int GetIndexFromSymbol(string strSymbol)
         {
             for (int i = 0; i < m_ListObject.Count; i++)
@@ -178,34 +178,40 @@ namespace CommonLib
         #endregion
 
         #region ReadIn / WriteOut
-        //*****************************************************************************************************
-        // Description: Lit les données de l'objet a partir de son noeud XML
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// Lit les données de l'objet a partir de son noeud XML
+        /// La classe de base ne fait rien car jamais utilisé tel quel
+        /// </summary>
+        /// <param name="Node">Noeud Xml de l'objet</param>
+        /// <param name="TypeApp">type d'application courante</param>
+        /// <returns>true si la lecture s'est bien passé</returns>
         public virtual bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
         {
             return true;
         }
 
-        //*****************************************************************************************************
-        // Description: ecrit les données de l'objet a partir de son noeud XML
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// écrit les données de l'objet dans le fichier XML
+        /// La classe de base ne fait rien car jamais utilisé tel quel
+        /// </summary>
+        /// <param name="XmlDoc">Document XML courant</param>
+        /// <param name="Node">Noeud parent du controle dans le document</param>
+        /// <returns>true si l'écriture s'est déroulée avec succès</returns>
         public virtual bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
         {
             return true;
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // cette fonction a pour but de permettre aux objet crée d'utiliser le document pour terminer 
-        // leurs initialisation car lors de la lecture, seul les symbols des objects sont relu
-        // il faut les lier aux références
-        // UTILISE DANS SMARTCmd uniquement. Le but principale est d'éviter d'avoir a parcourir les listes
-        // des gestionaires lorsqu'on a besoin d'accèder a un objet a partir de son symbol
-        // dans SMARTCmd les symbols d'objets ne changent pas donc on peux se rattacher directement a l'objet
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// cette fonction a pour but de permettre aux objet crée d'utiliser le document pour terminer  
+        /// leurs initialisation car lors de la lecture, seul les symbols des objects sont relu
+        /// il faut les lier aux références
+        /// UTILISE DANS SMARTCmd uniquement. Le but principale est d'éviter d'avoir a parcourir les listes
+        /// des gestionaires lorsqu'on a besoin d'accèder a un objet a partir de son symbol
+        /// dans SMARTCmd les symbols d'objets ne changent pas donc on peux se rattacher directement a l'objet
+        /// </summary>
+        /// <param name="Doc">Document courant</param>
+        /// <returns>true si tout s'est bien passé</returns>
         public virtual bool FinalizeRead(BTDoc Doc)
         {
             for (int i = 0; i < m_ListObject.Count; i++)
@@ -218,11 +224,11 @@ namespace CommonLib
         #endregion
 
         #region Fonction "utilitaires"
-        //*****************************************************************************************************
-        // Description: chaque gestionaire est capable de donner un nom par défaut non encore utilisé a un nouveau objet 
-        // crée, cette fonction virtuelle réalise ceci dans les classes filles.
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// chaque gestionaire est capable de donner un nom par défaut non encore utilisé a un nouveau objet 
+        /// crée, cette fonction virtuelle réalise ceci dans les classes filles.
+        /// </summary>
+        /// <returns>le symbol du prochain objet de base qui sera créé</returns>
         public virtual string GetNextDefaultSymbol()
         {
             return "";
@@ -230,10 +236,12 @@ namespace CommonLib
         #endregion
 
         #region Gestion des AppMessages
-        //*****************************************************************************************************
-        // Description: transmet les messages aux objets eux meme
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// effectue les opération nécessaire lors de la récéption d'un message
+        /// </summary>
+        /// <param name="Mess">Type de message</param>
+        /// <param name="obj">objet contenant les paramètres du messages</param>
+        /// <param name="TypeApp">Type d'application courante</param>
         public virtual void TraiteMessage(MESSAGE Mess, object obj, TYPE_APP TypeApp)
         {
             for (int i = 0; i < m_ListObject.Count; i++)
@@ -242,10 +250,12 @@ namespace CommonLib
             }
         }
 
-        //*****************************************************************************************************
-        // Description: callback appelé par l'event des objets
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// callback appelé par l'event des objets
+        /// </summary>
+        /// <param name="Mess">Type de message</param>
+        /// <param name="obj">objet contenant les paramètres du messages</param>
+        /// <param name="TypeApp">Type d'application courante</param>
         public virtual void ObjectSendMessage(MESSAGE Mess, object Param, TYPE_APP TypeApp)
         {
             if (DoSendMessage != null)
@@ -256,7 +266,11 @@ namespace CommonLib
         #endregion
 
         #region Méthodes diverses
-        protected  void AddLogEvent(LogEvent Event)
+        /// <summary>
+        /// envoie un évènement vers le logger de SmartCommand
+        /// </summary>
+        /// <param name="Event">objet évènement</param>
+        protected void AddLogEvent(LogEvent Event)
         {
             if (EventAddLogEvent != null)
             {

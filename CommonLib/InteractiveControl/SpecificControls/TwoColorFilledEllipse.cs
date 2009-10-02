@@ -15,6 +15,9 @@ namespace CommonLib
         StandardPropEnabling m_stdPropEnabling = new StandardPropEnabling();
         SpecificGraphicProp m_SpecGraphicProp = new SpecificGraphicProp();
 
+        /// <summary>
+        /// constructeur par défaut
+        /// </summary>
         public TwoColorFilledEllipse()
         {
             InitializeComponent();
@@ -40,15 +43,19 @@ namespace CommonLib
             OnTypeControlChanged();
         }
 
+        /// <summary>
+        /// fonction de création sans constructeur
+        /// </summary>
+        /// <returns>objet TwoColorFilledEllipse</returns>
         public override InteractiveControl CreateNew()
         {
             return new TwoColorFilledEllipse();
         }
 
-        //*****************************************************************************************************
-        // Description: accesseur pour le type, modifie atomatiquement les propriété de redimensionement et 
-        // la taille du control quand le type change
-        //*****************************************************************************************************
+        /// <summary>
+        /// accesseur pour le type, modifie atomatiquement les propriété de redimensionement et 
+        /// la taille du control quand le type change
+        /// </summary>
         public override InteractiveControlType ControlType
         {
             get
@@ -57,9 +64,13 @@ namespace CommonLib
             }
             set
             {
+                // pour les controles spécifiques et DLL, ce type ne peut être changé
             }
         }
 
+        /// <summary>
+        /// accesseur vers le panneau des propriété spécifique
+        /// </summary>
         public UserControl SpecificPropPanel
         {
             get
@@ -68,6 +79,9 @@ namespace CommonLib
             }
         }
 
+        /// <summary>
+        /// accesseur sur les propriété d'activation des paramètres standards
+        /// </summary>
         public StandardPropEnabling StdPropEnabling
         {
             get
@@ -75,6 +89,10 @@ namespace CommonLib
                 return m_stdPropEnabling;
             }
         }
+
+        /// <summary>
+        /// accesseur sur les propriété de comportement graphique des controles spécifiques et DLL
+        /// </summary>
         public SpecificGraphicProp SpecGraphicProp 
         {
             get
@@ -83,6 +101,11 @@ namespace CommonLib
             }
         }
 
+        /// <summary>
+        /// fonction de dessin personelle
+        /// </summary>
+        /// <param name="gr">graphics du control</param>
+        /// <param name="ctrl">objet control</param>
         public void SelfPaint(Graphics gr, Control ctrl)
         {
             Rectangle DrawRect = ctrl.ClientRectangle;
@@ -97,6 +120,10 @@ namespace CommonLib
             br.Dispose();
         }
 
+        /// <summary>
+        /// surcharge de l'évènement OnPaint
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnPaint(PaintEventArgs e)
         {
             SelfPaint(e.Graphics, this);

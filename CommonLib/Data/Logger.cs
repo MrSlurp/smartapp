@@ -38,10 +38,9 @@ namespace CommonLib
         #endregion
 
         #region attribut
-        //*****************************************************************************************************
-        // Description: accesseur de la liste des données du logger
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// accesseur sur la liste des symboles des données loguées
+        /// </summary>
         public StringCollection LoggerDatas
         {
             get
@@ -50,10 +49,9 @@ namespace CommonLib
             }
         }
 
-        //*****************************************************************************************************
-        // Description: type du logger
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// Obtient ou assigne le type de logger
+        /// </summary>
         public string LogType
         {
             get
@@ -65,10 +63,10 @@ namespace CommonLib
                 m_LogType = value;
             }
         }
-        //*****************************************************************************************************
-        // Description: nom du fichier dans lequel loguer
-        // Return: /
-        //*****************************************************************************************************
+
+        /// <summary>
+        /// obtient ou assigne le nom du fichier dans lequel les données seront loguées
+        /// </summary>
         public string LogFile
         {
             get
@@ -81,10 +79,9 @@ namespace CommonLib
             }
         }
 
-        //*****************************************************************************************************
-        // Description: période de l'auto logger
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// obtient ou assigne la période du logger en ms
+        /// </summary>
         public int Period
         {
             get
@@ -97,6 +94,9 @@ namespace CommonLib
             }
         }
 
+        /// <summary>
+        /// obtient ou assigne la booléen indiquant si le logger est activé automatiquement au démarrage
+        /// </summary>
         public bool AutoStart
         {
             get
@@ -111,10 +111,9 @@ namespace CommonLib
         #endregion
 
         #region constructeurs
-        //*****************************************************************************************************
-        // Description: logger par défaut
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// constructeur par défaut
+        /// </summary>
         public Logger()
         {
             m_LogType = LOGGER_TYPE.STANDARD.ToString();
@@ -123,11 +122,13 @@ namespace CommonLib
         #endregion
 
         #region ReadIn / WriteOut
-        //*****************************************************************************************************
-        // Description: ecrit les données de l'objet a partir de son noeud XML
-        // Return: /
-        //*****************************************************************************************************
-        public override bool ReadIn(System.Xml.XmlNode Node, TYPE_APP TypeApp)
+        /// <summary>
+        /// Lit les données de l'objet a partir de son noeud XML
+        /// </summary>
+        /// <param name="Node">Noeud Xml de l'objet</param>
+        /// <param name="TypeApp">type d'application courante</param>
+        /// <returns>true si la lecture s'est bien passé</returns>
+        public override bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
         {
             bool bRet = base.ReadIn(Node, TypeApp);
             // on lit les attributs et la liste des données
@@ -162,11 +163,13 @@ namespace CommonLib
             return bRet;
         }
 
-        //*****************************************************************************************************
-        // Description: ecrit les données de l'objet a partir de son noeud XML
-        // Return: /
-        //*****************************************************************************************************
-        public override bool WriteOut(System.Xml.XmlDocument XmlDoc, System.Xml.XmlNode Node)
+        /// <summary>
+        /// écrit les données de l'objet dans le fichier XML
+        /// </summary>
+        /// <param name="XmlDoc">Document XML courant</param>
+        /// <param name="Node">Noeud parent du controle dans le document</param>
+        /// <returns>true si l'écriture s'est déroulée avec succès</returns>
+        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
         {
             base.WriteOut(XmlDoc, Node);
             // on écrit les attributs et la liste des données
@@ -198,11 +201,12 @@ namespace CommonLib
             return true;
         }
 
-        //*****************************************************************************************************
-        // Description: termine la lecture de l'objet. utilisé en mode Commande pour récupérer les référence
-        // vers les objets utilisés
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// termine la lecture de l'objet. utilisé en mode Commande pour récupérer les référence
+        /// vers les objets utilisés
+        /// </summary>
+        /// <param name="Doc">Document courant</param>
+        /// <returns>true si tout s'est bien passé</returns>
         public override bool FinalizeRead(BTDoc Doc)
         {
 
@@ -229,10 +233,12 @@ namespace CommonLib
         #endregion
 
         #region Gestion des AppMessages
-        //*****************************************************************************************************
-        // Description: effectue les opération nécessaire lors de la récéption d'un message
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// effectue les opération nécessaire lors de la récéption d'un message
+        /// </summary>
+        /// <param name="Mess">Type de message</param>
+        /// <param name="obj">objet contenant les paramètres du messages</param>
+        /// <param name="TypeApp">Type d'application courante</param>
         public override void TraiteMessage(MESSAGE Mess, object obj, TYPE_APP TypeApp)
         {
             if (TypeApp == TYPE_APP.SMART_CONFIG)
@@ -313,10 +319,9 @@ namespace CommonLib
         #endregion
 
         #region fonction d'execution en mode Command
-        //*****************************************************************************************************
-        // Description: démarre le logger si il est en mode auto
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// démarre le logger automatique
+        /// </summary>
         public void StartAutoLogger()
         {
             if (m_LogType == LOGGER_TYPE.AUTO.ToString())
@@ -338,10 +343,9 @@ namespace CommonLib
             }
         }
 
-        //*****************************************************************************************************
-        // Description: arrète le logger si il est en mode auto
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// arrête de logger automatique
+        /// </summary>
         public void StopAutoLogger()
         {
             if (m_LogType == LOGGER_TYPE.AUTO.ToString())
@@ -361,10 +365,9 @@ namespace CommonLib
             }
         }
 
-        //*****************************************************************************************************
-        // Description: execute le log des données en vérifiant que le fichier est accessible
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// execute le log des données en vérifiant que le fichier est accessible
+        /// </summary>
         public void LogData()
         {
             if (m_FileWriter != null)
@@ -390,10 +393,9 @@ namespace CommonLib
             }
         }
 
-        //*****************************************************************************************************
-        // Description: vide le fichier de log
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// vide le fichier de log
+        /// </summary>
         public void ClearLog()
         {
             if (m_FileWriter != null)
@@ -448,10 +450,9 @@ namespace CommonLib
             }
         }
 
-        //*****************************************************************************************************
-        // Description: logue une ligne de données. Met l'entete de fichier si besoin
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// logue une ligne de données. Met l'entete de fichier si besoin
+        /// </summary>
         private void LogLine()
         {
             // si le fichier est fermé a ce moment on quitte
@@ -492,10 +493,11 @@ namespace CommonLib
             m_FileWriter.Flush();
         }
 
-        //*****************************************************************************************************
-        // Description: évènement du timer
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// évènement du timer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnTimerTick(object sender, EventArgs e)
         {
             m_Timer.Stop();

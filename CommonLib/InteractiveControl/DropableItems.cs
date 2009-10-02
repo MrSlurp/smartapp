@@ -7,6 +7,12 @@ namespace CommonLib
 {
     public static class DropableItems
     {
+        /// <summary>
+        /// parcour les données de drag drop pour en extraire l'objet qui peut être droppé dans la surface de
+        /// dessin
+        /// </summary>
+        /// <param name="e">argument de drap/drop</param>
+        /// <returns>l'objet extrait des données de drag drop</returns>
         public static InteractiveControl GetDropableItem(DragEventArgs e)
         {
             //InteractiveControl DropedItem = null;
@@ -27,6 +33,11 @@ namespace CommonLib
             
         }
 
+        /// <summary>
+        /// indique si l'objet du type donné est autorisé à être relaché dans la surface de dessin
+        /// </summary>
+        /// <param name="ObjType">type de l'objet</param>
+        /// <returns></returns>
         public static bool AllowedItem(Type ObjType)
         {
             return (ObjType.IsSubclassOf(typeof(InteractiveControl)) || ObjType == typeof(InteractiveControl));
