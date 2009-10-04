@@ -132,6 +132,7 @@ namespace CtrlGraph
             cboDispPeriod.ValueMember = "Object";
             cboDispPeriod.DisplayMember = "DisplayedString";
             cboDispPeriod.DataSource = m_CboDataDispPeriod;
+            cboDispPeriod.SelectedIndex = 0;
         }
         #endregion
 
