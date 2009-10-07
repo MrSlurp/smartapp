@@ -60,8 +60,8 @@ namespace CtrlGraph
         string[] ListDataAlias = new string[NB_CURVE];
         Color[] ListCurveColor = new Color[NB_CURVE];
 
-        SAVE_PERIOD m_SavePeriod;
-        LOG_PERIOD m_LoggingPeriod;
+        SAVE_PERIOD m_SavePeriod= SAVE_PERIOD.SAVE_1_h;
+        LOG_PERIOD m_LoggingPeriod = LOG_PERIOD.LOG_1_min;
         #endregion
 
         #region attributs

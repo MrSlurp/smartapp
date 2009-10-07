@@ -60,11 +60,11 @@ namespace SmartApp
         [STAThread]
         static void Main(string[] strArgsList)
         {
+            //Application.SetCompatibleTextRenderingDefault(false);
+            Application.EnableVisualStyles();
             Traces.Initialize(Application.StartupPath, "TraceSmartApp.txt", SmartApp.Properties.Settings.Default.LogLevel);
             CommonLib.Resources.InitializeBitmap();
             m_GestDlls.LoadExistingDlls();
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
             LaunchArgParser.ParseArguments(strArgsList);
             m_TypeApp = LaunchArgParser.GetTypeApp(strArgsList);
             //string file = LaunchArgParser.GetFileName(strArgsList);

@@ -89,14 +89,15 @@ namespace CtrlGraph
             this.edtSymb1.Name = "edtSymb1";
             this.edtSymb1.ReadOnly = true;
             this.edtSymb1.Size = new System.Drawing.Size(143, 20);
-            this.edtSymb1.TabIndex = 1;
+            this.edtSymb1.TabIndex = 20;
+            this.edtSymb1.TabStop = false;
             // 
             // btnPickData1
             // 
             this.btnPickData1.Location = new System.Drawing.Point(161, 152);
             this.btnPickData1.Name = "btnPickData1";
             this.btnPickData1.Size = new System.Drawing.Size(38, 23);
-            this.btnPickData1.TabIndex = 2;
+            this.btnPickData1.TabIndex = 4;
             this.btnPickData1.Text = "Pick";
             this.btnPickData1.UseVisualStyleBackColor = true;
             this.btnPickData1.Click += new System.EventHandler(this.btnPickData_Click);
@@ -106,7 +107,7 @@ namespace CtrlGraph
             this.edtAlias1.Location = new System.Drawing.Point(205, 154);
             this.edtAlias1.Name = "edtAlias1";
             this.edtAlias1.Size = new System.Drawing.Size(115, 20);
-            this.edtAlias1.TabIndex = 1;
+            this.edtAlias1.TabIndex = 5;
             // 
             // lblAlias1
             // 
@@ -133,13 +134,14 @@ namespace CtrlGraph
             this.edtColor1.ReadOnly = true;
             this.edtColor1.Size = new System.Drawing.Size(51, 20);
             this.edtColor1.TabIndex = 1;
+            this.edtColor1.TabStop = false;
             // 
             // bntPickColor1
             // 
             this.bntPickColor1.Location = new System.Drawing.Point(383, 151);
             this.bntPickColor1.Name = "bntPickColor1";
             this.bntPickColor1.Size = new System.Drawing.Size(38, 23);
-            this.bntPickColor1.TabIndex = 2;
+            this.bntPickColor1.TabIndex = 6;
             this.bntPickColor1.Text = "Pick";
             this.bntPickColor1.UseVisualStyleBackColor = true;
             this.bntPickColor1.Click += new System.EventHandler(this.bntPickColor_Click);
@@ -169,6 +171,7 @@ namespace CtrlGraph
             this.edtSymb2.ReadOnly = true;
             this.edtSymb2.Size = new System.Drawing.Size(143, 20);
             this.edtSymb2.TabIndex = 1;
+            this.edtSymb2.TabStop = false;
             // 
             // lblColor2
             // 
@@ -184,7 +187,7 @@ namespace CtrlGraph
             this.edtAlias2.Location = new System.Drawing.Point(205, 196);
             this.edtAlias2.Name = "edtAlias2";
             this.edtAlias2.Size = new System.Drawing.Size(115, 20);
-            this.edtAlias2.TabIndex = 1;
+            this.edtAlias2.TabIndex = 8;
             // 
             // edtColor2
             // 
@@ -193,13 +196,14 @@ namespace CtrlGraph
             this.edtColor2.ReadOnly = true;
             this.edtColor2.Size = new System.Drawing.Size(51, 20);
             this.edtColor2.TabIndex = 1;
+            this.edtColor2.TabStop = false;
             // 
             // btnPickData2
             // 
             this.btnPickData2.Location = new System.Drawing.Point(161, 194);
             this.btnPickData2.Name = "btnPickData2";
             this.btnPickData2.Size = new System.Drawing.Size(38, 23);
-            this.btnPickData2.TabIndex = 2;
+            this.btnPickData2.TabIndex = 7;
             this.btnPickData2.Text = "Pick";
             this.btnPickData2.UseVisualStyleBackColor = true;
             this.btnPickData2.Click += new System.EventHandler(this.btnPickData_Click);
@@ -209,7 +213,7 @@ namespace CtrlGraph
             this.bntPickColor2.Location = new System.Drawing.Point(383, 193);
             this.bntPickColor2.Name = "bntPickColor2";
             this.bntPickColor2.Size = new System.Drawing.Size(38, 23);
-            this.bntPickColor2.TabIndex = 2;
+            this.bntPickColor2.TabIndex = 9;
             this.bntPickColor2.Text = "Pick";
             this.bntPickColor2.UseVisualStyleBackColor = true;
             this.bntPickColor2.Click += new System.EventHandler(this.bntPickColor_Click);
@@ -239,6 +243,7 @@ namespace CtrlGraph
             this.edtSymb3.ReadOnly = true;
             this.edtSymb3.Size = new System.Drawing.Size(143, 20);
             this.edtSymb3.TabIndex = 1;
+            this.edtSymb3.TabStop = false;
             // 
             // lblColor3
             // 
@@ -254,7 +259,7 @@ namespace CtrlGraph
             this.edtAlias3.Location = new System.Drawing.Point(205, 243);
             this.edtAlias3.Name = "edtAlias3";
             this.edtAlias3.Size = new System.Drawing.Size(115, 20);
-            this.edtAlias3.TabIndex = 1;
+            this.edtAlias3.TabIndex = 11;
             // 
             // edtColor3
             // 
@@ -263,13 +268,14 @@ namespace CtrlGraph
             this.edtColor3.ReadOnly = true;
             this.edtColor3.Size = new System.Drawing.Size(51, 20);
             this.edtColor3.TabIndex = 1;
+            this.edtColor3.TabStop = false;
             // 
             // btnPickData3
             // 
             this.btnPickData3.Location = new System.Drawing.Point(161, 241);
             this.btnPickData3.Name = "btnPickData3";
             this.btnPickData3.Size = new System.Drawing.Size(38, 23);
-            this.btnPickData3.TabIndex = 2;
+            this.btnPickData3.TabIndex = 10;
             this.btnPickData3.Text = "Pick";
             this.btnPickData3.UseVisualStyleBackColor = true;
             this.btnPickData3.Click += new System.EventHandler(this.btnPickData_Click);
@@ -279,7 +285,7 @@ namespace CtrlGraph
             this.bntPickColor3.Location = new System.Drawing.Point(383, 240);
             this.bntPickColor3.Name = "bntPickColor3";
             this.bntPickColor3.Size = new System.Drawing.Size(38, 23);
-            this.bntPickColor3.TabIndex = 2;
+            this.bntPickColor3.TabIndex = 12;
             this.bntPickColor3.Text = "Pick";
             this.bntPickColor3.UseVisualStyleBackColor = true;
             this.bntPickColor3.Click += new System.EventHandler(this.bntPickColor_Click);
@@ -309,6 +315,7 @@ namespace CtrlGraph
             this.edtSymb4.ReadOnly = true;
             this.edtSymb4.Size = new System.Drawing.Size(143, 20);
             this.edtSymb4.TabIndex = 1;
+            this.edtSymb4.TabStop = false;
             // 
             // lblColor4
             // 
@@ -324,7 +331,7 @@ namespace CtrlGraph
             this.edtAlias4.Location = new System.Drawing.Point(205, 289);
             this.edtAlias4.Name = "edtAlias4";
             this.edtAlias4.Size = new System.Drawing.Size(115, 20);
-            this.edtAlias4.TabIndex = 1;
+            this.edtAlias4.TabIndex = 14;
             // 
             // edtColor4
             // 
@@ -333,13 +340,14 @@ namespace CtrlGraph
             this.edtColor4.ReadOnly = true;
             this.edtColor4.Size = new System.Drawing.Size(51, 20);
             this.edtColor4.TabIndex = 1;
+            this.edtColor4.TabStop = false;
             // 
             // btnPickData4
             // 
             this.btnPickData4.Location = new System.Drawing.Point(161, 287);
             this.btnPickData4.Name = "btnPickData4";
             this.btnPickData4.Size = new System.Drawing.Size(38, 23);
-            this.btnPickData4.TabIndex = 2;
+            this.btnPickData4.TabIndex = 13;
             this.btnPickData4.Text = "Pick";
             this.btnPickData4.UseVisualStyleBackColor = true;
             this.btnPickData4.Click += new System.EventHandler(this.btnPickData_Click);
@@ -349,7 +357,7 @@ namespace CtrlGraph
             this.bntPickColor4.Location = new System.Drawing.Point(383, 286);
             this.bntPickColor4.Name = "bntPickColor4";
             this.bntPickColor4.Size = new System.Drawing.Size(38, 23);
-            this.bntPickColor4.TabIndex = 2;
+            this.bntPickColor4.TabIndex = 15;
             this.bntPickColor4.Text = "Pick";
             this.bntPickColor4.UseVisualStyleBackColor = true;
             this.bntPickColor4.Click += new System.EventHandler(this.bntPickColor_Click);
@@ -370,7 +378,7 @@ namespace CtrlGraph
             this.cboDispPeriod.Location = new System.Drawing.Point(12, 342);
             this.cboDispPeriod.Name = "cboDispPeriod";
             this.cboDispPeriod.Size = new System.Drawing.Size(121, 21);
-            this.cboDispPeriod.TabIndex = 4;
+            this.cboDispPeriod.TabIndex = 16;
             this.cboDispPeriod.SelectedIndexChanged += new System.EventHandler(this.cboDispPeriod_SelectedIndexChanged);
             // 
             // label2
@@ -389,7 +397,7 @@ namespace CtrlGraph
             this.cboLogPeriod.Location = new System.Drawing.Point(205, 342);
             this.cboLogPeriod.Name = "cboLogPeriod";
             this.cboLogPeriod.Size = new System.Drawing.Size(121, 21);
-            this.cboLogPeriod.TabIndex = 6;
+            this.cboLogPeriod.TabIndex = 17;
             // 
             // btnOK
             // 
@@ -398,7 +406,7 @@ namespace CtrlGraph
             this.btnOK.Location = new System.Drawing.Point(270, 374);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
-            this.btnOK.TabIndex = 7;
+            this.btnOK.TabIndex = 18;
             this.btnOK.Text = "OK";
             this.btnOK.UseVisualStyleBackColor = true;
             // 
@@ -409,7 +417,7 @@ namespace CtrlGraph
             this.btnCancel.Location = new System.Drawing.Point(351, 374);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 8;
+            this.btnCancel.TabIndex = 19;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
@@ -427,7 +435,7 @@ namespace CtrlGraph
             this.edtTitle.Location = new System.Drawing.Point(12, 30);
             this.edtTitle.Name = "edtTitle";
             this.edtTitle.Size = new System.Drawing.Size(275, 50);
-            this.edtTitle.TabIndex = 10;
+            this.edtTitle.TabIndex = 1;
             this.edtTitle.Text = "";
             // 
             // label4
@@ -453,14 +461,14 @@ namespace CtrlGraph
             this.edtXAxis.Location = new System.Drawing.Point(12, 99);
             this.edtXAxis.Name = "edtXAxis";
             this.edtXAxis.Size = new System.Drawing.Size(173, 20);
-            this.edtXAxis.TabIndex = 12;
+            this.edtXAxis.TabIndex = 2;
             // 
             // edtYAxis
             // 
             this.edtYAxis.Location = new System.Drawing.Point(208, 99);
             this.edtYAxis.Name = "edtYAxis";
             this.edtYAxis.Size = new System.Drawing.Size(173, 20);
-            this.edtYAxis.TabIndex = 12;
+            this.edtYAxis.TabIndex = 3;
             // 
             // GraphConfigForm
             // 
