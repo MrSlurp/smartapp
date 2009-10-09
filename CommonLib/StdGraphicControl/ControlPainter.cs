@@ -207,27 +207,35 @@ namespace CommonLib
                         Image.MakeTransparent(TransparencyColor);
                         Rectangle rect = new Rectangle(DrawRect.Right - Image.Width, DrawRect.Top,
                             Image.Width, Image.Height);
-                        switch (iCtrl.ControlType)
-                        {
-                            case InteractiveControlType.Button:
-                            case InteractiveControlType.CheckBox:
-                            case InteractiveControlType.Combo:
-                            case InteractiveControlType.NumericUpDown:
-                            case InteractiveControlType.Slider:
-                            case InteractiveControlType.SpecificControl:
-                            case InteractiveControlType.DllControl:
-                                gr.DrawImage(Image, rect);
-                                break;
-                            case InteractiveControlType.Text:
-                                // rien a faire, pas de donnée associée possible
-                                break;
-                            default:
-                                System.Diagnostics.Debug.Assert(false);
-                                break;
-                        }
+                        gr.DrawImage(Image, rect);
                     }
                 }
             }
         }
+        //*****************************************************************************************************
+        // Description:
+        // Return: /
+        //*****************************************************************************************************
+        public static void DrawPresenceAssociateData(Graphics gr, Control ctrl, bool AssocOK)
+        {
+            if (DropableItems.AllowedItem(ctrl.GetType())
+                && ((InteractiveControl)ctrl).SourceBTControl != null)
+            {
+                InteractiveControl iCtrl = (InteractiveControl)ctrl;
+                if (AssocOK)
+                {
+                    Rectangle DrawRect = ctrl.ClientRectangle;
+                    Bitmap Image = Resources.PresAssData;
+                    if (Image != null)
+                    {
+                        Image.MakeTransparent(TransparencyColor);
+                        Rectangle rect = new Rectangle(DrawRect.Right - Image.Width, DrawRect.Top,
+                            Image.Width, Image.Height);
+                        gr.DrawImage(Image, rect);
+                    }
+                }
+            }
+        }
+
     }
 }

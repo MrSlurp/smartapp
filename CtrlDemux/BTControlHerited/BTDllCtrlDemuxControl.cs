@@ -95,6 +95,14 @@ namespace CtrlDemux
                 return CtrlDemux.DllEntryClass.DLL_Control_ID;
             }
         }
+		
+        // le traite message dans smart config
+        // n'a lieu d'être que si dans le paramétrage on trouve des symboles d'objets
+        public override void TraiteMessage(MESSAGE Mess, object obj, TYPE_APP TypeApp)
+        {
+            base.TraiteMessage(Mess, obj, TypeApp);
+            m_SpecificProp.TraiteMessage(Mess, obj, TypeApp, this);
+        }
 
     }
 }

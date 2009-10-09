@@ -115,7 +115,6 @@ namespace CtrlGraph
                 // si OK on recopie les param
                 this.BTControl.SpecificProp.CopyParametersFrom(CfgForm.Props);
             }
-
         }
     }
 }

@@ -28,18 +28,34 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.btnConfig = new System.Windows.Forms.Button();
+            this.SuspendLayout();
             // 
-            // Panel Properties
+            // btnConfig
+            // 
+            this.btnConfig.Location = new System.Drawing.Point(4, 4);
+            this.btnConfig.Name = "btnConfig";
+            this.btnConfig.Size = new System.Drawing.Size(202, 30);
+            this.btnConfig.TabIndex = 1;
+            this.btnConfig.Text = "Configure";
+            this.btnConfig.UseVisualStyleBackColor = true;
+            this.btnConfig.Click += new System.EventHandler(this.btnConfig_Click);
+            // 
+            // CtrlDemuxProperties
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Name = "Properties Panel";
+            this.Controls.Add(this.btnConfig);
+            this.Name = "CtrlDemuxProperties";
             this.Size = new System.Drawing.Size(208, 84);
             this.ResumeLayout(false);
-            this.PerformLayout();
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Button btnConfig;
+
 
     }
 }

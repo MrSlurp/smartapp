@@ -31,13 +31,13 @@ namespace CtrlDemux
             m_stdPropEnabling.m_bcheckReadOnlyEnabled = false;
             m_stdPropEnabling.m_bcheckScreenEventEnabled = false;
             m_stdPropEnabling.m_bcheckScreenEventChecked = false;
-            m_stdPropEnabling.m_bEditAssociateDataEnabled = true;
+            m_stdPropEnabling.m_bEditAssociateDataEnabled = false;
             m_stdPropEnabling.m_bEditTextEnabled = false;
             m_stdPropEnabling.m_bCtrlEventScriptEnabled = false;
 
             // modifiez ici les valeur afin que le control ai la taille min souhaité et ses possibilité de redimensionnement
-            m_SpecGraphicProp.m_bcanResizeWidth = true;
-            m_SpecGraphicProp.m_bcanResizeHeight = true;
+            m_SpecGraphicProp.m_bcanResizeWidth = false;
+            m_SpecGraphicProp.m_bcanResizeHeight = false;
             m_SpecGraphicProp.m_MinSize = new Size(5, 5);
             this.ControlType = InteractiveControlType.DllControl;
 
@@ -86,14 +86,9 @@ namespace CtrlDemux
 
         public void SelfPaint(Graphics gr, Control ctrl)
         {
-            if (this.SourceBTControl != null)
-            {
-                // mettez ici le code de dessin du control lorsqu'il est posé dans la surface de dessin
-            }
-            else
-            {
-                // mettez ici le code de dessin du control lorsqu'il est dans la barre d'outil
-            }
+            SizeF SizeText = gr.MeasureString("Demux", SystemFonts.DefaultFont);
+            PointF PtText = new PointF(ctrl.ClientRectangle.Left + 2, (ctrl.Height - SizeText.Height) / 2);
+            gr.DrawString("Demux", SystemFonts.DefaultFont, Brushes.Black, PtText);
         }
 
         protected override void OnPaint(PaintEventArgs e)

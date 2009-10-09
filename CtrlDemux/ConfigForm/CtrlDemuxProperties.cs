@@ -103,5 +103,19 @@ namespace CtrlDemux
             return true;
         }
         #endregion
+
+        private void btnConfig_Click(object sender, EventArgs e)
+        {
+            DemuxConfigForm CfgForm = new DemuxConfigForm();
+            CfgForm.Doc = this.Doc;
+            CfgForm.Props = (DllCtrlDemuxProp)this.BTControl.SpecificProp;
+
+            if (CfgForm.ShowDialog() == DialogResult.OK)
+            {
+                // si OK on recopie les param
+                this.BTControl.SpecificProp.CopyParametersFrom(CfgForm.Props);
+            }
+
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Text;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -10,6 +11,16 @@ namespace CtrlDemux
 {
     internal class CtrlDemuxCmdControl : BTDllCtrlDemuxControl
     {
+        #region donnée spécifiques aux fonctionement en mode Command
+
+        // liste des données a loguer utilisé en mode Command
+        private ArrayList m_ListRefDatas = new ArrayList();
+        private Data AdressData = null;
+        private Data ValueData = null;
+
+        private bool DemuxParemtersOK = true;
+
+        #endregion
         //*****************************************************************************************************
         // Description:
         // Return: /
@@ -48,10 +59,71 @@ namespace CtrlDemux
         //*****************************************************************************************************
         public override void UpdateFromData()
         {
-            if (m_AssociateData != null && m_Ctrl != null)
+            if (DemuxParemtersOK)
             {
-                // effectuez ici le traitement à executer lorsque la valeur change
+                if (AdressData.Value < m_ListRefDatas.Count)
+                {
+                    ((Data)m_ListRefDatas[AdressData.Value]).Value = ValueData.Value;
+                }
             }
+        }
+
+        public override bool FinalizeRead(BTDoc Doc)
+        {
+            DllCtrlDemuxProp Props = (DllCtrlDemuxProp)m_SpecificProp;
+
+            // on fait une liste de références directe sur les données
+            for (int i = 0; i < Props.ListDemuxData.Count; i++)
+            {
+                string strData = Props.ListDemuxData[i];
+                Data Dat = (Data)Doc.GestData.GetFromSymbol(strData);
+                if (Dat == null)
+                {
+                    if (string.IsNullOrEmpty(strData))
+                        continue;
+
+                    string strMessage;
+                    strMessage = string.Format("Demux Output Data not found (Demux {0}, Data {1}", m_strSymbol, strData);
+                    LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, strMessage);
+                    AddLogEvent(log);
+                    DemuxParemtersOK = false;
+                    continue;
+                }
+                m_ListRefDatas.Add(Dat);
+            }
+            Data Dat2 = (Data)Doc.GestData.GetFromSymbol(Props.AdressData);
+            if (Dat2 == null)
+            {
+                string strMessage;
+                strMessage = string.Format("Demux adress Data not found (Demux {0}, Data {1}", m_strSymbol, Props.AdressData);
+                LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, strMessage);
+                AddLogEvent(log);
+                DemuxParemtersOK = false;
+            }
+            AdressData = Dat2;
+            //AdressData.DataValueChanged += new EventDataValueChange(UpdateFromData);
+
+            Data Dat3 = (Data)Doc.GestData.GetFromSymbol(Props.ValueData);
+            if (Dat3 == null)
+            {
+                string strMessage;
+                strMessage = string.Format("Demux value Data not found (Demux {0}, Data {1}", m_strSymbol, Props.ValueData);
+                LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, strMessage);
+                AddLogEvent(log);
+                DemuxParemtersOK = false;
+            }
+            ValueData = Dat3;
+            ValueData.DataValueChanged += new EventDataValueChange(UpdateFromData);
+
+            if (!DemuxParemtersOK)
+            {
+                string strMessage;
+                strMessage = string.Format("Demux {0} have some invalid parameters. Demux Disabled", m_strSymbol, Props.ValueData);
+                LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, strMessage);
+                AddLogEvent(log);
+            }
+
+            return true;
         }
 
         public override void TraiteMessage(MESSAGE Mess, object obj, TYPE_APP TypeApp)

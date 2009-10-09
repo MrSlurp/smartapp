@@ -287,11 +287,11 @@ namespace CommonLib
                     break;
                 case MESSAGE.MESS_ITEM_RENAMED:
                     if (
-                           ((MessAskDelete)obj).TypeOfItem == typeof(Trame)
-                        || ((MessAskDelete)obj).TypeOfItem == typeof(Function)
-                        || ((MessAskDelete)obj).TypeOfItem == typeof(Logger)
-                        || ((MessAskDelete)obj).TypeOfItem == typeof(BTTimer)
-                        || ((MessAskDelete)obj).TypeOfItem == typeof(BTScreen)
+                           ((MessItemRenamed)obj).TypeOfItem == typeof(Trame)
+                        || ((MessItemRenamed)obj).TypeOfItem == typeof(Function)
+                        || ((MessItemRenamed)obj).TypeOfItem == typeof(Logger)
+                        || ((MessItemRenamed)obj).TypeOfItem == typeof(BTTimer)
+                        || ((MessItemRenamed)obj).TypeOfItem == typeof(BTScreen)
                         )
                     {
                         MessItemRenamed MessParam = (MessItemRenamed)obj;

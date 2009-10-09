@@ -189,7 +189,7 @@ namespace CommonLib
                                 LOG_LEVEL_DESCRIPTIONS[iTracesLevel].PadRight(8, ' ') + " " +
                                 sMessage1.PadRight(TAILLEMAX_MESSAGE1, ' ').Substring(0, TAILLEMAX_MESSAGE1) + " " +
                                 sMessage2;
-                            Console.WriteLine(strLog);
+                            //Console.WriteLine(strLog);
                             TxtLog.WriteLine(strLog);
 
 						}

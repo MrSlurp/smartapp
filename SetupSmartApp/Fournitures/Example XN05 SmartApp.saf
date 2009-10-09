@@ -392,7 +392,7 @@
   <Program>
     <FunctionSection />
     <TimerSection>
-      <Timer strNom="" strSymbol="TIMER_READ_OUT_REG" Period="100" AutoStart="False">
+      <Timer strNom="" strSymbol="TIMER_READ_OUT_REG" Period="100" AutoStart="True">
         <Line>FRAMES.TCPMB_READ_1_OUT_REG_FROM_AD20.SEND()</Line>
         <Line>FRAMES.TCPMB_RESP_READ_1_OUT_REG_FROM_AD20.RECEIVE()</Line>
         <Line>FRAMES.TCPMB_READ_7_OUT_REG_FROM_AD21.SEND()</Line>
