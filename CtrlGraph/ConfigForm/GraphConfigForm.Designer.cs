@@ -523,7 +523,7 @@ namespace CtrlGraph
             this.Controls.Add(this.lblAlias1);
             this.Controls.Add(this.lblSymb1);
             this.Name = "GraphConfigForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Graphic parameters";
             this.ResumeLayout(false);
             this.PerformLayout();

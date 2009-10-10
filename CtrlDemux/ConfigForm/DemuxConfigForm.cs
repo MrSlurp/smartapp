@@ -59,6 +59,7 @@ namespace CtrlDemux
         public DemuxConfigForm()
         {
             InitializeComponent();
+            m_listViewData_SelectedIndexChanged(m_listViewData, null);
         }
 
         private void CopyOutputDataFromListView(StringCollection stringCollection)
@@ -116,16 +117,23 @@ namespace CtrlDemux
         private void btnAdd_Click(object sender, EventArgs e)
         {
             PickDataForm PickData = new PickDataForm();
+            PickData.AllowMultipleSelect = true;
             PickData.Document = this.Doc;
             if (PickData.ShowDialog() == DialogResult.OK)
             {
-                if (PickData.SelectedData != null)
+                if (PickData.SelectedDatas != null)
                 {
-                    Data dt = PickData.SelectedData;
-                    ListViewItem lviData = new ListViewItem(dt.Symbol);
-                    lviData.Tag = dt;
-                    lviData.SubItems.Add(dt.SizeInBits.ToString());
-                    m_listViewData.Items.Add(lviData);
+                    for (int i = 0; i < PickData.SelectedDatas.Length; i++)
+                    {
+                        if (PickData.SelectedDatas[i] != null)
+                        {
+                            Data dt = PickData.SelectedDatas[i];
+                            ListViewItem lviData = new ListViewItem(dt.Symbol);
+                            lviData.Tag = dt;
+                            lviData.SubItems.Add(dt.SizeInBits.ToString());
+                            m_listViewData.Items.Add(lviData);
+                        }
+                    }
                 }
             }
         }
@@ -156,10 +164,7 @@ namespace CtrlDemux
                     lviData = m_listViewData.SelectedItems[0];
                 if (lviData != null)
                 {
-                    if (Doc.GestData.RemoveObj((BaseObject)lviData.Tag))
-                    {
-                        m_listViewData.Items.Remove(lviData);
-                    }
+                    m_listViewData.Items.Remove(lviData);
                 }
             }
         }

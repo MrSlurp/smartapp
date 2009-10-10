@@ -39,7 +39,7 @@ namespace CommonLib
             // 
             this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(231, 369);
+            this.btnOK.Location = new System.Drawing.Point(125, 369);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 0;
@@ -50,7 +50,7 @@ namespace CommonLib
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(312, 369);
+            this.btnCancel.Location = new System.Drawing.Point(206, 369);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 0;
@@ -71,7 +71,7 @@ namespace CommonLib
             this.m_listViewData.Location = new System.Drawing.Point(12, 12);
             this.m_listViewData.MultiSelect = false;
             this.m_listViewData.Name = "m_listViewData";
-            this.m_listViewData.Size = new System.Drawing.Size(375, 342);
+            this.m_listViewData.Size = new System.Drawing.Size(269, 342);
             this.m_listViewData.TabIndex = 8;
             this.m_listViewData.UseCompatibleStateImageBehavior = false;
             this.m_listViewData.View = System.Windows.Forms.View.Details;
@@ -93,12 +93,13 @@ namespace CommonLib
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(399, 404);
+            this.ClientSize = new System.Drawing.Size(293, 404);
             this.ControlBox = false;
             this.Controls.Add(this.m_listViewData);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
             this.Name = "PickDataForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Pick Data";
             this.ResumeLayout(false);
 

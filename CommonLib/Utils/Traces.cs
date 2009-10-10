@@ -29,7 +29,7 @@ namespace CommonLib
 		// Nom du fichier de traces
 		private static string sLogFileName ;
 		// Niveau de trace demandé
-		private static int iLogTracesLevel ;
+        private static int iLogTracesLevel = LOG_LEVEL_NOLOG;
 		// Fichier de logs
 		private static StreamWriter TxtLog;
 

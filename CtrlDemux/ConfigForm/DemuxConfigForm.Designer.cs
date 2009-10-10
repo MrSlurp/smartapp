@@ -58,7 +58,7 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.edtAddrData.Location = new System.Drawing.Point(12, 26);
             this.edtAddrData.Name = "edtAddrData";
-            this.edtAddrData.Size = new System.Drawing.Size(187, 20);
+            this.edtAddrData.Size = new System.Drawing.Size(231, 20);
             this.edtAddrData.TabIndex = 1;
             // 
             // label2
@@ -76,13 +76,13 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.edtValueData.Location = new System.Drawing.Point(12, 70);
             this.edtValueData.Name = "edtValueData";
-            this.edtValueData.Size = new System.Drawing.Size(187, 20);
+            this.edtValueData.Size = new System.Drawing.Size(231, 20);
             this.edtValueData.TabIndex = 1;
             // 
             // btnPickAddr
             // 
             this.btnPickAddr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPickAddr.Location = new System.Drawing.Point(208, 24);
+            this.btnPickAddr.Location = new System.Drawing.Point(252, 24);
             this.btnPickAddr.Name = "btnPickAddr";
             this.btnPickAddr.Size = new System.Drawing.Size(44, 23);
             this.btnPickAddr.TabIndex = 2;
@@ -93,7 +93,7 @@
             // btnPickValue
             // 
             this.btnPickValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPickValue.Location = new System.Drawing.Point(208, 68);
+            this.btnPickValue.Location = new System.Drawing.Point(252, 68);
             this.btnPickValue.Name = "btnPickValue";
             this.btnPickValue.Size = new System.Drawing.Size(44, 23);
             this.btnPickValue.TabIndex = 2;
@@ -115,7 +115,7 @@
             this.m_listViewData.Location = new System.Drawing.Point(12, 126);
             this.m_listViewData.MultiSelect = false;
             this.m_listViewData.Name = "m_listViewData";
-            this.m_listViewData.Size = new System.Drawing.Size(240, 199);
+            this.m_listViewData.Size = new System.Drawing.Size(284, 199);
             this.m_listViewData.TabIndex = 9;
             this.m_listViewData.UseCompatibleStateImageBehavior = false;
             this.m_listViewData.View = System.Windows.Forms.View.Details;
@@ -145,7 +145,7 @@
             // btnRemove
             // 
             this.btnRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRemove.Location = new System.Drawing.Point(150, 97);
+            this.btnRemove.Location = new System.Drawing.Point(194, 97);
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Size = new System.Drawing.Size(102, 23);
             this.btnRemove.TabIndex = 10;
@@ -155,6 +155,7 @@
             // 
             // btnOK
             // 
+            this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnOK.Location = new System.Drawing.Point(13, 331);
             this.btnOK.Name = "btnOK";
@@ -165,8 +166,9 @@
             // 
             // btnCancel
             // 
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(175, 331);
+            this.btnCancel.Location = new System.Drawing.Point(219, 331);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 11;
@@ -179,7 +181,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(262, 366);
+            this.ClientSize = new System.Drawing.Size(306, 366);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.btnRemove);
@@ -193,6 +195,7 @@
             this.Controls.Add(this.label1);
             this.MinimumSize = new System.Drawing.Size(270, 400);
             this.Name = "DemuxConfigForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Demux Configuration";
             this.ResumeLayout(false);
             this.PerformLayout();

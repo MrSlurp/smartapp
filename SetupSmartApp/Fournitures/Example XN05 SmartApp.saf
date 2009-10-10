@@ -214,7 +214,7 @@
         <Line>FRAMES.TCPMB_WRITE_1_IN_REG_FROM_AD12.SEND()</Line>
         <Line>FRAMES.TCPMB_RESP_WRITE_1_IN_REG_FROM_AD12.RECEIVE()</Line>
       </EventScript>
-      <ImagePath>.\Examples\M3XD26.bmp</ImagePath>
+      <ImagePath>$DocPath$\M3XD26.bmp</ImagePath>
     </Screen>
   </ScreenSection>
   <TrameSection>

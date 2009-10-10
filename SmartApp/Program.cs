@@ -60,14 +60,15 @@ namespace SmartApp
         [STAThread]
         static void Main(string[] strArgsList)
         {
-            //Application.SetCompatibleTextRenderingDefault(false);
             Application.EnableVisualStyles();
+            // attention, cette ligne est toujours appelé, mais dans la création du singleton de la fenêtre principale
+            // car les membres étant statiques, il provoquent la création de la fenêtre pendant le chargement même de l'application
+            //Application.SetCompatibleTextRenderingDefault(false);
             Traces.Initialize(Application.StartupPath, "TraceSmartApp.txt", SmartApp.Properties.Settings.Default.LogLevel);
             CommonLib.Resources.InitializeBitmap();
             m_GestDlls.LoadExistingDlls();
             LaunchArgParser.ParseArguments(strArgsList);
             m_TypeApp = LaunchArgParser.GetTypeApp(strArgsList);
-            //string file = LaunchArgParser.GetFileName(strArgsList);
             switch (m_TypeApp)
             {
                 case TYPE_APP.NONE:

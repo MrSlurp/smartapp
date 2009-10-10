@@ -231,7 +231,7 @@
         <Line>FRAMES.M3_WRITE_SLIN_BLOC_1.SEND()</Line>
         <Line>FRAMES.M3_RESP_WRITE_SLIN_BLOC_1.RECEIVE()</Line>
       </EventScript>
-      <ImagePath>.\Examples\M3XD26.bmp</ImagePath>
+      <ImagePath>$DocPath$\M3XD26.bmp</ImagePath>
     </Screen>
   </ScreenSection>
   <TrameSection>

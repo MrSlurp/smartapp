@@ -50,14 +50,17 @@ namespace SmartApp
         #endregion
 
         #region singleton
-        private static MDISmartCommandMain _Instance;
+        private static MDISmartCommandMain _Instance = null;
 
         public static MDISmartCommandMain Instance
         {
             get
             {
                 if (_Instance == null)
+                {
+                    Application.SetCompatibleTextRenderingDefault(false);
                     _Instance = new MDISmartCommandMain();
+                }
 
                 return _Instance;
             }
@@ -66,7 +69,10 @@ namespace SmartApp
         public static MDISmartCommandMain CreateInstance(string strFileName)
         {
             if (_Instance == null)
+            {
+                Application.SetCompatibleTextRenderingDefault(false);
                 _Instance = new MDISmartCommandMain(strFileName);
+            }
 
             return _Instance;
         }

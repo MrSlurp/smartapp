@@ -59,12 +59,5 @@ namespace SmartApp.Properties {
                 resourceCulture = value;
             }
         }
-        
-        internal static System.Drawing.Icon SmartApp {
-            get {
-                object obj = ResourceManager.GetObject("SmartApp", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
     }
 }
