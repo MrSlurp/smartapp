@@ -256,11 +256,12 @@ namespace CommonLib
                     break;
                 case MESSAGE.MESS_ITEM_DELETED:
                     if (
-                           ((MessAskDelete)obj).TypeOfItem == typeof(Trame)
-                        || ((MessAskDelete)obj).TypeOfItem == typeof(Function)
-                        || ((MessAskDelete)obj).TypeOfItem == typeof(Logger)
-                        || ((MessAskDelete)obj).TypeOfItem == typeof(BTTimer)
-                        || ((MessAskDelete)obj).TypeOfItem == typeof(BTScreen)
+                           ((MessDeleted)obj).TypeOfItem == typeof(Trame)
+                        || ((MessDeleted)obj).TypeOfItem == typeof(Function)
+                        || ((MessDeleted)obj).TypeOfItem == typeof(Logger)
+                        || ((MessDeleted)obj).TypeOfItem == typeof(BTTimer)
+                        //|| ((MessDeleted)obj).TypeOfItem == typeof(Data) voir le else if
+                        || ((MessDeleted)obj).TypeOfItem == typeof(BTScreen)
                         )
                     {
                         MessDeleted MessParam = (MessDeleted)obj;
@@ -291,6 +292,7 @@ namespace CommonLib
                         || ((MessItemRenamed)obj).TypeOfItem == typeof(Function)
                         || ((MessItemRenamed)obj).TypeOfItem == typeof(Logger)
                         || ((MessItemRenamed)obj).TypeOfItem == typeof(BTTimer)
+                        //|| ((MessItemRenamed)obj).TypeOfItem == typeof(Data) voir le else if 
                         || ((MessItemRenamed)obj).TypeOfItem == typeof(BTScreen)
                         )
                     {
