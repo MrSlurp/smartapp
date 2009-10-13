@@ -349,11 +349,11 @@ namespace SmartApp.Ihm.Wizards
             return ListData;
         }
 
-        #region obtention des symbols par défaut des trames et données
+        #region obtention des symbols par dÃ©faut des trames et donnÃ©es
         //*****************************************************************************************************
-        // Description: renvoie le symbol par défaut d'un donnée en fonction des paramètres de la trame
-        // prend en entrée le type de trame (in out), l'adresse, la DataBit pos valeur comprise entre 1 et 16
-        // et la taille de la donnée en bits
+        // Description: renvoie le symbol par dÃ©faut d'un donnÃ©e en fonction des paramÃ¨tres de la trame
+        // prend en entrÃ©e le type de trame (in out), l'adresse, la DataBit pos valeur comprise entre 1 et 16
+        // et la taille de la donnÃ©e en bits
         // Return: /
         //*****************************************************************************************************
         static private string GetDefaultSymbolM3Data(WIZ_SL_FRAME_TYPE frType,
@@ -399,9 +399,9 @@ namespace SmartApp.Ihm.Wizards
             }
 
             int iCurrentIO = (DataBitPos / M3_SL_IO_SIZE) + 1;
-            string FormatString = "M3_SL{0}{1}_{2}{3}"; // IN/OUT, 1/2/3, I/O, 1 à 8 (numéro de l'E/S du bloc)
-            // si la donnée ne fait pas 16 bits, on ajoute une info sur ses bits
-            string FinFormatForDataOther = "_B{0}-{1}"; // 1 à 16, 1 à 16 (noméro de bit de debut, numéro du bit de fin
+            string FormatString = "M3_SL{0}{1}_{2}{3}"; // IN/OUT, 1/2/3, I/O, 1 Ã  8 (numÃ©ro de l'E/S du bloc)
+            // si la donnÃ©e ne fait pas 16 bits, on ajoute une info sur ses bits
+            string FinFormatForDataOther = "_B{0}-{1}"; // 1 Ã  16, 1 Ã  16 (nomÃ©ro de bit de debut, numÃ©ro du bit de fin
             string strBaseSmbol = string.Format(FormatString, InOrOutBloc, indexSLBloc, InOrOutData, iCurrentIO);
             int DataBitPosInCurByte = DataBitPos - ((iCurrentIO - 1) * M3_SL_IO_SIZE);
             if (DataSize == (int)DATA_SIZE.DATA_SIZE_16B || DataSize == (int)DATA_SIZE.DATA_SIZE_16BU)
@@ -418,11 +418,11 @@ namespace SmartApp.Ihm.Wizards
             }
             else if (DataSize == (int)DATA_SIZE.DATA_SIZE_1B)
             {
-                return strBaseSmbol + string.Format("_B{0}", M3_SL_IO_SIZE - (DataBitPosInCurByte)); // 1 à 16, 1 à 16 (noméro de bit)
+                return strBaseSmbol + string.Format("_B{0}", M3_SL_IO_SIZE - (DataBitPosInCurByte)); // 1 Ã  16, 1 Ã  16 (nomÃ©ro de bit)
             }
-            else // donnée de moin de 1 octet
+            else // donnÃ©e de moin de 1 octet
             {
-                return strBaseSmbol + string.Format(FinFormatForDataOther, M3_SL_IO_SIZE-(DataBitPosInCurByte + DataSize)+1, M3_SL_IO_SIZE - (DataBitPosInCurByte) ); // 1 à 16, 1 à 16 (noméro de bit de debut, numéro du bit de fin
+                return strBaseSmbol + string.Format(FinFormatForDataOther, M3_SL_IO_SIZE-(DataBitPosInCurByte + DataSize)+1, M3_SL_IO_SIZE - (DataBitPosInCurByte) ); // 1 Ã  16, 1 Ã  16 (nomÃ©ro de bit de debut, numÃ©ro du bit de fin
             }
         }
 
@@ -522,9 +522,9 @@ namespace SmartApp.Ihm.Wizards
                 m_btnSplit.Enabled = false;
                 ListViewItem lviData1 = m_ListViewDatas.SelectedItems[0];
                 ListViewItem lviData2 = m_ListViewDatas.SelectedItems[1];
-                //la colonne 2 correspond au numéro du registre de la donnée
-                // on ne peux relier deux données que si elle sont sur le meme registre
-                // et consécutives
+                //la colonne 2 correspond au numÃ©ro du registre de la donnÃ©e
+                // on ne peux relier deux donnÃ©es que si elle sont sur le meme registre
+                // et consÃ©cutives
                 if ((lviData1.Index == lviData2.Index + 1 || lviData1.Index+1 == lviData2.Index)
                     &&lviData1.SubItems[2].Text == lviData2.SubItems[2].Text)
                 {
@@ -549,7 +549,7 @@ namespace SmartApp.Ihm.Wizards
             if (m_ListViewDatas.SelectedItems.Count == 1)
             {
                 Data dt = (Data)m_ListViewDatas.SelectedItems[0].Tag;
-                if (dt.SizeInBits > 1 && ((dt.SizeInBits %2) ==0)) // la taille de la donnée doit être paire
+                if (dt.SizeInBits > 1 && ((dt.SizeInBits %2) ==0)) // la taille de la donnÃ©e doit Ãªtre paire
                 {
                     int iCurUserDataBit = 0;
                     for (int indexSplit = 0; indexSplit < m_ListUserData.Count; indexSplit++)
@@ -586,7 +586,7 @@ namespace SmartApp.Ihm.Wizards
             {
                 Data dt1 = (Data)m_ListViewDatas.SelectedItems[0].Tag;
                 Data dt2 = (Data)m_ListViewDatas.SelectedItems[1].Tag;
-                if (dt1.SizeInBits == dt2.SizeInBits && ((dt1.SizeInBits + dt2.SizeInBits)%2 == 0)) // la taille totale de la donnée doit être paire
+                if (dt1.SizeInBits == dt2.SizeInBits && ((dt1.SizeInBits + dt2.SizeInBits)%2 == 0)) // la taille totale de la donnÃ©e doit Ãªtre paire
                 {
                     Data FirstData = null;
                     if (m_ListViewDatas.SelectedItems[0].Index < m_ListViewDatas.SelectedItems[1].Index)

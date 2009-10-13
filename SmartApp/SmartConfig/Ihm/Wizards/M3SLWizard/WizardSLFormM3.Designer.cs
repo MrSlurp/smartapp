@@ -125,7 +125,7 @@ namespace SmartApp.Ihm.Wizards
             // 
             // columnHeader3
             // 
-            this.columnHeader3.Text = "SL Input/Ouput n°";
+            this.columnHeader3.Text = "SL Input/Ouput nÂ°";
             this.columnHeader3.Width = 113;
             // 
             // label3

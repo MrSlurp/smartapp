@@ -336,20 +336,20 @@ namespace SmartApp.Ihm.Wizards
             tr.Description = "Auto generated M3 frame";
             // dans le cas d'un trame M3:
             // il y a conversion ASCII
-            // - elle commence a la seconde donnée
-            // - elle se termine a la donnée n-2 (avant \r \n)
+            // - elle commence a la seconde donnÃ©e
+            // - elle se termine a la donnÃ©e n-2 (avant \r \n)
             tr.ConvType = CONVERT_TYPE.ASCII.ToString();
-            tr.ConvFrom = 1; //!\ index basé a 0
-            tr.ConvTo = ListFrameDatas.Count - 3; //!\ index basé a 0
-            // le type de donné de control est le checksum M3
-            // Somme complémentée plus 1
-            // - le calcule commence a la seconde donnée
-            // - et se termine avant la donnée de control
-            // - la donnée de control se trouve toujours juste avant les 2 caractères de fin de trame
+            tr.ConvFrom = 1; //!\ index basÃ© a 0
+            tr.ConvTo = ListFrameDatas.Count - 3; //!\ index basÃ© a 0
+            // le type de donnÃ© de control est le checksum M3
+            // Somme complÃ©mentÃ©e plus 1
+            // - le calcule commence a la seconde donnÃ©e
+            // - et se termine avant la donnÃ©e de control
+            // - la donnÃ©e de control se trouve toujours juste avant les 2 caractÃ¨res de fin de trame
             tr.CtrlDataType = CTRLDATA_TYPE.SUM_COMPL_P1.ToString();
             tr.CtrlDataSize = (int)DATA_SIZE.DATA_SIZE_8B;
-            tr.CtrlDataFrom = 1; //!\ index basé a 0
-            tr.CtrlDataTo = ListFrameDatas.Count - 4;//!\ index basé a 0
+            tr.CtrlDataFrom = 1; //!\ index basÃ© a 0
+            tr.CtrlDataTo = ListFrameDatas.Count - 4;//!\ index basÃ© a 0
             return tr;
         }
         #endregion
@@ -496,51 +496,51 @@ namespace SmartApp.Ihm.Wizards
             tr.Description = "Auto generated Z2 frame";
             // dans le cas d'un trame M3:
             // il y a conversion ASCII
-            // - elle commence a la seconde donnée
-            // - elle se termine a la donnée n-2 (avant \r \n)
+            // - elle commence a la seconde donnÃ©e
+            // - elle se termine a la donnÃ©e n-2 (avant \r \n)
             tr.ConvType = CONVERT_TYPE.ASCII.ToString();
-            tr.ConvFrom = 1; //!\ index basé a 0
-            tr.ConvTo = ListFrameDatas.Count - 3; //!\ index basé a 0
-            // le type de donné de control est le checksum M3
-            // Somme complémentée plus 1
-            // - le calcule commence a la seconde donnée
-            // - et se termine avant la donnée de control
-            // - la donnée de control se trouve toujours juste avant les 2 caractères de fin de trame
+            tr.ConvFrom = 1; //!\ index basÃ© a 0
+            tr.ConvTo = ListFrameDatas.Count - 3; //!\ index basÃ© a 0
+            // le type de donnÃ© de control est le checksum M3
+            // Somme complÃ©mentÃ©e plus 1
+            // - le calcule commence a la seconde donnÃ©e
+            // - et se termine avant la donnÃ©e de control
+            // - la donnÃ©e de control se trouve toujours juste avant les 2 caractÃ¨res de fin de trame
             tr.CtrlDataType = CTRLDATA_TYPE.SUM_COMPL_P2.ToString();
             tr.CtrlDataSize = (int)DATA_SIZE.DATA_SIZE_8B;
-            tr.CtrlDataFrom = 1; //!\ index basé a 0
-            tr.CtrlDataTo = ListFrameDatas.Count - 4;//!\ index basé a 0
+            tr.CtrlDataFrom = 1; //!\ index basÃ© a 0
+            tr.CtrlDataTo = ListFrameDatas.Count - 4;//!\ index basÃ© a 0
             return tr;
         }
         #endregion
 
         //*****************************************************************************************************
         // Description: cette fonction effectue l'insertion d''une trame dans le document
-        // la trame doit être configuré avec les bon paramètres et sa liste des donnée doit être vide
+        // la trame doit Ãªtre configurÃ© avec les bon paramÃ¨tres et sa liste des donnÃ©e doit Ãªtre vide
         // elle sera remplie dans cette fonction
         // Return: /
         //*****************************************************************************************************
         static public bool InsertFrameInDoc(BTDoc Doc, Trame tr, ArrayList ListFrameDatas)
         {
-            #region création des listes des données 
-            // Bon, la trame est crée, c'est bien, mais faut l'insérer
-            // alors on commence par vérifier si les symbols de données ne sont pas déja
-            // utilisé. 
+            #region crÃ©ation des listes des donnÃ©es 
+            // Bon, la trame est crÃ©e, c'est bien, mais faut l'insÃ©rer
+            // alors on commence par vÃ©rifier si les symbols de donnÃ©es ne sont pas dÃ©ja
+            // utilisÃ©. 
             ArrayList ListDataDifferents = new ArrayList();
             ArrayList ListDataWithoutProblem = new ArrayList();
             for (int i = 0; i < ListFrameDatas.Count; i++)
             {
                 Data dt = (Data)ListFrameDatas[i];
                 Data ConflictData = (Data)Doc.GestData.GetFromSymbol(dt.Symbol);
-                // si la donnée n'est pas utilisée
+                // si la donnÃ©e n'est pas utilisÃ©e
                 if (ConflictData == null)
                 {
-                    // on l'ajoute a la listes des données inexistantes et donc a ajouter
+                    // on l'ajoute a la listes des donnÃ©es inexistantes et donc a ajouter
                     ListDataWithoutProblem.Add(dt);
                 }
-                else // sinon, on test si les paramètres sont les mêmes
+                else // sinon, on test si les paramÃ¨tres sont les mÃªmes
                 {
-                    // si il y a une différence
+                    // si il y a une diffÃ©rence
                     if (dt.DefaultValue != ConflictData.DefaultValue
                         || dt.IsConstant != ConflictData.IsConstant
                         || dt.IsUserVisible != ConflictData.IsUserVisible
@@ -549,35 +549,35 @@ namespace SmartApp.Ihm.Wizards
                         || dt.SizeInBits != ConflictData.SizeInBits
                         )
                     {
-                        // on l'ajoute la liste des données qui posent problème
+                        // on l'ajoute la liste des donnÃ©es qui posent problÃ¨me
                         ListDataDifferents.Add(dt);
                     }
                     else
                     {
-                        // la donnée est rigoureusement identique, on la "laisse pisser"....bye bye
+                        // la donnÃ©e est rigoureusement identique, on la "laisse pisser"....bye bye
                     }
                 }
             }
             #endregion
 
             bool bModeOverwrite = false;
-            // Si il y a des données, avec le meme symbol mais avec des paramètres différents
+            // Si il y a des donnÃ©es, avec le meme symbol mais avec des paramÃ¨tres diffÃ©rents
             if (ListDataDifferents.Count != 0)
             {
                 // on offre le choix a l'utilisateur:
-                // - soit on écrase les paramètres de l'existante
-                // - soit le symbol des données crée va changer
+                // - soit on Ã©crase les paramÃ¨tres de l'existante
+                // - soit le symbol des donnÃ©es crÃ©e va changer
                 string strMessage = "Some generated datas have the same symbol as existing datas but with differents parameters. Do you want to overwrite existing data parameters?\n If no, Generated datas will be renamed";
                 DialogResult dlgRes = MessageBox.Show(strMessage, "Warning", MessageBoxButtons.YesNo);
                 if (dlgRes == DialogResult.Yes)
                     bModeOverwrite = true;
             }
 
-            #region insertion des données dans le document
-            // pour insérer les données:
-            // on a une liste des données qu'on peux mettre dans le document (celle qui n'existaient pas)
-            // et une liste des donnée qui posent problèmes
-            // rappelons qu'on a pas de liste des données qui sont purement identiques
+            #region insertion des donnÃ©es dans le document
+            // pour insÃ©rer les donnÃ©es:
+            // on a une liste des donnÃ©es qu'on peux mettre dans le document (celle qui n'existaient pas)
+            // et une liste des donnÃ©e qui posent problÃ¨mes
+            // rappelons qu'on a pas de liste des donnÃ©es qui sont purement identiques
 
             // - Pour la liste de celle qui qu'on peux envoyer "a la barbar"...bah on le fait
             for (int i = 0; i < ListDataWithoutProblem.Count; i++)
@@ -585,19 +585,19 @@ namespace SmartApp.Ihm.Wizards
                 Doc.GestData.AddObj((BaseObject)ListDataWithoutProblem[i]);
             }
 
-            // - pour la liste des données qui posent problème
+            // - pour la liste des donnÃ©es qui posent problÃ¨me
             for (int i = 0; i < ListDataDifferents.Count; i++)
             {
-                //   pour chaque donnée:
+                //   pour chaque donnÃ©e:
                 Data dat = (Data)ListDataDifferents[i];
                 //   si on est pas en mode "Overwrite"
                 if (!bModeOverwrite)
                 {
                     for (int indexFormat = 0; indexFormat < BaseGest.MAX_DEFAULT_ITEM_SYMBOL; indexFormat++)
                     {
-                        //      - on crée une chaine temporaire = nom de donnée + suffix de type "_AG{0}"
+                        //      - on crÃ©e une chaine temporaire = nom de donnÃ©e + suffix de type "_AG{0}"
                         string strTempSymb = dat.Symbol + string.Format("_AG{0}", indexFormat);
-                        //      - on test si le nouveau nom n'est pas déja utilisé
+                        //      - on test si le nouveau nom n'est pas dÃ©ja utilisÃ©
                         Data pbData = (Data)Doc.GestData.GetFromSymbol(strTempSymb);
                         if (pbData == null)
                         {
@@ -605,7 +605,7 @@ namespace SmartApp.Ihm.Wizards
                             Doc.GestData.AddObj(dat);
                             break;
                         }
-                        else // si elle est utilisé, on test si les paramètres sont identiques
+                        else // si elle est utilisÃ©, on test si les paramÃ¨tres sont identiques
                         {
                             if (dat.DefaultValue != pbData.DefaultValue
                                 || dat.IsConstant != pbData.IsConstant
@@ -619,13 +619,13 @@ namespace SmartApp.Ihm.Wizards
                             }
                             else
                             {
-                                // on arrète, la donnée existe déja, donc pas besoin de l'ajouter
+                                // on arrÃ¨te, la donnÃ©e existe dÃ©ja, donc pas besoin de l'ajouter
                                 break;
                             }
                         }
                     }
                 }
-                else // on ecrase les paramètres de l'existante
+                else // on ecrase les paramÃ¨tres de l'existante
                 {
                     Data pbData = (Data)Doc.GestData.GetFromSymbol(dat.Symbol);
                     pbData.DefaultValue = dat.DefaultValue;
@@ -634,7 +634,7 @@ namespace SmartApp.Ihm.Wizards
                     pbData.Maximum = dat.Maximum;
                     pbData.Minimum = dat.Minimum;
                     pbData.SizeAndSign = dat.SizeAndSign;
-                    //La data crées est poubellisée
+                    //La data crÃ©es est poubellisÃ©e
                 }
 
             }
@@ -649,7 +649,7 @@ namespace SmartApp.Ihm.Wizards
             // On applique un principe similaire pour la trame
             // On verifie l'existance d'une trame avec le meme nom
             // si oui on renomme la trame
-            // on s'en cogne de l'avis de l'utilisteur, il est la pr crée sa trame
+            // on s'en cogne de l'avis de l'utilisteur, il est la pr crÃ©e sa trame
             Trame pbTr = (Trame)Doc.GestTrame.GetFromSymbol(tr.Symbol);
             if (pbTr == null)
             {
@@ -659,9 +659,9 @@ namespace SmartApp.Ihm.Wizards
             {
                 for (int indexFormat = 0; indexFormat < BaseGest.MAX_DEFAULT_ITEM_SYMBOL; indexFormat++)
                 {
-                    //      - on crée une chaine temporaire = nom de donnée + suffix de type "_AG{0}"
+                    //      - on crÃ©e une chaine temporaire = nom de donnÃ©e + suffix de type "_AG{0}"
                     string strTempSymb = tr.Symbol + string.Format("_AG{0}", indexFormat);
-                    //      - on test si le nouveau nom n'est pas déja utilisé
+                    //      - on test si le nouveau nom n'est pas dÃ©ja utilisÃ©
                     Trame pbTrame = (Trame)Doc.GestTrame.GetFromSymbol(strTempSymb);
                     if (pbTrame == null)
                     {
@@ -669,7 +669,7 @@ namespace SmartApp.Ihm.Wizards
                         Doc.GestTrame.AddObj(tr);
                         break;
                     }
-                    else // si elle est utilisé
+                    else // si elle est utilisÃ©
                     {
                         //on ne fais rien, trop chiant de comparer les trames
                         // on tente le suivant

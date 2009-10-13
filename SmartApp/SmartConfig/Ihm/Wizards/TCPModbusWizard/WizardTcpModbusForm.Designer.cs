@@ -1,4 +1,4 @@
-﻿namespace SmartApp.Ihm.Wizards
+namespace SmartApp.Ihm.Wizards
 {
     partial class WizardTcpModbusForm
     {
