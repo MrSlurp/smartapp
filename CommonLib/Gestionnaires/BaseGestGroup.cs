@@ -9,17 +9,17 @@ using System.Xml;
 
 namespace CommonLib
 {
-    // classe spécialisée dans la gestion des objets par groupes
+    // classe spÃ©cialisÃ©e dans la gestion des objets par groupes
     public class BaseGestGroup : BaseGest
     {
-        #region classe group représentant les données d'un groupe
+        #region classe group reprÃ©sentant les donnÃ©es d'un groupe
         public class Group
         {
-            // contiens le nom affiché du group
+            // contiens le nom affichÃ© du group
             public string m_strGroupName;
             // contiens le symbol du group
             public string m_strGroupSymbol;
-            // Array de chaines qui stok les symboles de tout les objets que group possède
+            // Array de chaines qui stok les symboles de tout les objets que group possÃ¨de
             public ArrayList m_ArrayObjectOfGroup;
             // couleur de fond du groupe
             public Color m_GroupColor;
@@ -43,7 +43,7 @@ namespace CommonLib
                 }
             }
             /// <summary>
-            /// nom affiché du groupe
+            /// nom affichÃ© du groupe
             /// </summary>
  
             public string GroupName
@@ -66,11 +66,11 @@ namespace CommonLib
             }
 
             /// <summary>
-            /// Lit les données de l'objet a partir de son noeud XML
+            /// Lit les donnÃ©es de l'objet a partir de son noeud XML
             /// </summary>
             /// <param name="Node">Noeud Xml de l'objet</param>
             /// <param name="TypeApp">type d'application courante</param>
-            /// <returns>true si la lecture s'est bien passé</returns>
+            /// <returns>true si la lecture s'est bien passÃ©</returns>
             public bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
             {
                 XmlNode XmlGroup = XmlDoc.CreateElement(XML_CF_TAG.Group.ToString());
@@ -100,12 +100,12 @@ namespace CommonLib
         }
         #endregion
 
-        #region données membres
-        // texte par défaut d'un nouveau groupe
+        #region donnÃ©es membres
+        // texte par dÃ©faut d'un nouveau groupe
         protected const string STR_DEFAULT_GROUP_TEXT = "New Group {0}";
-        // symbol formaté des groupes
+        // symbol formatÃ© des groupes
         protected const string STR_GROUP_SYMB = "GROUP_{0}";
-        // symbol du groupe par défait (toujours présent)
+        // symbol du groupe par dÃ©fait (toujours prÃ©sent)
         public const string STR_DEFAULT_GROUP_SYMB = "GROUP_0";
         // Liste des groupes du gestionnaire des groupes
         List<Group> m_ListGroup = new List<Group>();
@@ -135,9 +135,9 @@ namespace CommonLib
 
         /// <summary>
         /// override de base gest
-        /// ajoute l'objet et l'ajoute aussi au groupe par défaut
+        /// ajoute l'objet et l'ajoute aussi au groupe par dÃ©faut
         /// </summary>
-        /// <param name="Obj">objet à ajouter</param>
+        /// <param name="Obj">objet Ã  ajouter</param>
         public override void AddObj(BaseObject Obj)
         {
             base.AddObj(Obj);
@@ -146,10 +146,10 @@ namespace CommonLib
 
         /// <summary>
         /// override de base gest
-        /// enlève l'objet du gestionnaire et des groupes (si l'objet a été supprimé)
+        /// enlÃ¨ve l'objet du gestionnaire et des groupes (si l'objet a Ã©tÃ© supprimÃ©)
         /// </summary>
-        /// <param name="Obj">objet à enlever</param>
-        /// <returns>true si l'objet à été supprimé</returns>
+        /// <param name="Obj">objet Ã  enlever</param>
+        /// <returns>true si l'objet Ã  Ã©tÃ© supprimÃ©</returns>
         public override bool RemoveObj(BaseObject Obj)
         {
             if (base.RemoveObj(Obj))
@@ -166,10 +166,10 @@ namespace CommonLib
 
         /// <summary>
         /// override de base gest
-        /// enlève l'objet du gestionnaire et des groupes (si l'objet a été supprimé)
+        /// enlÃ¨ve l'objet du gestionnaire et des groupes (si l'objet a Ã©tÃ© supprimÃ©)
         /// </summary>
-        /// <param name="strSymbol">symbol de l'objet à enlever</param>
-        /// <returns>true si l'objet à été supprimé</returns>
+        /// <param name="strSymbol">symbol de l'objet Ã  enlever</param>
+        /// <returns>true si l'objet Ã  Ã©tÃ© supprimÃ©</returns>
         public override bool RemoveObj(String strSymbol)
         {
             if (base.RemoveObj(strSymbol))
@@ -191,7 +191,7 @@ namespace CommonLib
           
         #region ReadIn / WriteOut
         //*****************************************************************************************************
-        // Description: Lit les données de l'objet a partir de son noeud XML
+        // Description: Lit les donnÃ©es de l'objet a partir de son noeud XML
         // Return: /
         //*****************************************************************************************************
         public override bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
@@ -213,13 +213,13 @@ namespace CommonLib
                     break;
                 NodeSectionGroup = null;
             }
-	        // dans la première version de fichier il n'y avait pas de groupes
+	        // dans la premiÃ¨re version de fichier il n'y avait pas de groupes
 	        if (NodeSectionGroup == null)
 		        return true;
 	        XmlNode GroupNode = NodeSectionGroup.FirstChild;
 	        while (GroupNode != null)
 	        {
-		        // vérifier si le group n'existe pas déja (Groupe "défault" toujours crée)
+		        // vÃ©rifier si le group n'existe pas dÃ©ja (Groupe "dÃ©fault" toujours crÃ©e)
 		        XmlNode AttrSymb = GroupNode.Attributes.GetNamedItem(XML_CF_ATTRIB.strSymbol.ToString());
 		        XmlNode AttrName = GroupNode.Attributes.GetNamedItem(XML_CF_ATTRIB.strNom.ToString());
 		        XmlNode AttrColor = GroupNode.Attributes.GetNamedItem(XML_CF_ATTRIB.bkColor.ToString());;
@@ -230,7 +230,7 @@ namespace CommonLib
                 int r = int.Parse(rgbVal[0]);
                 int g = int.Parse(rgbVal[1]);
                 int b = int.Parse(rgbVal[2]);
-		        // si il existe on le récupère et on y ajoute les objets du groupe
+		        // si il existe on le rÃ©cupÃ¨re et on y ajoute les objets du groupe
 		        if (Gr == null)
 		        {
 			        Gr = InternalCreateNewGroup(AttrName.Value, AttrSymb.Value, Color.FromArgb(r,g,b));
@@ -240,7 +240,7 @@ namespace CommonLib
                     Gr.m_GroupColor = Color.FromArgb(r, g, b);
                 }
 		        XmlNode NodeObj = GroupNode.FirstChild;
-		        // si le groupe a été crée, la couleur est a jour, mais pour le groupe par défaut ce n'est pas le cas
+		        // si le groupe a Ã©tÃ© crÃ©e, la couleur est a jour, mais pour le groupe par dÃ©faut ce n'est pas le cas
 		        // parcour de la liste des objets du groupe
 		        while (NodeObj != null)
 		        {
@@ -251,14 +251,14 @@ namespace CommonLib
                     AddObjectToGroup(Gr.m_strGroupSymbol, Obj);
                     NodeObj = NodeObj.NextSibling;
 		        }
-		        // sinon on crée un nouveau groupe et on l'ajoute et on ajoute les objets du groupe
+		        // sinon on crÃ©e un nouveau groupe et on l'ajoute et on ajoute les objets du groupe
 		        GroupNode = GroupNode.NextSibling;
 	        }
 	        return true;
         }
 
         //*****************************************************************************************************
-        // Description: ecrit les données de l'objet a partir de son noeud XML
+        // Description: ecrit les donnÃ©es de l'objet a partir de son noeud XML
         // Return: /
         //*****************************************************************************************************
         public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
@@ -276,31 +276,31 @@ namespace CommonLib
 
         #region fonction de gestion des groupes
         /// <summary>
-        /// crée un nouveau groupe
+        /// crÃ©e un nouveau groupe
         /// </summary>
         /// <param name="strGroupName">nom du groupe</param>
         /// <param name="color">couleur du groupe</param>
-        /// <returns>l'objet groupe crée</returns>
+        /// <returns>l'objet groupe crÃ©e</returns>
         public Group CreateNewGroup(string strGroupName, Color color)
         {
             bool bFreeIndexFound = false;
-            // récupérer le prochain symbol, 
+            // rÃ©cupÃ©rer le prochain symbol, 
             // pour trouver le premier index libre, on teste si il existe un
             // groupe ayant le symbol GROUP_i
             string strSymb = "";
             for (int i = 0; !bFreeIndexFound; i++)
             {
                 strSymb = string.Format(STR_GROUP_SYMB, i);
-                // pas de groupe trouvé, l'index est libre
+                // pas de groupe trouvÃ©, l'index est libre
                 if (GetGroupFromSymbol(strSymb) == null)
                     bFreeIndexFound = true;
             }
-            // crée le groupe avec son symbole
+            // crÃ©e le groupe avec son symbole
             return InternalCreateNewGroup(strGroupName, strSymb, color);
         }
 
         /// <summary>
-        /// Définit la couleur d'un groupe
+        /// DÃ©finit la couleur d'un groupe
         /// </summary>
         /// <param name="strGroupSymbol">symbol du groupe</param>
         /// <param name="color">nouvelle couleur du groupe</param>
@@ -314,10 +314,10 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// ajoute un objet au gestionaire dans le groupe donné
+        /// ajoute un objet au gestionaire dans le groupe donnÃ©
         /// </summary>
-        /// <param name="Obj">objet à ajouter</param>
-        /// <param name="strGroup">symbol du groupe ou l'objet sera stocké</param>
+        /// <param name="Obj">objet Ã  ajouter</param>
+        /// <param name="strGroup">symbol du groupe ou l'objet sera stockÃ©</param>
         public virtual void AddObjAtGroup(BaseObject Obj, string strGroup)
         {
             base.AddObj(Obj);
@@ -327,7 +327,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// crée le groupe par défaut, non éditable, non supprimable
+        /// crÃ©e le groupe par dÃ©faut, non Ã©ditable, non supprimable
         /// </summary>
         protected void CreateDefaultGroup()
         {
@@ -335,19 +335,19 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// détruit un groupe en retransferant tout les objet qu'iul contiens vers le groupe par défaut
+        /// dÃ©truit un groupe en retransferant tout les objet qu'iul contiens vers le groupe par dÃ©faut
         /// </summary>
-        /// <param name="strGroupSymbol">symbol du groupe à supprimer</param>
+        /// <param name="strGroupSymbol">symbol du groupe Ã  supprimer</param>
         public void DeleteGroup(string strGroupSymbol)
         {
             Group gr = GetGroupFromSymbol(strGroupSymbol);
             if (gr != null)
             {
-                // si le groupe n'est pas vide, on retransfert le tour vers le group par défaut
+                // si le groupe n'est pas vide, on retransfert le tour vers le group par dÃ©faut
                 if (gr.m_ArrayObjectOfGroup.Count != 0)
                 {
-                    // on passe par une boucle while car les objets transférés sur le groupe par
-                    // defaut sont retiré du groupe qui va être détruit
+                    // on passe par une boucle while car les objets transfÃ©rÃ©s sur le groupe par
+                    // defaut sont retirÃ© du groupe qui va Ãªtre dÃ©truit
                     while (gr.m_ArrayObjectOfGroup.Count > 0)
                     {
                         // on ne parcour pas cet array avec une boucle for car l'appel a la fonction
@@ -361,13 +361,13 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// ajoute un objet au groupe donnée en le retirant d'un autre groupe si besoin
+        /// ajoute un objet au groupe donnÃ©e en le retirant d'un autre groupe si besoin
         /// </summary>
         /// <param name="strGroupSymbol">symbol du groupe</param>
-        /// <param name="Obj">objet à ajouter au groupe</param>
+        /// <param name="Obj">objet Ã  ajouter au groupe</param>
         public void AddObjectToGroup(string strGroupSymbol, BaseObject Obj)
         {
-            // l'objet peut déja appartenir a un autre groupe
+            // l'objet peut dÃ©ja appartenir a un autre groupe
             Group OldGr = GetGroupFromObject(Obj);
             if (OldGr != null)
             {
@@ -381,10 +381,10 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// enlève l'objet d'un groupe
+        /// enlÃ¨ve l'objet d'un groupe
         /// </summary>
         /// <param name="Gr">objet groupe ou est l'objet</param>
-        /// <param name="Obj">objet à retirer</param>
+        /// <param name="Obj">objet Ã  retirer</param>
         protected void RemoveObjectOfGroup(Group Gr, BaseObject Obj)
         {
 	        if (Gr != null)
@@ -397,7 +397,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// récupère la couleur d'un groupe
+        /// rÃ©cupÃ¨re la couleur d'un groupe
         /// </summary>
         /// <param name="strGroupSymbol">symbol du groupe dont on veux la couleur</param>
         /// <returns>la couleur du groupe</returns>
@@ -441,7 +441,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// renvoie le nom du groupe a l'index donné
+        /// renvoie le nom du groupe a l'index donnÃ©
         /// </summary>
         /// <param name="index">index du groupe</param>
         /// <returns>nom du groupe</returns>
@@ -467,7 +467,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// renvoie le symbol du groupe a l'index donné
+        /// renvoie le symbol du groupe a l'index donnÃ©
         /// </summary>
         /// <param name="index">index du groupe</param>
         /// <returns>symbol du groupe</returns>
@@ -535,7 +535,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// fonction interne de création d'un nouveau groupe
+        /// fonction interne de crÃ©ation d'un nouveau groupe
         /// </summary>
         /// <param name="strGroupName">nom du groupe</param>
         /// <param name="strGroupSymbol">symbol du groupe</param>
@@ -544,13 +544,13 @@ namespace CommonLib
         protected Group InternalCreateNewGroup(string strGroupName, string strGroupSymbol, Color cr)
         {
             Group gr = null;
-	        // vérifier que le groupe n'exite pas déja
+	        // vÃ©rifier que le groupe n'exite pas dÃ©ja
 	        gr = GetGroupFromSymbol(strGroupSymbol);
-	        // si il exite, on ne fais rien (on pourrai mettre a jour le texte éventuellement)
+	        // si il exite, on ne fais rien (on pourrai mettre a jour le texte Ã©ventuellement)
 	        if (gr != null)
 		        return gr;
 
-	        // si il n'existe pas, on crée un nouveau groupe avec aucun éléments
+	        // si il n'existe pas, on crÃ©e un nouveau groupe avec aucun Ã©lÃ©ments
 	        gr = new Group();
 	        gr.m_strGroupSymbol = strGroupSymbol;
 	        gr.m_strGroupName = strGroupName;
@@ -596,13 +596,13 @@ namespace CommonLib
 
         #region Gestion des AppMessages
         //*****************************************************************************************************
-        // Description: gère la récéption d'un message
+        // Description: gÃ¨re la rÃ©cÃ©ption d'un message
         // Return: /
         //*****************************************************************************************************
         public override void TraiteMessage(MESSAGE Mess, object Param, TYPE_APP TypeApp)
         {
             base.TraiteMessage(Mess, Param, TypeApp);
-            // on a rien a faire de plus car les groupes gère les objets par référence et non par symbol
+            // on a rien a faire de plus car les groupes gÃ¨re les objets par rÃ©fÃ©rence et non par symbol
         }
         #endregion
     }

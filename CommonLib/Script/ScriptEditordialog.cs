@@ -146,9 +146,9 @@ namespace CommonLib
                     listPointPos.Add(PosPoint);
             }
             int finalCarretPos = m_EditScript.Text.Length;
-            int CarretIsAfterPointAt = -1; // indique après quel point se situe le chariot
+            int CarretIsAfterPointAt = -1; // indique aprÃ¨s quel point se situe le chariot
             int CarretIsBeforePointAt = int.MaxValue; // indique avant quel point se situe le chariot
-            //les points sont classés par ordre d'apparition de gauche a droite
+            //les points sont classÃ©s par ordre d'apparition de gauche a droite
             for (int i = 0; i < listPointPos.Count; i++)
             {
                 if (CarretIsAfterPointAt <= listPointPos[i] && carretPosOnLine > listPointPos[i])
@@ -156,7 +156,7 @@ namespace CommonLib
                 if (CarretIsBeforePointAt > listPointPos[i] && carretPosOnLine <= listPointPos[i])
                     CarretIsBeforePointAt = listPointPos[i];
             }
-            // le curseur est entre deux point dont on a les coordonnées sur la ligne courante,
+            // le curseur est entre deux point dont on a les coordonnÃ©es sur la ligne courante,
             // on selectionne entre ces deux points
             if (CarretIsAfterPointAt != -1 && CarretIsBeforePointAt != int.MaxValue)
             {
@@ -164,11 +164,11 @@ namespace CommonLib
                 m_EditScript.SelectionStart = posFirstCharOfLine + (CarretIsAfterPointAt + 1);
                 m_EditScript.SelectionLength = CarretIsBeforePointAt - (CarretIsAfterPointAt + 1);
             }
-            //Le chariot est après le dernier point
+            //Le chariot est aprÃ¨s le dernier point
             else if (CarretIsAfterPointAt != -1 && CarretIsBeforePointAt == int.MaxValue)
             {
-                Console.WriteLine("après dernier point");
-                m_EditScript.SelectionStart = posFirstCharOfLine + (CarretIsAfterPointAt + 1); // +1 car après le point
+                Console.WriteLine("aprÃ¨s dernier point");
+                m_EditScript.SelectionStart = posFirstCharOfLine + (CarretIsAfterPointAt + 1); // +1 car aprÃ¨s le point
                 m_EditScript.SelectionLength = line.Length - (CarretIsAfterPointAt + 1);// dela fin jusqu'au point
             }
             // le chariot se trouve avant le premier point
@@ -199,7 +199,7 @@ namespace CommonLib
                 m_AutoComplListBox.DataSource = AutoCompleteList;
                 PositioneAutoCompletionListBox();
 
-                // on parcour la liste de façon décrémentiel de sorte a ce que le dernier 
+                // on parcour la liste de faÃ§on dÃ©crÃ©mentiel de sorte a ce que le dernier 
                 // item sur lequel on passe soit le premier dans la liste
                 if (!string.IsNullOrEmpty(SelectedText))
                 {
@@ -397,7 +397,7 @@ namespace CommonLib
                 }
             }
             int finalCarretPos = m_EditScript.Text.Length;
-            int CarretIsAfterSepAt = -1; // indique après quel point se situe le chariot
+            int CarretIsAfterSepAt = -1; // indique aprÃ¨s quel point se situe le chariot
             int CarretIsBeforeSepAt = int.MaxValue; // indique avant quel point se situe le chariot
             
             for (int i = 0; i < listSepratorPos.Count; i++)
@@ -407,7 +407,7 @@ namespace CommonLib
                 if (CarretIsBeforeSepAt > listSepratorPos[i] && carretPosOnLine < listSepratorPos[i])
                     CarretIsBeforeSepAt = listSepratorPos[i];
             }
-            // le curseur est entre deux separateur dont on a les coordonnées sur la ligne courante,
+            // le curseur est entre deux separateur dont on a les coordonnÃ©es sur la ligne courante,
             // on selectionne entre ces deux separateur
             if (CarretIsAfterSepAt != -1 && CarretIsBeforeSepAt != int.MaxValue)
             {
@@ -415,11 +415,11 @@ namespace CommonLib
                 m_EditScript.SelectionStart = posFirstCharOfLine + (CarretIsAfterSepAt + 1);
                 m_EditScript.SelectionLength = CarretIsBeforeSepAt - (CarretIsAfterSepAt + 1);
             }
-            //Le chariot est après le dernier separateur
+            //Le chariot est aprÃ¨s le dernier separateur
             else if (CarretIsAfterSepAt != -1 && CarretIsBeforeSepAt == int.MaxValue)
             {
-                Console.WriteLine("après dernier point");
-                m_EditScript.SelectionStart = posFirstCharOfLine + (CarretIsAfterSepAt + 1); // +1 car après le separateur
+                Console.WriteLine("aprÃ¨s dernier point");
+                m_EditScript.SelectionStart = posFirstCharOfLine + (CarretIsAfterSepAt + 1); // +1 car aprÃ¨s le separateur
                 m_EditScript.SelectionLength = line.Length - (CarretIsAfterSepAt + 1);// dela fin jusqu'au separateur
             }
             // le chariot se trouve avant le premier separateur

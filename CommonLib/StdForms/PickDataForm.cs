@@ -80,7 +80,7 @@ namespace CommonLib
             if (m_Document == null)
                 return;
 
-            // on ajoute un élément vide
+            // on ajoute un Ã©lÃ©ment vide
             if (m_HaveEmptyItem)
             {
                 ListViewItem lviData = new ListViewItem("No Data");

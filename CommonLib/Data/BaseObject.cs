@@ -17,12 +17,12 @@ using System.Diagnostics;
 namespace CommonLib
 {
     #region interface pour les objets utilisants du script
-    // objet qui possède du script
+    // objet qui possÃ¨de du script
     public interface IScriptable
     {
         string[] ScriptLines { get; set; }
     }
-    // objet qui possède du script a l'init
+    // objet qui possÃ¨de du script a l'init
     public interface IInitScriptable
     {
         string[] InitScriptLines { get; set; }
@@ -32,10 +32,10 @@ namespace CommonLib
 
     public abstract class BaseObject: Object
     {
-        #region Déclaration des données de la classe
+        #region DÃ©claration des donnÃ©es de la classe
         // symbol de l'objet
         protected string m_strSymbol;
-        // description associée a l'objet
+        // description associÃ©e a l'objet
         protected string m_strName;
         #endregion
 
@@ -47,7 +47,7 @@ namespace CommonLib
 
         #region constructeur
         /// <summary>
-        /// constructeur par défaut
+        /// constructeur par dÃ©faut
         /// </summary>
         public BaseObject()
         {
@@ -56,7 +56,7 @@ namespace CommonLib
         }
         #endregion
 
-        #region propriétées de la classe
+        #region propriÃ©tÃ©es de la classe
         /// <summary>
         /// assigne ou obtient la description de l'objet
         /// </summary>
@@ -99,21 +99,21 @@ namespace CommonLib
 
         #region ReadIn / WriteOut
         /// <summary>
-        /// Lit les données de l'objet a partir de son noeud XML
+        /// Lit les donnÃ©es de l'objet a partir de son noeud XML
         /// </summary>
         /// <param name="Node">Noeud Xml de l'objet</param>
         /// <param name="TypeApp">type d'application courante</param>
-        /// <returns>true si la lecture s'est bien passé</returns>
+        /// <returns>true si la lecture s'est bien passÃ©</returns>
         public virtual bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
         {
             return ReadInBaseObject(Node);
         }
 
         /// <summary>
-        /// lit les paramètres de l'objet de base
+        /// lit les paramÃ¨tres de l'objet de base
         /// </summary>
         /// <param name="Node">noeud de l'objet</param>
-        /// <returns>true si tout s'est bien passé</returns>
+        /// <returns>true si tout s'est bien passÃ©</returns>
         protected bool ReadInBaseObject(XmlNode Node)
         {
             // lecture de l'attribut "nom" (description)
@@ -132,29 +132,29 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// écrit les données de l'objet dans le fichier XML
+        /// Ã©crit les donnÃ©es de l'objet dans le fichier XML
         /// </summary>
         /// <param name="XmlDoc">Document XML courant</param>
         /// <param name="Node">Noeud parent du controle dans le document</param>
-        /// <returns>true si l'écriture s'est déroulée avec succès</returns>
+        /// <returns>true si l'Ã©criture s'est dÃ©roulÃ©e avec succÃ¨s</returns>
         public virtual bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
         {
             return WriteOutBaseObject(XmlDoc, Node);
         }
 
         /// <summary>
-        /// écrit les paramètres de l'objet de base
+        /// Ã©crit les paramÃ¨tres de l'objet de base
         /// </summary>
         /// <param name="XmlDoc">document XML</param>
         /// <param name="Node">noeud de l'objet courant</param>
-        /// <returns>true si tout s'est bien passé</returns>
+        /// <returns>true si tout s'est bien passÃ©</returns>
         protected bool WriteOutBaseObject(XmlDocument XmlDoc, XmlNode Node)
         {
-            // écriture de l'attribut "nom" (description)
+            // Ã©criture de l'attribut "nom" (description)
             XmlAttribute AttrName = XmlDoc.CreateAttribute(XML_CF_ATTRIB.strNom.ToString());
             AttrName.Value = m_strName;
             Node.Attributes.Append(AttrName);
-            // écriture de l'attribut "symbol"
+            // Ã©criture de l'attribut "symbol"
             XmlAttribute AttrSymb = XmlDoc.CreateAttribute(XML_CF_ATTRIB.strSymbol.ToString());
             AttrSymb.Value = m_strSymbol;
             Node.Attributes.Append(AttrSymb);
@@ -162,11 +162,11 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// termine la lecture de l'objet. utilisé en mode Commande pour récupérer les référence
-        /// vers les objets utilisés
+        /// termine la lecture de l'objet. utilisÃ© en mode Commande pour rÃ©cupÃ©rer les rÃ©fÃ©rence
+        /// vers les objets utilisÃ©s
         /// </summary>
         /// <param name="Doc">Document courant</param>
-        /// <returns>true si tout s'est bien passé</returns>
+        /// <returns>true si tout s'est bien passÃ©</returns>
         public virtual bool FinalizeRead(BTDoc Doc)
         {
             return true;
@@ -175,18 +175,18 @@ namespace CommonLib
 
         #region Gestion des AppMessages
         /// <summary>
-        /// effectue les opération nécessaire lors de la récéption d'un message
+        /// effectue les opÃ©ration nÃ©cessaire lors de la rÃ©cÃ©ption d'un message
         /// </summary>
         /// <param name="Mess">Type de message</param>
-        /// <param name="obj">objet contenant les paramètres du messages</param>
+        /// <param name="obj">objet contenant les paramÃ¨tres du messages</param>
         /// <param name="TypeApp">Type d'application courante</param>
         public abstract void TraiteMessage(MESSAGE Mess, object obj, TYPE_APP TypeApp);
 
         /// <summary>
-        /// effectue l'envoie d'un message vers les objet s'étant enregistré comme récépeteur (i.e. les gestionnaires)
+        /// effectue l'envoie d'un message vers les objet s'Ã©tant enregistrÃ© comme rÃ©cÃ©peteur (i.e. les gestionnaires)
         /// </summary>
         /// <param name="Mess">Type de message</param>
-        /// <param name="Param">objet contenant les paramètres du messages</param>
+        /// <param name="Param">objet contenant les paramÃ¨tres du messages</param>
         /// <param name="TypeApp">Type d'application courante</param>
         protected void ProcessSendMessage(MESSAGE Mess, object Param, TYPE_APP TypeApp)
         {
@@ -197,14 +197,14 @@ namespace CommonLib
         }
         #endregion
 
-        #region Méthode de tratement des messages pour les objets scrptables
+        #region MÃ©thode de tratement des messages pour les objets scrptables
         /// <summary>
         /// traite les message dans les scripts de l'objet
         /// </summary>
-        /// <param name="Sender">objet possédant le script</param>
+        /// <param name="Sender">objet possÃ©dant le script</param>
         /// <param name="Mess">Type de message</param>
-        /// <param name="Script">script à traiter</param>
-        /// <param name="obj">objet contenant les paramètres du messages</param>
+        /// <param name="Script">script Ã  traiter</param>
+        /// <param name="obj">objet contenant les paramÃ¨tres du messages</param>
         protected void ScriptTraiteMessage(BaseObject Sender, MESSAGE Mess, StringCollection Script, object obj)
         {
             switch (Mess)
@@ -324,11 +324,11 @@ namespace CommonLib
         }
         #endregion
 
-        #region méthodes divers
+        #region mÃ©thodes divers
         /// <summary>
-        /// ajoute un évènement dans le logger d'event de SmartCommand
+        /// ajoute un Ã©vÃ¨nement dans le logger d'event de SmartCommand
         /// </summary>
-        /// <param name="Event">évènement à loguer</param>
+        /// <param name="Event">Ã©vÃ¨nement Ã  loguer</param>
         protected void AddLogEvent(LogEvent Event)
         {
             if (EventAddLogEvent != null)

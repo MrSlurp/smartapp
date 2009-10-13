@@ -20,14 +20,14 @@ namespace CommonLib
 
     public class ResizeButton : Panel
     {
-        #region données membres
+        #region donnÃ©es membres
         //position du bouton de redimenssionement
         private ResizeButtonPosition resizeButtonPosition;
-        //contrôle à redimenssioner
+        //contrÃ´le Ã  redimenssioner
         private IInteractive interactiveControl = null;
         //variable qui va enregistrer la position du point au premier clic
         private Point clickPoint = new Point();
-        //est-ce que le bouton gauche est appuyée?
+        //est-ce que le bouton gauche est appuyÃ©e?
         private bool isPressed = false;
         bool m_bCanBeVisible = true;
         #endregion
@@ -56,7 +56,7 @@ namespace CommonLib
         /// constructeur
         /// </summary>
         /// <param name="resizeButtonPosition">position du bouton</param>
-        /// <param name="interactiveControl">control interactif associé</param>
+        /// <param name="interactiveControl">control interactif associÃ©</param>
         public ResizeButton(ResizeButtonPosition resizeButtonPosition, IInteractive interactiveControl)
         {
             InitializeComponent();
@@ -68,7 +68,7 @@ namespace CommonLib
 
         #region Mouse Events
         /// <summary>
-        /// évènement lors que le move button est enfoncé
+        /// Ã©vÃ¨nement lors que le move button est enfoncÃ©
         /// </summary>
         /// <param name="e"></param>
         protected override void OnMouseDown(MouseEventArgs e)
@@ -83,7 +83,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// évènement lors que le move button est relaché
+        /// Ã©vÃ¨nement lors que le move button est relachÃ©
         /// </summary>
         /// <param name="e"></param>
         protected override void OnMouseUp(MouseEventArgs e)
@@ -93,16 +93,16 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// évènement appelé lorsque le curseur est déplacé
+        /// Ã©vÃ¨nement appelÃ© lorsque le curseur est dÃ©placÃ©
         /// </summary>
         /// <param name="e"></param>
         protected override void OnMouseMove(MouseEventArgs e)
         {
             if (isPressed)
             {
-                //on calcule le déplacement
+                //on calcule le dÃ©placement
                 Point mouseMove = new Point(e.X - clickPoint.X, e.Y - clickPoint.Y);
-                //variable temporaire utilisé dans le cas où il faut appeler deux fonctions
+                //variable temporaire utilisÃ© dans le cas oÃ¹ il faut appeler deux fonctions
                 //afin d'achever l'effet du redimensionnement
                 switch (this.resizeButtonPosition)
                 {
@@ -140,7 +140,7 @@ namespace CommonLib
 
         #region UpdateLocation
         /// <summary>
-        /// cette fonction met à jour la position du contrôle en fonction du control à bouger
+        /// cette fonction met Ã  jour la position du contrÃ´le en fonction du control Ã  bouger
         /// </summary>
         /// <returns></returns>
         public bool UpdateLocation()
@@ -212,7 +212,7 @@ namespace CommonLib
 
         #region ShowControl
         /// <summary>
-        /// cette fonction affiche ou masque le contrôle
+        /// cette fonction affiche ou masque le contrÃ´le
         /// </summary>
         /// <param name="show">afficher ou masquer</param>
         public void ShowControl(bool show)
@@ -233,7 +233,7 @@ namespace CommonLib
         }
         #endregion
 
-        #region Code généré par le Concepteur de composants
+        #region Code gÃ©nÃ©rÃ© par le Concepteur de composants
         /// <summary>
         /// initialise le composant
         /// </summary>

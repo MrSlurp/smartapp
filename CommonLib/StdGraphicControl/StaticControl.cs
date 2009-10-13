@@ -1,6 +1,6 @@
 /***************************************************************************/
-// PROJET : BTCommand : system de commande paramétrable pour équipement
-// ayant une mécanisme de commande par liaison série/ethernet/http
+// PROJET : BTCommand : system de commande paramÃ©trable pour Ã©quipement
+// ayant une mÃ©canisme de commande par liaison sÃ©rie/ethernet/http
 /***************************************************************************/
 // Fichier : 
 /***************************************************************************/
@@ -49,7 +49,7 @@ namespace CommonLib
         //*****************************************************************************************************
         public override void OnControlEvent(Object Sender, EventArgs Args)
         {
-            // le label n'ayant aucun évènement, cette fonction reste vide
+            // le label n'ayant aucun Ã©vÃ¨nement, cette fonction reste vide
         }
 
         //*****************************************************************************************************

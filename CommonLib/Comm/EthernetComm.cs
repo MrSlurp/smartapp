@@ -1,6 +1,6 @@
 /***************************************************************************/
-// PROJET : BTCommand : system de commande paramétrable pour équipement
-// ayant une mécanisme de commande par liaison série/ethernet/http
+// PROJET : BTCommand : system de commande paramÃ©trable pour Ã©quipement
+// ayant une mÃ©canisme de commande par liaison sÃ©rie/ethernet/http
 /***************************************************************************/
 // Fichier : 
 /***************************************************************************/
@@ -21,7 +21,7 @@ namespace CommonLib
 {
     public class EthernetComm : BaseComm
     {
-        #region données membres
+        #region donnÃ©es membres
         private BTTcpClient m_TcpClient;
         //private Byte[] m_DataBuffer;
         private eClientConnectionSate m_ConnectionState;
@@ -37,7 +37,7 @@ namespace CommonLib
 
         #region constructeurs
         /// <summary>
-        /// constructeur par défaut
+        /// constructeur par dÃ©faut
         /// </summary>
         public EthernetComm()
         {
@@ -86,10 +86,10 @@ namespace CommonLib
 
         #region methodes publiques
         /// <summary>
-        /// Envoie les données du buffer sur la comm courante
+        /// Envoie les donnÃ©es du buffer sur la comm courante
         /// </summary>
-        /// <param name="buffer">buffer des données à envoyer</param>
-        /// <returns>true en cas de succès</returns>
+        /// <param name="buffer">buffer des donnÃ©es Ã  envoyer</param>
+        /// <returns>true en cas de succÃ¨s</returns>
         public override bool SendData(Byte[] buffer)
         {
             if (m_TcpClient.IsOpen)
@@ -102,18 +102,18 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// obtiens les données reçues sur la comm
+        /// obtiens les donnÃ©es reÃ§ues sur la comm
         /// </summary>
-        /// <param name="NumberOfByte">nombre d'octet à lire</param>
+        /// <param name="NumberOfByte">nombre d'octet Ã  lire</param>
         /// <param name="FrameHeader">header de trame</param>
-        /// <returns>données reçues sur la comm</returns>
+        /// <returns>donnÃ©es reÃ§ues sur la comm</returns>
         public override Byte[] GetRecievedData(int NumberOfByte, byte[] FrameHeader)
         {
             if (m_TcpClient.IsOpen && m_bDataAvailable)
             {
                 if (m_MessageList.Count != 0)
                 {
-                    // on parcour la liste des trames reçues pour vois si par hasard on en aurai
+                    // on parcour la liste des trames reÃ§ues pour vois si par hasard on en aurai
                     // pas une de la bonne taille
                     int indexOfFrame = -1;
                     for (int i = 0; i < m_MessageList.Count; i++)
@@ -161,16 +161,16 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// test si une trame reçu correspond en longueur et en header.
+        /// test si une trame reÃ§u correspond en longueur et en header.
         /// </summary>
-        /// <param name="FrameLenght">longueur de la trame recherchée</param>
-        /// <param name="FrameHeader">header de la trame recherchée</param>
+        /// <param name="FrameLenght">longueur de la trame recherchÃ©e</param>
+        /// <param name="FrameHeader">header de la trame recherchÃ©e</param>
         /// <returns>true si une trame correpond</returns>
         public override bool TestFrame(int FrameLenght, byte[] FrameHeader)
         {
             if (m_MessageList.Count != 0)
             {
-                // on parcour la liste des trames reçues pour vois si par hasard on en aurai
+                // on parcour la liste des trames reÃ§ues pour vois si par hasard on en aurai
                 // pas une de la bonne taille
                 int indexOfFrame = -1;
                 for (int i = 0; i < m_MessageList.Count; i++)
@@ -225,7 +225,7 @@ namespace CommonLib
         /// <summary>
         /// Ouvre la communication ethernet
         /// </summary>
-        /// <returns>true en cas de succès</returns>
+        /// <returns>true en cas de succÃ¨s</returns>
         public override bool OpenComm()
         {
             m_TcpClient.Start();
@@ -247,7 +247,7 @@ namespace CommonLib
         /// <summary>
         /// Ferme la communication courante
         /// </summary>
-        /// <returns>true en cas de succès</returns>
+        /// <returns>true en cas de succÃ¨s</returns>
         public override bool CloseComm()
         {
             m_bUserDisconnectDemande = true;
@@ -274,13 +274,13 @@ namespace CommonLib
         }
         #endregion
 
-        #region méthodes privées
+        #region mÃ©thodes privÃ©es
         /// <summary>
-        /// handler appelé lorsque des données sont reçues
+        /// handler appelÃ© lorsque des donnÃ©es sont reÃ§ues
         /// </summary>
-        /// <param name="sender">objet ayant envoyé l'évènement</param>
-        /// <param name="length">longueur de des données reçues</param>
-        /// <param name="datas">données reçues</param>
+        /// <param name="sender">objet ayant envoyÃ© l'Ã©vÃ¨nement</param>
+        /// <param name="length">longueur de des donnÃ©es reÃ§ues</param>
+        /// <param name="datas">donnÃ©es reÃ§ues</param>
         private void OnDataRecieved(object sender, int length, byte[] datas)
         {
             m_bDataAvailable = true;
@@ -288,9 +288,9 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// handler appelé lorsque l'état de la connexion change
+        /// handler appelÃ© lorsque l'Ã©tat de la connexion change
         /// </summary>
-        /// <param name="sender">objet ayant envoyé l'évènement</param>
+        /// <param name="sender">objet ayant envoyÃ© l'Ã©vÃ¨nement</param>
         /// <param name="state">nouvel etat de la connexion</param>
         private void OnConnectionStateChange(object sender, eClientConnectionSate state)
         {
@@ -410,7 +410,7 @@ namespace CommonLib
         }
         #endregion
 
-        #region méthodes publiques
+        #region mÃ©thodes publiques
         //*****************************************************************************************************
         // Description: 
         // Return: /
@@ -671,7 +671,7 @@ namespace CommonLib
         }
         #endregion
 
-        #region méthodes publiques
+        #region mÃ©thodes publiques
         public void Start()
         {
             th = new Thread(new ThreadStart(StartServeur));

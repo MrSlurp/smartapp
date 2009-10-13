@@ -11,7 +11,7 @@ namespace CommonLib
         /// convertit une couleur en chaine
         /// </summary>
         /// <param name="cr">couleur</param>
-        /// <returns>chaine représentant la couleur en RGB</returns>
+        /// <returns>chaine reprÃ©sentant la couleur en RGB</returns>
         public static string ColorToString(Color cr)
         {
             return string.Format("{0}, {1}, {2}", cr.R, cr.G, cr.B);

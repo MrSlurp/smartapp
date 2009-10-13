@@ -9,7 +9,7 @@ namespace CommonLib
 
     #region classe CComboData
     /// <summary>
-    /// classe "utilitaire" pour afficher les texte de la combo et avoir une valeur associée
+    /// classe "utilitaire" pour afficher les texte de la combo et avoir une valeur associÃ©e
     /// (utilisation de l'attribut DataSource)
     /// </summary>
     public class CComboData : Object
@@ -19,7 +19,7 @@ namespace CommonLib
         object m_refObject;
 
         /// <summary>
-        /// constructeur par défaut
+        /// constructeur par dÃ©faut
         /// </summary>
         public CComboData()
         {
@@ -28,10 +28,10 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// constructeur paramétré
+        /// constructeur paramÃ©trÃ©
         /// </summary>
-        /// <param name="strToDisplay">chaine à afficher dans la combo</param>
-        /// <param name="value">valeur associé au texte</param>
+        /// <param name="strToDisplay">chaine Ã  afficher dans la combo</param>
+        /// <param name="value">valeur associÃ© au texte</param>
         public CComboData(string strToDisplay, object value)
         {
             m_String = strToDisplay;
@@ -39,7 +39,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// accesseur de la chaine affiché dans la combo
+        /// accesseur de la chaine affichÃ© dans la combo
         /// </summary>
         public string DisplayedString
         {
@@ -50,7 +50,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// accesseur de la valeur associée à la chaine
+        /// accesseur de la valeur associÃ©e Ã  la chaine
         /// </summary>
         public object Object
         {

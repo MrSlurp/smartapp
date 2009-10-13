@@ -90,7 +90,7 @@ namespace CommonLib
     //*****************************************************************************************************
     public class ScriptParserError
     {
-        #region données membres
+        #region donnÃ©es membres
         public string m_strMessage;
         public int m_line =0;
         public ErrorType m_ErrorType;
@@ -128,7 +128,7 @@ namespace CommonLib
     {
         public const int INDEX_TOKEN_SYMBOL = 1;
 
-        #region données membres
+        #region donnÃ©es membres
         BTDoc m_Document = null;
         int m_iCurLine = 0;
         #endregion
@@ -258,7 +258,7 @@ namespace CommonLib
         }
 
         //*****************************************************************************************************
-        // Description: renvoie une liste de chaine correspondant aux object utilisable au token donné a la position pos
+        // Description: renvoie une liste de chaine correspondant aux object utilisable au token donnÃ© a la position pos
         // Return: /
         //*****************************************************************************************************
         public StringCollection GetAutoCompletStringListAtPos(string Line, int Pos, out bool IsParameter)
@@ -342,7 +342,7 @@ namespace CommonLib
         }
         #endregion
 
-        #region méthodes de parsing principales
+        #region mÃ©thodes de parsing principales
         //*****************************************************************************************************
         // Description:
         // Return: /
@@ -415,7 +415,7 @@ namespace CommonLib
             string[] strTab = line.Split('.');
             if (iTokenIndex < strTab.Length)
             {
-                // cas des fonction, il peux y avoir des parenthèses a la fin qu'il faut enlever
+                // cas des fonction, il peux y avoir des parenthÃ¨ses a la fin qu'il faut enlever
                 string strTemp = strTab[iTokenIndex];
                 int posOpenParenthese = strTemp.LastIndexOf('(');
                 if (posOpenParenthese != -1)
@@ -523,11 +523,11 @@ namespace CommonLib
                 {
                     case FRAME_FUNC.SEND:
                         bCheckParenthese = true;
-                        // ajouter du code ici si il faut parser le contenu des parenthèses
+                        // ajouter du code ici si il faut parser le contenu des parenthÃ¨ses
                         break;
                     case FRAME_FUNC.RECEIVE:
                         bCheckParenthese = true;
-                        // ajouter du code ici si il faut parser le contenu des parenthèses
+                        // ajouter du code ici si il faut parser le contenu des parenthÃ¨ses
                         break;
                     case FRAME_FUNC.INVALID:
                     default:
@@ -672,16 +672,16 @@ namespace CommonLib
                 switch (SecondTokenType)
                 {
                     case LOGGER_FUNC.LOG:
-                        // ajouter du code ici si il faut parser le contenu des parenthèses
+                        // ajouter du code ici si il faut parser le contenu des parenthÃ¨ses
                         break;
                     case LOGGER_FUNC.CLEAR:
-                        // ajouter du code ici si il faut parser le contenu des parenthèses
+                        // ajouter du code ici si il faut parser le contenu des parenthÃ¨ses
                         break;
                     case LOGGER_FUNC.START:
-                        // ajouter du code ici si il faut parser le contenu des parenthèses
+                        // ajouter du code ici si il faut parser le contenu des parenthÃ¨ses
                         break;
                     case LOGGER_FUNC.STOP:
-                        // ajouter du code ici si il faut parser le contenu des parenthèses
+                        // ajouter du code ici si il faut parser le contenu des parenthÃ¨ses
                         break;
                     case LOGGER_FUNC.INVALID:
                     default:
@@ -765,10 +765,10 @@ namespace CommonLib
                 switch (SecondTokenType)
                 {
                     case TIMER_FUNC.START:
-                        // ajouter du code ici si il faut parser le contenu des parenthèses
+                        // ajouter du code ici si il faut parser le contenu des parenthÃ¨ses
                         break;
                     case TIMER_FUNC.STOP:
-                        // ajouter du code ici si il faut parser le contenu des parenthèses
+                        // ajouter du code ici si il faut parser le contenu des parenthÃ¨ses
                         break;
                     case TIMER_FUNC.INVALID:
                     default:
@@ -834,8 +834,8 @@ namespace CommonLib
                             ErrorList.Add(Err);
                             return;
                         }
-                        // si on est ici, c'est que les parenthèses sont présentes
-                        // on regarde ce qu'il y a à l'intérieur
+                        // si on est ici, c'est que les parenthÃ¨ses sont prÃ©sentes
+                        // on regarde ce qu'il y a Ã  l'intÃ©rieur
                         string strParams = strTempFull.Substring(posOpenParenthese+1, strTempFull.Length - 2 - posOpenParenthese);
                         strParams = strParams.Trim('(');
                         strParams = strParams.Trim(')');
@@ -868,7 +868,7 @@ namespace CommonLib
                                 }
                             }
                         }
-                        // ajouter du code ici si il faut parser le contenu des parenthèses
+                        // ajouter du code ici si il faut parser le contenu des parenthÃ¨ses
                         break;
                     case MATHS_FUNC.INVALID:
                     default:
@@ -951,7 +951,7 @@ namespace CommonLib
                 switch (SecondTokenType)
                 {
                     case SCREEN_FUNC.SHOW_ON_TOP:
-                        // ajouter du code ici si il faut parser le contenu des parenthèses
+                        // ajouter du code ici si il faut parser le contenu des parenthÃ¨ses
                         break;
                     case SCREEN_FUNC.INVALID:
                     default:

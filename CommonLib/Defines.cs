@@ -1,6 +1,6 @@
 /***************************************************************************/
-// PROJET : BTCommand : system de commande paramétrable pour équipement
-// ayant une mécanisme de commande par liaison série/ethernet/http
+// PROJET : BTCommand : system de commande paramÃ©trable pour Ã©quipement
+// ayant une mÃ©canisme de commande par liaison sÃ©rie/ethernet/http
 /***************************************************************************/
 // Fichier : 
 /***************************************************************************/
@@ -12,7 +12,7 @@ using System.Drawing;
 
 namespace CommonLib
 {
-    #region delegate pour les évènement de changement de propriété des objets divers
+    #region delegate pour les Ã©vÃ¨nement de changement de propriÃ©tÃ© des objets divers
     public delegate void DataPropertiesChange(Data Obj);
     public delegate void ScreenPropertiesChange(BTScreen Obj);
     public delegate void ControlPropertiesChange(BTControl Obj);
@@ -24,7 +24,7 @@ namespace CommonLib
     public delegate void AddLogEventDelegate(LogEvent Event);
     #endregion
     /// <summary>
-    /// classe contenant divers constantes utilisées par l'application
+    /// classe contenant divers constantes utilisÃ©es par l'application
     /// </summary> 
     public class Cste
     {
@@ -70,7 +70,7 @@ namespace CommonLib
     }
 
     /// <summary>
-    /// enum de la taille des données
+    /// enum de la taille des donnÃ©es
     /// </summary>
     public enum DATA_SIZE
     {
@@ -86,7 +86,7 @@ namespace CommonLib
 
     /// <summary>
     /// enum des tag du fichier de config (Config File (CF))
-    /// ces énums doivent être maintenu en meme temps que ceux de CXmlFileParser de BTConfig
+    /// ces Ã©nums doivent Ãªtre maintenu en meme temps que ceux de CXmlFileParser de BTConfig
     /// </summary>
     public enum XML_CF_TAG
     {
@@ -125,7 +125,7 @@ namespace CommonLib
     }
     /// <summary>
     /// enum des attributs du ficher de config (Config File (CF))
-    /// ces énums doivent être maintenu en meme temps que ceux de CXmlFileParser de BTConfig
+    /// ces Ã©nums doivent Ãªtre maintenu en meme temps que ceux de CXmlFileParser de BTConfig
     /// </summary>
     public enum XML_CF_ATTRIB
     {
@@ -162,7 +162,7 @@ namespace CommonLib
 
     /// <summary>
     /// Types de contols disponibles
-    /// les chaines doivent correspondre a ce qui est écrit dans le fichier XML
+    /// les chaines doivent correspondre a ce qui est Ã©crit dans le fichier XML
     /// </summary>
     public enum CONTROL_TYPE
     {
@@ -185,8 +185,8 @@ namespace CommonLib
     }
 
     /// <summary>
-    /// Types de calcule de la donnée de control dans les trames
-    /// les chaines doivent correspondre a ce qui est écrit dans le fichier XML
+    /// Types de calcule de la donnÃ©e de control dans les trames
+    /// les chaines doivent correspondre a ce qui est Ã©crit dans le fichier XML
     /// </summary>
     public enum CTRLDATA_TYPE
     {
@@ -198,7 +198,7 @@ namespace CommonLib
 
     /// <summary>
     /// Types de conversion dans les trames
-    /// les chaines doivent correspondre a ce qui est écrit dans le fichier XML
+    /// les chaines doivent correspondre a ce qui est Ã©crit dans le fichier XML
     /// </summary>
     public enum CONVERT_TYPE
     {

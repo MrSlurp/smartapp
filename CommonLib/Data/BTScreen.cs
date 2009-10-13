@@ -19,23 +19,23 @@ namespace CommonLib
 {
     public class BTScreen : BaseObject, IInitScriptable, IScriptable
     {
-        #region Données de la classe
-        // gestionnaire des control appartenant a l'écran
+        #region DonnÃ©es de la classe
+        // gestionnaire des control appartenant a l'Ã©cran
         private GestControl m_GestControl;
-        // titre de l'écran
+        // titre de l'Ã©cran
         private string m_strTitle;
         // script de l'event de l'ecran
         private StringCollection m_ScriptLines = new StringCollection();
-        // script d'init de l'écran
+        // script d'init de l'Ã©cran
         private StringCollection m_InitScriptLines = new StringCollection();
-        // fichier image de "background de l'écran"
+        // fichier image de "background de l'Ã©cran"
         private string m_strBackPictureFile="";
         #endregion
 
-        #region données sépcifiques au fonctionement en mode "Command"
-        // objet dynamic pannel qui est affiché
+        #region donnÃ©es sÃ©pcifiques au fonctionement en mode "Command"
+        // objet dynamic pannel qui est affichÃ©
         private DynamicPanel m_DynamicPanel = new DynamicPanel();
-        // liste des "Control" de l'écran en mode commande
+        // liste des "Control" de l'Ã©cran en mode commande
         private List<BTControl> m_ListControls = new List<BTControl>();
         // liens vers l'executer de script
         protected ScriptExecuter m_Executer = null;
@@ -43,7 +43,7 @@ namespace CommonLib
 
         #region constructeur
         /// <summary>
-        /// Constructeur par défaut
+        /// Constructeur par dÃ©faut
         /// </summary>
         public BTScreen()
         {
@@ -54,7 +54,7 @@ namespace CommonLib
 
         #region attributs
         /// <summary>
-        /// obtient le gestionnaire de control de l'écran
+        /// obtient le gestionnaire de control de l'Ã©cran
         /// </summary>
         public GestControl Controls
         {
@@ -65,7 +65,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// obtient ou assigne le tire de l'écran
+        /// obtient ou assigne le tire de l'Ã©cran
         /// </summary>
         public string Title
         {
@@ -80,7 +80,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// obtient ou assigne le script de l'évènement écran
+        /// obtient ou assigne le script de l'Ã©vÃ¨nement Ã©cran
         /// </summary>
         public string[] ScriptLines
         {
@@ -105,7 +105,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// obtient ou assigne le script d'init de l'écran
+        /// obtient ou assigne le script d'init de l'Ã©cran
         /// </summary>
         public string[] InitScriptLines
         {
@@ -130,7 +130,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// obtient ou assigne le chemin du fichier d'arrière plan de l'écran
+        /// obtient ou assigne le chemin du fichier d'arriÃ¨re plan de l'Ã©cran
         /// </summary>
         public string BackPictureFile
         {
@@ -145,7 +145,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// obtient ou assigne l'executer de l'écran
+        /// obtient ou assigne l'executer de l'Ã©cran
         /// </summary>
         public ScriptExecuter Executer
         {
@@ -161,7 +161,7 @@ namespace CommonLib
 
         /// <summary>
         /// valide uniquement dans SmartCommand
-        /// obtient ou assigne le dynamic panel associé à l'écran
+        /// obtient ou assigne le dynamic panel associÃ© Ã  l'Ã©cran
         /// </summary>
         public DynamicPanel Panel
         {
@@ -174,12 +174,12 @@ namespace CommonLib
 
         #region ReadIn / WriteOut
         /// <summary>
-        /// Lit les données de l'objet a partir de son noeud XML
+        /// Lit les donnÃ©es de l'objet a partir de son noeud XML
         /// NE PAS UTILISER
         /// </summary>
         /// <param name="Node">Noeud Xml de l'objet</param>
         /// <param name="TypeApp">type d'application courante</param>
-        /// <returns>true si la lecture s'est bien passé</returns>
+        /// <returns>true si la lecture s'est bien passÃ©</returns>
         public override bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
         {
             System.Diagnostics.Debug.Assert(false);
@@ -187,12 +187,12 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// Lit les données de l'objet a partir de son noeud XML
+        /// Lit les donnÃ©es de l'objet a partir de son noeud XML
         /// </summary>
         /// <param name="Node">Noeud Xml de l'objet</param>
         /// <param name="TypeApp">type d'application courante</param>
         /// <param name="GestDLL">Getsionnaire des DLL plugin</param>
-        /// <returns>true si la lecture s'est bien passé</returns>
+        /// <returns>true si la lecture s'est bien passÃ©</returns>
         public bool ReadIn(XmlNode Node, TYPE_APP TypeApp, DllControlGest GestDLL)
         {
             if (!base.ReadIn(Node, TypeApp))
@@ -213,16 +213,16 @@ namespace CommonLib
                 }
                 catch (Exception)
                 {
-                    // en cas de tag non reconne dans l'enum, une exeption est levée, 
-                    // on la récupère car ca peut arriver
+                    // en cas de tag non reconne dans l'enum, une exeption est levÃ©e, 
+                    // on la rÃ©cupÃ¨re car ca peut arriver
                     continue;
                 }
                 switch (TypeId)
                 {
                     case XML_CF_TAG.ControlList:
                         {
-                            // ceci ne peux pas être fait de la même manière en mode Config ou en mode Command
-                            // dans le cas ou on est en mode config, on crée des objet BTControl
+                            // ceci ne peux pas Ãªtre fait de la mÃªme maniÃ¨re en mode Config ou en mode Command
+                            // dans le cas ou on est en mode config, on crÃ©e des objet BTControl
                             // qui utiliseront un intercative control dans le designer
                             if (TypeApp == TYPE_APP.SMART_CONFIG)
                             {
@@ -282,7 +282,7 @@ namespace CommonLib
                                     }
                                 }
                             }
-                            // sinon on effectue une lecture spéciale mode Command
+                            // sinon on effectue une lecture spÃ©ciale mode Command
                             else if (TypeApp == TYPE_APP.SMART_COMMAND)
                             {
                                 if (!ReadControlForCommandMode(ChildNode, GestDLL))
@@ -332,15 +332,15 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// Lit les données de l'objet a partir de son noeud XML spécialement pour SmartCommand
+        /// Lit les donnÃ©es de l'objet a partir de son noeud XML spÃ©cialement pour SmartCommand
         /// </summary>
         /// <param name="Node">Noeud Xml de l'objet</param>
         /// <param name="GestDLL">Getsionnaire des DLL plugin</param>
-        /// <returns>true si la lecture s'est bien passé</returns>
+        /// <returns>true si la lecture s'est bien passÃ©</returns>
         private bool ReadControlForCommandMode(XmlNode Node, DllControlGest GestDll)
         {
-            // En mode Commande on doit crée des objets pouvant afficher des vrais controls du framework
-            // ceci est fait grace aux objets "baseControl" et dérivés
+            // En mode Commande on doit crÃ©e des objets pouvant afficher des vrais controls du framework
+            // ceci est fait grace aux objets "baseControl" et dÃ©rivÃ©s
             for (int i = 0; i < Node.ChildNodes.Count; i++)
             {
                 XmlNode ChildNode = Node.ChildNodes[i];
@@ -354,13 +354,13 @@ namespace CommonLib
                     }
                     catch (Exception)
                     {
-                        // en cas de tag non reconne dans l'enum, une exeption est levée, 
-                        // on la récupère car ca peut arriver
+                        // en cas de tag non reconne dans l'enum, une exeption est levÃ©e, 
+                        // on la rÃ©cupÃ¨re car ca peut arriver
                         continue;
                     }
 
                     BTControl NewControl = null;
-                    // on crée chaque objet en fonction de son type
+                    // on crÃ©e chaque objet en fonction de son type
                     switch (TypeId)
                     {
                         case CONTROL_TYPE.BUTTON:
@@ -392,7 +392,7 @@ namespace CommonLib
                             break;
                         case CONTROL_TYPE.NULL:
                         default:
-                            Console.WriteLine("Type de control indéfini");
+                            Console.WriteLine("Type de control indÃ©fini");
                             NewControl = null;
                             break;
                     }
@@ -418,7 +418,7 @@ namespace CommonLib
                             break;
                         case SPECIFIC_TYPE.NULL:
                         default:
-                            Console.WriteLine("Type de control indéfini");
+                            Console.WriteLine("Type de control indÃ©fini");
                             break;
                     }
                     if (NewControl != null)
@@ -448,14 +448,14 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// écrit les données de l'objet dans le fichier XML
+        /// Ã©crit les donnÃ©es de l'objet dans le fichier XML
         /// </summary>
         /// <param name="XmlDoc">Document XML courant</param>
         /// <param name="Node">Noeud parent du controle dans le document</param>
-        /// <returns>true si l'écriture s'est déroulée avec succès</returns>
+        /// <returns>true si l'Ã©criture s'est dÃ©roulÃ©e avec succÃ¨s</returns>
         public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
         {
-            // on écrit les attributs de l'écran
+            // on Ã©crit les attributs de l'Ã©cran
             base.WriteOut(XmlDoc, Node);
             XmlAttribute TitleAttrib = XmlDoc.CreateAttribute(XML_CF_ATTRIB.Text.ToString());
             TitleAttrib.Value = this.Title;
@@ -466,13 +466,13 @@ namespace CommonLib
             Node.AppendChild(XmlControlList);
             Node.AppendChild(XmlInitScript);
             Node.AppendChild(XmlEventScript);
-            // on demande a chque control de s'écrire
+            // on demande a chque control de s'Ã©crire
             for (int i = 0; i < this.m_GestControl.Count; i++)
             {
                 BTControl dt = (BTControl)m_GestControl[i];
                 dt.WriteOut(XmlDoc, XmlControlList);
             }
-            // on écrit les scripts
+            // on Ã©crit les scripts
             for (int i = 0; i < m_InitScriptLines.Count; i++)
             {
                 XmlNode NodeLine = XmlDoc.CreateElement(XML_CF_TAG.Line.ToString());
@@ -498,26 +498,26 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// termine la lecture de l'objet. utilisé en mode Commande pour générer les objets graphiques affichés
+        /// termine la lecture de l'objet. utilisÃ© en mode Commande pour gÃ©nÃ©rer les objets graphiques affichÃ©s
         /// </summary>
         /// <param name="Doc">Document courant</param>
-        /// <returns>true si tout s'est bien passé</returns>
+        /// <returns>true si tout s'est bien passÃ©</returns>
         public override bool FinalizeRead(BTDoc Doc)
         {
-            // en mode command, on crée les controls et on les ajoute aux dynamic panel
+            // en mode command, on crÃ©e les controls et on les ajoute aux dynamic panel
             if (Doc.TypeApp == TYPE_APP.SMART_COMMAND)
             {
-                // on mémorise le point le plus en bas a droite
+                // on mÃ©morise le point le plus en bas a droite
                 Point pt = new Point();
                 for (int i = 0; i < m_ListControls.Count; i++)
                 {
-                    // dernières init du control
+                    // derniÃ¨res init du control
                     m_ListControls[i].FinalizeRead(Doc);
                     m_ListControls[i].SetParent(this);
-                    // on crée l'objet
+                    // on crÃ©e l'objet
                     
                     m_ListControls[i].CreateControl();
-                    // a partir de ce moment on connais leur taille définitive
+                    // a partir de ce moment on connais leur taille dÃ©finitive
                     if (pt.X < m_ListControls[i].DisplayedControl.Right)
                         pt.X = m_ListControls[i].DisplayedControl.Right;
                     if (pt.Y < m_ListControls[i].DisplayedControl.Bottom)
@@ -525,8 +525,8 @@ namespace CommonLib
 
 
                 }
-                // on fait l'init graphique du panel (ajout de tout les control, création des listes d'optimisation
-                // du refresh pour les objet dessiné sur le panel
+                // on fait l'init graphique du panel (ajout de tout les control, crÃ©ation des listes d'optimisation
+                // du refresh pour les objet dessinÃ© sur le panel
                 this.m_DynamicPanel.MyInitializeComponent(m_ListControls);
                 // on ajuste la taille du dynamic Panel
                 m_DynamicPanel.Size = new Size(pt.X + 10, pt.Y + 10);
@@ -537,7 +537,7 @@ namespace CommonLib
                     // si il y a une image, on la charge
                     Bitmap imgBack = new Bitmap(strImageFullPath);
                     imgBack.MakeTransparent(Cste.TransparencyColor);
-                    // ets i besoin on réajuste la taille du panel
+                    // ets i besoin on rÃ©ajuste la taille du panel
                     if (imgBack.Width > m_DynamicPanel.Width)
                         m_DynamicPanel.Width = imgBack.Width;
                     if (imgBack.Height > m_DynamicPanel.Height)
@@ -547,7 +547,7 @@ namespace CommonLib
                 }
                 catch (Exception)
                 {
-                    // en cas d'ereur on logue al'utilisateur que l'image n'as pas été chargée
+                    // en cas d'ereur on logue al'utilisateur que l'image n'as pas Ã©tÃ© chargÃ©e
                     if (!string.IsNullOrEmpty(strImageFullPath))
                     {
                         LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format("Screen {0} Failed to load file {1}", Symbol, strImageFullPath));
@@ -564,14 +564,14 @@ namespace CommonLib
 
         #region Gestion des AppMessages
         /// <summary>
-        /// effectue les opération nécessaire lors de la récéption d'un message
+        /// effectue les opÃ©ration nÃ©cessaire lors de la rÃ©cÃ©ption d'un message
         /// </summary>
         /// <param name="Mess">Type de message</param>
-        /// <param name="obj">objet contenant les paramètres du messages</param>
+        /// <param name="obj">objet contenant les paramÃ¨tres du messages</param>
         /// <param name="TypeApp">Type d'application courante</param>
         public override void TraiteMessage(MESSAGE Mess, object obj, TYPE_APP TypeApp)
         {
-            // en mode config, on execute les différents traitements sur les scripts
+            // en mode config, on execute les diffÃ©rents traitements sur les scripts
             if (TypeApp == TYPE_APP.SMART_CONFIG)
             {
                 m_GestControl.TraiteMessage(Mess, obj, TypeApp);
@@ -593,7 +593,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// appelé par les controles lorsqu'ils ont l'option "Use Screen Event Script"
+        /// appelÃ© par les controles lorsqu'ils ont l'option "Use Screen Event Script"
         /// en mode SmartCommande uniquement
         /// </summary>
         public void ControlEvent()
@@ -616,11 +616,11 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// handler d'event appelé par le gestionnnaire de controle lors que les objets qu'ils contiens 
-        /// déclenchent l'envoie d'un message
+        /// handler d'event appelÃ© par le gestionnnaire de controle lors que les objets qu'ils contiens 
+        /// dÃ©clenchent l'envoie d'un message
         /// </summary>
         /// <param name="Mess">Type de message</param>
-        /// <param name="obj">objet contenant les paramètres du messages</param>
+        /// <param name="obj">objet contenant les paramÃ¨tres du messages</param>
         /// <param name="TypeApp">Type d'application courante</param>
         public virtual void ObjectSendMessage(MESSAGE Mess, object Param, TYPE_APP TypeApp)
         {
@@ -631,7 +631,7 @@ namespace CommonLib
 
         #region fonction SmartCommand
         /// <summary>
-        /// Affiche l'écran au premier plan dans smart commande (fonction de script)
+        /// Affiche l'Ã©cran au premier plan dans smart commande (fonction de script)
         /// </summary>
         public void ShowScreenToTop()
         {

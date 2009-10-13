@@ -1,6 +1,6 @@
 /***************************************************************************/
-// PROJET : BTCommand : system de commande paramétrable pour équipement
-// ayant une mécanisme de commande par liaison série/ethernet/http
+// PROJET : BTCommand : system de commande paramÃ©trable pour Ã©quipement
+// ayant une mÃ©canisme de commande par liaison sÃ©rie/ethernet/http
 /***************************************************************************/
 // Fichier : 
 /***************************************************************************/
@@ -31,11 +31,11 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// crée et initialise le control et l'ajoute dans la DynamicForm donnée
+        /// crÃ©e et initialise le control et l'ajoute dans la DynamicForm donnÃ©e
         /// </summary>
         /// <param name="itemRect">rectangle du control</param>
-        /// <param name="HandlingForm">fenêtre dans laquelle le control doit être crée</param>
-        /// <returns>la taille réèlement utilisée par le control</returns>
+        /// <param name="HandlingForm">fenÃªtre dans laquelle le control doit Ãªtre crÃ©e</param>
+        /// <returns>la taille rÃ©Ã¨lement utilisÃ©e par le control</returns>
         public override void CreateControl()
         {
             if (m_Ctrl == null)
@@ -68,8 +68,8 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// callback appelé par le control lorsqu'une action est effectuée sur celui ci
-        /// appel également l'évènement ControlEvent() sur le parent si necessaire
+        /// callback appelÃ© par le control lorsqu'une action est effectuÃ©e sur celui ci
+        /// appel Ã©galement l'Ã©vÃ¨nement ControlEvent() sur le parent si necessaire
         /// </summary>
         /// <param name="Sender"></param>
         /// <param name="Args"></param>
@@ -90,7 +90,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// met a jour l'état du control a partir de la valeur de sa donnée associée
+        /// met a jour l'Ã©tat du control a partir de la valeur de sa donnÃ©e associÃ©e
         /// </summary>
         public override void UpdateFromData()
         {

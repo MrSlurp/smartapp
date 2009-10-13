@@ -1,6 +1,6 @@
 /***************************************************************************/
-// PROJET : BTCommand : system de commande paramétrable pour équipement
-// ayant une mécanisme de commande par liaison série/ethernet/http
+// PROJET : BTCommand : system de commande paramÃ©trable pour Ã©quipement
+// ayant une mÃ©canisme de commande par liaison sÃ©rie/ethernet/http
 /***************************************************************************/
 // Fichier : 
 /***************************************************************************/

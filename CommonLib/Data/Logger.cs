@@ -11,35 +11,35 @@ namespace CommonLib
 {
     public class Logger : BaseObject
     {
-        #region Déclaration des données de la classe
-        // liste des symbols des données a loguer
+        #region DÃ©claration des donnÃ©es de la classe
+        // liste des symbols des donnÃ©es a loguer
         private StringCollection m_ListStrDatas = new StringCollection();
-        // liste des données a loguer utilisé en mode Command
+        // liste des donnÃ©es a loguer utilisÃ© en mode Command
         private ArrayList m_ListRefDatas = new ArrayList();
         // type de Logger
         string m_LogType;
         // nom du fichier a loguer
         string m_strFileName;
-        // période de l'auto logger
+        // pÃ©riode de l'auto logger
         int m_iPeriod;
 
         private bool m_bAutoStart = false;
         #endregion
 
-        #region donnée spécifiques aux fonctionement en mode Command
-        // timer executant périodiquement les logs
+        #region donnÃ©e spÃ©cifiques aux fonctionement en mode Command
+        // timer executant pÃ©riodiquement les logs
         Timer m_Timer = new Timer();
         // indique si le timer est actif
         bool m_bTimerActive = false;
-        // chemin ou crée le fichier
+        // chemin ou crÃ©e le fichier
         string m_strLogFilePath;
-        // objet pour écrire le fichier
+        // objet pour Ã©crire le fichier
         StreamWriter m_FileWriter;
         #endregion
 
         #region attribut
         /// <summary>
-        /// accesseur sur la liste des symboles des données loguées
+        /// accesseur sur la liste des symboles des donnÃ©es loguÃ©es
         /// </summary>
         public StringCollection LoggerDatas
         {
@@ -65,7 +65,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// obtient ou assigne le nom du fichier dans lequel les données seront loguées
+        /// obtient ou assigne le nom du fichier dans lequel les donnÃ©es seront loguÃ©es
         /// </summary>
         public string LogFile
         {
@@ -80,7 +80,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// obtient ou assigne la période du logger en ms
+        /// obtient ou assigne la pÃ©riode du logger en ms
         /// </summary>
         public int Period
         {
@@ -95,7 +95,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// obtient ou assigne la booléen indiquant si le logger est activé automatiquement au démarrage
+        /// obtient ou assigne la boolÃ©en indiquant si le logger est activÃ© automatiquement au dÃ©marrage
         /// </summary>
         public bool AutoStart
         {
@@ -112,7 +112,7 @@ namespace CommonLib
 
         #region constructeurs
         /// <summary>
-        /// constructeur par défaut
+        /// constructeur par dÃ©faut
         /// </summary>
         public Logger()
         {
@@ -123,15 +123,15 @@ namespace CommonLib
 
         #region ReadIn / WriteOut
         /// <summary>
-        /// Lit les données de l'objet a partir de son noeud XML
+        /// Lit les donnÃ©es de l'objet a partir de son noeud XML
         /// </summary>
         /// <param name="Node">Noeud Xml de l'objet</param>
         /// <param name="TypeApp">type d'application courante</param>
-        /// <returns>true si la lecture s'est bien passé</returns>
+        /// <returns>true si la lecture s'est bien passÃ©</returns>
         public override bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
         {
             bool bRet = base.ReadIn(Node, TypeApp);
-            // on lit les attributs et la liste des données
+            // on lit les attributs et la liste des donnÃ©es
             XmlNode LoggerTypeAttrib = Node.Attributes.GetNamedItem(XML_CF_ATTRIB.LoggerType.ToString());
             XmlNode PeriodAttrib = Node.Attributes.GetNamedItem(XML_CF_ATTRIB.Period.ToString());
             XmlNode FileNameAttrib = Node.Attributes.GetNamedItem(XML_CF_ATTRIB.FileName.ToString());
@@ -164,15 +164,15 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// écrit les données de l'objet dans le fichier XML
+        /// Ã©crit les donnÃ©es de l'objet dans le fichier XML
         /// </summary>
         /// <param name="XmlDoc">Document XML courant</param>
         /// <param name="Node">Noeud parent du controle dans le document</param>
-        /// <returns>true si l'écriture s'est déroulée avec succès</returns>
+        /// <returns>true si l'Ã©criture s'est dÃ©roulÃ©e avec succÃ¨s</returns>
         public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
         {
             base.WriteOut(XmlDoc, Node);
-            // on écrit les attributs et la liste des données
+            // on Ã©crit les attributs et la liste des donnÃ©es
             XmlAttribute LoggerTypeAttrib = XmlDoc.CreateAttribute(XML_CF_ATTRIB.LoggerType.ToString());
             XmlAttribute PeriodAttrib = XmlDoc.CreateAttribute(XML_CF_ATTRIB.Period.ToString());
             XmlAttribute FileNameAttrib = XmlDoc.CreateAttribute(XML_CF_ATTRIB.FileName.ToString());
@@ -202,15 +202,15 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// termine la lecture de l'objet. utilisé en mode Commande pour récupérer les référence
-        /// vers les objets utilisés
+        /// termine la lecture de l'objet. utilisÃ© en mode Commande pour rÃ©cupÃ©rer les rÃ©fÃ©rence
+        /// vers les objets utilisÃ©s
         /// </summary>
         /// <param name="Doc">Document courant</param>
-        /// <returns>true si tout s'est bien passé</returns>
+        /// <returns>true si tout s'est bien passÃ©</returns>
         public override bool FinalizeRead(BTDoc Doc)
         {
 
-            // on fait une liste de références directe sur les données
+            // on fait une liste de rÃ©fÃ©rences directe sur les donnÃ©es
             for (int i = 0; i < m_ListStrDatas.Count; i++)
             {
                 string strData = (string)m_ListStrDatas[i];
@@ -234,10 +234,10 @@ namespace CommonLib
 
         #region Gestion des AppMessages
         /// <summary>
-        /// effectue les opération nécessaire lors de la récéption d'un message
+        /// effectue les opÃ©ration nÃ©cessaire lors de la rÃ©cÃ©ption d'un message
         /// </summary>
         /// <param name="Mess">Type de message</param>
-        /// <param name="obj">objet contenant les paramètres du messages</param>
+        /// <param name="obj">objet contenant les paramÃ¨tres du messages</param>
         /// <param name="TypeApp">Type d'application courante</param>
         public override void TraiteMessage(MESSAGE Mess, object obj, TYPE_APP TypeApp)
         {
@@ -320,7 +320,7 @@ namespace CommonLib
 
         #region fonction d'execution en mode Command
         /// <summary>
-        /// démarre le logger automatique
+        /// dÃ©marre le logger automatique
         /// </summary>
         public void StartAutoLogger()
         {
@@ -344,7 +344,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// arrête de logger automatique
+        /// arrÃªte de logger automatique
         /// </summary>
         public void StopAutoLogger()
         {
@@ -366,7 +366,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// execute le log des données en vérifiant que le fichier est accessible
+        /// execute le log des donnÃ©es en vÃ©rifiant que le fichier est accessible
         /// </summary>
         public void LogData()
         {
@@ -376,7 +376,7 @@ namespace CommonLib
             }
             else
             {
-                // sile fichier est fermé, on l'ouvre
+                // sile fichier est fermÃ©, on l'ouvre
                 string fileFullPath = m_strLogFilePath + @"\" + m_strFileName;
                 try
                 {
@@ -419,7 +419,7 @@ namespace CommonLib
                     m_FileWriter.Close();
                 m_FileWriter = null;
 
-                // on dois ensuite le réouvrir en ecriture
+                // on dois ensuite le rÃ©ouvrir en ecriture
                 try
                 {
                     m_FileWriter = new StreamWriter(File.Open(fileFullPath, FileMode.Append, FileAccess.Write, FileShare.Read));
@@ -451,22 +451,22 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// logue une ligne de données. Met l'entete de fichier si besoin
+        /// logue une ligne de donnÃ©es. Met l'entete de fichier si besoin
         /// </summary>
         private void LogLine()
         {
-            // si le fichier est fermé a ce moment on quitte
+            // si le fichier est fermÃ© a ce moment on quitte
             if (m_FileWriter == null)
                 return;
 
-            // si il n'y a pas de données a loguer, on avertis l'utilisateur et on sort
+            // si il n'y a pas de donnÃ©es a loguer, on avertis l'utilisateur et on sort
             if (m_ListRefDatas.Count == 0)
             {
                 LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format("{0} No Data to log", Symbol));
                 AddLogEvent(log);
                 return;
             }
-            //le fichier a déja été ouvert on est en mode auto
+            //le fichier a dÃ©ja Ã©tÃ© ouvert on est en mode auto
             string lineToWrite;
             
             // si le fichier est vide on met l'en tete
@@ -494,7 +494,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// évènement du timer
+        /// Ã©vÃ¨nement du timer
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

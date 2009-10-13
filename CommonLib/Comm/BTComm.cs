@@ -1,6 +1,6 @@
 /***************************************************************************/
-// PROJET : BTCommand : system de commande paramétrable pour équipement
-// ayant une mécanisme de commande par liaison série/ethernet/http
+// PROJET : BTCommand : system de commande paramÃ©trable pour Ã©quipement
+// ayant une mÃ©canisme de commande par liaison sÃ©rie/ethernet/http
 /***************************************************************************/
 // Fichier : 
 /***************************************************************************/
@@ -39,7 +39,7 @@ namespace CommonLib
     #region enum des types de comm
     public enum TYPE_COMM
     {
-        // communication de type liaison série ou bluetooth
+        // communication de type liaison sÃ©rie ou bluetooth
         SERIAL,
         // communication de type Http, (le jour  ou je ferai un serveur HTTP)
         HTTP,
@@ -51,15 +51,15 @@ namespace CommonLib
     #endregion
 
     //*****************************************************************************************************
-    // Description: classe gérant la communication au travers de différents protocoles
+    // Description: classe gÃ©rant la communication au travers de diffÃ©rents protocoles
     //*****************************************************************************************************
     public class BTComm : Object
     {
-        #region Déclaration des données de la classe
+        #region DÃ©claration des donnÃ©es de la classe
         /// <summary>
         /// peut etre soit un port com (COM1, COM2...) 
         /// soit une adresse IP (192.168.1.1)
-        /// soit un nom résolu par un DNS 
+        /// soit un nom rÃ©solu par un DNS 
         /// </summary>
         private string m_strDestAdress;
 
@@ -78,11 +78,11 @@ namespace CommonLib
 
         #region constructeur
         /// <summary>
-        /// Constructeur par défaut, initialise les paramètres pour une communication éthernet
+        /// Constructeur par dÃ©faut, initialise les paramÃ¨tres pour une communication Ã©thernet
         /// </summary>
         public BTComm()
         {
-            // init par défaut
+            // init par dÃ©faut
             m_TypeComm = TYPE_COMM.ETHERNET;
             m_strDestAdress = "192.168.0.99:502";
             m_Comm = new EthernetComm();
@@ -99,7 +99,7 @@ namespace CommonLib
 
         #region attributs
         /// <summary>
-        /// attribut en lecture seule renvoyant les paramètres de comm (adresse/port)
+        /// attribut en lecture seule renvoyant les paramÃ¨tres de comm (adresse/port)
         /// </summary>
         public string CommParam
         {
@@ -121,7 +121,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// permet de connaitre l'état actuel de la comm
+        /// permet de connaitre l'Ã©tat actuel de la comm
         /// </summary>
         public bool IsOpen
         {
@@ -145,12 +145,12 @@ namespace CommonLib
 
         #region methodes publiques
         /// <summary>
-        /// permet de définir le type de comm avec ses paramètres
-        /// initialise la comm en fontion du type et des paramètres
+        /// permet de dÃ©finir le type de comm avec ses paramÃ¨tres
+        /// initialise la comm en fontion du type et des paramÃ¨tres
         /// </summary>
         /// <param name="CommType">Type de communication</param>
-        /// <param name="strParam">paramètres de la communication</param>
-        /// <returns>true si les paramètres sont valides</returns>
+        /// <param name="strParam">paramÃ¨tres de la communication</param>
+        /// <returns>true si les paramÃ¨tres sont valides</returns>
         public bool SetCommTypeAndParam(TYPE_COMM CommType, string strParam)
         {
             if (!this.IsOpen)
@@ -185,11 +185,11 @@ namespace CommonLib
                     case TYPE_COMM.VIRTUAL:
                         m_Comm = new VirtualComm();
                         ((VirtualComm)m_Comm).OnCommStateChange += new CommOpenedStateChange(ConnectionStateChangeEvent);
-                        // aucun paramètres
+                        // aucun paramÃ¨tres
                         break;
                     case TYPE_COMM.HTTP:
                     default:
-                        // TODO évolution
+                        // TODO Ã©volution
                         System.Diagnostics.Debug.Assert(false);
                         return false;
                 }
@@ -200,7 +200,7 @@ namespace CommonLib
         /// <summary>
         /// Ouvre la communication courante
         /// </summary>
-        /// <returns>true en cas de succès</returns>
+        /// <returns>true en cas de succÃ¨s</returns>
         public bool OpenComm()
         {
             if (m_Comm.IsOpen())
@@ -225,7 +225,7 @@ namespace CommonLib
         /// <summary>
         /// Ferme la communication courante
         /// </summary>
-        /// <returns>true en cas de succès</returns>
+        /// <returns>true en cas de succÃ¨s</returns>
         public bool CloseComm()
         {
             if (!m_Comm.IsOpen())
@@ -238,10 +238,10 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// Envoie les données du buffer sur la comm courante
+        /// Envoie les donnÃ©es du buffer sur la comm courante
         /// </summary>
-        /// <param name="buffer">buffer des données à envoyer</param>
-        /// <returns>true en cas de succès</returns>
+        /// <param name="buffer">buffer des donnÃ©es Ã  envoyer</param>
+        /// <returns>true en cas de succÃ¨s</returns>
         public bool SendData(Byte[] buffer)
         {
             m_Comm.ResetError();
@@ -252,12 +252,12 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// Envoie les données du buffer sur le port de comm courant
-        /// spéciale communication virtuelle
+        /// Envoie les donnÃ©es du buffer sur le port de comm courant
+        /// spÃ©ciale communication virtuelle
         /// </summary>
-        /// <param name="TrameToSend">Objet trame à envoyer</param>
-        /// <param name="DataGest">gestionnaire de données</param>
-        /// <param name="VirtualDataGest">gestionnaire de données virtuelles</param>
+        /// <param name="TrameToSend">Objet trame Ã  envoyer</param>
+        /// <param name="DataGest">gestionnaire de donnÃ©es</param>
+        /// <param name="VirtualDataGest">gestionnaire de donnÃ©es virtuelles</param>
         /// <returns></returns>
         public bool SendData(Trame TrameToSend, GestData DataGest, GestDataVirtual VirtualDataGest)
         {
@@ -268,12 +268,12 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// Réalise l'attente de récéption d'un trame
+        /// RÃ©alise l'attente de rÃ©cÃ©ption d'un trame
         /// la sortie est automatique en cas de timeout
         /// </summary>
         /// <param name="FrameLenght">longueur de la trame en octet</param>
         /// <param name="FrameHeader">header de la trame</param>
-        /// <returns>true si une trame à été reçue</returns>
+        /// <returns>true si une trame Ã  Ã©tÃ© reÃ§ue</returns>
         public bool WaitTrameRecieved(int FrameLenght, byte[] FrameHeader)
         {
             m_TimerRecieveTimeout.Enabled = true;
@@ -291,11 +291,11 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// obtiens les données reçues sur la comm
+        /// obtiens les donnÃ©es reÃ§ues sur la comm
         /// </summary>
-        /// <param name="NumberOfByte">nombre d'octet à lire</param>
+        /// <param name="NumberOfByte">nombre d'octet Ã  lire</param>
         /// <param name="FrameHeader">header de trame</param>
-        /// <returns>données reçues sur la comm</returns>
+        /// <returns>donnÃ©es reÃ§ues sur la comm</returns>
         public Byte[] GetRecievedData(int NumberOfByte, byte[] FrameHeader)
         {
             Byte[] buffer = m_Comm.GetRecievedData(NumberOfByte, FrameHeader);
@@ -303,12 +303,12 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// obtiens les données reçues sur le port comm
-        /// version spéciale communication virtuelle
+        /// obtiens les donnÃ©es reÃ§ues sur le port comm
+        /// version spÃ©ciale communication virtuelle
         /// </summary>
         /// <param name="ConvertedSize">taille de la trame convertie</param>
-        /// <param name="TrameToReturn">objet trame qui doit être reçu</param>
-        /// <returns>données de la trame reçue</returns>
+        /// <param name="TrameToReturn">objet trame qui doit Ãªtre reÃ§u</param>
+        /// <returns>donnÃ©es de la trame reÃ§ue</returns>
         public Byte[] GetRecievedData(int ConvertedSize, Trame TrameToReturn)
         {
             Byte[] buffer = null;
@@ -319,9 +319,9 @@ namespace CommonLib
         }
         #endregion
 
-        #region méthodes privées et protégées
+        #region mÃ©thodes privÃ©es et protÃ©gÃ©es
         /// <summary>
-        /// callback appelé par le timer de timeout
+        /// callback appelÃ© par le timer de timeout
         /// </summary>
         /// <param name="sender">event sender object</param>
         /// <param name="e">event args</param>
@@ -343,7 +343,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// ajoute un évènement au logger de SmartCommand
+        /// ajoute un Ã©vÃ¨nement au logger de SmartCommand
         /// </summary>
         /// <param name="Event"></param>
         protected void AddLogEvent(LogEvent Event)

@@ -9,9 +9,9 @@ namespace CommonLib
     public class MoveButton : Control
     {
         #region variables
-        //contrôle à bouger
+        //contrÃ´le Ã  bouger
         private IInteractive interactiveControl = null;
-        //est-ce que le bouton gauche est appuyée?
+        //est-ce que le bouton gauche est appuyÃ©e?
         private bool isPressed = false;
         //variable qui va enregistrer la position du point au premier clic
         private Point clickPoint = new Point();
@@ -21,11 +21,11 @@ namespace CommonLib
         /// <summary>
         /// contsructeur
         /// </summary>
-        /// <param name="interactiveControl">control interactif associé</param>
+        /// <param name="interactiveControl">control interactif associÃ©</param>
         public MoveButton(IInteractive interactiveControl)
         {
             InitializeComponent();
-            //la taille du contrôle est celle de l'icône
+            //la taille du contrÃ´le est celle de l'icÃ´ne
             if (BackgroundImage != null)
                 this.Size = BackgroundImage.Size;
 
@@ -37,7 +37,7 @@ namespace CommonLib
 
         #region UpdateLocation
         /// <summary>
-        /// cette fonction met à jour la position du contrôle en fonction du control à bouger
+        /// cette fonction met Ã  jour la position du contrÃ´le en fonction du control Ã  bouger
         /// </summary>
         /// <returns></returns>
         public bool UpdateLocation()
@@ -52,7 +52,7 @@ namespace CommonLib
 
         #region ShowControl
         /// <summary>
-        /// cette fonction affiche ou masque le contrôle
+        /// cette fonction affiche ou masque le contrÃ´le
         /// </summary>
         /// <param name="show">afficher ou masquer</param>
         public void ShowControl(bool show)
@@ -72,7 +72,7 @@ namespace CommonLib
 
         #region Mouse Events
         /// <summary>
-        /// évènement lors que le move button est enfoncé
+        /// Ã©vÃ¨nement lors que le move button est enfoncÃ©
         /// </summary>
         /// <param name="e"></param>
         protected override void OnMouseDown(MouseEventArgs e)
@@ -91,7 +91,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// évènement lors que le move button est relaché
+        /// Ã©vÃ¨nement lors que le move button est relachÃ©
         /// </summary>
         /// <param name="e"></param>
         protected override void OnMouseUp(MouseEventArgs e)
@@ -108,7 +108,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// évènement appelé lorsque le curseur est déplacé
+        /// Ã©vÃ¨nement appelÃ© lorsque le curseur est dÃ©placÃ©
         /// </summary>
         /// <param name="e"></param>
         protected override void OnMouseMove(MouseEventArgs e)
@@ -122,7 +122,7 @@ namespace CommonLib
         }
         #endregion
 
-        #region Code généré par le Concepteur de composants
+        #region Code gÃ©nÃ©rÃ© par le Concepteur de composants
         /// <summary>
         /// initialise le composant
         /// </summary>

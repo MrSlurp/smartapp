@@ -1,6 +1,6 @@
 /***************************************************************************/
-// PROJET : BTCommand : system de commande paramétrable pour équipement
-// ayant une mécanisme de commande par liaison série/ethernet/http
+// PROJET : BTCommand : system de commande paramÃ©trable pour Ã©quipement
+// ayant une mÃ©canisme de commande par liaison sÃ©rie/ethernet/http
 /***************************************************************************/
 // Fichier : 
 /***************************************************************************/
@@ -18,37 +18,37 @@ namespace CommonLib
 {
     public class Trame : BaseObject
     {
-        #region déclaration des données membres
-        // liste des symbols des données de la trame
+        #region dÃ©claration des donnÃ©es membres
+        // liste des symbols des donnÃ©es de la trame
         private StringCollection m_ListStrDatas;
-        // liste des références vers les données de la trame
+        // liste des rÃ©fÃ©rences vers les donnÃ©es de la trame
         private ArrayList m_ListRefDatas;
         private ArrayList m_ListRefVirtualDatas;
         // type de conversion de la trame
         private string m_strConvertType;
-        // index de la donnée ou commence la conversion
+        // index de la donnÃ©e ou commence la conversion
         private int m_iConvertFrom;
-        // index de la donnée ou se termine la conversion
+        // index de la donnÃ©e ou se termine la conversion
         private int m_iConvertTo;
 
-        // ces valeur sont initialisées lors du fin serilalise et ne son plus modifiées ensuite
-        // représente les octets ou commence et finis la conversion
+        // ces valeur sont initialisÃ©es lors du fin serilalise et ne son plus modifiÃ©es ensuite
+        // reprÃ©sente les octets ou commence et finis la conversion
         private int m_iByteConvertFrom = -1;
         private int m_iByteConvertTo = -1;
 
-        // méthode de calcule du checksum / CRC
+        // mÃ©thode de calcule du checksum / CRC
         private string m_strDataClcType;
-        // taille de la donnée de control
+        // taille de la donnÃ©e de control
         private int m_iDataClcSize;
-        // index de la donnée ou commence le calcule de la donnée de control
+        // index de la donnÃ©e ou commence le calcule de la donnÃ©e de control
         private int m_iDataClcFrom;
-        // index de la donnée ou se termine le calcule de la donnée de control
+        // index de la donnÃ©e ou se termine le calcule de la donnÃ©e de control
         private int m_iDataClcTo;
 
         // buffer contenant l'ensemble du header de la trame
-        // le header est défini a partir de la première donnée de la trame si elle est constante
-        // jusqu'a la dernier donnée constante rencontrée
-        // il permet lors de la récéption des trames de tester les trames reçues pour "piocher la bonne"
+        // le header est dÃ©fini a partir de la premiÃ¨re donnÃ©e de la trame si elle est constante
+        // jusqu'a la dernier donnÃ©e constante rencontrÃ©e
+        // il permet lors de la rÃ©cÃ©ption des trames de tester les trames reÃ§ues pour "piocher la bonne"
         private byte[] m_FrameHeader;
         // longueur du header de la trame 
         private int m_iHeaderLenght = 0;
@@ -56,7 +56,7 @@ namespace CommonLib
 
         #region constructeur
         /// <summary>
-        /// Constructeur par défaut
+        /// Constructeur par dÃ©faut
         /// </summary>
         public Trame()
         {
@@ -71,7 +71,7 @@ namespace CommonLib
 
         #region attribut
         /// <summary>
-        /// liste des symboles des données de la trames
+        /// liste des symboles des donnÃ©es de la trames
         /// </summary>
         public StringCollection FrameDatas
         {
@@ -82,7 +82,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// Header de trame, initialisé uniquement dans SmartCommand
+        /// Header de trame, initialisÃ© uniquement dans SmartCommand
         /// </summary>
         public byte[] FrameHeader
         {
@@ -92,9 +92,9 @@ namespace CommonLib
             }
         }
 
-        #region Donnée de control
+        #region DonnÃ©e de control
         /// <summary>
-        /// Type de la donnée de controle sous forme de chaine
+        /// Type de la donnÃ©e de controle sous forme de chaine
         /// </summary>
         public string CtrlDataType
         {
@@ -109,7 +109,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// Taille de la donnée de controle
+        /// Taille de la donnÃ©e de controle
         /// </summary>
         public int CtrlDataSize
         {
@@ -124,7 +124,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// Obtient ou assigne l'index de la donnée de début de calcul de la donnée de control
+        /// Obtient ou assigne l'index de la donnÃ©e de dÃ©but de calcul de la donnÃ©e de control
         /// </summary>
         public int CtrlDataFrom
         {
@@ -139,7 +139,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// Obtient ou assigne l'index de la donnée de fin de calcul de la donnée de control
+        /// Obtient ou assigne l'index de la donnÃ©e de fin de calcul de la donnÃ©e de control
         /// </summary>
         public int CtrlDataTo
         {
@@ -156,7 +156,7 @@ namespace CommonLib
 
         #region type de conversion
         /// <summary>
-        /// Type de conversion appliqué sur la trame
+        /// Type de conversion appliquÃ© sur la trame
         /// </summary>
         public string ConvType
         {
@@ -171,7 +171,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// accesseur sur l'index de début de la conversion
+        /// accesseur sur l'index de dÃ©but de la conversion
         /// </summary>
         public int ConvFrom
         {
@@ -204,11 +204,11 @@ namespace CommonLib
 
         #region ReadIn / WriteOut
         /// <summary>
-        /// Lit les données de l'objet a partir de son noeud XML
+        /// Lit les donnÃ©es de l'objet a partir de son noeud XML
         /// </summary>
         /// <param name="Node">Noeud Xml de l'objet</param>
         /// <param name="TypeApp">type d'application courante</param>
-        /// <returns>true si la lecture s'est bien passé</returns>
+        /// <returns>true si la lecture s'est bien passÃ©</returns>
         public override bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
         {
             base.ReadIn(Node, TypeApp);
@@ -222,8 +222,8 @@ namespace CommonLib
                 }
                 catch (Exception)
                 {
-                    // en cas de tag non reconne dans l'enum, une exeption est levée, 
-                    // on la récupère car ca peut arriver
+                    // en cas de tag non reconne dans l'enum, une exeption est levÃ©e, 
+                    // on la rÃ©cupÃ¨re car ca peut arriver
                     continue;
                 }
                 switch (TypeId)
@@ -272,11 +272,11 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// écrit les données de l'objet dans le fichier XML
+        /// Ã©crit les donnÃ©es de l'objet dans le fichier XML
         /// </summary>
         /// <param name="XmlDoc">Document XML courant</param>
         /// <param name="Node">Noeud parent du controle dans le document</param>
-        /// <returns>true si l'écriture s'est déroulée avec succès</returns>
+        /// <returns>true si l'Ã©criture s'est dÃ©roulÃ©e avec succÃ¨s</returns>
         public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
         {
             base.WriteOut(XmlDoc, Node);
@@ -291,7 +291,7 @@ namespace CommonLib
                 NodeData.Attributes.Append(attrSymb);
                 NodeDataList.AppendChild(NodeData);
             }
-            // noeud donnée de control
+            // noeud donnÃ©e de control
             XmlNode NodeCtrlData = XmlDoc.CreateElement(XML_CF_TAG.ControlData.ToString());
             XmlAttribute attrCRCType = XmlDoc.CreateAttribute(XML_CF_ATTRIB.Type.ToString());
             XmlAttribute attrCRCFrom = XmlDoc.CreateAttribute(XML_CF_ATTRIB.From.ToString());
@@ -303,7 +303,7 @@ namespace CommonLib
             NodeCtrlData.Attributes.Append(attrCRCFrom);
             NodeCtrlData.Attributes.Append(attrCRCTo);
             Node.AppendChild(NodeCtrlData);
-            // noeud propriété de conversion
+            // noeud propriÃ©tÃ© de conversion
             XmlNode NodeConv = XmlDoc.CreateElement(XML_CF_TAG.DataConvert.ToString());
             XmlAttribute attrConvType = XmlDoc.CreateAttribute(XML_CF_ATTRIB.Type.ToString());
             XmlAttribute attrConvFrom = XmlDoc.CreateAttribute(XML_CF_ATTRIB.From.ToString());
@@ -319,11 +319,11 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// termine la lecture de l'objet. utilisé en mode Commande pour récupérer les référence
-        /// vers les objets utilisés
+        /// termine la lecture de l'objet. utilisÃ© en mode Commande pour rÃ©cupÃ©rer les rÃ©fÃ©rence
+        /// vers les objets utilisÃ©s
         /// </summary>
         /// <param name="Doc">Document courant</param>
-        /// <returns>true si tout s'est bien passé</returns>
+        /// <returns>true si tout s'est bien passÃ©</returns>
         public override bool FinalizeRead(BTDoc Doc)
         {
             for (int i = 0; i < m_ListStrDatas.Count; i++)
@@ -351,7 +351,7 @@ namespace CommonLib
                 m_ListRefVirtualDatas.Add(VDat);
             }
 
-            // cette première passe permet d'initialiser le buffer contenant le header de la trame
+            // cette premiÃ¨re passe permet d'initialiser le buffer contenant le header de la trame
             int Taille = GetTrameSizeInByte();
             if (Taille == 0)
             {
@@ -359,14 +359,14 @@ namespace CommonLib
                 LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, strmess);
                 AddLogEvent(log);
             }
-            // crée le buffer
+            // crÃ©e le buffer
             Byte[] buffer = new Byte[Taille];
             // on initialise le buffer
             for (int i = 0; i < buffer.Length; i++)
                 buffer[i] = 0;
 
             CalcBeginAndEndConversion();
-            //certaines choses sont initialisée par ces deux fonctions, comme le hearder de trame
+            //certaines choses sont initialisÃ©e par ces deux fonctions, comme le hearder de trame
             PrepareSendBuffer(buffer, false);
             TreatWriteConversion(buffer);
             return true;
@@ -375,10 +375,10 @@ namespace CommonLib
 
         #region Gestion des AppMessages
         /// <summary>
-        /// effectue les opération nécessaire lors de la récéption d'un message
+        /// effectue les opÃ©ration nÃ©cessaire lors de la rÃ©cÃ©ption d'un message
         /// </summary>
         /// <param name="Mess">Type de message</param>
-        /// <param name="obj">objet contenant les paramètres du messages</param>
+        /// <param name="obj">objet contenant les paramÃ¨tres du messages</param>
         /// <param name="TypeApp">Type d'application courante</param>
         public override void TraiteMessage(MESSAGE Mess, object obj, TYPE_APP TypeApp)
         {
@@ -430,11 +430,11 @@ namespace CommonLib
         }
         #endregion
 
-        #region fonction utilisées dans SmartCommand pour créer et lire les trames
+        #region fonction utilisÃ©es dans SmartCommand pour crÃ©er et lire les trames
         /// <summary>
-        /// créer la trame à envoyer lors de l'appel à la fonction de script "SEND"
+        /// crÃ©er la trame Ã  envoyer lors de l'appel Ã  la fonction de script "SEND"
         /// </summary>
-        /// <param name="forVirtualComm">indique si la trame à crée est pour la connexion virtuelle</param>
+        /// <param name="forVirtualComm">indique si la trame Ã  crÃ©e est pour la connexion virtuelle</param>
         /// <returns>tableau d'octet contenant la trame</returns>
         public Byte[] CreateTrameToSend(bool forVirtualComm )
         {
@@ -447,13 +447,13 @@ namespace CommonLib
                 AddLogEvent(log);
                 return null;
             }
-            // crée le buffer
+            // crÃ©e le buffer
             Byte[] buffer = new Byte[Taille];
             // on initialise le buffer
             for (int i = 0; i < buffer.Length; i++)
                 buffer[i] = 0;
 
-            //la donnée de control est calculé dans cette fonction juste avant d'être placé dans la trame
+            //la donnÃ©e de control est calculÃ© dans cette fonction juste avant d'Ãªtre placÃ© dans la trame
             PrepareSendBuffer(buffer, forVirtualComm);
             // traiter la conversion
             buffer = TreatWriteConversion(buffer);
@@ -461,13 +461,13 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// traite la récéption d'un trame, et met a jour les valeurs des données
+        /// traite la rÃ©cÃ©ption d'un trame, et met a jour les valeurs des donnÃ©es
         /// </summary>
-        /// <param name="buffer">tableau contenant la trace reçue à décrypter</param>
-        /// <returns>true en cas succès</returns>
+        /// <param name="buffer">tableau contenant la trace reÃ§ue Ã  dÃ©crypter</param>
+        /// <returns>true en cas succÃ¨s</returns>
         public bool TreatRecieveTrame(Byte[] buffer)
         {
-            // vérifier que les tailles sont identiques
+            // vÃ©rifier que les tailles sont identiques
             int SizeofTrameToRecieve = GetConvertedTrameSizeInByte();
             if (buffer.Length != SizeofTrameToRecieve)
             {
@@ -480,11 +480,11 @@ namespace CommonLib
             // traiter d'abord la conversion
             buffer = TreatReadConversion(buffer);
 
-            // vérifier la cohérence du checksum
+            // vÃ©rifier la cohÃ©rence du checksum
             if (!CheckCtrlData(buffer))
                 return false;
             
-            // relire les donnée de la trame
+            // relire les donnÃ©e de la trame
             if (!ReadRecievedBuffer(buffer))
                 return false;
             else
@@ -492,13 +492,13 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// prépare le buffer contenant la trame à envoyer
-        /// effectue la première étape de création de la trame
-        /// en prenant les données une par une, reconstruit la trame sous forme de données binaires.
-        /// si une donnée de control existe, celle ci est calculée avant d'être assignée dans la trame
+        /// prÃ©pare le buffer contenant la trame Ã  envoyer
+        /// effectue la premiÃ¨re Ã©tape de crÃ©ation de la trame
+        /// en prenant les donnÃ©es une par une, reconstruit la trame sous forme de donnÃ©es binaires.
+        /// si une donnÃ©e de control existe, celle ci est calculÃ©e avant d'Ãªtre assignÃ©e dans la trame
         /// </summary>
         /// <param name="buffer">buffer de la taille final de la trame</param>
-        /// <param name="forVirtualComm">indique si la trame est crée pour la communication virtuelle</param>
+        /// <param name="forVirtualComm">indique si la trame est crÃ©e pour la communication virtuelle</param>
         private void PrepareSendBuffer(byte[] buffer, bool forVirtualComm)
         {
             if (buffer != null && buffer.Length > 0)
@@ -518,14 +518,14 @@ namespace CommonLib
 
                     int DataSz = dat.SizeInBits;
                     int BeginData = CurrentDataPos;
-                    // -1 car l'index des bits est basé a 0;
+                    // -1 car l'index des bits est basÃ© a 0;
                     int EndData = (CurrentDataPos - 1) + DataSz;
                     int byteBegin = BeginData / Cste.SIZE_1_BYTE;
                     int byteEnd = EndData / Cste.SIZE_1_BYTE;
 
-                    #region Traitement de la donnée de controle
-                    // on se fou du fait qu'on utilise une donnée de control ou non
-                    // car si on ne l'utilise pas, ses valeurs ne seront pas utilisées
+                    #region Traitement de la donnÃ©e de controle
+                    // on se fou du fait qu'on utilise une donnÃ©e de control ou non
+                    // car si on ne l'utilise pas, ses valeurs ne seront pas utilisÃ©es
                     if (i == m_iDataClcFrom)
                     {
                         ByteWhereBeginDataCtrl = byteBegin;
@@ -535,15 +535,15 @@ namespace CommonLib
                         ByteWhereEndDataCtrl = byteEnd;
                     }
 
-                    // si il doit y avoir donnée de control, et qu'on est dessus,
+                    // si il doit y avoir donnÃ©e de control, et qu'on est dessus,
                     // alors on la calcul avant de la positionner
 
                     if (m_strDataClcType != CTRLDATA_TYPE.NONE.ToString() && dat.Symbol.EndsWith(Cste.STR_SUFFIX_CTRLDATA))
                     {
-                        // en toutes logique la donnée de control ne doit pas etre positionnée n'importe comment
+                        // en toutes logique la donnÃ©e de control ne doit pas etre positionnÃ©e n'importe comment
                         int leftOffset = CurrentDataPos % Cste.SIZE_1_BYTE;
                         if (leftOffset != 0)
-                            System.Diagnostics.Debug.Assert(false, "erreur sur la position de la donnée de control");
+                            System.Diagnostics.Debug.Assert(false, "erreur sur la position de la donnÃ©e de control");
 
                         Byte[] tempBuffer = new Byte[(ByteWhereEndDataCtrl - ByteWhereBeginDataCtrl) + 1];
                         int tempIndex = 0;
@@ -554,17 +554,17 @@ namespace CommonLib
                         }
                         CalcCtrlData(tempBuffer, dat);
                     }
-                    #endregion // traitement de la donnée de control
+                    #endregion // traitement de la donnÃ©e de control
 
                     int DataValue = dat.Value;
 
-                    // si le header de trame n'est encore crée, regarde (en octet) sa taille (non convertie)
+                    // si le header de trame n'est encore crÃ©e, regarde (en octet) sa taille (non convertie)
                     if (m_FrameHeader == null)
                     {
-                        // si on a pos encore été coupé par une donné non constante
+                        // si on a pos encore Ã©tÃ© coupÃ© par une donnÃ© non constante
                         if (!bNonConstantDataFound && dat.IsConstant)
                         {
-                            // la taille = la taille de l'octet de fin de la donnée
+                            // la taille = la taille de l'octet de fin de la donnÃ©e
                             iTempHeaderLenght = byteEnd;
                         }
                         else
@@ -572,12 +572,12 @@ namespace CommonLib
                     }
                     // la fin dans la conversion...
 
-                    //si la donnée n'est pas comprise sur une seul octet, on la répartie sur la place qu'elle doit prendre
+                    //si la donnÃ©e n'est pas comprise sur une seul octet, on la rÃ©partie sur la place qu'elle doit prendre
                     if (byteBegin != byteEnd)
                     {
-                        #region traitement de la répartition de la donnée sur plusieurs octets
+                        #region traitement de la rÃ©partition de la donnÃ©e sur plusieurs octets
                         //on calcule le nombres de coupures
-                        // pour une donnée 32 bits on peut être a cheval sur 5 octets
+                        // pour une donnÃ©e 32 bits on peut Ãªtre a cheval sur 5 octets
                         int nbCut = byteEnd - byteBegin;
                         int NextByteBegin = ((byteEnd + 1) * Cste.SIZE_1_BYTE);
                         int CurrentPosInBit = BeginData;
@@ -586,22 +586,22 @@ namespace CommonLib
 
                         for (int j = 0; j <= nbCut; j++)
                         {
-                            //on est au début de la donnée, on peux avoir a décaler la valeur vers la droite
-                            // on ne prend que les derniers bits de la donnée
+                            //on est au dÃ©but de la donnÃ©e, on peux avoir a dÃ©caler la valeur vers la droite
+                            // on ne prend que les derniers bits de la donnÃ©e
                             int TmpValue = 0;
                             if (CurrentByte == byteBegin)
                             {
                                 int leftOffset = CurrentPosInBit % Cste.SIZE_1_BYTE;
                                 byte mask1 = (byte)(0xFF >> leftOffset);
                                 int nbAvailableBits = Cste.SIZE_1_BYTE - leftOffset;
-                                // on ne prend que le nombre de bits qu'on peu écrire sur la donnée
+                                // on ne prend que le nombre de bits qu'on peu Ã©crire sur la donnÃ©e
                                 TmpValue = DataValue >> (DataSz - nbAvailableBits);
                                 TmpValue = TmpValue & mask1;
                                 buffer[CurrentByte] |= (byte)TmpValue;
                                 CurrentPosInBit += nbAvailableBits;
                                 bitsWriten = nbAvailableBits;
                             }
-                            // on est a la fin de la donnée, on peut avoir a décaler la valeur vers la gauche
+                            // on est a la fin de la donnÃ©e, on peut avoir a dÃ©caler la valeur vers la gauche
                             else if (CurrentByte == byteEnd)
                             {
                                 int nbBitsRestants = DataSz - bitsWriten;
@@ -614,7 +614,7 @@ namespace CommonLib
                                 buffer[CurrentByte] |= (byte)tmpValue;
                                 CurrentPosInBit += nbBitsRestants;
                             }
-                            // on est "au mileu", on prend juste les 8 bits a écrire
+                            // on est "au mileu", on prend juste les 8 bits a Ã©crire
                             else
                             {
                                 TmpValue = DataValue >> (DataSz - (bitsWriten + Cste.SIZE_1_BYTE));
@@ -628,21 +628,21 @@ namespace CommonLib
                     }
                     else
                     {
-                        #region traitement du positionement de la donnée sur un seul octet
-                        // on calcule le décallage de la donnée a gauche par rapport a sa place
+                        #region traitement du positionement de la donnÃ©e sur un seul octet
+                        // on calcule le dÃ©callage de la donnÃ©e a gauche par rapport a sa place
                         int leftOffset = BeginData % Cste.SIZE_1_BYTE;
-                        // on calcule le décallage de droite par rapport au prochain octet 
+                        // on calcule le dÃ©callage de droite par rapport au prochain octet 
                         // (d'ou le byteEnd+1)
                         int rightOffset = ((byteEnd + 1) * Cste.SIZE_1_BYTE) - (CurrentDataPos + DataSz);
-                        // on crée deux masques complémentaires
+                        // on crÃ©e deux masques complÃ©mentaires
                         // mask1 s'occuper de "couper" ce qui est a gauche
                         // mask2 s'occuper de "couper" ce qui est droite
                         byte mask1 = (byte)(0xFF >> (BeginData % Cste.SIZE_1_BYTE));
                         byte mask2 = (byte)(0xFF << rightOffset);
-                        // on crée le mask complet
+                        // on crÃ©e le mask complet
                         byte Mask = (byte)(mask1 & mask2);
-                        // on obtien une donnée ou les seul bits qui peuvent etre a 1,
-                        // sont ceux qui représentent la valeur dans l'octet de la trame;
+                        // on obtien une donnÃ©e ou les seul bits qui peuvent etre a 1,
+                        // sont ceux qui reprÃ©sentent la valeur dans l'octet de la trame;
                         byte byteVal = (byte)((DataValue << rightOffset) & Mask);
 
                         buffer[byteBegin] |= byteVal;
@@ -659,10 +659,10 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// lit les données reçues
+        /// lit les donnÃ©es reÃ§ues
         /// </summary>
-        /// <param name="buffer">buffer des données de la trame reçue</param>
-        /// <returns>true en cas de succès</returns>
+        /// <param name="buffer">buffer des donnÃ©es de la trame reÃ§ue</param>
+        /// <returns>true en cas de succÃ¨s</returns>
         private bool ReadRecievedBuffer(Byte[] buffer)
         {
             int CurrentDataPos = 0;
@@ -671,35 +671,35 @@ namespace CommonLib
                 Data dat = (Data)m_ListRefDatas[i];
                 int DataSz = dat.SizeInBits;
                 int BeginData = CurrentDataPos;
-                // -1 car l'index des bits est basé a 0;
+                // -1 car l'index des bits est basÃ© a 0;
                 int EndData = (CurrentDataPos - 1) + DataSz;
                 int byteBegin = BeginData / Cste.SIZE_1_BYTE;
                 int byteEnd = EndData / Cste.SIZE_1_BYTE;
 
                 int DataValue = 0;
-                //si la donnée n'est pas comprise sur une seul octet, on la répartie sur la place qu'elle doit prendre
+                //si la donnÃ©e n'est pas comprise sur une seul octet, on la rÃ©partie sur la place qu'elle doit prendre
                 if (byteBegin != byteEnd)
                 {
-                    #region traitement de la répartition de la donnée sur plusieurs octets
+                    #region traitement de la rÃ©partition de la donnÃ©e sur plusieurs octets
                     //on calcule le nombres de coupures
-                    // pour une donnée 32 bits on peut être a cheval sur 5 octets
+                    // pour une donnÃ©e 32 bits on peut Ãªtre a cheval sur 5 octets
                     int nbCut = byteEnd - byteBegin;
                     int NextByteBegin = ((byteEnd + 1) * Cste.SIZE_1_BYTE);
                     int CurrentPosInBit = BeginData;
                     int CurrentByte = byteBegin;
                     int bitsRead = 0;
-                    // la valeur temporaire est un entier car c'est la taille de donnée la plus grande qu'on peu avoir
+                    // la valeur temporaire est un entier car c'est la taille de donnÃ©e la plus grande qu'on peu avoir
                     for (int j = 0; j <= nbCut; j++)
                     {
-                        // on est au début de la donnée, on prend les bits qui nous interresse a l'index courant
-                        // su buffer, et on les met au bon endroit dans la donnée
+                        // on est au dÃ©but de la donnÃ©e, on prend les bits qui nous interresse a l'index courant
+                        // su buffer, et on les met au bon endroit dans la donnÃ©e
                         int TmpValue = 0;
                         if (CurrentByte == byteBegin)
                         {
                             int leftOffset = CurrentPosInBit % Cste.SIZE_1_BYTE;
                             byte mask1 = (byte)(0xFF >> leftOffset);
                             int nbAvailableBits = Cste.SIZE_1_BYTE - leftOffset;
-                            // on ne prend que le nombre de bits qu'on peu lire sur la donnée
+                            // on ne prend que le nombre de bits qu'on peu lire sur la donnÃ©e
                             TmpValue = buffer[CurrentByte];
                             TmpValue = TmpValue >> leftOffset;
                             TmpValue = TmpValue & mask1;
@@ -707,7 +707,7 @@ namespace CommonLib
                             bitsRead = nbAvailableBits;
                             DataValue |= TmpValue << (DataSz - nbAvailableBits);
                         }
-                        // on est a la fin de la donnée, on peut avoir a décaler la valeur vers la gauche
+                        // on est a la fin de la donnÃ©e, on peut avoir a dÃ©caler la valeur vers la gauche
                         else if (CurrentByte == byteEnd)
                         {
                             int nbBitsRestants = DataSz - bitsRead;
@@ -719,7 +719,7 @@ namespace CommonLib
                             DataValue |= (byte)tmpValue;
                             CurrentPosInBit += nbBitsRestants;
                         }
-                        // on est "au mileu", on prend juste les 8 bits a écrire
+                        // on est "au mileu", on prend juste les 8 bits a Ã©crire
                         else
                         {
                             TmpValue = buffer[CurrentByte] ;
@@ -733,27 +733,27 @@ namespace CommonLib
                 }
                 else
                 {
-                    #region traitement d'une donnée positionée sur un seul octet
-                    // on calcule le décallage de la donnée a gauche par rapport a sa place
+                    #region traitement d'une donnÃ©e positionÃ©e sur un seul octet
+                    // on calcule le dÃ©callage de la donnÃ©e a gauche par rapport a sa place
                     int leftOffset = BeginData % Cste.SIZE_1_BYTE;
-                    // on calcule le décallage de droite par rapport au prochain octet 
+                    // on calcule le dÃ©callage de droite par rapport au prochain octet 
                     // (d'ou le byteEnd+1)
                     int rightOffset = ((byteEnd + 1) * Cste.SIZE_1_BYTE) - (CurrentDataPos + DataSz);
-                    // on crée deux masques complémentaires
+                    // on crÃ©e deux masques complÃ©mentaires
                     // mask1 s'occuper de "couper" ce qui est a gauche
                     // mask2 s'occuper de "couper" ce qui est droite
                     byte mask1 = (byte)(0xFF >> (BeginData % Cste.SIZE_1_BYTE));
                     byte mask2 = (byte)(0xFF << rightOffset);
-                    // on crée le mask complet
+                    // on crÃ©e le mask complet
                     byte Mask = (byte)(mask1 & mask2);
                     // on extrait du buffer les bits qui nous interessent
                     byte byteVal = (byte)(buffer[byteBegin] & Mask);
-                    // on remet les bits extraits à leur place
+                    // on remet les bits extraits Ã  leur place
                     DataValue = (byte)(byteVal >> rightOffset);
                     #endregion
                 }
                 CurrentDataPos += DataSz;
-                // une valeur constance ne peux pas être assignée
+                // une valeur constance ne peux pas Ãªtre assignÃ©e
                 if (dat.IsConstant)
                 {
                     if (DataValue != dat.Value)
@@ -776,23 +776,23 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// traite la conversion de la trame après qu'elle ai été crée avec PrepareSendBuffer(...)
+        /// traite la conversion de la trame aprÃ¨s qu'elle ai Ã©tÃ© crÃ©e avec PrepareSendBuffer(...)
         /// </summary>
-        /// <param name="buffer">buffer des données non converties</param>
+        /// <param name="buffer">buffer des donnÃ©es non converties</param>
         /// <returns>trame convertie</returns>
         private Byte[] TreatWriteConversion(Byte[] buffer)
         {
             if (buffer != null && buffer.Length > 0)
             {
                 Byte[] FinalBuffer;
-                // facteur de conversion: 1 = pas d'octets supplémentaire
+                // facteur de conversion: 1 = pas d'octets supplÃ©mentaire
                 // 2= chaque octet converti prend deux octets
                 // etc...
                 //int CurrentDataPos = 0;
                 //int ByteWhereBeginConvert = 0;
                 //int ByteWhereEndConvert = 0;
 
-                // +1 car la première donnée est comprise, et la dernière aussi
+                // +1 car la premiÃ¨re donnÃ©e est comprise, et la derniÃ¨re aussi
                 int NbByteToConvert = (m_iByteConvertTo - m_iByteConvertFrom) + 1;
                 FinalBuffer = new Byte[GetConvertedTrameSizeInByte()];
 
@@ -819,7 +819,7 @@ namespace CommonLib
                     else
                         FinalBuffer[i] = buffer[i];
                 }
-                // si on a pas encore initialisé le header
+                // si on a pas encore initialisÃ© le header
                 if (m_FrameHeader == null)
                 {
                     m_FrameHeader = new byte[m_iHeaderLenght];
@@ -835,14 +835,14 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// traite la conversion de la trame avant qu'elle soit traitée par ReadRecievedBuffer(...)
+        /// traite la conversion de la trame avant qu'elle soit traitÃ©e par ReadRecievedBuffer(...)
         /// </summary>
-        /// <param name="buffer">buffer des données converties</param>
-        /// <returns>trame "dé-convertie"</returns>
+        /// <param name="buffer">buffer des donnÃ©es converties</param>
+        /// <returns>trame "dÃ©-convertie"</returns>
         private Byte[] TreatReadConversion(Byte[] buffer)
         {
             Byte[] FinalBuffer;
-            // facteur de conversion: 1 = pas d'octets supplémentaire
+            // facteur de conversion: 1 = pas d'octets supplÃ©mentaire
             // 2= chaque octet converti prend deux octets
             // etc...
             int ConversionFactor = 1;
@@ -859,7 +859,7 @@ namespace CommonLib
                 Data dat = (Data)m_ListRefDatas[i];
                 int DataSz = dat.SizeInBits;
                 int BeginData = CurrentDataPos;
-                // -1 car l'index des bits est basé a 0;
+                // -1 car l'index des bits est basÃ© a 0;
                 int EndData = (CurrentDataPos - 1) + DataSz;
                 int byteBegin = BeginData / Cste.SIZE_1_BYTE;
                 int byteEnd = EndData / Cste.SIZE_1_BYTE;
@@ -875,12 +875,12 @@ namespace CommonLib
             }
             #endregion
 
-            // +1 car la première donnée est comprise, et la dernière aussi
+            // +1 car la premiÃ¨re donnÃ©e est comprise, et la derniÃ¨re aussi
             FinalBuffer = new Byte[GetTrameSizeInByte()];
             int NbByteToConvert = (ByteWhereEndConvert - ByteWhereBeginConvert) + 1;
 
-            //dans le cas decimal la conversion en lecture, l'octet de fin de conversion est égal a
-            // l'octet de début + le nombre d'octets a convertir fois le facteur de conversion
+            //dans le cas decimal la conversion en lecture, l'octet de fin de conversion est Ã©gal a
+            // l'octet de dÃ©but + le nombre d'octets a convertir fois le facteur de conversion
             ByteWhereEndConvert = ByteWhereBeginConvert + (NbByteToConvert * ConversionFactor);
             int indexInFinalBuffer = 0;
             //
@@ -895,7 +895,7 @@ namespace CommonLib
                         byte Tmp = Ascii2Bin(buffer[i]);
                         i++;
                         FinalBuffer[indexInFinalBuffer] = (byte)(Tmp<<4);
-                        System.Diagnostics.Debug.Assert(i < buffer.Length, "Dépassement de buffer dans la conversion lecture de trame");
+                        System.Diagnostics.Debug.Assert(i < buffer.Length, "DÃ©passement de buffer dans la conversion lecture de trame");
                         Tmp = Ascii2Bin(buffer[i]);
                         FinalBuffer[indexInFinalBuffer++] += Tmp;
                     }
@@ -933,7 +933,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// calcule la taille de la trame aprèss conversion, en octet
+        /// calcule la taille de la trame aprÃ¨ss conversion, en octet
         /// </summary>
         /// <returns>taille de la trame</returns>
         public int GetConvertedTrameSizeInByte()
@@ -953,7 +953,7 @@ namespace CommonLib
                 Data dat = (Data)m_ListRefDatas[i];
                 int DataSz = dat.SizeInBits;
                 int BeginData = CurrentDataPos;
-                // -1 car l'index des bits est basé a 0;
+                // -1 car l'index des bits est basÃ© a 0;
                 int EndData = (CurrentDataPos - 1) + DataSz;
                 int byteBegin = BeginData / Cste.SIZE_1_BYTE;
                 int byteEnd = EndData / Cste.SIZE_1_BYTE;
@@ -969,18 +969,18 @@ namespace CommonLib
             }
             #endregion
 
-            // +1 car la première donnée est comprise, et la dernière aussi
+            // +1 car la premiÃ¨re donnÃ©e est comprise, et la derniÃ¨re aussi
             int NbByteToConvert = (ByteWhereEndConvert - ByteWhereBeginConvert) + 1;
             int FinalSize = sizeInBytes + (NbByteToConvert * (ConversionFactor - 1));
             return FinalSize;
         }
 
         /// <summary>
-        /// calcule la donnée de control "dat" a partir des octets passés dans "buffer"
-        /// le buffer ne dois contenir que les octets qui sont utilisé pour le calcule de la donnée de control
+        /// calcule la donnÃ©e de control "dat" a partir des octets passÃ©s dans "buffer"
+        /// le buffer ne dois contenir que les octets qui sont utilisÃ© pour le calcule de la donnÃ©e de control
         /// </summary>
-        /// <param name="buffer">buffer des données sur lesquel est calculé la donnée de controle</param>
-        /// <param name="dat">référence vers l'objet étant la donnée de control</param>
+        /// <param name="buffer">buffer des donnÃ©es sur lesquel est calculÃ© la donnÃ©e de controle</param>
+        /// <param name="dat">rÃ©fÃ©rence vers l'objet Ã©tant la donnÃ©e de control</param>
         private void CalcCtrlData(Byte[] buffer, Data dat)
         {
             if (m_strDataClcType == CTRLDATA_TYPE.SUM_COMPL_P1.ToString())
@@ -1027,12 +1027,12 @@ namespace CommonLib
                 else
                     System.Diagnostics.Debug.Assert(false);
             }
-            else // pas prévu
-                System.Diagnostics.Debug.Assert(false, "Type de calcul de donnée de control pas codé");
+            else // pas prÃ©vu
+                System.Diagnostics.Debug.Assert(false, "Type de calcul de donnÃ©e de control pas codÃ©");
         }
 
         /// <summary>
-        /// En récéption, avant de commencer a relire les valeurs, on vérifie la valididtée de la donnée de control
+        /// En rÃ©cÃ©ption, avant de commencer a relire les valeurs, on vÃ©rifie la valididtÃ©e de la donnÃ©e de control
         /// </summary>
         /// <param name="buffer"></param>
         /// <returns></returns>
@@ -1050,14 +1050,14 @@ namespace CommonLib
                 dat = (Data)m_ListRefDatas[i];
                 int DataSz = dat.SizeInBits;
                 int BeginData = CurrentDataPos;
-                // -1 car l'index des bits est basé a 0;
+                // -1 car l'index des bits est basÃ© a 0;
                 int EndData = (CurrentDataPos - 1) + DataSz;
                 int byteBegin = BeginData / Cste.SIZE_1_BYTE;
                 int byteEnd = EndData / Cste.SIZE_1_BYTE;
 
-                #region Traitement de la donnée de controle
-                // on se fou du fait qu'on utilise une donnée de control ou non
-                // car si on ne l'utilise pas, ses valeurs ne seront pas utilisées
+                #region Traitement de la donnÃ©e de controle
+                // on se fou du fait qu'on utilise une donnÃ©e de control ou non
+                // car si on ne l'utilise pas, ses valeurs ne seront pas utilisÃ©es
                 if (i == m_iDataClcFrom)
                 {
                     ByteWhereBeginDataCtrl = byteBegin;
@@ -1067,15 +1067,15 @@ namespace CommonLib
                     ByteWhereEndDataCtrl = byteEnd;
                 }
 
-                // si il doit y avoir donnée de control, et qu'on est dessus,
+                // si il doit y avoir donnÃ©e de control, et qu'on est dessus,
                 // alors on la calcul avant de la positionner
-                // dans le cas de la lecture, on la calcule pr vérifer si elle correspond bien a celle reçue
+                // dans le cas de la lecture, on la calcule pr vÃ©rifer si elle correspond bien a celle reÃ§ue
                 if (m_strDataClcType != CTRLDATA_TYPE.NONE.ToString() && dat.Symbol.EndsWith(Cste.STR_SUFFIX_CTRLDATA))
                 {
-                    // en toutes logique la donnée de control ne doit pas etre positionnée n'importe comment
+                    // en toutes logique la donnÃ©e de control ne doit pas etre positionnÃ©e n'importe comment
                     int leftOffset = CurrentDataPos % Cste.SIZE_1_BYTE;
                     if (leftOffset != 0)
-                        System.Diagnostics.Debug.Assert(false, "erreur sur la position de la donnée de control");
+                        System.Diagnostics.Debug.Assert(false, "erreur sur la position de la donnÃ©e de control");
 
                     Byte[] tempBuffer = new Byte[(ByteWhereEndDataCtrl - ByteWhereBeginDataCtrl) + 1];
                     int tempIndex = 0;
@@ -1084,11 +1084,11 @@ namespace CommonLib
                         tempBuffer[tempIndex] = buffer[k];
                         tempIndex++;
                     }
-                    // on calcule la donnée de control directement dans la donnée
+                    // on calcule la donnÃ©e de control directement dans la donnÃ©e
                     CalcCtrlData(tempBuffer, dat);
                     ControlData = dat;
                     bCtrlDataHaveBeenCalc = true;
-                    // on relis la valeur de la donnée de control a partir du buffer dans un variable temporaire
+                    // on relis la valeur de la donnÃ©e de control a partir du buffer dans un variable temporaire
                     // note : la taille est toujours multiple de 8 bits
                     int BegByteOfCtrlData = byteBegin;
                     int EndByteOfCtrlData = byteEnd;
@@ -1102,11 +1102,11 @@ namespace CommonLib
                 #endregion
                 CurrentDataPos += DataSz;
             }
-            // si la donnée de control a été calculée, elle peu ne pas l'avoir été losqu'il n'y en a pas
+            // si la donnÃ©e de control a Ã©tÃ© calculÃ©e, elle peu ne pas l'avoir Ã©tÃ© losqu'il n'y en a pas
             // au quel cas on renvoie toujours vrai
             if (bCtrlDataHaveBeenCalc)
             {
-                // incohérence de la donnée de control
+                // incohÃ©rence de la donnÃ©e de control
                 if (ControlData.Value != RecievedCtrlDataVal) 
                 {
                     return false;
@@ -1116,7 +1116,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// calcule la position de départ et de fin de la conversion en octet
+        /// calcule la position de dÃ©part et de fin de la conversion en octet
         /// </summary>
         private void CalcBeginAndEndConversion()
         {
@@ -1128,7 +1128,7 @@ namespace CommonLib
                 Data dat = (Data)m_ListRefDatas[i];
                 int DataSz = dat.SizeInBits;
                 int BeginData = CurrentDataPos;
-                // -1 car l'index des bits est basé a 0;
+                // -1 car l'index des bits est basÃ© a 0;
                 int EndData = (CurrentDataPos - 1) + DataSz;
                 int byteBegin = BeginData / Cste.SIZE_1_BYTE;
                 int byteEnd = EndData / Cste.SIZE_1_BYTE;
@@ -1157,9 +1157,9 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// convertit un digit (0 à 9) en sa valeur ASCII
+        /// convertit un digit (0 Ã  9) en sa valeur ASCII
         /// </summary>
-        /// <param name="Data">digit à convertir</param>
+        /// <param name="Data">digit Ã  convertir</param>
         /// <returns>valeur ASCII du digit</returns>
         private byte Bin2Ascii(byte Data)
         {
@@ -1177,10 +1177,10 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// convertis un digit codé en ASCII en sa valeur décimale
+        /// convertis un digit codÃ© en ASCII en sa valeur dÃ©cimale
         /// </summary>
         /// <param name="Data">valeur ASCII du digit</param>
-        /// <returns>valeur décimal du digit</returns>
+        /// <returns>valeur dÃ©cimal du digit</returns>
         private byte Ascii2Bin(byte Data)
         {
             byte Out;
@@ -1198,7 +1198,7 @@ namespace CommonLib
         /// <summary>
         /// calcul le CRC16 modbus sur c
         /// </summary>
-        /// <param name="Buf">buffer sur lequel le CRC est calculé</param>
+        /// <param name="Buf">buffer sur lequel le CRC est calculÃ©</param>
         /// <returns>la valeur du CRC</returns>
         uint CalculCRC(byte[] Buf)
         {
@@ -1214,8 +1214,8 @@ namespace CommonLib
         /// Accumulation du CRC
         /// </summary>
         /// <param name="item">octet courant</param>
-        /// <param name="start">valeur accumulé du CRC</param>
-        /// <returns>nouvelle valeur accumulée du CRC</returns>
+        /// <param name="start">valeur accumulÃ© du CRC</param>
+        /// <returns>nouvelle valeur accumulÃ©e du CRC</returns>
         uint onecrc(uint item, uint start)
         {
             int i;

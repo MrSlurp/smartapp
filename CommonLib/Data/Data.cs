@@ -1,6 +1,6 @@
 /***************************************************************************/
-// PROJET : BTCommand : system de commande paramétrable pour équipement
-// ayant une mécanisme de commande par liaison série/ethernet/http
+// PROJET : BTCommand : system de commande paramÃ©trable pour Ã©quipement
+// ayant une mÃ©canisme de commande par liaison sÃ©rie/ethernet/http
 /***************************************************************************/
 // Fichier : 
 /***************************************************************************/
@@ -17,18 +17,18 @@ namespace CommonLib
     public delegate void EventDataValueChange();
     public class Data : BaseObject
     {
-        #region Déclaration des données de la classe
+        #region DÃ©claration des donnÃ©es de la classe
         // valeur minimale
         protected int m_MinVal;
         // valeur maximale
         protected int m_MaxVal;
-        // valeur par défaut
+        // valeur par dÃ©faut
         protected int m_DefVal;
         // valeur courante
         protected int m_CurrentVal;
         // taille en bits
         private int m_Size;
-        // donnée constante??
+        // donnÃ©e constante??
         private bool m_bConstant;
         // visible a l'utilisateur?
         private bool m_bIsUserVisible = true;
@@ -37,14 +37,14 @@ namespace CommonLib
         #endregion
 
         #region Events
-        // évènement levé lorsque la valeur change.
-        // utilisé en mode commande pour que les controles rafrachissent leur affichage
+        // Ã©vÃ¨nement levÃ© lorsque la valeur change.
+        // utilisÃ© en mode commande pour que les controles rafrachissent leur affichage
         public event EventDataValueChange DataValueChanged;
         #endregion
 
         #region constructeur et init
         /// <summary>
-        /// constructeur par défaut
+        /// constructeur par dÃ©faut
         /// </summary>
         public Data()
         {
@@ -56,12 +56,12 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// constructeur "paramétré" principalement utilisé par les wizards
+        /// constructeur "paramÃ©trÃ©" principalement utilisÃ© par les wizards
         /// </summary>
-        /// <param name="strSymbol">Symbol de la donnée</param>
-        /// <param name="DefaultValue">valeur par défaut</param>
-        /// <param name="size">Taille de la donnée</param>
-        /// <param name="bIsConstant">indique si la donnée est une constante</param>
+        /// <param name="strSymbol">Symbol de la donnÃ©e</param>
+        /// <param name="DefaultValue">valeur par dÃ©faut</param>
+        /// <param name="size">Taille de la donnÃ©e</param>
+        /// <param name="bIsConstant">indique si la donnÃ©e est une constante</param>
         public Data(string strSymbol, int DefaultValue, int size, bool bIsConstant)
         {
             m_strSymbol = strSymbol;
@@ -106,12 +106,12 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// constructeur "paramétré" principalement utilisé par les wizards
+        /// constructeur "paramÃ©trÃ©" principalement utilisÃ© par les wizards
         /// </summary>
-        /// <param name="strSymbol">Symbol de la donnée</param>
-        /// <param name="DefaultValue">valeur par défaut</param>
-        /// <param name="size">Taille de la donnée</param>
-        /// <param name="bIsConstant">indique si la donnée est une constante</param>
+        /// <param name="strSymbol">Symbol de la donnÃ©e</param>
+        /// <param name="DefaultValue">valeur par dÃ©faut</param>
+        /// <param name="size">Taille de la donnÃ©e</param>
+        /// <param name="bIsConstant">indique si la donnÃ©e est une constante</param>
         public Data(string strSymbol, int DefaultValue, DATA_SIZE size, bool bIsConstant)
         {
             m_strSymbol = strSymbol;
@@ -157,7 +157,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// appelé au lancement en mode Commande, initialise la valeur courante à la valeur par défaut
+        /// appelÃ© au lancement en mode Commande, initialise la valeur courante Ã  la valeur par dÃ©faut
         /// </summary>
         public void InitVal()
         {
@@ -167,7 +167,7 @@ namespace CommonLib
 
         #region attributs
         /// <summary>
-        /// obtient ou assigne la valeur par défaut
+        /// obtient ou assigne la valeur par dÃ©faut
         /// </summary>
         public int DefaultValue
         {
@@ -182,8 +182,8 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// assigne ou obtient la valeur courante de la donnée
-        /// protégé en écriture par les bornes min et max, et lance des event en cas de saturation
+        /// assigne ou obtient la valeur courante de la donnÃ©e
+        /// protÃ©gÃ© en Ã©criture par les bornes min et max, et lance des event en cas de saturation
         /// </summary>
         public virtual int Value
         {
@@ -193,14 +193,14 @@ namespace CommonLib
             }
             set
             {
-                // on test d'abord savoir si la valeur a changé
+                // on test d'abord savoir si la valeur a changÃ©
                 bool bValueChange = false;
                 bool bIsInSaturation = false;
                 if (m_CurrentVal != value)
                     bValueChange = true;
                 if (bValueChange)
                 {
-                    // selon les bornes et si la donnée est constante, on effectue l'assignation...
+                    // selon les bornes et si la donnÃ©e est constante, on effectue l'assignation...
                     if (value >= m_MinVal && value <= m_MaxVal && !this.IsConstant)
                     {
                         m_CurrentVal = value;
@@ -208,7 +208,7 @@ namespace CommonLib
 
                     if (!this.IsConstant)
                     {
-                        // ...ou la saturation en cas de dépassement des bornes
+                        // ...ou la saturation en cas de dÃ©passement des bornes
                         if (value < m_MinVal)
                         {
                             m_CurrentVal = m_MinVal;
@@ -247,7 +247,7 @@ namespace CommonLib
                         AddLogEvent(log);
                     }
                 }
-                // si la valeur de la donnée a changé on le notifie
+                // si la valeur de la donnÃ©e a changÃ© on le notifie
                 if (bValueChange && DataValueChanged != null)
                     DataValueChanged();
             }
@@ -285,27 +285,27 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// obtient la taille en bit de la donnée
+        /// obtient la taille en bit de la donnÃ©e
         /// </summary>
         public int SizeInBits
         {
             get
             {
-                // on ne prend que le poid faible, le poid fort indiquant si la donnée est 
-                // signée ou non
+                // on ne prend que le poid faible, le poid fort indiquant si la donnÃ©e est 
+                // signÃ©e ou non
                 return m_Size & 0xFF;
             }
         }
 
         /// <summary>
-        /// obtient ou assigne la taille et le signage de la donnée
+        /// obtient ou assigne la taille et le signage de la donnÃ©e
         /// </summary>
         public int SizeAndSign
         {
             get
             {
-                // on ne prend que le poid faible, le poid fort indiquant si la donnée est 
-                // signée ou non
+                // on ne prend que le poid faible, le poid fort indiquant si la donnÃ©e est 
+                // signÃ©e ou non
                 return m_Size;
             }
             set
@@ -315,7 +315,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// obtient ou définit si la valeur est constante
+        /// obtient ou dÃ©finit si la valeur est constante
         /// </summary>
         public bool IsConstant
         {
@@ -330,8 +330,8 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// obtient ou assigne si la valeur est visible à l'utilisateur
-        /// (les données de controle des protocoles ne sont pas visibles)
+        /// obtient ou assigne si la valeur est visible Ã  l'utilisateur
+        /// (les donnÃ©es de controle des protocoles ne sont pas visibles)
         /// </summary>
         public bool IsUserVisible
         {
@@ -348,16 +348,16 @@ namespace CommonLib
 
         #region ReadIn / WriteOut
         /// <summary>
-        /// Lit les données de l'objet a partir de son noeud XML
+        /// Lit les donnÃ©es de l'objet a partir de son noeud XML
         /// </summary>
         /// <param name="Node">Noeud Xml de l'objet</param>
         /// <param name="TypeApp">type d'application courante</param>
-        /// <returns>true si la lecture s'est bien passé</returns>
+        /// <returns>true si la lecture s'est bien passÃ©</returns>
         public override bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
         {
             if (!base.ReadIn(Node, TypeApp))
                 return false;
-            // on lit les propriété de l'objet
+            // on lit les propriÃ©tÃ© de l'objet
             XmlNode AttrMin = Node.Attributes.GetNamedItem(XML_CF_ATTRIB.Min.ToString());
             XmlNode AttrMax = Node.Attributes.GetNamedItem(XML_CF_ATTRIB.Max.ToString());
             XmlNode AttrDefVal = Node.Attributes.GetNamedItem(XML_CF_ATTRIB.DefVal.ToString());
@@ -381,15 +381,15 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// écrit les données de l'objet dans le fichier XML
+        /// Ã©crit les donnÃ©es de l'objet dans le fichier XML
         /// </summary>
         /// <param name="XmlDoc">Document XML courant</param>
         /// <param name="Node">Noeud parent du controle dans le document</param>
-        /// <returns>true si l'écriture s'est déroulée avec succès</returns>
+        /// <returns>true si l'Ã©criture s'est dÃ©roulÃ©e avec succÃ¨s</returns>
         public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
         {
             base.WriteOut(XmlDoc, Node);
-            // on écrit les propriété de l'objet
+            // on Ã©crit les propriÃ©tÃ© de l'objet
             XmlAttribute AttrMin = XmlDoc.CreateAttribute(XML_CF_ATTRIB.Min.ToString());
             XmlAttribute AttrMax = XmlDoc.CreateAttribute(XML_CF_ATTRIB.Max.ToString());
             XmlAttribute AttrDefVal = XmlDoc.CreateAttribute(XML_CF_ATTRIB.DefVal.ToString());
@@ -409,28 +409,28 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// termine la lecture de l'objet. utilisé en mode Commande pour récupérer les référence
-        /// vers les objets utilisés
+        /// termine la lecture de l'objet. utilisÃ© en mode Commande pour rÃ©cupÃ©rer les rÃ©fÃ©rence
+        /// vers les objets utilisÃ©s
         /// </summary>
         /// <param name="Doc">Document courant</param>
-        /// <returns>true si tout s'est bien passé</returns>
+        /// <returns>true si tout s'est bien passÃ©</returns>
         public override bool FinalizeRead(BTDoc Doc)
         {
-            //  on a juste a initialiser la valeur courante avec la valeur par défaut
+            //  on a juste a initialiser la valeur courante avec la valeur par dÃ©faut
             InitVal();
             return true;
         }
 
         #endregion
 
-        #region fonctions specifiques aux données
+        #region fonctions specifiques aux donnÃ©es
         /// <summary>
-        /// utilisé pour mettre a jour l'attribut "user visible" de la données
-        /// les données de controls sont invisibles en dehors de la liste des données de la trame
+        /// utilisÃ© pour mettre a jour l'attribut "user visible" de la donnÃ©es
+        /// les donnÃ©es de controls sont invisibles en dehors de la liste des donnÃ©es de la trame
         /// </summary>
         public void UpdateUserVisibility()
         {
-            // met a jour l'attribut UserVisible en fonction du symbol (données de control invisible)
+            // met a jour l'attribut UserVisible en fonction du symbol (donnÃ©es de control invisible)
             if (this.Symbol.EndsWith(Cste.STR_SUFFIX_CTRLDATA))
                 IsUserVisible = false;
         }
@@ -438,15 +438,15 @@ namespace CommonLib
 
         #region Gestion des AppMessages
         /// <summary>
-        /// effectue les opération nécessaire lors de la récéption d'un message
+        /// effectue les opÃ©ration nÃ©cessaire lors de la rÃ©cÃ©ption d'un message
         /// </summary>
         /// <param name="Mess">Type de message</param>
-        /// <param name="obj">objet contenant les paramètres du messages</param>
+        /// <param name="obj">objet contenant les paramÃ¨tres du messages</param>
         /// <param name="TypeApp">Type d'application courante</param>
         public override void TraiteMessage(MESSAGE Mess, object obj, TYPE_APP TypeApp)
         {
             //  rien a faire
-            // les données sont l'objet du plus bas niveau
+            // les donnÃ©es sont l'objet du plus bas niveau
             // il n'utilise personne donc rien a mettre a jour
         }
         #endregion

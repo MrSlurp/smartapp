@@ -9,7 +9,7 @@ namespace CommonLib
     {
         #region fonction "utilitaires"
         /// <summary>
-        /// renvoie le prochain symbol libre pour une nouvelle donnée
+        /// renvoie le prochain symbol libre pour une nouvelle donnÃ©e
         /// </summary>
         /// <returns>prochain symbol libre</returns>
         public override string GetNextDefaultSymbol()
@@ -28,11 +28,11 @@ namespace CommonLib
 
         #region ReadIn  / WriteOut
         /// <summary>
-        /// Lit les données de l'objet a partir de son noeud XML
+        /// Lit les donnÃ©es de l'objet a partir de son noeud XML
         /// </summary>
         /// <param name="Node">Noeud Xml de l'objet</param>
         /// <param name="TypeApp">type d'application courante</param>
-        /// <returns>true si la lecture s'est bien passé</returns>
+        /// <returns>true si la lecture s'est bien passÃ©</returns>
         public override bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
         {
             XmlNode NodeLoggerSection = null;
@@ -63,11 +63,11 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// écrit les données de l'objet dans le fichier XML
+        /// Ã©crit les donnÃ©es de l'objet dans le fichier XML
         /// </summary>
         /// <param name="XmlDoc">Document XML courant</param>
         /// <param name="Node">Noeud parent du controle dans le document</param>
-        /// <returns>true si l'écriture s'est déroulée avec succès</returns>
+        /// <returns>true si l'Ã©criture s'est dÃ©roulÃ©e avec succÃ¨s</returns>
         public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
         {
             XmlNode NodeLoggerSection = XmlDoc.CreateElement(XML_CF_TAG.LoggerSection.ToString());

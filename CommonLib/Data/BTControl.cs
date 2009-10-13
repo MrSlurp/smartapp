@@ -16,17 +16,17 @@ using System.Xml;
 namespace CommonLib
 {
     /// <summary>
-    /// classe BTControl, elle représent les objets graphiques disposés dans la surface de dessin
+    /// classe BTControl, elle reprÃ©sent les objets graphiques disposÃ©s dans la surface de dessin
     /// de SmartConfig
     /// </summary>
     public partial class BTControl : BaseObject, IScriptable
     {
-        #region Déclaration des données de la classe
-        // control affiché dans le designer d'ecrans
+        #region DÃ©claration des donnÃ©es de la classe
+        // control affichÃ© dans le designer d'ecrans
         protected InteractiveControl m_IControl = new InteractiveControl();
-        // symbol de la donnée associée au control
+        // symbol de la donnÃ©e associÃ©e au control
         protected string m_strAssociateData;
-        // indique si le control utilise l'évènement d'écran
+        // indique si le control utilise l'Ã©vÃ¨nement d'Ã©cran
         protected bool m_bUseScreenEvent = false;
         // indique si le control est read only
         protected bool m_bIsReadOnly = false;
@@ -37,7 +37,7 @@ namespace CommonLib
 
         #region constructeurs
         /// <summary>
-        /// constructeur par défaut
+        /// constructeur par dÃ©faut
         /// </summary>
         public BTControl()
         {
@@ -46,10 +46,10 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// constructeur prenant en paramètre un IntercativeControl
-        /// ce constructeur permet d'associé l'objet graphique lors qu'il est droppé dans le designer
+        /// constructeur prenant en paramÃ¨tre un IntercativeControl
+        /// ce constructeur permet d'associÃ© l'objet graphique lors qu'il est droppÃ© dans le designer
         /// </summary>
-        /// <param name="Ctrl">objet interactif posé dans la surface de dessin</param>
+        /// <param name="Ctrl">objet interactif posÃ© dans la surface de dessin</param>
         protected BTControl(InteractiveControl Ctrl)
         {
             m_IControl = Ctrl;
@@ -58,11 +58,11 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// crée un objet BT control du type adapté à l'objet interactive control passé en paramètre
-        /// (controle de base ou controle spécifique)
+        /// crÃ©e un objet BT control du type adaptÃ© Ã  l'objet interactive control passÃ© en paramÃ¨tre
+        /// (controle de base ou controle spÃ©cifique)
         /// </summary>
-        /// <param name="Ctrl">objet interactif posé dans la surface de dessin</param>
-        /// <returns>l'objet BT control crée</returns>
+        /// <param name="Ctrl">objet interactif posÃ© dans la surface de dessin</param>
+        /// <returns>l'objet BT control crÃ©e</returns>
         public static BTControl CreateNewBTControl(InteractiveControl Ctrl)
         {
             BTControl newControl = null;
@@ -93,7 +93,7 @@ namespace CommonLib
         #region attributs
 
         /// <summary>
-        /// en lecture seul, renvoie la référence vers l'objet graphique utilisé dans le designer
+        /// en lecture seul, renvoie la rÃ©fÃ©rence vers l'objet graphique utilisÃ© dans le designer
         /// </summary>
         public InteractiveControl IControl
         {
@@ -104,7 +104,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// obtient ou assigne la propriété readonly
+        /// obtient ou assigne la propriÃ©tÃ© readonly
         /// </summary>
         public bool IsReadOnly
         {
@@ -119,7 +119,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// obtient ou assigne la propriété UseScreenEvent
+        /// obtient ou assigne la propriÃ©tÃ© UseScreenEvent
         /// </summary>
         public bool UseScreenEvent
         {
@@ -156,7 +156,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// obtient ou assigne le symbole de la donnée associée
+        /// obtient ou assigne le symbole de la donnÃ©e associÃ©e
         /// </summary>
         public string AssociateData
         {
@@ -172,13 +172,13 @@ namespace CommonLib
 
         
         /// <summary>
-        /// renvoie les propriété spécifiques du controle si celui ci en a
+        /// renvoie les propriÃ©tÃ© spÃ©cifiques du controle si celui ci en a
         /// </summary>
         public virtual SpecificControlProp SpecificProp
         {
             get
             {
-                //surchargé dans les objet hérité pour retourner les propriété spécifiques
+                //surchargÃ© dans les objet hÃ©ritÃ© pour retourner les propriÃ©tÃ© spÃ©cifiques
                 return null;
             }
         }
@@ -211,19 +211,19 @@ namespace CommonLib
 
         #region ReadIn / WriteOut
         /// <summary>
-        /// Lit les données de l'objet a partir de son noeud XML
+        /// Lit les donnÃ©es de l'objet a partir de son noeud XML
         /// </summary>
         /// <param name="Node">Noeud Xml de l'objet</param>
         /// <param name="TypeApp">type d'application courante</param>
-        /// <returns>true si la lecture s'est bien passé</returns>
+        /// <returns>true si la lecture s'est bien passÃ©</returns>
         public override bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
         {
             if (!base.ReadIn(Node, TypeApp))
                 return false;
-            // attribut Type (type de control) cette valeur n'est pas directement stocké dans l'objet
-            // mais dans l'objet graphique associé
+            // attribut Type (type de control) cette valeur n'est pas directement stockÃ© dans l'objet
+            // mais dans l'objet graphique associÃ©
             XmlNode AttrType = Node.Attributes.GetNamedItem(XML_CF_ATTRIB.Type.ToString());
-            // on test la présence de tout les attributs obligatoires
+            // on test la prÃ©sence de tout les attributs obligatoires
             if ( AttrType == null)
                 return false;
 
@@ -235,8 +235,8 @@ namespace CommonLib
             }
             catch (Exception)
             {
-                // en cas de tag non reconne dans l'enum, une exeption est levée, 
-                // on la récupère car ca peut arriver
+                // en cas de tag non reconne dans l'enum, une exeption est levÃ©e, 
+                // on la rÃ©cupÃ¨re car ca peut arriver
             }
          
             // on assigne le type du InteractiveControl
@@ -265,7 +265,7 @@ namespace CommonLib
                     break;
                 case CONTROL_TYPE.NULL:
                 default:
-                    Console.WriteLine("Type de control indéfini");
+                    Console.WriteLine("Type de control indÃ©fini");
                     return false;
             }
             ReadInCommonBTControl(Node);
@@ -274,7 +274,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// lit les données communes à tout les BT Control
+        /// lit les donnÃ©es communes Ã  tout les BT Control
         /// </summary>
         /// <param name="Node"></param>
         /// <returns></returns>
@@ -292,7 +292,7 @@ namespace CommonLib
             XmlNode AttrPos = Node.Attributes.GetNamedItem(XML_CF_ATTRIB.Pos.ToString());
             // attribut readOnly
             XmlNode AttrReadOnly = Node.Attributes.GetNamedItem(XML_CF_ATTRIB.ReadOnly.ToString());
-            // on test la présence de tout les attributs obligatoires
+            // on test la prÃ©sence de tout les attributs obligatoires
             if (AttrAssocData == null
                 || AttrScreenEvent == null
                 || AttrSize == null
@@ -306,11 +306,11 @@ namespace CommonLib
             string[] TabStrPos = AttrPos.Value.Split(',');
             string[] TabStrSize = AttrSize.Value.Split(',');
             m_IControl.Text = AttrText.Value;
-            // read only est facultatif et est traité indépendemeent
+            // read only est facultatif et est traitÃ© indÃ©pendemeent
             if (AttrReadOnly != null)
                 this.IsReadOnly = bool.Parse(AttrReadOnly.Value);
 
-            // on assigne la taille après avoir changé le type
+            // on assigne la taille aprÃ¨s avoir changÃ© le type
             // sinon le changement de type provoque une modification de la taille (en fonction des dimension minimales)
 
             m_IControl.Location = new System.Drawing.Point(int.Parse(TabStrPos[0]), int.Parse(TabStrPos[1]));
@@ -320,17 +320,17 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// écrit les données de l'objet dans le fichier XML
+        /// Ã©crit les donnÃ©es de l'objet dans le fichier XML
         /// </summary>
         /// <param name="XmlDoc">Document XML courant</param>
         /// <param name="Node">Noeud parent du controle dans le document</param>
-        /// <returns>true si l'écriture s'est déroulée avec succès</returns>
+        /// <returns>true si l'Ã©criture s'est dÃ©roulÃ©e avec succÃ¨s</returns>
         public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
         {
             XmlNode NodeControl = XmlDoc.CreateElement(XML_CF_TAG.Control.ToString());
             Node.AppendChild(NodeControl);
             base.WriteOut(XmlDoc, NodeControl);
-            // on écrit les différents attributs du control
+            // on Ã©crit les diffÃ©rents attributs du control
             XmlAttribute AttrType = XmlDoc.CreateAttribute(XML_CF_ATTRIB.Type.ToString());
             switch (m_IControl.ControlType)
             {
@@ -357,23 +357,23 @@ namespace CommonLib
                     System.Diagnostics.Debug.Assert(false);
                     break;
                 default:
-                    Console.WriteLine("Type de control indéfini");
+                    Console.WriteLine("Type de control indÃ©fini");
                     break;
             }
             NodeControl.Attributes.Append(AttrType);
             if (!WriteOutCommonBTControl(XmlDoc, NodeControl))
                 return false;
-            // on écrit le script
+            // on Ã©crit le script
             WriteScript(XmlDoc, NodeControl);
             return true;
         }
 
         /// <summary>
-        /// écrit les données communes à tout les BT control
+        /// Ã©crit les donnÃ©es communes Ã  tout les BT control
         /// </summary>
         /// <param name="XmlDoc">Document Xml</param>
         /// <param name="Node">noeud parent de l'objet courant</param>
-        /// <returns>true si l'écriture s'est déroulée correctement</returns>
+        /// <returns>true si l'Ã©criture s'est dÃ©roulÃ©e correctement</returns>
         protected bool WriteOutCommonBTControl(XmlDocument XmlDoc, XmlNode Node)
         {
             XmlAttribute AttrAssocData = XmlDoc.CreateAttribute(XML_CF_ATTRIB.AssociateData.ToString());
@@ -399,7 +399,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// écrit le script de l'objet
+        /// Ã©crit le script de l'objet
         /// </summary>
         /// <param name="Node">noeud de l'objet courant</param>
         protected void ReadScript(XmlNode Node)
@@ -427,7 +427,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// écrit le script de l'objet courant
+        /// Ã©crit le script de l'objet courant
         /// </summary>
         /// <param name="XmlDoc">document XML</param>
         /// <param name="NodeControl">noeud du controle courant</param>
@@ -446,13 +446,13 @@ namespace CommonLib
 
 
         /// <summary>
-        /// appelé uniquement dans SmartCommand
-        /// Cette fonction est utilisé pour finaliser la lecture, et principalement pour prendre directement
-        /// des références sur les objets utilisés (donnée associée etc)
-        /// afin d'optimiser les performances dans Smart Command en évitant d'avoir à parcourir les gestionnaires
+        /// appelÃ© uniquement dans SmartCommand
+        /// Cette fonction est utilisÃ© pour finaliser la lecture, et principalement pour prendre directement
+        /// des rÃ©fÃ©rences sur les objets utilisÃ©s (donnÃ©e associÃ©e etc)
+        /// afin d'optimiser les performances dans Smart Command en Ã©vitant d'avoir Ã  parcourir les gestionnaires
         /// </summary>
         /// <param name="Doc">Document courant</param>
-        /// <returns>true si tout s'est bien passé</returns>
+        /// <returns>true si tout s'est bien passÃ©</returns>
         public override bool FinalizeRead(BTDoc Doc)
         {
             if (!string.IsNullOrEmpty(m_strAssociateData))
@@ -460,13 +460,13 @@ namespace CommonLib
                 m_AssociateData = (Data)Doc.GestData.GetFromSymbol(m_strAssociateData);
                 if (m_AssociateData == null)
                 {
-                    // pas d'assert ici, car par exemple un bouton ou un static peuvent ne pas avoir de donnée
-                    //Console.WriteLine("Donnée Associée non trouvée");
+                    // pas d'assert ici, car par exemple un bouton ou un static peuvent ne pas avoir de donnÃ©e
+                    //Console.WriteLine("DonnÃ©e AssociÃ©e non trouvÃ©e");
                     return true;
                 }
                 else
                 {
-                    // liaison à l'évènement de changement de valeur de la donnée
+                    // liaison Ã  l'Ã©vÃ¨nement de changement de valeur de la donnÃ©e
                     m_AssociateData.DataValueChanged += new EventDataValueChange(UpdateFromData);
                 }
             }
@@ -478,16 +478,16 @@ namespace CommonLib
 
         #region Gestion des AppMessages
         //*****************************************************************************************************
-        // Description: effectue les opération nécessaire lors de la récéption d'un message
+        // Description: effectue les opÃ©ration nÃ©cessaire lors de la rÃ©cÃ©ption d'un message
         // Return: /
         //*****************************************************************************************************
         public override void TraiteMessage(MESSAGE Mess, object obj, TYPE_APP TypeApp)
         {
-            // dans le cas du control, il faut tester si l'objet supprimée/renomé ne serai
-            // pas (par le plus grand des hasard) la donnée associée
+            // dans le cas du control, il faut tester si l'objet supprimÃ©e/renomÃ© ne serai
+            // pas (par le plus grand des hasard) la donnÃ©e associÃ©e
             switch (Mess)
             {
-                // message de requête sur les conséquence d'une supression
+                // message de requÃªte sur les consÃ©quence d'une supression
                 case MESSAGE.MESS_ASK_ITEM_DELETE:
                     if (((MessAskDelete)obj).TypeOfItem == typeof(Data))
                     {
@@ -525,14 +525,14 @@ namespace CommonLib
                 default:
                     break;
             }
-            // mais l'objet peux aussi être utilisé dans le script
+            // mais l'objet peux aussi Ãªtre utilisÃ© dans le script
             ScriptTraiteMessage(this, Mess, m_ScriptLines, obj);
         }
 
 
         #endregion
 
-        #region Méthodes diverses
+        #region MÃ©thodes diverses
         public void CopyParametersFrom(BTControl SrcBtControl)
         {
             m_strAssociateData = SrcBtControl.m_strAssociateData;

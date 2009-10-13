@@ -11,7 +11,7 @@ namespace CommonLib
 {
     #region interface IInteractive
     //*****************************************************************************************************
-    // Description: interface des interactive control, cette interface est utilisée par les movebutton
+    // Description: interface des interactive control, cette interface est utilisÃ©e par les movebutton
     // et les resizebutton
     // Return: /
     //*****************************************************************************************************
@@ -53,24 +53,24 @@ namespace CommonLib
     #endregion
 
     /// <summary>
-    /// un contrôle interactif est un contrôle qu'on peut placer et redimensionné
+    /// un contrÃ´le interactif est un contrÃ´le qu'on peut placer et redimensionnÃ©
     /// dans la surface de dessin
     /// </summary>
     public partial class InteractiveControl : UserControl, IInteractive
     {
-        #region données membres
-        protected bool canMove = true; // true si le control est déplaçable
-        protected bool canResizeWidth = true; // true si le control peux être redimensionné horizontalement
-        protected bool canResizeHeight = false;// true si le control peux être redimensionné verticalement
-        //est-que le contrôle possèdent le focus
+        #region donnÃ©es membres
+        protected bool canMove = true; // true si le control est dÃ©plaÃ§able
+        protected bool canResizeWidth = true; // true si le control peux Ãªtre redimensionnÃ© horizontalement
+        protected bool canResizeHeight = false;// true si le control peux Ãªtre redimensionnÃ© verticalement
+        //est-que le contrÃ´le possÃ¨dent le focus
         protected bool IsFocused = false; // indique si le control a le focus
-        protected bool IsSelected = false; // indique si le control fait parti de la séléction
+        protected bool IsSelected = false; // indique si le control fait parti de la sÃ©lÃ©ction
         //taille minmale et maximale
         protected Size minSize = new Size(32, 20);
         protected Size maxSize = new Size(800, 800);
         //tableau des boutons de redimenssionement
         private ResizeButton[] resizeButton = new ResizeButton[5];
-        //bouton de déplacement
+        //bouton de dÃ©placement
         private MoveButton moveButton;
 
         // type du control
@@ -101,7 +101,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// accesseur pour le type, modifie atomatiquement les propriété de redimensionement et 
+        /// accesseur pour le type, modifie atomatiquement les propriÃ©tÃ© de redimensionement et 
         /// la taille du control quand le type change
         /// </summary>
         public virtual InteractiveControlType ControlType
@@ -119,8 +119,8 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// accesseur utilisé par le parent, défini si l'objet fait partie de la séléction et 
-        /// modifie l'apparence en conséquence
+        /// accesseur utilisÃ© par le parent, dÃ©fini si l'objet fait partie de la sÃ©lÃ©ction et 
+        /// modifie l'apparence en consÃ©quence
         /// </summary>
         public bool Selected
         {
@@ -144,7 +144,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// indique si le control à été initialisé (posé dans la surface de dessin)
+        /// indique si le control Ã  Ã©tÃ© initialisÃ© (posÃ© dans la surface de dessin)
         /// </summary>
         public bool Initialized
         {
@@ -155,7 +155,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// accesseur vers l'objet BTControl source qui contiens les paramètres
+        /// accesseur vers l'objet BTControl source qui contiens les paramÃ¨tres
         /// </summary>
         public BTControl SourceBTControl
         {
@@ -170,7 +170,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// point ou la souris à été cliqué dans le control
+        /// point ou la souris Ã  Ã©tÃ© cliquÃ© dans le control
         /// </summary>
         public Point PtMouseDown
         {
@@ -181,7 +181,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// indique si le control est de type plugin DLL (surchargé dans les classes héritant de celle ci 
+        /// indique si le control est de type plugin DLL (surchargÃ© dans les classes hÃ©ritant de celle ci 
         /// dans les controles DLL)
         /// </summary>
         public virtual bool IsDllControl
@@ -207,13 +207,13 @@ namespace CommonLib
 
         #region constructeur et init
         /// <summary>
-        /// constructeur par défaut
+        /// constructeur par dÃ©faut
         /// </summary>
         public InteractiveControl()
         {
             this.DoubleBuffered = true;
             InitializeComponent();
-            //on initialise le bouton déplacement
+            //on initialise le bouton dÃ©placement
             moveButton = new MoveButton(this);
 
             //initialisation des 3 boutons de redimenssionement
@@ -227,7 +227,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// fonction de création sans appel directe au constructeur
+        /// fonction de crÃ©ation sans appel directe au constructeur
         /// </summary>
         /// <returns>un nouveau InteractiveControl</returns>
         public virtual InteractiveControl CreateNew()
@@ -236,7 +236,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// cette fonction initialise les boutons de redimensionnement et de déplacement
+        /// cette fonction initialise les boutons de redimensionnement et de dÃ©placement
         /// </summary>
         public void InitInteractiveControl()
         {
@@ -259,15 +259,15 @@ namespace CommonLib
 
         #region Fonctions d'update de la taille et de la position
         //*****************************************************************************************************
-        //les quatres fonctions suivantes s'occupent du déplacement,
-        //du redmiensionnement et de la mise a jour des propriétés de l'ensemble des éléments
+        //les quatres fonctions suivantes s'occupent du dÃ©placement,
+        //du redmiensionnement et de la mise a jour des propriÃ©tÃ©s de l'ensemble des Ã©lÃ©ments
         //*****************************************************************************************************
 
         /// <summary>
-        /// cette fonction est appellée lorsque le contrôle est redimensionné à partir des
+        /// cette fonction est appellÃ©e lorsque le contrÃ´le est redimensionnÃ© Ã  partir des
         /// boutons de redimenssionnement 
         /// </summary>
-        /// <param name="mouseMove">déplacement de la souris</param>
+        /// <param name="mouseMove">dÃ©placement de la souris</param>
         public void UpdateSizeAndLocation(Point mouseMove)
         {
             //on s'assure que les nouvelles dimensions sont
@@ -283,20 +283,20 @@ namespace CommonLib
                 mouseMove.Y = -(minSize.Height - Height);
 
             Point newLocation = new Point(Left + mouseMove.X, Top + mouseMove.Y);
-            //on s'assure qu'on déborde pas de l'écran (du contrôle parent)
+            //on s'assure qu'on dÃ©borde pas de l'Ã©cran (du contrÃ´le parent)
             if (newLocation.X < 0) 
                 newLocation.X = 0;
             if (newLocation.Y < 0) 
                 newLocation.Y = 0;
             //on calcule la nouvelle taille
             Size newSize = new Size(Left + Width - newLocation.X, Top + Height - newLocation.Y);
-            //on change la taille du contrôle et sa position
+            //on change la taille du contrÃ´le et sa position
             this.SuspendLayout();
             this.Size = newSize;
             this.Location = newLocation;
             this.ResumeLayout();
-            //on met à jour la position des contrôles de redimensionnement
-            //et le bouton de déplacement
+            //on met Ã  jour la position des contrÃ´les de redimensionnement
+            //et le bouton de dÃ©placement
             this.UpdateSelectionLocation();
         }
 
@@ -306,7 +306,7 @@ namespace CommonLib
         /// <param name="newLocation">nouvelle position du control</param>
         public void UpdateLocation(Point newLocation)
         {
-            //on s'arrange pour ne pas déborder
+            //on s'arrange pour ne pas dÃ©border
             Point oldLocation = this.Location;
 
             if (newLocation.X < 0)
@@ -320,12 +320,12 @@ namespace CommonLib
             Size MovementSize = new Size(newLocation.X - oldLocation.X, newLocation.Y - oldLocation.Y);
             if (OnMouve != null)
             {
-                // le container peux modifier le vecteur de déplacement via l'appel a cette fonction
-                // utilisé lors du déplacement de plusieurs controls sumiltanéments
+                // le container peux modifier le vecteur de dÃ©placement via l'appel a cette fonction
+                // utilisÃ© lors du dÃ©placement de plusieurs controls sumiltanÃ©ments
                 OnMouve(this, ref MovementSize);
             }
             newLocation = new Point(Location.X + MovementSize.Width, Location.Y + MovementSize.Height);
-            //on assigne à notre contrôle sa nouvelle position et on update le reste
+            //on assigne Ã  notre contrÃ´le sa nouvelle position et on update le reste
             //this.Location = newLocation;
             //UpdateSelectionLocation();
         }
@@ -333,11 +333,11 @@ namespace CommonLib
         /// <summary>
         /// met a jour la taille d'un control
         /// </summary>
-        /// <param name="mouseMove">déplacement de la souris</param>
+        /// <param name="mouseMove">dÃ©placement de la souris</param>
         public void UpdateSize(Point mouseMove)
         {
             Size newSize = new Size(Width + mouseMove.X, Height + mouseMove.Y);
-            //on s'assur que le contrôle ne déborde pas du cadre du contrôle parent
+            //on s'assur que le contrÃ´le ne dÃ©borde pas du cadre du contrÃ´le parent
             if ((newSize.Width + Left) > Parent.ClientRectangle.Width)
                 newSize.Width = Parent.ClientRectangle.Width - this.Left;
             if ((newSize.Height + Top) > Parent.ClientRectangle.Height)
@@ -353,14 +353,14 @@ namespace CommonLib
                 newSize.Height = minSize.Height;
             else if (newSize.Height > maxSize.Height)
                 newSize.Height = maxSize.Height;
-            //on set maintenant la taille du côntrole.
+            //on set maintenant la taille du cÃ´ntrole.
             this.Size = newSize;
             UpdateSelectionLocation();
             Refresh();
         }
 
         /// <summary>
-        /// appelé au début du déplacement des controles
+        /// appelÃ© au dÃ©but du dÃ©placement des controles
         /// </summary>
         public void BeginMove()
         {
@@ -372,7 +372,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// appelé à la fin du déplacement des controles
+        /// appelÃ© Ã  la fin du dÃ©placement des controles
         /// </summary>
         public void EndMove()
         {
@@ -385,7 +385,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// met a jour la position des poignées de redimensionnement
+        /// met a jour la position des poignÃ©es de redimensionnement
         /// </summary>
         public void UpdateSelectionLocation()
         {
@@ -398,7 +398,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// met a jour la position de la poignée de déplacement
+        /// met a jour la position de la poignÃ©e de dÃ©placement
         /// </summary>
         public void UpdateMoveButtonLocation()
         {
@@ -406,7 +406,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// appelé pr mettre a jour l'état du control lorsque celui ci change de type
+        /// appelÃ© pr mettre a jour l'Ã©tat du control lorsque celui ci change de type
         /// </summary>
         protected void OnTypeControlChanged()
         {
@@ -455,7 +455,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// met a jour la visibilité des poignées de redimensionnement
+        /// met a jour la visibilitÃ© des poignÃ©es de redimensionnement
         /// </summary>
         public void UpdateResizeBtnsVisibility()
         {
@@ -526,7 +526,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// dessine le rectangle de sélection du control
+        /// dessine le rectangle de sÃ©lection du control
         /// </summary>
         /// <param name="gr">graphics du control</param>
         public void DrawSelRect(Graphics gr)
@@ -544,7 +544,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// surcharge de la fonction appelé lors de la parte de focus
+        /// surcharge de la fonction appelÃ© lors de la parte de focus
         /// </summary>
         /// <param name="e">argument de la fonction</param>
         protected override void OnLostFocus(EventArgs e)
@@ -560,9 +560,9 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// surcharge de l'évènement du clique souris
+        /// surcharge de l'Ã©vÃ¨nement du clique souris
         /// </summary>
-        /// <param name="e">arguments de l'évènement</param>
+        /// <param name="e">arguments de l'Ã©vÃ¨nement</param>
         protected override void OnClick(EventArgs e)
         {
             IsFocused = true;
@@ -577,9 +577,9 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// surcharge de l'évènement lors que le clique souris est enfoncé
+        /// surcharge de l'Ã©vÃ¨nement lors que le clique souris est enfoncÃ©
         /// </summary>
-        /// <param name="e">argument de l'évènement souris</param>
+        /// <param name="e">argument de l'Ã©vÃ¨nement souris</param>
         protected override void OnMouseDown(MouseEventArgs e)
         {
             IsFocused = true;
@@ -597,10 +597,10 @@ namespace CommonLib
         #endregion
 
         /// <summary>
-        /// évènement de survol souris en drag drop
+        /// Ã©vÃ¨nement de survol souris en drag drop
         /// </summary>
         /// <param name="sender">objet emmetteur</param>
-        /// <param name="e">arguments de l'évènement</param>
+        /// <param name="e">arguments de l'Ã©vÃ¨nement</param>
         private void InteractiveControl_DragOver(object sender, DragEventArgs e)
         {
             Data DropedItem = (Data)e.Data.GetData(typeof(Data));
@@ -611,20 +611,20 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// évènement de fin de survol en drag drop
+        /// Ã©vÃ¨nement de fin de survol en drag drop
         /// </summary>
         /// <param name="sender">objet emmetteur</param>
-        /// <param name="e">arguments de l'évènement</param>
+        /// <param name="e">arguments de l'Ã©vÃ¨nement</param>
         private void InteractiveControl_DragLeave(object sender, EventArgs e)
         {
 
         }
 
         /// <summary>
-        /// évènement de drop sur l'objet
+        /// Ã©vÃ¨nement de drop sur l'objet
         /// </summary>
         /// <param name="sender">objet emmetteur</param>
-        /// <param name="e">arguments de l'évènement</param>
+        /// <param name="e">arguments de l'Ã©vÃ¨nement</param>
         private void InteractiveControl_DragDrop(object sender, DragEventArgs e)
         {
             Data DropedItem = (Data)e.Data.GetData(typeof(Data));

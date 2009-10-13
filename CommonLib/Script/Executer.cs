@@ -9,7 +9,7 @@ namespace CommonLib
     {
         private delegate void ScriptAddedToExecute();
 
-        #region données membres
+        #region donnÃ©es membres
         BTDoc m_Document = null;
         static bool m_bIsWaiting = false;
         static int nbinstanceexecuter = 0;
@@ -69,13 +69,13 @@ namespace CommonLib
         {
             while (m_PileScriptsToExecute.Count != 0)
             {
-                // on prend le script sans l'enlever afin de savoir qu'il n'est pas encore executé
+                // on prend le script sans l'enlever afin de savoir qu'il n'est pas encore executÃ©
                 StringCollection Script = m_PileScriptsToExecute.Peek();
                 if (m_bIsWaiting)
                     System.Diagnostics.Debug.Assert(false, "appel en trop");
 
                 InternalExecuteScript(Script);
-                // il est éxécuté, on l'enlève de la liste.
+                // il est Ã©xÃ©cutÃ©, on l'enlÃ¨ve de la liste.
                 m_PileScriptsToExecute.Dequeue();
             }
         }
@@ -380,9 +380,9 @@ namespace CommonLib
                     if (!m_Document.m_Comm.WaitTrameRecieved(ConvertedSize, FrameHeader))
                     {
                         m_bIsWaiting = false;
-                        //indiquer qu'une trame n'a pas été recu
+                        //indiquer qu'une trame n'a pas Ã©tÃ© recu
                         // et demander a l'utilisateur si il souhaite continuer l'execution des actions
-                        // si il ne veux pas, remonter au parent qu'il doit arrèter les actions
+                        // si il ne veux pas, remonter au parent qu'il doit arrÃ¨ter les actions
                         //COMM_ERROR Err = m_Doc.m_Comm.ErrorCode;
                         string strmess = string.Format("Message {0} have not been recieved (Timeout)", TrameToRecieve.Symbol);
                         LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, strmess);
@@ -539,7 +539,7 @@ namespace CommonLib
 
         #endregion
 
-        #region execution des fonction mathématiques
+        #region execution des fonction mathÃ©matiques
         //*****************************************************************************************************
         // Description:
         // Return: /
@@ -579,7 +579,7 @@ namespace CommonLib
                         AddLogEvent(logEvent);
                         return;
                     }
-                    // on parse les données
+                    // on parse les donnÃ©es
                     string ResultSymbol = strParamList[0].Trim();
                     string OP1Symbol = strParamList[1].Trim();
                     string OP2Symbol = strParamList[2].Trim();

@@ -9,26 +9,26 @@ namespace CommonLib
 {
     public class BTTimer : BaseObject, IScriptable
     {
-        #region Déclaration des données de la classe
-        // script executé par le timer
+        #region DÃ©claration des donnÃ©es de la classe
+        // script executÃ© par le timer
         private StringCollection m_ScriptLines = new StringCollection();
-        // période du timer
+        // pÃ©riode du timer
         int m_iPeriod = 1000;
 
         private bool m_bAutoStart = true;
         #endregion
 
-        #region donnée spécifiques aux fonctionement en mode Command
-        // objet Timer utilisé en mode Command
+        #region donnÃ©e spÃ©cifiques aux fonctionement en mode Command
+        // objet Timer utilisÃ© en mode Command
         Timer m_Timer = new Timer();
         bool m_bTimerEnabled = false;
         // executer de script du document
         ScriptExecuter m_Executer = null;
         #endregion
 
-        #region propriétées de la classe
+        #region propriÃ©tÃ©es de la classe
         /// <summary>
-        /// obtient ou assigne la période du timer en ms
+        /// obtient ou assigne la pÃ©riode du timer en ms
         /// </summary>
         public int Period
         {
@@ -43,7 +43,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// obtient ou assigne le script executé par le timer
+        /// obtient ou assigne le script executÃ© par le timer
         /// </summary>
         public string[] ScriptLines
         {
@@ -68,7 +68,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// obtient ou assigne la booléen indiquant si le timer est activé automatiquement au démarrage
+        /// obtient ou assigne la boolÃ©en indiquant si le timer est activÃ© automatiquement au dÃ©marrage
         /// </summary>
         public bool AutoStart
         {
@@ -83,7 +83,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// obtient ou assigne l'executer de l'écran
+        /// obtient ou assigne l'executer de l'Ã©cran
         /// </summary>
         public ScriptExecuter Executer
         {
@@ -100,11 +100,11 @@ namespace CommonLib
 
         #region ReadIn / WriteOut
         /// <summary>
-        /// Lit les données de l'objet a partir de son noeud XML
+        /// Lit les donnÃ©es de l'objet a partir de son noeud XML
         /// </summary>
         /// <param name="Node">Noeud Xml de l'objet</param>
         /// <param name="TypeApp">type d'application courante</param>
-        /// <returns>true si la lecture s'est bien passé</returns>
+        /// <returns>true si la lecture s'est bien passÃ©</returns>
         public override bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
         {
             bool bRet = base.ReadIn(Node, TypeApp);
@@ -132,15 +132,15 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// écrit les données de l'objet dans le fichier XML
+        /// Ã©crit les donnÃ©es de l'objet dans le fichier XML
         /// </summary>
         /// <param name="XmlDoc">Document XML courant</param>
         /// <param name="Node">Noeud parent du controle dans le document</param>
-        /// <returns>true si l'écriture s'est déroulée avec succès</returns>
+        /// <returns>true si l'Ã©criture s'est dÃ©roulÃ©e avec succÃ¨s</returns>
         public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
         {
             base.WriteOut(XmlDoc, Node);
-            // on écrit la période
+            // on Ã©crit la pÃ©riode
             XmlAttribute AttrPeriod = XmlDoc.CreateAttribute(XML_CF_ATTRIB.Period.ToString());
             XmlAttribute AutoStartAttrib = XmlDoc.CreateAttribute(XML_CF_ATTRIB.AutoStart.ToString());
             AttrPeriod.Value = m_iPeriod.ToString();
@@ -159,11 +159,11 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// termine la lecture de l'objet. utilisé en mode Commande initialiser les donnes spécifiques 
+        /// termine la lecture de l'objet. utilisÃ© en mode Commande initialiser les donnes spÃ©cifiques 
         /// au mode SmartCommand
         /// </summary>
         /// <param name="Doc">Document courant</param>
-        /// <returns>true si tout s'est bien passé</returns>
+        /// <returns>true si tout s'est bien passÃ©</returns>
         public override bool FinalizeRead(BTDoc Doc)
         {
             // initialisation de l'objet Timer
@@ -177,14 +177,14 @@ namespace CommonLib
 
         #region Gestion des AppMessages
         /// <summary>
-        /// effectue les opération nécessaire lors de la récéption d'un message
+        /// effectue les opÃ©ration nÃ©cessaire lors de la rÃ©cÃ©ption d'un message
         /// </summary>
         /// <param name="Mess">Type de message</param>
-        /// <param name="obj">objet contenant les paramètres du messages</param>
+        /// <param name="obj">objet contenant les paramÃ¨tres du messages</param>
         /// <param name="TypeApp">Type d'application courante</param>
         public override void TraiteMessage(MESSAGE Mess, object obj, TYPE_APP TypeApp)
         {
-            // en mode config, on execute les différents traitements sur les scripts
+            // en mode config, on execute les diffÃ©rents traitements sur les scripts
             if (TypeApp == TYPE_APP.SMART_CONFIG)
             {
                 ScriptTraiteMessage(this, Mess, m_ScriptLines, obj);
@@ -212,7 +212,7 @@ namespace CommonLib
 
         #region fonction d'execution en mode Command
         /// <summary>
-        /// démarre le timer
+        /// dÃ©marre le timer
         /// </summary>
         public void StartTimer()
         {
@@ -230,9 +230,9 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// execute le script lors que l'évènement de l'objet timer est levé
+        /// execute le script lors que l'Ã©vÃ¨nement de l'objet timer est levÃ©
         /// </summary>
-        /// <param name="sender">timer ayant levé l'évènement</param>
+        /// <param name="sender">timer ayant levÃ© l'Ã©vÃ¨nement</param>
         /// <param name="e">argument de l'event</param>
         private void OnTimerTick(object sender, EventArgs e)
         {

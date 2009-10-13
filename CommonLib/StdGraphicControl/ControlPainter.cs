@@ -7,7 +7,7 @@ using System.Drawing;
 namespace CommonLib
 {
     //*****************************************************************************************************
-    // Description: cette classe static intègre les fonctions permettant de dessiner les apects des InteractiveControls
+    // Description: cette classe static intÃ¨gre les fonctions permettant de dessiner les apects des InteractiveControls
     //*****************************************************************************************************
     public static class ControlPainter
     {
