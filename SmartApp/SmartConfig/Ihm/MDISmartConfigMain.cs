@@ -23,7 +23,7 @@ namespace SmartApp.Ihm
 #endif
         protected delegate void UpdateTitleDg(string str);
 
-        #region données membres
+        #region donnÃ©es membres
         protected DataForm m_DataForm = new DataForm();
         protected DesignerForm m_DesignForm = new DesignerForm();
         protected FrameForm m_FrameForm = new FrameForm();
@@ -36,7 +36,7 @@ namespace SmartApp.Ihm
 
         #region constructeurs
         //*****************************************************************************************************
-        // Description: constructeur par défaut
+        // Description: constructeur par dÃ©faut
         // Return: /
         //*****************************************************************************************************
         public MDISmartConfigMain()
@@ -46,7 +46,7 @@ namespace SmartApp.Ihm
             CommonConstructorInit();
         }
         //*****************************************************************************************************
-        // Description: constructeur ouvrant le fichier passé en paramètre dès la fin de l'initialisation
+        // Description: constructeur ouvrant le fichier passÃ© en paramÃ¨tre dÃ¨s la fin de l'initialisation
         // Return: /
         //*****************************************************************************************************
         public MDISmartConfigMain(string FileName)
@@ -116,7 +116,7 @@ namespace SmartApp.Ihm
         }
         #endregion
 
-        #region réarangement des fenêtres
+        #region rÃ©arangement des fenÃªtres
         //*****************************************************************************************************
         // Description:
         // Return: /
@@ -177,7 +177,7 @@ namespace SmartApp.Ihm
             {
                 m_Document = new BTDoc(Program.TypeApp);
                 OpenDocument(m_Document);
-                // on ne donne pas de nom au document, comme ca on peux savoir qu'il n'a jamais été sauvé
+                // on ne donne pas de nom au document, comme ca on peux savoir qu'il n'a jamais Ã©tÃ© sauvÃ©
                 m_strDocumentName = "Untitled.scf";
                 UpdateTitle();
             }
@@ -199,7 +199,7 @@ namespace SmartApp.Ihm
 
                     m_Document = new BTDoc(Program.TypeApp);
                     OpenDocument(m_Document);
-                    // on ne donne pas de nom au document, comme ca on peux savoir qu'il n'a jamais été sauvé
+                    // on ne donne pas de nom au document, comme ca on peux savoir qu'il n'a jamais Ã©tÃ© sauvÃ©
                     m_strDocumentName = "Untitled.scf";
                     UpdateTitle();
                 }
@@ -208,7 +208,7 @@ namespace SmartApp.Ihm
                     this.CloseDoc();
                     m_Document = new BTDoc(Program.TypeApp);
                     OpenDocument(m_Document);
-                    // on ne donne pas de nom au document, comme ca on peux savoir qu'il n'a jamais été sauvé
+                    // on ne donne pas de nom au document, comme ca on peux savoir qu'il n'a jamais Ã©tÃ© sauvÃ©
                     m_strDocumentName = "Untitled.scf";
                     UpdateTitle();
                 }
@@ -474,8 +474,8 @@ namespace SmartApp.Ihm
 
         #region Update divers
         //*****************************************************************************************************
-        // Description: met a jour le titre de l'application en fonction du nom du document et de son état 
-        // modifié ou non
+        // Description: met a jour le titre de l'application en fonction du nom du document et de son Ã©tat 
+        // modifiÃ© ou non
         // Return: /
         //*****************************************************************************************************
         public void UpdateTitle()

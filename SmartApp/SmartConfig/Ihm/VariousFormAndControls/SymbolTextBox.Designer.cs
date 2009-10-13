@@ -1,4 +1,4 @@
-﻿namespace SmartApp.Ihm
+namespace SmartApp.Ihm
 {
     partial class SymbolTextBox
     {
