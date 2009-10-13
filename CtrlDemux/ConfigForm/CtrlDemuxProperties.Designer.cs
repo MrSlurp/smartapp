@@ -1,4 +1,4 @@
-﻿namespace CtrlDemux
+namespace CtrlDemux
 {
     partial class CtrlDemuxProperties
     {

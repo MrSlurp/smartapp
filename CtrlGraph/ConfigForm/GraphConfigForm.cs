@@ -22,7 +22,7 @@ namespace CtrlGraph
                 LogPeriods = LogPer;
             }
         }
-        #region données membres
+        #region donnÃ©es membres
         private BTDoc m_Document = null;
 
         DllCtrlGraphProp m_Props = new DllCtrlGraphProp();
@@ -33,7 +33,7 @@ namespace CtrlGraph
         CComboData[] m_CboDataDispPeriod;
         CComboData[] m_CboDataLogPeriod;
 
-        // compatibilité disp \ log period
+        // compatibilitÃ© disp \ log period
         // DISP         LOG        |     DISP     LOG
         //  10 min                 |     2 J
         //              1  sec     |              30 sec
@@ -128,7 +128,7 @@ namespace CtrlGraph
             m_CboDataLogPeriod[5] = new CComboData("5 minutes", LOG_PERIOD.LOG_5_min);
             m_CboDataLogPeriod[6] = new CComboData("10 minutes", LOG_PERIOD.LOG_10_min);
 
-            // pour la combo des périodes, on peux directement assigner la liste complète
+            // pour la combo des pÃ©riodes, on peux directement assigner la liste complÃ¨te
             cboDispPeriod.ValueMember = "Object";
             cboDispPeriod.DisplayMember = "DisplayedString";
             cboDispPeriod.DataSource = m_CboDataDispPeriod;

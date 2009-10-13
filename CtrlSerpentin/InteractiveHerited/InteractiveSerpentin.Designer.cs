@@ -1,4 +1,4 @@
-﻿namespace CtrlSerpentin
+namespace CtrlSerpentin
 {
     partial class InteractiveSerpentin
     {

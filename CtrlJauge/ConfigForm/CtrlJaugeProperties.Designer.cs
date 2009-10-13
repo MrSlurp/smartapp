@@ -1,4 +1,4 @@
-﻿namespace CtrlJauge
+namespace CtrlJauge
 {
     partial class CtrlJaugeProperties
     {

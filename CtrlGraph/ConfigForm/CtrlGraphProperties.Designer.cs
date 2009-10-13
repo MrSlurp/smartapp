@@ -1,4 +1,4 @@
-﻿namespace CtrlGraph
+namespace CtrlGraph
 {
     partial class CtrlGraphProperties
     {
