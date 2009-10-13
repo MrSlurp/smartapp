@@ -12,7 +12,7 @@ namespace SmartApp.Ihm
 {
     public partial class ScreenPropertiesControl : UserControl
     {
-        #region données membres
+        #region donnÃ©es membres
         private BTDoc m_Document = null;
         private BTScreen m_Screen = null;
         #endregion
@@ -94,7 +94,7 @@ namespace SmartApp.Ihm
         }
         #endregion
 
-        #region attribut d'accès aux valeurs de la page de propriété
+        #region attribut d'accÃ¨s aux valeurs de la page de propriÃ©tÃ©
         //*****************************************************************************************************
         // Description:
         // Return: /
@@ -156,7 +156,7 @@ namespace SmartApp.Ihm
         }
         #endregion
 
-        #region validation des données
+        #region validation des donnÃ©es
         //*****************************************************************************************************
         // Description:
         // Return: /

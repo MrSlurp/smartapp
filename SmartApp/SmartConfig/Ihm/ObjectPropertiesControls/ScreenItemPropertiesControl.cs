@@ -13,7 +13,7 @@ namespace SmartApp.Ihm
 {
     public partial class ScreenItemPropertiesControl : UserControl
     {
-        #region données membres
+        #region donnÃ©es membres
         private BTControl m_Control = null;
 
         private GestControl m_GestControl = null;
@@ -40,12 +40,12 @@ namespace SmartApp.Ihm
             InitializeComponent();
             m_BeginWithDataList = new AutoCompleteStringCollection();
             // c'est bien beau l'auto completion mais encore faut t'il que ca ne plante pas
-            // trouvé ou est le problem
+            // trouvÃ© ou est le problem
             //m_EditAssociateData.AutoCompleteCustomSource = m_BeginWithDataList;
         }
         #endregion
 
-        #region attribut d'accès aux valeurs de la page de propriété
+        #region attribut d'accÃ¨s aux valeurs de la page de propriÃ©tÃ©
         //*****************************************************************************************************
         // Description:
         // Return: /
@@ -225,7 +225,7 @@ namespace SmartApp.Ihm
         }
         #endregion
 
-        #region validation des données
+        #region validation des donnÃ©es
         //*****************************************************************************************************
         // Description:
         // Return: /
@@ -333,7 +333,7 @@ namespace SmartApp.Ihm
         }
         #endregion
 
-        #region handlers d'évènement
+        #region handlers d'Ã©vÃ¨nement
         //*****************************************************************************************************
         // Description:
         // Return: /

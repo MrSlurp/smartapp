@@ -13,7 +13,7 @@ namespace SmartApp.Ihm
 
     public partial class FramePropertiesControl : UserControl
     {
-        #region données membres
+        #region donnÃ©es membres
         CComboData[] m_TabCboCtrlDataSize;
         CComboData[] m_TabCboCtrlDataType;
         CComboData[] m_TabCboConvType;
@@ -153,7 +153,7 @@ namespace SmartApp.Ihm
         }
         #endregion
 
-        #region attribut d'accès aux valeurs de la page de propriété
+        #region attribut d'accÃ¨s aux valeurs de la page de propriÃ©tÃ©
         //*****************************************************************************************************
         // Description:
         // Return: /
@@ -186,7 +186,7 @@ namespace SmartApp.Ihm
             }
         }
 
-        #region Donnée de control
+        #region DonnÃ©e de control
         //*****************************************************************************************************
         // Description:
         // Return: /
@@ -338,7 +338,7 @@ namespace SmartApp.Ihm
         #endregion
         #endregion
 
-        #region validation des données
+        #region validation des donnÃ©es
         //*****************************************************************************************************
         // Description:
         // Return: /
@@ -552,17 +552,17 @@ namespace SmartApp.Ihm
         {
             if (m_Trame == null)
                 return;
-            // on préviens que la liste des données va changer 
-            // la frame form va updater la liste des données de la trame a partir de la 
+            // on prÃ©viens que la liste des donnÃ©es va changer 
+            // la frame form va updater la liste des donnÃ©es de la trame a partir de la 
             // list view
             if (BeforeDataListChange != null)
                 BeforeDataListChange();
 
-            // traitement de l'ajout / suppression de la donnée de control
+            // traitement de l'ajout / suppression de la donnÃ©e de control
             if (this.CtrlDataType != CTRLDATA_TYPE.NONE.ToString())
             {
                 GestData.UpdateAllControlDatas(GestTrame);
-                // on ne l'ajoute que si la donnée n'y est pas déja
+                // on ne l'ajoute que si la donnÃ©e n'y est pas dÃ©ja
                 if (!m_Trame.FrameDatas.Contains(this.Symbol + Cste.STR_SUFFIX_CTRLDATA))
                     m_Trame.FrameDatas.Add(this.Symbol + Cste.STR_SUFFIX_CTRLDATA);
             }
@@ -574,8 +574,8 @@ namespace SmartApp.Ihm
                         m_Trame.FrameDatas.Remove(m_Trame.FrameDatas[i]);
                 }
             }
-            // on préviens que la liste des données a changé
-            // la frame form va updater la listview des données de la trame
+            // on prÃ©viens que la liste des donnÃ©es a changÃ©
+            // la frame form va updater la listview des donnÃ©es de la trame
             if (DataListChange != null)
                 DataListChange();
         }
@@ -597,7 +597,7 @@ namespace SmartApp.Ihm
         //*****************************************************************************************************      
         private void OnComboDataCtrlChanged(object sender, EventArgs e)
         {
-            // meme si on est locké on peux faire de la mise a jour IHM, ca évitera de rester dans un état tordu
+            // meme si on est lockÃ© on peux faire de la mise a jour IHM, ca Ã©vitera de rester dans un Ã©tat tordu
             UpdateComboFromToEnabling();
             if (bLockComboCtrlDataTypeEvent)
                 return;

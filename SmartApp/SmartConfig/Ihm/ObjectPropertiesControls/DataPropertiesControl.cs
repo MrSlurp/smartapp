@@ -12,7 +12,7 @@ namespace SmartApp.Ihm
 {
     public partial class DataPropertiesControl : UserControl
     {
-        #region données membres
+        #region donnÃ©es membres
         CComboData[] m_TabCboDataStruct;
         Data m_Data = null;
         bool bLockUpdateRange = false;
@@ -120,7 +120,7 @@ namespace SmartApp.Ihm
         }
         #endregion
 
-        #region validation des données
+        #region validation des donnÃ©es
         //*****************************************************************************************************
         // Description: test si les valeurs saisies sont valides et renvoie false si elle ne le sont pas
         // sinon renvoie true
@@ -152,8 +152,8 @@ namespace SmartApp.Ihm
         //*****************************************************************************************************
         // Description: test si les valeurs saisies sont valides et affiche un message d'erreur concernant
         // ce qui n'est pas valide
-        // si les données sont valides, les propriété de la données sont mises a jour, et si elles ont changé
-        // l'évènement DataPropertiesChanged est appelé
+        // si les donnÃ©es sont valides, les propriÃ©tÃ© de la donnÃ©es sont mises a jour, et si elles ont changÃ©
+        // l'Ã©vÃ¨nement DataPropertiesChanged est appelÃ©
         // Return: /
         //*****************************************************************************************************
         public bool ValidateValues()
@@ -223,7 +223,7 @@ namespace SmartApp.Ihm
         }
         #endregion
 
-        #region attribut d'accès aux valeurs de la page de propriété
+        #region attribut d'accÃ¨s aux valeurs de la page de propriÃ©tÃ©
         //*****************************************************************************************************
         // Description:
         // Return: /

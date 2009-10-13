@@ -14,7 +14,7 @@ namespace SmartApp.Ihm
 
     public partial class LoggerPropertiesControl : UserControl
     {
-        #region données membres
+        #region donnÃ©es membres
         private Logger m_Logger = null;
         private BTDoc m_Document = null;
         CComboData[] m_TabCboLogType;
@@ -150,7 +150,7 @@ namespace SmartApp.Ihm
         }
         #endregion
 
-        #region attribut d'accès aux valeurs de la page de propriété
+        #region attribut d'accÃ¨s aux valeurs de la page de propriÃ©tÃ©
         //*****************************************************************************************************
         // Description:
         // Return: /
@@ -216,7 +216,7 @@ namespace SmartApp.Ihm
         }
         #endregion
 
-        #region validation des données
+        #region validation des donnÃ©es
         //*****************************************************************************************************
         // Description:
         // Return: /
@@ -442,7 +442,7 @@ namespace SmartApp.Ihm
         }
         #endregion
 
-        #region gestion du drag drop dans la liste des données de la trame
+        #region gestion du drag drop dans la liste des donnÃ©es de la trame
         //*****************************************************************************************************
         // Description:
         // Return: /
