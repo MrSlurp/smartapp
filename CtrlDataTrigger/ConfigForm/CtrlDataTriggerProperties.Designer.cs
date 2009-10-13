@@ -1,4 +1,4 @@
-﻿namespace CtrlDataTrigger
+namespace CtrlDataTrigger
 {
     partial class CtrlDataTriggerProperties
     {
