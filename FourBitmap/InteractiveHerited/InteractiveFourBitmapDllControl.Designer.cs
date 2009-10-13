@@ -1,4 +1,4 @@
-﻿namespace FourBitmap
+namespace FourBitmap
 {
     partial class InteractiveFourBitmapDllControl
     {

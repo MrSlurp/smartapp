@@ -1,4 +1,4 @@
-﻿namespace FormatedDisplay
+namespace FormatedDisplay
 {
     partial class InteractiveFormatedDisplayDllControl
     {

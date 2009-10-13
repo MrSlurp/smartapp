@@ -1,4 +1,4 @@
-﻿namespace GradientBaloon
+namespace GradientBaloon
 {
     partial class GradientBaloonProperties
     {

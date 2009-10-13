@@ -1,4 +1,4 @@
-﻿namespace DigitalDisplay
+namespace DigitalDisplay
 {
     partial class InteractiveDigitalDisplayDllControl
     {
