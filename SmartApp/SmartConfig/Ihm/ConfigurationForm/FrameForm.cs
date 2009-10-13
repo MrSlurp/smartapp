@@ -15,10 +15,10 @@ namespace SmartApp.Ihm
 
     public partial class FrameForm : Form
     {
-        #region données membres de la classe
+        #region donnÃ©es membres de la classe
         private BTDoc m_Document = null;
 
-        // index séléctionnné dans la listview
+        // index sÃ©lÃ©ctionnnÃ© dans la listview
         private int m_CurSelectedFrameIndex = -1;
         #endregion
 
@@ -199,7 +199,7 @@ namespace SmartApp.Ihm
         
         #endregion
 
-        #region handlers d'évènements
+        #region handlers d'Ã©vÃ¨nements
 
         //*****************************************************************************************************
         // Description:
@@ -327,7 +327,7 @@ namespace SmartApp.Ihm
         }
         #endregion
 
-        #region gestion du drag drop dans la liste des données de la trame
+        #region gestion du drag drop dans la liste des donnÃ©es de la trame
         //*****************************************************************************************************
         // Description:
         // Return: /

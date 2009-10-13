@@ -13,10 +13,10 @@ namespace SmartApp.Ihm
 {
     public partial class DataForm : Form
     {
-        #region données membres
-        // gestionaire de donnée du document courant
+        #region donnÃ©es membres
+        // gestionaire de donnÃ©e du document courant
         private BTDoc m_Document = null;
-        // index séléctionnné dans la listview
+        // index sÃ©lÃ©ctionnnÃ© dans la listview
         private int m_CurSelectedIndex = -1;
         #endregion
 
@@ -34,7 +34,7 @@ namespace SmartApp.Ihm
             set
             {
                 m_Document = value;
-                // on assigne au control des propriété des données le meme gestionaire de donnée
+                // on assigne au control des propriÃ©tÃ© des donnÃ©es le meme gestionaire de donnÃ©e
                 m_DataPropertyPage.Doc = m_Document;
             }
         }
@@ -142,7 +142,7 @@ namespace SmartApp.Ihm
         }
         #endregion
 
-        #region évènements de la combo et de la listview
+        #region Ã©vÃ¨nements de la combo et de la listview
         //*****************************************************************************************************
         // Description:
         // Return: /
@@ -230,7 +230,7 @@ namespace SmartApp.Ihm
         }
         #endregion
 
-        #region handlers d'évènements divers
+        #region handlers d'Ã©vÃ¨nements divers
         //*****************************************************************************************************
         // Description:
         // Return: /

@@ -11,7 +11,7 @@ namespace SmartApp.Ihm
 {
     public partial class ProgramForm : Form
     {
-        #region données membres
+        #region donnÃ©es membres
         private BTDoc m_Document = null;
         #endregion
 
@@ -58,7 +58,7 @@ namespace SmartApp.Ihm
         }
         #endregion
 
-        #region handlers d'évènements
+        #region handlers d'Ã©vÃ¨nements
         //*****************************************************************************************************
         // Description:
         // Return: /

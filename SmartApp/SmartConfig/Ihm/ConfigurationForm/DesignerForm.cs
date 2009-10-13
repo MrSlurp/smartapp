@@ -14,7 +14,7 @@ namespace SmartApp.Ihm
 {
     public partial class DesignerForm : Form
     {
-        #region données membres
+        #region donnÃ©es membres
         private BTDoc m_Document = null;
         private BTScreen m_Currentscreen = null;
         #endregion
@@ -145,7 +145,7 @@ namespace SmartApp.Ihm
 
         #region fonctions d'update de l'IHM
         //*****************************************************************************************************
-        // Description: met a jour l'état des boutons de la tool bar de mise en forme en fonction de la selection
+        // Description: met a jour l'Ã©tat des boutons de la tool bar de mise en forme en fonction de la selection
         // du designer (InteractiveControlContainer)
         // Return: /
         //*****************************************************************************************************      
@@ -202,7 +202,7 @@ namespace SmartApp.Ihm
         }
 
         //*****************************************************************************************************
-        // Description: affiche le panel correspondant au premier objet selectionné si la selection ne contiens
+        // Description: affiche le panel correspondant au premier objet selectionnÃ© si la selection ne contiens
         // qu'un seul objet
         // Return: /
         //*****************************************************************************************************      
@@ -326,9 +326,9 @@ namespace SmartApp.Ihm
         }
         #endregion
 
-        #region fonctions de gestion du transfert des données Designer => objet && objet ==> designer
+        #region fonctions de gestion du transfert des donnÃ©es Designer => objet && objet ==> designer
         //*****************************************************************************************************
-        // Description: appelé lorsque l'écran séléctionné a changé
+        // Description: appelÃ© lorsque l'Ã©cran sÃ©lÃ©ctionnÃ© a changÃ©
         // Return: /
         //*****************************************************************************************************      
         public void OnSelectedScreenChange(BTScreen Scr)
@@ -336,7 +336,7 @@ namespace SmartApp.Ihm
             m_Currentscreen = Scr;
             if (m_Currentscreen == null)
             {
-                // si il n'y a pas d'écran selectionné
+                // si il n'y a pas d'Ã©cran selectionnÃ©
                 // on ne peux pas droper dans le designer
                 this.m_PanelControlProperties.GestControl = null;
                 m_InteractiveControlContainer.AllowDrop = false;
@@ -372,7 +372,7 @@ namespace SmartApp.Ihm
             {
                 m_InteractiveControlContainer.ScreenBckImage = null;
             }
-            // on met a jour le designer avec l'écran séléctionné
+            // on met a jour le designer avec l'Ã©cran sÃ©lÃ©ctionnÃ©
             UpdateDesignerFromScreen(m_Currentscreen);
             this.m_PanelControlProperties.GestControl = m_Currentscreen.Controls;
             UpdateOptionPanel();
@@ -396,8 +396,8 @@ namespace SmartApp.Ihm
         }
 
         //*****************************************************************************************************
-        // Description: appelé lorsqu'on ajoute manuellement un control au designer
-        // ajoute le control dans la liste des controls de l'écran
+        // Description: appelÃ© lorsqu'on ajoute manuellement un control au designer
+        // ajoute le control dans la liste des controls de l'Ã©cran
         // Return: /
         //*****************************************************************************************************      
         private void OnDesignerControAdded(InteractiveControl ctrl, BTControl SrcBtControl)
