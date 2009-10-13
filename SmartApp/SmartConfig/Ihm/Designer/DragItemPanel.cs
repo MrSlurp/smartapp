@@ -11,7 +11,7 @@ namespace SmartApp.Ihm.Designer
 {
     //*****************************************************************************************************
     // Description: ce panel contiens de base un intercative control de chaque type
-    // elle offre la possibilité de faire un drag and drop vers le designer (Interactive control container)
+    // elle offre la possibilitÃ© de faire un drag and drop vers le designer (Interactive control container)
     //*****************************************************************************************************
     public partial class DragItemPanel : UserControl
     {
@@ -65,7 +65,7 @@ namespace SmartApp.Ihm.Designer
 
 
         //*****************************************************************************************************
-        // Description: commence l'opération de drag and drop avec l'interactiveControl cliqué
+        // Description: commence l'opÃ©ration de drag and drop avec l'interactiveControl cliquÃ©
         // Return: /
         //*****************************************************************************************************
         private void OnItemMouseDown(object sender, MouseEventArgs e)

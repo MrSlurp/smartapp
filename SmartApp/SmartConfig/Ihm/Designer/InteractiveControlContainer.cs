@@ -20,7 +20,7 @@ namespace SmartApp.Ihm.Designer
     public delegate void ControlsPosChanged();
 
     //*****************************************************************************************************
-    // Description: enum des possibilitées de mouvement/resize du group d'interactive control selectionné
+    // Description: enum des possibilitÃ©es de mouvement/resize du group d'interactive control selectionnÃ©
     // Return: /
     //*****************************************************************************************************
     public enum SelectionAbilitiesValues
@@ -34,13 +34,13 @@ namespace SmartApp.Ihm.Designer
     //*****************************************************************************************************
     // Description: paneux contenant des interactive control et permettant de faire:
     // - des selection multiples
-    // - des déplacements de séléction
+    // - des dÃ©placements de sÃ©lÃ©ction
     // - des alignements a gauche ou en haut
-    // - des mises aux meme dimension des éléments séléctionnés
+    // - des mises aux meme dimension des Ã©lÃ©ments sÃ©lÃ©ctionnÃ©s
     //*****************************************************************************************************
     public partial class InteractiveControlContainer : UserControl
     {
-        #region données membres
+        #region donnÃ©es membres
         private ArrayList m_ListSelection = null;
         private Rectangle m_RectSelection;
         private bool m_bMouseDown = false;
@@ -170,7 +170,7 @@ namespace SmartApp.Ihm.Designer
         }
         #endregion
 
-        #region Handler d'évènements
+        #region Handler d'Ã©vÃ¨nements
 
         //*****************************************************************************************************
         // Description:
@@ -202,7 +202,7 @@ namespace SmartApp.Ihm.Designer
             if (EventCanChangeSelection != null && !EventCanChangeSelection())
                 return;
 
-            // on convertis en point écran
+            // on convertis en point Ã©cran
             Point ptMouse = ((Control)obj).PointToScreen(e.Location);
             // puis en point client pour this
             ptMouse = PointToClient(ptMouse);
@@ -246,12 +246,12 @@ namespace SmartApp.Ihm.Designer
         //*****************************************************************************************************
         protected void TraiteMove(Control Ctrl, Size szMove)
         {
-            // rectangle représentant la séléction
+            // rectangle reprÃ©sentant la sÃ©lÃ©ction
             Rectangle RectItems = new Rectangle(32000, 32000, 0, 0);
             // on calcule la position du rectangle
             for (int i =0; i< m_ListSelection.Count; i++)
             {
-                //on récupère les coordonnées les plus en haut a gauche
+                //on rÃ©cupÃ¨re les coordonnÃ©es les plus en haut a gauche
                 Control ctl = (Control)m_ListSelection[i];
                 if (RectItems.X > ctl.Left)
                     RectItems.X = ctl.Left;
@@ -269,11 +269,11 @@ namespace SmartApp.Ihm.Designer
                 if (RectItems.Bottom < ctl.Bottom)
                     RectItems.Height = ctl.Bottom - RectItems.Y;
             }
-            // on l'offset du déplacement qui va être effectué
+            // on l'offset du dÃ©placement qui va Ãªtre effectuÃ©
             RectItems.Offset(szMove.Width, szMove.Height);
             if (!this.ClientRectangle.Contains(RectItems))
             {
-                // on dois "rogner le déplacement"
+                // on dois "rogner le dÃ©placement"
                 if (RectItems.Top < ClientRectangle.Top || RectItems.Bottom > ClientRectangle.Bottom)
                     szMove.Height -= RectItems.Y;
                 if (RectItems.Left < ClientRectangle.Left || RectItems.Right > ClientRectangle.Right)
@@ -452,7 +452,7 @@ namespace SmartApp.Ihm.Designer
         protected override void OnControlAdded(ControlEventArgs e)
         {
             base.OnControlAdded(e);
-            // losrqu'un control est ajouté, les handlers suivants sont automatiquement ajoutés
+            // losrqu'un control est ajoutÃ©, les handlers suivants sont automatiquement ajoutÃ©s
             if (DropableItems.AllowedItem(e.Control.GetType()))
             {
                 if (!((InteractiveControl)e.Control).Initialized)
@@ -465,8 +465,8 @@ namespace SmartApp.Ihm.Designer
                     //e.Control.KeyPress += new KeyPressEventHandler(OnArrowKeyPress);
                     //e.Control.KeyDown += new KeyEventHandler(OnArrowKeyPress);
                 }
-                // au moment ou il est initialisé, il deviens possible de le redimensionner ou de le déplacer
-                // donc c'est uniquement lors qu'il est ajouté au container qu'il deviens complètement fonctionel
+                // au moment ou il est initialisÃ©, il deviens possible de le redimensionner ou de le dÃ©placer
+                // donc c'est uniquement lors qu'il est ajoutÃ© au container qu'il deviens complÃ¨tement fonctionel
                 ((InteractiveControl)e.Control).InitInteractiveControl();
             }
         }
@@ -477,7 +477,7 @@ namespace SmartApp.Ihm.Designer
             {
                 ((IInteractive)m_ListSelection[i]).Selected = false;
             }
-            // et on séléctionne l'objet posé 
+            // et on sÃ©lÃ©ctionne l'objet posÃ© 
             m_ListSelection.Clear();
             m_ListSelection.Add(iCtrl);
             iCtrl.Selected = true;
@@ -608,12 +608,12 @@ namespace SmartApp.Ihm.Designer
         //*****************************************************************************************************
         private void OnDragDrop(object sender, DragEventArgs e)
         {
-            // on récupère les données de l'objet dropé en correspondance avec ce qu'on veux
+            // on rÃ©cupÃ¨re les donnÃ©es de l'objet dropÃ© en correspondance avec ce qu'on veux
             InteractiveControl DropedItem = DropableItems.GetDropableItem(e);
             if (DropedItem != null)
             {
-                // si on a bien dropé un InteractiveControl
-                // on crée un nouvel objet avec les meme caractéristiques
+                // si on a bien dropÃ© un InteractiveControl
+                // on crÃ©e un nouvel objet avec les meme caractÃ©ristiques
                 // et on le place a la position de la souris
                 InteractiveControl newControl = DropedItem.CreateNew();
                 Point PtMouse = new Point(e.X, e.Y);
@@ -634,12 +634,12 @@ namespace SmartApp.Ihm.Designer
 
                 newControl.Size = new Size(newWidth, newHeigh);
                 newControl.Text = DropedItem.Text;
-                // lorsqu'un control est ajouté, on supprime la séléction
+                // lorsqu'un control est ajoutÃ©, on supprime la sÃ©lÃ©ction
                 for (int i = 0; i < m_ListSelection.Count; i++)
                 {
                     ((IInteractive)m_ListSelection[i]).Selected = false;
                 }
-                // et on séléctionne l'objet posé 
+                // et on sÃ©lÃ©ctionne l'objet posÃ© 
                 m_ListSelection.Clear();
                 newControl.Selected = true;
                 if (EventControlAdded != null)
