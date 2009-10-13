@@ -1,6 +1,6 @@
 /***************************************************************************/
-// PROJET : BTCommand : system de commande paramétrable pour équipement
-// ayant une mécanisme de commande par liaison série/ethernet/http
+// PROJET : BTCommand : system de commande paramÃ©trable pour Ã©quipement
+// ayant une mÃ©canisme de commande par liaison sÃ©rie/ethernet/http
 /***************************************************************************/
 // Fichier : 
 /***************************************************************************/
@@ -18,7 +18,7 @@ namespace CommonLib
 {
     public class SerialComm : BaseComm
     {
-        #region données membres
+        #region donnÃ©es membres
         private SerialPort m_PortSerie;
         List<byte[]> m_MessageList = new List<byte[]>();
         #endregion
@@ -30,28 +30,32 @@ namespace CommonLib
         #region cosntructeurs
         /// <summary>
         /// constructeur de la classe
-        /// initialise par défaut le port comm sur le port COM6(port BlueTooth PPC)
-        /// a 57600 bauds, 7 bits de donnée, paritée paire
+        /// initialise par dÃ©faut le port comm sur le port COM6(port BlueTooth PPC)
+        /// a 57600 bauds, 7 bits de donnÃ©e, paritÃ©e paire
         /// </summary>
         public SerialComm()
         {
             m_PortSerie = new SerialPort();
-            // conf par défaut
+            // conf par dÃ©faut
             m_PortSerie.PortName = "COM6";
             m_PortSerie.BaudRate = (int)SERIAL_BAUD_RATE.BR_115200;
             m_PortSerie.DataBits = (int)NB_DATA_BITS.NB_DB7;
             m_PortSerie.DtrEnable = true;
             m_PortSerie.Parity = Parity.Even;
+#if !LINUX
             m_PortSerie.ParityReplace = ((byte)(48));
+#endif
             m_PortSerie.StopBits = StopBits.One;
             m_PortSerie.ReadTimeout = 5000;
             m_PortSerie.WriteTimeout = 5000;
             m_PortSerie.DataReceived += new SerialDataReceivedEventHandler(this.DataReceived);
             m_PortSerie.ErrorReceived += new SerialErrorReceivedEventHandler(this.ErrorReceived);
+#if !LINUX
             m_PortSerie.ReceivedBytesThreshold = 1;
+#endif
 
             Traces.LogAddDebug("Configuration du port com", "");
-            Traces.LogAddDebug("Bits de donnée", m_PortSerie.DataBits.ToString());
+            Traces.LogAddDebug("Bits de donnÃ©e", m_PortSerie.DataBits.ToString());
             Traces.LogAddDebug("DTR", m_PortSerie.DtrEnable.ToString());
             Traces.LogAddDebug("Bits de stop", m_PortSerie.StopBits.ToString());
             Traces.LogAddDebug("Read Timeout", m_PortSerie.ReadTimeout.ToString());
@@ -64,7 +68,7 @@ namespace CommonLib
 
         #region attributs
         /// <summary>
-        /// attribut permettant de d'assigner ou connaitre le nom du port configurée sur le port
+        /// attribut permettant de d'assigner ou connaitre le nom du port configurÃ©e sur le port
         /// </summary>
         public string ComPort
         {
@@ -80,7 +84,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// attribut permettant de d'assigner ou connaitre le BaudRate configurée sur le port
+        /// attribut permettant de d'assigner ou connaitre le BaudRate configurÃ©e sur le port
         /// </summary>
         public SERIAL_BAUD_RATE BaudRate
         {
@@ -96,7 +100,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// attribut permettant de d'assigner ou connaitre la paritée configurée sur le port
+        /// attribut permettant de d'assigner ou connaitre la paritÃ©e configurÃ©e sur le port
         /// </summary>
         public Parity Parity
         {
@@ -107,16 +111,16 @@ namespace CommonLib
             set
             {
                 m_PortSerie.Parity = value;
-                Traces.LogAddDebug("Paritée", value.ToString());
+                Traces.LogAddDebug("ParitÃ©e", value.ToString());
             }
         }
         #endregion
 
-        #region méthodes publiques
+        #region mÃ©thodes publiques
         /// <summary>
         /// ouvre le port de communication
         /// </summary>
-        /// <returns> vrai si le port a bien été ouvert</returns>
+        /// <returns> vrai si le port a bien Ã©tÃ© ouvert</returns>
         public override bool OpenComm()
         {
             try
@@ -148,7 +152,7 @@ namespace CommonLib
         /// <summary>
         /// ferme le port de communication
         /// </summary>
-        /// <returns> vrai si le port est bien fermé</returns>
+        /// <returns> vrai si le port est bien fermÃ©</returns>
         public override bool CloseComm()
         {
             m_PortSerie.Close();
@@ -159,7 +163,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// vérifie l'état d'ouverture du port série
+        /// vÃ©rifie l'Ã©tat d'ouverture du port sÃ©rie
         /// </summary>
         /// <returns> vrai si le port de comm est ouvert</returns>
         public override bool IsOpen()
@@ -168,10 +172,10 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// Envoie les données contenues dans le buffer passé en paramètres
+        /// Envoie les donnÃ©es contenues dans le buffer passÃ© en paramÃ¨tres
         /// </summary>
-        /// <param name="buffer">Buffer contenant les données a envoyer</param>
-        /// <returns>renvoie vrai si les données ont été envoyées</returns>
+        /// <param name="buffer">Buffer contenant les donnÃ©es a envoyer</param>
+        /// <returns>renvoie vrai si les donnÃ©es ont Ã©tÃ© envoyÃ©es</returns>
         public override bool SendData(Byte[] buffer)
         {
             bool bReturnValue = true;
@@ -224,12 +228,12 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// renvoie les données reçues par le port série
-        /// (renvoie null si aucune donnée n'a été reçu au moment de l'appel a cette fonction
+        /// renvoie les donnÃ©es reÃ§ues par le port sÃ©rie
+        /// (renvoie null si aucune donnÃ©e n'a Ã©tÃ© reÃ§u au moment de l'appel a cette fonction
         /// </summary>
-        /// <param name="NumberOfByte">nombre d'octet de la trame à extraire</param>
-        /// <param name="FrameHeader">header de la trame à extraire</param>
-        /// <returns>un tableau de Byte contenant les données reçues</returns>
+        /// <param name="NumberOfByte">nombre d'octet de la trame Ã  extraire</param>
+        /// <param name="FrameHeader">header de la trame Ã  extraire</param>
+        /// <returns>un tableau de Byte contenant les donnÃ©es reÃ§ues</returns>
         public override Byte[] GetRecievedData(int NumberOfByte, byte[] FrameHeader)
         {
             if (m_PortSerie.IsOpen && m_bDataAvailable)
@@ -237,17 +241,17 @@ namespace CommonLib
                 Traces.LogAddDebug("GetRecievedData", "Nombre de messages dans la file = " + m_MessageList.Count);
                 if (m_MessageList.Count != 0)
                 {
-                    // on parcour la liste des trames reçues pour vois si par hasard on en aurai
+                    // on parcour la liste des trames reÃ§ues pour vois si par hasard on en aurai
                     // pas une de la bonne taille
                     int indexOfFrame = -1;
                     for (int i = 0; i < m_MessageList.Count; i++)
                     {
-                        Traces.LogAddDebug("GetRecievedData", "Longueur de la trame n°" + i + " dans la file = " + m_MessageList[i].Length);
+                        Traces.LogAddDebug("GetRecievedData", "Longueur de la trame nÂ°" + i + " dans la file = " + m_MessageList[i].Length);
                         Traces.LogAddDebug("GetRecievedData", "Longueur de la trame attendue = " + NumberOfByte);
                         if (m_MessageList[i].Length == NumberOfByte)
                         {
                             indexOfFrame = i;
-                            Traces.LogAddDebug("GetRecievedData", "Trame attendu trouvée");
+                            Traces.LogAddDebug("GetRecievedData", "Trame attendu trouvÃ©e");
                             break;
                         }
                     }
@@ -266,18 +270,18 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// test si une trame reçu correspond en longueur et en header.
+        /// test si une trame reÃ§u correspond en longueur et en header.
         /// </summary>
-        /// <param name="FrameLenght">longueur de la trame recherchée</param>
-        /// <param name="FrameHeader">header de la trame recherchée</param>
+        /// <param name="FrameLenght">longueur de la trame recherchÃ©e</param>
+        /// <param name="FrameHeader">header de la trame recherchÃ©e</param>
         /// <returns>true si une trame correpond</returns>
         public override bool TestFrame(int FrameLenght, byte[] FrameHeader)
         {
             if (m_MessageList.Count != 0)
             {
-                // on parcour la liste des trames reçues pour vois si par hasard on en aurai
+                // on parcour la liste des trames reÃ§ues pour vois si par hasard on en aurai
                 // pas une de la bonne taille
-                // si on en a une de la bonne taille, on vérifie le header
+                // si on en a une de la bonne taille, on vÃ©rifie le header
                 int indexOfFrame = -1;
                 try
                 {
@@ -347,18 +351,18 @@ namespace CommonLib
         }
         #endregion
 
-        #region méthodes privées
+        #region mÃ©thodes privÃ©es
         /// <summary>
-        /// Callback appelé lorsque des données sont reçues sur le port série
+        /// Callback appelÃ© lorsque des donnÃ©es sont reÃ§ues sur le port sÃ©rie
         /// </summary>
-        /// <param name="sender">objet ayant appelé la callback</param>
-        /// <param name="e">Paramètres de récéptions</param>
+        /// <param name="sender">objet ayant appelÃ© la callback</param>
+        /// <param name="e">ParamÃ¨tres de rÃ©cÃ©ptions</param>
         private void DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             bool bSuccess = false;
             try
             {
-                Traces.LogAddDebug("DataRecieved", m_PortSerie.BytesToRead + " octets à lire");
+                Traces.LogAddDebug("DataRecieved", m_PortSerie.BytesToRead + " octets Ã  lire");
                 string strDataRecieved = "";
                 bool bFullTrameRecieved = false;
                 bool bBeginFrameRecieved = false;
@@ -389,7 +393,7 @@ namespace CommonLib
             }
             catch (Exception ex)
             {
-                Traces.LogAddDebug("DataRecieved", "Exception lors de la récéption de données");
+                Traces.LogAddDebug("DataRecieved", "Exception lors de la rÃ©cÃ©ption de donnÃ©es");
                 Traces.LogAddDebug("DataRecieved", ex.StackTrace);
                 Traces.LogAddDebug("DataRecieved", ex.Message);
                 bSuccess = false;
@@ -404,10 +408,10 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// Callback appelé lorsqu'une erreur se produit sur le port série
+        /// Callback appelÃ© lorsqu'une erreur se produit sur le port sÃ©rie
         /// </summary>
-        /// <param name="sender">objet ayant appelé la callback</param>
-        /// <param name="e">Paramètres de l'erreur</param>
+        /// <param name="sender">objet ayant appelÃ© la callback</param>
+        /// <param name="e">ParamÃ¨tres de l'erreur</param>
         private void ErrorReceived(object sender, SerialErrorReceivedEventArgs e)
         {
             switch (e.EventType)

@@ -16,7 +16,7 @@ namespace SmartApp
         private static TYPE_APP m_TypeApp = TYPE_APP.NONE;
 
         //*****************************************************************************************************
-        // Description: attribut permettant de connaitre le type de soft executé
+        // Description: attribut permettant de connaitre le type de soft executÃ©
         // cet attribut n'est pas read only car SmartConfig peux avoir a le changer temporairement
         // lors du "saut a SmartCommand"
         // Return: /
@@ -61,8 +61,8 @@ namespace SmartApp
         static void Main(string[] strArgsList)
         {
             Application.EnableVisualStyles();
-            // attention, cette ligne est toujours appelé, mais dans la création du singleton de la fenêtre principale
-            // car les membres étant statiques, il provoquent la création de la fenêtre pendant le chargement même de l'application
+            // attention, cette ligne est toujours appelÃ©, mais dans la crÃ©ation du singleton de la fenÃªtre principale
+            // car les membres Ã©tant statiques, il provoquent la crÃ©ation de la fenÃªtre pendant le chargement mÃªme de l'application
             //Application.SetCompatibleTextRenderingDefault(false);
             Traces.Initialize(Application.StartupPath, "TraceSmartApp.txt", SmartApp.Properties.Settings.Default.LogLevel);
             CommonLib.Resources.InitializeBitmap();

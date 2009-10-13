@@ -1,3 +1,5 @@
+using CommonLib;
+
 namespace SmartApp
 {
     partial class CommConfiguration
@@ -36,7 +38,19 @@ namespace SmartApp
             this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.m_dataGrid)).BeginInit();
             this.SuspendLayout();
+			
             // 
+            // ColConnectionType
+            // 
+            this.ColConnectionType.HeaderText = "Type";
+            this.ColConnectionType.Name = "ColConnectionType";
+            this.ColConnectionType.Width = 150;
+			this.ColConnectionType.Items.Add(TYPE_COMM.SERIAL.ToString());
+            this.ColConnectionType.Items.Add(TYPE_COMM.ETHERNET.ToString());
+            this.ColConnectionType.Items.Add(TYPE_COMM.VIRTUAL.ToString());
+            this.ColConnectionType.ValueType = typeof(string);
+
+			// 
             // m_dataGrid
             // 
             this.m_dataGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
@@ -52,11 +66,6 @@ namespace SmartApp
             this.m_dataGrid.Name = "m_dataGrid";
             this.m_dataGrid.Size = new System.Drawing.Size(596, 232);
             this.m_dataGrid.TabIndex = 0;
-            this.m_dataGrid.CancelRowEdit += new System.Windows.Forms.QuestionEventHandler(this.m_dataGrid_CancelRowEdit);
-            this.m_dataGrid.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.m_dataGrid_CellValidating);
-            this.m_dataGrid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.m_dataGrid_CellEndEdit);
-            this.m_dataGrid.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.m_dataGrid_CellValueChanged);
-            this.m_dataGrid.Validating += new System.ComponentModel.CancelEventHandler(this.m_dataGrid_Validating);
             // 
             // ColConnectionName
             // 
@@ -64,12 +73,6 @@ namespace SmartApp
             this.ColConnectionName.MinimumWidth = 20;
             this.ColConnectionName.Name = "ColConnectionName";
             this.ColConnectionName.Width = 200;
-            // 
-            // ColConnectionType
-            // 
-            this.ColConnectionType.HeaderText = "Type";
-            this.ColConnectionType.Name = "ColConnectionType";
-            this.ColConnectionType.Width = 150;
             // 
             // ColConnectionParam
             // 

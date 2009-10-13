@@ -28,12 +28,8 @@ namespace SmartApp
         {
             InitializeComponent();
             m_strAppDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName);
-            string strIniFilePath = m_strAppDir + @"\" + Cste.STR_COMINI_FILENAME;
+            string strIniFilePath = PathTranslator.LinuxVsWindowsPathUse(m_strAppDir + @"\" + Cste.STR_COMINI_FILENAME);
             m_IniFile.Load(strIniFilePath);
-            ColConnectionType.Items.Add(TYPE_COMM.SERIAL.ToString());
-            ColConnectionType.Items.Add(TYPE_COMM.ETHERNET.ToString());
-            ColConnectionType.Items.Add(TYPE_COMM.VIRTUAL.ToString());
-            ColConnectionType.ValueType = typeof(string);
             InitCommList();
         }
 
@@ -66,38 +62,9 @@ namespace SmartApp
             m_dataGrid.Rows.Add(TabValues);
         }
 
-        private void m_dataGrid_CancelRowEdit(object sender, QuestionEventArgs e)
-        {
-
-        }
-
-        private void m_dataGrid_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void m_dataGrid_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void m_dataGrid_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
-        {
-
-        }
-
-        private void m_dataGrid_Validating(object sender, CancelEventArgs e)
-        {
-            string strErr;
-            if (!IsDataGridViewValid(out strErr))
-            {
-                e.Cancel = true;
-                MessageBox.Show(strErr, "Error");
-            }
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
+			Console.WriteLine("Le clique bouton à bien été executé");
             string strErr;
             if (IsDataGridViewValid(out strErr))
             {
@@ -109,30 +76,37 @@ namespace SmartApp
                 MessageBox.Show(strErr, "Error");
             }
         }
-
+		
         private bool IsDataGridViewValid(out string strErr)
         {
+			Console.WriteLine(string.Format("nombre de ligne dans la gridview {0}", m_dataGrid.Rows.Count));
             for (int i = 0; i < m_dataGrid.Rows.Count; i++)
             {
-                //ttes les comms doivent �tre valides
+                //ttes les comms doivent être valides
                 DataGridViewRow dtgrRow = m_dataGrid.Rows[i];
                 string strSection = string.Format(Cste.STR_FILE_DESC_HEADER_FORMAT, i);
                 string Name = (string)dtgrRow.Cells[0].Value;
                 string Type = (string)dtgrRow.Cells[1].Value;
                 string Param = (string)dtgrRow.Cells[2].Value;
                 if (string.IsNullOrEmpty(Type))
+				{
+					Console.WriteLine("Ligne type vide");
                     continue;
+				}
 
                 if (TYPE_COMM.ETHERNET.ToString() == Type)
                 {
                     if (string.IsNullOrEmpty(Param))
+					{
                         strErr = "Invalid Parameters";
+                        return false;
+					}
 
 
                     if (Param.IndexOf(':') == -1)
                     {
                         strErr = "Invalid IP Address";
-                        return false; ;
+                        return false;
                     }
 
                     string[] TabIpAndPort = Param.Split(':');
@@ -140,18 +114,21 @@ namespace SmartApp
                     if (!IPAddress.TryParse(TabIpAndPort[0], out IpAddr))
                     {
                         strErr = "Invalid IP Address";
-                        return false; ;
+                        return false;
                     }
                 }
                 else if (TYPE_COMM.SERIAL.ToString() == Type)
                 {
                     if (string.IsNullOrEmpty(Param))
-                        strErr = "Invalid Parameters";
+					{
+                        strErr = "Invalid com port";
+                        return false;
+					}
 
                     if (!Param.StartsWith("COM"))
                     {
                         strErr = "Invalid Serial port";
-                        return false; ;
+                        return false;
                     }
                 }
                 else if (TYPE_COMM.VIRTUAL.ToString() == Type)
@@ -173,7 +150,7 @@ namespace SmartApp
             m_IniFile.ClearAll();
             for (int i = 0; i < m_dataGrid.Rows.Count; i++)
             {
-                //ttes les comms doivent �tre valides
+                //ttes les comms doivent être valides
                 DataGridViewRow dtgrRow = m_dataGrid.Rows[i];
                 string strSection = string.Format(Cste.STR_FILE_DESC_HEADER_FORMAT, i);
                 string Name = (string)dtgrRow.Cells[0].Value;
@@ -189,6 +166,7 @@ namespace SmartApp
                 m_IniFile.SetValue(strSection, Cste.STR_FILE_DESC_COMM, Type);
                 m_IniFile.SetValue(strSection, Cste.STR_FILE_DESC_ADDR, Param);
             }
+			Console.WriteLine("le fichier à bien été sauvegardé");
             m_IniFile.Save();
         }
     }
