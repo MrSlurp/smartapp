@@ -1,4 +1,4 @@
-﻿namespace SmartApp.AppEventLog
+namespace SmartApp.AppEventLog
 {
     partial class AppEventLogForm
     {

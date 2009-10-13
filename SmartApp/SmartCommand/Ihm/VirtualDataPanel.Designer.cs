@@ -1,4 +1,4 @@
-﻿namespace SmartApp
+namespace SmartApp
 {
     partial class VirtualDataPanel
     {

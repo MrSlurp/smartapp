@@ -1,4 +1,4 @@
-﻿using CommonLib;
+using CommonLib;
 namespace SmartApp
 {
     partial class MDISmartCommandMain
