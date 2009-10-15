@@ -62,6 +62,15 @@ namespace CtrlGraph
                 return m_ListCr;
             }
         }
+
+        public override bool DisabledOnStop
+        {
+            get
+            {
+                return false;
+            }
+        }
+
         //*****************************************************************************************************
         // Description:
         // Return: /
@@ -343,7 +352,7 @@ namespace CtrlGraph
             {
                 ToolStripMenuItem Disp1Week = new ToolStripMenuItem();
                 Disp1Week.Name = "1 Week";
-                Disp1Week.Text = "2 Week";
+                Disp1Week.Text = "1 Week";
                 Disp1Week.Tag = SAVE_PERIOD.SAVE_7_j;
                 Disp1Week.Click += new EventHandler(DispPerdiodIem_Click);
                 itemDropDispPer.DropDownItems.Add(Disp1Week);

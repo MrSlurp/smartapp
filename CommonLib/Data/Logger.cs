@@ -24,6 +24,8 @@ namespace CommonLib
         int m_iPeriod;
 
         private bool m_bAutoStart = false;
+        
+        private char m_CsvSeperator = '\t';
         #endregion
 
         #region donnée spécifiques aux fonctionement en mode Command
@@ -108,6 +110,18 @@ namespace CommonLib
                 m_bAutoStart = value;
             }
         }
+
+        public char CsvSeperator
+        {
+            get
+            {
+                return m_CsvSeperator;
+            }
+            set
+            {
+                m_CsvSeperator = value;
+            }
+        }
         #endregion
 
         #region constructeurs
@@ -160,6 +174,13 @@ namespace CommonLib
             if (AutoStartAttrib != null)
                 m_bAutoStart = bool.Parse(AutoStartAttrib.Value);
 
+            XmlNode SepAttrib = Node.Attributes.GetNamedItem(XML_CF_ATTRIB.CsvSeparator.ToString());
+            if (SepAttrib != null && !string.IsNullOrEmpty(SepAttrib.Value))
+            {
+                char [] attrChars = SepAttrib.Value.ToCharArray();
+                m_CsvSeperator = attrChars[0];
+            }
+
             return bRet;
         }
 
@@ -177,14 +198,17 @@ namespace CommonLib
             XmlAttribute PeriodAttrib = XmlDoc.CreateAttribute(XML_CF_ATTRIB.Period.ToString());
             XmlAttribute FileNameAttrib = XmlDoc.CreateAttribute(XML_CF_ATTRIB.FileName.ToString());
             XmlAttribute AutoStartAttrib = XmlDoc.CreateAttribute(XML_CF_ATTRIB.AutoStart.ToString());
+            XmlAttribute SepAttrib = XmlDoc.CreateAttribute(XML_CF_ATTRIB.CsvSeparator.ToString());
             PeriodAttrib.Value = m_iPeriod.ToString();
             LoggerTypeAttrib.Value = m_LogType;
             FileNameAttrib.Value = m_strFileName;
-            AutoStartAttrib.Value = m_bAutoStart.ToString(); 
+            AutoStartAttrib.Value = m_bAutoStart.ToString();
+            SepAttrib.Value = new string(m_CsvSeperator,1);
             Node.Attributes.Append(PeriodAttrib);
             Node.Attributes.Append(LoggerTypeAttrib);
             Node.Attributes.Append(FileNameAttrib);
             Node.Attributes.Append(AutoStartAttrib);
+            Node.Attributes.Append(SepAttrib);
 
             XmlNode NodeDataList = XmlDoc.CreateElement(XML_CF_TAG.DataList.ToString());
             Node.AppendChild(NodeDataList);
@@ -297,7 +321,7 @@ namespace CommonLib
                     case MESSAGE.MESS_CMD_RUN:
                         if (m_LogType == LOGGER_TYPE.AUTO.ToString() && m_bAutoStart)
                         {
-                            string fileFullPath = m_strLogFilePath + @"\" + m_strFileName;
+                            string fileFullPath = PathTranslator.LinuxVsWindowsPathUse(m_strLogFilePath + @"\" + m_strFileName);
                             m_FileWriter = new StreamWriter(File.Open(fileFullPath, FileMode.Append, FileAccess.Write, FileShare.Read));
                             this.StartAutoLogger();
                         }
@@ -377,7 +401,7 @@ namespace CommonLib
             else
             {
                 // sile fichier est fermé, on l'ouvre
-                string fileFullPath = m_strLogFilePath + @"\" + m_strFileName;
+                string fileFullPath = PathTranslator.LinuxVsWindowsPathUse(m_strLogFilePath + @"\" + m_strFileName);
                 try
                 {
                     m_FileWriter = new StreamWriter(File.Open(fileFullPath, FileMode.Append, FileAccess.Write, FileShare.Read));
@@ -403,7 +427,7 @@ namespace CommonLib
                 // on ferme le fichier en cour
                 m_FileWriter.Close();
                 m_FileWriter = null;
-                string fileFullPath = m_strLogFilePath + @"\" + m_strFileName;
+                string fileFullPath = PathTranslator.LinuxVsWindowsPathUse(m_strLogFilePath + @"\" + m_strFileName);
                 // on supprime son contenu
                 try
                 {
@@ -434,7 +458,7 @@ namespace CommonLib
             else
             {
                 // sinon on est en mode manuel, on ouvre le fichier et on le fermera a la fin
-                string fileFullPath = m_strLogFilePath + @"\" + m_strFileName;
+                string fileFullPath = PathTranslator.LinuxVsWindowsPathUse(m_strLogFilePath + @"\" + m_strFileName);
                 try
                 {
                     m_FileWriter = new StreamWriter(File.Open(fileFullPath, FileMode.Truncate, FileAccess.Write, FileShare.Read));
@@ -470,24 +494,26 @@ namespace CommonLib
             string lineToWrite;
             
             // si le fichier est vide on met l'en tete
-            string fileFullPath = m_strLogFilePath + @"\" + m_strFileName;
+            string fileFullPath = PathTranslator.LinuxVsWindowsPathUse(m_strLogFilePath + @"\" + m_strFileName);
             FileInfo fi = new FileInfo(fileFullPath);
             if (fi.Length == 0)
             {
-                lineToWrite = "Time\t";
+                lineToWrite = "Time" + CsvSeperator;
                 for (int i = 0; i < m_ListRefDatas.Count; i++)
                 {
-                    lineToWrite += ((BaseObject)m_ListRefDatas[i]).Symbol + "\t";
+                    lineToWrite += ((BaseObject)m_ListRefDatas[i]).Symbol + CsvSeperator;
                 }
                 m_FileWriter.WriteLine(lineToWrite);
             }
             
             // ensuite on logue la ligne
             string strDate = DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToLongTimeString() +":" + string.Format("{0,3:d}", DateTime.Now.Millisecond);
-            lineToWrite = strDate + "\t";
+            lineToWrite = strDate + CsvSeperator;
             for (int i = 0; i < m_ListRefDatas.Count; i++)
             {
-                lineToWrite += ((Data)m_ListRefDatas[i]).Value.ToString() + "\t";
+                lineToWrite += ((Data)m_ListRefDatas[i]).Value.ToString();
+                if (!(i == m_ListRefDatas.Count - 1))
+                    lineToWrite += CsvSeperator;
             }
             m_FileWriter.WriteLine(lineToWrite);
             m_FileWriter.Flush();

@@ -18,11 +18,11 @@ namespace SmartApp
         {
             get
             {
-                return m_DynamicPanel.Enabled;
+                return m_DynamicPanel.SpecialEnabled;
             }
             set
             {
-                m_DynamicPanel.Enabled = value;
+                m_DynamicPanel.SpecialEnabled = value;
             }
         }
 

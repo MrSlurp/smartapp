@@ -53,6 +53,12 @@
     <Compile Include="ConfigForm\CtrlGraphProperties.Designer.cs">
       <DependentUpon>CtrlGraphProperties.cs</DependentUpon>
     </Compile>
+    <Compile Include="ConfigForm\CurveParam.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ConfigForm\CurveParam.Designer.cs">
+      <DependentUpon>CurveParam.cs</DependentUpon>
+    </Compile>
     <Compile Include="ConfigForm\GraphConfigForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -82,6 +88,10 @@
     <EmbeddedResource Include="ConfigForm\CtrlGraphProperties.resx">
       <SubType>Designer</SubType>
       <DependentUpon>CtrlGraphProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfigForm\CurveParam.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>CurveParam.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ConfigForm\GraphConfigForm.resx">
       <SubType>Designer</SubType>

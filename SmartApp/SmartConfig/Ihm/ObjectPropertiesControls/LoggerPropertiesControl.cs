@@ -18,6 +18,7 @@ namespace SmartApp.Ihm
         private Logger m_Logger = null;
         private BTDoc m_Document = null;
         CComboData[] m_TabCboLogType;
+        CComboData[] m_TabCboSeparator;
         #endregion
 
         #region Events
@@ -75,6 +76,7 @@ namespace SmartApp.Ihm
                     this.Period = m_Logger.Period;
                     this.LogFile = m_Logger.LogFile;
                     this.AutoStart = m_Logger.AutoStart;
+                    this.CsvSeperator = m_Logger.CsvSeperator;
                 }
                 else
                 {
@@ -85,6 +87,7 @@ namespace SmartApp.Ihm
                     this.Period = 50;
                     this.LogFile = "";
                     this.AutoStart = false;
+                    this.CsvSeperator = '\t';
                 }
                 this.InitListViewData();
                 this.UpdateFromLogType();
@@ -142,6 +145,16 @@ namespace SmartApp.Ihm
             m_cboLogType.DisplayMember = "DisplayedString";
             m_cboLogType.DataSource = m_TabCboLogType;
             m_cboLogType.SelectedIndex = 0;
+            
+            m_TabCboSeparator = new CComboData[3];
+            m_TabCboSeparator[0] = new CComboData("Tabulation", '\t');
+            m_TabCboSeparator[1] = new CComboData("Semi colon", ';');
+            m_TabCboSeparator[2] = new CComboData("Coma", ',');
+            
+            m_cboSeparator.ValueMember = "Object";
+            m_cboSeparator.DisplayMember = "DisplayedString";
+            m_cboSeparator.DataSource = m_TabCboSeparator;
+            m_cboSeparator.SelectedIndex = 0;
 
             m_LoggerPeriod.Minimum = 20;
             m_LoggerPeriod.Maximum = 3600000;
@@ -200,6 +213,22 @@ namespace SmartApp.Ihm
             {
                 if (this.m_cboLogType != null)
                     this.m_cboLogType.SelectedValue = (string)value;
+            }
+        }
+
+        public char CsvSeperator
+        {
+            get
+            {
+                if (this.m_cboSeparator != null && this.m_cboSeparator.SelectedValue != null)
+                    return (char)this.m_cboSeparator.SelectedValue;
+                else
+                    return '\t';
+            }
+            set
+            {
+                if (this.m_cboSeparator != null)
+                    this.m_cboSeparator.SelectedValue = (char)value;
             }
         }
 
@@ -292,6 +321,9 @@ namespace SmartApp.Ihm
             if (m_Logger.AutoStart != this.AutoStart)
                 bDataPropChange |= true;
 
+            if (m_Logger.CsvSeperator != this.CsvSeperator)
+                bDataPropChange |= true;
+
             if (bDataPropChange)
             {
                 m_Logger.Description = this.Description;
@@ -300,6 +332,7 @@ namespace SmartApp.Ihm
                 m_Logger.Period = this.Period;
                 m_Logger.LogFile = this.LogFile;
                 m_Logger.AutoStart = this.AutoStart;
+                m_Logger.CsvSeperator = this.CsvSeperator;
                 Doc.Modified = true;
             }
             

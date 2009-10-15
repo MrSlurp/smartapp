@@ -40,7 +40,7 @@ namespace CtrlGraph
     public class DllCtrlGraphProp : SpecificControlProp
     {
         #region constantes
-        public const int NB_CURVE = 4;
+        public const int NB_CURVE = 8;
         private const string NODE_GRAPH_ITEM = "GRAPH_ITEM_{0}";
         private const string NODE_TITLE_ITEM = "GRAPH_TITLES";
         private const string ATTR_SAVE_PERIOD = "SavePeriod";

@@ -18,9 +18,18 @@ namespace CommonLib
         protected BTScreen m_Parent;
         protected Rectangle m_RectControl;
         protected ScriptExecuter m_Executer = null;
+
         #endregion
 
         #region attributs
+        public virtual bool DisabledOnStop
+        {
+            get
+            {
+                return true;
+            }
+        }
+
         /// <summary>
         /// assigne ou obtient le script executer de l'objet
         /// </summary>

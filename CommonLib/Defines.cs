@@ -158,6 +158,7 @@ namespace CommonLib
         InactiveColor,
         SpecificType,
         DllID,
+        CsvSeparator,
     }
 
     /// <summary>

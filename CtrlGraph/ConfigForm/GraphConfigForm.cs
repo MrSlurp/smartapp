@@ -26,13 +26,14 @@ namespace CtrlGraph
         private BTDoc m_Document = null;
 
         DllCtrlGraphProp m_Props = new DllCtrlGraphProp();
-        TextBox[] m_ListSymb = new TextBox[DllCtrlGraphProp.NB_CURVE];
-        TextBox[] m_ListAlias = new TextBox[DllCtrlGraphProp.NB_CURVE];
-        TextBox[] m_ListColors = new TextBox[DllCtrlGraphProp.NB_CURVE];
+        CurveParam[] m_ListCurve = new CurveParam[DllCtrlGraphProp.NB_CURVE];
+        //TextBox[] m_ListSymb = new TextBox[DllCtrlGraphProp.NB_CURVE];
+        //TextBox[] m_ListAlias = new TextBox[DllCtrlGraphProp.NB_CURVE];
+        //TextBox[] m_ListColors = new TextBox[DllCtrlGraphProp.NB_CURVE];
 
         CComboData[] m_CboDataDispPeriod;
         CComboData[] m_CboDataLogPeriod;
-
+        
         // compatibilité disp \ log period
         // DISP         LOG        |     DISP     LOG
         //  10 min                 |     2 J
@@ -42,18 +43,18 @@ namespace CtrlGraph
         //                         |              5  min
         //  1h / 2h                |              10 min
         //              1  sec     |     
-        //              10 sec     |     1 W
-        //              30 sec     |              1 min
-        //              1  min     |              2  min
-        //              2  min     |              5  min
-        //                         |              10 min
-        //  6h / 12h / 1J          |     
-        //              10 sec            
-        //              30 sec            
-        //              1  min            
-        //              2  min            
-        //              5  min            
-        //              10 min            
+        //              10 sec     |     4 J
+        //              30 sec     |              30 sec            
+        //              1  min     |              1  min
+        //              2  min     |              2  min
+        //                         |              5  min
+        //  6h / 12h / 1J          |              10 min     
+        //              10 sec     |
+        //              30 sec     |     1 W            
+        //              1  min     |              1 min        
+        //              2  min     |              2  min       
+        //              5  min     |              5  min       
+        //              10 min     |              10 min       
         //                            
        
         DispLogAsso[] m_DispLogAsso =
@@ -99,14 +100,18 @@ namespace CtrlGraph
         public GraphConfigForm()
         {
             InitializeComponent();
-            m_ListSymb[0] = edtSymb1; m_ListSymb[1] = edtSymb2;
-            m_ListSymb[2] = edtSymb3; m_ListSymb[3] = edtSymb4;
-
-            m_ListAlias[0] = edtAlias1; m_ListAlias[1] = edtAlias2;
-            m_ListAlias[2] = edtAlias3; m_ListAlias[3] = edtAlias4;
-
-            m_ListColors[0] = edtColor1; m_ListColors[1] = edtColor2;
-            m_ListColors[2] = edtColor3; m_ListColors[3] = edtColor4;
+            // initialisation dynamique de la form avec n composant
+            // CuvreParam en fonction de la constante DllCtrlGraphProp.NB_CURVE
+            Point BasePos = new Point(0,0);
+            for (int i = 0; i < DllCtrlGraphProp.NB_CURVE; i++)
+            {
+                m_ListCurve[i] = new CurveParam();
+                m_ListCurve[i].Location = BasePos;
+                BasePos.Y += m_ListCurve[i].Size.Height + 8;  
+                m_ListCurve[i].Name = string.Format("CurveParam{0}", i); 
+                m_ListCurve[i].DataIndex = i;
+                this.uscPanelCurveCfg.Controls.Add(m_ListCurve[i]);
+            }
 
             m_CboDataDispPeriod = new CComboData[9];
             m_CboDataDispPeriod[0] = new CComboData("10 minutes", SAVE_PERIOD.SAVE_10_min);
@@ -155,9 +160,9 @@ namespace CtrlGraph
             {
                 for (int i = 0; i < DllCtrlGraphProp.NB_CURVE; i++)
                 {
-                    m_Props.SetSymbol(i, m_ListSymb[i].Text);
-                    m_Props.SetAlias(i, m_ListAlias[i].Text);
-                    m_Props.SetColor(i, m_ListColors[i].BackColor);
+                    m_Props.SetSymbol(i, m_ListCurve[i].DataSymbol);
+                    m_Props.SetAlias(i, m_ListCurve[i].Alias);
+                    m_Props.SetColor(i, m_ListCurve[i].CurveColor);
                 }
                 m_Props.SavePeriod = (SAVE_PERIOD)cboDispPeriod.SelectedValue;
                 m_Props.LogPeriod = (LOG_PERIOD)cboLogPeriod.SelectedValue;
@@ -173,9 +178,9 @@ namespace CtrlGraph
                     m_Props.CopyParametersFrom(value);
                     for (int i = 0; i < DllCtrlGraphProp.NB_CURVE; i++)
                     {
-                        m_ListSymb[i].Text = m_Props.GetSymbol(i);
-                        m_ListAlias[i].Text = m_Props.GetAlias(i);
-                        m_ListColors[i].BackColor = m_Props.GetColor(i);
+                        m_ListCurve[i].DataSymbol = m_Props.GetSymbol(i);
+                        m_ListCurve[i].Alias = m_Props.GetAlias(i);
+                        m_ListCurve[i].CurveColor = m_Props.GetColor(i);
                     }
                     edtTitle.Text = m_Props.GraphTitle;
                     edtXAxis.Text = m_Props.XAxisTitle;
@@ -188,9 +193,9 @@ namespace CtrlGraph
                 {
                     for (int i = 0; i < DllCtrlGraphProp.NB_CURVE; i++)
                     {
-                        m_ListSymb[i].Text = "";
-                        m_ListAlias[i].Text = "";
-                        m_ListColors[i].BackColor = Color.Black;
+                        m_ListCurve[i].DataSymbol = "";
+                        m_ListCurve[i].Alias = "";
+                        m_ListCurve[i].CurveColor = Color.Black;
                     }
                     edtTitle.Text = "";
                     edtXAxis.Text = "";
@@ -242,6 +247,7 @@ namespace CtrlGraph
         }
 
         #region fonction pick XXX
+        /*
         private void btnPickData_Click(object sender, EventArgs e)
         {
             PickDataForm PickData = new PickDataForm();
@@ -303,6 +309,7 @@ namespace CtrlGraph
                 }
             }
         }
+        */
         #endregion
 
 

@@ -29,9 +29,9 @@ namespace SmartApp
         // Document chargé par l'application
         private BTDoc m_Document = null;
         // fenêtre de log des évènements
-        private static AppEventLogForm m_EventLog = new AppEventLogForm();
+        private static AppEventLogForm m_EventLog;
         // fenêtre de configuration des connexions
-        private CommConfiguration m_CommConfigPage = new CommConfiguration();
+        private CommConfiguration m_CommConfigPage;
         // Liste des pages "utilisateur" ==> une par BTScreen présent dans le document
         private List<DynamicPanelForm> m_FormList = new List<DynamicPanelForm>();
         // fichier d'ini des options
@@ -47,36 +47,6 @@ namespace SmartApp
 
         private bool m_bFullScreenMode = false;
         private FormWindowState m_PrevFullScreenState = FormWindowState.Normal;
-        #endregion
-
-        #region singleton
-        private static MDISmartCommandMain _Instance = null;
-
-        public static MDISmartCommandMain Instance
-        {
-            get
-            {
-                if (_Instance == null)
-                {
-                    Application.SetCompatibleTextRenderingDefault(false);
-                    _Instance = new MDISmartCommandMain();
-                }
-
-                return _Instance;
-            }
-        }
-
-        public static MDISmartCommandMain CreateInstance(string strFileName)
-        {
-            if (_Instance == null)
-            {
-                Application.SetCompatibleTextRenderingDefault(false);
-                _Instance = new MDISmartCommandMain(strFileName);
-            }
-
-            return _Instance;
-        }
-
         #endregion
 
         #region attributs
@@ -98,7 +68,7 @@ namespace SmartApp
         // Description: constructeur par défaut
         // Return: /
         //*****************************************************************************************************
-        private MDISmartCommandMain()
+        public MDISmartCommandMain()
         {
             InitializeComponent();
             CommonConstructorInit();
@@ -108,7 +78,7 @@ namespace SmartApp
         // Description: constructeur avec nom de fichier (ouvre le fichier passé en paramètre)
         // Return: /
         //*****************************************************************************************************
-        private MDISmartCommandMain(string strFileName)
+        public MDISmartCommandMain(string strFileName)
         {
             InitializeComponent();
             CommonConstructorInit();
@@ -121,6 +91,8 @@ namespace SmartApp
         //*****************************************************************************************************
         public void CommonConstructorInit()
         {
+            m_EventLog = new AppEventLogForm();
+            m_CommConfigPage = new CommConfiguration();
             this.Text = APP_TITLE;
             this.Icon = CommonLib.Resources.AppIcon;
             m_EventLog.MdiParent = this;
@@ -408,7 +380,7 @@ namespace SmartApp
         private void MDISmartCommandMain_Load(object sender, EventArgs e)
         {
             string strAppDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName);
-            m_strIniOptionFilePath = strAppDir + @"\" + Cste.STR_OPTINI_FILENAME;
+            m_strIniOptionFilePath = PathTranslator.LinuxVsWindowsPathUse(strAppDir + @"\" + Cste.STR_OPTINI_FILENAME);
             m_IniOptionFile.Load(m_strIniOptionFilePath);
 
             m_strLogFilePath = m_IniOptionFile.GetValue(Cste.STR_FILE_DESC_HEADER_OPT, Cste.STR_FILE_DESC_LOGDIR);
@@ -760,10 +732,10 @@ namespace SmartApp
                 this.m_StatusBar.Visible = false;
                 // on enlève les bouton des la barre de titre
                 this.ControlBox = false;
-                // one enlève les bord
-                this.FormBorderStyle = FormBorderStyle.None;
                 // on maximise la fenêtre principale 
                 this.WindowState = FormWindowState.Maximized;
+                // on enlève les bord
+                this.FormBorderStyle = FormBorderStyle.None;
                 this.ResumeLayout();
             }
             else
@@ -775,6 +747,7 @@ namespace SmartApp
                 this.WindowState = m_PrevFullScreenState;
                 this.ControlBox = true;
                 this.FormBorderStyle = FormBorderStyle.Sizable;
+                this.MaximizeBox = true;
                 this.ResumeLayout();
             }
         }

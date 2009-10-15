@@ -32,7 +32,10 @@ namespace CommonLib
         // pour chaque objet dessiner en fond il y a une liste des controls à rafraichir qui vont avec
         Hashtable m_MapBackDrawToListRefresh = new Hashtable();
 
+        List<Control> m_ListNotDisabledControlOnStop = new List<Control>();
         public event SetMeToTopEvent SetMeToTop;
+
+        private bool m_bInternalEnabled = true;
         /// <summary>
         /// constructeur par défaut
         /// </summary>
@@ -42,14 +45,31 @@ namespace CommonLib
             
         }
 
-        /// <summary>
-        /// Construit son affichage a partir des objets BaseControl crées a la 
-        /// lecture du fichier
-        /// </summary>
-        /// <param name="ControlsList">Liste des controls a afficher
-        /// tout les objets doivent dériver de BaseControl
-        /// </param>
-        public void MyInitializeComponent(List<BTControl> ControlsList)
+        public bool SpecialEnabled
+        {
+            get
+            {
+                return m_bInternalEnabled;
+            }
+            set
+            {
+                m_bInternalEnabled = value;
+                for (int i = 0; i < this.Controls.Count; i++)
+                {
+                    if (!m_ListNotDisabledControlOnStop.Contains(this.Controls[i]))
+                        this.Controls[i].Enabled = m_bInternalEnabled;
+                }
+            }
+        }
+
+            /// <summary>
+            /// Construit son affichage a partir des objets BaseControl crées a la 
+            /// lecture du fichier
+            /// </summary>
+            /// <param name="ControlsList">Liste des controls a afficher
+            /// tout les objets doivent dériver de BaseControl
+            /// </param>
+            public void MyInitializeComponent(List<BTControl> ControlsList)
         {
             this.SuspendLayout();
             for (int i = ControlsList.Count-1; i >=0 ; i--)
@@ -67,6 +87,9 @@ namespace CommonLib
                         m_ListToDrawManually.Add(Ctrl.DisplayedControl);
                         ((DrawInParentCmdCtrl)Ctrl.DisplayedControl).SetDelgateRefresh(new NeedSuperposedRefresh(TraiteRefreshSuperposedItem));
                     }
+                    if (!Ctrl.DisabledOnStop)
+                        m_ListNotDisabledControlOnStop.Add(Ctrl.DisplayedControl);
+
                     this.Controls.Add(Ctrl.DisplayedControl);
                 }
             }

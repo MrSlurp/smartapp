@@ -15,6 +15,8 @@ namespace SmartApp
 
         private static TYPE_APP m_TypeApp = TYPE_APP.NONE;
 
+        public static bool SetDefaultTextRenderingCalled = false;
+
         //*****************************************************************************************************
         // Description: attribut permettant de connaitre le type de soft executé
         // cet attribut n'est pas read only car SmartConfig peux avoir a le changer temporairement
@@ -63,7 +65,7 @@ namespace SmartApp
             Application.EnableVisualStyles();
             // attention, cette ligne est toujours appelé, mais dans la création du singleton de la fenêtre principale
             // car les membres étant statiques, il provoquent la création de la fenêtre pendant le chargement même de l'application
-            //Application.SetCompatibleTextRenderingDefault(false);
+            Application.SetCompatibleTextRenderingDefault(false);
             Traces.Initialize(Application.StartupPath, "TraceSmartApp.txt", SmartApp.Properties.Settings.Default.LogLevel);
             CommonLib.Resources.InitializeBitmap();
             m_GestDlls.LoadExistingDlls();
@@ -83,9 +85,10 @@ namespace SmartApp
                 case TYPE_APP.SMART_COMMAND:
                     m_TypeApp = TYPE_APP.SMART_COMMAND;
                     if (LaunchArgParser.File != null)
-                        m_CommandApp = MDISmartCommandMain.CreateInstance(LaunchArgParser.File);
+                        m_CommandApp = new MDISmartCommandMain(LaunchArgParser.File);
                     else
-                        m_CommandApp = MDISmartCommandMain.Instance;
+                        m_CommandApp = new MDISmartCommandMain();
+
                     Application.Run(m_CommandApp);
                     break;
             }
