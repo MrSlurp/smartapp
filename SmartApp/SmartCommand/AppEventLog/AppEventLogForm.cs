@@ -97,7 +97,7 @@ namespace SmartApp.AppEventLog
                                                             string.Format("{0,2:d}", ev.m_DateTime.Second.ToString())));
             lviEvent.SubItems.Add(ev.m_LogEventType.ToString());
             lviEvent.SubItems.Add(ev.m_strMessage);
-            if (ev.m_LogEventType != LOG_EVENT_TYPE.INFO)
+            if (ev.m_LogEventType != LOG_EVENT_TYPE.INFO && checkBringToTop.Checked)
                 this.BringToFront();
         }
 

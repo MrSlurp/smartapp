@@ -11,9 +11,8 @@ using System;
 using System.IO; 
 using System.Text; 
 using System.Collections;
-using CommonLib;
 
-namespace SmartApp
+namespace CommonLib
 {
     /// <summary>
     /// Cette classe permet d'utiliser un fichier ini. 
@@ -113,7 +112,7 @@ namespace SmartApp
                     return val;
             }
             else
-                return "";
+                return defaut.ToString();
         } 
   
         /// <summary> 

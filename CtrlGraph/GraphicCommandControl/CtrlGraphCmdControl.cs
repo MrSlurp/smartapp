@@ -358,6 +358,41 @@ namespace CtrlGraph
                 itemDropDispPer.DropDownItems.Add(Disp1Week);
             }
 
+            ToolStripMenuItem itemHideCurves = new ToolStripMenuItem();
+            // This is the user-defined Tag so you can find this menu item later if necessary
+            itemHideCurves.Name = "Curves_Visib";
+            itemHideCurves.Tag = "Curves_Visib";
+            // This is the text that will show up in the menu
+            itemHideCurves.Text = "Curves Visibility";
+            // Add a handler that will respond when that menu item is selected
+            // Add the menu item to the menu
+            menuStrip.Items.Add(itemHideCurves);
+
+            for (int i = 0; i < m_ZedGraphCtrl.GraphPane.CurveList.Count; i++)
+            {
+                LineItem curve = m_ZedGraphCtrl.GraphPane.CurveList[i] as LineItem;
+                if (curve == null)
+                    continue;
+
+                ToolStripMenuItem CurveItem = new ToolStripMenuItem();
+                CurveItem.Name = string.Format("curve{0}", i);
+                CurveItem.Text = curve.Label.Text;
+                CurveItem.Tag = i;
+                CurveItem.Checked = curve.Line.IsVisible;
+                CurveItem.Click += new EventHandler(CurveItem_Click);
+                itemHideCurves.DropDownItems.Add(CurveItem);
+            }
+        }
+
+        void CurveItem_Click(object sender, EventArgs e)
+        {
+            if (sender != null)
+            {
+                int CurveIndex = (int)((ToolStripMenuItem)sender).Tag;
+                LineItem curve = m_ZedGraphCtrl.GraphPane.CurveList[CurveIndex] as LineItem;
+                curve.Line.IsVisible = !curve.Line.IsVisible;
+                m_ZedGraphCtrl.Refresh();
+            }
         }
 
         void DispPerdiodIem_Click(object sender, EventArgs e)

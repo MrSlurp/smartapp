@@ -34,6 +34,7 @@ namespace SmartApp.AppEventLog
             this.m_colMessage = new System.Windows.Forms.ColumnHeader();
             this.label1 = new System.Windows.Forms.Label();
             this.m_btnClearLog = new System.Windows.Forms.Button();
+            this.checkBringToTop = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // m_lvEvent
@@ -87,11 +88,22 @@ namespace SmartApp.AppEventLog
             this.m_btnClearLog.UseVisualStyleBackColor = true;
             this.m_btnClearLog.Click += new System.EventHandler(this.m_btnClearLog_Click);
             // 
+            // checkBringToTop
+            // 
+            this.checkBringToTop.AutoSize = true;
+            this.checkBringToTop.Location = new System.Drawing.Point(379, 12);
+            this.checkBringToTop.Name = "checkBringToTop";
+            this.checkBringToTop.Size = new System.Drawing.Size(163, 17);
+            this.checkBringToTop.TabIndex = 3;
+            this.checkBringToTop.Text = "Bring windows to top on error";
+            this.checkBringToTop.UseVisualStyleBackColor = true;
+            // 
             // AppEventLogForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(688, 220);
+            this.Controls.Add(this.checkBringToTop);
             this.Controls.Add(this.m_btnClearLog);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.m_lvEvent);
@@ -112,5 +124,6 @@ namespace SmartApp.AppEventLog
         private System.Windows.Forms.ColumnHeader m_colMessage;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button m_btnClearLog;
+        private System.Windows.Forms.CheckBox checkBringToTop;
     }
 }

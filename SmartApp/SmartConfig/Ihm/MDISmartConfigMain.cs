@@ -32,6 +32,8 @@ namespace SmartApp.Ihm
         IniFileParser m_IniFile = new IniFileParser();
         private string m_strIniFilePath;
         protected string m_strDocumentName = "";
+
+        protected MruStripMenuInline m_mruStripMenu;
         #endregion
 
         #region constructeurs
@@ -68,6 +70,7 @@ namespace SmartApp.Ihm
             m_DesignForm.MdiParent = this;
             m_FrameForm.MdiParent = this;
             m_ProgForm.MdiParent = this;
+            m_mruStripMenu = new MruStripMenuInline(this.m_fileMenu, this.m_MruFiles, new MruStripMenu.ClickedHandler(OnMruFile), m_strIniFilePath);
             UpdateFileCommand(null, null);
         }
         #endregion
@@ -365,6 +368,24 @@ namespace SmartApp.Ihm
             }
             this.CloseDoc();
         }
+
+        private void OnMruFile(int number, String filename)
+        {
+            if (!File.Exists(filename))
+            {
+                MessageBox.Show("The file '" + filename + "'cannot be opened and will be removed from the Recent list(s)"
+                    , "MruToolStripMenu Demo"
+                    , MessageBoxButtons.OK
+                    , MessageBoxIcon.Error);
+                m_mruStripMenu.RemoveFile(number);
+            }
+            else
+            {
+                OpenDoc(filename);
+                m_mruStripMenu.SetFirstFile(number);
+            }
+        }
+
         #endregion
 
         #region fonction d'ouverture sauvegarde et fermeture du document
@@ -395,6 +416,7 @@ namespace SmartApp.Ihm
 #endif
                     m_strDocumentName = strFullFileName.Substring(lastindex+1);
                     UpdateTitle();
+                    m_mruStripMenu.AddFile(strFullFileName);
                     return true;
                 }
                 else
@@ -621,6 +643,8 @@ namespace SmartApp.Ihm
                 m_IniFile.SetValue(MdiChildren[i].Name, "Position", strValue);
             }
             m_IniFile.Save(m_strIniFilePath);
+            m_mruStripMenu.SaveToFile();
+
         }
         #endregion
 

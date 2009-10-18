@@ -907,9 +907,9 @@ namespace SmartApp.Ihm.Designer
 
         #endregion
 
-        protected override void OnGotFocus(EventArgs e)
+        protected override Point ScrollToControl(Control activeControl)
         {
-            //base.OnGotFocus(e);
+            return Point.Empty;
         }
     }
 }

@@ -59,6 +59,7 @@ namespace SmartApp.Ihm
             this.m_toolBtnArrangeDown = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.m_toolBtnBringToFront = new System.Windows.Forms.ToolStripButton();
+            this.panel1 = new InteractivePanelContainer();
             this.m_InteractiveControlContainer = new SmartApp.Ihm.Designer.InteractiveControlContainer();
             this.m_MainSplitterContainer.Panel1.SuspendLayout();
             this.m_MainSplitterContainer.Panel2.SuspendLayout();
@@ -72,6 +73,7 @@ namespace SmartApp.Ihm
             this.m_splitterDesigner_Tool.Panel2.SuspendLayout();
             this.m_splitterDesigner_Tool.SuspendLayout();
             this.m_toolStripDesignLayout.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // m_TopToolStripPanel
@@ -274,10 +276,8 @@ namespace SmartApp.Ihm
             // 
             // m_splitterDesigner_Tool.Panel2
             // 
-            this.m_splitterDesigner_Tool.Panel2.AutoScroll = true;
-            this.m_splitterDesigner_Tool.Panel2.AutoScrollMinSize = new System.Drawing.Size(1034, 778);
             this.m_splitterDesigner_Tool.Panel2.BackColor = System.Drawing.Color.White;
-            this.m_splitterDesigner_Tool.Panel2.Controls.Add(this.m_InteractiveControlContainer);
+            this.m_splitterDesigner_Tool.Panel2.Controls.Add(this.panel1);
             this.m_splitterDesigner_Tool.Panel2.Margin = new System.Windows.Forms.Padding(10);
             this.m_splitterDesigner_Tool.Size = new System.Drawing.Size(475, 567);
             this.m_splitterDesigner_Tool.TabIndex = 0;
@@ -404,18 +404,27 @@ namespace SmartApp.Ihm
             this.m_toolBtnBringToFront.Text = "Bring to front";
             this.m_toolBtnBringToFront.Click += new System.EventHandler(this.m_toolBtnBringToFront_Click);
             // 
+            // panel1
+            // 
+            this.panel1.AutoScroll = true;
+            this.panel1.Controls.Add(this.m_InteractiveControlContainer);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(471, 509);
+            this.panel1.TabIndex = 9;
+            // 
             // m_InteractiveControlContainer
             // 
             this.m_InteractiveControlContainer.BackColor = System.Drawing.SystemColors.Control;
             this.m_InteractiveControlContainer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.m_InteractiveControlContainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.m_InteractiveControlContainer.Location = new System.Drawing.Point(10, 10);
+            this.m_InteractiveControlContainer.Location = new System.Drawing.Point(10, 11);
             this.m_InteractiveControlContainer.Margin = new System.Windows.Forms.Padding(0);
             this.m_InteractiveControlContainer.Name = "m_InteractiveControlContainer";
             this.m_InteractiveControlContainer.ScreenBckImage = null;
             this.m_InteractiveControlContainer.Size = new System.Drawing.Size(1920, 1210);
-            this.m_InteractiveControlContainer.TabIndex = 8;
-            this.m_InteractiveControlContainer.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnDesignerKeyDown);
+            this.m_InteractiveControlContainer.TabIndex = 9;
             // 
             // DesignerForm
             // 
@@ -444,6 +453,7 @@ namespace SmartApp.Ihm
             this.m_splitterDesigner_Tool.ResumeLayout(false);
             this.m_toolStripDesignLayout.ResumeLayout(false);
             this.m_toolStripDesignLayout.PerformLayout();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -458,7 +468,6 @@ namespace SmartApp.Ihm
         private System.Windows.Forms.TabPage m_TabTools;
         private System.Windows.Forms.TabPage m_TabItemOption;
         private System.Windows.Forms.TabPage m_TabScript;
-        private System.Windows.Forms.SplitContainer m_splitterDesigner_Tool;
         private System.Windows.Forms.ToolStrip m_toolStripDesignLayout;
         private System.Windows.Forms.ToolStripButton m_toolBtnAlignLeft;
         private System.Windows.Forms.ToolStripButton m_toolBtnAlignTop;
@@ -466,7 +475,6 @@ namespace SmartApp.Ihm
         private System.Windows.Forms.ToolStripButton m_toolBtnMSHeight;
         private System.Windows.Forms.ToolStripButton m_toolBtnMSSize;
         private SmartApp.Ihm.Designer.DragItemPanel m_panelToolDragItem;
-        private SmartApp.Ihm.Designer.InteractiveControlContainer m_InteractiveControlContainer;
         private ScreenItemPropertiesControl m_PanelControlProperties;
         private ScreenPropPanel m_PanelScreenListAndProp;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
@@ -479,6 +487,9 @@ namespace SmartApp.Ihm
         private System.Windows.Forms.ToolStripButton m_toolBtnArrangeDown;
         private System.Windows.Forms.ToolStripButton m_toolBtnBringToFront;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.SplitContainer m_splitterDesigner_Tool;
+        private InteractivePanelContainer panel1;
+        private SmartApp.Ihm.Designer.InteractiveControlContainer m_InteractiveControlContainer;
 
     }
 }

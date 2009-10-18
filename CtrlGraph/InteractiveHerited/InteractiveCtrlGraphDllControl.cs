@@ -41,6 +41,7 @@ namespace CtrlGraph
             m_SpecGraphicProp.m_bcanResizeWidth = true;
             m_SpecGraphicProp.m_bcanResizeHeight = true;
             m_SpecGraphicProp.m_MinSize = new Size(250, 200);
+            m_SpecGraphicProp.m_MaxSize = new Size(1680, 1050);
 
             this.ControlType = InteractiveControlType.DllControl;
         }

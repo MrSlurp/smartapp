@@ -86,8 +86,8 @@
     <Compile Include="Common\AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Common\IniFileParser.cs" />
     <Compile Include="Common\LaunchArgParser.cs" />
+    <Compile Include="Common\MruStripMenu.cs" />
     <Compile Include="Common\PluginsVersionsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -189,6 +189,9 @@
     </Compile>
     <Compile Include="SmartConfig\Ihm\Designer\InteractiveControlContainer.Designer.cs">
       <DependentUpon>InteractiveControlContainer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Designer\InteractivePanelContainer.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SmartConfig\Ihm\MDISmartConfigMain.cs">
       <SubType>Form</SubType>

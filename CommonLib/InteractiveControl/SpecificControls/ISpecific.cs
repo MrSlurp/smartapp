@@ -69,7 +69,7 @@ namespace CommonLib
     /// <summary>
     /// propriété des controles spécifiques dans la surface de dessin.
     /// </summary>
-    public struct SpecificGraphicProp
+    public class SpecificGraphicProp
     {
         /// <summary>
         /// autorise ou non le redimensionnement en largeur
@@ -83,5 +83,17 @@ namespace CommonLib
         /// taille minimum du controle spécifique dans la surface de cablage
         /// </summary>
         public Size m_MinSize;
+        /// <summary>
+        /// taille minimum du controle spécifique dans la surface de cablage
+        /// </summary>
+        public Size m_MaxSize;
+
+        public SpecificGraphicProp()
+        {
+            m_bcanResizeWidth = true;
+            m_bcanResizeHeight = true;
+            m_MinSize = new Size (5,5);
+            m_MaxSize = new Size(800, 800);
+        }
     }
 }
