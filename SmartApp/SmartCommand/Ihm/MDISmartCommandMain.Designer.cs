@@ -54,6 +54,8 @@ namespace SmartApp
             this.m_tsBtnFullScreen = new System.Windows.Forms.ToolStripButton();
             this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.m_StatusBar = new System.Windows.Forms.StatusStrip();
+            this.m_MruFiles = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.SuspendLayout();
@@ -76,6 +78,8 @@ namespace SmartApp
             this.fileMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openToolStripMenuItem,
             this.toolStripSeparator3,
+            this.m_MruFiles,
+            this.toolStripSeparator1,
             this.exitToolStripMenuItem});
             this.fileMenu.ImageTransparentColor = System.Drawing.SystemColors.ActiveBorder;
             this.fileMenu.Name = "fileMenu";
@@ -88,19 +92,19 @@ namespace SmartApp
             this.openToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.openToolStripMenuItem.Text = "&Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.OpenFile);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(148, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(149, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolsStripMenuItem_Click);
             // 
@@ -253,6 +257,18 @@ namespace SmartApp
             this.m_StatusBar.TabIndex = 3;
             this.m_StatusBar.Text = "statusStrip1";
             // 
+            // m_MruFiles
+            // 
+            this.m_MruFiles.Enabled = false;
+            this.m_MruFiles.Name = "m_MruFiles";
+            this.m_MruFiles.Size = new System.Drawing.Size(152, 22);
+            this.m_MruFiles.Text = "Recent Files";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            // 
             // MDISmartCommandMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -303,6 +319,8 @@ namespace SmartApp
         private System.Windows.Forms.ToolStripButton m_tsBtnConfigComm;
         private System.Windows.Forms.ToolStripButton m_tsBtnFullScreen;
         private System.Windows.Forms.ToolStripMenuItem pluginsVersionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem m_MruFiles;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     }
 }
 

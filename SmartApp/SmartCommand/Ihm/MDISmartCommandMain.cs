@@ -47,6 +47,9 @@ namespace SmartApp
 
         private bool m_bFullScreenMode = false;
         private FormWindowState m_PrevFullScreenState = FormWindowState.Normal;
+
+        protected MruStripMenuInline m_mruStripMenu;
+
         #endregion
 
         #region attributs
@@ -98,6 +101,9 @@ namespace SmartApp
             m_EventLog.MdiParent = this;
             m_tsBtnStartStop.Enabled = false;
             m_tsBtnConnexion.Enabled = false;
+            string strAppDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName);
+            string strIniFilePath = PathTranslator.LinuxVsWindowsPathUse(strAppDir + @"\" + Cste.STR_FORMPOSINI_FILENAME);
+            m_mruStripMenu = new MruStripMenuInline(this.fileMenu, this.m_MruFiles, new MruStripMenu.ClickedHandler(OnMruFile), strIniFilePath);
             UpdateToolBarCxnItemState();
             AsyncUpdater();
             InitCboComms();
@@ -219,6 +225,24 @@ namespace SmartApp
             this.CloseDoc();
             Application.Exit();
         }
+
+        private void OnMruFile(int number, String filename)
+        {
+            if (!File.Exists(filename))
+            {
+                MessageBox.Show("The file '" + filename + "'cannot be opened and will be removed from the Recent list(s)"
+                    , "MruToolStripMenu Demo"
+                    , MessageBoxButtons.OK
+                    , MessageBoxIcon.Error);
+                m_mruStripMenu.RemoveFile(number);
+            }
+            else
+            {
+                OpenDoc(filename);
+                m_mruStripMenu.SetFirstFile(number);
+            }
+        }
+
         #endregion
 
         #region handlers du menu View
@@ -371,6 +395,7 @@ namespace SmartApp
             {
                 this.CloseDoc();
             }
+            m_mruStripMenu.SaveToFile();
         }
 
         //*****************************************************************************************************
