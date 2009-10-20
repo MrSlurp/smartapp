@@ -7,7 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using SmartApp.AppEventLog;
 using CommonLib;
- 
+
 using System.IO;
 using System.Reflection;
 
@@ -319,9 +319,9 @@ namespace SmartApp
                 BTScreen Scr = (BTScreen)Doc.GestScreen[i];
                 Scr.Panel.SetMeToTop += new DynamicPanel.SetMeToTopEvent(SetClientFormToTop);
                 DynamicPanelForm Frm = new DynamicPanelForm(Scr.Panel);
-                Scr.Panel.Location = new Point(10, 10);                
-                Frm.ClientSize = new System.Drawing.Size(Scr.Panel.Width + Scr.Panel.Left+10,
-                                                    Scr.Panel.Height + Scr.Panel.Top+10);
+                Scr.Panel.Location = new Point(10, 10);
+                Frm.ClientSize = new System.Drawing.Size(Scr.Panel.Width + Scr.Panel.Left + 10,
+                                                    Scr.Panel.Height + Scr.Panel.Top + 10);
                 Frm.Text = Scr.Title;
                 Frm.MdiParent = this;
                 Frm.Show();
@@ -580,7 +580,7 @@ namespace SmartApp
                     AddStringToCombo(strName, strCommType, strCommParam, strSection);
                 }
             }
-            if (m_tsCboCurConnection.Items.Count >0)
+            if (m_tsCboCurConnection.Items.Count > 0)
                 m_tsCboCurConnection.SelectedIndex = 0;
         }
 

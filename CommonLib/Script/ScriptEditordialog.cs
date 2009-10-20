@@ -15,7 +15,7 @@ namespace CommonLib
         private ScriptParser m_Parser = new ScriptParser();
         private BTDoc m_Document = null;
         bool m_bIsParameter = false;
-	bool m_AutoBoxWillGetFocus = false;
+        bool m_AutoBoxWillGetFocus = false;
 
         #region attributs
         //*****************************************************************************************************
@@ -128,10 +128,10 @@ namespace CommonLib
             int posCarret = m_EditScript.SelectionStart;
             RichTextBoxSelectionTypes oldval = m_EditScript.SelectionType;
             m_EditScript.Text = m_EditScript.Text.ToUpper();
-            
+
             int CarretLine = m_EditScript.GetLineFromCharIndex(posCarret);
-//            m_EditScript.SelectionStart = posCarret;
-//            int carretPosOnLine = posCarret - m_EditScript.GetFirstCharIndexOfCurrentLine();
+            //            m_EditScript.SelectionStart = posCarret;
+            //            int carretPosOnLine = posCarret - m_EditScript.GetFirstCharIndexOfCurrentLine();
 
             m_EditScript.SelectionStart = posCarret;
             int posFirstCharOfLine = m_EditScript.GetFirstCharIndexOfCurrentLine();
@@ -201,7 +201,7 @@ namespace CommonLib
             m_EditScript.SelectionLength = 0;
             m_EditScript.SelectionStart = posCarret;
 
-            
+
             StringCollection AutoCompleteList = m_Parser.GetAutoCompletStringListAtPos(line, carretPosOnLine, out m_bIsParameter);
             if (AutoCompleteList != null && AutoCompleteList.Count > 0 && !bCarretIsAfterLastParenthese)
             {
@@ -288,8 +288,8 @@ namespace CommonLib
             if ((e.KeyCode == Keys.Down || e.KeyCode == Keys.Up) && m_AutoComplListBox.Visible)
             {
                 m_AutoComplListBox.BackColor = SystemColors.Window;
-		m_AutoComplListBox.Visible = true;
-		m_AutoBoxWillGetFocus = true;
+                m_AutoComplListBox.Visible = true;
+                m_AutoBoxWillGetFocus = true;
                 m_AutoComplListBox.Focus();
                 e.Handled = true;
             }
@@ -302,9 +302,9 @@ namespace CommonLib
             {
                 m_AutoComplListBox.Visible = false;
             }
-	    else
-	    {
-	    }
+            else
+            {
+            }
         }
 
         //*****************************************************************************************************
@@ -351,7 +351,7 @@ namespace CommonLib
                 charOffset = line.Length - indexOfPoint;
             }
 
-	    int FinalCharIndex = ((posCarret - charOffset) >= 0)?(posCarret - charOffset) : 0;
+            int FinalCharIndex = ((posCarret - charOffset) >= 0) ? (posCarret - charOffset) : 0;
             Point PtCarret = m_EditScript.GetPositionFromCharIndex(FinalCharIndex);
             //
             PtCarret = m_EditScript.PointToScreen(PtCarret);
@@ -421,7 +421,7 @@ namespace CommonLib
             int finalCarretPos = m_EditScript.Text.Length;
             int CarretIsAfterSepAt = -1; // indique après quel point se situe le chariot
             int CarretIsBeforeSepAt = int.MaxValue; // indique avant quel point se situe le chariot
-            
+
             for (int i = 0; i < listSepratorPos.Count; i++)
             {
                 if (CarretIsAfterSepAt < listSepratorPos[i] && carretPosOnLine > listSepratorPos[i])
@@ -477,8 +477,8 @@ namespace CommonLib
                     m_AutoComplListBox.Hide();
                     m_AutoComplListBox.BackColor = SystemColors.Control;
                 }
-		if (m_AutoBoxWillGetFocus)
-			m_AutoBoxWillGetFocus = false;
+                if (m_AutoBoxWillGetFocus)
+                    m_AutoBoxWillGetFocus = false;
             }
         }
     }
