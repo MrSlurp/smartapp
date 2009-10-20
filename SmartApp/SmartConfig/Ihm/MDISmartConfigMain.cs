@@ -343,6 +343,7 @@ namespace SmartApp.Ihm
                 int lastindex = strFileFullName.LastIndexOf(@"\");
 #endif
                 m_strDocumentName = strFileFullName.Substring(lastindex + 1);
+		this.m_mruStripMenu.AddFile(strFileFullName);
                 m_Document.Modified = false;
             }
         }
@@ -721,6 +722,7 @@ namespace SmartApp.Ihm
                     if (File.Exists(m_Document.FileName))
                     {
                         this.Hide();
+			Application.DoEvents();
                         System.Diagnostics.Process proc = new System.Diagnostics.Process();
                         string Arguments = "-Cmd \"" + m_Document.FileName + "\"";
                         proc.StartInfo = new System.Diagnostics.ProcessStartInfo(Application.ExecutablePath, Arguments);

@@ -1,0 +1,91 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5ACA4CB4-0DC3-4E09-8E13-81DD29F87161}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GradientBaloon</RootNamespace>
+    <AssemblyName>GradientBaloon</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Prod\Debug\</OutputPath>
+    <IntermediatePath>..\obj\Debug\</IntermediatePath>
+    <IntermediateOuputPath>..\obj\Debug\</IntermediateOuputPath>
+    <BaseIntermediateOutputPath>..\obj\Debug\</BaseIntermediateOutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\Prod\Release\</OutputPath>
+    <IntermediatePath>..\obj\Release\</IntermediatePath>
+    <IntermediateOuputPath>..\obj\Release\</IntermediateOuputPath>
+    <BaseIntermediateOutputPath>..\obj\Release\</BaseIntermediateOutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug Test|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\Prod\Debug\</OutputPath>
+    <IntermediatePath>..\obj\Debug\</IntermediatePath>
+    <IntermediateOuputPath>..\obj\Debug\</IntermediateOuputPath>
+    <BaseIntermediateOutputPath>..\obj\Debug\</BaseIntermediateOutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BTControlHerited\BTDllGradientBaloonControl.cs" />
+    <Compile Include="BTControlHerited\DllGradientBaloonProp.cs" />
+    <Compile Include="ConfigForm\GradientBaloonProperties.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ConfigForm\GradientBaloonProperties.Designer.cs">
+      <DependentUpon>GradientBaloonProperties.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DllEntryClass.cs" />
+    <Compile Include="GraphicCommandControl\GradientBaloonCmdControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="InteractiveHerited\InteractiveGradientBaloonDllControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="InteractiveHerited\InteractiveGradientBaloonDllControl.Designer.cs">
+      <DependentUpon>InteractiveGradientBaloonDllControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Res\GradientBaloonRes.cs" />
+    <Compile Include="Res\RoundRectangle.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CommonLib\CommonLib.csproj">
+      <Project>{3EFBC5AC-5842-4DE5-85C2-507E24AEC46F}</Project>
+      <Name>CommonLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

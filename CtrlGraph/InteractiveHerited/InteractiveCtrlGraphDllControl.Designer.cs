@@ -44,10 +44,7 @@ namespace CtrlGraph
             this.zedGraphControl.IsEnableVZoom = false;
             this.zedGraphControl.IsEnableWheelZoom = false;
             this.zedGraphControl.IsPrintFillPage = false;
-            this.zedGraphControl.IsPrintKeepAspectRatio = false;
             this.zedGraphControl.IsPrintScaleAll = false;
-            this.zedGraphControl.IsShowContextMenu = false;
-            this.zedGraphControl.IsShowCopyMessage = false;
             this.zedGraphControl.ScrollGrace = 0;
             this.zedGraphControl.ScrollMaxX = 0;
             this.zedGraphControl.ScrollMaxY = 0;
@@ -57,7 +54,7 @@ namespace CtrlGraph
             this.zedGraphControl.ScrollMinY2 = 0;
             this.zedGraphControl.Size = this.ClientRectangle.Size;
             this.zedGraphControl.TabIndex = 0;
-            this.zedGraphControl.Visible = false;
+            this.zedGraphControl.Visible = true;
             
             this.Controls.Add(this.zedGraphControl);
             this.ResumeLayout(false);

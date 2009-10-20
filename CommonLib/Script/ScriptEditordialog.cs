@@ -15,6 +15,7 @@ namespace CommonLib
         private ScriptParser m_Parser = new ScriptParser();
         private BTDoc m_Document = null;
         bool m_bIsParameter = false;
+	bool m_AutoBoxWillGetFocus = false;
 
         #region attributs
         //*****************************************************************************************************
@@ -46,6 +47,10 @@ namespace CommonLib
             }
             set
             {
+#if LINUX
+				for (int i = 0; i < value.Length; i++)
+					value[i] += " ";
+#endif
                 m_EditScript.Lines = value;
                 m_AutoComplListBox.Hide();
             }
@@ -145,6 +150,10 @@ namespace CommonLib
                 if (PosPoint != -1)
                     listPointPos.Add(PosPoint);
             }
+            bool bCarretIsAfterLastParenthese = false;
+            if (line.LastIndexOf(')') != -1 && line.LastIndexOf(')') < carretPosOnLine)
+                bCarretIsAfterLastParenthese = true;
+
             int finalCarretPos = m_EditScript.Text.Length;
             int CarretIsAfterPointAt = -1; // indique après quel point se situe le chariot
             int CarretIsBeforePointAt = int.MaxValue; // indique avant quel point se situe le chariot
@@ -192,8 +201,9 @@ namespace CommonLib
             m_EditScript.SelectionLength = 0;
             m_EditScript.SelectionStart = posCarret;
 
+            
             StringCollection AutoCompleteList = m_Parser.GetAutoCompletStringListAtPos(line, carretPosOnLine, out m_bIsParameter);
-            if (AutoCompleteList != null && AutoCompleteList.Count > 0)
+            if (AutoCompleteList != null && AutoCompleteList.Count > 0 && !bCarretIsAfterLastParenthese)
             {
                 Point PtCarret = m_EditScript.GetPositionFromCharIndex(posCarret);
                 m_AutoComplListBox.DataSource = AutoCompleteList;
@@ -238,6 +248,8 @@ namespace CommonLib
         //*****************************************************************************************************
         private void OnAutoComplListBoxClick(object sender, EventArgs e)
         {
+            m_AutoBoxWillGetFocus = true;
+            m_AutoComplListBox.Focus();
             DoInsertAutoCompleteString();
         }
 
@@ -260,7 +272,7 @@ namespace CommonLib
         //*****************************************************************************************************
         private void ThisLeave(object sender, EventArgs e)
         {
-            if (m_AutoComplListBox.Visible)
+            if (m_AutoComplListBox.Visible && !m_AutoComplListBox.Focused)
             {
                 m_AutoComplListBox.Hide();
                 m_AutoComplListBox.BackColor = SystemColors.Control;
@@ -275,8 +287,10 @@ namespace CommonLib
         {
             if ((e.KeyCode == Keys.Down || e.KeyCode == Keys.Up) && m_AutoComplListBox.Visible)
             {
-                m_AutoComplListBox.Focus();
                 m_AutoComplListBox.BackColor = SystemColors.Window;
+		m_AutoComplListBox.Visible = true;
+		m_AutoBoxWillGetFocus = true;
+                m_AutoComplListBox.Focus();
                 e.Handled = true;
             }
             else if (e.KeyCode == Keys.Enter && m_AutoComplListBox.Visible)
@@ -288,6 +302,9 @@ namespace CommonLib
             {
                 m_AutoComplListBox.Visible = false;
             }
+	    else
+	    {
+	    }
         }
 
         //*****************************************************************************************************
@@ -323,14 +340,19 @@ namespace CommonLib
             int charOffset = 0;
             if (indexOfPoint < 0)
             {
+#if LINUX
+                charOffset = line.Length -1;
+#else
                 charOffset = line.Length;
+#endif
             }
             else
             {
                 charOffset = line.Length - indexOfPoint;
             }
 
-            Point PtCarret = m_EditScript.GetPositionFromCharIndex(posCarret - charOffset);
+	    int FinalCharIndex = ((posCarret - charOffset) >= 0)?(posCarret - charOffset) : 0;
+            Point PtCarret = m_EditScript.GetPositionFromCharIndex(FinalCharIndex);
             //
             PtCarret = m_EditScript.PointToScreen(PtCarret);
             PtCarret = this.PointToClient(PtCarret);
@@ -450,11 +472,13 @@ namespace CommonLib
         {
             if (m_AutoComplListBox.Visible)
             {
-                if (!m_AutoComplListBox.Focused)
+                if (!m_AutoComplListBox.Focused && !m_AutoBoxWillGetFocus)
                 {
                     m_AutoComplListBox.Hide();
                     m_AutoComplListBox.BackColor = SystemColors.Control;
                 }
+		if (m_AutoBoxWillGetFocus)
+			m_AutoBoxWillGetFocus = false;
             }
         }
     }

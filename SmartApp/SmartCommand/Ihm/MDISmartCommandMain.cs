@@ -751,6 +751,7 @@ namespace SmartApp
             m_bFullScreenMode = !m_bFullScreenMode;
             if (m_bFullScreenMode)
             {
+#if !LINUX
                 this.SuspendLayout();
                 // on cache le menu, la bare de status
                 this.menuStrip.Visible = false;
@@ -762,9 +763,15 @@ namespace SmartApp
                 // on enlève les bord
                 this.FormBorderStyle = FormBorderStyle.None;
                 this.ResumeLayout();
+#else
+                this.menuStrip.Visible = false;
+                this.m_StatusBar.Visible = false;
+                this.WindowState = FormWindowState.Maximized;
+#endif
             }
             else
             {
+#if !LINUX
                 this.SuspendLayout();
                 // tout l'inverse de ce qui est fait au dessus
                 this.menuStrip.Visible = true;
@@ -774,12 +781,20 @@ namespace SmartApp
                 this.FormBorderStyle = FormBorderStyle.Sizable;
                 this.MaximizeBox = true;
                 this.ResumeLayout();
+#else
+                this.menuStrip.Visible = true;
+                this.m_StatusBar.Visible = true;
+#endif
             }
         }
 
         private void SetClientFormToTop(Form ClientForm)
         {
+#if LINUX
+            this.ActivateMdiChild(ClientForm);
+#else
             ClientForm.BringToFront();
+#endif
         }
 
         private void pluginsVersionsToolStripMenuItem_Click(object sender, EventArgs e)

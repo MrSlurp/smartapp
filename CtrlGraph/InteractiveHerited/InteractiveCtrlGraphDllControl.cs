@@ -21,7 +21,6 @@ namespace CtrlGraph
         private Bitmap m_BmpDefault = CtrlGraphRes.DefaultBmp;
         public InteractiveCtrlGraphDllControl()
         {
-            InitializeComponent();
             m_SpecificPropPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             m_SpecificPropPanel.AutoSize = true;
@@ -44,6 +43,7 @@ namespace CtrlGraph
             m_SpecGraphicProp.m_MaxSize = new Size(1680, 1050);
 
             this.ControlType = InteractiveControlType.DllControl;
+            InitializeComponent();
         }
 
         public override InteractiveControl CreateNew()
