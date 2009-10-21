@@ -38,8 +38,10 @@ namespace CommonLib
 
         public const string STRCMD_CFG = "-CFG";
         public const string STRCMD_CMD = "-CMD";
+        public const string STRCMD_POS = "-POS";
         public const string STRCMD_AUTOCONNECT = "-AC";
         public const string STRCMD_AUTOSTART = "-AS";
+        public const string STRCMD_AUTOMAXFIRST = "-AMF";
 
         public const int CUR_FILE_VERSION = 3;
 
