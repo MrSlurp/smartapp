@@ -19,6 +19,7 @@ namespace SmartApp
         private static bool m_AutoPosition = false;
         private static Rectangle m_StartupBound;
         private static bool m_AutoMaximizeFirstScreen = false;
+        private static bool m_OperatorMode = false;
 
         public static bool AutoConnect
         {
@@ -49,6 +50,14 @@ namespace SmartApp
             get
             {
                 return m_AutoPosition;
+            }
+        }
+
+        public static bool OperatorMode
+        {
+            get
+            {
+                return m_OperatorMode;
             }
         }
 
@@ -119,16 +128,20 @@ namespace SmartApp
                         m_bAutoConnect = true;
                         i++;
                     }
-                    else if (strArgsList[i].ToUpper().BeginWith(Cste.STRCMD_POS))
+                    else if (strArgsList[i].ToUpper() == Cste.STRCMD_AUTOSTART)
                     {
-                        string AutoPosArgs = strArgsList[i].Remove(Cste.STRCMD_POS);
+                        m_bAutoStart = true;
+                    }
+                    else if (strArgsList[i].ToUpper().StartsWith(Cste.STRCMD_POS))
+                    {
+                        string AutoPosArgs = strArgsList[i];
                         string[] PositionList = AutoPosArgs.Split(',');
-                        if (PositionList.Lenght == 4)
+                        if (PositionList.Length == 5)
                         {
-                            m_StartupBound = new Rectangle(int.Parse(PositionList[0]),
-                                                           int.Parse(PositionList[1]),
+                            m_StartupBound = new Rectangle(int.Parse(PositionList[1]),
                                                            int.Parse(PositionList[2]),
-                                                           int.Parse(PositionList[3])
+                                                           int.Parse(PositionList[3]),
+                                                           int.Parse(PositionList[4])
                                                           );
                             m_AutoPosition = true;                               
                         }                                  
@@ -136,6 +149,10 @@ namespace SmartApp
                     else if (strArgsList[i].ToUpper()== Cste.STRCMD_AUTOMAXFIRST)
                     {
                          m_AutoMaximizeFirstScreen = true;
+                    }
+                    else if (strArgsList[i].ToUpper() == Cste.STRCMD_OPMOD)
+                    {
+                        m_OperatorMode = true;
                     }
                 }
                 else

@@ -695,12 +695,25 @@ namespace SmartApp
                         LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, "Failed to connect");
                         MDISmartCommandMain.EventLogger.AddLogEvent(log);
                     }
-                    else if (!m_Document.m_Comm.IsOpen && LaunchArgParser.AutoStart == false)
+                    else if (!m_Document.m_Comm.IsOpen && LaunchArgParser.AutoStart == true)
                     {
                         LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, "Failed to connect. Application not started");
                         MDISmartCommandMain.EventLogger.AddLogEvent(log);
                     }
                 }
+            }
+            if (LaunchArgParser.OperatorMode)
+            {
+                this.menuStrip.Visible = false;
+                this.m_StatusBar.Visible = false;
+                this.m_tsBtnFullScreen.Visible = false;
+                this.m_tsBtnConfigComm.Visible = false;
+                this.m_tsCboCurConnection.Visible = false;
+                this.openToolStripButton.Visible = false;
+                // on enlève les bouton des la barre de titre
+                this.ControlBox = false;
+                // on enlève les bord
+                this.FormBorderStyle = FormBorderStyle.None;
             }
             if (LaunchArgParser.AutoPosition)
             {
@@ -709,7 +722,10 @@ namespace SmartApp
             }
             if (LaunchArgParser.AutoMaximizeFirstScreen)
             {
-                
+                if (m_FormList.Count >=1)
+                {
+                    m_FormList[0].WindowState = FormWindowState.Maximized;
+                }
             }
         }
 
