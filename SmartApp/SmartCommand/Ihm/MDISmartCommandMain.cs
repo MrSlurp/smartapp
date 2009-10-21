@@ -702,6 +702,15 @@ namespace SmartApp
                     }
                 }
             }
+            if (LaunchArgParser.AutoPosition)
+            {
+                this.Location = LaunchArgParser.StartupBound.Location;
+                this.Size = LaunchArgParser.StartupBound.Size;
+            }
+            if (LaunchArgParser.AutoMaximizeFirstScreen)
+            {
+                
+            }
         }
 
         //*****************************************************************************************************

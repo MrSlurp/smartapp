@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
 using CommonLib;
  
@@ -14,6 +15,10 @@ namespace SmartApp
         private static TYPE_COMM m_Comtype = TYPE_COMM.SERIAL;
         private static string m_CommParam;
         private static bool m_bAutoStart = false;
+        
+        private static bool m_AutoPosition = false;
+        private static Rectangle m_StartupBound;
+        private static bool m_AutoMaximizeFirstScreen = false;
 
         public static bool AutoConnect
         {
@@ -28,6 +33,30 @@ namespace SmartApp
             get
             {
                 return m_bAutoStart;
+            }
+        }
+
+        public static bool AutoMaximizeFirstScreen
+        {
+            get
+            {
+                return m_AutoMaximizeFirstScreen;
+            }
+        }
+
+        public static bool AutoPosition
+        {
+            get
+            {
+                return m_AutoPosition;
+            }
+        }
+
+        public static Rectangle StartupBound
+        {
+            get
+            {
+                return m_StartupBound;
             }
         }
 
@@ -90,11 +119,24 @@ namespace SmartApp
                         m_bAutoConnect = true;
                         i++;
                     }
-                    else if (strArgsList[i].ToUpper() == Cste.STRCMD_AUTOSTART)
+                    else if (strArgsList[i].ToUpper().BeginWith(Cste.STRCMD_POS))
                     {
-                        m_bAutoStart = true;
+                        string AutoPosArgs = strArgsList[i].Remove(Cste.STRCMD_POS);
+                        string[] PositionList = AutoPosArgs.Split(',');
+                        if (PositionList.Lenght == 4)
+                        {
+                            m_StartupBound = new Rectangle(int.Parse(PositionList[0]),
+                                                           int.Parse(PositionList[1]),
+                                                           int.Parse(PositionList[2]),
+                                                           int.Parse(PositionList[3])
+                                                          );
+                            m_AutoPosition = true;                               
+                        }                                  
                     }
-
+                    else if (strArgsList[i].ToUpper()== Cste.STRCMD_AUTOMAXFIRST)
+                    {
+                         m_AutoMaximizeFirstScreen = true;
+                    }
                 }
                 else
                     System.Diagnostics.Debug.Assert(false);// argument non valide
