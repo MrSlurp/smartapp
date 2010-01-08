@@ -722,7 +722,7 @@ namespace SmartApp.Ihm
                     if (File.Exists(m_Document.FileName))
                     {
                         this.Hide();
-			Application.DoEvents();
+			            Application.DoEvents();
                         System.Diagnostics.Process proc = new System.Diagnostics.Process();
                         string Arguments = "-Cmd \"" + m_Document.FileName + "\"";
                         proc.StartInfo = new System.Diagnostics.ProcessStartInfo(Application.ExecutablePath, Arguments);

@@ -110,6 +110,7 @@ namespace CtrlGraph
                 BasePos.Y += m_ListCurve[i].Size.Height + 8;  
                 m_ListCurve[i].Name = string.Format("CurveParam{0}", i); 
                 m_ListCurve[i].DataIndex = i;
+                m_ListCurve[i].Doc = this.Doc;
                 this.uscPanelCurveCfg.Controls.Add(m_ListCurve[i]);
             }
 
@@ -151,6 +152,11 @@ namespace CtrlGraph
             set
             {
                 m_Document = value;
+                for (int i = 0; i < DllCtrlGraphProp.NB_CURVE; i++)
+                {
+                    m_ListCurve[i].Doc = m_Document;
+                }
+
             }
         }
 
