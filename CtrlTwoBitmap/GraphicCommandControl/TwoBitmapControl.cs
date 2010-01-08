@@ -213,10 +213,19 @@ namespace CtrlTwoBitmap
             {
                 if (m_BmpAct != null )
                 {
+					Bitmap disp = null;
                     if (ImageAnimator.CanAnimate(m_BmpAct))
+					{
                         ImageAnimator.UpdateFrames(m_BmpAct);
-                    
-                    e.Graphics.DrawImage(m_BmpAct, new Rectangle(new Point(0, 0), this.Size));
+						disp = new Bitmap(m_BmpAct, m_BmpAct.Width, m_BmpAct.Height);
+						disp.MakeTransparent(Color.Magenta);
+					}
+					else
+					{
+						disp = m_BmpAct;
+					}
+				
+                    e.Graphics.DrawImage(disp, new Rectangle(new Point(0, 0), this.Size));
                 }
                 else
                     e.Graphics.DrawImage(TwoImageRes.DefaultImg, new Rectangle(new Point(0, 0), this.Size));
@@ -225,10 +234,19 @@ namespace CtrlTwoBitmap
             {
                 if (m_BmpInact != null)
                 {
+					Bitmap disp = null;
                     if (ImageAnimator.CanAnimate(m_BmpInact))
+					{
                         ImageAnimator.UpdateFrames(m_BmpInact);
-
-                    e.Graphics.DrawImage(m_BmpInact, new Rectangle(new Point(0, 0), this.Size));
+						disp = new Bitmap(m_BmpInact, m_BmpInact.Width, m_BmpInact.Height);
+						disp.MakeTransparent(Color.Magenta);
+					}
+					else
+					{
+						disp = m_BmpInact;
+					}
+					
+                    e.Graphics.DrawImage(disp, new Rectangle(new Point(0, 0), this.Size));
                 }
                 else
                     e.Graphics.DrawImage(TwoImageRes.DefaultImg, new Rectangle(new Point(0, 0), this.Size));

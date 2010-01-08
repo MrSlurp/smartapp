@@ -206,7 +206,7 @@ namespace CommonLib
         protected void ExecuteFunctionScript(string FunctionSymbol)
         {
             FunctionSymbol = FunctionSymbol.Remove(FunctionSymbol.Length - 2);
-            Function fct = (Function)m_Document.GestFunction.GetFromSymbol(FunctionSymbol);
+            Function fct = (Function)m_Document.GestFunction.QuickGetFromSymbol(FunctionSymbol);
             if (fct != null)
                 this.ExecuteScript(fct.ScriptLines);
             else
@@ -263,7 +263,7 @@ namespace CommonLib
         //*****************************************************************************************************
         protected void ExecuteStartTimer(string TimerSymbol)
         {
-            BTTimer tm = (BTTimer)m_Document.GestTimer.GetFromSymbol(TimerSymbol);
+            BTTimer tm = (BTTimer)m_Document.GestTimer.QuickGetFromSymbol(TimerSymbol);
             tm.StartTimer();
             if (tm != null)
                 tm.StartTimer();
@@ -280,7 +280,7 @@ namespace CommonLib
         //*****************************************************************************************************
         protected void ExecuteStopTimer(string TimerSymbol)
         {
-            BTTimer tm = (BTTimer)m_Document.GestTimer.GetFromSymbol(TimerSymbol);
+            BTTimer tm = (BTTimer)m_Document.GestTimer.QuickGetFromSymbol(TimerSymbol);
             if (tm != null)
                 tm.StopTimer();
             else
@@ -338,7 +338,7 @@ namespace CommonLib
         //*****************************************************************************************************
         protected void ExecuteSendFrame(string FrameSymbol)
         {
-            Trame TrameToSend = (Trame)m_Document.GestTrame.GetFromSymbol(FrameSymbol);
+            Trame TrameToSend = (Trame)m_Document.GestTrame.QuickGetFromSymbol(FrameSymbol);
             if (TrameToSend != null)
             {
                 Byte[] buffer = TrameToSend.CreateTrameToSend(false);
@@ -369,7 +369,7 @@ namespace CommonLib
         //*****************************************************************************************************
         protected void ExecuteRecieveFrame(string FrameSymbol)
         {
-            Trame TrameToRecieve = (Trame)m_Document.GestTrame.GetFromSymbol(FrameSymbol);
+            Trame TrameToRecieve = (Trame)m_Document.GestTrame.QuickGetFromSymbol(FrameSymbol);
             if (TrameToRecieve != null)
             {
                 if (m_Document.m_Comm.IsOpen)
@@ -479,7 +479,7 @@ namespace CommonLib
         //*****************************************************************************************************
         protected void ExecuteClearLogger(string LoggerSymbol)
         {
-            Logger log = (Logger)m_Document.GestLogger.GetFromSymbol(LoggerSymbol);
+            Logger log = (Logger)m_Document.GestLogger.QuickGetFromSymbol(LoggerSymbol);
             if (log != null)
                 log.ClearLog();
             else
@@ -495,7 +495,7 @@ namespace CommonLib
         //*****************************************************************************************************
         protected void ExecuteLogLogger(string LoggerSymbol)
         {
-            Logger log = (Logger)m_Document.GestLogger.GetFromSymbol(LoggerSymbol);
+            Logger log = (Logger)m_Document.GestLogger.QuickGetFromSymbol(LoggerSymbol);
             if (log != null)
                 log.LogData();
             else
@@ -511,7 +511,7 @@ namespace CommonLib
         //*****************************************************************************************************
         protected void ExecuteStartAutoLogger(string LoggerSymbol)
         {
-            Logger log = (Logger)m_Document.GestLogger.GetFromSymbol(LoggerSymbol);
+            Logger log = (Logger)m_Document.GestLogger.QuickGetFromSymbol(LoggerSymbol);
             if (log != null)
                 log.StartAutoLogger();
             else
@@ -527,7 +527,7 @@ namespace CommonLib
         //*****************************************************************************************************
         protected void ExecuteStopAutoLogger(string LoggerSymbol)
         {
-            Logger log = (Logger)m_Document.GestLogger.GetFromSymbol(LoggerSymbol);
+            Logger log = (Logger)m_Document.GestLogger.QuickGetFromSymbol(LoggerSymbol);
             if (log != null)
                 log.StopAutoLogger();
             else
@@ -587,10 +587,10 @@ namespace CommonLib
                     bool bOP2IsNumeric = false;
                     bOP1IsNumeric = ScriptParser.IsNumericValue(OP1Symbol);
                     bOP2IsNumeric = ScriptParser.IsNumericValue(OP2Symbol);
-                    Data ResultData = (Data)m_Document.GestData.GetFromSymbol(ResultSymbol);
+                    Data ResultData = (Data)m_Document.GestData.QuickGetFromSymbol(ResultSymbol);
                     Data Operator1Data = null;
                     if (!bOP1IsNumeric)
-                        Operator1Data = (Data)m_Document.GestData.GetFromSymbol(OP1Symbol);
+                        Operator1Data = (Data)m_Document.GestData.QuickGetFromSymbol(OP1Symbol);
                     else
                     {
                         Operator1Data = new Data("TEMP_MATHS_DATA1", int.Parse(OP1Symbol), DATA_SIZE.DATA_SIZE_32B, false);
@@ -599,7 +599,7 @@ namespace CommonLib
 
                     Data Operator2Data = null;
                     if (!bOP2IsNumeric)
-                        Operator2Data = (Data)m_Document.GestData.GetFromSymbol(OP2Symbol);
+                        Operator2Data = (Data)m_Document.GestData.QuickGetFromSymbol(OP2Symbol);
                     else
                     {
                         Operator2Data = new Data("TEMP_MATHS_DATA2", int.Parse(OP2Symbol), DATA_SIZE.DATA_SIZE_32B, false);
@@ -728,7 +728,7 @@ namespace CommonLib
         //*****************************************************************************************************
         protected void ExecuteShowScreenToTop(string ScreenSymbol)
         {
-            BTScreen ScreenToShow = (BTScreen)m_Document.GestScreen.GetFromSymbol(ScreenSymbol);
+            BTScreen ScreenToShow = (BTScreen)m_Document.GestScreen.QuickGetFromSymbol(ScreenSymbol);
             if (ScreenToShow != null)
             {
                 ScreenToShow.ShowScreenToTop();

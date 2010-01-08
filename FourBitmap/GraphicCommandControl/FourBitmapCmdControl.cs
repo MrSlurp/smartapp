@@ -279,14 +279,43 @@ namespace FourBitmap
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            if (Bmp0 != null && ImageAnimator.CanAnimate(Bmp0))
-                ImageAnimator.UpdateFrames(Bmp0);
+			Bitmap FinalyDisp;
+            switch (State)
+            {
+                default:
+                case 0:
+					FinalyDisp = Bmp0;
+                    break;
+                case 1:
+					FinalyDisp = Bmp1;
+                    break;
+                case 2:
+					FinalyDisp = Bmp2;
+                    break;
+                case 3:
+					FinalyDisp = Bmp3;
+                    break;
+			}
+			Bitmap DisplayedBitmap = null;
+            if (FinalyDisp != null && ImageAnimator.CanAnimate(FinalyDisp))
+			{
+                ImageAnimator.UpdateFrames(FinalyDisp);
+				DisplayedBitmap = new Bitmap(FinalyDisp, FinalyDisp.Width, FinalyDisp.Height);
+				DisplayedBitmap.MakeTransparent(Color.Magenta);
+			}
+			if (DisplayedBitmap != null)
+			{
+				e.Graphics.DrawImage(DisplayedBitmap, new Rectangle(new Point(0, 0), this.Size));
+			}
+				/*
             if (Bmp1 != null && ImageAnimator.CanAnimate(Bmp1))
                 ImageAnimator.UpdateFrames(Bmp1);
             if (Bmp2 != null && ImageAnimator.CanAnimate(Bmp2))
                 ImageAnimator.UpdateFrames(Bmp2);
             if (Bmp3 != null && ImageAnimator.CanAnimate(Bmp3))
                 ImageAnimator.UpdateFrames(Bmp3);
+				*/
+			/*	
             switch (State)
             {
                 default:
@@ -303,7 +332,7 @@ namespace FourBitmap
                     e.Graphics.DrawImage(Bmp3, new Rectangle(new Point(0, 0), this.Size));
                     break;
             }
-
+			*/
         }
     }
 }

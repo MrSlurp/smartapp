@@ -9,6 +9,7 @@
 /***************************************************************************/
 using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Text;
 using System.Xml;
 using System.Windows.Forms;
@@ -32,6 +33,8 @@ namespace CommonLib
         #region données membres
         // liste des objets du gestionnaire
         protected List<BaseObject> m_ListObject = new List<BaseObject>();
+		
+		protected Hashtable m_HashObjects = new Hashtable();
         #endregion
 
         #region events
@@ -159,6 +162,13 @@ namespace CommonLib
             return null;
         }
 
+        public BaseObject QuickGetFromSymbol(string strSymbol)
+        {
+			BaseObject baseObj = (BaseObject)m_HashObjects[strSymbol];
+			return baseObj;
+        }
+
+		
         /// <summary>
         /// utilisé uniquement en interne et dans la classé hérité, renvoie l'index d'un objet ayant le symbol donné
         /// </summary>
@@ -216,6 +226,7 @@ namespace CommonLib
         {
             for (int i = 0; i < m_ListObject.Count; i++)
             {
+				m_HashObjects.Add(m_ListObject[i].Symbol, m_ListObject[i]);
                 if (!m_ListObject[i].FinalizeRead(Doc))
                     return false;
             }
