@@ -59,8 +59,9 @@ namespace SmartApp.Ihm
             this.m_toolBtnArrangeDown = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.m_toolBtnBringToFront = new System.Windows.Forms.ToolStripButton();
-            this.panel1 = new InteractivePanelContainer();
+            this.panel1 = new SmartApp.Ihm.InteractivePanelContainer();
             this.m_InteractiveControlContainer = new SmartApp.Ihm.Designer.InteractiveControlContainer();
+            this.toolbtnScreenToBitmap = new System.Windows.Forms.ToolStripButton();
             this.m_MainSplitterContainer.Panel1.SuspendLayout();
             this.m_MainSplitterContainer.Panel2.SuspendLayout();
             this.m_MainSplitterContainer.SuspendLayout();
@@ -307,7 +308,8 @@ namespace SmartApp.Ihm
             this.m_toolBtnArrangeAcross,
             this.m_toolBtnArrangeDown,
             this.toolStripSeparator3,
-            this.m_toolBtnBringToFront});
+            this.m_toolBtnBringToFront,
+            this.toolbtnScreenToBitmap});
             this.m_toolStripDesignLayout.Location = new System.Drawing.Point(0, 0);
             this.m_toolStripDesignLayout.Name = "m_toolStripDesignLayout";
             this.m_toolStripDesignLayout.Size = new System.Drawing.Size(471, 25);
@@ -426,6 +428,16 @@ namespace SmartApp.Ihm
             this.m_InteractiveControlContainer.Size = new System.Drawing.Size(1920, 1210);
             this.m_InteractiveControlContainer.TabIndex = 9;
             // 
+            // toolbtnScreenToBitmap
+            // 
+            this.toolbtnScreenToBitmap.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolbtnScreenToBitmap.Image = ((System.Drawing.Image)(resources.GetObject("toolbtnScreenToBitmap.Image")));
+            this.toolbtnScreenToBitmap.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolbtnScreenToBitmap.Name = "toolbtnScreenToBitmap";
+            this.toolbtnScreenToBitmap.Size = new System.Drawing.Size(83, 22);
+            this.toolbtnScreenToBitmap.Text = "Save to bitmap";
+            this.toolbtnScreenToBitmap.Click += new System.EventHandler(this.toolbtnScreenToBitmap_Click);
+            // 
             // DesignerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -490,6 +502,7 @@ namespace SmartApp.Ihm
         private System.Windows.Forms.SplitContainer m_splitterDesigner_Tool;
         private InteractivePanelContainer panel1;
         private SmartApp.Ihm.Designer.InteractiveControlContainer m_InteractiveControlContainer;
+        private System.Windows.Forms.ToolStripButton toolbtnScreenToBitmap;
 
     }
 }

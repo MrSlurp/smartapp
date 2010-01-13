@@ -181,6 +181,7 @@
     <Compile Include="Utils\ColorTranslate.cs" />
     <Compile Include="Utils\IniFileParser.cs" />
     <Compile Include="Utils\PathTranslator.cs" />
+    <Compile Include="Utils\PerfChrono.cs" />
     <Compile Include="Utils\Traces.cs" />
     <Compile Include="Utils\UtilsClasses.cs" />
   </ItemGroup>

@@ -137,7 +137,7 @@ namespace CtrlTwoBitmap
                 if (m_bIsRunning != value)
                 {
                     m_bIsRunning = value;
-                    //TraiteAnimation();
+                    
                 }
                 else
                 {
@@ -187,15 +187,20 @@ namespace CtrlTwoBitmap
                 {
                     m_bIsActive = value;
                     //TraiteAnimation();
+                }
+                if (m_bIsActive)
+                {
                     if (m_BmpAct != null)
                         this.Image = m_BmpAct;
-                    else if (BmpInact != null)
-                        this.Image = BmpInact;
+                    else
+                        this.Image = null;
                 }
                 else
                 {
                     if (BmpInact != null)
                         this.Image = BmpInact;
+                    else
+                        this.Image = null;
                 }
             }
         }
@@ -242,6 +247,7 @@ namespace CtrlTwoBitmap
         /*
         protected override void OnPaint(PaintEventArgs e)
         {
+            CommonLib.PerfChrono theChrono = new PerfChrono();
             if (m_bIsActive)
             {
                 if (m_BmpAct != null )
@@ -284,8 +290,16 @@ namespace CtrlTwoBitmap
                 else
                     e.Graphics.DrawImage(TwoImageRes.DefaultImg, new Rectangle(new Point(0, 0), this.Size));
             }
+            theChrono.EndMeasure("InstanceName = " + this.Name );
         }
         */
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            //CommonLib.PerfChrono theChrono = new PerfChrono();
+            base.OnPaint(e);
+            //theChrono.EndMeasure("InstanceName = " + this.Name);
+        }
+
 
     }
 }

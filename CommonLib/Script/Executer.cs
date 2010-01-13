@@ -67,6 +67,7 @@ namespace CommonLib
         //*****************************************************************************************************
         void ScriptExecuter_EvScriptToExecute()
         {
+            CommonLib.PerfChrono theChrono = new PerfChrono();
             while (m_PileScriptsToExecute.Count != 0)
             {
                 // on prend le script sans l'enlever afin de savoir qu'il n'est pas encore executé
@@ -78,6 +79,7 @@ namespace CommonLib
                 // il est éxécuté, on l'enlève de la liste.
                 m_PileScriptsToExecute.Dequeue();
             }
+            theChrono.EndMeasure("ScriptExecuter");
         }
         #endregion
 
@@ -133,6 +135,7 @@ namespace CommonLib
             for (int i = 0; i < Lines.Count; i++)
             {
                 Traces.LogAddDebug("ScriptExecuter", "Execution de la ligne : \"" + Lines[i] + "\"");
+                CommonLib.PerfChrono theChrono = new PerfChrono();
                 if (Lines[i].Length > 0)
                 {
                     string Line = Lines[i];
@@ -170,6 +173,7 @@ namespace CommonLib
                     {
                     }
                 }
+                theChrono.EndMeasure("ScriptExecuter script = " + Lines[i]);
             }
             //m_Document.m_Comm.DiscardRecievedDatas();
         }
@@ -198,7 +202,7 @@ namespace CommonLib
         }
         #endregion
 
-        #region execution des fonction
+        #region execution des fonctions
         //*****************************************************************************************************
         // Description:
         // Return: /
@@ -208,7 +212,11 @@ namespace CommonLib
             FunctionSymbol = FunctionSymbol.Remove(FunctionSymbol.Length - 2);
             Function fct = (Function)m_Document.GestFunction.QuickGetFromSymbol(FunctionSymbol);
             if (fct != null)
+            {
+                CommonLib.PerfChrono theChrono = new PerfChrono();
                 this.ExecuteScript(fct.ScriptLines);
+                theChrono.EndMeasure("InstanceName = " + FunctionSymbol);
+            }
             else
             {
                 LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format("Unknown function {0}", FunctionSymbol));

@@ -46,6 +46,7 @@ namespace SmartApp.Ihm.Designer
         private bool m_bMouseDown = false;
         private Point m_ptMouseDown;
         private Bitmap m_BmpBackImage = null;
+        private bool m_bDrawGuides = true;
         #endregion
 
         #region Events
@@ -350,34 +351,36 @@ namespace SmartApp.Ihm.Designer
                 e.Graphics.DrawRectangle(new Pen(Brushes.Black), m_RectSelection);
             }
             // dessin des lignes "helpers"
-            
-            Pen penDotRed = new Pen(Color.Red);
-            penDotRed.DashStyle = DashStyle.Dot;
-            Point[] ptRepere1280par1024 = new Point[3] {new Point(0, 1024), new Point(1280, 1024), new Point(1280, 0)};
-            e.Graphics.DrawLines(penDotRed, ptRepere1280par1024);
-            string strHelpText = "1280 x 1024";
-            e.Graphics.DrawString(strHelpText, SystemFonts.DefaultFont, Brushes.Red, new Point(640, 1024));
+            if (m_bDrawGuides)
+            {
+                Pen penDotRed = new Pen(Color.Red);
+                penDotRed.DashStyle = DashStyle.Dot;
+                Point[] ptRepere1280par1024 = new Point[3] { new Point(0, 1024), new Point(1280, 1024), new Point(1280, 0) };
+                e.Graphics.DrawLines(penDotRed, ptRepere1280par1024);
+                string strHelpText = "1280 x 1024";
+                e.Graphics.DrawString(strHelpText, SystemFonts.DefaultFont, Brushes.Red, new Point(640, 1024));
 
-            Pen penDotBlue = new Pen(Color.Blue);
-            penDotBlue.DashStyle = DashStyle.Dot;
-            Point[] ptRepere1024par768 = new Point[3] { new Point(0, 768), new Point(1024, 768), new Point(1024, 0) };
-            e.Graphics.DrawLines(penDotBlue, ptRepere1024par768);
-            strHelpText = "1024 x 768";
-            e.Graphics.DrawString(strHelpText, SystemFonts.DefaultFont, Brushes.Blue, new Point(512, 768));
+                Pen penDotBlue = new Pen(Color.Blue);
+                penDotBlue.DashStyle = DashStyle.Dot;
+                Point[] ptRepere1024par768 = new Point[3] { new Point(0, 768), new Point(1024, 768), new Point(1024, 0) };
+                e.Graphics.DrawLines(penDotBlue, ptRepere1024par768);
+                strHelpText = "1024 x 768";
+                e.Graphics.DrawString(strHelpText, SystemFonts.DefaultFont, Brushes.Blue, new Point(512, 768));
 
-            Pen penDotGreen = new Pen(Color.Green);
-            penDotGreen.DashStyle = DashStyle.Dot;
-            Point[] ptRepere1680par1050 = new Point[3] { new Point(0, 1050), new Point(1680, 1050), new Point(1680, 0) };
-            e.Graphics.DrawLines(penDotGreen, ptRepere1680par1050);
-            strHelpText = "1680 x 1050";
-            e.Graphics.DrawString(strHelpText, SystemFonts.DefaultFont, Brushes.Green, new Point(840, 1050));
+                Pen penDotGreen = new Pen(Color.Green);
+                penDotGreen.DashStyle = DashStyle.Dot;
+                Point[] ptRepere1680par1050 = new Point[3] { new Point(0, 1050), new Point(1680, 1050), new Point(1680, 0) };
+                e.Graphics.DrawLines(penDotGreen, ptRepere1680par1050);
+                strHelpText = "1680 x 1050";
+                e.Graphics.DrawString(strHelpText, SystemFonts.DefaultFont, Brushes.Green, new Point(840, 1050));
 
-            Pen penDotPurple = new Pen(Color.Purple);
-            penDotPurple.DashStyle = DashStyle.Dot;
-            Point[] ptRepere1600par1200 = new Point[3] { new Point(0, 1200), new Point(1600, 1200), new Point(1600, 0) };
-            e.Graphics.DrawLines(penDotPurple, ptRepere1600par1200);
-            strHelpText = "1600 x 1200";
-            e.Graphics.DrawString(strHelpText, SystemFonts.DefaultFont, Brushes.Purple, new Point(800, 1188));
+                Pen penDotPurple = new Pen(Color.Purple);
+                penDotPurple.DashStyle = DashStyle.Dot;
+                Point[] ptRepere1600par1200 = new Point[3] { new Point(0, 1200), new Point(1600, 1200), new Point(1600, 0) };
+                e.Graphics.DrawLines(penDotPurple, ptRepere1600par1200);
+                strHelpText = "1600 x 1200";
+                e.Graphics.DrawString(strHelpText, SystemFonts.DefaultFont, Brushes.Purple, new Point(800, 1188));
+            }
         }
 
         //*****************************************************************************************************
@@ -910,6 +913,32 @@ namespace SmartApp.Ihm.Designer
         protected override Point ScrollToControl(Control activeControl)
         {
             return Point.Empty;
+        }
+
+        public void SaveAsBitmap()
+        {
+            SaveFileDialog dlg = new SaveFileDialog();
+            dlg.Filter = "Image File (*.png)|*.png";
+            dlg.InitialDirectory = Application.StartupPath;
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                m_bDrawGuides = false;
+                this.Refresh();
+                //getthe instance of the graphics from the control
+                Graphics g = this.CreateGraphics();
+
+                //new bitmap object to save the image
+                Bitmap bmp = new Bitmap(this.Width, this.Height);
+
+                //Drawing control to the bitmap
+                this.DrawToBitmap(bmp, new Rectangle(0, 0, this.Width, this.Height));
+
+                bmp.Save(dlg.FileName);
+                bmp.Dispose();
+                m_bDrawGuides = true;
+                this.Refresh();
+            }
+
         }
     }
 }

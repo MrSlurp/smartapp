@@ -1319,7 +1319,6 @@ namespace SmartApp
             SolidBrush foreBrush = new SolidBrush(Color.Black);
             SizeF boundingBox;
 
-            b = new Bitmap(5, 5);
             g = Graphics.FromImage(b);
             boundingBox = g.MeasureString("0123456789", Font, -1, StringFormat.GenericTypographic);
             b = new Bitmap((Int32)(boundingBox.Width), (Int32)(boundingBox.Height));
@@ -1362,6 +1361,7 @@ namespace SmartApp
                 }
                 c1--;
             }
+            b.Dispose();
         }
         #endregion
 
@@ -1425,6 +1425,7 @@ namespace SmartApp
                             }
                             break;
                     }
+                    gaugeBitmap.Dispose();
                 }
 
                 ggr.SmoothingMode = SmoothingMode.HighQuality;

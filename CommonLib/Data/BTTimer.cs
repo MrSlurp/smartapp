@@ -239,7 +239,10 @@ namespace CommonLib
             if (m_bTimerEnabled)
             {
                 m_Timer.Stop();
+
+                CommonLib.PerfChrono theChrono = new PerfChrono();
                 this.m_Executer.ExecuteScript(this.m_ScriptLines);
+                theChrono.EndMeasure("InstanceName = " + this.Symbol);
                 m_Timer.Start();
             }
         }

@@ -506,5 +506,10 @@ namespace SmartApp.Ihm
                 m_Currentscreen.Controls.BringControlToTop(ctrl.SourceBTControl);
             }
         }
+
+        private void toolbtnScreenToBitmap_Click(object sender, EventArgs e)
+        {
+            m_InteractiveControlContainer.SaveAsBitmap();
+        }
     }
 }
