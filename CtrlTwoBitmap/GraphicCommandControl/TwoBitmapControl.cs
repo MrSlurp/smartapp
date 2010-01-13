@@ -104,12 +104,17 @@ namespace CtrlTwoBitmap
         }
     }
 
-    public class TwoBitmap : UserControl
+    public class TwoBitmap : PictureBox
     {
         private bool m_bIsActive = false;
+        private bool m_bIsRunning = false;
+
         private Bitmap m_BmpInact;
         private Bitmap m_BmpAct;
-        private bool m_bIsRunning = false;
+
+        //private bool m_BmpInactAnimated = false;          
+        //private bool m_BmpActAnimated = false;          
+        //private bool IsAnimating = false;
 
         public TwoBitmap()
         {
@@ -118,6 +123,7 @@ namespace CtrlTwoBitmap
                         ControlStyles.AllPaintingInWmPaint |
                         ControlStyles.SupportsTransparentBackColor |
                         ControlStyles.DoubleBuffer, true);
+            this.SizeMode = PictureBoxSizeMode.StretchImage;
         }
 
         public bool IsRunning
@@ -131,17 +137,26 @@ namespace CtrlTwoBitmap
                 if (m_bIsRunning != value)
                 {
                     m_bIsRunning = value;
-                    TraiteAnimation();
+                    //TraiteAnimation();
+                }
+                else
+                {
+                    if (BmpInact != null)
+                        this.Image = BmpInact;
                 }
             }
         }
 
+        /*
         public void TraiteAnimation()
         {
             if (m_BmpInact != null && ImageAnimator.CanAnimate(m_BmpInact))
             {
                 if (m_bIsRunning && m_bIsActive)
+                {
                     ImageAnimator.Animate(m_BmpInact, new EventHandler(OnFrameChanged));
+                    IsAnimating = true;
+                }
                 else
                     ImageAnimator.StopAnimate(m_BmpInact, new EventHandler(OnFrameChanged));
 
@@ -149,13 +164,17 @@ namespace CtrlTwoBitmap
             if (m_BmpAct != null && ImageAnimator.CanAnimate(m_BmpAct))
             {
                 if (m_bIsRunning && m_bIsActive)
+                {
                     ImageAnimator.Animate(m_BmpAct, new EventHandler(OnFrameChanged));
+                    IsAnimating = true;
+                }
                 else
                     ImageAnimator.StopAnimate(m_BmpAct, new EventHandler(OnFrameChanged));
             }
 
         }
-
+        */
+        
         public bool IsActive
         {
             get
@@ -167,8 +186,16 @@ namespace CtrlTwoBitmap
                 if (m_bIsActive != value)
                 {
                     m_bIsActive = value;
-                    TraiteAnimation();
-                    Refresh();
+                    //TraiteAnimation();
+                    if (m_BmpAct != null)
+                        this.Image = m_BmpAct;
+                    else if (BmpInact != null)
+                        this.Image = BmpInact;
+                }
+                else
+                {
+                    if (BmpInact != null)
+                        this.Image = BmpInact;
                 }
             }
         }
@@ -184,6 +211,8 @@ namespace CtrlTwoBitmap
                 m_BmpInact = value;
                 if (!ImageAnimator.CanAnimate(m_BmpInact))
                     m_BmpInact.MakeTransparent(Color.Magenta);
+                if (this.Image == null && m_BmpInact != null)
+                    this.Image = m_BmpInact;
             }
         }
         public Bitmap BmpAct
@@ -201,12 +230,16 @@ namespace CtrlTwoBitmap
             }
         }
 
+        /*
         private void OnFrameChanged(object o, EventArgs e)
         {
             //Force a call to the Paint event handler.
-            this.Invalidate();
+            if (IsAnimating)
+                this.Invalidate();
         }
+        */
 
+        /*
         protected override void OnPaint(PaintEventArgs e)
         {
             if (m_bIsActive)
@@ -252,6 +285,7 @@ namespace CtrlTwoBitmap
                     e.Graphics.DrawImage(TwoImageRes.DefaultImg, new Rectangle(new Point(0, 0), this.Size));
             }
         }
+        */
 
     }
 }
