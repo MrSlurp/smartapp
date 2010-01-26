@@ -7,6 +7,7 @@ using System.Drawing.Drawing2D;
 using System.Data;
 using System.Text;
 using System.Windows.Forms;
+using Microsoft.VisualBasic.Devices;
 using CommonLib;
 
 namespace SmartApp.Ihm.Designer
@@ -245,7 +246,7 @@ namespace SmartApp.Ihm.Designer
         // Description:
         // Return: /
         //*****************************************************************************************************
-        protected void TraiteMove(Control Ctrl, Size szMove)
+        public void TraiteMove(Control Ctrl, Size szMove)
         {
             // rectangle représentant la séléction
             Rectangle RectItems = new Rectangle(32000, 32000, 0, 0);
@@ -539,28 +540,65 @@ namespace SmartApp.Ihm.Designer
         // Description:
         // Return: /
         //*****************************************************************************************************
-        protected void OnArrowKeyPress(object sender, KeyEventArgs e)
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            Size szMove = new Size(0,0);
-            switch(e.KeyCode)
+            const int WM_KEYDOWN = 0x100;
+            const int WM_SYSKEYDOWN = 0x104;
+            if ((msg.Msg == WM_KEYDOWN) || (msg.Msg == WM_SYSKEYDOWN))
             {
-                case Keys.Up:
-                    szMove.Height = -1;
-                    break;
-                case Keys.Down:
-                    szMove.Height = 1;
-                    break;
-                case Keys.Left:
-                    szMove.Width = -1;
-                    break;
-                case Keys.Right:
-                    szMove.Width = 1;
-                    break;
 
+                TraiteArrowKeys(keyData);
             }
-            if (szMove.Width != 0 || szMove.Height != 0)
+            
+            return base.ProcessCmdKey(ref msg, keyData);
+            
+        }
+
+        protected void TraiteArrowKeys(Keys e)
+        {
+            if ((e & Keys.Control) == 0)
             {
-                TraiteMove(null, szMove);
+                Size szMove = new Size(0, 0);
+                if (e == Keys.Right)
+                {
+                    szMove.Width = 1;
+                }
+                else if (e == Keys.Down)
+                {
+                    szMove.Height = 1;
+                }
+                else if (e == Keys.Left)
+                {
+                    szMove.Width = -1;
+                }
+                else if (e == Keys.Up)
+                {
+                    szMove.Height = -1;
+                }
+                if (szMove.Width != 0 || szMove.Height != 0)
+                {
+                    TraiteMove(null, szMove);
+                }
+            }
+            else if ((e & Keys.Control) != 0)
+            {
+                e = e & ~Keys.Control;
+                if (e == Keys.Right)
+                {
+                    this.SizeCtrlsPlusW();
+                }
+                else if (e == Keys.Down)
+                {
+                    this.SizeCtrlsPlusH();
+                }
+                else if (e == Keys.Left)
+                {
+                    this.SizeCtrlsMinusW();
+                }
+                else if (e == Keys.Up)
+                {
+                    this.SizeCtrlsMinusH();
+                }
             }
         }
 
@@ -576,7 +614,6 @@ namespace SmartApp.Ihm.Designer
                 RemoveSelectedControls();
                 return;
             }
-            OnArrowKeyPress(sender, e);
         }
 
         //*****************************************************************************************************
@@ -938,6 +975,86 @@ namespace SmartApp.Ihm.Designer
                 m_bDrawGuides = true;
                 this.Refresh();
             }
+
+        }
+
+        #region Sizes
+        public void SizeCtrlsPlusW()
+        {
+            if (m_ListSelection.Count >= 1)
+            {
+                for (int i = 0; i < m_ListSelection.Count; i++)
+                {
+                    if (((IInteractive)m_ListSelection[i]).Width + 1 <= ((IInteractive)m_ListSelection[i]).MaxSize.Width)
+                    {
+                        ((IInteractive)m_ListSelection[i]).Width = ((IInteractive)m_ListSelection[i]).Width + 1;
+                        ((IInteractive)m_ListSelection[i]).UpdateSelectionLocation();
+                    }
+                }
+            }
+            Refresh();
+        }
+        public void SizeCtrlsMinusW()
+        {
+            if (m_ListSelection.Count >= 1)
+            {
+                for (int i = 0; i < m_ListSelection.Count; i++)
+                {
+                    if (((IInteractive)m_ListSelection[i]).Width - 1 >= ((IInteractive)m_ListSelection[i]).MinSize.Width)
+                    {
+                        ((IInteractive)m_ListSelection[i]).Width = ((IInteractive)m_ListSelection[i]).Width - 1;
+                        ((IInteractive)m_ListSelection[i]).UpdateSelectionLocation();
+                    }
+                }
+            }
+            Refresh();
+        }
+        public void SizeCtrlsPlusH()
+        {
+            if (m_ListSelection.Count >= 1)
+            {
+                for (int i = 0; i < m_ListSelection.Count; i++)
+                {
+                    if (((IInteractive)m_ListSelection[i]).Height + 1 <= ((IInteractive)m_ListSelection[i]).MaxSize.Height)
+                    {
+                        ((IInteractive)m_ListSelection[i]).Height = ((IInteractive)m_ListSelection[i]).Height + 1;
+                        ((IInteractive)m_ListSelection[i]).UpdateSelectionLocation();
+                    }
+                }
+            }
+            Refresh();
+        }
+        public void SizeCtrlsMinusH()
+        {
+            if (m_ListSelection.Count >= 1)
+            {
+                for (int i = 0; i < m_ListSelection.Count; i++)
+                {
+                    if (((IInteractive)m_ListSelection[i]).Height - 1 >= ((IInteractive)m_ListSelection[i]).MinSize.Height)
+                    {
+                        ((IInteractive)m_ListSelection[i]).Height = ((IInteractive)m_ListSelection[i]).Height - 1;
+                        ((IInteractive)m_ListSelection[i]).UpdateSelectionLocation();
+                    }
+                }
+            }
+            Refresh();
+        }
+        #endregion
+
+        public void MoveCtrlsLeft()
+        {
+
+        }
+        public void MoveCtrlsRight()
+        {
+
+        }
+        public void MoveCtrlsUp()
+        {
+
+        }
+        public void MoveCtrlsDown()
+        {
 
         }
     }

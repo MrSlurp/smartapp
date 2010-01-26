@@ -484,6 +484,7 @@ namespace SmartApp.Ihm
         {
         }
 
+        #region arrange functions
         private void m_toolBtnArrangeAcross_Click(object sender, EventArgs e)
         {
             m_InteractiveControlContainer.ArrangeItemsAcross();
@@ -493,6 +494,7 @@ namespace SmartApp.Ihm
         {
             m_InteractiveControlContainer.ArrangeItemsDown();
         }
+        #endregion
 
         private void m_toolBtnBringToFront_Click(object sender, EventArgs e)
         {
@@ -511,5 +513,53 @@ namespace SmartApp.Ihm
         {
             m_InteractiveControlContainer.SaveAsBitmap();
         }
+
+        #region size functions
+        private void tsbtn_increaseWidth_Click(object sender, EventArgs e)
+        {
+            m_InteractiveControlContainer.SizeCtrlsPlusW();
+        }
+
+        private void tsbtn_decreaseWidth_Click(object sender, EventArgs e)
+        {
+            m_InteractiveControlContainer.SizeCtrlsMinusW();
+        }
+
+        private void tsbtn_increaseHeight_Click(object sender, EventArgs e)
+        {
+            m_InteractiveControlContainer.SizeCtrlsPlusH();
+        }
+
+        private void tsbtn_decreaseHeight_Click(object sender, EventArgs e)
+        {
+            m_InteractiveControlContainer.SizeCtrlsMinusH();
+        }
+        #endregion
+
+        #region move functions
+        private void tsbtn_moveLeft_Click(object sender, EventArgs e)
+        {
+            Size szMove = new Size(-1, 0);
+            m_InteractiveControlContainer.TraiteMove(null, szMove);
+        }
+
+        private void tsbtn_moveRight_Click(object sender, EventArgs e)
+        {
+            Size szMove = new Size(1, 0);
+            m_InteractiveControlContainer.TraiteMove(null, szMove);
+        }
+
+        private void tsbtn_moveUp_Click(object sender, EventArgs e)
+        {
+            Size szMove = new Size(0, -1);
+            m_InteractiveControlContainer.TraiteMove(null, szMove);
+        }
+
+        private void tsbtn_moveDown_Click(object sender, EventArgs e)
+        {
+            Size szMove = new Size(0, 1);
+            m_InteractiveControlContainer.TraiteMove(null, szMove);
+        }
+        #endregion
     }
 }

@@ -29,6 +29,8 @@ namespace CommonLib
         int Bottom { get; }
         int Width { get; set; }
         int Height { get; set; }
+        Size MaxSize { get;}
+        Size MinSize { get;}
         Point Location { get; set; }
         bool Selected { get; set;}
     }
@@ -97,6 +99,17 @@ namespace CommonLib
             get
             {
                 return minSize;
+            }
+        }
+
+        /// <summary>
+        /// taille Maximum d'un control intractif
+        /// </summary>
+        public Size MaxSize
+        {
+            get
+            {
+                return maxSize;
             }
         }
 
@@ -324,7 +337,7 @@ namespace CommonLib
                 // utilisé lors du déplacement de plusieurs controls sumiltanéments
                 OnMouve(this, ref MovementSize);
             }
-            newLocation = new Point(Location.X + MovementSize.Width, Location.Y + MovementSize.Height);
+            //newLocation = new Point(Location.X + MovementSize.Width, Location.Y + MovementSize.Height);
             //on assigne à notre contrôle sa nouvelle position et on update le reste
             //this.Location = newLocation;
             //UpdateSelectionLocation();

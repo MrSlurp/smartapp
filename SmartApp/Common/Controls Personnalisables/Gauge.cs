@@ -34,8 +34,8 @@ namespace SmartApp
         private const Byte NUMOFCAPS = 5;
         private const Byte NUMOFRANGES = 5;
 
-        private Single fontBoundY1;
-        private Single fontBoundY2;
+        private Single fontBoundY1 = 0;
+        private Single fontBoundY2 = 0;
         private Bitmap gaugeBitmap;
         private Boolean drawGaugeBackground = true;
 
@@ -1309,6 +1309,7 @@ namespace SmartApp
         #region helper
         private void FindFontBounds()
         {
+            /*
             //find upper and lower bounds for numeric characters
             Int32 c1;
             Int32 c2;
@@ -1362,6 +1363,7 @@ namespace SmartApp
                 c1--;
             }
             b.Dispose();
+             * */
         }
         #endregion
 
