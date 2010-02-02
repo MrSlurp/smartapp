@@ -168,10 +168,14 @@ namespace SmartApp.Ihm
             if (m_InteractiveControlContainer.SelectionCount >= 1)
             {
                 m_toolBtnBringToFront.Enabled = true;
+                toolStripDropDownButton1.Enabled = true;
+                toolStripDropDownButton2.Enabled = true;
             }
             else
             {
                 m_toolBtnBringToFront.Enabled = false;
+                toolStripDropDownButton1.Enabled = false;
+                toolStripDropDownButton2.Enabled = false;
             }
 
 
@@ -345,6 +349,7 @@ namespace SmartApp.Ihm
                 m_PanelScreenEventScript.ScriptableItem = null;
                 m_PanelCtrlEventScript.ScriptableItem = null;
                 m_LabelSelectedScreen.Text = "No selection";
+                toolbtnScreenToBitmap.Enabled = false;
                 UpdateDesignerFromScreen(null);
                 return;
             }
@@ -352,6 +357,8 @@ namespace SmartApp.Ihm
             m_PanelScreenInitScript.InitScriptableItem = m_Currentscreen;
             m_PanelScreenEventScript.ScriptableItem = m_Currentscreen;
             m_InteractiveControlContainer.AllowDrop = true;
+            toolbtnScreenToBitmap.Enabled = true;
+
             try
             {
                 string chemincomplet = PathTranslator.RelativePathToAbsolute(m_Currentscreen.BackPictureFile);
