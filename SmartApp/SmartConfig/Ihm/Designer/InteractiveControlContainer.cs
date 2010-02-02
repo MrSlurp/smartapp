@@ -959,6 +959,31 @@ namespace SmartApp.Ihm.Designer
             dlg.InitialDirectory = Application.StartupPath;
             if (dlg.ShowDialog() == DialogResult.OK)
             {
+                List<Control> tmpHidedCtrlList = new List<Control>(); 
+                for (int i = 0; i < this.Controls.Count; i++)
+                {
+                    InteractiveControl iCtrl = this.Controls[i] as InteractiveControl;
+                    
+                    if (iCtrl != null)
+                    { 
+                        // si l'objet à une donnée associée, ou si c'est un control de base
+                        // on masque l'objet pour créer le fond de plan
+                        if ((iCtrl.SourceBTControl != null && iCtrl.SourceBTControl.HaveDataAssociation)
+                            || 
+                            (iCtrl.ControlType == InteractiveControlType.Button
+                            ||  iCtrl.ControlType == InteractiveControlType.Combo
+                            ||  iCtrl.ControlType == InteractiveControlType.CheckBox
+                            ||  iCtrl.ControlType == InteractiveControlType.Slider
+                            ||  iCtrl.ControlType == InteractiveControlType.NumericUpDown
+                            ||  iCtrl.ControlType == InteractiveControlType.Text)
+                            )
+                        {
+                            tmpHidedCtrlList.Add(iCtrl);
+                            iCtrl.Selected = false;
+                            iCtrl.Visible = false;
+                        }
+                    }
+                }
                 m_bDrawGuides = false;
                 this.Refresh();
                 //getthe instance of the graphics from the control
@@ -972,6 +997,10 @@ namespace SmartApp.Ihm.Designer
 
                 bmp.Save(dlg.FileName);
                 bmp.Dispose();
+                for (int i = 0; i < tmpHidedCtrlList.Count; i++)
+                {
+                    tmpHidedCtrlList[i].Visible = true;
+                }
                 m_bDrawGuides = true;
                 this.Refresh();
             }

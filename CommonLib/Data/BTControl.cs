@@ -182,6 +182,23 @@ namespace CommonLib
                 return null;
             }
         }
+    
+        /// <summary>
+        /// renvoie true si le control à au moins une donnée associé qui rend son état dynamique
+        /// Utilisé pour masquer les controls lors de l'enregistrement de l'image de fond de plan
+        /// </summary>
+        public virtual bool HaveDataAssociation
+        {
+            get
+            {
+                bool bRet = false;
+                bRet |= !string.IsNullOrEmpty(m_strAssociateData);
+                if (SpecificProp != null)
+                    bRet |= SpecificProp.HaveDataAssociation;
+                     
+                return bRet;
+            }
+        } 
         
         /// <summary>
         /// obtient ou assigne le script du controle

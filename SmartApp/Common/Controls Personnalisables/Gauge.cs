@@ -1315,7 +1315,7 @@ namespace SmartApp
             Int32 c2;
             Boolean boundfound;
             Bitmap b;
-            Graphics g;
+            Graphics g ;
             SolidBrush backBrush = new SolidBrush(Color.White);
             SolidBrush foreBrush = new SolidBrush(Color.Black);
             SizeF boundingBox;
@@ -1363,7 +1363,7 @@ namespace SmartApp
                 c1--;
             }
             b.Dispose();
-             * */
+            */
         }
         #endregion
 

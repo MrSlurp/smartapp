@@ -103,5 +103,17 @@ namespace CtrlGraph
             base.TraiteMessage(Mess, obj, TypeApp);
             m_SpecificProp.TraiteMessage(Mess, obj, TypeApp, this);
         }
+
+        /// <summary>
+        /// renvoie true si le control à au moins une donnée associé qui rend son état dynamique
+        /// Utilisé pour masquer les controls lors de l'enregistrement de l'image de fond de plan
+        /// </summary>
+        public override bool HaveDataAssociation
+        {
+            get
+            {
+                return true;
+            }
+        } 
     }
 }
