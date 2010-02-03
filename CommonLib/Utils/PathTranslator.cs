@@ -31,16 +31,21 @@ namespace CommonLib
         /// <returns>chemin relatif du fichier</returns>
         public static string AbsolutePathToRelative(string CheminCompletFichier)
         {
-            if (!string.IsNullOrEmpty(m_BTDocPath) && CheminCompletFichier.Contains(m_BTDocPath))
+            if (!String.IsNullOrEmpty(CheminCompletFichier))
             {
-                return CheminCompletFichier.Replace(m_BTDocPath, DOC_KEY);
-            }
-            else if (CheminCompletFichier.Contains(Application.StartupPath))
-            {
-                return CheminCompletFichier.Replace(Application.StartupPath, EXE_KEY);
+                if (!string.IsNullOrEmpty(m_BTDocPath) && CheminCompletFichier.Contains(m_BTDocPath))
+                {
+                    return CheminCompletFichier.Replace(m_BTDocPath, DOC_KEY);
+                }
+                else if (CheminCompletFichier.Contains(Application.StartupPath))
+                {
+                    return CheminCompletFichier.Replace(Application.StartupPath, EXE_KEY);
+                }
+                else
+                    return CheminCompletFichier;
             }
             else
-                return CheminCompletFichier;
+                return string.Empty;
         }
 
         /// <summary>

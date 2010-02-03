@@ -112,6 +112,8 @@ namespace FourBitmap
                 else
                     ((FourBitmapDispCtrl)m_Ctrl).State = 0;
             }
+            else
+                ((FourBitmapDispCtrl)m_Ctrl).State = 0;
         }
 
         public override void TraiteMessage(MESSAGE Mess, object obj, TYPE_APP TypeApp)
@@ -135,7 +137,7 @@ namespace FourBitmap
         }
     }
 
-    public class FourBitmapDispCtrl : UserControl
+    public class FourBitmapDispCtrl : PictureBox
     {
         private int m_State = 0;
         private Bitmap m_Bmp0;
@@ -146,7 +148,12 @@ namespace FourBitmap
 
         public FourBitmapDispCtrl()
         {
-            this.DoubleBuffered = true;
+            SetStyle(
+                        ControlStyles.UserPaint |
+                        ControlStyles.AllPaintingInWmPaint |
+                        ControlStyles.SupportsTransparentBackColor |
+                        ControlStyles.DoubleBuffer, true);
+            this.SizeMode = PictureBoxSizeMode.StretchImage;
         }
 
         public bool IsRunning
@@ -160,11 +167,18 @@ namespace FourBitmap
                 if (m_bIsRunning != value)
                 {
                     m_bIsRunning = value;
-                    TraiteAnimation();
+                    //TraiteAnimation();
                 }
+                else
+                {
+                    if (m_Bmp0 != null)
+                        this.Image = m_Bmp0;
+                }
+
             }
         }
 
+        /*
         public void TraiteAnimation()
         {
             if (m_Bmp0 != null && ImageAnimator.CanAnimate(m_Bmp0))
@@ -198,6 +212,7 @@ namespace FourBitmap
             }
             this.Refresh();
         }
+         * */
 
         public int State
         {
@@ -210,8 +225,29 @@ namespace FourBitmap
                 if (m_State != value)
                 {
                     m_State = value;
-                    TraiteAnimation();
+                    Refresh();
+                    //TraiteAnimation();
                 }
+                Bitmap FinalyDisp;
+                switch (m_State)
+                {
+                    default:
+                    case 0:
+                        FinalyDisp = Bmp0;
+                        break;
+                    case 1:
+                        FinalyDisp = Bmp1;
+                        break;
+                    case 2:
+                        FinalyDisp = Bmp2;
+                        break;
+                    case 3:
+                        FinalyDisp = Bmp3;
+                        break;
+                }
+                if (FinalyDisp != null)
+                    this.Image = FinalyDisp;
+
             }
         }
 
@@ -271,31 +307,17 @@ namespace FourBitmap
             }
         }
 
+        /*
         private void OnFrameChanged(object o, EventArgs e)
         {
             //Force a call to the Paint event handler.
             this.Invalidate();
         }
+         * */
 
+        /*
         protected override void OnPaint(PaintEventArgs e)
         {
-			Bitmap FinalyDisp;
-            switch (State)
-            {
-                default:
-                case 0:
-					FinalyDisp = Bmp0;
-                    break;
-                case 1:
-					FinalyDisp = Bmp1;
-                    break;
-                case 2:
-					FinalyDisp = Bmp2;
-                    break;
-                case 3:
-					FinalyDisp = Bmp3;
-                    break;
-			}
 			Bitmap DisplayedBitmap = null;
             if (FinalyDisp != null && ImageAnimator.CanAnimate(FinalyDisp))
 			{
@@ -307,7 +329,6 @@ namespace FourBitmap
 			{
 				e.Graphics.DrawImage(DisplayedBitmap, new Rectangle(new Point(0, 0), this.Size));
 			}
-				/*
             if (Bmp1 != null && ImageAnimator.CanAnimate(Bmp1))
                 ImageAnimator.UpdateFrames(Bmp1);
             if (Bmp2 != null && ImageAnimator.CanAnimate(Bmp2))
@@ -332,7 +353,7 @@ namespace FourBitmap
                     e.Graphics.DrawImage(Bmp3, new Rectangle(new Point(0, 0), this.Size));
                     break;
             }
-			*/
         }
+             * */
     }
 }

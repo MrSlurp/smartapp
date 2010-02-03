@@ -62,7 +62,7 @@
     </Compile>
     <Compile Include="DllEntryClass.cs" />
     <Compile Include="GraphicCommandControl\FourBitmapCmdControl.cs">
-      <SubType>UserControl</SubType>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="InteractiveHerited\InteractiveFourBitmapDllControl.cs">
       <SubType>UserControl</SubType>
