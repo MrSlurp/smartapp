@@ -343,7 +343,7 @@ namespace SmartApp.Ihm
                 int lastindex = strFileFullName.LastIndexOf(@"\");
 #endif
                 m_strDocumentName = strFileFullName.Substring(lastindex + 1);
-		this.m_mruStripMenu.AddFile(strFileFullName);
+                this.m_mruStripMenu.AddFile(strFileFullName);
                 m_Document.Modified = false;
             }
         }

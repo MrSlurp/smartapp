@@ -65,7 +65,6 @@ namespace CommonLib
                 {
                     // on fait appel à l'ancienne donnée qui va simplement rafraichir sa valeur depuis
                     // le fichier
-                    // il me faudra des objets virtual data quand même
                     if (!OldData.ReadInInstantImage(ChildNode, TypeApp))
                         return false;
                 }

@@ -103,9 +103,18 @@ namespace CommonLib
             if (AttrDefVal == null)
                 return false;
             DefaultValue = int.Parse(AttrDefVal.Value);
-            this.InitVal();
+            this.VirtualInitVal();
             return true;
         }
+
+        /// <summary>
+        /// appelé au lancement en mode Commande, initialise la valeur courante à la valeur par défaut
+        /// </summary>
+        public void VirtualInitVal()
+        {
+            Value = DefaultValue;
+        }
+    
 
         /// <summary>
         /// écrit un "cliché" de la valeur (fichier contenant juste la valeur des données)

@@ -1070,21 +1070,5 @@ namespace SmartApp.Ihm.Designer
         }
         #endregion
 
-        public void MoveCtrlsLeft()
-        {
-
-        }
-        public void MoveCtrlsRight()
-        {
-
-        }
-        public void MoveCtrlsUp()
-        {
-
-        }
-        public void MoveCtrlsDown()
-        {
-
-        }
     }
 }

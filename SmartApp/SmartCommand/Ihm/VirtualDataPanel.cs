@@ -28,8 +28,11 @@ namespace SmartApp
             for (int i = 0; i < group.Items.Count; i++)
             {
                 VirtualData vData = (VirtualData)group.Items[i];
-                AddDataToDataGrid(vData);
-                vData.VirtualDataValueChanged += new EventVirtualDataValueChange(VirtualDataValueChange);
+                if (!vData.Symbol.Contains("CTRLDATA"))
+                {
+                    AddDataToDataGrid(vData);
+                    vData.VirtualDataValueChanged += new EventVirtualDataValueChange(VirtualDataValueChange);
+                }
                 //Data dt = (Data)m_GestData.GetFromSymbol(vData.Symbol);
                 //dt.DataValueChangedPlus += new EventDataValueChangePlus(DataValueChange);
             }
