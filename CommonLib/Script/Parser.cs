@@ -23,6 +23,8 @@ namespace CommonLib
         DATA,
         SCREEN,
         SCREEN_FUNC,
+        LOGIC,
+        LOGIC_FUNC
     }
 
     // mots clef de base du langage BTScript
@@ -35,6 +37,7 @@ namespace CommonLib
         TIMERS,
         MATHS,
         SCREEN,
+        LOGIC
     }
 
     public enum FRAME_FUNC
@@ -68,6 +71,18 @@ namespace CommonLib
         MUL,
         DIV,
     }
+
+    public enum LOGIC_FUNC
+    {
+        INVALID,
+        NOT,
+        AND,
+        OR,
+        NAND,
+        NOR,
+        XOR,
+    }
+
 
     public enum SCREEN_FUNC
     {
@@ -248,6 +263,14 @@ namespace CommonLib
                     if (TokenNumAtPos == 2)
                         retTokenType = TOKEN_TYPE.SCREEN_FUNC;
                     break;
+                case SCR_OBJECT.LOGIC:
+                    retTokenType = TOKEN_TYPE.LOGIC_FUNC;
+                    if (indexLastOpeningParenthese != -1 && Pos > indexLastOpeningParenthese)
+                    {
+                        retTokenType = TOKEN_TYPE.DATA;
+                        IsParameter = true;
+                    }
+                    break;
                 case SCR_OBJECT.INVALID:
                 default:
                     break;
@@ -274,6 +297,7 @@ namespace CommonLib
                     AutoCompleteStrings.Add(SCR_OBJECT.TIMERS.ToString());
                     AutoCompleteStrings.Add(SCR_OBJECT.MATHS.ToString());
                     AutoCompleteStrings.Add(SCR_OBJECT.SCREEN.ToString());
+                    AutoCompleteStrings.Add(SCR_OBJECT.LOGIC.ToString());
                     break;
                 case TOKEN_TYPE.FRAME:
                     for (int i = 0; i < m_Document.GestTrame.Count; i++)
@@ -334,6 +358,14 @@ namespace CommonLib
                         AutoCompleteStrings.Add(m_Document.GestScreen[i].Symbol);
                     }
                     break;
+                case TOKEN_TYPE.LOGIC_FUNC:
+                    AutoCompleteStrings.Add(LOGIC_FUNC.NOT.ToString());
+                    AutoCompleteStrings.Add(LOGIC_FUNC.AND.ToString());
+                    AutoCompleteStrings.Add(LOGIC_FUNC.OR.ToString());
+                    AutoCompleteStrings.Add(LOGIC_FUNC.NAND.ToString());
+                    AutoCompleteStrings.Add(LOGIC_FUNC.NOR.ToString());
+                    AutoCompleteStrings.Add(LOGIC_FUNC.XOR.ToString());
+                    break;
                 case TOKEN_TYPE.NULL:
                 default:
                     break;
@@ -379,6 +411,9 @@ namespace CommonLib
                                 break;
                             case SCR_OBJECT.MATHS:
                                 ParseMathsFunction(Line, ErrorList);
+                                break;
+                            case SCR_OBJECT.LOGIC:
+                                ParseLogicFunction(Line, ErrorList);
                                 break;
                             case SCR_OBJECT.SCREEN:
                                 if (ParseScreen(Line, ErrorList))
@@ -966,6 +1001,143 @@ namespace CommonLib
             }
         }
         #endregion
+
+        #region parsing des Logic
+        //*****************************************************************************************************
+        // Description:
+        // Return: /
+        //*****************************************************************************************************
+        protected void ParseLogicFunction(string line, List<ScriptParserError> ErrorList)
+        {
+            string[] strTab = line.Split('.');
+            if (strTab.Length > 1)
+            {
+                string strTemp = strTab[1];
+                string strTempFull = strTemp;
+                int posOpenParenthese = strTemp.LastIndexOf('(');
+                if (posOpenParenthese >= 0)
+                    strTemp = strTemp.Remove(posOpenParenthese);
+
+                int posCloseParenthese = strTempFull.LastIndexOf(')');
+
+                string strScrObject = strTemp;
+                LOGIC_FUNC SecondTokenType = LOGIC_FUNC.INVALID;
+                try
+                {
+                    SecondTokenType = (LOGIC_FUNC)Enum.Parse(typeof(LOGIC_FUNC), strScrObject);
+                }
+                catch (Exception)
+                {
+                    string strErr = string.Format("Invalid logic function {0}", strScrObject);
+                    ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
+                    ErrorList.Add(Err);
+                    return;
+                }
+
+                if (posOpenParenthese == -1)
+                {
+                    ScriptParserError Err = new ScriptParserError("Syntax Error : Missing '('", m_iCurLine, ErrorType.ERROR);
+                    ErrorList.Add(Err);
+                    return;
+                }
+                if (posCloseParenthese == -1)
+                {
+                    ScriptParserError Err = new ScriptParserError("Syntax Error : Missing ')'", m_iCurLine, ErrorType.ERROR);
+                    ErrorList.Add(Err);
+                    return;
+                }
+
+                string strParams = strTempFull.Substring(posOpenParenthese + 1, strTempFull.Length - 2 - posOpenParenthese);
+                strParams = strParams.Trim('(');
+                strParams = strParams.Trim(')');
+                string[] strParamList = strParams.Split(',');
+
+                switch (SecondTokenType)
+                {
+                    case LOGIC_FUNC.NOT:
+                        if (strParamList.Length != 2)
+                        {
+                            string strErr = string.Format("Invalid line, bad parameter count for logic NOT function");
+                            ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
+                            ErrorList.Add(Err);
+                        }
+                        break;
+                    case LOGIC_FUNC.AND:
+                    case LOGIC_FUNC.OR:
+                    case LOGIC_FUNC.NAND:
+                    case LOGIC_FUNC.NOR:
+                        int MaxParameterCount = 5;
+                        if (SecondTokenType == LOGIC_FUNC.XOR)
+                            MaxParameterCount = 3;
+                        bool bIsErrorParamEmpty = false;
+                        for (int i = 0; i < strParamList.Length; i++)
+                        {
+                            if (string.IsNullOrEmpty(strParamList[i]))
+                            {
+                                string strErr = string.Format("Invalid line, one parameter or more is empty");
+                                ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
+                                ErrorList.Add(Err);
+                                bIsErrorParamEmpty = true;
+                                break;
+                            }
+                        }
+                        if (bIsErrorParamEmpty)
+                            break;
+                        // si on est ici, c'est que les parenthèses sont présentes
+                        // on regarde ce qu'il y a à l'intérieur
+                        if (strParamList.Length < 3)
+                        {
+                            string strErr = string.Format("Invalid line, not enought parameters for Logic function");
+                            ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
+                            ErrorList.Add(Err);
+                        }
+                        else if (strParamList.Length > MaxParameterCount)
+                        {
+                            string strErr = string.Format("Invalid line, too many parameters for Logic function");
+                            ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
+                            ErrorList.Add(Err);
+                        }
+                        else // on en a entre 3 et 5 (donc 2 à 4 variables)
+                        {
+                            for (int i = 0; i < strParamList.Length; i++)
+                            {
+                                string strTempParam = strParamList[i].Trim();
+                                if (!IsNumericValue(strTempParam))
+                                {
+                                    if (m_Document.GestData.GetFromSymbol(strTempParam) == null)
+                                    {
+                                        string strErr = string.Format("Invalid Data symbol {0}", strTempParam);
+                                        ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
+                                        ErrorList.Add(Err);
+                                    }
+                                }
+                                else
+                                {
+                                    int value = int.Parse(strTempParam);
+                                    if (value != 0 && value != 1)
+                                    {
+                                        string strErr = string.Format("Invalid constant parameter value for logic, must be 0 or 1");
+                                        ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
+                                        ErrorList.Add(Err);
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    case LOGIC_FUNC.INVALID:
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                string strErr = string.Format("Invalid line, missing Maths function");
+                ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
+                ErrorList.Add(Err);
+            }
+        }
+        #endregion
+
 
         #region fonction utiles
         //*****************************************************************************************************

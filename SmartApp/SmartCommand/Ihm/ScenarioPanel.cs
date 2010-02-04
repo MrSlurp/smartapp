@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Data;
 using System.Text;
+using System.IO;
+using System.Xml;
 using System.Windows.Forms;
 using CommonLib;
 
@@ -11,100 +13,200 @@ namespace SmartApp
 {
     public partial class ScenarioPanel : UserControl
     {
-        /*
-        GestDataVirtual m_GestVirtualData = null;
-        GestData m_GestData = null;
-        string m_strSymbolGroup = null;
-        */
+        public event EventHandler SelectionChange;
+
         public ScenarioPanel()
         {
             InitializeComponent();
-            //m_GestVirtualData = GestVirtualData;
-            //m_GestData = GestData;
-            //m_strSymbolGroup = strSymbolGroup;
         }
-        /*
-        public void Initialize()
+
+        public bool ClicheGridEnabled
         {
-            BaseGestGroup.Group group = m_GestVirtualData.GetGroupFromSymbol(m_strSymbolGroup);
-            for (int i = 0; i < group.Items.Count; i++)
+            get
             {
-                VirtualData vData = (VirtualData)group.Items[i];
-                if (!vData.Symbol.Contains("CTRLDATA"))
-                {
-                    AddDataToDataGrid(vData);
-                    vData.VirtualDataValueChanged += new EventVirtualDataValueChange(VirtualDataValueChange);
-                }
-                //Data dt = (Data)m_GestData.GetFromSymbol(vData.Symbol);
-                //dt.DataValueChangedPlus += new EventDataValueChangePlus(DataValueChange);
+                return m_dataGrid.Enabled;
+            }
+            set
+            {
+                m_dataGrid.Enabled = value;
             }
         }
 
-        protected void AddDataToDataGrid(VirtualData vData)
-        {
-            string[] TabValues = new string[5];
-            TabValues[0] = vData.Symbol;
-            TabValues[1] = vData.Description.Replace("\n", " ");
-            TabValues[2] = vData.Minimum.ToString();
-            TabValues[3] = vData.Maximum.ToString();
-            TabValues[4] = vData.Value.ToString();
-            m_dataGrid.Rows.Add(TabValues);
-        }
-
-        protected void VirtualDataValueChange(VirtualData vData)
+        public void SaveScenario(XmlDocument XmlDoc, XmlNode DocRootNode)
         {
             for (int i = 0; i < m_dataGrid.Rows.Count; i++)
             {
-                string RowDataSymbol = (string)m_dataGrid.Rows[i].Cells[0].Value;
-                if (RowDataSymbol == vData.Symbol)
-                {
-                    m_dataGrid.Rows[i].Cells["Value"].Value = vData.Value.ToString();
-                    return;
-                }
+                string strTemp = (string)m_dataGrid.Rows[i].Cells[2].Value;
+                XmlNode NodeFile = XmlDoc.CreateElement(XML_CF_TAG.File.ToString());
+                XmlText nodeText = XmlDoc.CreateTextNode(PathTranslator.LinuxVsWindowsPathStore(strTemp));
+                NodeFile.AppendChild(nodeText);
+                DocRootNode.AppendChild(NodeFile);
             }
         }
 
-        private void m_dataGrid_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        public void LoadScenario(XmlNode DocRootNode)
         {
-            if (e.ColumnIndex == m_dataGrid.Columns["Value"].DisplayIndex)
+            m_dataGrid.Rows.Clear();
+            for (int i= 0; i< DocRootNode.ChildNodes.Count; i++)
             {
-                string DataSymbol = (string)m_dataGrid.Rows[e.RowIndex].Cells[0].Value;
-                VirtualData vData = (VirtualData)m_GestVirtualData.GetFromSymbol(DataSymbol);
-                int NewValue = 0;
-                bool bRet = int.TryParse((string)e.FormattedValue, out NewValue);
-                if (!bRet)
-                {
-                    MessageBox.Show("Value must be integer", "Error");
-                    e.Cancel = true;
-                    return;
-                }
-                if (!vData.TestValue(NewValue))
-                {
-                    MessageBox.Show("Value must be between minimum and maximum", "Error");
-                    e.Cancel = true;
-                    return;
-                }
+                XmlNode node = DocRootNode.ChildNodes[i];
+                XmlText text = node.FirstChild as XmlText;
+                string str = PathTranslator.RelativePathToAbsolute(text.Value);
+                AddFileToGrid(str);
             }
         }
 
-        private void m_dataGrid_CellEnter(object sender, DataGridViewCellEventArgs e)
+        public void AddClicheFiles(string[] strFulleFileName)
         {
-            string DataSymbol = (string)m_dataGrid.Rows[e.RowIndex].Cells[0].Value;
-            VirtualData vData = (VirtualData)m_GestVirtualData.GetFromSymbol(DataSymbol);
-            if (vData.IsConstant)
+            for (int i = 0; i < strFulleFileName.Length; i++)
             {
-                m_dataGrid.CancelEdit();
+                AddFileToGrid(strFulleFileName[i]);
             }
         }
 
-        private void m_dataGrid_CellValidated(object sender, DataGridViewCellEventArgs e)
+        protected void AddFileToGrid(string strFile)
         {
-            string DataSymbol = (string)m_dataGrid.Rows[e.RowIndex].Cells[0].Value;
-            VirtualData vData = (VirtualData)m_GestVirtualData.GetFromSymbol(DataSymbol);
-            int NewValue = 0;
-            bool bRet = int.TryParse((string)m_dataGrid.Rows[e.RowIndex].Cells["Value"].Value, out NewValue);
-            vData.Value = NewValue;
+            string[] TabValues = new string[3];
+            TabValues[0] = string.Format("{0}", m_dataGrid.Rows.Count + 1);
+            TabValues[1] = Path.GetFileName(strFile);
+            TabValues[2] = PathTranslator.AbsolutePathToRelative(strFile);
+            m_dataGrid.Rows.Add(TabValues);
         }
-        */
+
+
+        public void RemoveSelected()
+        {
+            if (m_dataGrid.SelectedRows.Count != 0)
+            {
+                m_dataGrid.Rows.Remove(m_dataGrid.SelectedRows[0]);
+            }
+        }
+
+        public bool LoadNextLine(bool bPlayLoop)
+        {
+            if (m_dataGrid.SelectedRows.Count != 0 && m_dataGrid.Rows.Count>0)
+            {
+                int idx = m_dataGrid.SelectedRows[0].Index;
+                string strTemp;
+                if (idx < m_dataGrid.Rows.Count - 1)
+                {
+                    m_dataGrid.Rows[idx + 1].Selected = true;
+                    strTemp = (string)m_dataGrid.Rows[idx + 1].Cells[2].Value;
+                    strTemp = PathTranslator.RelativePathToAbsolute(strTemp);
+                }
+                else 
+                {
+                    if (bPlayLoop)
+                    {
+                        m_dataGrid.Rows[0].Selected = true;
+                        strTemp = (string)m_dataGrid.Rows[0].Cells[2].Value;
+                        strTemp = PathTranslator.RelativePathToAbsolute(strTemp);
+                    }
+                    else
+                        return false;
+                }
+                VirtualDataForm parent = this.Parent.Parent.Parent as VirtualDataForm;
+                if (parent != null)
+                {
+                    parent.LoadCliche(strTemp);
+                    return true;
+                }
+                else
+                    return false;
+            }
+            return false;
+        }
+
+        public void LoadPrevLine(bool bPlayLoop)
+        {
+            if (m_dataGrid.SelectedRows.Count != 0 && m_dataGrid.Rows.Count > 0)
+            {
+                int idx = m_dataGrid.SelectedRows[0].Index;
+                string strTemp; 
+                if (idx > 0)
+                {
+                    m_dataGrid.Rows[idx - 1].Selected = true;
+                    strTemp = (string)m_dataGrid.Rows[idx - 1].Cells[2].Value;
+                    strTemp = PathTranslator.RelativePathToAbsolute(strTemp);
+                }
+                else
+                {
+                    if (bPlayLoop)
+                    {
+                        m_dataGrid.Rows[m_dataGrid.Rows.Count-1].Selected = true;
+                        strTemp = (string)m_dataGrid.Rows[m_dataGrid.Rows.Count - 1].Cells[2].Value;
+                        strTemp = PathTranslator.RelativePathToAbsolute(strTemp);
+                    }
+                    else
+                        return;
+                }
+                VirtualDataForm parent = this.Parent.Parent.Parent as VirtualDataForm;
+                if (parent != null)
+                    parent.LoadCliche(strTemp);
+            }
+        }
+
+        public void LoadSelectedLine()
+        {
+            if (m_dataGrid.SelectedRows.Count != 0 && m_dataGrid.Rows.Count > 0)
+            {
+                int idx = m_dataGrid.SelectedRows[0].Index;
+                string strTemp = (string)m_dataGrid.Rows[idx].Cells[2].Value;
+                strTemp = PathTranslator.RelativePathToAbsolute(strTemp);
+                VirtualDataForm parent = this.Parent.Parent.Parent as VirtualDataForm;
+                if (parent != null)
+                    parent.LoadCliche(strTemp);
+            }
+        }
+
+        private void m_dataGrid_SelectionChanged(object sender, EventArgs e)
+        {
+            if (SelectionChange != null)
+                SelectionChange(sender, e);
+        }
+
+        public void MoveSelectedUp()
+        {
+            if (m_dataGrid.SelectedRows.Count != 0 && m_dataGrid.Rows.Count > 0)
+            {
+                int idx = m_dataGrid.SelectedRows[0].Index;
+                if (idx == 0)
+                    return;
+                string str11 = (string)m_dataGrid.Rows[idx].Cells[2].Value;
+                string str12 = (string)m_dataGrid.Rows[idx].Cells[1].Value;
+                string str21 = (string)m_dataGrid.Rows[idx-1].Cells[2].Value;
+                string str22 = (string)m_dataGrid.Rows[idx-1].Cells[1].Value;
+                m_dataGrid.Rows[idx].Cells[2].Value = str21;
+                m_dataGrid.Rows[idx].Cells[1].Value = str22;
+                m_dataGrid.Rows[idx-1].Cells[2].Value = str11;
+                m_dataGrid.Rows[idx-1].Cells[1].Value = str12;
+                m_dataGrid.Rows[idx-1].Selected = true;
+            }
+        }
+
+        public void MoveSelectedDown()
+        {
+            if (m_dataGrid.SelectedRows.Count != 0 && m_dataGrid.Rows.Count > 0)
+            {
+                int idx = m_dataGrid.SelectedRows[0].Index;
+                if (idx == m_dataGrid.Rows.Count-1)
+                    return;
+                string str11 = (string)m_dataGrid.Rows[idx].Cells[2].Value;
+                string str12 = (string)m_dataGrid.Rows[idx].Cells[1].Value;
+                string str21 = (string)m_dataGrid.Rows[idx+1].Cells[2].Value;
+                string str22 = (string)m_dataGrid.Rows[idx+1].Cells[1].Value;
+                m_dataGrid.Rows[idx].Cells[2].Value = str21;
+                m_dataGrid.Rows[idx].Cells[1].Value = str22;
+                m_dataGrid.Rows[idx+1].Cells[2].Value = str11;
+                m_dataGrid.Rows[idx+1].Cells[1].Value = str12;
+                m_dataGrid.Rows[idx + 1].Selected = true;
+            }
+        }
+
+        private void m_dataGrid_DoubleClick(object sender, EventArgs e)
+        {
+            LoadSelectedLine();
+        }
+
     }
 }

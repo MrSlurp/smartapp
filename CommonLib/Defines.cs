@@ -125,6 +125,8 @@ namespace CommonLib
         Program,
         SpecificControl,
         DllControl,
+        FileList,
+        File
     }
     /// <summary>
     /// enum des attributs du ficher de config (Config File (CF))

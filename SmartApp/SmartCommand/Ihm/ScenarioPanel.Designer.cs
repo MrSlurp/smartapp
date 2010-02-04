@@ -29,11 +29,9 @@ namespace SmartApp
         private void InitializeComponent()
         {
             this.m_dataGrid = new System.Windows.Forms.DataGridView();
-            this.ColVirtualDataName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColMin = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColMax = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Value = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColStep = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColFileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColFilePath = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.m_dataGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -44,65 +42,52 @@ namespace SmartApp
             this.m_dataGrid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.m_dataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.m_dataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ColVirtualDataName,
-            this.ColDescription,
-            this.ColMin,
-            this.ColMax,
-            this.Value});
+            this.ColStep,
+            this.ColFileName,
+            this.ColFilePath});
             this.m_dataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.m_dataGrid.Location = new System.Drawing.Point(0, 0);
+            this.m_dataGrid.MultiSelect = false;
             this.m_dataGrid.Name = "m_dataGrid";
+            this.m_dataGrid.ReadOnly = true;
+            this.m_dataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.m_dataGrid.Size = new System.Drawing.Size(609, 290);
             this.m_dataGrid.TabIndex = 1;
+            this.m_dataGrid.DoubleClick += new System.EventHandler(this.m_dataGrid_DoubleClick);
+            this.m_dataGrid.SelectionChanged += new System.EventHandler(this.m_dataGrid_SelectionChanged);
             // 
-            // ColVirtualDataName
+            // ColStep
             // 
-            this.ColVirtualDataName.HeaderText = "Data Name";
-            this.ColVirtualDataName.MinimumWidth = 20;
-            this.ColVirtualDataName.Name = "ColVirtualDataName";
-            this.ColVirtualDataName.ReadOnly = true;
-            this.ColVirtualDataName.Width = 200;
+            this.ColStep.HeaderText = "Step";
+            this.ColStep.Name = "ColStep";
+            this.ColStep.ReadOnly = true;
+            this.ColStep.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ColStep.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.ColStep.Width = 40;
             // 
-            // ColDescription
+            // ColFileName
             // 
-            this.ColDescription.HeaderText = "Description";
-            this.ColDescription.Name = "ColDescription";
-            this.ColDescription.ReadOnly = true;
-            this.ColDescription.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.ColDescription.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.ColDescription.Width = 200;
+            this.ColFileName.HeaderText = "File Name";
+            this.ColFileName.MinimumWidth = 20;
+            this.ColFileName.Name = "ColFileName";
+            this.ColFileName.ReadOnly = true;
+            this.ColFileName.Width = 200;
             // 
-            // ColMin
+            // ColFilePath
             // 
-            this.ColMin.HeaderText = "Min";
-            this.ColMin.MaxInputLength = 10;
-            this.ColMin.MinimumWidth = 50;
-            this.ColMin.Name = "ColMin";
-            this.ColMin.ReadOnly = true;
-            this.ColMin.Width = 55;
+            this.ColFilePath.HeaderText = "File Path";
+            this.ColFilePath.MaxInputLength = 10;
+            this.ColFilePath.MinimumWidth = 50;
+            this.ColFilePath.Name = "ColFilePath";
+            this.ColFilePath.ReadOnly = true;
+            this.ColFilePath.Width = 300;
             // 
-            // ColMax
-            // 
-            this.ColMax.HeaderText = "Max";
-            this.ColMax.MaxInputLength = 10;
-            this.ColMax.MinimumWidth = 50;
-            this.ColMax.Name = "ColMax";
-            this.ColMax.ReadOnly = true;
-            this.ColMax.Width = 55;
-            // 
-            // Value
-            // 
-            this.Value.HeaderText = "Value";
-            this.Value.MinimumWidth = 50;
-            this.Value.Name = "Value";
-            this.Value.Width = 55;
-            // 
-            // VirtualDataPanel
+            // ScenarioPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.m_dataGrid);
-            this.Name = "VirtualDataPanel";
+            this.Name = "ScenarioPanel";
             this.Size = new System.Drawing.Size(609, 290);
             ((System.ComponentModel.ISupportInitialize)(this.m_dataGrid)).EndInit();
             this.ResumeLayout(false);
@@ -112,10 +97,8 @@ namespace SmartApp
         #endregion
 
         private System.Windows.Forms.DataGridView m_dataGrid;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColVirtualDataName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColDescription;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColMin;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColMax;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Value;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColStep;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColFileName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColFilePath;
     }
 }

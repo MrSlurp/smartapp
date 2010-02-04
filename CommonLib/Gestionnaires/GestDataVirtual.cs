@@ -102,9 +102,12 @@ namespace CommonLib
                 VirtualData dt = (VirtualData)m_ListObject[i];
                 //XML_CF_TAG.DataTemp => on change le type de tag pour bien faire la différence
                 //entre le fichier de sauvegarde normal et le fichier de mémorisation temporaire
-                XmlNode XmlData = XmlDoc.CreateElement(XML_CF_TAG.Data.ToString());
-                dt.WriteOutInstantImage(XmlDoc, XmlData);
-                Node.AppendChild(XmlData);
+                if (!dt.IsConstant)
+                {
+                    XmlNode XmlData = XmlDoc.CreateElement(XML_CF_TAG.Data.ToString());
+                    dt.WriteOutInstantImage(XmlDoc, XmlData);
+                    Node.AppendChild(XmlData);
+                }
             }
             return true;
         }

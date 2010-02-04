@@ -125,7 +125,8 @@ namespace CommonLib
         public bool WriteOutInstantImage(XmlDocument XmlDoc, XmlNode Node)
         {
             // on écrit la base pour avoir le symbole
-            base.WriteOut(XmlDoc, Node);
+            WriteOutBaseObject(XmlDoc, Node);
+            //base.WriteOut(XmlDoc, Node);
             this.DefaultValue = this.Value;
             XmlAttribute AttrDefVal = XmlDoc.CreateAttribute(XML_CF_ATTRIB.DefVal.ToString());
             AttrDefVal.Value = DefaultValue.ToString();
