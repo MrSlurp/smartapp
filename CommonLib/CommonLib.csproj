@@ -1,4 +1,4 @@
-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -131,7 +131,21 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources.cs" />
     <Compile Include="Script\Executer.cs" />
+    <Compile Include="Script\Executer.Frame.cs" />
+    <Compile Include="Script\Executer.Function.cs" />
+    <Compile Include="Script\Executer.Logger.cs" />
+    <Compile Include="Script\Executer.Logic.cs" />
+    <Compile Include="Script\Executer.Maths.cs" />
+    <Compile Include="Script\Executer.Screen.cs" />
+    <Compile Include="Script\Executer.Timer.cs" />
     <Compile Include="Script\Parser.cs" />
+    <Compile Include="Script\Parser.Frame.cs" />
+    <Compile Include="Script\Parser.Function.cs" />
+    <Compile Include="Script\Parser.Logger.cs" />
+    <Compile Include="Script\Parser.Logic.cs" />
+    <Compile Include="Script\Parser.Maths.cs" />
+    <Compile Include="Script\Parser.Screen.cs" />
+    <Compile Include="Script\Parser.Timer.cs" />
     <Compile Include="Script\ScriptControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

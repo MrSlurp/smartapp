@@ -28,7 +28,7 @@ namespace SmartApp
             for (int i = 0; i < group.Items.Count; i++)
             {
                 VirtualData vData = (VirtualData)group.Items[i];
-                if (!vData.Symbol.Contains("CTRLDATA"))
+                if (!vData.Symbol.Contains(Cste.STR_SUFFIX_CTRLDATA))
                 {
                     AddDataToDataGrid(vData);
                     vData.VirtualDataValueChanged += new EventVirtualDataValueChange(VirtualDataValueChange);

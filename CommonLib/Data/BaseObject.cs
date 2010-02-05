@@ -153,11 +153,11 @@ namespace CommonLib
             // écriture de l'attribut "nom" (description)
             XmlAttribute AttrName = XmlDoc.CreateAttribute(XML_CF_ATTRIB.strNom.ToString());
             AttrName.Value = m_strName;
-            Node.Attributes.Append(AttrName);
             // écriture de l'attribut "symbol"
             XmlAttribute AttrSymb = XmlDoc.CreateAttribute(XML_CF_ATTRIB.strSymbol.ToString());
             AttrSymb.Value = m_strSymbol;
             Node.Attributes.Append(AttrSymb);
+            Node.Attributes.Append(AttrName);
             return true;
         }
 

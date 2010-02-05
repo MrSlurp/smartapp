@@ -55,8 +55,8 @@ namespace SmartApp
             // 
             // m_MainTabControl
             // 
-            this.m_MainTabControl.Controls.Add(this.m_TabPageScenario);
             this.m_MainTabControl.Controls.Add(this.m_TabPageVData);
+            this.m_MainTabControl.Controls.Add(this.m_TabPageScenario);
             this.m_MainTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.m_MainTabControl.Location = new System.Drawing.Point(0, 0);
             this.m_MainTabControl.Name = "m_MainTabControl";
@@ -84,7 +84,7 @@ namespace SmartApp
             this.m_TabPageScenario.Name = "m_TabPageScenario";
             this.m_TabPageScenario.Padding = new System.Windows.Forms.Padding(3);
             this.m_TabPageScenario.Size = new System.Drawing.Size(620, 267);
-            this.m_TabPageScenario.TabIndex = 1;
+            this.m_TabPageScenario.TabIndex = 2;
             this.m_TabPageScenario.Text = "Cliche/Scenario";
             this.m_TabPageScenario.UseVisualStyleBackColor = true;
             // 
@@ -253,7 +253,7 @@ namespace SmartApp
             this.m_TabPageVData.Name = "m_TabPageVData";
             this.m_TabPageVData.Padding = new System.Windows.Forms.Padding(3);
             this.m_TabPageVData.Size = new System.Drawing.Size(620, 267);
-            this.m_TabPageVData.TabIndex = 2;
+            this.m_TabPageVData.TabIndex = 1;
             this.m_TabPageVData.Text = "Virtual Datas";
             this.m_TabPageVData.UseVisualStyleBackColor = true;
             // 
