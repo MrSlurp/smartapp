@@ -19,7 +19,7 @@ namespace CommonLib
         //*****************************************************************************************************
         protected bool ParseScreen(string line, List<ScriptParserError> ErrorList)
         {
-            string[] strTab = line.Split(TOKEN_SEPARATOR);
+            string[] strTab = line.Split(ParseExecGlobals.TOKEN_SEPARATOR);
             if (strTab.Length > 1)
             {
                 string strScreen = strTab[1];
@@ -43,7 +43,7 @@ namespace CommonLib
         //*****************************************************************************************************
         protected void ParseScreenFunction(string line, List<ScriptParserError> ErrorList)
         {
-            string[] strTab = line.Split(TOKEN_SEPARATOR);
+            string[] strTab = line.Split(ParseExecGlobals.TOKEN_SEPARATOR);
             if (strTab.Length > 2)
             {
                 string strTemp = strTab[2];

@@ -6,20 +6,18 @@ using System.Text;
 
 namespace CommonLib
 {
-    //*****************************************************************************************************
-    // Description:
-    // Return: /
-    //*****************************************************************************************************
     public partial class ScriptParser
     {
         #region parsing des fonction
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// vérifie que la fonction appelée existe
+        /// </summary>
+        /// <param name="line">ligne de script</param>
+        /// <param name="ErrorList">liste des erreur (sortie)</param>
+        /// <returns>true si le symbol de fonction est valide</returns>
         protected bool ParseFunction(string line, List<ScriptParserError> ErrorList)
         {
-            string[] strTab = line.Split(TOKEN_SEPARATOR);
+            string[] strTab = line.Split(ParseExecGlobals.TOKEN_SEPARATOR);
             if (strTab.Length > 1)
             {
                 string strTemp = strTab[1];
@@ -27,10 +25,7 @@ namespace CommonLib
                 {
                     return false;
                 }
-                
-                strTemp = strTemp.Trim(')');
-                strTemp = strTemp.Trim('(');
-
+                TrimEndParenthese(ref strTemp);
                 string strFunc = strTemp;
                 strFunc = strFunc.Trim();
 

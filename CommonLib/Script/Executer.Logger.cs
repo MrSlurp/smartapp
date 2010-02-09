@@ -14,7 +14,7 @@ namespace CommonLib
         //*****************************************************************************************************
         protected void ParseExecuteLogger(string line)
         {
-            string[] strTab = line.Split('.');
+            string[] strTab = line.Split(ParseExecGlobals.TOKEN_SEPARATOR);
             if (strTab.Length > 2)
             {
                 string strLog = strTab[1];

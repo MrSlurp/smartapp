@@ -6,122 +6,6 @@ using System.Text;
 
 namespace CommonLib
 {
-    #region enums
-    /// <summary>
-    /// Liste de tout les types de jetons (token) 
-    /// </summary>
-    public enum TOKEN_TYPE
-    {
-        NULL,
-        SCR_OBJECT,
-        FRAME,
-        TIMER,
-        LOGGER,
-        FUNCTION,
-        LOGGER_FUNC,
-        TIMER_FUNC,
-        FRAME_FUNC,
-        MATHS,
-        MATHS_FUNC,
-        DATA,
-        SCREEN,
-        SCREEN_FUNC,
-        LOGIC,
-        LOGIC_FUNC
-    }
-
-    /// <summary>
-    /// types "sources" du script (mot clef du langage script)  
-    /// </summary>
-    public enum SCR_OBJECT
-    {
-        INVALID,
-        FRAMES,
-        FUNCTIONS,
-        LOGGERS,
-        TIMERS,
-        MATHS,
-        SCREEN,
-        LOGIC
-    }
-
-    /// <summary>
-    /// liste des fonctions sur les trames 
-    /// </summary>
-    public enum FRAME_FUNC
-    {
-        INVALID,
-        SEND,
-        RECEIVE,
-    }
-
-    /// <summary>
-    /// liste des fonctions sur les trames 
-    /// </summary>
-    public enum LOGGER_FUNC
-    {
-        INVALID,
-        LOG,
-        CLEAR,
-        START,
-        STOP,
-    }
-
-    /// <summary>
-    /// liste des fonctions sur les timers
-    /// </summary>
-    public enum TIMER_FUNC
-    {
-        INVALID,
-        START,
-        STOP
-    }
-
-    /// <summary>
-    /// liste des fonctions mathématiques
-    /// </summary>
-    public enum MATHS_FUNC
-    {
-        INVALID,
-        ADD,
-        SUB,
-        MUL,
-        DIV,
-    }
-
-    /// <summary>
-    /// liste des fonctions logiques
-    /// </summary>
-    public enum LOGIC_FUNC
-    {
-        INVALID,
-        NOT,
-        AND,
-        OR,
-        NAND,
-        NOR,
-        XOR,
-    }
-
-    /// <summary>
-    /// liste des fonctions sur les écrans
-    /// </summary>
-    public enum SCREEN_FUNC
-    {
-        INVALID,
-        SHOW_ON_TOP,
-    }
-
-    /// <summary>
-    /// liste des types d'erreurs
-    /// </summary>
-    public enum ErrorType
-    {
-        NO_ERROR,
-        ERROR,
-        WARNING
-    }
-    #endregion
 
     #region classe ScriptParserError
     /// <summary>
@@ -167,8 +51,6 @@ namespace CommonLib
     public partial class ScriptParser
     {
         public const int INDEX_TOKEN_SYMBOL = 1;
-        public const char TOKEN_SEPARATOR = '.';
-        public const char PARAM_SEPARATOR = ',';
 
         #region données membres
         BTDoc m_Document = null;
@@ -217,7 +99,7 @@ namespace CommonLib
             int PosPoint = 0;
             while (PosPoint != -1 && Line.Length>0)
             {
-                PosPoint = Line.IndexOf(TOKEN_SEPARATOR, PosPoint+1);
+                PosPoint = Line.IndexOf(ParseExecGlobals.TOKEN_SEPARATOR, PosPoint + 1);
                 if (PosPoint != -1)
                     listPointPos.Add(PosPoint);
             }
@@ -421,7 +303,7 @@ namespace CommonLib
                 if (Lines[i].Length > 0)
                 {
                     string Line = Lines[i];
-                    string[] strTab = Line.Split(TOKEN_SEPARATOR);
+                    string[] strTab = Line.Split(ParseExecGlobals.TOKEN_SEPARATOR);
                     if (strTab.Length > 0)
                     {
                         string strScrObject = strTab[0];
@@ -483,7 +365,7 @@ namespace CommonLib
         /// <return>le jeton voulu ou une chaine vide</return>
         static public string GetLineToken(string line, int iTokenIndex)
         {
-            string[] strTab = line.Split(TOKEN_SEPARATOR);
+            string[] strTab = line.Split(ParseExecGlobals.TOKEN_SEPARATOR);
             if (iTokenIndex < strTab.Length)
             {
                 // cas des fonction, il peux y avoir des parenthèses a la fin qu'il faut enlever
@@ -508,7 +390,7 @@ namespace CommonLib
         /// <return>type de l'objet source</return>
         protected SCR_OBJECT ParseFirstTokenType(string Line, List<ScriptParserError> ErrorList)
         {
-            string[] strTab = Line.Split(TOKEN_SEPARATOR);
+            string[] strTab = Line.Split(ParseExecGlobals.TOKEN_SEPARATOR);
             if (strTab.Length > 0)
             {
                 string strScrObject = strTab[0];
@@ -529,7 +411,6 @@ namespace CommonLib
             return SCR_OBJECT.INVALID;
         }
         #endregion
-
 
         #region fonction utiles
         /// <summary>
@@ -556,12 +437,20 @@ namespace CommonLib
         }
 
         /// <summary>
+        /// retire les parenthèdes de fin de la chaine
+        /// </summary>
+        /// <param name="strToTrim">chaine ou les parenthèses doivent être retiré</param>
+        public static void TrimEndParenthese(ref string strToTrim)
+        {
+            strToTrim = strToTrim.Trim(')');
+            strToTrim = strToTrim.Trim('(');
+        }
+
+        /// <summary>
         /// Vérifie la présence des parenthèses sur la ligne
         /// </summary>
         /// <param name="line">ligne de script</param>
         /// <param name="ErrorList">liste des erreurs (sortie)</param>
-        /// <param name="posOpenParenthese">position de la parentèse ouvrante (sortie)</param>
-        /// <param name="posCloseParenthese">position de la parentèse fermante (sortie)</param>
         /// <return>true si les deux parenthèses sont présentes</return>
         public bool CheckParenthese(string line, List<ScriptParserError> ErrorList)
         {
@@ -613,7 +502,7 @@ namespace CommonLib
 
             int ParamLength = (posCloseParenthese-1) - posOpenParenthese;                  
             string strAllParams = line.Substring(posOpenParenthese +1 , ParamLength);
-            string[] ParamList = strAllParams.Split(PARAM_SEPARATOR);
+            string[] ParamList = strAllParams.Split(ParseExecGlobals.PARAM_SEPARATOR);
             bool bIsErrorParamEmpty = false; 
             for (int i = 0; i < ParamList.Length; i++)
             {                         

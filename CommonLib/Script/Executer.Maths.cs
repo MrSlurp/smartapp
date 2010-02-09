@@ -14,7 +14,7 @@ namespace CommonLib
         //*****************************************************************************************************
         protected void ParseExecuteMaths(string line)
         {
-            string[] strTab = line.Split('.');
+            string[] strTab = line.Split(ParseExecGlobals.TOKEN_SEPARATOR);
             if (strTab.Length == 2)
             {
                 string strTempFull = strTab[1];

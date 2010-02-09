@@ -6,20 +6,18 @@ using System.Text;
 
 namespace CommonLib
 {
-    //*****************************************************************************************************
-    // Description:
-    // Return: /
-    //*****************************************************************************************************
     public partial class ScriptParser
     {
         #region parsing des trames
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// vérifie que la trame utilisé pour les appels aux fonctions de trame existe
+        /// </summary>
+        /// <param name="line">ligne de script</param>
+        /// <param name="ErrorList">liste des erreur (sortie)</param>
+        /// <returns>true si le symbol de trame est valide</returns>
         protected bool ParseFrame(string line, List<ScriptParserError> ErrorList)
         {
-            string[] strTab = line.Split(TOKEN_SEPARATOR);
+            string[] strTab = line.Split(ParseExecGlobals.TOKEN_SEPARATOR);
             if (strTab.Length > 1)
             {
                 string strFrame = strTab[1];
@@ -43,13 +41,14 @@ namespace CommonLib
             return false;
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// controle que la fonction de trame est valide
+        /// </summary>
+        /// <param name="line">ligne de script</param>
+        /// <param name="ErrorList">liste des erreur (sortie)</param>
         protected void ParseFrameFunction(string line, List<ScriptParserError> ErrorList)
         {
-            string[] strTab = line.Split(TOKEN_SEPARATOR);
+            string[] strTab = line.Split(ParseExecGlobals.TOKEN_SEPARATOR);
             if (strTab.Length > 2)
             {
                 string strTemp = strTab[2];

@@ -14,7 +14,7 @@ namespace CommonLib
         //*****************************************************************************************************
         protected void ParseExecuteLogic(string line)
         {
-            string[] strTab = line.Split('.');
+            string[] strTab = line.Split(ParseExecGlobals.TOKEN_SEPARATOR);
             if (strTab.Length == 2)
             {
                 string strTempFull = strTab[1];
@@ -37,9 +37,6 @@ namespace CommonLib
                 if (SecondTokenType != LOGIC_FUNC.INVALID)
                 {
                     string strParams = strTempFull.Substring(posOpenParenthese + 1, strTempFull.Length - 2 - posOpenParenthese);
-                    strParams = strParams.Trim('(');
-                    strParams = strParams.Trim(')');
-                    strParams = strParams.Trim(' ');
                     string[] strParamList = strParams.Split(',');
                     // on parse les données
                     for (int i = 0; i < strParamList.Length; i++ )

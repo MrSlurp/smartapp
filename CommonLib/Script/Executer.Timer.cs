@@ -14,7 +14,7 @@ namespace CommonLib
         //*****************************************************************************************************
         protected void ParseExecuteTimers(string line)
         {
-            string[] strTab = line.Split('.');
+            string[] strTab = line.Split(ParseExecGlobals.TOKEN_SEPARATOR);
             if (strTab.Length > 2)
             {
                 string strTimer = strTab[1];
@@ -54,7 +54,6 @@ namespace CommonLib
         protected void ExecuteStartTimer(string TimerSymbol)
         {
             BTTimer tm = (BTTimer)m_Document.GestTimer.QuickGetFromSymbol(TimerSymbol);
-            tm.StartTimer();
             if (tm != null)
                 tm.StartTimer();
             else

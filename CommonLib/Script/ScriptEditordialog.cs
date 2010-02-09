@@ -146,7 +146,7 @@ namespace CommonLib
             int PosPoint = 0;
             while (PosPoint != -1 && line.Length > 0)
             {
-                PosPoint = line.IndexOf('.', PosPoint + 1);
+                PosPoint = line.IndexOf(ParseExecGlobals.TOKEN_SEPARATOR, PosPoint + 1);
                 if (PosPoint != -1)
                     listPointPos.Add(PosPoint);
             }
@@ -336,7 +336,7 @@ namespace CommonLib
             int CarretLine = m_EditScript.GetLineFromCharIndex(posCarret);
             int carretPosOnLine = posCarret - m_EditScript.GetFirstCharIndexOfCurrentLine();
             string line = m_EditScript.Lines[CarretLine];
-            int indexOfPoint = line.LastIndexOf('.');
+            int indexOfPoint = line.LastIndexOf(ParseExecGlobals.TOKEN_SEPARATOR);
             int charOffset = 0;
             if (indexOfPoint < 0)
             {
@@ -391,7 +391,7 @@ namespace CommonLib
             int PosSep = 0;
             while (PosSep != -1 && line.Length > 0)
             {
-                PosSep = line.IndexOf('.', PosSep + 1);
+                PosSep = line.IndexOf(ParseExecGlobals.TOKEN_SEPARATOR, PosSep + 1);
                 if (PosSep != -1)
                 {
                     listSepratorPos.Add(PosSep);

@@ -5,22 +5,6 @@ using System.Text;
 
 namespace CommonLib
 {
-    // classe contenant les informations direct pré parsé pour accélerer l'execution
-    public class PreParsedLine
-    {
-        // doit toujours être définit
-        public SCR_OBJECT m_SrcObject = SCR_OBJECT.INVALID;
-        // doit toujours être définit
-        public TOKEN_TYPE m_SecondTokenType = TOKEN_TYPE.NULL;
-        public string m_SecondToken;
-        // peut ne pas être définit dans le cas des fonctions maths et logic
-        public TOKEN_TYPE m_ThirdTokenType = TOKEN_TYPE.NULL;
-        public string m_ThirdToken;
-        // n'est définit que pour les fonctions ayant des arguments
-        public BaseObject[] m_Arguments = null;
-    }
-
-
     public partial class ScriptExecuter
     {
         private delegate void ScriptAddedToExecute();
@@ -155,7 +139,7 @@ namespace CommonLib
                 if (Lines[i].Length > 0)
                 {
                     string Line = Lines[i];
-                    string[] strTab = Line.Split('.');
+                    string[] strTab = Line.Split(ParseExecGlobals.TOKEN_SEPARATOR);
                     if (strTab.Length > 1)
                     {
                         string strScrObject = strTab[0];
@@ -201,7 +185,7 @@ namespace CommonLib
         //*****************************************************************************************************
         protected SCR_OBJECT ParseFirstTokenType(string Line)
         {
-            string[] strTab = Line.Split('.');
+            string[] strTab = Line.Split(ParseExecGlobals.TOKEN_SEPARATOR);
             if (strTab.Length > 0)
             {
                 string strScrObject = strTab[0];

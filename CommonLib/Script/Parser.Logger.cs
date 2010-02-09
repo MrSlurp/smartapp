@@ -19,7 +19,7 @@ namespace CommonLib
         //*****************************************************************************************************
         protected bool ParseLogger(string line, List<ScriptParserError> ErrorList)
         {
-            string[] strTab = line.Split(TOKEN_SEPARATOR);
+            string[] strTab = line.Split(ParseExecGlobals.TOKEN_SEPARATOR);
             if (strTab.Length > 1)
             {
                 string strLog = strTab[1];
@@ -49,7 +49,7 @@ namespace CommonLib
         //*****************************************************************************************************
         protected void ParseLoggerFunction(string line, List<ScriptParserError> ErrorList)
         {
-            string[] strTab = line.Split(TOKEN_SEPARATOR);
+            string[] strTab = line.Split(ParseExecGlobals.TOKEN_SEPARATOR);
             if (strTab.Length > 2)
             {
                 string strTemp = strTab[2];

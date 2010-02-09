@@ -1,4 +1,4 @@
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -134,46 +134,49 @@
     <Compile Include="Script\Executer.Frame.cs">
       <DependentUpon>Executer.cs</DependentUpon>
     </Compile>
-    <Compile Include="Script\Executer.Function.cs" >
+    <Compile Include="Script\Executer.Function.cs">
       <DependentUpon>Executer.cs</DependentUpon>
     </Compile>
-    <Compile Include="Script\Executer.Logger.cs" >
+    <Compile Include="Script\Executer.Logger.cs">
       <DependentUpon>Executer.cs</DependentUpon>
     </Compile>
-    <Compile Include="Script\Executer.Logic.cs" >
+    <Compile Include="Script\Executer.Logic.cs">
       <DependentUpon>Executer.cs</DependentUpon>
     </Compile>
-    <Compile Include="Script\Executer.Maths.cs" >
+    <Compile Include="Script\Executer.Maths.cs">
       <DependentUpon>Executer.cs</DependentUpon>
     </Compile>
-    <Compile Include="Script\Executer.Screen.cs" >
+    <Compile Include="Script\Executer.Screen.cs">
       <DependentUpon>Executer.cs</DependentUpon>
     </Compile>
-    <Compile Include="Script\Executer.Timer.cs" >
+    <Compile Include="Script\Executer.Timer.cs">
       <DependentUpon>Executer.cs</DependentUpon>
     </Compile>
     <Compile Include="Script\Parser.cs" />
-    <Compile Include="Script\Parser.Frame.cs" >
+    <Compile Include="Script\Parser.Frame.cs">
       <DependentUpon>Parser.cs</DependentUpon>
     </Compile>
-    <Compile Include="Script\Parser.Function.cs" >
+    <Compile Include="Script\Parser.Function.cs">
       <DependentUpon>Parser.cs</DependentUpon>
     </Compile>
-    <Compile Include="Script\Parser.Logger.cs" >
+    <Compile Include="Script\Parser.Logger.cs">
       <DependentUpon>Parser.cs</DependentUpon>
     </Compile>
-    <Compile Include="Script\Parser.Logic.cs" >
+    <Compile Include="Script\Parser.Logic.cs">
       <DependentUpon>Parser.cs</DependentUpon>
     </Compile>
-    <Compile Include="Script\Parser.Maths.cs" >
+    <Compile Include="Script\Parser.Maths.cs">
       <DependentUpon>Parser.cs</DependentUpon>
     </Compile>
-    <Compile Include="Script\Parser.Screen.cs" >
+    <Compile Include="Script\Parser.Screen.cs">
       <DependentUpon>Parser.cs</DependentUpon>
     </Compile>
-    <Compile Include="Script\Parser.Timer.cs" >
+    <Compile Include="Script\Parser.Timer.cs">
       <DependentUpon>Parser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Script\ParserExecuterGlobals.cs" />
+    <Compile Include="Script\PreParser.cs" />
+    <Compile Include="Script\QuickExecuter.cs" />
     <Compile Include="Script\ScriptControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
