@@ -19,7 +19,7 @@ namespace CommonLib
         //*****************************************************************************************************
         protected bool ParseFrame(string line, List<ScriptParserError> ErrorList)
         {
-            string[] strTab = line.Split('.');
+            string[] strTab = line.Split(TOKEN_SEPARATOR);
             if (strTab.Length > 1)
             {
                 string strFrame = strTab[1];
@@ -49,15 +49,17 @@ namespace CommonLib
         //*****************************************************************************************************
         protected void ParseFrameFunction(string line, List<ScriptParserError> ErrorList)
         {
-            string[] strTab = line.Split('.');
+            string[] strTab = line.Split(TOKEN_SEPARATOR);
             if (strTab.Length > 2)
             {
                 string strTemp = strTab[2];
                 string strTempFull = strTemp;
-                int posOpenParenthese = strTemp.LastIndexOf('(');
-                if (posOpenParenthese >= 0)
-                    strTemp = strTemp.Remove(posOpenParenthese);
+                int posOpenParenthese = -1;
+                int posCloseParenthese = -1;
+                if (!CheckParenthese(strTemp, ErrorList , ref posOpenParenthese, ref posCloseParenthese))
+                    return;
 
+                strTemp = strTemp.Remove(posOpenParenthese);
                 string strScrObject = strTemp;
                 FRAME_FUNC SecondTokenType = FRAME_FUNC.INVALID;
                 try
@@ -72,36 +74,17 @@ namespace CommonLib
                     return;
                 }
 
-                bool bCheckParenthese = false;
                 switch (SecondTokenType)
                 {
                     case FRAME_FUNC.SEND:
-                        bCheckParenthese = true;
                         // ajouter du code ici si il faut parser le contenu des parenthèses
                         break;
                     case FRAME_FUNC.RECEIVE:
-                        bCheckParenthese = true;
                         // ajouter du code ici si il faut parser le contenu des parenthèses
                         break;
                     case FRAME_FUNC.INVALID:
                     default:
                         break;
-                }
-                if (bCheckParenthese)
-                {
-                    if (posOpenParenthese == -1)
-                    {
-                        ScriptParserError Err = new ScriptParserError("Syntax Error : Missing '('", m_iCurLine, ErrorType.ERROR);
-                        ErrorList.Add(Err);
-                        return;
-                    }
-                    int posCloseParenthese = strTempFull.LastIndexOf(')');
-                    if (posCloseParenthese == -1)
-                    {
-                        ScriptParserError Err = new ScriptParserError("Syntax Error : Missing ')'", m_iCurLine, ErrorType.ERROR);
-                        ErrorList.Add(Err);
-                        return;
-                    }
                 }
             }
             else

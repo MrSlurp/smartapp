@@ -19,27 +19,17 @@ namespace CommonLib
         //*****************************************************************************************************
         protected bool ParseFunction(string line, List<ScriptParserError> ErrorList)
         {
-            string[] strTab = line.Split('.');
+            string[] strTab = line.Split(TOKEN_SEPARATOR);
             if (strTab.Length > 1)
             {
                 string strTemp = strTab[1];
-                int posOpenParenthese = strTemp.LastIndexOf('(');
-                if (posOpenParenthese == -1)
+                if (!CheckParenthese(line, ErrorList))
                 {
-                    ScriptParserError Err = new ScriptParserError("Syntax Error : Missing '('", m_iCurLine, ErrorType.ERROR);
-                    ErrorList.Add(Err);
-                    return false;
-                }
-                int posCloseParenthese = strTemp.LastIndexOf(')');
-                if (posCloseParenthese == -1)
-                {
-                    ScriptParserError Err = new ScriptParserError("Syntax Error : Missing ')'", m_iCurLine, ErrorType.ERROR);
-                    ErrorList.Add(Err);
                     return false;
                 }
                 
-                strTemp = strTemp.Trim('(');
                 strTemp = strTemp.Trim(')');
+                strTemp = strTemp.Trim('(');
 
                 string strFunc = strTemp;
                 strFunc = strFunc.Trim();

@@ -7,6 +7,9 @@ using System.Text;
 namespace CommonLib
 {
     #region enums
+    /// <summary>
+    /// Liste de tout les types de jetons (token) 
+    /// </summary>
     public enum TOKEN_TYPE
     {
         NULL,
@@ -27,7 +30,9 @@ namespace CommonLib
         LOGIC_FUNC
     }
 
-    // mots clef de base du langage BTScript
+    /// <summary>
+    /// types "sources" du script (mot clef du langage script)  
+    /// </summary>
     public enum SCR_OBJECT
     {
         INVALID,
@@ -40,6 +45,9 @@ namespace CommonLib
         LOGIC
     }
 
+    /// <summary>
+    /// liste des fonctions sur les trames 
+    /// </summary>
     public enum FRAME_FUNC
     {
         INVALID,
@@ -47,6 +55,9 @@ namespace CommonLib
         RECEIVE,
     }
 
+    /// <summary>
+    /// liste des fonctions sur les trames 
+    /// </summary>
     public enum LOGGER_FUNC
     {
         INVALID,
@@ -56,6 +67,9 @@ namespace CommonLib
         STOP,
     }
 
+    /// <summary>
+    /// liste des fonctions sur les timers
+    /// </summary>
     public enum TIMER_FUNC
     {
         INVALID,
@@ -63,6 +77,9 @@ namespace CommonLib
         STOP
     }
 
+    /// <summary>
+    /// liste des fonctions mathématiques
+    /// </summary>
     public enum MATHS_FUNC
     {
         INVALID,
@@ -72,6 +89,9 @@ namespace CommonLib
         DIV,
     }
 
+    /// <summary>
+    /// liste des fonctions logiques
+    /// </summary>
     public enum LOGIC_FUNC
     {
         INVALID,
@@ -83,13 +103,18 @@ namespace CommonLib
         XOR,
     }
 
-
+    /// <summary>
+    /// liste des fonctions sur les écrans
+    /// </summary>
     public enum SCREEN_FUNC
     {
         INVALID,
         SHOW_ON_TOP,
     }
 
+    /// <summary>
+    /// liste des types d'erreurs
+    /// </summary>
     public enum ErrorType
     {
         NO_ERROR,
@@ -99,32 +124,32 @@ namespace CommonLib
     #endregion
 
     #region classe ScriptParserError
-    //*****************************************************************************************************
-    // Description:
-    // Return: /
-    //*****************************************************************************************************
+    /// <summary>
+    /// Classe utilitaire contenant les erreur de parsing su script 
+    /// </summary>
     public class ScriptParserError
     {
-        #region données membres
+        #region données membres publiques
         public string m_strMessage;
         public int m_line =0;
         public ErrorType m_ErrorType;
         #endregion
 
         #region constructeurs
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// Constructeur par défaut de la classe
+        /// </summary>
         public ScriptParserError()
         {
 
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// Constructeur secondaire de la classe
+        /// </summary>
+        /// <param name="strMess">Message affiché à l'utilisateur pour expliquer l'erreur</param>
+        /// <param name="line">Numéro de la ligne dans le script</param>
+        /// <param name="Err">type d'erreur (WARNING, ERROR)</param>
         public ScriptParserError(string strMess, int line, ErrorType Err)
         {
             m_strMessage = strMess;
@@ -135,13 +160,15 @@ namespace CommonLib
     }
     #endregion
 
-    //*****************************************************************************************************
-    // Description:
-    // Return: /
-    //*****************************************************************************************************
+    /// <summary>
+    /// Classe contenant les fonctions de bases du parser. Les fonction spécifique à chaque type 
+    /// d'objet source sont distribuées dans des fichiers spécifiques 
+    /// </summary>
     public partial class ScriptParser
     {
         public const int INDEX_TOKEN_SYMBOL = 1;
+        public const char TOKEN_SEPARATOR = '.';
+        public const char PARAM_SEPARATOR = ',';
 
         #region données membres
         BTDoc m_Document = null;
@@ -149,10 +176,9 @@ namespace CommonLib
         #endregion
 
         #region attributs
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// Document courant 
+        /// </summary>
         public BTDoc Document
         {
             get
@@ -167,10 +193,9 @@ namespace CommonLib
         #endregion
 
         #region constructeur
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// Constructeur par défaut de la classe
+        /// </summary>
         public ScriptParser()
         {
 
@@ -178,10 +203,13 @@ namespace CommonLib
         #endregion
 
         #region fonction utilitaires
-        //*****************************************************************************************************
-        // Description: renvoie le type du token a la position pos (position du curseur sur la ligne)
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// renvoie le type du token a la position pos (position du curseur sur la ligne)
+        /// </summary>
+        /// <param name="Line">Ligne de script</param>
+        /// <param name="Pos">Position du curseur sur la ligne</param>
+        /// <param name="IsParameter">Indique en sortie de la fonction si le token est un paramètre</param>
+        /// <return>Le type de token à la position pos </return>
         public TOKEN_TYPE GetTokenTypeAtPos(string Line, int Pos, out bool IsParameter)
         {
             IsParameter = false;
@@ -189,7 +217,7 @@ namespace CommonLib
             int PosPoint = 0;
             while (PosPoint != -1 && Line.Length>0)
             {
-                PosPoint = Line.IndexOf('.', PosPoint+1);
+                PosPoint = Line.IndexOf(TOKEN_SEPARATOR, PosPoint+1);
                 if (PosPoint != -1)
                     listPointPos.Add(PosPoint);
             }
@@ -212,8 +240,9 @@ namespace CommonLib
                 return TOKEN_TYPE.SCR_OBJECT;
             }
 
-            int indexLastClosingParenthese = Line.LastIndexOf(')');
-            int indexLastOpeningParenthese = Line.LastIndexOf('(');
+            int indexLastClosingParenthese = -1;
+            int indexLastOpeningParenthese = -1;
+            GetParenthesePos(Line, ref indexLastOpeningParenthese, ref indexLastClosingParenthese);
 
             List<ScriptParserError> ListErr = new List<ScriptParserError>();
             TOKEN_TYPE retTokenType = TOKEN_TYPE.NULL;
@@ -280,10 +309,13 @@ namespace CommonLib
             
         }
 
-        //*****************************************************************************************************
-        // Description: renvoie une liste de chaine correspondant aux object utilisable au token donné a la position pos
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// renvoie une liste de chaine correspondant aux object utilisable au token donné a la position pos
+        /// </summary>
+        /// <param name="Line">Ligne de script</param>
+        /// <param name="Pos">Position du curseur sur la ligne</param>
+        /// <param name="IsParameter">Indique en sortie de la fonction si le token est un paramètre</param>
+        /// <return>Liste des chaines correspondantes au type de token</return>
         public StringCollection GetAutoCompletStringListAtPos(string Line, int Pos, out bool IsParameter)
         {
             TOKEN_TYPE CurTokenType = GetTokenTypeAtPos(Line, Pos, out IsParameter);
@@ -375,10 +407,12 @@ namespace CommonLib
         #endregion
 
         #region méthodes de parsing principales
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// parse le script passé en paramètre et remplit la liste des erreurs si il y en a
+        /// </summary>
+        /// <param name="Lines">Lignes du script</param>
+        /// <param name="ErrorList">liste des erreurs (sortie)</param>
+        /// <return>true si il n'y a pas d'erreur</return>
         public bool ParseScript(string[] Lines, List<ScriptParserError> ErrorList)
         {
             for (int i = 0 ; i< Lines.Length; i++)
@@ -387,7 +421,7 @@ namespace CommonLib
                 if (Lines[i].Length > 0)
                 {
                     string Line = Lines[i];
-                    string[] strTab = Line.Split('.');
+                    string[] strTab = Line.Split(TOKEN_SEPARATOR);
                     if (strTab.Length > 0)
                     {
                         string strScrObject = strTab[0];
@@ -441,20 +475,21 @@ namespace CommonLib
 
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// renvoie le jeton donné par numéro de jeton (de 0 à 2 en général))
+        /// </summary>
+        /// <param name="line">Ligne de script</param>
+        /// <param name="iTokenIndex">numéro de jeton</param>
+        /// <return>le jeton voulu ou une chaine vide</return>
         static public string GetLineToken(string line, int iTokenIndex)
         {
-            string[] strTab = line.Split('.');
+            string[] strTab = line.Split(TOKEN_SEPARATOR);
             if (iTokenIndex < strTab.Length)
             {
                 // cas des fonction, il peux y avoir des parenthèses a la fin qu'il faut enlever
                 string strTemp = strTab[iTokenIndex];
-                int posOpenParenthese = strTemp.LastIndexOf('(');
-                if (posOpenParenthese != -1)
-                    strTemp = strTemp.Remove(posOpenParenthese);
+                strTemp = strTemp.Trim(')');
+                strTemp = strTemp.Trim('(');
 
                 string strTok = strTemp;
                 strTok = strTok.Trim();
@@ -465,13 +500,15 @@ namespace CommonLib
 
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// renvoie le type du premier jeton de la ligne (jeton source)
+        /// </summary>
+        /// <param name="Line">Ligne de script</param>
+        /// <param name="ErrorList">liste des erreurs (sortie)</param>
+        /// <return>type de l'objet source</return>
         protected SCR_OBJECT ParseFirstTokenType(string Line, List<ScriptParserError> ErrorList)
         {
-            string[] strTab = Line.Split('.');
+            string[] strTab = Line.Split(TOKEN_SEPARATOR);
             if (strTab.Length > 0)
             {
                 string strScrObject = strTab[0];
@@ -495,38 +532,143 @@ namespace CommonLib
 
 
         #region fonction utiles
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// indique si la chaine passé est de type numérique
+        /// </summary>
+        /// <param name="strValue">chaine à tester</param>
+        /// <return>true si la valeur est un numérique</return>
         public static bool IsNumericValue(string strValue)
         {
             int value =0;
             return int.TryParse(strValue, out value);
         }
     
+        /// <summary>
+        /// recherche pa position des parenthèses sur la ligne
+        /// </summary>
+        /// <param name="line">ligne de script</param>
+        /// <param name="posOpenParenthese">position de la parentèse ouvrante (sortie)</param>
+        /// <param name="posCloseParenthese">position de la parentèse fermante (sortie)</param>
+        public static void GetParenthesePos(string line, ref int posOpenParenthese, ref int posCloseParenthese)
+        {
+            posOpenParenthese = line.LastIndexOf('(');
+            posCloseParenthese = line.LastIndexOf(')');
+        }
+
+        /// <summary>
+        /// Vérifie la présence des parenthèses sur la ligne
+        /// </summary>
+        /// <param name="line">ligne de script</param>
+        /// <param name="ErrorList">liste des erreurs (sortie)</param>
+        /// <param name="posOpenParenthese">position de la parentèse ouvrante (sortie)</param>
+        /// <param name="posCloseParenthese">position de la parentèse fermante (sortie)</param>
+        /// <return>true si les deux parenthèses sont présentes</return>
+        public bool CheckParenthese(string line, List<ScriptParserError> ErrorList)
+        {
+            int posOpen = -1;
+            int posClose = -1;
+            return CheckParenthese(line, ErrorList, ref posOpen, ref posClose);
+        }
+
+    
+        /// <summary>
+        /// Vérifie la présence des parenthèses sur la ligne
+        /// </summary>
+        /// <param name="line">ligne de script</param>
+        /// <param name="ErrorList">liste des erreurs (sortie)</param>
+        /// <param name="posOpenParenthese">position de la parentèse ouvrante (sortie)</param>
+        /// <param name="posCloseParenthese">position de la parentèse fermante (sortie)</param>
+        /// <return>true si les deux parenthèses sont présentes</return>
         public bool CheckParenthese(string line, List<ScriptParserError> ErrorList, ref int posOpenParenthese, ref int posCloseParenthese)
         {
-            string[] strTab = line.Split('.');
-            if (strTab.Length > 1)
+            GetParenthesePos(line, ref posOpenParenthese, ref posCloseParenthese);
+            if (posOpenParenthese == -1)
             {
-                string strTemp = strTab[1];
-                posOpenParenthese = strTemp.LastIndexOf('(');
-                posCloseParenthese = strTemp.LastIndexOf(')');
-                if (posOpenParenthese == -1)
-                {
-                    ScriptParserError Err = new ScriptParserError("Syntax Error : Missing '('", m_iCurLine, ErrorType.ERROR);
-                    ErrorList.Add(Err);
-                    return false;
-                }
-                if (posCloseParenthese == -1)
-                {
-                    ScriptParserError Err = new ScriptParserError("Syntax Error : Missing ')'", m_iCurLine, ErrorType.ERROR);
-                    ErrorList.Add(Err);
-                    return false;
-                }
+                ScriptParserError Err = new ScriptParserError("Syntax Error : Missing '('", m_iCurLine, ErrorType.ERROR);
+                ErrorList.Add(Err);
+                return false;
+            }
+            if (posCloseParenthese == -1)
+            {
+                ScriptParserError Err = new ScriptParserError("Syntax Error : Missing ')'", m_iCurLine, ErrorType.ERROR);
+                ErrorList.Add(Err);
+                return false;
             }
             return true;
+        }
+    
+        /// <summary>
+        /// extrait la liste des paramètres de la fonction de script
+        /// </summary>
+        /// <param name="line">ligne de script</param>
+        /// <param name="ErrorList">liste des erreurs (sortie)</param>
+        /// <param name="RetParamList">liste des paramètres sous forme de chaine(sortie)</param>
+        /// <return>true si aucun argument n'est vide</return>
+        public bool GetArgsAsString(string line, List<ScriptParserError> ErrorList, ref string[] RetParamList)
+        {
+            int posOpenParenthese = 0;
+            int posCloseParenthese = 0;
+            if (!CheckParenthese(line, ErrorList, ref posOpenParenthese, ref posCloseParenthese))
+                return false;
+
+            int ParamLength = (posCloseParenthese-1) - posOpenParenthese;                  
+            string strAllParams = line.Substring(posOpenParenthese +1 , ParamLength);
+            string[] ParamList = strAllParams.Split(PARAM_SEPARATOR);
+            bool bIsErrorParamEmpty = false; 
+            for (int i = 0; i < ParamList.Length; i++)
+            {                         
+                if (string.IsNullOrEmpty(ParamList[i]))
+                {
+                    string strErr = string.Format("Invalid line, one parameter or more is empty");
+                    ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
+                    ErrorList.Add(Err);
+                    bIsErrorParamEmpty = true;
+                    break;
+                }
+            }
+            if (bIsErrorParamEmpty)
+                return false;
+                 
+            RetParamList = ParamList;     
+            return true;
+        } 
+
+        /// <summary>
+        /// renvoie la liste des paramètre sous forme de DATA
+        /// </summary>
+        /// <param name="line">ligne de script</param>
+        /// <param name="ErrorList">liste des erreurs (sortie)</param>
+        /// <param name="RetDataList">liste des paramètres sous forme de DATA(sortie)</param>
+        /// <return>true si aucun argument n'est vide</return>
+        public bool CheckParamsAsDatas(string[] DatasSymbols, List<ScriptParserError> ErrorList, int MinIntVal, int MaxIntVal)
+        {
+            bool HaveError = false;     
+            for (int i = 0; i < DatasSymbols.Length; i++)
+            {
+                string strTempParam = DatasSymbols[i].Trim();
+                if (!IsNumericValue(strTempParam))
+                {
+                    if (m_Document.GestData.GetFromSymbol(strTempParam) == null)
+                    {
+                        string strErr = string.Format("Invalid Data symbol {0}", strTempParam);
+                        ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
+                        ErrorList.Add(Err);
+                        HaveError = true;
+                    }
+                }
+                else
+                {
+                    int value = int.Parse(strTempParam);
+                    if (!(value >= MinIntVal && value <= MaxIntVal))
+                    {
+                        string strErr = string.Format("Invalid constant value for , must be between {0} and {1}",MinIntVal, MaxIntVal);
+                        ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
+                        ErrorList.Add(Err);
+                        HaveError  = true;
+                    }
+                }
+            }
+            return !HaveError;
         } 
         #endregion
     }

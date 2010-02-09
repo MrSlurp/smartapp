@@ -19,7 +19,7 @@ namespace CommonLib
         //*****************************************************************************************************
         protected bool ParseScreen(string line, List<ScriptParserError> ErrorList)
         {
-            string[] strTab = line.Split('.');
+            string[] strTab = line.Split(TOKEN_SEPARATOR);
             if (strTab.Length > 1)
             {
                 string strScreen = strTab[1];
@@ -43,24 +43,14 @@ namespace CommonLib
         //*****************************************************************************************************
         protected void ParseScreenFunction(string line, List<ScriptParserError> ErrorList)
         {
-            string[] strTab = line.Split('.');
+            string[] strTab = line.Split(TOKEN_SEPARATOR);
             if (strTab.Length > 2)
             {
                 string strTemp = strTab[2];
-                int posOpenParenthese = strTemp.LastIndexOf('(');
-                if (posOpenParenthese == -1)
-                {
-                    ScriptParserError Err = new ScriptParserError("Syntax Error : Missing '('", m_iCurLine, ErrorType.ERROR);
-                    ErrorList.Add(Err);
+                int posOpenParenthese = -1;
+                int posCloseParenthese = -1;
+                if (!CheckParenthese(strTemp, ErrorList , ref posOpenParenthese, ref posCloseParenthese))
                     return;
-                }
-                int posCloseParenthese = strTemp.LastIndexOf(')');
-                if (posCloseParenthese == -1)
-                {
-                    ScriptParserError Err = new ScriptParserError("Syntax Error : Missing ')'", m_iCurLine, ErrorType.ERROR);
-                    ErrorList.Add(Err);
-                    return;
-                }
 
                 strTemp = strTemp.Remove(posOpenParenthese);
                 string strScrObject = strTemp;
