@@ -5,6 +5,7 @@ using System.Text;
 
 namespace CommonLib
 {
+#if !QUICK_MOTOR
     public partial class ScriptExecuter
     {
         #region execution des trames
@@ -142,4 +143,5 @@ namespace CommonLib
 
         #endregion        
     }
+#endif
 }

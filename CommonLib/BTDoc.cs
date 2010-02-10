@@ -59,13 +59,14 @@ namespace CommonLib
         #endregion
 
         #region donnée spécifiques aux fonctionement en mode Command
+#if !QUICK_MOTOR
         ScriptExecuter m_Executer = null;
+#else
+        QuickExecuter m_Executer = null;  
+#endif
         #endregion
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+#if !QUICK_MOTOR
         public ScriptExecuter Executer
         {
             get
@@ -73,6 +74,15 @@ namespace CommonLib
                 return m_Executer;
             }
         }
+#else
+        public QuickExecuter Executer
+        {
+            get
+            {
+                return m_Executer;
+            }
+        }
+#endif
 
         //*****************************************************************************************************
         // Description:
@@ -139,7 +149,11 @@ namespace CommonLib
             m_GestLogger.EventAddLogEvent += new AddLogEventDelegate(AddLogEvent);
             m_Comm.OnCommStateChange += new CommOpenedStateChange(this.CommeStateChangeEvent);
             m_Comm.EventAddLogEvent += new AddLogEventDelegate(AddLogEvent);
+#if !QUICK_MOTOR
             m_Executer = new ScriptExecuter();
+#else
+            m_Executer = new QuickExecuter();            
+#endif
             m_Executer.EventAddLogEvent += new AddLogEventDelegate(AddLogEvent);
             m_Executer.Document = this;
             m_TypeApp = TypeApp;
@@ -312,6 +326,17 @@ namespace CommonLib
                     // puis des ecrans vers les gestionaires de control, et donc vers les controles
                     GestScreen.TraiteMessage(Mess, Param, TypeApp);
                     break;
+#if QUICK_MOTOR
+                case MESSAGE.MESS_PRE_PARSE:
+                    if (!m_Executer.PreParsedDone)
+                    {
+                        GestScreen.TraiteMessage(Mess, null, TypeApp);
+                        GestTimer.TraiteMessage(Mess, null, TypeApp);
+                        GestFunction.TraiteMessage(Mess, null, TypeApp);
+                        m_Executer.PreParsedDone = true;
+                    }
+                    break;
+#endif
             }
         }
         #endregion

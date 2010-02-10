@@ -487,7 +487,7 @@ namespace CommonLib
                     m_AssociateData.DataValueChanged += new EventDataValueChange(UpdateFromData);
                 }
             }
-            Executer = Doc.Executer; 
+            m_Executer = Doc.Executer; 
             return true;
         }
 
@@ -523,7 +523,6 @@ namespace CommonLib
                         {
                             m_strAssociateData = "";
                         }
-
                     }
                     break;
                 // message de renomage
@@ -538,6 +537,10 @@ namespace CommonLib
                     break;
                 case MESSAGE.MESS_UPDATE_FROM_DATA:
                     UpdateFromData();
+                    break;
+                case MESSAGE.MESS_PRE_PARSE:
+                    if (this.ScriptLines.Length != 0)
+                        m_Executer.PreParseScript((IScriptable) this);    
                     break;
                 default:
                     break;

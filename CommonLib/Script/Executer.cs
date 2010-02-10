@@ -5,6 +5,7 @@ using System.Text;
 
 namespace CommonLib
 {
+#if !QUICK_MOTOR
     public partial class ScriptExecuter
     {
         private delegate void ScriptAddedToExecute();
@@ -215,4 +216,5 @@ namespace CommonLib
         }
         #endregion
     }
+#endif
 }

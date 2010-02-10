@@ -5,6 +5,7 @@ using System.Text;
 
 namespace CommonLib
 {
+#if !QUICK_MOTOR
     public partial class ScriptExecuter
     {
         #region execution des fonction Logiques
@@ -176,4 +177,5 @@ namespace CommonLib
 
         #endregion        
     }
+#endif
 }

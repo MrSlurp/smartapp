@@ -67,7 +67,11 @@ namespace CtrlDataTrigger
                 {
                     if (m_ScriptLines.Count != 0)
                     {
+#if !QUICK_MOTOR
                         m_Executer.ExecuteScript(this.ScriptLines);
+#else
+                        m_Executer.ExecuteScript(this);
+#endif
                     }
                     if (m_bUseScreenEvent)
                     {
@@ -108,9 +112,21 @@ namespace CtrlDataTrigger
                     if (NextTriggerState != m_TriggerState)
                     {
                         if (NextTriggerState == TriggerState.STATE_ON)
+                        {
+#if !QUICK_MOTOR
                             m_Executer.ExecuteScript(prop.ScriptOffToOn);
+#else
+                            m_Executer.ExecuteScript(this, "OFFON");
+#endif
+                        }
                         else
+                        {
+#if !QUICK_MOTOR
                             m_Executer.ExecuteScript(prop.ScriptOnToOff);
+#else
+                            m_Executer.ExecuteScript(this, "ONOFF");
+#endif
+                        }
 
                         m_TriggerState = NextTriggerState;
                     }
@@ -175,6 +191,15 @@ namespace CtrlDataTrigger
                         m_TriggerState = TriggerState.STATE_OFF;
                         UpdateFromData();
                         break;
+#if QUICK_MOTOR
+                    case MESSAGE.MESS_PRE_PARSE:
+                        DllCtrlDataTriggerProp prop = (DllCtrlDataTriggerProp)m_SpecificProp;
+                        if (prop.ScriptOffToOn.Length != 0)
+                            m_Executer.PreParseScript((BaseObject)this, prop.ScriptOffToOn, "OFFON");
+                        if (prop.ScriptOnToOff.Length != 0)
+                            m_Executer.PreParseScript((BaseObject)this, prop.ScriptOnToOff, "ONOFF");
+                        break;
+#endif
                     default:
                         break;
                 }

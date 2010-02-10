@@ -17,7 +17,11 @@ namespace CommonLib
         protected Data m_AssociateData;
         protected BTScreen m_Parent;
         protected Rectangle m_RectControl;
+#if !QUICK_MOTOR
         protected ScriptExecuter m_Executer = null;
+#else
+        protected QuickExecuter m_Executer = null;
+#endif
 
         #endregion
 
@@ -33,17 +37,23 @@ namespace CommonLib
         /// <summary>
         /// assigne ou obtient le script executer de l'objet
         /// </summary>
+#if !QUICK_MOTOR
         public ScriptExecuter Executer
         {
             get
             {
                 return m_Executer;
             }
-            set
+        }
+#else
+        public QuickExecuter Executer
+        {
+            get
             {
-                m_Executer = value;
+                return m_Executer;
             }
         }
+#endif
 
         /// <summary>
         /// obtient l'objet affiché par le control

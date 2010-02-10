@@ -1,29 +1,27 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Text;
+using System.Windows.Forms;
 
 namespace CommonLib
 {
     /// <summary>
     /// classe contenant les informations direct pré parsé pour accélerer l'execution 
     /// </summary>
-    public class PreParsedLine
+    internal class PreParsedLine
     {
         // doit toujours être définit
         public SCR_OBJECT m_SrcObject = SCR_OBJECT.INVALID;
-        // doit toujours être définit
-        public TOKEN_TYPE m_SecondTokenType = TOKEN_TYPE.NULL;
-        // la fonction qui va être executé
+        // la fonction qui va être executé (reste FUNC invalide dans le cas d'appel aux fonction
+        // car avec le SRC_OBJECT on sait déja que c'est une fonction)
         public ALL_FUNC m_FunctionToExec = ALL_FUNC.INVALID;
-        // peut ne pas être définit dans le cas des fonctions maths et logic
-        public TOKEN_TYPE m_ThirdTokenType = TOKEN_TYPE.NULL;
         // est définit pour les fonctions ayant des arguments (Maths et Logic) sous forme de tableau à plusieurs index
         // ou alors sous forme de tableau à index unique (0) pour les autres types
         public BaseObject[] m_Arguments = null;
     }
 
-    class QuickExecuter
+    public class QuickExecuter
     {
         private delegate void ScriptAddedToExecute();
 
@@ -32,6 +30,11 @@ namespace CommonLib
         static bool m_bIsWaiting = false;
         static int nbinstanceexecuter = 0;
         Queue<List<PreParsedLine>> m_PileScriptsToExecute = new Queue<List<PreParsedLine>>();
+
+        PreParser m_PreParser = new PreParser();
+        Dictionary<string ,List<PreParsedLine> > m_DictioQuickScripts = new Dictionary<string ,List<PreParsedLine>>();
+        bool m_bPreParsedDone = false;          
+        
         #endregion
 
         #region events
@@ -44,6 +47,7 @@ namespace CommonLib
         {
             EvScriptToExecute += new ScriptAddedToExecute(ScriptExecuter_EvScriptToExecute);
             nbinstanceexecuter++;
+            m_PreParser.EventAddLogEvent += new AddLogEventDelegate(AddLogEvent);
         }
 
         ~QuickExecuter()
@@ -52,6 +56,17 @@ namespace CommonLib
         }
         #endregion
 
+        public bool PreParsedDone
+        {
+            get
+            {
+                return m_bPreParsedDone;                
+            }
+            set
+            {
+                m_bPreParsedDone = value;
+            }
+        }
         #region fonction diverses
         public void AddLogEvent(LogEvent Event)
         {
@@ -60,10 +75,48 @@ namespace CommonLib
                 EventAddLogEvent(Event);
             }
         }
+    
+        public void PreParseScript(IScriptable scriptable)
+        {
+            string refName = scriptable.GetType().ToString() + "_" + scriptable.Symbol;
+            List<PreParsedLine> preParsedScript = m_PreParser.PreParseScript(scriptable.ScriptLines); 
+            m_DictioQuickScripts.Add(refName, preParsedScript);
+        }
+    
+        public void PreParseScript(BaseObject scriptable, String[] script,string Suffix)
+        {
+            string refName = scriptable.GetType().ToString() + "_" + Suffix + "_" + scriptable.Symbol;
+            
+            List<PreParsedLine> preParsedScript = m_PreParser.PreParseScript(script); 
+            m_DictioQuickScripts.Add(refName, preParsedScript);
+        }
+
+        public void PreParseScript(IInitScriptable scriptable, string Suffix)
+        {
+            string refName = scriptable.GetType().ToString() + "_" + Suffix + "_" + scriptable.Symbol;
+            List<PreParsedLine> preParsedScript = m_PreParser.PreParseScript(scriptable.InitScriptLines); 
+            m_DictioQuickScripts.Add(refName, preParsedScript);
+        }
+    
         #endregion
+        
+        #region attributs
+        public BTDoc Document
+        {
+            get
+            {
+                return m_Document;
+            }
+            set
+            {
+                m_Document = value;
+                m_PreParser.Document = value;
+            }
+        }
+        #endregion        
 
         #region execution
-        void ScriptExecuter_EvScriptToExecute()
+        internal void ScriptExecuter_EvScriptToExecute()
         {
             CommonLib.PerfChrono theChrono = new PerfChrono();
             while (m_PileScriptsToExecute.Count != 0)
@@ -80,16 +133,68 @@ namespace CommonLib
             theChrono.EndMeasure("ScriptExecuter");
         }
 
-        public void ExecuteScript(List<PreParsedLine> QuickScript)
+        public void ExecuteScript(IScriptable scriptable)
         {
-            m_PileScriptsToExecute.Enqueue(QuickScript);
-            if (m_PileScriptsToExecute.Count > 1)
-                return;
-            if (EvScriptToExecute != null)
-                EvScriptToExecute();
+            string refName = scriptable.GetType().ToString() + "_" + scriptable.Symbol;
+            if (m_DictioQuickScripts.ContainsKey(refName))
+            { 
+                m_PileScriptsToExecute.Enqueue(m_DictioQuickScripts[refName]);
+                if (m_PileScriptsToExecute.Count > 1)
+                    return;
+                if (EvScriptToExecute != null)
+                    EvScriptToExecute();
+            }
+#if DEBUG
+            else
+            {
+                LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format("Failed to find {0}", refName)); 
+                AddLogEvent(log);
+            }
+#endif
         }
 
-        public void InternalExecuteScript(List<PreParsedLine> QuickScript)
+        public void ExecuteScript(BaseObject scriptable, string Suffix)
+        {
+            string refName = scriptable.GetType().ToString() + "_" + Suffix + "_" + scriptable.Symbol; 
+            if (m_DictioQuickScripts.ContainsKey(refName))
+            { 
+                m_PileScriptsToExecute.Enqueue(m_DictioQuickScripts[refName]);
+                if (m_PileScriptsToExecute.Count > 1)
+                    return;
+                if (EvScriptToExecute != null)
+                    EvScriptToExecute();
+            }
+#if DEBUG
+            else
+            {
+                LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format("Failed to find {0}", refName)); 
+                AddLogEvent(log);
+            }
+#endif
+        }
+    
+        public void ExecuteScript(IInitScriptable scriptable, string Suffix)
+        {
+            string refName = scriptable.GetType().ToString() + "_" + Suffix + "_" + scriptable.Symbol; 
+            if (m_DictioQuickScripts.ContainsKey(refName))
+            { 
+                m_PileScriptsToExecute.Enqueue(m_DictioQuickScripts[refName]);
+                if (m_PileScriptsToExecute.Count > 1)
+                    return;
+                if (EvScriptToExecute != null)
+                    EvScriptToExecute();
+            }
+#if DEBUG
+            else
+            {
+                LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format("Failed to find {0}", refName)); 
+                AddLogEvent(log);
+            }
+#endif
+        }
+
+
+        internal void InternalExecuteScript(List<PreParsedLine> QuickScript)
         {
             for (int i = 0; i < QuickScript.Count; i++)
             {
@@ -103,8 +208,11 @@ namespace CommonLib
                         QuickExecuteFunc(QuickScript[i]);
                         break;
                     case SCR_OBJECT.FUNCTIONS:
-                        System.Diagnostics.Debug.Assert(false); //TODO
-                        //InternalExecuteScript(QuickScript.m_Arguments[0].PreParsedScript);
+                        string refName = typeof(Function) + "_" + QuickScript[i].m_Arguments[0].Symbol;
+                        if (m_DictioQuickScripts.ContainsKey(refName))
+                        {
+                            InternalExecuteScript(m_DictioQuickScripts[refName]);  
+                        } 
                         break;
                     case SCR_OBJECT.LOGIC:
                         QuickExecuteLogic(QuickScript[i]);
@@ -120,7 +228,7 @@ namespace CommonLib
             }
         }
 
-        public void QuickExecuteFunc(PreParsedLine QuickScript)
+        internal void QuickExecuteFunc(PreParsedLine QuickScript)
         {
             switch (QuickScript.m_FunctionToExec)
             {
@@ -156,7 +264,7 @@ namespace CommonLib
         #endregion
 
         #region execution des trames
-        public void QuickExecuteSendFrame(Trame tr)
+        internal void QuickExecuteSendFrame(Trame tr)
         {
             Byte[] buffer = tr.CreateTrameToSend(false);
             if (m_Document.m_Comm.IsOpen)
@@ -173,7 +281,7 @@ namespace CommonLib
             }
         }
 
-        public void QuickExecuteRecieveFrame(Trame TrameToRecieve)
+        internal void QuickExecuteRecieveFrame(Trame TrameToRecieve)
         {
             if (m_Document.m_Comm.IsOpen)
             {
@@ -216,7 +324,7 @@ namespace CommonLib
         #endregion
 
         #region fonction maths
-        public void QuickExecuteMaths(PreParsedLine QuickScript)
+        internal void QuickExecuteMaths(PreParsedLine QuickScript)
         {
             Data ResultData = (Data)QuickScript.m_Arguments[0];
             Data Operator1Data = (Data)QuickScript.m_Arguments[1];
@@ -239,13 +347,13 @@ namespace CommonLib
         }
 
         //*****************************************************************************************************
-        protected void ExecuteMathAdd(Data Result, Data Operator1, Data Operator2)
+        internal void ExecuteMathAdd(Data Result, Data Operator1, Data Operator2)
         {
             Result.Value = Operator1.Value + Operator2.Value;
         }
 
         //*****************************************************************************************************
-        protected void ExecuteMathSub(Data Result, Data Operator1, Data Operator2)
+        internal void ExecuteMathSub(Data Result, Data Operator1, Data Operator2)
         {
             Result.Value = Operator1.Value - Operator2.Value;
         }
@@ -257,7 +365,7 @@ namespace CommonLib
         }
 
         //*****************************************************************************************************
-        protected void ExecuteMathDiv(Data Result, Data Operator1, Data Operator2)
+        internal void ExecuteMathDiv(Data Result, Data Operator1, Data Operator2)
         {
             if (Operator2.Value != 0)
             {
@@ -274,7 +382,7 @@ namespace CommonLib
         #endregion
 
         #region fonction logiques
-        public void QuickExecuteLogic(PreParsedLine QuickScript)
+        internal void QuickExecuteLogic(PreParsedLine QuickScript)
         {
             Data[] Arguments = new Data[QuickScript.m_Arguments.Length-1];
             Data ResultData = (Data)QuickScript.m_Arguments[0];
@@ -305,7 +413,7 @@ namespace CommonLib
             }
         }
 
-        protected void ExecuteLogicNOT(Data Result, Data Operator1)
+        internal void ExecuteLogicNOT(Data Result, Data Operator1)
         {
             if (Operator1.Value == 0)
                 Result.Value = 1;
@@ -314,7 +422,7 @@ namespace CommonLib
         }
 
         //*****************************************************************************************************
-        protected void ExecuteLogicAND(Data Result, Data[] Operators)
+        internal void ExecuteLogicAND(Data Result, Data[] Operators)
         {
             bool bRes = true;
             for (int i = 0; i < Operators.Length; i++)
@@ -325,7 +433,7 @@ namespace CommonLib
         }
 
         //*****************************************************************************************************
-        protected void ExecuteLogicOR(Data Result, Data[] Operators)
+        internal void ExecuteLogicOR(Data Result, Data[] Operators)
         {
             bool bRes = false;
             for (int i = 0; i < Operators.Length; i++)
@@ -336,7 +444,7 @@ namespace CommonLib
         }
 
         //*****************************************************************************************************
-        protected void ExecuteLogicNAND(Data Result, Data[] Operators)
+        internal void ExecuteLogicNAND(Data Result, Data[] Operators)
         {
             bool bRes = true;
             for (int i = 0; i < Operators.Length; i++)
@@ -347,7 +455,7 @@ namespace CommonLib
         }
 
         //*****************************************************************************************************
-        protected void ExecuteLogicNOR(Data Result, Data[] Operators)
+        internal void ExecuteLogicNOR(Data Result, Data[] Operators)
         {
             bool bRes = false;
             for (int i = 0; i < Operators.Length; i++)
@@ -357,7 +465,7 @@ namespace CommonLib
             Result.Value = bRes ? 0 : 1;
         }
 
-        protected void ExecuteLogicXOR(Data Result, Data[] Operators)
+        internal void ExecuteLogicXOR(Data Result, Data[] Operators)
         {
             bool bRes = false;
             if ((Operators[0].Value == 0 && Operators[1].Value == 1)

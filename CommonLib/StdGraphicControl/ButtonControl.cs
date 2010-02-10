@@ -59,7 +59,11 @@ namespace CommonLib
             }
             if (m_ScriptLines.Count != 0)
             {
+#if !QUICK_MOTOR
                 m_Executer.ExecuteScript(this.ScriptLines);
+#else
+                m_Executer.ExecuteScript(this);
+#endif
             }
 
             if (m_bUseScreenEvent)

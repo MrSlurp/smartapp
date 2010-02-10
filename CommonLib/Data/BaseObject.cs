@@ -21,11 +21,13 @@ namespace CommonLib
     public interface IScriptable
     {
         string[] ScriptLines { get; set; }
+        string Symbol {get;}
     }
     // objet qui possède du script a l'init
     public interface IInitScriptable
     {
         string[] InitScriptLines { get; set; }
+        string Symbol {get;}
     }
 
     #endregion

@@ -38,7 +38,11 @@ namespace CommonLib
         // liste des "Control" de l'écran en mode commande
         private List<BTControl> m_ListControls = new List<BTControl>();
         // liens vers l'executer de script
+#if !QUICK_MOTOR
         protected ScriptExecuter m_Executer = null;
+#else
+        protected QuickExecuter m_Executer = null;
+#endif
         #endregion
 
         #region constructeur
@@ -147,17 +151,23 @@ namespace CommonLib
         /// <summary>
         /// obtient ou assigne l'executer de l'écran
         /// </summary>
+#if !QUICK_MOTOR
         public ScriptExecuter Executer
         {
             get
             {
                 return m_Executer;
             }
-            set
+        }
+#else
+        public QuickExecuter Executer
+        {
+            get
             {
-                m_Executer = value;
+                return m_Executer;
             }
         }
+#endif
 
         /// <summary>
         /// valide uniquement dans SmartCommand
@@ -585,6 +595,13 @@ namespace CommonLib
                 {
                     ExecuteInitScript();
                 }
+#if QUICK_MOTOR
+                else if (Mess==MESSAGE.MESS_PRE_PARSE)
+                {
+                    m_Executer.PreParseScript((IScriptable)this);
+                    m_Executer.PreParseScript((IInitScriptable)this, "INI");
+                }
+#endif
                 for (int i = 0; i < m_ListControls.Count; i++)
                 {
                     m_ListControls[i].TraiteMessage(Mess, obj, TypeApp);
@@ -600,7 +617,11 @@ namespace CommonLib
         {
             if (m_ScriptLines.Count != 0)
             {
+#if !QUICK_MOTOR
                 m_Executer.ExecuteScript(this.ScriptLines);
+#else
+                m_Executer.ExecuteScript((IScriptable)this);
+#endif
             }
         }
 
@@ -611,7 +632,11 @@ namespace CommonLib
         {
             if (m_InitScriptLines.Count != 0)
             {
+#if !QUICK_MOTOR
                 m_Executer.ExecuteScript(this.InitScriptLines);
+#else
+                m_Executer.ExecuteScript((IInitScriptable)this, "INI");
+#endif
             }
         }
 

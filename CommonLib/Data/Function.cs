@@ -11,6 +11,11 @@ namespace CommonLib
         #region Déclaration des données de la classe
         // script de la fonction
         private StringCollection m_ScriptLines = new StringCollection();
+
+#if QUICK_MOTOR
+        protected QuickExecuter m_Executer = null;
+#endif
+
         #endregion
 
         #region propriétées de la classe
@@ -87,6 +92,9 @@ namespace CommonLib
         /// <returns>true si tout s'est bien passé</returns>
         public override bool FinalizeRead(BTDoc Doc)
         {
+#if QUICK_MOTOR
+            m_Executer = Doc.Executer;
+#endif 
             return true;
         }
 
@@ -102,6 +110,13 @@ namespace CommonLib
         public override void TraiteMessage(MESSAGE Mess, object obj, TYPE_APP TypeApp)
         {
             ScriptTraiteMessage(this, Mess, m_ScriptLines, obj);
+#if QUICK_MOTOR
+            if (Mess == MESSAGE.MESS_PRE_PARSE)
+            {
+                if (this.ScriptLines.Length != 0)
+                    m_Executer.PreParseScript((IScriptable) this);    
+            }
+#endif
         }
         #endregion
     }

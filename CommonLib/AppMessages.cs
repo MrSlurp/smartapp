@@ -34,6 +34,10 @@ namespace CommonLib
 
         // message stop mode Commande
         MESS_CMD_STOP,
+        
+        // message envoyé avant la commande RUN pour demander aux objet scriptables de 
+        // pré parser leur script
+        MESS_PRE_PARSE,
     }
 
     //*****************************************************************************************************
@@ -121,5 +125,4 @@ namespace CommonLib
             }
         }
     }
-
 }

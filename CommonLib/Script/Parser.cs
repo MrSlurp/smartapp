@@ -470,19 +470,79 @@ namespace CommonLib
         /// <return>true si les deux parenthèses sont présentes</return>
         public bool CheckParenthese(string line, List<ScriptParserError> ErrorList, ref int posOpenParenthese, ref int posCloseParenthese)
         {
+            return CheckParenthese(line, ErrorList, ref posOpenParenthese, ref posOpenParenthese, m_iCurLine);
+        }
+
+        /// <summary>
+        /// Vérifie la présence des parenthèses sur la ligne
+        /// </summary>
+        /// <param name="line">ligne de script</param>
+        /// <param name="ErrorList">liste des erreurs (sortie)</param>
+        /// <param name="posOpenParenthese">position de la parentèse ouvrante (sortie)</param>
+        /// <param name="posCloseParenthese">position de la parentèse fermante (sortie)</param>
+        /// <param name="iCurLine">Numero de la ligne courante</param>
+        /// <return>true si les deux parenthèses sont présentes</return>
+        static public bool CheckParenthese(string line, List<ScriptParserError> ErrorList, ref int posOpenParenthese, ref int posCloseParenthese, int iCurLine)
+        {
             GetParenthesePos(line, ref posOpenParenthese, ref posCloseParenthese);
             if (posOpenParenthese == -1)
             {
-                ScriptParserError Err = new ScriptParserError("Syntax Error : Missing '('", m_iCurLine, ErrorType.ERROR);
-                ErrorList.Add(Err);
+                if (ErrorList != null)
+                {
+                    ScriptParserError Err = new ScriptParserError("Syntax Error : Missing '('", iCurLine, ErrorType.ERROR);
+                    ErrorList.Add(Err);
+                }
                 return false;
             }
             if (posCloseParenthese == -1)
             {
-                ScriptParserError Err = new ScriptParserError("Syntax Error : Missing ')'", m_iCurLine, ErrorType.ERROR);
-                ErrorList.Add(Err);
+                if (ErrorList != null)
+                {
+                    ScriptParserError Err = new ScriptParserError("Syntax Error : Missing ')'", iCurLine, ErrorType.ERROR);
+                    ErrorList.Add(Err);
+                }
                 return false;
             }
+            return true;
+        }
+    
+        /// <summary>
+        /// extrait la liste des paramètres de la fonction de script
+        /// </summary>
+        /// <param name="line">ligne de script</param>
+        /// <param name="ErrorList">liste des erreurs (sortie)</param>
+        /// <param name="RetParamList">liste des paramètres sous forme de chaine(sortie)</param>
+        /// <param name="iCurLine">Numero de la ligne courante</param>
+        /// <return>true si aucun argument n'est vide</return>
+        static public bool GetArgsAsString(string line, List<ScriptParserError> ErrorList, ref string[] RetParamList, int iCurLine)
+        {
+            int posOpenParenthese = 0;
+            int posCloseParenthese = 0;
+            if (!CheckParenthese(line, ErrorList, ref posOpenParenthese, ref posCloseParenthese, iCurLine))
+                return false;
+
+            int ParamLength = (posCloseParenthese-1) - posOpenParenthese;                  
+            string strAllParams = line.Substring(posOpenParenthese +1 , ParamLength);
+            string[] ParamList = strAllParams.Split(ParseExecGlobals.PARAM_SEPARATOR);
+            bool bIsErrorParamEmpty = false; 
+            for (int i = 0; i < ParamList.Length; i++)
+            {                         
+                if (string.IsNullOrEmpty(ParamList[i]))
+                {
+                    if (ErrorList != null)
+                    {
+                        string strErr = string.Format("Invalid line, one parameter or more is empty");
+                        ScriptParserError Err = new ScriptParserError(strErr, iCurLine, ErrorType.ERROR);
+                        ErrorList.Add(Err);
+                    }
+                    bIsErrorParamEmpty = true;
+                    break;
+                }
+            }
+            if (bIsErrorParamEmpty)
+                return false;
+                 
+            RetParamList = ParamList;     
             return true;
         }
     
@@ -495,37 +555,26 @@ namespace CommonLib
         /// <return>true si aucun argument n'est vide</return>
         public bool GetArgsAsString(string line, List<ScriptParserError> ErrorList, ref string[] RetParamList)
         {
-            int posOpenParenthese = 0;
-            int posCloseParenthese = 0;
-            if (!CheckParenthese(line, ErrorList, ref posOpenParenthese, ref posCloseParenthese))
-                return false;
-
-            int ParamLength = (posCloseParenthese-1) - posOpenParenthese;                  
-            string strAllParams = line.Substring(posOpenParenthese +1 , ParamLength);
-            string[] ParamList = strAllParams.Split(ParseExecGlobals.PARAM_SEPARATOR);
-            bool bIsErrorParamEmpty = false; 
-            for (int i = 0; i < ParamList.Length; i++)
-            {                         
-                if (string.IsNullOrEmpty(ParamList[i]))
-                {
-                    string strErr = string.Format("Invalid line, one parameter or more is empty");
-                    ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
-                    ErrorList.Add(Err);
-                    bIsErrorParamEmpty = true;
-                    break;
-                }
-            }
-            if (bIsErrorParamEmpty)
-                return false;
-                 
-            RetParamList = ParamList;     
-            return true;
+            return GetArgsAsString(line, ErrorList, ref RetParamList, m_iCurLine);
+        }
+    
+        /// <summary>
+        /// extrait la liste des paramètres de la fonction de script
+        /// </summary>
+        /// <param name="line">ligne de script</param>
+        /// <param name="ErrorList">liste des erreurs (sortie)</param>
+        /// <param name="RetParamList">liste des paramètres sous forme de chaine(sortie)</param>
+        /// <return>true si aucun argument n'est vide</return>
+        static public bool GetArgsAsString(string line, ref string[] RetParamList)
+        {
+            return GetArgsAsString(line, null, ref RetParamList, 0);
         } 
+     
 
         /// <summary>
         /// renvoie la liste des paramètre sous forme de DATA
         /// </summary>
-        /// <param name="line">ligne de script</param>
+        /// <param name="DatasSymbols">liste des symboles des données</param>
         /// <param name="ErrorList">liste des erreurs (sortie)</param>
         /// <param name="RetDataList">liste des paramètres sous forme de DATA(sortie)</param>
         /// <return>true si aucun argument n'est vide</return>
@@ -538,7 +587,7 @@ namespace CommonLib
                 if (!IsNumericValue(strTempParam))
                 {
                     if (m_Document.GestData.GetFromSymbol(strTempParam) == null)
-                    {
+                    {               
                         string strErr = string.Format("Invalid Data symbol {0}", strTempParam);
                         ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
                         ErrorList.Add(Err);

@@ -473,6 +473,7 @@ namespace SmartApp
                     }
                     m_tsBtnStartStop.Checked = true;
                     UpdateStartStopButtonState();
+                    m_Document.TraiteMessage(MESSAGE.MESS_PRE_PARSE, null, Program.TypeApp);
                     m_Document.TraiteMessage(MESSAGE.MESS_CMD_RUN, null, Program.TypeApp);
                     UpdateToolBarCxnItemState();
                 }
