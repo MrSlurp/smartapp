@@ -538,10 +538,12 @@ namespace CommonLib
                 case MESSAGE.MESS_UPDATE_FROM_DATA:
                     UpdateFromData();
                     break;
+#if QUICK_MOTOR
                 case MESSAGE.MESS_PRE_PARSE:
                     if (this.ScriptLines.Length != 0)
                         m_Executer.PreParseScript((IScriptable) this);    
                     break;
+#endif
                 default:
                     break;
             }

@@ -1,4 +1,4 @@
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -18,7 +18,7 @@
     <IntermediatePath>..\obj\Debug\</IntermediatePath>
     <IntermediateOuputPath>..\obj\Debug\</IntermediateOuputPath>
     <BaseIntermediateOutputPath>..\obj\Debug\</BaseIntermediateOutputPath>
-    <DefineConstants>DEBUG;TRACE;QUICK_MOTOR</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;QUICK_MOTOR</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>

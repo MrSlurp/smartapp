@@ -224,7 +224,7 @@ namespace CommonLib
                     default:
                         break;
                 }
-                theChrono.EndMeasure("");
+                theChrono.EndMeasure("EndMesureInternalExecute " + QuickScript[i].m_SrcObject.ToString() + " " + QuickScript[i].m_FunctionToExec.ToString());
             }
         }
 
