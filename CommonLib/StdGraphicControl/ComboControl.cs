@@ -83,7 +83,7 @@ namespace CommonLib
 #if !QUICK_MOTOR
                 m_Executer.ExecuteScript(this.ScriptLines);
 #else
-                m_Executer.ExecuteScript(this);
+                m_Executer.ExecuteScript(this.m_iQuickScriptID);
 #endif
             }
 

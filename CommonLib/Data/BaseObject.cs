@@ -39,6 +39,11 @@ namespace CommonLib
         protected string m_strSymbol;
         // description associée a l'objet
         protected string m_strName;
+
+        /// <summary>
+        /// identifiant quickscript utilisé par les objets scriptables
+        /// </summary>
+        protected int m_iQuickScriptID;
         #endregion
 
         #region events
@@ -95,6 +100,14 @@ namespace CommonLib
                     MessParam.NewItemSymbol = m_strSymbol;
                     ProcessSendMessage(MESSAGE.MESS_ITEM_RENAMED, MessParam, TYPE_APP.SMART_CONFIG);
                 }
+            }
+        }
+
+        public int QuickScriptID
+        {
+            get
+            {
+                return m_iQuickScriptID;
             }
         }
         #endregion

@@ -19,6 +19,7 @@ namespace CommonLib
         // est définit pour les fonctions ayant des arguments (Maths et Logic) sous forme de tableau à plusieurs index
         // ou alors sous forme de tableau à index unique (0) pour les autres types
         public BaseObject[] m_Arguments = null;
+
     }
 
     public class QuickExecuter
@@ -32,9 +33,10 @@ namespace CommonLib
         Queue<List<PreParsedLine>> m_PileScriptsToExecute = new Queue<List<PreParsedLine>>();
 
         PreParser m_PreParser = new PreParser();
-        Dictionary<string ,List<PreParsedLine> > m_DictioQuickScripts = new Dictionary<string ,List<PreParsedLine>>();
-        bool m_bPreParsedDone = false;          
-        
+        Dictionary<int ,List<PreParsedLine> > m_DictioQuickScripts = new Dictionary<int ,List<PreParsedLine>>();
+        bool m_bPreParsedDone = false;
+
+        private int m_iQuickIdCounter = 1;
         #endregion
 
         #region events
@@ -76,26 +78,28 @@ namespace CommonLib
             }
         }
     
-        public void PreParseScript(IScriptable scriptable)
+        public int PreParseScript(IScriptable scriptable)
         {
-            string refName = scriptable.GetType().ToString() + "_" + scriptable.Symbol;
-            List<PreParsedLine> preParsedScript = m_PreParser.PreParseScript(scriptable.ScriptLines); 
-            m_DictioQuickScripts.Add(refName, preParsedScript);
+            int Id = ++m_iQuickIdCounter;
+            List<PreParsedLine> preParsedScript = m_PreParser.PreParseScript(scriptable.ScriptLines);
+            m_DictioQuickScripts.Add(Id, preParsedScript);
+            return Id;
         }
     
-        public void PreParseScript(BaseObject scriptable, String[] script,string Suffix)
+        public int PreParseScript(String[] script)
         {
-            string refName = scriptable.GetType().ToString() + "_" + Suffix + "_" + scriptable.Symbol;
-            
-            List<PreParsedLine> preParsedScript = m_PreParser.PreParseScript(script); 
-            m_DictioQuickScripts.Add(refName, preParsedScript);
+            int Id = ++m_iQuickIdCounter;
+            List<PreParsedLine> preParsedScript = m_PreParser.PreParseScript(script);
+            m_DictioQuickScripts.Add(Id, preParsedScript);
+            return Id;
         }
 
-        public void PreParseScript(IInitScriptable scriptable, string Suffix)
+        public int PreParseScript(IInitScriptable scriptable)
         {
-            string refName = scriptable.GetType().ToString() + "_" + Suffix + "_" + scriptable.Symbol;
-            List<PreParsedLine> preParsedScript = m_PreParser.PreParseScript(scriptable.InitScriptLines); 
-            m_DictioQuickScripts.Add(refName, preParsedScript);
+            int Id = ++m_iQuickIdCounter;
+            List<PreParsedLine> preParsedScript = m_PreParser.PreParseScript(scriptable.InitScriptLines);
+            m_DictioQuickScripts.Add(Id, preParsedScript);
+            return Id;
         }
     
         #endregion
@@ -132,13 +136,12 @@ namespace CommonLib
             }
             theChrono.EndMeasure("ScriptExecuter");
         }
-
-        public void ExecuteScript(IScriptable scriptable)
+        /*
+        public void ExecuteScript(int QuickID)
         {
-            string refName = scriptable.GetType().ToString() + "_" + scriptable.Symbol;
-            if (m_DictioQuickScripts.ContainsKey(refName))
-            { 
-                m_PileScriptsToExecute.Enqueue(m_DictioQuickScripts[refName]);
+            if (m_DictioQuickScripts.ContainsKey(QuickID))
+            {
+                m_PileScriptsToExecute.Enqueue(m_DictioQuickScripts[QuickID]);
                 if (m_PileScriptsToExecute.Count > 1)
                     return;
                 if (EvScriptToExecute != null)
@@ -152,13 +155,14 @@ namespace CommonLib
             }
 #endif
         }
+         * */
 
-        public void ExecuteScript(BaseObject scriptable, string Suffix)
+        /*
+        public void ExecuteScript(int QuickID)
         {
-            string refName = scriptable.GetType().ToString() + "_" + Suffix + "_" + scriptable.Symbol; 
-            if (m_DictioQuickScripts.ContainsKey(refName))
-            { 
-                m_PileScriptsToExecute.Enqueue(m_DictioQuickScripts[refName]);
+            if (m_DictioQuickScripts.ContainsKey(QuickID))
+            {
+                m_PileScriptsToExecute.Enqueue(m_DictioQuickScripts[QuickID]);
                 if (m_PileScriptsToExecute.Count > 1)
                     return;
                 if (EvScriptToExecute != null)
@@ -172,13 +176,13 @@ namespace CommonLib
             }
 #endif
         }
-    
-        public void ExecuteScript(IInitScriptable scriptable, string Suffix)
+         * */
+
+        public void ExecuteScript(int QuickID)
         {
-            string refName = scriptable.GetType().ToString() + "_" + Suffix + "_" + scriptable.Symbol; 
-            if (m_DictioQuickScripts.ContainsKey(refName))
-            { 
-                m_PileScriptsToExecute.Enqueue(m_DictioQuickScripts[refName]);
+            if (m_DictioQuickScripts.ContainsKey(QuickID))
+            {
+                m_PileScriptsToExecute.Enqueue(m_DictioQuickScripts[QuickID]);
                 if (m_PileScriptsToExecute.Count > 1)
                     return;
                 if (EvScriptToExecute != null)
@@ -187,7 +191,7 @@ namespace CommonLib
 #if DEBUG
             else
             {
-                LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format("Failed to find {0}", refName)); 
+                LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format("Failed to find {0}", QuickID)); 
                 AddLogEvent(log);
             }
 #endif
@@ -208,11 +212,11 @@ namespace CommonLib
                         QuickExecuteFunc(QuickScript[i]);
                         break;
                     case SCR_OBJECT.FUNCTIONS:
-                        string refName = typeof(Function) + "_" + QuickScript[i].m_Arguments[0].Symbol;
-                        if (m_DictioQuickScripts.ContainsKey(refName))
-                        {
-                            InternalExecuteScript(m_DictioQuickScripts[refName]);  
-                        } 
+                        int Id = QuickScript[i].m_Arguments[0].QuickScriptID;
+                        CommonLib.PerfChrono theChrono2 = new PerfChrono();
+                        List<PreParsedLine> PreparsedScript = m_DictioQuickScripts[Id];
+                        theChrono2.EndMeasure("Temps accès dico");
+                        InternalExecuteScript(PreparsedScript);  
                         break;
                     case SCR_OBJECT.LOGIC:
                         QuickExecuteLogic(QuickScript[i]);

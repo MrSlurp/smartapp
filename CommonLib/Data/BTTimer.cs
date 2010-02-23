@@ -214,7 +214,7 @@ namespace CommonLib
 #if QUICK_MOTOR
                     case MESSAGE.MESS_PRE_PARSE:
                         if (this.ScriptLines.Length != 0)
-                            m_Executer.PreParseScript((IScriptable) this);    
+                            this.m_iQuickScriptID = m_Executer.PreParseScript((IScriptable)this);    
                         break;
 #endif
                     default:
@@ -260,7 +260,7 @@ namespace CommonLib
 #if !QUICK_MOTOR
                 m_Executer.ExecuteScript(this.ScriptLines);
 #else
-                m_Executer.ExecuteScript(this);
+                m_Executer.ExecuteScript(this.m_iQuickScriptID);
 #endif
                 
                 theChrono.EndMeasure("InstanceName = " + this.Symbol);

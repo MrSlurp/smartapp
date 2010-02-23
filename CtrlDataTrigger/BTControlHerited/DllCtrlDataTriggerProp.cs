@@ -29,6 +29,9 @@ namespace CtrlDataTrigger
 
         private StringCollection m_ScriptOffToOn = new StringCollection();
 
+        private int m_iQuickScriptIDOnToOff;
+        private int m_iQuickScriptIDOffToOn;
+
         public bool BehaveLikeTrigger
         {
             get
@@ -105,7 +108,32 @@ namespace CtrlDataTrigger
                     m_ScriptOffToOn.Add(value[i]);
                 }
             }
-        }   
+        }
+
+        public int QuickScriptIDOnToOff
+        {
+            get
+            {
+                return m_iQuickScriptIDOnToOff;
+            }
+            set
+            {
+                m_iQuickScriptIDOnToOff = value;
+            }
+        }
+
+        public int QuickScriptIDOffToOn
+        {
+            get
+            {
+                return m_iQuickScriptIDOffToOn;
+            }
+            set
+            {
+                m_iQuickScriptIDOffToOn = value;
+            }
+        }
+
         public override bool ReadIn(System.Xml.XmlNode Node)
         {
             for (int ch = 0; ch < Node.ChildNodes.Count ; ch++)

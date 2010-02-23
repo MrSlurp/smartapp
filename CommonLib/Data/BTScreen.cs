@@ -28,6 +28,8 @@ namespace CommonLib
         private StringCollection m_ScriptLines = new StringCollection();
         // script d'init de l'écran
         private StringCollection m_InitScriptLines = new StringCollection();
+
+        private int m_iQuickScriptIDIni;
         // fichier image de "background de l'écran"
         private string m_strBackPictureFile="";
         #endregion
@@ -598,8 +600,8 @@ namespace CommonLib
 #if QUICK_MOTOR
                 else if (Mess==MESSAGE.MESS_PRE_PARSE)
                 {
-                    m_Executer.PreParseScript((IScriptable)this);
-                    m_Executer.PreParseScript((IInitScriptable)this, "INI");
+                    this.m_iQuickScriptID = m_Executer.PreParseScript((IScriptable)this);
+                    this.m_iQuickScriptIDIni = m_Executer.PreParseScript((IInitScriptable)this);
                 }
 #endif
                 for (int i = 0; i < m_ListControls.Count; i++)
@@ -620,7 +622,7 @@ namespace CommonLib
 #if !QUICK_MOTOR
                 m_Executer.ExecuteScript(this.ScriptLines);
 #else
-                m_Executer.ExecuteScript((IScriptable)this);
+                m_Executer.ExecuteScript(this.m_iQuickScriptID);
 #endif
             }
         }
@@ -635,7 +637,7 @@ namespace CommonLib
 #if !QUICK_MOTOR
                 m_Executer.ExecuteScript(this.InitScriptLines);
 #else
-                m_Executer.ExecuteScript((IInitScriptable)this, "INI");
+                m_Executer.ExecuteScript(this.m_iQuickScriptIDIni);
 #endif
             }
         }

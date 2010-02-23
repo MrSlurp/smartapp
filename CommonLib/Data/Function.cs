@@ -114,7 +114,7 @@ namespace CommonLib
             if (Mess == MESSAGE.MESS_PRE_PARSE)
             {
                 if (this.ScriptLines.Length != 0)
-                    m_Executer.PreParseScript((IScriptable) this);    
+                    this.m_iQuickScriptID = m_Executer.PreParseScript((IScriptable)this);    
             }
 #endif
         }

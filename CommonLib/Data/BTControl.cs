@@ -541,7 +541,7 @@ namespace CommonLib
 #if QUICK_MOTOR
                 case MESSAGE.MESS_PRE_PARSE:
                     if (this.ScriptLines.Length != 0)
-                        m_Executer.PreParseScript((IScriptable) this);    
+                        this.m_iQuickScriptID = m_Executer.PreParseScript((IScriptable) this);    
                     break;
 #endif
                 default:
