@@ -30,7 +30,7 @@ namespace CommonLib
         BTDoc m_Document = null;
         static bool m_bIsWaiting = false;
         static int nbinstanceexecuter = 0;
-        Queue<List<PreParsedLine>> m_PileScriptsToExecute = new Queue<List<PreParsedLine>>();
+        Queue<int> m_PileScriptsToExecute = new Queue<int>();
 
         PreParser m_PreParser = new PreParser();
         Dictionary<int ,List<PreParsedLine> > m_DictioQuickScripts = new Dictionary<int ,List<PreParsedLine>>();
@@ -126,63 +126,22 @@ namespace CommonLib
             while (m_PileScriptsToExecute.Count != 0)
             {
                 // on prend le script sans l'enlever afin de savoir qu'il n'est pas encore executé
-                List<PreParsedLine> QuickScript = m_PileScriptsToExecute.Peek();
+                int QuickId = m_PileScriptsToExecute.Peek();
                 if (m_bIsWaiting)
                     System.Diagnostics.Debug.Assert(false, "appel en trop");
 
-                InternalExecuteScript(QuickScript);
+                InternalExecuteScript(QuickId);
                 // il est éxécuté, on l'enlève de la liste.
                 m_PileScriptsToExecute.Dequeue();
             }
             theChrono.EndMeasure("ScriptExecuter");
         }
-        /*
-        public void ExecuteScript(int QuickID)
-        {
-            if (m_DictioQuickScripts.ContainsKey(QuickID))
-            {
-                m_PileScriptsToExecute.Enqueue(m_DictioQuickScripts[QuickID]);
-                if (m_PileScriptsToExecute.Count > 1)
-                    return;
-                if (EvScriptToExecute != null)
-                    EvScriptToExecute();
-            }
-#if DEBUG
-            else
-            {
-                LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format("Failed to find {0}", refName)); 
-                AddLogEvent(log);
-            }
-#endif
-        }
-         * */
-
-        /*
-        public void ExecuteScript(int QuickID)
-        {
-            if (m_DictioQuickScripts.ContainsKey(QuickID))
-            {
-                m_PileScriptsToExecute.Enqueue(m_DictioQuickScripts[QuickID]);
-                if (m_PileScriptsToExecute.Count > 1)
-                    return;
-                if (EvScriptToExecute != null)
-                    EvScriptToExecute();
-            }
-#if DEBUG
-            else
-            {
-                LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format("Failed to find {0}", refName)); 
-                AddLogEvent(log);
-            }
-#endif
-        }
-         * */
 
         public void ExecuteScript(int QuickID)
         {
             if (m_DictioQuickScripts.ContainsKey(QuickID))
             {
-                m_PileScriptsToExecute.Enqueue(m_DictioQuickScripts[QuickID]);
+                m_PileScriptsToExecute.Enqueue(QuickID);
                 if (m_PileScriptsToExecute.Count > 1)
                     return;
                 if (EvScriptToExecute != null)
@@ -198,8 +157,9 @@ namespace CommonLib
         }
 
 
-        internal void InternalExecuteScript(List<PreParsedLine> QuickScript)
+        internal void InternalExecuteScript(int QuickID)
         {
+            List<PreParsedLine> QuickScript = m_DictioQuickScripts[QuickID];
             for (int i = 0; i < QuickScript.Count; i++)
             {
                 CommonLib.PerfChrono theChrono = new PerfChrono();
@@ -213,10 +173,7 @@ namespace CommonLib
                         break;
                     case SCR_OBJECT.FUNCTIONS:
                         int Id = QuickScript[i].m_Arguments[0].QuickScriptID;
-                        CommonLib.PerfChrono theChrono2 = new PerfChrono();
-                        List<PreParsedLine> PreparsedScript = m_DictioQuickScripts[Id];
-                        theChrono2.EndMeasure("Temps accès dico");
-                        InternalExecuteScript(PreparsedScript);  
+                        InternalExecuteScript(Id);  
                         break;
                     case SCR_OBJECT.LOGIC:
                         QuickExecuteLogic(QuickScript[i]);
