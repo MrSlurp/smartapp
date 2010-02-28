@@ -337,14 +337,14 @@ namespace CommonLib
                                 break;
                             case SCR_OBJECT.INVALID:
                             default:
-                                ScriptParserError Err = new ScriptParserError("Unkown keyword", m_iCurLine, ErrorType.ERROR);
+                                ScriptParserError Err = new ScriptParserError(Lang.LangSys.C("Unkown keyword"), m_iCurLine, ErrorType.ERROR);
                                 ErrorList.Add(Err);
                                 break;
                         }
                     }
                     else
                     {
-                        ScriptParserError Err = new ScriptParserError("Invalid line", m_iCurLine, ErrorType.ERROR);
+                        ScriptParserError Err = new ScriptParserError(Lang.LangSys.C("Invalid line"), m_iCurLine, ErrorType.ERROR);
                         ErrorList.Add(Err);
                     }
                 }
@@ -401,7 +401,7 @@ namespace CommonLib
                 }
                 catch (Exception)
                 {
-                    string strErr = string.Format("Invalid Keyword {0}", strScrObject);
+                    string strErr = string.Format(Lang.LangSys.C("Invalid Keyword {0}"), strScrObject);
                     ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
                     ErrorList.Add(Err);
                     return SCR_OBJECT.INVALID;
@@ -470,7 +470,7 @@ namespace CommonLib
         /// <return>true si les deux parenthèses sont présentes</return>
         public bool CheckParenthese(string line, List<ScriptParserError> ErrorList, ref int posOpenParenthese, ref int posCloseParenthese)
         {
-            return CheckParenthese(line, ErrorList, ref posOpenParenthese, ref posOpenParenthese, m_iCurLine);
+            return CheckParenthese(line, ErrorList, ref posOpenParenthese, ref posCloseParenthese, m_iCurLine);
         }
 
         /// <summary>
@@ -489,7 +489,7 @@ namespace CommonLib
             {
                 if (ErrorList != null)
                 {
-                    ScriptParserError Err = new ScriptParserError("Syntax Error : Missing '('", iCurLine, ErrorType.ERROR);
+                    ScriptParserError Err = new ScriptParserError(Lang.LangSys.C("Syntax Error : Missing '('"), iCurLine, ErrorType.ERROR);
                     ErrorList.Add(Err);
                 }
                 return false;
@@ -498,7 +498,7 @@ namespace CommonLib
             {
                 if (ErrorList != null)
                 {
-                    ScriptParserError Err = new ScriptParserError("Syntax Error : Missing ')'", iCurLine, ErrorType.ERROR);
+                    ScriptParserError Err = new ScriptParserError(Lang.LangSys.C("Syntax Error : Missing ')'"), iCurLine, ErrorType.ERROR);
                     ErrorList.Add(Err);
                 }
                 return false;
@@ -531,7 +531,7 @@ namespace CommonLib
                 {
                     if (ErrorList != null)
                     {
-                        string strErr = string.Format("Invalid line, one parameter or more is empty");
+                        string strErr = string.Format(Lang.LangSys.C("Invalid line, one parameter or more is empty"));
                         ScriptParserError Err = new ScriptParserError(strErr, iCurLine, ErrorType.ERROR);
                         ErrorList.Add(Err);
                     }
@@ -588,7 +588,7 @@ namespace CommonLib
                 {
                     if (m_Document.GestData.GetFromSymbol(strTempParam) == null)
                     {               
-                        string strErr = string.Format("Invalid Data symbol {0}", strTempParam);
+                        string strErr = string.Format(Lang.LangSys.C("Invalid Data symbol {0}"), strTempParam);
                         ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
                         ErrorList.Add(Err);
                         HaveError = true;
@@ -599,7 +599,7 @@ namespace CommonLib
                     int value = int.Parse(strTempParam);
                     if (!(value >= MinIntVal && value <= MaxIntVal))
                     {
-                        string strErr = string.Format("Invalid constant value for , must be between {0} and {1}",MinIntVal, MaxIntVal);
+                        string strErr = string.Format(Lang.LangSys.C("Invalid constant value for , must be between {0} and {1}"),MinIntVal, MaxIntVal);
                         ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
                         ErrorList.Add(Err);
                         HaveError  = true;

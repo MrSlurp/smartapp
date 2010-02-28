@@ -44,6 +44,7 @@ namespace SmartApp.Ihm
         public MDISmartConfigMain()
         {
             DoFileFormatRegistration();
+            Program.LangSys.Initialize(this, "EN", SmartApp.Properties.Settings.Default.Lang, "SmartApp");
             InitializeComponent();
             CommonConstructorInit();
         }

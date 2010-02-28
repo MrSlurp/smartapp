@@ -8,6 +8,11 @@ namespace SmartApp
 {
     static class Program
     {
+        static Lang m_SingLangSys = new Lang();
+        public static Lang LangSys
+        {
+            get { return m_SingLangSys; }
+        }
         static MDISmartConfigMain m_ConfigApp = null;
         static MDISmartCommandMain m_CommandApp = null;
         static Form m_CurrentMainForm = null;
@@ -68,6 +73,8 @@ namespace SmartApp
             Application.SetCompatibleTextRenderingDefault(false);
             Traces.Initialize(Application.StartupPath, "TraceSmartApp.txt", SmartApp.Properties.Settings.Default.LogLevel);
             CommonLib.Resources.InitializeBitmap();
+            CommonLib.Lang.InitCommonLibLang("EN", SmartApp.Properties.Settings.Default.Lang);
+            m_GestDlls.CurrentLang = SmartApp.Properties.Settings.Default.Lang;
             m_GestDlls.LoadExistingDlls();
             LaunchArgParser.ParseArguments(strArgsList);
             m_TypeApp = LaunchArgParser.GetTypeApp(strArgsList);

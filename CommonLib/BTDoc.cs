@@ -356,7 +356,7 @@ namespace CommonLib
             }
             catch (Exception e)
             {
-                string strErr = "The file is corrupted";
+                string strErr = Lang.LangSys.C("The file is corrupted");
                 strErr += e.Message;
                 Console.WriteLine(strErr);
                 return false;
@@ -451,12 +451,12 @@ namespace CommonLib
                                 if (FileVer < Cste.CUR_FILE_VERSION)
                                 {
                                     if (TypeApp == TYPE_APP.SMART_CONFIG)
-                                        MessageBox.Show("This file have been created with an oldest version, if you save this file, you will not be able tio read it with previous version", "Warning");
+                                        MessageBox.Show(Lang.LangSys.C("This file have been created with an oldest version, if you save this file, you will not be able tio read it with previous version"), Lang.LangSys.C("Warning"));
                                 }
                                 else if (FileVer > Cste.CUR_FILE_VERSION)
                                 {
                                     if (TypeApp == TYPE_APP.SMART_CONFIG)
-                                        MessageBox.Show("This file have been created with a newer version, Contact distributor for updating your software", "Warning");
+                                        MessageBox.Show(Lang.LangSys.C("This file have been created with a newer version, see website for updating your software"), Lang.LangSys.C("Warning"));
                                     return false;
                                 }
                             }

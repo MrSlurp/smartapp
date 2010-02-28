@@ -43,6 +43,7 @@ namespace SmartApp.Ihm
         //*****************************************************************************************************      
         public ProgramForm()
         {
+            Program.LangSys.Initialize(this);
             InitializeComponent();
         }
 

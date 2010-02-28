@@ -26,7 +26,7 @@ namespace CommonLib
                 strLog = strLog.Trim();
                 if (m_Document.GestLogger.GetFromSymbol(strLog) == null)
                 {
-                    string strErr = string.Format("Invalid Logger symbol {0}", strLog);
+                    string strErr = string.Format(Lang.LangSys.C("Invalid Logger symbol {0}"), strLog);
                     ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
                     ErrorList.Add(Err);
                     return false;
@@ -35,7 +35,7 @@ namespace CommonLib
             }
             else
             {
-                string strErr = string.Format("Invalid line, missing Logger symbol");
+                string strErr = string.Format(Lang.LangSys.C("Invalid line, missing Logger symbol"));
                 ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
                 ErrorList.Add(Err);
             }
@@ -67,7 +67,7 @@ namespace CommonLib
                 }
                 catch (Exception)
                 {
-                    string strErr = string.Format("Invalid Logger function {0}", strScrObject);
+                    string strErr = string.Format(Lang.LangSys.C("Invalid Logger function {0}"), strScrObject);
                     ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
                     ErrorList.Add(Err);
                 }
@@ -75,17 +75,9 @@ namespace CommonLib
                 switch (SecondTokenType)
                 {
                     case LOGGER_FUNC.LOG:
-                        // ajouter du code ici si il faut parser le contenu des parenthèses
-                        break;
                     case LOGGER_FUNC.CLEAR:
-                        // ajouter du code ici si il faut parser le contenu des parenthèses
-                        break;
                     case LOGGER_FUNC.START:
-                        // ajouter du code ici si il faut parser le contenu des parenthèses
-                        break;
                     case LOGGER_FUNC.STOP:
-                        // ajouter du code ici si il faut parser le contenu des parenthèses
-                        break;
                     case LOGGER_FUNC.INVALID:
                     default:
                         break;
@@ -93,7 +85,7 @@ namespace CommonLib
             }
             else
             {
-                string strErr = string.Format("Invalid line, missing logger function");
+                string strErr = string.Format(Lang.LangSys.C("Invalid line, missing logger function"));
                 ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
                 ErrorList.Add(Err);
             }

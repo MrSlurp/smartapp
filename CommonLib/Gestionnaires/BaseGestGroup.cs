@@ -331,7 +331,7 @@ namespace CommonLib
         /// </summary>
         protected void CreateDefaultGroup()
         {
-            InternalCreateNewGroup("Default group", STR_DEFAULT_GROUP_SYMB, Color.White);
+            InternalCreateNewGroup(Lang.LangSys.C("Default group"), STR_DEFAULT_GROUP_SYMB, Color.White);
         }
 
         /// <summary>

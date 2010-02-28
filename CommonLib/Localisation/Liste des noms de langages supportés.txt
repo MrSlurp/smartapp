@@ -1,0 +1,313 @@
+Information le nom du fichier .PO doit être au format iso 2 lettres
+
+ex : fr.po ou en.po
+
+-------------------------------------------------------------------
+| Type de la culture : NeutralCultures                            |
+-------------------------------------------------------------------
+|  CULTURE   | ISO | DISPLAYNAME                                  |
+-------------------------------------------------------------------
+| ar         | ar  | Arabe                                        |
+| bg         | bg  | Bulgare                                      |
+| ca         | ca  | Catalan                                      |
+| zh-CHS     | zh  | Chinois (Simplifié)                          |
+| cs         | cs  | Tchèque                                      |
+| da         | da  | Danois                                       |
+| de         | de  | Allemand                                     |
+| el         | el  | Grec                                         |
+| en         | en  | Anglais                                      |
+| es         | es  | Espagnol                                     |
+| fi         | fi  | Finnois                                      |
+| fr         | fr  | Français                                     |
+| he         | he  | Hébreu                                       |
+| hu         | hu  | Hongrois                                     |
+| is         | is  | Islandais                                    |
+| it         | it  | Italien                                      |
+| ja         | ja  | Japonais                                     |
+| ko         | ko  | Coréen                                       |
+| nl         | nl  | Néerlandais                                  |
+| no         | no  | Norvégien                                    |
+| pl         | pl  | Polonais                                     |
+| pt         | pt  | Portugais                                    |
+| ro         | ro  | Roumain                                      |
+| ru         | ru  | Russe                                        |
+| hr         | hr  | Croate                                       |
+| sk         | sk  | Slovaque                                     |
+| sq         | sq  | Albanais                                     |
+| sv         | sv  | Suédois                                      |
+| th         | th  | Thaï                                         |
+| tr         | tr  | Turc                                         |
+| ur         | ur  | Ourdou                                       |
+| id         | id  | Indonésien                                   |
+| uk         | uk  | Ukrainien                                    |
+| be         | be  | Biélorusse                                   |
+| sl         | sl  | Slovène                                      |
+| et         | et  | Estonien                                     |
+| lv         | lv  | Letton                                       |
+| lt         | lt  | Lituanien                                    |
+| fa         | fa  | Perse                                        |
+| vi         | vi  | Vietnamien                                   |
+| hy         | hy  | Arménien                                     |
+| az         | az  | Azéri                                        |
+| eu         | eu  | Basque                                       |
+| mk         | mk  | Macédonien                                   |
+| af         | af  | Afrikaans                                    |
+| ka         | ka  | Géorgien                                     |
+| fo         | fo  | Féroïen                                      |
+| hi         | hi  | Hindi                                        |
+| ms         | ms  | Malais                                       |
+| kk         | kk  | Kazakh                                       |
+| ky         | ky  | Kirghiz                                      |
+| sw         | sw  | Kiswahili                                    |
+| uz         | uz  | Ouzbek                                       |
+| tt         | tt  | Tatar                                        |
+| pa         | pa  | Pendjabi                                     |
+| gu         | gu  | Gujarati                                     |
+| ta         | ta  | Tamoul                                       |
+| te         | te  | Télougou                                     |
+| kn         | kn  | Kannada                                      |
+| mr         | mr  | Marathi                                      |
+| sa         | sa  | Sanscrit                                     |
+| mn         | mn  | Mongol                                       |
+| gl         | gl  | Galicien                                     |
+| kok        | kok | Konkani                                      |
+| syr        | syr | Syriaque                                     |
+| dv         | dv  | Divehi                                       |
+|            | iv  | Langue indifférente (Pays indifférent)       |
+| zh-CHT     | zh  | Chinois (Traditionnel)                       |
+| sr         | sr  | Serbe                                        |
+-------------------------------------------------------------------
+
+-------------------------------------------------------------------
+| Type de la culture : AllCultures                                |
+-------------------------------------------------------------------
+|  CULTURE   | ISO | DISPLAYNAME                                  |
+-------------------------------------------------------------------
+| ar         | ar  | Arabe                                        |
+| bg         | bg  | Bulgare                                      |
+| ca         | ca  | Catalan                                      |
+| zh-CHS     | zh  | Chinois (Simplifié)                          |
+| cs         | cs  | Tchèque                                      |
+| da         | da  | Danois                                       |
+| de         | de  | Allemand                                     |
+| el         | el  | Grec                                         |
+| en         | en  | Anglais                                      |
+| es         | es  | Espagnol                                     |
+| fi         | fi  | Finnois                                      |
+| fr         | fr  | Français                                     |
+| he         | he  | Hébreu                                       |
+| hu         | hu  | Hongrois                                     |
+| is         | is  | Islandais                                    |
+| it         | it  | Italien                                      |
+| ja         | ja  | Japonais                                     |
+| ko         | ko  | Coréen                                       |
+| nl         | nl  | Néerlandais                                  |
+| no         | no  | Norvégien                                    |
+| pl         | pl  | Polonais                                     |
+| pt         | pt  | Portugais                                    |
+| ro         | ro  | Roumain                                      |
+| ru         | ru  | Russe                                        |
+| hr         | hr  | Croate                                       |
+| sk         | sk  | Slovaque                                     |
+| sq         | sq  | Albanais                                     |
+| sv         | sv  | Suédois                                      |
+| th         | th  | Thaï                                         |
+| tr         | tr  | Turc                                         |
+| ur         | ur  | Ourdou                                       |
+| id         | id  | Indonésien                                   |
+| uk         | uk  | Ukrainien                                    |
+| be         | be  | Biélorusse                                   |
+| sl         | sl  | Slovène                                      |
+| et         | et  | Estonien                                     |
+| lv         | lv  | Letton                                       |
+| lt         | lt  | Lituanien                                    |
+| fa         | fa  | Perse                                        |
+| vi         | vi  | Vietnamien                                   |
+| hy         | hy  | Arménien                                     |
+| az         | az  | Azéri                                        |
+| eu         | eu  | Basque                                       |
+| mk         | mk  | Macédonien                                   |
+| af         | af  | Afrikaans                                    |
+| ka         | ka  | Géorgien                                     |
+| fo         | fo  | Féroïen                                      |
+| hi         | hi  | Hindi                                        |
+| ms         | ms  | Malais                                       |
+| kk         | kk  | Kazakh                                       |
+| ky         | ky  | Kirghiz                                      |
+| sw         | sw  | Kiswahili                                    |
+| uz         | uz  | Ouzbek                                       |
+| tt         | tt  | Tatar                                        |
+| pa         | pa  | Pendjabi                                     |
+| gu         | gu  | Gujarati                                     |
+| ta         | ta  | Tamoul                                       |
+| te         | te  | Télougou                                     |
+| kn         | kn  | Kannada                                      |
+| mr         | mr  | Marathi                                      |
+| sa         | sa  | Sanscrit                                     |
+| mn         | mn  | Mongol                                       |
+| gl         | gl  | Galicien                                     |
+| kok        | kok | Konkani                                      |
+| syr        | syr | Syriaque                                     |
+| dv         | dv  | Divehi                                       |
+|            | iv  | Langue indifférente (Pays indifférent)       |
+| ar-SA      | ar  | Arabe (Arabie saoudite)                      |
+| bg-BG      | bg  | Bulgare (Bulgarie)                           |
+| ca-ES      | ca  | Catalan (Catalan)                            |
+| zh-TW      | zh  | Chinois (Taïwan)                             |
+| cs-CZ      | cs  | Tchèque (République tchèque)                 |
+| da-DK      | da  | Danois (Danemark)                            |
+| de-DE      | de  | Allemand (Allemagne)                         |
+| el-GR      | el  | Grec (Grèce)                                 |
+| en-US      | en  | Anglais (États-Unis)                         |
+| fi-FI      | fi  | Finnois (Finlande)                           |
+| fr-FR      | fr  | Français (France)                            |
+| he-IL      | he  | Hébreu (Israël)                              |
+| hu-HU      | hu  | Hongrois (Hongrie)                           |
+| is-IS      | is  | Islandais (Islande)                          |
+| it-IT      | it  | Italien (Italie)                             |
+| ja-JP      | ja  | Japonais (Japon)                             |
+| ko-KR      | ko  | Coréen (Corée)                               |
+| nl-NL      | nl  | Néerlandais (Pays-Bas)                       |
+| nb-NO      | nb  | Norvégien, Bokmål (Norvège)                  |
+| pl-PL      | pl  | Polonais (Pologne)                           |
+| pt-BR      | pt  | Portugais (Brésil)                           |
+| ro-RO      | ro  | Roumain (Roumanie)                           |
+| ru-RU      | ru  | Russe (Russe)                                |
+| hr-HR      | hr  | Croate (Croatie)                             |
+| sk-SK      | sk  | Slovaque (Slovaquie)                         |
+| sq-AL      | sq  | Albanais (Albanie)                           |
+| sv-SE      | sv  | Suédois (Suède)                              |
+| th-TH      | th  | Thaï (Thaïlande)                             |
+| tr-TR      | tr  | Turc (Turquie)                               |
+| ur-PK      | ur  | Ourdou (Pakistan)                            |
+| id-ID      | id  | Indonésien (Indonésie)                       |
+| uk-UA      | uk  | Ukrainien (Ukraine)                          |
+| be-BY      | be  | Biélorusse (Biélorussie)                     |
+| sl-SI      | sl  | Slovène (Slovénie)                           |
+| et-EE      | et  | Estonien (Estonie)                           |
+| lv-LV      | lv  | Letton (Lettonie)                            |
+| lt-LT      | lt  | Lituanien (Lituanie)                         |
+| fa-IR      | fa  | Perse (Iran)                                 |
+| vi-VN      | vi  | Vietnamien (Vietnam)                         |
+| hy-AM      | hy  | Arménien (Arménie)                           |
+| az-Latn-AZ | az  | Azeri (Latin, Azerbaijan)                    |
+| eu-ES      | eu  | Basque (Basque)                              |
+| mk-MK      | mk  | Macédonien (Ex-Rép. yougoslave de Macédoine) |
+| af-ZA      | af  | Afrikaans (Afrique du Sud)                   |
+| ka-GE      | ka  | Géorgien (Géorgie)                           |
+| fo-FO      | fo  | Féroïen (Îles Féroé)                         |
+| hi-IN      | hi  | Hindi (Inde)                                 |
+| ms-MY      | ms  | Malais (Malaisie)                            |
+| kk-KZ      | kk  | Kazakh (Kazakhstan)                          |
+| ky-KG      | ky  | Kirghiz (Kirghizistan)                       |
+| sw-KE      | sw  | Kiswahili (Kenya)                            |
+| uz-Latn-UZ | uz  | Uzbek (Latin, Uzbekistan)                    |
+| tt-RU      | tt  | Tatar (Russie)                               |
+| pa-IN      | pa  | Pendjabi (Inde)                              |
+| gu-IN      | gu  | Gujarati (Inde)                              |
+| ta-IN      | ta  | Tamoul (Inde)                                |
+| te-IN      | te  | Télougou (Inde)                              |
+| kn-IN      | kn  | Kannada (Inde)                               |
+| mr-IN      | mr  | Marathi (Inde)                               |
+| sa-IN      | sa  | Sanscrit (Inde)                              |
+| mn-MN      | mn  | Mongol (Cyrillique, Mongolie)                |
+| gl-ES      | gl  | Galicien (Galicien)                          |
+| kok-IN     | kok | Konkani (Inde)                               |
+| syr-SY     | syr | Syriaque (Syrie)                             |
+| dv-MV      | dv  | Divehi (Maldives)                            |
+| ar-IQ      | ar  | Arabe (Irak)                                 |
+| zh-CN      | zh  | Chinois (République populaire de Chine)      |
+| de-CH      | de  | Allemand (Suisse)                            |
+| en-GB      | en  | Anglais (Royaume-Uni)                        |
+| es-MX      | es  | Espagnol (Mexique)                           |
+| fr-BE      | fr  | Français (Belgique)                          |
+| it-CH      | it  | Italien (Suisse)                             |
+| nl-BE      | nl  | Néerlandais (Belgique)                       |
+| nn-NO      | nn  | Norvégien, Nynorsk (Norvège)                 |
+| pt-PT      | pt  | Portugais (Portugal)                         |
+| sr-Latn-CS | sr  | Serbian (Latin, Serbia)                      |
+| sv-FI      | sv  | Suédois (Finlande)                           |
+| az-Cyrl-AZ | az  | Azeri (Cyrillic, Azerbaijan)                 |
+| ms-BN      | ms  | Malais (Brunei Darussalam)                   |
+| uz-Cyrl-UZ | uz  | Uzbek (Cyrillic, Uzbekistan)                 |
+| ar-EG      | ar  | Arabe (Égypte)                               |
+| zh-HK      | zh  | Chinois (Hong Kong RAS)                      |
+| de-AT      | de  | Allemand (Autriche)                          |
+| en-AU      | en  | Anglais (Australie)                          |
+| es-ES      | es  | Espagnol (Espagne)                           |
+| fr-CA      | fr  | Français (Canada)                            |
+| sr-Cyrl-CS | sr  | Serbian (Cyrillic, Serbia)                   |
+| ar-LY      | ar  | Arabe (Libye)                                |
+| zh-SG      | zh  | Chinois (Singapour)                          |
+| de-LU      | de  | Allemand (Luxembourg)                        |
+| en-CA      | en  | Anglais (Canada)                             |
+| es-GT      | es  | Espagnol (Guatemala)                         |
+| fr-CH      | fr  | Français (Suisse)                            |
+| ar-DZ      | ar  | Arabe (Algérie)                              |
+| zh-MO      | zh  | Chinois (Macao RAS)                          |
+| de-LI      | de  | Allemand (Liechtenstein)                     |
+| en-NZ      | en  | Anglais (Nouvelle-Zélande)                   |
+| es-CR      | es  | Espagnol (Costa Rica)                        |
+| fr-LU      | fr  | Français (Luxembourg)                        |
+| ar-MA      | ar  | Arabe (Maroc)                                |
+| en-IE      | en  | Anglais (Irlande)                            |
+| es-PA      | es  | Espagnol (Panama)                            |
+| fr-MC      | fr  | Français (Monaco)                            |
+| ar-TN      | ar  | Arabe (Tunisie)                              |
+| en-ZA      | en  | Anglais (Afrique du Sud)                     |
+| es-DO      | es  | Espagnol (République dominicaine)            |
+| ar-OM      | ar  | Arabe (Oman)                                 |
+| en-JM      | en  | Anglais (Jamaïque)                           |
+| es-VE      | es  | Espagnol (Venezuela)                         |
+| ar-YE      | ar  | Arabe (Yémen)                                |
+| en-029     | en  | English (Caribbean)                          |
+| es-CO      | es  | Espagnol (Colombie)                          |
+| ar-SY      | ar  | Arabe (Syrie)                                |
+| en-BZ      | en  | Anglais (Belize)                             |
+| es-PE      | es  | Espagnol (Pérou)                             |
+| ar-JO      | ar  | Arabe (Jordanie)                             |
+| en-TT      | en  | Anglais (Trinité-et-Tobago)                  |
+| es-AR      | es  | Espagnol (Argentine)                         |
+| ar-LB      | ar  | Arabe (Liban)                                |
+| en-ZW      | en  | Anglais (Zimbabwe)                           |
+| es-EC      | es  | Espagnol (Équateur)                          |
+| ar-KW      | ar  | Arabe (Koweït)                               |
+| en-PH      | en  | Anglais (Philippines)                        |
+| es-CL      | es  | Espagnol (Chili)                             |
+| ar-AE      | ar  | Arabe (E.A.U.)                               |
+| es-UY      | es  | Espagnol (Uruguay)                           |
+| ar-BH      | ar  | Arabe (Bahreïn)                              |
+| es-PY      | es  | Espagnol (Paraguay)                          |
+| ar-QA      | ar  | Arabe (Qatar)                                |
+| es-BO      | es  | Espagnol (Bolivie)                           |
+| es-SV      | es  | Espagnol (Salvador)                          |
+| es-HN      | es  | Espagnol (Honduras)                          |
+| es-NI      | es  | Espagnol (Nicaragua)                         |
+| es-PR      | es  | Espagnol (Porto Rico)                        |
+| zh-CHT     | zh  | Chinois (Traditionnel)                       |
+| sr         | sr  | Serbe                                        |
+| sma-NO     | sma | Same du sud (Norvège)                        |
+| sr-Cyrl-BA | sr  | Serbe (cyrillique, Bosnie-Herzégovine)       |
+| zu-ZA      | zu  | Zoulou                                       |
+| xh-ZA      | xh  | Xhosa                                        |
+| tn-ZA      | tn  | Tswana                                       |
+| se-SE      | se  | Same du nord (Suède)                         |
+| sma-SE     | sma | Same du sud (Suède)                          |
+| hr-BA      | hr  | Croate (Bosnie-Herzégovine)                  |
+| smn-FI     | smn | Same d'Inari (Finlande)                      |
+| quz-PE     | quz | Quechua (Pérou)                              |
+| se-FI      | se  | Same du nord (Finlande)                      |
+| sms-FI     | sms | Same de Skolt (Finlande)                     |
+| cy-GB      | cy  | Gallois                                      |
+| bs-Latn-BA | bs  | Bosniaque                                    |
+| smj-NO     | smj | Same de Lule (Norvège)                       |
+| mi-NZ      | mi  | Maori                                        |
+| quz-EC     | quz | Quechua (Équateur)                           |
+| sr-Latn-BA | sr  | Serbe (latin, Bosnie-Herzégovine)            |
+| smj-SE     | smj | Same de Lule (Suède)                         |
+| ns-ZA      | ns  | Sotho du nord                                |
+| quz-BO     | quz | Quechua (Bolivie)                            |
+| se-NO      | se  | Same du nord (Norvège)                       |
+| mt-MT      | mt  | Maltais                                      |
+-------------------------------------------------------------------
+

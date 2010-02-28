@@ -214,7 +214,7 @@ namespace CommonLib
                             m_CurrentVal = m_MinVal;
                             if (!m_bIsSaturationNotified)
                             {
-                                LogEvent log = new LogEvent(LOG_EVENT_TYPE.INFO, string.Format("Data {0} : Enter min value saturation ({1})", Symbol, m_MinVal));
+                                LogEvent log = new LogEvent(LOG_EVENT_TYPE.INFO, string.Format(Lang.LangSys.C("Data {0} : Enter min value saturation ({1})"), Symbol, m_MinVal));
                                 AddLogEvent(log);
                                 bValueChange = false;
                                 m_bIsSaturationNotified = true;
@@ -226,7 +226,7 @@ namespace CommonLib
                             if (!m_bIsSaturationNotified)
                             {
                                 m_CurrentVal = m_MaxVal;
-                                LogEvent log = new LogEvent(LOG_EVENT_TYPE.INFO, string.Format("Data {0} : Enter max value saturation ({1})", Symbol, m_MaxVal));
+                                LogEvent log = new LogEvent(LOG_EVENT_TYPE.INFO, string.Format(Lang.LangSys.C("Data {0} : Enter max value saturation ({1})"), Symbol, m_MaxVal));
                                 AddLogEvent(log);
                                 bValueChange = false;
                                 m_bIsSaturationNotified = true;
@@ -236,14 +236,14 @@ namespace CommonLib
 
                         if (m_bIsSaturationNotified && !bIsInSaturation)
                         {
-                            LogEvent log = new LogEvent(LOG_EVENT_TYPE.INFO, string.Format("Data {0} : Leave saturation", Symbol));
+                            LogEvent log = new LogEvent(LOG_EVENT_TYPE.INFO, string.Format(Lang.LangSys.C("Data {0} : Leave saturation"), Symbol));
                             AddLogEvent(log);
                             m_bIsSaturationNotified = false;
                         }
                     }
                     else
                     {
-                        LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format("Data {0} is constant, value can't be set", Symbol));
+                        LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format(Lang.LangSys.C("Data {0} is constant, value can't be set"), Symbol));
                         AddLogEvent(log);
                     }
                 }

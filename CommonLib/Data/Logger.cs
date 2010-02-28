@@ -242,7 +242,7 @@ namespace CommonLib
                 if (Dat == null)
                 {
                     string strMessage;
-                    strMessage = string.Format("Data to log not found (Logger {0}, Data {1}", m_strSymbol, strData);
+                    strMessage = string.Format(Lang.LangSys.C("Data to log not found (Logger {0}, Data {1}"), m_strSymbol, strData);
                     LogEvent log = new LogEvent(LOG_EVENT_TYPE.INFO, strMessage);
                     AddLogEvent(log);
                     continue;
@@ -277,7 +277,7 @@ namespace CommonLib
                             {
                                 if (m_ListStrDatas[i] == MessParam.WantDeletetItemSymbol)
                                 {
-                                    string strMess = string.Format("Logger {0} will lost data", Symbol);
+                                    string strMess = string.Format(Lang.LangSys.C("Logger {0} will lost data"), Symbol);
                                     MessParam.ListStrReturns.Add(strMess);
                                 }
                             }
@@ -362,7 +362,7 @@ namespace CommonLib
             }
             else
             {
-                LogEvent log = new LogEvent(LOG_EVENT_TYPE.INFO, string.Format("{0} Can't start standard logger", Symbol));
+                LogEvent log = new LogEvent(LOG_EVENT_TYPE.INFO, string.Format(Lang.LangSys.C("{0} Can't start standard logger"), Symbol));
                 AddLogEvent(log);
             }
         }
@@ -384,7 +384,7 @@ namespace CommonLib
             }
             else
             {
-                LogEvent log = new LogEvent(LOG_EVENT_TYPE.INFO, string.Format("{0} Can't start standard logger", Symbol));
+                LogEvent log = new LogEvent(LOG_EVENT_TYPE.INFO, string.Format(Lang.LangSys.C("{0} Can't start standard logger"), Symbol));
                 AddLogEvent(log);
             }
         }
@@ -408,7 +408,7 @@ namespace CommonLib
                 }
                 catch (Exception)
                 {
-                    LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format("{0} Can't access file", Symbol));
+                    LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format(Lang.LangSys.C("{0} Can't access file"), Symbol));
                     AddLogEvent(log);
                     return;
                 }
@@ -435,7 +435,7 @@ namespace CommonLib
                 }
                 catch (Exception )
                 {
-                    LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format("{0} Can't access file", Symbol));
+                    LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format(Lang.LangSys.C("{0} Can't access file"), Symbol));
                     AddLogEvent(log);
                     return;
                 }
@@ -450,7 +450,7 @@ namespace CommonLib
                 }
                 catch (Exception )
                 {
-                    LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format("{0} Can't access file", Symbol));
+                    LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format(Lang.LangSys.C("{0} Can't access file"), Symbol));
                     AddLogEvent(log);
                     return;
                 }
@@ -465,7 +465,7 @@ namespace CommonLib
                 }
                 catch (Exception )
                 {
-                    LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format("{0} Can't access file", Symbol));
+                    LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format(Lang.LangSys.C("{0} Can't access file"), Symbol));
                     AddLogEvent(log);
                     return;
                 }
@@ -486,7 +486,7 @@ namespace CommonLib
             // si il n'y a pas de données a loguer, on avertis l'utilisateur et on sort
             if (m_ListRefDatas.Count == 0)
             {
-                LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format("{0} No Data to log", Symbol));
+                LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format(Lang.LangSys.C("{0} No Data to log"), Symbol));
                 AddLogEvent(log);
                 return;
             }

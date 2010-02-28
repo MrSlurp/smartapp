@@ -26,7 +26,7 @@ namespace CommonLib
                 strTimer = strTimer.Trim();
                 if (m_Document.GestTimer.GetFromSymbol(strTimer) == null)
                 {
-                    string strErr = string.Format("Invalid Timer symbol {0}", strTimer);
+                    string strErr = string.Format(Lang.LangSys.C("Invalid Timer symbol {0}"), strTimer);
                     ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
                     ErrorList.Add(Err);
                     return false;
@@ -61,7 +61,7 @@ namespace CommonLib
                 }
                 catch (Exception)
                 {
-                    string strErr = string.Format("Invalid Timer function {0}", strScrObject);
+                    string strErr = string.Format(Lang.LangSys.C("Invalid Timer function {0}"), strScrObject);
                     ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
                     ErrorList.Add(Err);
                 }
@@ -81,7 +81,7 @@ namespace CommonLib
             }
             else
             {
-                string strErr = string.Format("Invalid line, missing timer function");
+                string strErr = string.Format(Lang.LangSys.C("Invalid line, missing timer function"));
                 ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
                 ErrorList.Add(Err);
             }

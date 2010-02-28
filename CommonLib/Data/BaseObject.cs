@@ -248,22 +248,23 @@ namespace CommonLib
                                 string strMess = "";
                                 if (tp == typeof(BTTimer))
                                 {
-                                    strMess = string.Format("Timer {0} Script: Line {1} will be removed", Symbol, i + 1);
+                                    strMess = string.Format(Lang.LangSys.C("Timer {0} Script: Line {1} will be removed"), Symbol, i + 1);
                                 }
                                 else if (tp == typeof(BTScreen))
                                 {
-                                    strMess = string.Format("Screen {0} Script: Line {1} will be removed", Symbol, i + 1);
+                                    strMess = string.Format(Lang.LangSys.C("Screen {0} Script: Line {1} will be removed"), Symbol, i + 1);
                                 }
                                 else if (tp == typeof(Function))
                                 {
-                                    strMess = string.Format("Function {0} Script: Line {1} will be removed", Symbol, i + 1);
+                                    strMess = string.Format(Lang.LangSys.C("Function {0} Script: Line {1} will be removed"), Symbol, i + 1);
                                 }
                                 else if (tp == typeof(BTControl))
                                 {
-                                    strMess = string.Format("Control {0} Script: Line {1} will be removed", Symbol, i + 1);
+                                    strMess = string.Format(Lang.LangSys.C("Control {0} Script: Line {1} will be removed"), Symbol, i + 1);
                                 }
                                 else
                                     System.Diagnostics.Debug.Assert(false);
+
                                 MessParam.ListStrReturns.Add(strMess);
                             }
                         }

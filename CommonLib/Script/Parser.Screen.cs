@@ -26,7 +26,7 @@ namespace CommonLib
                 strScreen = strScreen.Trim();
                 if (m_Document.GestScreen.GetFromSymbol(strScreen) == null)
                 {
-                    string strErr = string.Format("Invalid Screen symbol {0}", strScreen);
+                    string strErr = string.Format(Lang.LangSys.C("Invalid Screen symbol {0}"), strScreen);
                     ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
                     ErrorList.Add(Err);
                     return false;
@@ -61,7 +61,7 @@ namespace CommonLib
                 }
                 catch (Exception)
                 {
-                    string strErr = string.Format("Invalid Screen function {0}", strScrObject);
+                    string strErr = string.Format(Lang.LangSys.C("Invalid Screen function {0}"), strScrObject);
                     ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
                     ErrorList.Add(Err);
                 }
@@ -78,7 +78,7 @@ namespace CommonLib
             }
             else
             {
-                string strErr = string.Format("Invalid line, missing screen function");
+                string strErr = string.Format(Lang.LangSys.C("Invalid line, missing screen function"));
                 ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
                 ErrorList.Add(Err);
             }

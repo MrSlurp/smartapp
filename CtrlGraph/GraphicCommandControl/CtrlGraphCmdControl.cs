@@ -135,7 +135,7 @@ namespace CtrlGraph
                         continue;
 
                     string strMessage;
-                    strMessage = string.Format("Data to log not found (Graphic {0}, Data {1}", m_strSymbol, strData);
+                    strMessage = string.Format(DllEntryClass.LangSys.C("Data to log not found (Graphic {0}, Data {1}"), m_strSymbol, strData);
                     LogEvent log = new LogEvent(LOG_EVENT_TYPE.INFO, strMessage);
                     AddLogEvent(log);
                     continue;

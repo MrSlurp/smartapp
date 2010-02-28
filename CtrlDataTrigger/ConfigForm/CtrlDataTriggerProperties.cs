@@ -22,6 +22,7 @@ namespace CtrlDataTrigger
 
         public CtrlDataTriggerProperties()
         {
+            DllEntryClass.LangSys.Initialize(this);
             InitializeComponent();
         }
 

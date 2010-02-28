@@ -285,7 +285,7 @@ namespace CommonLib
                                             string symbol = "Unknown";
                                             if (!string.IsNullOrEmpty(AttrSymbol.Value))
                                                 symbol = AttrSymbol.Value;
-                                            MessageBox.Show(string.Format("Missing plugins (ID = {1}) for object {0}\nIf you save the file, object will be lost", symbol, DllID), "WARINING");
+                                            MessageBox.Show(string.Format(Lang.LangSys.C("Missing plugins (ID = {1}) for object {0}\nIf you save the file, object will be lost"), symbol, DllID), Lang.LangSys.C("WARINING"));
                                         }
                                     }
                                     else
@@ -562,7 +562,7 @@ namespace CommonLib
                     // en cas d'ereur on logue al'utilisateur que l'image n'as pas été chargée
                     if (!string.IsNullOrEmpty(strImageFullPath))
                     {
-                        LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format("Screen {0} Failed to load file {1}", Symbol, strImageFullPath));
+                        LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format(Lang.LangSys.C("Screen {0} Failed to load file {1}"), Symbol, strImageFullPath));
                         AddLogEvent(log);
                     }
                 }

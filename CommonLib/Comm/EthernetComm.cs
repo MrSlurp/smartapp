@@ -300,7 +300,7 @@ namespace CommonLib
                 && m_ConnectionState == eClientConnectionSate.Disconnected
                 && !m_bUserDisconnectDemande)
             {
-                string strmess = "Connexion with remote controller lost";
+                string strmess = Lang.LangSys.C("Connexion with remote controller lost");
                 LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, strmess); 
                 AddLogEvent(log);
             }

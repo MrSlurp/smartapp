@@ -12,6 +12,7 @@ namespace CommonLib
     {
         public WaitOpenCommForm()
         {
+            Lang.LangSys.Initialize(this);
             InitializeComponent();
         }
     }

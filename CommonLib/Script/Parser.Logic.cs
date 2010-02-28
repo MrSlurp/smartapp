@@ -40,7 +40,7 @@ namespace CommonLib
                 }
                 catch (Exception)
                 {
-                    string strErr = string.Format("Invalid logic function {0}", strScrObject);
+                    string strErr = string.Format(Lang.LangSys.C("Invalid logic function {0}"), strScrObject);
                     ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
                     ErrorList.Add(Err);
                     return;
@@ -78,13 +78,13 @@ namespace CommonLib
                         // on regarde ce qu'il y a à l'intérieur
                         if (strParamList.Length < MinParamCount)
                         {
-                            string strErr = string.Format("Invalid line, not enought parameters for Logic function");
+                            string strErr = string.Format(Lang.LangSys.C("Invalid line, not enought parameters for Logic function"));
                             ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
                             ErrorList.Add(Err);
                         }
                         else if (strParamList.Length > MaxParameterCount)
                         {
-                            string strErr = string.Format("Invalid line, too many parameters for Logic function");
+                            string strErr = string.Format(Lang.LangSys.C("Invalid line, too many parameters for Logic function"));
                             ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
                             ErrorList.Add(Err);
                         }
@@ -100,7 +100,7 @@ namespace CommonLib
             }
             else
             {
-                string strErr = string.Format("Invalid line, missing Maths function");
+                string strErr = string.Format(Lang.LangSys.C("Invalid line, missing Maths function"));
                 ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
                 ErrorList.Add(Err);
             }

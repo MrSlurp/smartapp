@@ -25,6 +25,7 @@ namespace CommonLib
         /// </summary>
         public TwoColorProperties()
         {
+            Lang.LangSys.Initialize(this);
             InitializeComponent();
         }
         #endregion

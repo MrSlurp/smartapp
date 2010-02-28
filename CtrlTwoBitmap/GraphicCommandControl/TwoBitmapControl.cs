@@ -112,10 +112,6 @@ namespace CtrlTwoBitmap
         private Bitmap m_BmpInact;
         private Bitmap m_BmpAct;
 
-        //private bool m_BmpInactAnimated = false;          
-        //private bool m_BmpActAnimated = false;          
-        //private bool IsAnimating = false;
-
         public TwoBitmap()
         {
             SetStyle(
@@ -147,34 +143,6 @@ namespace CtrlTwoBitmap
             }
         }
 
-        /*
-        public void TraiteAnimation()
-        {
-            if (m_BmpInact != null && ImageAnimator.CanAnimate(m_BmpInact))
-            {
-                if (m_bIsRunning && m_bIsActive)
-                {
-                    ImageAnimator.Animate(m_BmpInact, new EventHandler(OnFrameChanged));
-                    IsAnimating = true;
-                }
-                else
-                    ImageAnimator.StopAnimate(m_BmpInact, new EventHandler(OnFrameChanged));
-
-            }
-            if (m_BmpAct != null && ImageAnimator.CanAnimate(m_BmpAct))
-            {
-                if (m_bIsRunning && m_bIsActive)
-                {
-                    ImageAnimator.Animate(m_BmpAct, new EventHandler(OnFrameChanged));
-                    IsAnimating = true;
-                }
-                else
-                    ImageAnimator.StopAnimate(m_BmpAct, new EventHandler(OnFrameChanged));
-            }
-
-        }
-        */
-        
         public bool IsActive
         {
             get
@@ -234,72 +202,5 @@ namespace CtrlTwoBitmap
 
             }
         }
-
-        /*
-        private void OnFrameChanged(object o, EventArgs e)
-        {
-            //Force a call to the Paint event handler.
-            if (IsAnimating)
-                this.Invalidate();
-        }
-        */
-
-        /*
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            CommonLib.PerfChrono theChrono = new PerfChrono();
-            if (m_bIsActive)
-            {
-                if (m_BmpAct != null )
-                {
-					Bitmap disp = null;
-                    if (ImageAnimator.CanAnimate(m_BmpAct))
-					{
-                        ImageAnimator.UpdateFrames(m_BmpAct);
-						disp = new Bitmap(m_BmpAct, m_BmpAct.Width, m_BmpAct.Height);
-						disp.MakeTransparent(Color.Magenta);
-					}
-					else
-					{
-						disp = m_BmpAct;
-					}
-				
-                    e.Graphics.DrawImage(disp, new Rectangle(new Point(0, 0), this.Size));
-                }
-                else
-                    e.Graphics.DrawImage(TwoImageRes.DefaultImg, new Rectangle(new Point(0, 0), this.Size));
-            }
-            else
-            {
-                if (m_BmpInact != null)
-                {
-					Bitmap disp = null;
-                    if (ImageAnimator.CanAnimate(m_BmpInact))
-					{
-                        ImageAnimator.UpdateFrames(m_BmpInact);
-						disp = new Bitmap(m_BmpInact, m_BmpInact.Width, m_BmpInact.Height);
-						disp.MakeTransparent(Color.Magenta);
-					}
-					else
-					{
-						disp = m_BmpInact;
-					}
-					
-                    e.Graphics.DrawImage(disp, new Rectangle(new Point(0, 0), this.Size));
-                }
-                else
-                    e.Graphics.DrawImage(TwoImageRes.DefaultImg, new Rectangle(new Point(0, 0), this.Size));
-            }
-            theChrono.EndMeasure("InstanceName = " + this.Name );
-        }
-        */
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            //CommonLib.PerfChrono theChrono = new PerfChrono();
-            base.OnPaint(e);
-            //theChrono.EndMeasure("InstanceName = " + this.Name);
-        }
-
-
     }
 }

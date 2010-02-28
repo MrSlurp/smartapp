@@ -33,6 +33,7 @@ namespace SmartApp.AppEventLog
         //*****************************************************************************************************
         public AppEventLogForm()
         {
+            Program.LangSys.Initialize(this);
             InitializeComponent();
         }
         #endregion

@@ -12,6 +12,32 @@ namespace CtrlTwoBitmap
     public class DllEntryClass : IDllControlInterface
     {
         public const uint TwoBitmap_Control_ID = 110;
+
+#if BUILD_LANG
+#if TEST_LANG
+        static Lang m_SingLangSys = new Lang(true, true);
+#else
+        static Lang m_SingLangSys = new Lang(true, false);
+#endif
+#else
+        static Lang m_SingLangSys = new Lang();
+#endif
+        public static Lang LangSys
+        {
+            get { return m_SingLangSys; }
+        }
+
+        string m_CurLang;
+        public string CurrentLang
+        {
+            get { return m_CurLang; }
+            set
+            {
+                m_CurLang = value;
+                LangSys.Initialize("EN", m_CurLang, "CtrlTwoBitmap");
+            }
+        }
+
         public DllEntryClass()
         {
             TwoImageRes.InitializeBitmap();

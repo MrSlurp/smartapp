@@ -99,6 +99,7 @@ namespace CtrlGraph
         #region constructeur
         public GraphConfigForm()
         {
+            DllEntryClass.LangSys.Initialize(this);
             InitializeComponent();
             // initialisation dynamique de la form avec n composant
             // CuvreParam en fonction de la constante DllCtrlGraphProp.NB_CURVE
@@ -115,24 +116,24 @@ namespace CtrlGraph
             }
 
             m_CboDataDispPeriod = new CComboData[9];
-            m_CboDataDispPeriod[0] = new CComboData("10 minutes", SAVE_PERIOD.SAVE_10_min);
-            m_CboDataDispPeriod[1] = new CComboData("1 hour", SAVE_PERIOD.SAVE_1_h);
-            m_CboDataDispPeriod[2] = new CComboData("2 hours", SAVE_PERIOD.SAVE_2_h);
-            m_CboDataDispPeriod[3] = new CComboData("6 hours", SAVE_PERIOD.SAVE_6_h);
-            m_CboDataDispPeriod[4] = new CComboData("12 hours", SAVE_PERIOD.SAVE_12_h);
-            m_CboDataDispPeriod[5] = new CComboData("1 day", SAVE_PERIOD.SAVE_1_j);
-            m_CboDataDispPeriod[6] = new CComboData("2 days", SAVE_PERIOD.SAVE_2_j);
-            m_CboDataDispPeriod[7] = new CComboData("4 days", SAVE_PERIOD.SAVE_4_j);
-            m_CboDataDispPeriod[8] = new CComboData("1 week", SAVE_PERIOD.SAVE_7_j);
+            m_CboDataDispPeriod[0] = new CComboData(DllEntryClass.LangSys.C("10 minutes"), SAVE_PERIOD.SAVE_10_min);
+            m_CboDataDispPeriod[1] = new CComboData(DllEntryClass.LangSys.C("1 hour"), SAVE_PERIOD.SAVE_1_h);
+            m_CboDataDispPeriod[2] = new CComboData(DllEntryClass.LangSys.C("2 hours"), SAVE_PERIOD.SAVE_2_h);
+            m_CboDataDispPeriod[3] = new CComboData(DllEntryClass.LangSys.C("6 hours"), SAVE_PERIOD.SAVE_6_h);
+            m_CboDataDispPeriod[4] = new CComboData(DllEntryClass.LangSys.C("12 hours"), SAVE_PERIOD.SAVE_12_h);
+            m_CboDataDispPeriod[5] = new CComboData(DllEntryClass.LangSys.C("1 day"), SAVE_PERIOD.SAVE_1_j);
+            m_CboDataDispPeriod[6] = new CComboData(DllEntryClass.LangSys.C("2 days"), SAVE_PERIOD.SAVE_2_j);
+            m_CboDataDispPeriod[7] = new CComboData(DllEntryClass.LangSys.C("4 days"), SAVE_PERIOD.SAVE_4_j);
+            m_CboDataDispPeriod[8] = new CComboData(DllEntryClass.LangSys.C("1 week"), SAVE_PERIOD.SAVE_7_j);
 
             m_CboDataLogPeriod = new CComboData[7];
-            m_CboDataLogPeriod[0] = new CComboData("1 sec", LOG_PERIOD.LOG_1_sec);
-            m_CboDataLogPeriod[1] = new CComboData("10 sec", LOG_PERIOD.LOG_10_sec);
-            m_CboDataLogPeriod[2] = new CComboData("30 sec", LOG_PERIOD.LOG_30_sec);
-            m_CboDataLogPeriod[3] = new CComboData("1 minute", LOG_PERIOD.LOG_1_min);
-            m_CboDataLogPeriod[4] = new CComboData("2 minutes", LOG_PERIOD.LOG_2_min);
-            m_CboDataLogPeriod[5] = new CComboData("5 minutes", LOG_PERIOD.LOG_5_min);
-            m_CboDataLogPeriod[6] = new CComboData("10 minutes", LOG_PERIOD.LOG_10_min);
+            m_CboDataLogPeriod[0] = new CComboData(DllEntryClass.LangSys.C("1 sec"), LOG_PERIOD.LOG_1_sec);
+            m_CboDataLogPeriod[1] = new CComboData(DllEntryClass.LangSys.C("10 sec"), LOG_PERIOD.LOG_10_sec);
+            m_CboDataLogPeriod[2] = new CComboData(DllEntryClass.LangSys.C("30 sec"), LOG_PERIOD.LOG_30_sec);
+            m_CboDataLogPeriod[3] = new CComboData(DllEntryClass.LangSys.C("1 minute"), LOG_PERIOD.LOG_1_min);
+            m_CboDataLogPeriod[4] = new CComboData(DllEntryClass.LangSys.C("2 minutes"), LOG_PERIOD.LOG_2_min);
+            m_CboDataLogPeriod[5] = new CComboData(DllEntryClass.LangSys.C("5 minutes"), LOG_PERIOD.LOG_5_min);
+            m_CboDataLogPeriod[6] = new CComboData(DllEntryClass.LangSys.C("10 minutes"), LOG_PERIOD.LOG_10_min);
 
             // pour la combo des périodes, on peux directement assigner la liste complète
             cboDispPeriod.ValueMember = "Object";
@@ -251,73 +252,6 @@ namespace CtrlGraph
             else
                 cboLogPeriod.SelectedIndex = 0;
         }
-
-        #region fonction pick XXX
-        /*
-        private void btnPickData_Click(object sender, EventArgs e)
-        {
-            PickDataForm PickData = new PickDataForm();
-            PickData.Document = this.Doc;
-            if (PickData.ShowDialog() == DialogResult.OK)
-            {
-                if (sender == btnPickData1)
-                {
-                    if (PickData.SelectedData != null)
-                        m_ListSymb[0].Text = PickData.SelectedData.Symbol;
-                    else
-                        m_ListSymb[0].Text = string.Empty;
-                }
-                else if (sender == btnPickData2)
-                {
-                    if (PickData.SelectedData != null)
-                        m_ListSymb[1].Text = PickData.SelectedData.Symbol;
-                    else
-                        m_ListSymb[1].Text = string.Empty;
-                }
-                else if (sender == btnPickData3)
-                {
-                    if (PickData.SelectedData != null)
-                        m_ListSymb[2].Text = PickData.SelectedData.Symbol;
-                    else
-                        m_ListSymb[2].Text = string.Empty;
-                }
-                else if (sender == btnPickData4)
-                {
-                    if (PickData.SelectedData != null)
-                        m_ListSymb[3].Text = PickData.SelectedData.Symbol;
-                    else
-                        m_ListSymb[3].Text = string.Empty;
-                }
-			}
-        }
-
-        private void bntPickColor_Click(object sender, EventArgs e)
-        {
-            ColorDialog clrDlg = new ColorDialog();
-            DialogResult DlgRes = clrDlg.ShowDialog();
-            if (DlgRes == DialogResult.OK)
-            {
-                if (sender == bntPickColor1)
-                {
-                    m_ListColors[0].BackColor = clrDlg.Color;
-                }
-                else if (sender == bntPickColor2)
-                {
-                    m_ListColors[1].BackColor = clrDlg.Color;
-                }
-                else if (sender == bntPickColor3)
-                {
-                    m_ListColors[2].BackColor = clrDlg.Color;
-                }
-                else if (sender == bntPickColor4)
-                {
-                    m_ListColors[3].BackColor = clrDlg.Color;
-                }
-            }
-        }
-        */
-        #endregion
-
 
         #region event handlers
         private void cboDispPeriod_SelectedIndexChanged(object sender, EventArgs e)

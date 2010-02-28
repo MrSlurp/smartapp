@@ -55,6 +55,7 @@ namespace SmartApp.Ihm
         //*****************************************************************************************************      
         public DataForm()
         {
+            Program.LangSys.Initialize(this);
             InitializeComponent();
             m_DataPropertyPage.DataPropertiesChanged += new DataPropertiesChange(this.OnDataPropertiesChange);            
         }

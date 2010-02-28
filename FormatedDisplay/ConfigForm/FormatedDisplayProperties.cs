@@ -22,6 +22,7 @@ namespace FormatedDisplay
 
         public FormatedDisplayProperties()
         {
+            DllEntryClass.LangSys.Initialize(this);
             InitializeComponent();
         }
 

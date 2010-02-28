@@ -130,9 +130,9 @@ namespace CommonLib
             }
             catch (Exception)
             {
-                string str = "Unable to open comm, Check connection configuration";
+                string str = Lang.LangSys.C("Unable to open comm, Check connection configuration");
                 DialogResult dlgRes = MessageBox.Show(str,
-                    "Error opening comm", MessageBoxButtons.OK,
+                    Lang.LangSys.C("Error opening comm"), MessageBoxButtons.OK,
                     MessageBoxIcon.Exclamation,
                     MessageBoxDefaultButton.Button1);
 

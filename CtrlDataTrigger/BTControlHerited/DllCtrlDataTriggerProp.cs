@@ -201,12 +201,12 @@ namespace CtrlDataTrigger
                             string strMess = string.Empty;
                             if (MessParam.WantDeletetItemSymbol == m_strDataOffToOn)
                             {
-                                strMess = string.Format("Data Trigger {0} : Data \"Off to On\" will be removed", PropOwner.Symbol);
+                                strMess = string.Format(DllEntryClass.LangSys.C("Data Trigger {0} : Data \"Off to On\" will be removed"), PropOwner.Symbol);
                                 MessParam.ListStrReturns.Add(strMess);
                             }
                             if (MessParam.WantDeletetItemSymbol == m_strDataOnToOff)
                             {
-                                strMess = string.Format("Data Trigger {0} : Data \"On to Off\" will be removed", PropOwner.Symbol);
+                                strMess = string.Format(DllEntryClass.LangSys.C("Data Trigger {0} : Data \"On to Off\" will be removed"), PropOwner.Symbol);
                                 MessParam.ListStrReturns.Add(strMess);
                             }
                         }

@@ -150,7 +150,7 @@ namespace CommonLib
 #if DEBUG
             else
             {
-                LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format("Failed to find {0}", QuickID)); 
+                LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format(Lang.LangSys.C("Failed to find {0}"), QuickID)); 
                 AddLogEvent(log);
             }
 #endif
@@ -237,7 +237,7 @@ namespace CommonLib
             }
             else
             {
-                LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format("Trying sending frame {0} while connection is closed", tr.Symbol));
+                LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format(Lang.LangSys.C("Trying sending frame {0} while connection is closed"), tr.Symbol));
                 AddLogEvent(log);
             }
         }
@@ -256,7 +256,7 @@ namespace CommonLib
                     // et demander a l'utilisateur si il souhaite continuer l'execution des actions
                     // si il ne veux pas, remonter au parent qu'il doit arrèter les actions
                     //COMM_ERROR Err = m_Doc.m_Comm.ErrorCode;
-                    string strmess = string.Format("Message {0} have not been recieved (Timeout)", TrameToRecieve.Symbol);
+                    string strmess = string.Format(Lang.LangSys.C("Message {0} have not been recieved (Timeout)"), TrameToRecieve.Symbol);
                     LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, strmess);
                     AddLogEvent(log);
                     return;
@@ -273,9 +273,9 @@ namespace CommonLib
                     string strmess;
 
                     if (buffer == null)
-                        strmess = string.Format("Error reading message {0} (Recieved frame is not the one expected)", TrameToRecieve.Symbol);
+                        strmess = string.Format(Lang.LangSys.C("Error reading message {0} (Recieved frame is not the one expected)"), TrameToRecieve.Symbol);
                     else
-                        strmess = string.Format("Error reading message {0}", TrameToRecieve.Symbol);
+                        strmess = string.Format(Lang.LangSys.C("Error reading message {0}"), TrameToRecieve.Symbol);
 
                     LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, strmess);
                     AddLogEvent(log);
@@ -334,7 +334,7 @@ namespace CommonLib
             }
             else
             {
-                LogEvent logEvent = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format("Division by zero forbidden"));
+                LogEvent logEvent = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format(Lang.LangSys.C("Division by zero forbidden")));
                 AddLogEvent(logEvent);
                 return;
             }

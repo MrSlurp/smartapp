@@ -132,6 +132,5 @@ namespace GradientBaloon
                 return GradientBaloon.DllEntryClass.DLL_Control_ID;
             }
         }
-
     }
 }

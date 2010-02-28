@@ -283,7 +283,7 @@ namespace CtrlGraph
                             {
                                 if (ListDataSymbol[i] == MessParam.WantDeletetItemSymbol)
                                 {
-                                    string strMess = string.Format("Graphic {0} will lost data", PropOwner.Symbol);
+                                    string strMess = string.Format(DllEntryClass.LangSys.C("Graphic {0} will lost data"), PropOwner.Symbol);
                                     MessParam.ListStrReturns.Add(strMess);
                                 }
                             }

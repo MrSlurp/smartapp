@@ -40,19 +40,19 @@ namespace CommonLib
                     if (value < m_MinVal)
                     {
                         m_CurrentVal = m_MinVal;
-                        LogEvent log = new LogEvent(LOG_EVENT_TYPE.INFO, string.Format("Data {0} : min value saturation ({1})", Symbol, m_MinVal));
+                        LogEvent log = new LogEvent(LOG_EVENT_TYPE.INFO, string.Format(Lang.LangSys.C("Data {0} : min value saturation ({1})"), Symbol, m_MinVal));
                         AddLogEvent(log);
                     }
                     else if (value > m_MaxVal)
                     {
                         m_CurrentVal = m_MaxVal;
-                        LogEvent log = new LogEvent(LOG_EVENT_TYPE.INFO, string.Format("Data {0} : max value saturation ({1})", Symbol, m_MaxVal));
+                        LogEvent log = new LogEvent(LOG_EVENT_TYPE.INFO, string.Format(Lang.LangSys.C("Data {0} : max value saturation ({1})"), Symbol, m_MaxVal));
                         AddLogEvent(log);
                     }
                 }
                 else
                 {
-                    LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format("Data {0} is constant, value can't be set", Symbol));
+                    LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format(Lang.LangSys.C("Data {0} is constant, value can't be set"), Symbol));
                     AddLogEvent(log);
                 }
                 // si la valeur de la donnée a changé on le notifie

@@ -23,6 +23,7 @@ namespace CtrlJauge
 
         public CtrlJaugeProperties()
         {
+            DllEntryClass.LangSys.Initialize(this);
             InitializeComponent();
         }
 

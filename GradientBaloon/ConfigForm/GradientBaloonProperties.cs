@@ -21,6 +21,7 @@ namespace GradientBaloon
 
         public GradientBaloonProperties()
         {
+            DllEntryClass.LangSys.Initialize(this);
             InitializeComponent();
         }
 

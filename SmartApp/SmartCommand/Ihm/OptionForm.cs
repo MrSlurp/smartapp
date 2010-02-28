@@ -12,6 +12,7 @@ namespace SmartApp
     {
         public OptionForm()
         {
+            Program.LangSys.Initialize(this);
             InitializeComponent();
         }
 

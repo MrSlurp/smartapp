@@ -16,6 +16,7 @@ namespace CtrlGraph
         int m_iDataIndex = 0;
         public CurveParam()
         {
+            DllEntryClass.LangSys.Initialize(this);
             InitializeComponent();
         }
 
@@ -40,8 +41,8 @@ namespace CtrlGraph
             set
             {
                 m_iDataIndex = value;
-                lblSymb1.Text = string.Format("Data {0} Symbol", m_iDataIndex + 1);
-                lblAlias1.Text = string.Format("Data {0} Alias", m_iDataIndex + 1);
+                lblSymb1.Text = string.Format(DllEntryClass.LangSys.C("Data {0} Symbol"), m_iDataIndex + 1);
+                lblAlias1.Text = string.Format(DllEntryClass.LangSys.C("Data {0} Alias"), m_iDataIndex + 1);
             }
         }
 

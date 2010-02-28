@@ -140,7 +140,7 @@ namespace CommonLib
                                 || (((MessAskDelete)obj).TypeOfItem == typeof(Data) && Script[i].Contains(MessParam.WantDeletetItemSymbol))
                                 )
                             {
-                                string strMess = string.Format("Control {0} Script: Line {1} will be removed", PropOwner.Symbol, i + 1);
+                                string strMess = string.Format(Lang.LangSys.C("Control {0} Script: Line {1} will be removed"), PropOwner.Symbol, i + 1);
                                 MessParam.ListStrReturns.Add(strMess);
                             }
                         }

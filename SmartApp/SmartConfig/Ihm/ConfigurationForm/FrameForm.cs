@@ -29,6 +29,7 @@ namespace SmartApp.Ihm
         //*****************************************************************************************************
         public FrameForm()
         {
+            Program.LangSys.Initialize(this);
             InitializeComponent();
             m_PanelFrameProp.BeforeDataListChange += new BeforeCurrentDataListChange(OnTrameDataListWillChange);
             m_PanelFrameProp.DataListChange += new CurrentDataListChanged(OnTrameDataListChanged);

@@ -72,6 +72,7 @@ namespace SmartApp.Ihm
         //*****************************************************************************************************      
         public DesignerForm()
         {
+            Program.LangSys.Initialize(this);
             InitializeComponent();
             this.m_toolBtnAlignLeft.Image = Resources.AlignLeft;
             this.m_toolBtnAlignTop.Image = Resources.AlignTop;

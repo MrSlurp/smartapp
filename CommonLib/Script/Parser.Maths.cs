@@ -38,7 +38,7 @@ namespace CommonLib
                 }
                 catch (Exception)
                 {
-                    string strErr = string.Format("Invalid Maths function {0}", strScrObject);
+                    string strErr = string.Format(Lang.LangSys.C("Invalid Maths function {0}"), strScrObject);
                     ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
                     ErrorList.Add(Err);
                     return;
@@ -61,13 +61,13 @@ namespace CommonLib
                         //= strParams.Split(',');
                         if (strParamList.Length < 3)
                         {
-                            string strErr = string.Format("Invalid line, not enought parameters for Maths function");
+                            string strErr = string.Format(Lang.LangSys.C("Invalid line, not enought parameters for Maths function"));
                             ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
                             ErrorList.Add(Err);
                         }
                         else if (strParamList.Length > 3)
                         {
-                            string strErr = string.Format("Invalid line, too many parameters for Maths function");
+                            string strErr = string.Format(Lang.LangSys.C("Invalid line, too many parameters for Maths function"));
                             ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
                             ErrorList.Add(Err);
                         }
@@ -84,7 +84,7 @@ namespace CommonLib
             }
             else
             {
-                string strErr = string.Format("Invalid line, missing Maths function");
+                string strErr = string.Format(Lang.LangSys.C("Invalid line, missing Maths function"));
                 ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
                 ErrorList.Add(Err);
             }

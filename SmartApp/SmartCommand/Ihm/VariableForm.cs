@@ -20,6 +20,7 @@ namespace SmartApp
             m_Timer = new Timer();
             m_Timer.Interval = 1500;
             m_Timer.Tick += new EventHandler(OnTimer);
+            Program.LangSys.Initialize(this);
             InitializeComponent();
         }
 

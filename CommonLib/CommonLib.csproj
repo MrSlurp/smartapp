@@ -127,6 +127,12 @@
     <Compile Include="InteractiveControl\SpecificControls\TwoColorFilledRect.Designer.cs">
       <DependentUpon>TwoColorFilledRect.cs</DependentUpon>
     </Compile>
+    <Compile Include="Localisation\FormInfo.cs" />
+    <Compile Include="Localisation\Globals.cs" />
+    <Compile Include="Localisation\ILInstruction.cs" />
+    <Compile Include="Localisation\Lang.cs" />
+    <Compile Include="Localisation\MethodBodyReader.cs" />
+    <Compile Include="Localisation\UserControlInfo.cs" />
     <Compile Include="LogEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources.cs" />

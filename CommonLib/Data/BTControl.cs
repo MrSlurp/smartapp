@@ -510,7 +510,7 @@ namespace CommonLib
                     {
                         if (((MessAskDelete)obj).WantDeletetItemSymbol == m_strAssociateData)
                         {
-                            string strMess = string.Format("Control {0} associate data removed", Symbol);
+                            string strMess = string.Format(Lang.LangSys.C("Control {0} associate data removed"), Symbol);
                             ((MessAskDelete)obj).ListStrReturns.Add(strMess);
                         }
                     }

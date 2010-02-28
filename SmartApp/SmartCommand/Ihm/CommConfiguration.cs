@@ -26,6 +26,7 @@ namespace SmartApp
 
         public CommConfiguration()
         {
+            Program.LangSys.Initialize(this);
             InitializeComponent();
             m_strAppDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName);
             string strIniFilePath = PathTranslator.LinuxVsWindowsPathUse(m_strAppDir + @"\" + Cste.STR_COMINI_FILENAME);

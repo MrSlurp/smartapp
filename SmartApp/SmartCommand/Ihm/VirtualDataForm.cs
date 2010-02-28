@@ -18,6 +18,7 @@ namespace SmartApp
         private GestData m_GestData = null;
         public VirtualDataForm(GestDataVirtual GestVData, GestData GestData)
         {
+            Program.LangSys.Initialize(this);
             InitializeComponent();
             m_GestVirtualData = GestVData;
             m_GestData = GestData;

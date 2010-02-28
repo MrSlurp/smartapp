@@ -22,6 +22,7 @@ namespace SmartApp.Ihm
 
         public ManageGroupForm()
         {
+            Program.LangSys.Initialize(this);
             InitializeComponent();
         }
 

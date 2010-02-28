@@ -64,6 +64,7 @@ namespace CommonLib
         //*****************************************************************************************************
         public ScriptEditordialog()
         {
+            Lang.LangSys.Initialize(this);
             InitializeComponent();
             m_AutoComplListBox.Sorted = true;
         }

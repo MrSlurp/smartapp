@@ -12,6 +12,32 @@ namespace CtrlSerpentin
     public class DllEntryClass : IDllControlInterface
     {
         public const uint Serpentin_Control_ID = 100;
+
+#if BUILD_LANG
+#if TEST_LANG
+        static Lang m_SingLangSys = new Lang(true, true);
+#else
+        static Lang m_SingLangSys = new Lang(true, false);
+#endif
+#else
+        static Lang m_SingLangSys = new Lang();
+#endif
+        public static Lang LangSys
+        {
+            get { return m_SingLangSys; }
+        }
+
+        string m_CurLang;
+        public string CurrentLang
+        {
+            get { return m_CurLang; }
+            set
+            {
+                m_CurLang = value;
+                LangSys.Initialize("EN", m_CurLang, "CtrlSerpentin");
+            }
+        }
+
         public uint DllID
         {
             get

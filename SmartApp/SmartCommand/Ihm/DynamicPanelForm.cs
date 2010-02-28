@@ -28,6 +28,7 @@ namespace SmartApp
 
         public DynamicPanelForm(DynamicPanel DynamicPanel)
         {
+            Program.LangSys.Initialize(this);
             InitializeComponent();
             m_DynamicPanel = DynamicPanel;
             this.Controls.Add(m_DynamicPanel);

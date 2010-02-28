@@ -22,6 +22,7 @@ namespace SmartApp.Ihm.Wizards
 
         public WizardTcpModbusForm()
         {
+            Program.LangSys.Initialize(this);
             InitializeComponent();
             Initialize();
         }

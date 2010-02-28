@@ -9,6 +9,7 @@ namespace CommonLib
     public interface IDllControlInterface
     {
         uint DllID { get; }
+        string CurrentLang { get; set;}
         BTControl CreateBTControl();
         BTControl CreateBTControl(InteractiveControl iCtrl);
         BTControl CreateCommandBTControl();

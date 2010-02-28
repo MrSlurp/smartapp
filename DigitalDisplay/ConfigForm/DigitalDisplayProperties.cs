@@ -22,6 +22,7 @@ namespace DigitalDisplay
 
         public DigitalDisplayProperties()
         {
+            DllEntryClass.LangSys.Initialize(this);
             InitializeComponent();
         }
 

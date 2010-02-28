@@ -24,7 +24,7 @@ namespace CommonLib
                 strFrame = strFrame.Trim();
                 if (m_Document.GestTrame.GetFromSymbol(strFrame) == null)
                 {
-                    string strErr = string.Format("Invalid Frame symbol {0}", strFrame);
+                    string strErr = string.Format(Lang.LangSys.C("Invalid Frame symbol {0}"), strFrame);
                     ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
                     ErrorList.Add(Err);
                     return false;
@@ -33,7 +33,7 @@ namespace CommonLib
             }
             else
             {
-                string strErr = string.Format("Invalid line, missing frame symbol");
+                string strErr = string.Format(Lang.LangSys.C("Invalid line, missing frame symbol"));
                 ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
                 ErrorList.Add(Err);
             }
@@ -67,7 +67,7 @@ namespace CommonLib
                 }
                 catch (Exception)
                 {
-                    string strErr = string.Format("Invalid Frame function {0}", strScrObject);
+                    string strErr = string.Format(Lang.LangSys.C("Invalid Frame function {0}"), strScrObject);
                     ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
                     ErrorList.Add(Err);
                     return;
@@ -88,7 +88,7 @@ namespace CommonLib
             }
             else
             {
-                string strErr = string.Format("Invalid line, missing frame function");
+                string strErr = string.Format(Lang.LangSys.C("Invalid line, missing frame function"));
                 ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
                 ErrorList.Add(Err);
             }

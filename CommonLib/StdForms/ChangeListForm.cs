@@ -14,6 +14,7 @@ namespace CommonLib
         public StringCollection strListMess;
         public ChangeListForm()
         {
+            Lang.LangSys.Initialize(this);
             InitializeComponent();
         }
 

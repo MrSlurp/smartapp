@@ -73,6 +73,7 @@ namespace SmartApp
         //*****************************************************************************************************
         public MDISmartCommandMain()
         {
+            Program.LangSys.Initialize(this, "EN", SmartApp.Properties.Settings.Default.Lang, "SmartApp");
             InitializeComponent();
             CommonConstructorInit();
         }

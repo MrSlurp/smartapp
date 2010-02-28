@@ -21,6 +21,7 @@ namespace CtrlDemux
 
         public CtrlDemuxProperties()
         {
+            DllEntryClass.LangSys.Initialize(this);
             InitializeComponent();
         }
 

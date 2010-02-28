@@ -333,7 +333,7 @@ namespace CommonLib
                 if (Dat == null)
                 {
                     string strMessage;
-                    strMessage = string.Format("Frame Data not found (Frame {0}, Data {1}", m_strSymbol, strData);
+                    strMessage = string.Format(Lang.LangSys.C("Frame Data not found (Frame {0}, Data {1}"), m_strSymbol, strData);
                     LogEvent log = new LogEvent(LOG_EVENT_TYPE.INFO, strMessage);
                     AddLogEvent(log);
                     continue;
@@ -343,7 +343,7 @@ namespace CommonLib
                 if (VDat == null)
                 {
                     string strMessage;
-                    strMessage = string.Format("Frame Data not found (Frame {0}, Data {1}", m_strSymbol, strData);
+                    strMessage = string.Format(Lang.LangSys.C("Frame Data not found (Frame {0}, Data {1}"), m_strSymbol, strData);
                     LogEvent log = new LogEvent(LOG_EVENT_TYPE.INFO, strMessage);
                     AddLogEvent(log);
                     continue;
@@ -355,7 +355,7 @@ namespace CommonLib
             int Taille = GetTrameSizeInByte();
             if (Taille == 0)
             {
-                string strmess = string.Format("Error Frame {0} : frame size is inferior to one Byte", Symbol);
+                string strmess = string.Format(Lang.LangSys.C("Error Frame {0} : frame size is inferior to one Byte"), Symbol);
                 LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, strmess);
                 AddLogEvent(log);
             }
@@ -392,7 +392,7 @@ namespace CommonLib
                         {
                             if (m_ListStrDatas[i] == MessParam.WantDeletetItemSymbol)
                             {
-                                string strMess = string.Format("Frame {0} will lost data", Symbol);
+                                string strMess = string.Format(Lang.LangSys.C("Frame {0} will lost data"), Symbol);
                                 MessParam.ListStrReturns.Add(strMess);
                             }
                         }
@@ -442,7 +442,7 @@ namespace CommonLib
             int Taille = GetTrameSizeInByte();
             if (Taille == 0)
             {
-                string strmess = string.Format("Error Frame {0} : frame size is inferior to one Byte", Symbol);
+                string strmess = string.Format(Lang.LangSys.C("Error Frame {0} : frame size is inferior to one Byte"), Symbol);
                 LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, strmess);
                 AddLogEvent(log);
                 return null;
@@ -471,7 +471,7 @@ namespace CommonLib
             int SizeofTrameToRecieve = GetConvertedTrameSizeInByte();
             if (buffer.Length != SizeofTrameToRecieve)
             {
-                string strmess = string.Format("Error reading frame {0}, {1} bytes recieved, {2} exepected", Symbol, buffer.Length, SizeofTrameToRecieve);
+                string strmess = string.Format(Lang.LangSys.C("Error reading frame {0}, {1} bytes recieved, {2} exepected"), Symbol, buffer.Length, SizeofTrameToRecieve);
                 LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, strmess);
                 AddLogEvent(log);              
                 return false;

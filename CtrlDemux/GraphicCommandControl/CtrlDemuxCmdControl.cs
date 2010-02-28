@@ -83,7 +83,7 @@ namespace CtrlDemux
                         continue;
 
                     string strMessage;
-                    strMessage = string.Format("Demux Output Data not found (Demux {0}, Data {1}", m_strSymbol, strData);
+                    strMessage = string.Format(DllEntryClass.LangSys.C("Demux Output Data not found (Demux {0}, Data {1}"), m_strSymbol, strData);
                     LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, strMessage);
                     AddLogEvent(log);
                     DemuxParemtersOK = false;
@@ -95,7 +95,7 @@ namespace CtrlDemux
             if (Dat2 == null)
             {
                 string strMessage;
-                strMessage = string.Format("Demux adress Data not found (Demux {0}, Data {1}", m_strSymbol, Props.AdressData);
+                strMessage = string.Format(DllEntryClass.LangSys.C("Demux adress Data not found (Demux {0}, Data {1}"), m_strSymbol, Props.AdressData);
                 LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, strMessage);
                 AddLogEvent(log);
                 DemuxParemtersOK = false;
@@ -107,7 +107,7 @@ namespace CtrlDemux
             if (Dat3 == null)
             {
                 string strMessage;
-                strMessage = string.Format("Demux value Data not found (Demux {0}, Data {1}", m_strSymbol, Props.ValueData);
+                strMessage = string.Format(DllEntryClass.LangSys.C("Demux value Data not found (Demux {0}, Data {1}"), m_strSymbol, Props.ValueData);
                 LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, strMessage);
                 AddLogEvent(log);
                 DemuxParemtersOK = false;
@@ -118,7 +118,7 @@ namespace CtrlDemux
             if (!DemuxParemtersOK)
             {
                 string strMessage;
-                strMessage = string.Format("Demux {0} have some invalid parameters. Demux Disabled", m_strSymbol, Props.ValueData);
+                strMessage = string.Format(DllEntryClass.LangSys.C("Demux {0} have some invalid parameters. Demux Disabled"), m_strSymbol, Props.ValueData);
                 LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, strMessage);
                 AddLogEvent(log);
             }

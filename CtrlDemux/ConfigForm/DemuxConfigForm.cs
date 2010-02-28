@@ -58,6 +58,7 @@ namespace CtrlDemux
 
         public DemuxConfigForm()
         {
+            DllEntryClass.LangSys.Initialize(this);
             InitializeComponent();
             m_listViewData_SelectedIndexChanged(m_listViewData, null);
         }

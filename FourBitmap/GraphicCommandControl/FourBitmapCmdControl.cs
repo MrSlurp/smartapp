@@ -41,7 +41,7 @@ namespace FourBitmap
                 }
                 catch (Exception)
                 {
-                    LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format("Control {0} Failed to load file {1}", Symbol, strImageFullPath));
+                    LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format(DllEntryClass.LangSys.C("Control {0} Failed to load file {1}"), Symbol, strImageFullPath));
                     AddLogEvent(log);
                 }
 
@@ -55,7 +55,7 @@ namespace FourBitmap
                 {
                     if (m_AssociateData != null)
                     {
-                        LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format("Control {0} Failed to load file {1}", Symbol, strImageFullPath));
+                        LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format(DllEntryClass.LangSys.C("Control {0} Failed to load file {1}"), Symbol, strImageFullPath));
                         AddLogEvent(log);
                     }
                 }
@@ -70,7 +70,7 @@ namespace FourBitmap
                 {
                     if (m_AssociateData != null)
                     {
-                        LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format("Control {0} Failed to load file {1}", Symbol, strImageFullPath));
+                        LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format(DllEntryClass.LangSys.C("Control {0} Failed to load file {1}"), Symbol, strImageFullPath));
                         AddLogEvent(log);
                     }
                 }
@@ -85,7 +85,7 @@ namespace FourBitmap
                 {
                     if (m_AssociateData != null)
                     {
-                        LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format("Control {0} Failed to load file {1}", Symbol, strImageFullPath));
+                        LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format(DllEntryClass.LangSys.C("Control {0} Failed to load file {1}"), Symbol, strImageFullPath));
                         AddLogEvent(log);
                     }
                 }

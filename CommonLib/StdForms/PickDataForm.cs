@@ -34,6 +34,7 @@ namespace CommonLib
 
         public PickDataForm()
         {
+            Lang.LangSys.Initialize(this);
             InitializeComponent();
         }
 

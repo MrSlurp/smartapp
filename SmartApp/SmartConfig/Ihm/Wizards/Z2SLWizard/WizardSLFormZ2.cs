@@ -26,6 +26,7 @@ namespace SmartApp.Ihm.Wizards
         //*****************************************************************************************************
         public WizardSLFormZ2()
         {
+            Program.LangSys.Initialize(this);
             InitializeComponent();
             Initialize();
         }

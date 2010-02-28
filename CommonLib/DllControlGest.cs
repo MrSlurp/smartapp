@@ -12,10 +12,17 @@ namespace CommonLib
     {
         private List<IDllControlInterface> m_ListDlls = new List<IDllControlInterface>();
         private Hashtable m_HashDllIDs = new Hashtable();
+        private string mCurrentLang;
 
         public DllControlGest()
         {
 
+        }
+
+        public string CurrentLang
+        {
+            get { return mCurrentLang; }
+            set { mCurrentLang = value; }
         }
 
         public void LoadExistingDlls()
@@ -41,13 +48,14 @@ namespace CommonLib
                                 IDllControlInterface oDll = (IDllControlInterface)Dll.CreateInstance(oType.FullName);
                                 if (oDll != null)
                                 {
+                                    oDll.CurrentLang = mCurrentLang;
                                     m_HashDllIDs.Add(oDll.DllID, oDll);
                                     m_ListDlls.Add(oDll);
                                 }
                             }
                             catch (Exception e)
                             {
-                                MessageBox.Show(string.Format("Error while loading Plugins controls (Error in DLL {0})\n Plugins control will not be available", oType.Assembly.FullName), "Error plugins loading ");
+                                MessageBox.Show(string.Format(Lang.LangSys.C("Error while loading Plugins controls (Error in DLL {0})\n Plugins control will not be available"), oType.Assembly.FullName), Lang.LangSys.C("Error plugins loading"));
                                 Console.WriteLine(e.Message);
                             }
                         }

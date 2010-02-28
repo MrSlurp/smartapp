@@ -21,6 +21,7 @@ namespace CtrlGraph
 
         public CtrlGraphProperties()
         {
+            DllEntryClass.LangSys.Initialize(this);
             InitializeComponent();
         }
 

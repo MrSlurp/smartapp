@@ -12,6 +12,7 @@ namespace SmartApp.Ihm
     {
         public WaitOpenCommForm()
         {
+            Program.LangSys.Initialize(this);
             InitializeComponent();
         }
     }

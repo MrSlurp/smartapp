@@ -5,5 +5,8 @@
     <Setting Name="LogLevel" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">5</Value>
     </Setting>
+    <Setting Name="Lang" Type="System.String" Scope="User">
+      <Value Profile="(Default)">FR</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

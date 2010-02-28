@@ -129,19 +129,19 @@ namespace CtrlDemux
                             string strMess = string.Empty;
                             if (MessParam.WantDeletetItemSymbol == m_strAdressData)
                             {
-                                strMess = string.Format("Demux {0} : Adresse Data will be removed", PropOwner.Symbol);
+                                strMess = string.Format(DllEntryClass.LangSys.C("Demux {0} : Adresse Data will be removed"), PropOwner.Symbol);
                                 MessParam.ListStrReturns.Add(strMess);
                             }
                             if (MessParam.WantDeletetItemSymbol == m_strValueData)
                             {
-                                strMess = string.Format("Demux {0} : Value Data will be removed", PropOwner.Symbol);
+                                strMess = string.Format(DllEntryClass.LangSys.C("Demux {0} : Value Data will be removed"), PropOwner.Symbol);
                                 MessParam.ListStrReturns.Add(strMess);
                             }
                             for (int i = 0; i < m_ListDemuxData.Count; i++)
                             {
                                 if (m_ListDemuxData[i] == MessParam.WantDeletetItemSymbol)
                                 {
-                                    strMess = string.Format("Demux {0} : Ouput Data will be removed", PropOwner.Symbol);
+                                    strMess = string.Format(DllEntryClass.LangSys.C("Demux {0} : Ouput Data will be removed"), PropOwner.Symbol);
                                     MessParam.ListStrReturns.Add(strMess);
                                 }
                             }
