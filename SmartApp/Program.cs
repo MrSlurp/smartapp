@@ -8,7 +8,15 @@ namespace SmartApp
 {
     static class Program
     {
+#if BUILD_LANG
+#if TEST_LANG
+        static Lang m_SingLangSys = new Lang(true, true);
+#else
+        static Lang m_SingLangSys = new Lang(true, false);
+#endif
+#else
         static Lang m_SingLangSys = new Lang();
+#endif
         public static Lang LangSys
         {
             get { return m_SingLangSys; }

@@ -1,0 +1,21 @@
+
+msgid "Demux {0} : Adresse Data will be removed"
+msgstr ""
+
+msgid "Demux {0} : Value Data will be removed"
+msgstr ""
+
+msgid "Demux {0} : Ouput Data will be removed"
+msgstr ""
+
+msgid "Demux Output Data not found (Demux {0}, Data {1}"
+msgstr ""
+
+msgid "Demux adress Data not found (Demux {0}, Data {1}"
+msgstr ""
+
+msgid "Demux value Data not found (Demux {0}, Data {1}"
+msgstr ""
+
+msgid "Demux {0} have some invalid parameters. Demux Disabled"
+msgstr ""

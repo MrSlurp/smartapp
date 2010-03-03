@@ -1,0 +1,220 @@
+
+msgid "Timer {0} Script: Line {1} will be removed"
+msgstr ""
+
+msgid "Screen {0} Script: Line {1} will be removed"
+msgstr ""
+
+msgid "Function {0} Script: Line {1} will be removed"
+msgstr ""
+
+msgid "Control {0} Script: Line {1} will be removed"
+msgstr ""
+
+msgid "Control {0} associate data removed"
+msgstr ""
+
+msgid "Invalid Screen symbol {0}"
+msgstr ""
+
+msgid "Invalid Screen function {0}"
+msgstr ""
+
+msgid "Invalid line, missing screen function"
+msgstr ""
+
+msgid "Invalid Maths function {0}"
+msgstr ""
+
+msgid "Invalid line, not enought parameters for Maths function"
+msgstr ""
+
+msgid "Invalid line, too many parameters for Maths function"
+msgstr ""
+
+msgid "Invalid line, missing Maths function"
+msgstr ""
+
+msgid "Invalid logic function {0}"
+msgstr ""
+
+msgid "Invalid line, not enought parameters for Logic function"
+msgstr ""
+
+msgid "Invalid line, too many parameters for Logic function"
+msgstr ""
+
+msgid "Invalid Timer symbol {0}"
+msgstr ""
+
+msgid "Invalid Timer function {0}"
+msgstr ""
+
+msgid "Invalid line, missing timer function"
+msgstr ""
+
+msgid "Invalid Frame symbol {0}"
+msgstr ""
+
+msgid "Invalid line, missing frame symbol"
+msgstr ""
+
+msgid "Invalid Frame function {0}"
+msgstr ""
+
+msgid "Invalid line, missing frame function"
+msgstr ""
+
+msgid "Invalid Logger symbol {0}"
+msgstr ""
+
+msgid "Invalid line, missing Logger symbol"
+msgstr ""
+
+msgid "Invalid Logger function {0}"
+msgstr ""
+
+msgid "Invalid line, missing logger function"
+msgstr ""
+
+msgid "Unkown keyword"
+msgstr ""
+
+msgid "Invalid line"
+msgstr ""
+
+msgid "Invalid Keyword {0}"
+msgstr ""
+
+msgid "Syntax Error : Missing '('"
+msgstr ""
+
+msgid "Syntax Error : Missing ')'"
+msgstr ""
+
+msgid "Invalid line, one parameter or more is empty"
+msgstr ""
+
+msgid "Invalid Data symbol {0}"
+msgstr ""
+
+msgid "Invalid constant value for , must be between {0} and {1}"
+msgstr ""
+
+msgid "Data {0} : Enter min value saturation ({1})"
+msgstr ""
+
+msgid "Data {0} : Enter max value saturation ({1})"
+msgstr ""
+
+msgid "Data {0} : Leave saturation"
+msgstr ""
+
+msgid "Data {0} is constant, value can't be set"
+msgstr ""
+
+msgid "The file is corrupted"
+msgstr ""
+
+msgid "This file have been created with an oldest version, if you save this file, you will not be able tio read it with previous version"
+msgstr ""
+
+msgid "Warning"
+msgstr ""
+
+msgid "This file have been created with a newer version, see website for updating your software"
+msgstr ""
+
+msgid "Default group"
+msgstr ""
+
+msgid ""
+msgstr ""
+
+msgid "Missing plugins (ID = {1}) for object {0}
+If you save the file, object will be lost"
+msgstr ""
+
+msgid "WARINING"
+msgstr ""
+
+msgid "Screen {0} Failed to load file {1}"
+msgstr ""
+
+msgid "Frame Data not found (Frame {0}, Data {1}"
+msgstr ""
+
+msgid "Error Frame {0} : frame size is inferior to one Byte"
+msgstr ""
+
+msgid "Frame {0} will lost data"
+msgstr ""
+
+msgid "Error reading frame {0}, {1} bytes recieved, {2} exepected"
+msgstr ""
+
+msgid "Data to log not found (Logger {0}, Data {1}"
+msgstr ""
+
+msgid "Logger {0} will lost data"
+msgstr ""
+
+msgid "{0} Can't start standard logger"
+msgstr ""
+
+msgid "{0} Can't access file"
+msgstr ""
+
+msgid "{0} No Data to log"
+msgstr ""
+
+msgid "Unable to open comm, Check connection configuration"
+msgstr ""
+
+msgid "Error opening comm"
+msgstr ""
+
+msgid "Connexion with remote controller lost"
+msgstr ""
+
+msgid "Failed to find {0}"
+msgstr ""
+
+msgid "Trying sending frame {0} while connection is closed"
+msgstr ""
+
+msgid "Message {0} have not been recieved (Timeout)"
+msgstr ""
+
+msgid "Error reading message {0} (Recieved frame is not the one expected)"
+msgstr ""
+
+msgid "Error reading message {0}"
+msgstr ""
+
+msgid "Division by zero forbidden"
+msgstr ""
+
+msgid "Lang"
+msgstr ""
+
+msgid "Error while loading Plugins controls (Error in DLL {0})
+ Plugins control will not be available"
+msgstr ""
+
+msgid "Error plugins loading"
+msgstr ""
+
+msgid "Data {0} : min value saturation ({1})"
+msgstr ""
+
+msgid "Data {0} : max value saturation ({1})"
+msgstr ""
+
+msgid "Missing plugins (ID = {1}) for object {0}
+If you save the file, object will be lost"
+msgstr ""
+
+msgid "Error while loading Plugins controls (Error in DLL {0})
+ Plugins control will not be available"
+msgstr ""

@@ -73,11 +73,11 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'BuildLang|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>..\Prod\Debug\</OutputPath>
-    <IntermediatePath>..\obj\Debug\</IntermediatePath>
-    <IntermediateOuputPath>..\obj\Debug\</IntermediateOuputPath>
-    <BaseIntermediateOutputPath>..\obj\Debug\</BaseIntermediateOutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <OutputPath>..\Prod\BuildLang\</OutputPath>
+    <IntermediatePath>..\obj\BuildLang\</IntermediatePath>
+    <IntermediateOuputPath>..\obj\BuildLang\</IntermediateOuputPath>
+    <BaseIntermediateOutputPath>..\obj\BuildLang\</BaseIntermediateOutputPath>
+    <DefineConstants>TRACE;BUILD_LANG</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
@@ -743,6 +743,7 @@
     <None Include="ImgLib\Anti retour\.svn\text-base\AntiRetourN.png.svn-base" />
     <None Include="ImgLib\Anti retour\.svn\text-base\AntiRetourS.png.svn-base" />
     <None Include="ImgLib\Anti retour\.svn\text-base\AntiRetourW.png.svn-base" />
+    <None Include="Lang\FR.SmartApp.po" />
     <None Include="SmartApp.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

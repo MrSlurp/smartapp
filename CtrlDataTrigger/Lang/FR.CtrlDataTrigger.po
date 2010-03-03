@@ -1,0 +1,3 @@
+
+msgid "Data Trigger {0} : Data "
+msgstr ""

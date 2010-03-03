@@ -1,0 +1,393 @@
+
+msgid "ToolStrip"
+msgstr ""
+
+msgid "New"
+msgstr ""
+
+msgid "Open"
+msgstr ""
+
+msgid "Save"
+msgstr ""
+
+msgid "Print"
+msgstr ""
+
+msgid "Print Preview"
+msgstr ""
+
+msgid "Help"
+msgstr ""
+
+msgid "MenuStrip"
+msgstr ""
+
+msgid "&File"
+msgstr ""
+
+msgid "&New"
+msgstr ""
+
+msgid "&Open"
+msgstr ""
+
+msgid "Close file"
+msgstr ""
+
+msgid "&Save"
+msgstr ""
+
+msgid "Save &As"
+msgstr ""
+
+msgid "&Print"
+msgstr ""
+
+msgid "Print Pre&view"
+msgstr ""
+
+msgid "Print Setup"
+msgstr ""
+
+msgid "Recent Fles"
+msgstr ""
+
+msgid "E&xit"
+msgstr ""
+
+msgid "&Edit"
+msgstr ""
+
+msgid "&Undo"
+msgstr ""
+
+msgid "&Redo"
+msgstr ""
+
+msgid "Cu&t"
+msgstr ""
+
+msgid "&Copy"
+msgstr ""
+
+msgid "&Paste"
+msgstr ""
+
+msgid "Select &All"
+msgstr ""
+
+msgid "&Tools"
+msgstr ""
+
+msgid "&Options"
+msgstr ""
+
+msgid "Jump to SmartCommand"
+msgstr ""
+
+msgid "M3 SL blocs Wizard"
+msgstr ""
+
+msgid "Z2 SL blocs Wizard"
+msgstr ""
+
+msgid "TCP Modbus Wizard"
+msgstr ""
+
+msgid "&View"
+msgstr ""
+
+msgid "&Toolbar"
+msgstr ""
+
+msgid "&Status Bar"
+msgstr ""
+
+msgid "&Windows"
+msgstr ""
+
+msgid "&Cascade"
+msgstr ""
+
+msgid "Tile &Vertical"
+msgstr ""
+
+msgid "Tile &Horizontal"
+msgstr ""
+
+msgid "C&lose All"
+msgstr ""
+
+msgid "&Arrange Icons"
+msgstr ""
+
+msgid "&Help"
+msgstr ""
+
+msgid "&Index"
+msgstr ""
+
+msgid "&About ..."
+msgstr ""
+
+msgid "Plugins versions"
+msgstr ""
+
+msgid "Datas configuration"
+msgstr ""
+
+msgid "Manage Groups"
+msgstr ""
+
+msgid "New Data"
+msgstr ""
+
+msgid "Symbol"
+msgstr ""
+
+msgid "Constant"
+msgstr ""
+
+msgid "Size"
+msgstr ""
+
+msgid "Values"
+msgstr ""
+
+msgid "0"
+msgstr ""
+
+msgid "Default"
+msgstr ""
+
+msgid "Max"
+msgstr ""
+
+msgid "Min"
+msgstr ""
+
+msgid "Description"
+msgstr ""
+
+msgid "Screens configuration"
+msgstr ""
+
+msgid "Screens"
+msgstr ""
+
+msgid "Title"
+msgstr ""
+
+msgid "Remove background image"
+msgstr ""
+
+msgid "..."
+msgstr ""
+
+msgid "Background Image"
+msgstr ""
+
+msgid "Tools"
+msgstr ""
+
+msgid "Button"
+msgstr ""
+
+msgid "CheckBox"
+msgstr ""
+
+msgid "Slider"
+msgstr ""
+
+msgid "Numeric Up/Down"
+msgstr ""
+
+msgid "Text"
+msgstr ""
+
+msgid "Combo"
+msgstr ""
+
+msgid "Item"
+msgstr ""
+
+msgid "Control Options"
+msgstr ""
+
+msgid "No selection"
+msgstr ""
+
+msgid "Read Only"
+msgstr ""
+
+msgid "Use Screen Event"
+msgstr ""
+
+msgid "Associate Data"
+msgstr ""
+
+msgid "Item Script"
+msgstr ""
+
+msgid "Edit Script"
+msgstr ""
+
+msgid "No Screen"
+msgstr ""
+
+msgid "toolStrip1"
+msgstr ""
+
+msgid "Align left"
+msgstr ""
+
+msgid "Align top"
+msgstr ""
+
+msgid "Make same width"
+msgstr ""
+
+msgid "Make same height"
+msgstr ""
+
+msgid "Make same size"
+msgstr ""
+
+msgid "Make horizonntal spacing equal"
+msgstr ""
+
+msgid "Make vertical spacing equal"
+msgstr ""
+
+msgid "Sizes"
+msgstr ""
+
+msgid "Increase width"
+msgstr ""
+
+msgid "Decrease width"
+msgstr ""
+
+msgid "Increase height"
+msgstr ""
+
+msgid "Decrease height"
+msgstr ""
+
+msgid "Positions"
+msgstr ""
+
+msgid "Move left"
+msgstr ""
+
+msgid "Move right"
+msgstr ""
+
+msgid "Move up"
+msgstr ""
+
+msgid "Move down"
+msgstr ""
+
+msgid "Bring to front"
+msgstr ""
+
+msgid "Save to bitmap"
+msgstr ""
+
+msgid "Frames configuration"
+msgstr ""
+
+msgid "New Frame"
+msgstr ""
+
+msgid "Number of data"
+msgstr ""
+
+msgid "Frame properties"
+msgstr ""
+
+msgid "Conversion"
+msgstr ""
+
+msgid "Type"
+msgstr ""
+
+msgid "To"
+msgstr ""
+
+msgid "From"
+msgstr ""
+
+msgid "Control Data"
+msgstr ""
+
+msgid "8 bits"
+msgstr ""
+
+msgid "Frame datas"
+msgstr ""
+
+msgid "Data Symbol"
+msgstr ""
+
+msgid "Default Value"
+msgstr ""
+
+msgid "Program"
+msgstr ""
+
+msgid "Timers"
+msgstr ""
+
+msgid "new"
+msgstr ""
+
+msgid "Period"
+msgstr ""
+
+msgid "Auto Start"
+msgstr ""
+
+msgid "ms"
+msgstr ""
+
+msgid "50"
+msgstr ""
+
+msgid "Timer Period"
+msgstr ""
+
+msgid "Script"
+msgstr ""
+
+msgid "loggers"
+msgstr ""
+
+msgid "Logger Symbol"
+msgstr ""
+
+msgid ".csv"
+msgstr ""
+
+msgid "Normal"
+msgstr ""
+
+msgid "Logger Period"
+msgstr ""
+
+msgid "Output file name"
+msgstr ""
+
+msgid "csv Separator"
+msgstr ""
+
+msgid "Logger Type"
+msgstr ""
+
+msgid "Tabulation"
+msgstr ""
+
+msgid "Functions"
+msgstr ""

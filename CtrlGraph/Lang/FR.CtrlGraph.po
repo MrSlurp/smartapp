@@ -1,0 +1,12 @@
+
+msgid "Graphic {0} will lost data"
+msgstr ""
+
+msgid "Data to log not found (Graphic {0}, Data {1}"
+msgstr ""
+
+msgid "Data {0} Symbol"
+msgstr ""
+
+msgid "Data {0} Alias"
+msgstr ""
