@@ -71,6 +71,17 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'BuildLang|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\Prod\Debug\</OutputPath>
+    <IntermediatePath>..\obj\Debug\</IntermediatePath>
+    <IntermediateOuputPath>..\obj\Debug\</IntermediateOuputPath>
+    <BaseIntermediateOutputPath>..\obj\Debug\</BaseIntermediateOutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />

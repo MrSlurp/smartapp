@@ -29,9 +29,20 @@
     <IntermediatePath>..\obj\Release\</IntermediatePath>
     <IntermediateOuputPath>..\obj\Release\</IntermediateOuputPath>
     <BaseIntermediateOutputPath>..\obj\Release\</BaseIntermediateOutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;QUICK_MOTOR</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'BuildLang|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\Prod\BuildLang\</OutputPath>
+    <IntermediatePath>..\obj\BuildLang\</IntermediatePath>
+    <IntermediateOuputPath>..\obj\BuildLang\</IntermediateOuputPath>
+    <BaseIntermediateOutputPath>..\obj\BuildLang\</BaseIntermediateOutputPath>
+    <DefineConstants>TRACE;DEBUG;QUICK_MOTOR, BUILD_LANG</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

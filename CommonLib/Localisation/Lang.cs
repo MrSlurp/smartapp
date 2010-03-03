@@ -226,6 +226,22 @@ namespace CommonLib
             } 
         }
 
+        static public string C(string DevText, Lang LangSys)
+        {
+            // trouve le fichier de langue
+#if !PocketPC
+            string FilePath = Path.GetDirectoryName(Assembly.GetCallingAssembly().Location);
+#else
+            string FilePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
+#endif
+            FilePath = Path.Combine(FilePath, LANG_DIRECTORY_NAME);
+            //FilePath = Path.Combine(FilePath, mCurrentLangage + ".po");
+            if (string.IsNullOrEmpty(DevText))
+                return string.Empty;
+            else
+                return LangSys.C(FilePath, DevText);
+        }
+
         /// <summary>
         /// Retourne le texte localisé de l'appelant
         /// </summary>

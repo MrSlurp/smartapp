@@ -286,6 +286,38 @@
     }
     "Configurations"
     {
+        "BuildLang"
+        {
+        "DisplayName" = "8:BuildLang"
+        "IsDebugOnly" = "11:FALSE"
+        "IsReleaseOnly" = "11:FALSE"
+        "OutputFilename" = "8:BuildLang\\SetupSmartApp.msi"
+        "PackageFilesAs" = "3:2"
+        "PackageFileSize" = "3:-2147483648"
+        "CabType" = "3:1"
+        "Compression" = "3:3"
+        "SignOutput" = "11:FALSE"
+        "CertificateFile" = "8:"
+        "PrivateKeyFile" = "8:"
+        "TimeStampServer" = "8:"
+        "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Net.Framework.2.0"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 2.0"
+                    "ProductCode" = "8:Microsoft.Net.Framework.2.0"
+                    }
+                }
+            }
+        }
         "Debug"
         {
         "DisplayName" = "8:Debug"
@@ -585,7 +617,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:CommonLib, Version=2.4.3.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:CommonLib, Version=2.5.1.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_BE4FC4B4529573AC5B873BF5094B5E5A"
@@ -1353,7 +1385,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_02E63C948F23424D8DD7AA34561CC24D"
             {
-            "SourcePath" = "8:..\\obj\\Release\\Release\\FourBitmap.dll"
+            "SourcePath" = "8:..\\FourBitmap\\obj\\BuildLang\\FourBitmap.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8421F5FDC69F48CA8248FC20B9EEBC38"
@@ -1381,7 +1413,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_118CC6BE63C245D993479E97588549FA"
             {
-            "SourcePath" = "8:..\\obj\\Release\\Release\\CtrlGraph.dll"
+            "SourcePath" = "8:..\\CtrlGraph\\obj\\BuildLang\\CtrlGraph.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8421F5FDC69F48CA8248FC20B9EEBC38"
@@ -1409,7 +1441,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_11A77C95C80A47E982A0DD860FF76C84"
             {
-            "SourcePath" = "8:..\\obj\\Release\\Release\\GradientBaloon.dll"
+            "SourcePath" = "8:..\\GradientBaloon\\obj\\BuildLang\\GradientBaloon.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8421F5FDC69F48CA8248FC20B9EEBC38"
@@ -1437,7 +1469,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_2DAC164338CC4F44921DF3FD6DCD20D0"
             {
-            "SourcePath" = "8:..\\obj\\Release\\Release\\CtrlJauge.dll"
+            "SourcePath" = "8:..\\CtrlJauge\\obj\\BuildLang\\CtrlJauge.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8421F5FDC69F48CA8248FC20B9EEBC38"
@@ -1465,7 +1497,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_2E21CDD5506149EB99D4AC9AB068F560"
             {
-            "SourcePath" = "8:..\\obj\\Release\\Release\\CtrlDataTrigger.dll"
+            "SourcePath" = "8:..\\CtrlDataTrigger\\obj\\BuildLang\\CtrlDataTrigger.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8421F5FDC69F48CA8248FC20B9EEBC38"
@@ -1493,7 +1525,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_3E3AFC53A79F438A9E8825628FBF38C2"
             {
-            "SourcePath" = "8:..\\obj\\Release\\Release\\CtrlSerpentin.dll"
+            "SourcePath" = "8:..\\CtrlSerpentin\\obj\\BuildLang\\CtrlSerpentin.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8421F5FDC69F48CA8248FC20B9EEBC38"
@@ -1577,7 +1609,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_4C9F4229D2B64447A88FC59B02CBB014"
             {
-            "SourcePath" = "8:..\\obj\\Release\\Release\\CtrlTwoBitmap.dll"
+            "SourcePath" = "8:..\\CtrlTwoBitmap\\obj\\BuildLang\\CtrlTwoBitmap.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8421F5FDC69F48CA8248FC20B9EEBC38"
@@ -1661,7 +1693,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_B32CBED26CFC4272B17AA02D003C2F52"
             {
-            "SourcePath" = "8:..\\obj\\Release\\Release\\FormatedDisplay.dll"
+            "SourcePath" = "8:..\\FormatedDisplay\\obj\\BuildLang\\FormatedDisplay.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8421F5FDC69F48CA8248FC20B9EEBC38"
@@ -1689,7 +1721,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_BB858A71E3BC4B3F865A62D0D2D5D75F"
             {
-            "SourcePath" = "8:..\\obj\\Release\\Release\\DigitalDisplay.dll"
+            "SourcePath" = "8:..\\DigitalDisplay\\obj\\BuildLang\\DigitalDisplay.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8421F5FDC69F48CA8248FC20B9EEBC38"
@@ -1717,7 +1749,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_ED6AD66369934C128648CBD99834A9DC"
             {
-            "SourcePath" = "8:..\\obj\\Release\\Release\\SmartApp.exe"
+            "SourcePath" = "8:..\\SmartApp\\obj\\BuildLang\\SmartApp.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8421F5FDC69F48CA8248FC20B9EEBC38"
@@ -1745,7 +1777,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_F40EE24552644B2E982E6BA140CF8DE8"
             {
-            "SourcePath" = "8:..\\obj\\Release\\Release\\CtrlDemux.dll"
+            "SourcePath" = "8:..\\CtrlDemux\\obj\\BuildLang\\CtrlDemux.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8421F5FDC69F48CA8248FC20B9EEBC38"

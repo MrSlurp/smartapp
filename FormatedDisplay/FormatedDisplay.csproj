@@ -18,7 +18,7 @@
     <IntermediatePath>..\obj\Debug\</IntermediatePath>
     <IntermediateOuputPath>..\obj\Debug\</IntermediateOuputPath>
     <BaseIntermediateOutputPath>..\obj\Debug\</BaseIntermediateOutputPath>
-    <DefineConstants>TRACE;DEBUG;BUILD_LANG</DefineConstants>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -33,13 +33,13 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug Test|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'BuildLang|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>..\Prod\Debug\</OutputPath>
-    <IntermediatePath>..\obj\Debug\</IntermediatePath>
-    <IntermediateOuputPath>..\obj\Debug\</IntermediateOuputPath>
-    <BaseIntermediateOutputPath>..\obj\Debug\</BaseIntermediateOutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <OutputPath>..\Prod\BuildLang\</OutputPath>
+    <IntermediatePath>..\obj\BuildLang\</IntermediatePath>
+    <IntermediateOuputPath>..\obj\BuildLang\</IntermediateOuputPath>
+    <BaseIntermediateOutputPath>..\obj\BuildLang\</BaseIntermediateOutputPath>
+    <DefineConstants>TRACE;DEBUG;BUILD_LANG</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>

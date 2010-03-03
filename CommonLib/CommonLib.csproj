@@ -29,18 +29,18 @@
     <IntermediatePath>..\obj\Release\</IntermediatePath>
     <IntermediateOuputPath>..\obj\Release\</IntermediateOuputPath>
     <BaseIntermediateOutputPath>..\obj\Release\</BaseIntermediateOutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;QUICK_MOTOR</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug Test|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'BuildLang|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>..\Prod\Release\</OutputPath>
-    <IntermediatePath>..\obj\Debug\</IntermediatePath>
-    <IntermediateOuputPath>..\obj\Debug\</IntermediateOuputPath>
-    <BaseIntermediateOutputPath>..\obj\Debug\</BaseIntermediateOutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <OutputPath>..\Prod\BuildLang\</OutputPath>
+    <IntermediatePath>..\obj\BuildLang\</IntermediatePath>
+    <IntermediateOuputPath>..\obj\BuildLang\</IntermediateOuputPath>
+    <BaseIntermediateOutputPath>..\obj\BuildLang\</BaseIntermediateOutputPath>
+    <DefineConstants>TRACE;DEBUG;QUICK_MOTOR, BUILD_LANG</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
