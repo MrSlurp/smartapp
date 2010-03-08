@@ -26,6 +26,11 @@ namespace SmartApp
         static Form m_CurrentMainForm = null;
         static DllControlGest m_GestDlls = new DllControlGest();
 
+        public static void ChangePluginLang(string Lang)
+        {
+            m_GestDlls.ChangeLang(Lang);
+        }
+
         private static TYPE_APP m_TypeApp = TYPE_APP.NONE;
 
         public static bool SetDefaultTextRenderingCalled = false;
@@ -81,8 +86,9 @@ namespace SmartApp
             Application.SetCompatibleTextRenderingDefault(false);
             Traces.Initialize(Application.StartupPath, "TraceSmartApp.txt", SmartApp.Properties.Settings.Default.LogLevel);
             CommonLib.Resources.InitializeBitmap();
-            CommonLib.Lang.InitCommonLibLang("EN", SmartApp.Properties.Settings.Default.Lang);
+            CommonLib.Lang.InitCommonLibLang(Cste.STR_DEV_LANG, SmartApp.Properties.Settings.Default.Lang);
             m_GestDlls.CurrentLang = SmartApp.Properties.Settings.Default.Lang;
+
             m_GestDlls.LoadExistingDlls();
             LaunchArgParser.ParseArguments(strArgsList);
             m_TypeApp = LaunchArgParser.GetTypeApp(strArgsList);

@@ -1,0 +1,262 @@
+
+msgid "Timer {0} Script: Line {1} will be removed"
+msgstr "Timer {0} Script: Line {1} will be removed"
+
+msgid "Screen {0} Script: Line {1} will be removed"
+msgstr "Screen {0} Script: Line {1} will be removed"
+
+msgid "Function {0} Script: Line {1} will be removed"
+msgstr "Function {0} Script: Line {1} will be removed"
+
+msgid "Control {0} Script: Line {1} will be removed"
+msgstr "Control {0} Script: Line {1} will be removed"
+
+msgid "Control {0} associate data removed"
+msgstr "Control {0} associate data removed"
+
+msgid "Invalid Screen symbol {0}"
+msgstr "Invalid Screen symbol {0}"
+
+msgid "Invalid Screen function {0}"
+msgstr "Invalid Screen function {0}"
+
+msgid "Invalid line, missing screen function"
+msgstr "Invalid line, missing screen function"
+
+msgid "Invalid Maths function {0}"
+msgstr "Invalid Maths function {0}"
+
+msgid "Invalid line, not enought parameters for Maths function"
+msgstr "Invalid line, not enought parameters for Maths function"
+
+msgid "Invalid line, too many parameters for Maths function"
+msgstr "Invalid line, too many parameters for Maths function"
+
+msgid "Invalid line, missing Maths function"
+msgstr "Invalid line, missing Maths function"
+
+msgid "Invalid logic function {0}"
+msgstr "Invalid logic function {0}"
+
+msgid "Invalid line, not enought parameters for Logic function"
+msgstr "Invalid line, not enought parameters for Logic function"
+
+msgid "Invalid line, too many parameters for Logic function"
+msgstr "Invalid line, too many parameters for Logic function"
+
+msgid "Invalid Timer symbol {0}"
+msgstr "Invalid Timer symbol {0}"
+
+msgid "Invalid Timer function {0}"
+msgstr "Invalid Timer function {0}"
+
+msgid "Invalid line, missing timer function"
+msgstr "Invalid line, missing timer function"
+
+msgid "Invalid Frame symbol {0}"
+msgstr "Invalid Frame symbol {0}"
+
+msgid "Invalid line, missing frame symbol"
+msgstr "Invalid line, missing frame symbol"
+
+msgid "Invalid Frame function {0}"
+msgstr "Invalid Frame function {0}"
+
+msgid "Invalid line, missing frame function"
+msgstr "Invalid line, missing frame function"
+
+msgid "Invalid Logger symbol {0}"
+msgstr "Invalid Logger symbol {0}"
+
+msgid "Invalid line, missing Logger symbol"
+msgstr "Invalid line, missing Logger symbol"
+
+msgid "Invalid Logger function {0}"
+msgstr "Invalid Logger function {0}"
+
+msgid "Invalid line, missing logger function"
+msgstr "Invalid line, missing logger function"
+
+msgid "Unkown keyword"
+msgstr "Unkown keyword"
+
+msgid "Invalid line"
+msgstr "Invalid line"
+
+msgid "Invalid Keyword {0}"
+msgstr "Invalid Keyword {0}"
+
+msgid "Syntax Error : Missing '('"
+msgstr "Syntax Error : Missing '('"
+
+msgid "Syntax Error : Missing ')'"
+msgstr "Syntax Error : Missing ')'"
+
+msgid "Invalid line, one parameter or more is empty"
+msgstr "Invalid line, one parameter or more is empty"
+
+msgid "Invalid Data symbol {0}"
+msgstr "Invalid Data symbol {0}"
+
+msgid "Invalid constant value, must be between {0} and {1}"
+msgstr "Invalid constant value, must be between {0} and {1}"
+
+msgid "Data {0} : Enter min value saturation ({1})"
+msgstr "Data {0} : Enter min value saturation ({1})"
+
+msgid "Data {0} : Enter max value saturation ({1})"
+msgstr "Data {0} : Enter max value saturation ({1})"
+
+msgid "Data {0} : Leave saturation"
+msgstr "Data {0} : Leave saturation"
+
+msgid "Data {0} is constant, value can't be set"
+msgstr "Data {0} is constant, value can't be set"
+
+msgid "The file is corrupted"
+msgstr "The file is corrupted"
+
+msgid "This file have been created with an oldest version, if you save this file, you will not be able tio read it with previous version"
+msgstr "This file have been created with an oldest version, if you save this file, you will not be able tio read it with previous version"
+
+msgid "Warning"
+msgstr "Warning"
+
+msgid "This file have been created with a newer version, see website for updating your software"
+msgstr "This file have been created with a newer version, see website for updating your software"
+
+msgid "Default group"
+msgstr "Default group"
+
+msgid "Missing plugins (ID = {1}) for object {0}
+If you save the file, object will be lost"
+msgstr "Missing plugins (ID = {1}) for object {0}
+If you save the file, object will be lost"
+
+msgid "WARINING"
+msgstr "WARINING"
+
+msgid "Screen {0} Failed to load file {1}"
+msgstr "Screen {0} Failed to load file {1}"
+
+msgid "Frame Data not found (Frame {0}, Data {1}"
+msgstr "Frame Data not found (Frame {0}, Data {1}"
+
+msgid "Error Frame {0} : frame size is inferior to one Byte"
+msgstr "Error Frame {0} : frame size is inferior to one Byte"
+
+msgid "Frame {0} will lost data"
+msgstr "Frame {0} will lost data"
+
+msgid "Error reading frame {0}, {1} bytes recieved, {2} exepected"
+msgstr "Error reading frame {0}, {1} bytes recieved, {2} exepected"
+
+msgid "Data to log not found (Logger {0}, Data {1}"
+msgstr "Data to log not found (Logger {0}, Data {1}"
+
+msgid "Logger {0} will lost data"
+msgstr "Logger {0} will lost data"
+
+msgid "{0} Can't start standard logger"
+msgstr "{0} Can't start standard logger"
+
+msgid "{0} Can't access file"
+msgstr "{0} Can't access file"
+
+msgid "{0} No Data to log"
+msgstr "{0} No Data to log"
+
+msgid "Unable to open comm, Check connection configuration"
+msgstr "Unable to open comm, Check connection configuration"
+
+msgid "Error opening comm"
+msgstr "Error opening comm"
+
+msgid "Connexion with remote controller lost"
+msgstr "Connexion with remote controller lost"
+
+msgid "Failed to find {0}"
+msgstr "Failed to find {0}"
+
+msgid "Trying sending frame {0} while connection is closed"
+msgstr "Trying sending frame {0} while connection is closed"
+
+msgid "Message {0} have not been recieved (Timeout)"
+msgstr "Message {0} have not been recieved (Timeout)"
+
+msgid "Error reading message {0} (Recieved frame is not the one expected)"
+msgstr "Error reading message {0} (Recieved frame is not the one expected)"
+
+msgid "Error reading message {0}"
+msgstr "Error reading message {0}"
+
+msgid "Division by zero forbidden"
+msgstr "Division by zero forbidden"
+
+msgid "Lang"
+msgstr "Lang"
+
+msgid "Error while loading Plugins controls (Error in DLL {0})
+ Plugins control will not be available"
+msgstr "Error while loading Plugins controls (Error in DLL {0})
+ Plugins control will not be available"
+
+msgid "Error plugins loading"
+msgstr "Error plugins loading"
+
+msgid "Data {0} : min value saturation ({1})"
+msgstr "Data {0} : min value saturation ({1})"
+
+msgid "Data {0} : max value saturation ({1})"
+msgstr "Data {0} : max value saturation ({1})"
+
+msgid "Missing plugins (ID = {1}) for object {0}
+If you save the file, object will be lost"
+msgstr "Missing plugins (ID = {1}) for object {0}
+If you save the file, object will be lost"
+
+msgid "Error while loading Plugins controls (Error in DLL {0})
+ Plugins control will not be available"
+msgstr "Error while loading Plugins controls (Error in DLL {0})
+ Plugins control will not be available"
+
+msgid "Missing plugins (ID = {1}) for object {0}
+If you save the file, object will be lost"
+msgstr "Missing plugins (ID = {1}) for object {0}
+If you save the file, object will be lost"
+
+msgid "Error while loading Plugins controls (Error in DLL {0})
+ Plugins control will not be available"
+msgstr "Error while loading Plugins controls (Error in DLL {0})
+ Plugins control will not be available"
+
+msgid "Select"
+msgstr "Select"
+
+msgid "Active color"
+msgstr "Active color"
+
+msgid "Inactive color"
+msgstr "Inactive color"
+
+msgid "Symbol"
+msgstr "Symbol"
+
+msgid "Size"
+msgstr "Size"
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "OK"
+msgstr "OK"
+
+msgid "Missing plugins (ID = {1}) for object {0}
+If you save the file, object will be lost"
+msgstr "Missing plugins (ID = {1}) for object {0}
+If you save the file, object will be lost"
+
+msgid "Error while loading Plugins controls (Error in DLL {0})
+ Plugins control will not be available"
+msgstr "Error while loading Plugins controls (Error in DLL {0})
+ Plugins control will not be available"

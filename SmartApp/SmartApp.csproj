@@ -98,6 +98,7 @@
     <Compile Include="Common\AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Common\AppOptions.cs" />
     <Compile Include="Common\LaunchArgParser.cs" />
     <Compile Include="Common\MruStripMenu.cs" />
     <Compile Include="Common\PluginsVersionsForm.cs">
@@ -105,6 +106,12 @@
     </Compile>
     <Compile Include="Common\PluginsVersionsForm.Designer.cs">
       <DependentUpon>PluginsVersionsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\PreferencesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\PreferencesForm.Designer.cs">
+      <DependentUpon>PreferencesForm.cs</DependentUpon>
     </Compile>
     <Compile Include="SmartCommand\AppEventLog\AppEventLogForm.cs">
       <SubType>Form</SubType>
@@ -316,6 +323,10 @@
     <EmbeddedResource Include="Common\PluginsVersionsForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>PluginsVersionsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\PreferencesForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>PreferencesForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SmartCommand\AppEventLog\AppEventLogForm.resx">
       <SubType>Designer</SubType>
@@ -743,7 +754,12 @@
     <None Include="ImgLib\Anti retour\.svn\text-base\AntiRetourN.png.svn-base" />
     <None Include="ImgLib\Anti retour\.svn\text-base\AntiRetourS.png.svn-base" />
     <None Include="ImgLib\Anti retour\.svn\text-base\AntiRetourW.png.svn-base" />
-    <None Include="Lang\FR.SmartApp.po" />
+    <Content Include="Lang\FR.SmartApp.po">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Lang\EN.SmartApp.po">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="SmartApp.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

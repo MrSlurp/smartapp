@@ -25,6 +25,14 @@ namespace CommonLib
             set { mCurrentLang = value; }
         }
 
+        public void ChangeLang(string newLang)
+        {
+            for (int i = 0; i < m_ListDlls.Count; i++)
+            {
+                m_ListDlls[i].CurrentLang = newLang;
+            }
+        }
+
         public void LoadExistingDlls()
         {
             //Assembly Dll = Assembly.Load();

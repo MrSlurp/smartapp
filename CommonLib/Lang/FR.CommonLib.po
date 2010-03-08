@@ -1,114 +1,114 @@
 
 msgid "Timer {0} Script: Line {1} will be removed"
-msgstr ""
+msgstr "Timer {0} Script: La ligne {1} va être supprimée"
 
 msgid "Screen {0} Script: Line {1} will be removed"
-msgstr ""
+msgstr "Ecran {0} Script: La ligne {1} va être supprimée"
 
 msgid "Function {0} Script: Line {1} will be removed"
-msgstr ""
+msgstr "Fonction {0} Script: La ligne {1} va être supprimée"
 
 msgid "Control {0} Script: Line {1} will be removed"
-msgstr ""
+msgstr "Contôle {0} Script: La ligne {1} va être supprimée"
 
 msgid "Control {0} associate data removed"
-msgstr ""
+msgstr "Control {0} données associée supprimée"
 
 msgid "Invalid Screen symbol {0}"
-msgstr ""
+msgstr "Symbole d'écran invalide : {0}"
 
 msgid "Invalid Screen function {0}"
-msgstr ""
+msgstr "Symbole de fonction invalide"
 
 msgid "Invalid line, missing screen function"
-msgstr ""
+msgstr "Ligne invalide, il manque la fonction d'écran"
 
 msgid "Invalid Maths function {0}"
-msgstr ""
+msgstr "Fonction méthématique invalide {0}"
 
 msgid "Invalid line, not enought parameters for Maths function"
-msgstr ""
+msgstr "Ligne invalide, pas assez de paramètre pour la fonction mathématique"
 
 msgid "Invalid line, too many parameters for Maths function"
-msgstr ""
+msgstr "Ligne invalide, trop de paramètre pour la fonction mathématique"
 
 msgid "Invalid line, missing Maths function"
-msgstr ""
+msgstr "Ligne invalide, il manque la fonction mathématique"
 
 msgid "Invalid logic function {0}"
-msgstr ""
+msgstr "fonction logique invalide {0}"
 
 msgid "Invalid line, not enought parameters for Logic function"
-msgstr ""
+msgstr "Ligne invalide, pas assez de paramèttre pour la fonction logique"
 
 msgid "Invalid line, too many parameters for Logic function"
-msgstr ""
+msgstr "Ligne invalide, trop de paramèttre pour la fonction logique"
 
 msgid "Invalid Timer symbol {0}"
-msgstr ""
+msgstr "Symbole de Timer invalide {0}"
 
 msgid "Invalid Timer function {0}"
-msgstr ""
+msgstr "Fonction de Timer invalide {0}"
 
 msgid "Invalid line, missing timer function"
-msgstr ""
+msgstr "Ligne invalide, il manque la fonction de Timer"
 
 msgid "Invalid Frame symbol {0}"
-msgstr ""
+msgstr "Symbole de trame invalide"
 
 msgid "Invalid line, missing frame symbol"
-msgstr ""
+msgstr "Ligne invalide, il manque le symbole de trame"
 
 msgid "Invalid Frame function {0}"
-msgstr ""
+msgstr "Symbole de trame invalide {0}"
 
 msgid "Invalid line, missing frame function"
-msgstr ""
+msgstr "Ligne invalide, il manque la fonction de trame"
 
 msgid "Invalid Logger symbol {0}"
-msgstr ""
+msgstr "Symbole de logger invalide {0}"
 
 msgid "Invalid line, missing Logger symbol"
-msgstr ""
+msgstr "Ligne invalide, il manque le symbole de logger"
 
 msgid "Invalid Logger function {0}"
-msgstr ""
+msgstr "Fonction de logger invalide {0}"
 
 msgid "Invalid line, missing logger function"
-msgstr ""
+msgstr "Ligne invalide, il manque la fonction de logger"
 
 msgid "Unkown keyword"
-msgstr ""
+msgstr "Mot clé du script inconnu"
 
 msgid "Invalid line"
-msgstr ""
+msgstr "Ligne invalide"
 
 msgid "Invalid Keyword {0}"
-msgstr ""
+msgstr "Mot clé invalide {0}"
 
 msgid "Syntax Error : Missing '('"
-msgstr ""
+msgstr "Erreur de syntaxe, il manque '('"
 
 msgid "Syntax Error : Missing ')'"
-msgstr ""
+msgstr "Erreur de syntaxe, il manque ')'"
 
 msgid "Invalid line, one parameter or more is empty"
-msgstr ""
+msgstr "Ligne invalide, un paramètre ou plus est vide"
 
 msgid "Invalid Data symbol {0}"
-msgstr ""
+msgstr "Symbole de donnée invalide {0}"
 
-msgid "Invalid constant value for , must be between {0} and {1}"
-msgstr ""
+msgid "Invalid constant value, must be between {0} and {1}"
+msgstr "Valeur constante invalide, doit être entre {0} et {1}"
 
 msgid "Data {0} : Enter min value saturation ({1})"
-msgstr ""
+msgstr "Donnée {0} : Entrée en saturation sur la valeur minimum ({1})"
 
 msgid "Data {0} : Enter max value saturation ({1})"
-msgstr ""
+msgstr "Donnée {0} : Entrée en saturation sur la valeur maximum ({1})"
 
 msgid "Data {0} : Leave saturation"
-msgstr ""
+msgstr "Donnée {0} : sortie"
 
 msgid "Data {0} is constant, value can't be set"
 msgstr ""

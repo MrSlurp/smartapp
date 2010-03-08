@@ -44,7 +44,7 @@ namespace SmartApp.Ihm
         public MDISmartConfigMain()
         {
             DoFileFormatRegistration();
-            Program.LangSys.Initialize(this, "EN", SmartApp.Properties.Settings.Default.Lang, "SmartApp");
+            Program.LangSys.Initialize(this, Cste.STR_DEV_LANG, SmartApp.Properties.Settings.Default.Lang, "SmartApp");
             InitializeComponent();
             CommonConstructorInit();
         }
@@ -802,6 +802,23 @@ namespace SmartApp.Ihm
         {
             PluginsVersionsForm plVer = new PluginsVersionsForm();
             plVer.ShowDialog();
+        }
+
+        private void m_tsItemPref_Click(object sender, EventArgs e)
+        {
+            PreferencesForm prfForm = new PreferencesForm();
+            prfForm.SelectedLang = SmartApp.Properties.Settings.Default.Lang;
+            if (prfForm.ShowDialog() == DialogResult.OK)
+            {
+                if (prfForm.SelectedLang != SmartApp.Properties.Settings.Default.Lang)
+                {
+                    //MessageBox.Show(Program.LangSys.C("Please restart the application in order apply language change"), Program.LangSys.C("Information"), MessageBoxButtons.OK);
+                    SmartApp.Properties.Settings.Default.Lang = prfForm.SelectedLang;
+                    Lang.LangSys.ChangeLangage(prfForm.SelectedLang);
+                    Program.ChangePluginLang(prfForm.SelectedLang);
+                    Program.LangSys.ChangeLangage(prfForm.SelectedLang);
+                }
+            }
         }
     }
 }

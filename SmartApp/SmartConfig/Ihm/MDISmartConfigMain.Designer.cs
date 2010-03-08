@@ -87,6 +87,8 @@ namespace SmartApp.Ihm
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.m_ToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
+            this.m_tsItemPref = new System.Windows.Forms.ToolStripMenuItem();
             this.m_menuStrip.SuspendLayout();
             this.m_toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
@@ -122,6 +124,8 @@ namespace SmartApp.Ihm
             this.m_printPreviewToolStripMenuItem,
             this.m_printSetupToolStripMenuItem,
             this.toolStripSeparator5,
+            this.m_tsItemPref,
+            this.toolStripSeparator10,
             this.m_MruFiles,
             this.toolStripSeparator8,
             this.m_exitToolStripMenuItem});
@@ -592,6 +596,18 @@ namespace SmartApp.Ihm
             this.toolStripStatusLabel.Size = new System.Drawing.Size(38, 17);
             this.toolStripStatusLabel.Text = "Status";
             // 
+            // toolStripSeparator10
+            // 
+            this.toolStripSeparator10.Name = "toolStripSeparator10";
+            this.toolStripSeparator10.Size = new System.Drawing.Size(149, 6);
+            // 
+            // m_tsItemPref
+            // 
+            this.m_tsItemPref.Name = "m_tsItemPref";
+            this.m_tsItemPref.Size = new System.Drawing.Size(152, 22);
+            this.m_tsItemPref.Text = "Preferences";
+            this.m_tsItemPref.Click += new System.EventHandler(this.m_tsItemPref_Click);
+            // 
             // MDISmartConfigMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -674,6 +690,8 @@ namespace SmartApp.Ihm
         private System.Windows.Forms.ToolStripMenuItem pluginsVersionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem m_MruFiles;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
+        private System.Windows.Forms.ToolStripMenuItem m_tsItemPref;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
     }
 }
 

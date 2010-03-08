@@ -599,7 +599,7 @@ namespace CommonLib
                     int value = int.Parse(strTempParam);
                     if (!(value >= MinIntVal && value <= MaxIntVal))
                     {
-                        string strErr = string.Format(Lang.LangSys.C("Invalid constant value for , must be between {0} and {1}"),MinIntVal, MaxIntVal);
+                        string strErr = string.Format(Lang.LangSys.C("Invalid constant value, must be between {0} and {1}"),MinIntVal, MaxIntVal);
                         ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
                         ErrorList.Add(Err);
                         HaveError  = true;

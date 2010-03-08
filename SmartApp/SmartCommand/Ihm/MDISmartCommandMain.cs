@@ -35,9 +35,7 @@ namespace SmartApp
         // Liste des pages "utilisateur" ==> une par BTScreen présent dans le document
         private List<DynamicPanelForm> m_FormList = new List<DynamicPanelForm>();
         // fichier d'ini des options
-        private IniFileParser m_IniOptionFile = new IniFileParser();
-        // chemin du fichier d'init des options
-        private string m_strIniOptionFilePath;
+        private AppOptions m_Option = new AppOptions();
         // chemin du dossier de log utilisateurs
         private string m_strLogFilePath;
         // booléen indiquant si il faut mémoriser les connexion utilisées pour chaque fichier
@@ -73,7 +71,7 @@ namespace SmartApp
         //*****************************************************************************************************
         public MDISmartCommandMain()
         {
-            Program.LangSys.Initialize(this, "EN", SmartApp.Properties.Settings.Default.Lang, "SmartApp");
+            Program.LangSys.Initialize(this, Cste.STR_DEV_LANG, SmartApp.Properties.Settings.Default.Lang, "SmartApp");
             InitializeComponent();
             CommonConstructorInit();
         }
@@ -311,8 +309,8 @@ namespace SmartApp
                 CloseDoc();
                 return false;
             }
-            string strTypeComm = m_IniOptionFile.GetValue(Doc.FileName, Cste.STR_FILE_DESC_COMM);
-            string strCommParam = m_IniOptionFile.GetValue(Doc.FileName, Cste.STR_FILE_DESC_ADDR);
+            string strTypeComm = m_Option.GetFileCommType(Doc.FileName);
+            string strCommParam = m_Option.GetFileCommParam(Doc.FileName);
             SelectCommInComboOrCreateTemp(strTypeComm, strCommParam);
 
             for (int i = 0; i < Doc.GestScreen.Count; i++)
@@ -356,8 +354,8 @@ namespace SmartApp
                 {
                     string strTypeComm = m_Document.m_Comm.CommType.ToString();
                     string strCommParam = m_Document.m_Comm.CommParam;
-                    m_IniOptionFile.SetValue(m_Document.FileName, Cste.STR_FILE_DESC_COMM, strTypeComm);
-                    m_IniOptionFile.SetValue(m_Document.FileName, Cste.STR_FILE_DESC_ADDR, strCommParam);
+                    m_Option.SetFileCommType(m_Document.FileName, strTypeComm);
+                    m_Option.SetFileCommParam(m_Document.FileName, strCommParam);
                 }
                 m_Document.TraiteMessage(MESSAGE.MESS_CMD_STOP, null, Program.TypeApp);
                 m_Document.DetachCommEventHandler(OnCommStateChange);
@@ -405,13 +403,11 @@ namespace SmartApp
         //*****************************************************************************************************      
         private void MDISmartCommandMain_Load(object sender, EventArgs e)
         {
-            string strAppDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName);
-            m_strIniOptionFilePath = PathTranslator.LinuxVsWindowsPathUse(strAppDir + @"\" + Cste.STR_OPTINI_FILENAME);
-            m_IniOptionFile.Load(m_strIniOptionFilePath);
+            string IniOptionFileName = PathTranslator.LinuxVsWindowsPathUse(Application.StartupPath + @"\" + Cste.STR_OPTINI_FILENAME);
+            m_Option.Load(IniOptionFileName);
 
-            m_strLogFilePath = m_IniOptionFile.GetValue(Cste.STR_FILE_DESC_HEADER_OPT, Cste.STR_FILE_DESC_LOGDIR);
-            string strSaveFileComm = m_IniOptionFile.GetValue(Cste.STR_FILE_DESC_HEADER_OPT, Cste.STR_FILE_DESC_SAVE_PREF_COMM);
-            bool.TryParse(strSaveFileComm, out m_bSaveFileComm);
+            m_strLogFilePath = m_Option.LogDir;
+            m_bSaveFileComm = m_Option.SaveFileComParam;
 
         }
 
@@ -421,9 +417,9 @@ namespace SmartApp
         //*****************************************************************************************************      
         private void MDISmartCommandMain_FormClosed(object sender, FormClosedEventArgs e)
         {
-            m_IniOptionFile.SetValue(Cste.STR_FILE_DESC_HEADER_OPT, Cste.STR_FILE_DESC_LOGDIR, m_strLogFilePath);
-            m_IniOptionFile.SetValue(Cste.STR_FILE_DESC_HEADER_OPT, Cste.STR_FILE_DESC_SAVE_PREF_COMM, m_bSaveFileComm.ToString());
-            m_IniOptionFile.Save(m_strIniOptionFilePath);
+            m_Option.LogDir = m_strLogFilePath;
+            m_Option.SaveFileComParam = m_bSaveFileComm;
+            m_Option.Save();
         }
 
         //*****************************************************************************************************

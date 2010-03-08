@@ -356,7 +356,7 @@ namespace CommonLib
             }
             catch (Exception e)
             {
-                string strErr = Lang.C("The file is corrupted", Lang.LangSys);
+                string strErr = Lang.LangSys.C("The file is corrupted");
                 strErr += e.Message;
                 Console.WriteLine(strErr);
                 return false;

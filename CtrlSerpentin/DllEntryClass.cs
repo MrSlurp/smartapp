@@ -34,7 +34,10 @@ namespace CtrlSerpentin
             set
             {
                 m_CurLang = value;
-                LangSys.Initialize("EN", m_CurLang, "CtrlSerpentin");
+                if (!LangSys.InitDone)
+                    LangSys.Initialize(Cste.STR_DEV_LANG, m_CurLang, "CtrlDemux");
+                else
+                    LangSys.ChangeLangage(value);
             }
         }
 

@@ -1,0 +1,21 @@
+
+msgid "Control {0} Failed to load file {1}"
+msgstr ""
+
+msgid "Image Files (jpeg, gif, bmp, png)|*.jpg;*.jpeg;*.gif;*.bmp;*.png|JPEG Files(*.jpg;*.jpeg)|*.jpg;*.jpeg|GIF Files(*.gif)|*.gif|BMP Files(*.bmp)|*.bmp|PNG Files(*.png)|*.png"
+msgstr ""
+
+msgid "Bitmap 3"
+msgstr ""
+
+msgid "..."
+msgstr ""
+
+msgid "Bitmap 2"
+msgstr ""
+
+msgid "Bitmap 1"
+msgstr ""
+
+msgid "Bitmap 0"
+msgstr ""

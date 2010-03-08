@@ -41,6 +41,7 @@ namespace CommonLib
     /// </summary>
     public class Lang
     {
+        #region statiques
         static Lang m_SingLangSys;
         public static void InitCommonLibLang(string DevLang, string CurLang)
         {
@@ -59,20 +60,26 @@ namespace CommonLib
         {
             get { return m_SingLangSys; }
         }
+        #endregion
 
+        #region constantes
         // chaine ajoutée aux résultat si la chaine n'est pas trouvée
         const string MSG_MISSING = @"//**\\";
 
-        const string LANG_DIRECTORY_NAME = "Lang";
+        public const string LANG_DIRECTORY_NAME = "Lang";
+
+        #endregion
+
+        #region données membres
+        // language utilisé pour le développement 
+        private string mDevLangage = Cste.STR_DEV_LANG;
 
         private string m_CurrentAssembly;
 
         // language demandé
-        private string mCurrentLangage = "FR";
+        private string mCurrentLangage = Cste.STR_DEV_LANG;
         public string CurrentLangage { get { return mCurrentLangage; } }
 	
-        // language utilisé pour le développement 
-        private string mDevLangage = "FR";
         
         // stocke la liste des feuilles localisées
         private List<FormInfo> mFormList = new List<FormInfo>();
@@ -83,20 +90,37 @@ namespace CommonLib
         
         // variable contenant true si on veut que l'item soit créé s'il manque
         private bool mCreateOnMissingItem = false;
+        // affiche MSG_MISSING à la fin du texte si on ne l'a pas trouvé
+        private bool mInformOfMissingItem = false;
+
+        private bool m_bInitDone = false;
+
+        #endregion
+
+        #region attributs
         public bool CreateOnMissingItem
         {
             get { return mCreateOnMissingItem; }
             set { mCreateOnMissingItem = value; }
         }
 
-        // affiche MSG_MISSING à la fin du texte si on ne l'a pas trouvé
-        private bool mInformOfMissingItem = false;
         public bool InformOfMissingItem
         {
             get { return mInformOfMissingItem; }
             set { mInformOfMissingItem = value; }
         }
 
+        public bool InitDone
+        {
+            get
+            {
+                return m_bInitDone;
+            }
+        }
+
+        #endregion
+
+        #region constructeurs
         public Lang(bool CreateMissings, bool InformMissings)
         {
             mInformOfMissingItem = InformMissings;
@@ -110,7 +134,9 @@ namespace CommonLib
             // charge la tables de traduction des opcodes IL
             Globals.LoadOpCodes();
         }
+        #endregion
 
+        #region initialisation des IHM
         /// <summary>
         /// Initialisation appelée par les esclaves
         /// </summary>
@@ -127,12 +153,18 @@ namespace CommonLib
             frm.Closed += Form_Closed;
 #endif
             mFormList.Add(FormInfo.CreateFormInfo(this, frm));
+            m_bInitDone = true;
         }
 
+        /// <summary>
+        /// Initialisation appelée par les esclaves
+        /// </summary>
+        /// <param name="frm">UserControl de l'appelant</param>
         public void Initialize(UserControl frm)
         {
             Debug.Print("Lang::Initialize({0})", frm.Name);
             mUserControlList.Add(UserControlInfo.CreateUserControlInfo(this, frm));
+            m_bInitDone = true;
         }
 
         /// <summary>
@@ -157,6 +189,7 @@ namespace CommonLib
                 //réinitialise
                 Initialize(frm);
             }
+            m_bInitDone = true;
         }
 
         /// <summary>
@@ -165,6 +198,7 @@ namespace CommonLib
         /// <param name="frm">feuille de l'appelant</</param>
         /// <param name="DevLang">Langue utilisée pour le développement</param>
         /// <param name="CurLang">Langue demandée</param>
+        /// <param name="Assembly">Module utilisant la langue</param>
         public void Initialize(string DevLang, string CurLang, string Assembly)
         {
 #if !PocketPC
@@ -175,8 +209,16 @@ namespace CommonLib
             m_CurrentAssembly = Assembly;
             mCurrentLangage = CurLang.ToUpper();
             mDevLangage = DevLang.ToUpper();
+            m_bInitDone = true;
         }
 
+        /// <summary>
+        /// Initialisation appelée par le maitre (qui défini le langage)
+        /// </summary>
+        /// <param name="frm">feuille de l'appelant</</param>
+        /// <param name="DevLang">Langue utilisée pour le développement</param>
+        /// <param name="CurLang">Langue demandée</param>
+        /// <param name="Assembly">Module utilisant la langue</param>
         public void Initialize(UserControl frm, string DevLang, string CurLang, string Assembly)
         {
 #if !PocketPC
@@ -190,7 +232,12 @@ namespace CommonLib
             Form_Closed(frm, null); // décharge la feuille
             //réinitialise
             Initialize(frm);
+            m_bInitDone = true;
         }
+
+        #endregion
+
+        #region divers
         /// <summary>
         /// Permet de changer la langue affichée
         /// </summary>
@@ -203,6 +250,10 @@ namespace CommonLib
             foreach (FormInfo frmi in mFormList)
             {
                 frmi.Form_Load(null, null);
+            }
+            foreach (UserControlInfo ctrlInf in mUserControlList)
+            {
+                ctrlInf.Form_Load(null, null);
             }
             //mInformOfMissingItem = false;
         }
@@ -223,25 +274,11 @@ namespace CommonLib
                     mFormList.RemoveAt(index);
                     return; // break marche aussi ! ! ! pour les puristes mais j'aime pas les trucs en iste
                 }
-            } 
+            }
         }
+        #endregion
 
-        static public string C(string DevText, Lang LangSys)
-        {
-            // trouve le fichier de langue
-#if !PocketPC
-            string FilePath = Path.GetDirectoryName(Assembly.GetCallingAssembly().Location);
-#else
-            string FilePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
-#endif
-            FilePath = Path.Combine(FilePath, LANG_DIRECTORY_NAME);
-            //FilePath = Path.Combine(FilePath, mCurrentLangage + ".po");
-            if (string.IsNullOrEmpty(DevText))
-                return string.Empty;
-            else
-                return LangSys.C(FilePath, DevText);
-        }
-
+        #region récupération des string dans le code
         /// <summary>
         /// Retourne le texte localisé de l'appelant
         /// </summary>
@@ -330,44 +367,9 @@ namespace CommonLib
                 return DevText;
             }
         }
+        #endregion
 
-        /// <summary>
-        /// Ajoute une clé/valuer au fichier de langue
-        /// </summary>
-        /// <param name="FilePath">nom du fichier</param>
-        /// <param name="DevText">texte à ajouter</param>
-        private void CreateLinesOnFile(string FileName, string DevText)
-        {
-            //string FileName = Path.Combine(FilePath, mCurrentLangage + ".po"); 
-
-            if (Directory.Exists(Path.GetDirectoryName(FileName)) == false)
-            {
-                //Le directory n'existe pas
-                Directory.CreateDirectory(Path.GetDirectoryName(FileName) );
-            }
-            
-            // la chaine n'existe pas dans le fichier
-            using (FileStream fsw = new FileStream(FileName, FileMode.Append, FileAccess.Write, FileShare.Read ))
-            {
-                
-                StreamWriter sw = new StreamWriter(fsw, System.Text.Encoding.Default   );
-                //ecriture du message
-                sw.WriteLine();
-                sw.WriteLine("msgid \"" + DevText + "\"");
-                string curlng = "";
-                if (mDevLangage   == mCurrentLangage)
-                    curlng = DevText;
-
-                sw.WriteLine("msgstr \"" + curlng + "\"");
-                //sw.WriteLine();
-                sw.Close();
-                fsw.Close();
-            }
-
-            // ajout de la chaine dans le dictionnaire
-            AddLineToDictionnary(FileName, DevText, DevText);
-        }
-
+        #region chargement des fichier de langue
         /// <summary>
         /// Charge un fichier de langue dans le dictionnaire
         /// </summary>
@@ -451,19 +453,45 @@ namespace CommonLib
             }
 
         }
+        #endregion
 
+        #region génération des fichier po
         /// <summary>
-        /// Calcule le nom du fichier language à partir d'une form
+        /// Ajoute une clé/valuer au fichier de langue
         /// </summary>
-        /// <param name="frm">objet System.Windows.Form</param>
-        /// <returns>nom complet du fichier de langue</returns>
-        //public static string CreateFileName(Form frm)
-        //{
-        //    string FilePath = Path.GetDirectoryName(Assembly.GetAssembly(frm.GetType()).Location);
-        //    FilePath = Path.Combine(FilePath, LANG_DIRECTORY_NAME);
-        //    FilePath = Path.Combine(FilePath, mCurrentLangage + ".po");
-        //    return FilePath;
-        //}
+        /// <param name="FilePath">nom du fichier</param>
+        /// <param name="DevText">texte à ajouter</param>
+        private void CreateLinesOnFile(string FileName, string DevText)
+        {
+            //string FileName = Path.Combine(FilePath, mCurrentLangage + ".po"); 
+
+            if (Directory.Exists(Path.GetDirectoryName(FileName)) == false)
+            {
+                //Le directory n'existe pas
+                Directory.CreateDirectory(Path.GetDirectoryName(FileName));
+            }
+
+            // la chaine n'existe pas dans le fichier
+            using (FileStream fsw = new FileStream(FileName, FileMode.Append, FileAccess.Write, FileShare.Read))
+            {
+
+                StreamWriter sw = new StreamWriter(fsw, System.Text.Encoding.Default);
+                //ecriture du message
+                sw.WriteLine();
+                sw.WriteLine("msgid \"" + DevText + "\"");
+                string curlng = "";
+                if (mDevLangage == mCurrentLangage)
+                    curlng = DevText;
+
+                sw.WriteLine("msgstr \"" + curlng + "\"");
+                //sw.WriteLine();
+                sw.Close();
+                fsw.Close();
+            }
+
+            // ajout de la chaine dans le dictionnaire
+            AddLineToDictionnary(FileName, DevText, DevText);
+        }
 
         /// <summary>
         /// Calcule le directory du fichier language à partir d'une form
@@ -676,5 +704,7 @@ namespace CommonLib
             }
 #endif
         }
+        #endregion
+
     }
 }

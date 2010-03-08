@@ -1,0 +1,24 @@
+
+msgid "Orientation"
+msgstr ""
+
+msgid "Vertical top to bottom"
+msgstr ""
+
+msgid "Vertical bottom to top"
+msgstr ""
+
+msgid "Horizontal left to right"
+msgstr ""
+
+msgid "Horizontal right to left"
+msgstr ""
+
+msgid "Select"
+msgstr ""
+
+msgid "Min color"
+msgstr ""
+
+msgid "Max color"
+msgstr ""
