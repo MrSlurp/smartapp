@@ -24,10 +24,10 @@ namespace SmartApp.Ihm
         protected delegate void UpdateTitleDg(string str);
 
         #region données membres
-        protected DataForm m_DataForm = new DataForm();
-        protected DesignerForm m_DesignForm = new DesignerForm();
-        protected FrameForm m_FrameForm = new FrameForm();
-        protected ProgramForm m_ProgForm = new ProgramForm();
+        protected DataForm m_DataForm;
+        protected DesignerForm m_DesignForm;
+        protected FrameForm m_FrameForm;
+        protected ProgramForm m_ProgForm;
         protected BTDoc m_Document = null;
         IniFileParser m_IniFile = new IniFileParser();
         private string m_strIniFilePath;
@@ -44,7 +44,7 @@ namespace SmartApp.Ihm
         public MDISmartConfigMain()
         {
             DoFileFormatRegistration();
-            Program.LangSys.Initialize(this, Cste.STR_DEV_LANG, SmartApp.Properties.Settings.Default.Lang, "SmartApp");
+            Program.LangSys.Initialize(this);
             InitializeComponent();
             CommonConstructorInit();
         }
@@ -55,6 +55,7 @@ namespace SmartApp.Ihm
         public MDISmartConfigMain(string FileName)
         {
             DoFileFormatRegistration();
+            Program.LangSys.Initialize(this);
             InitializeComponent();
             CommonConstructorInit();
             OpenDoc(FileName);
@@ -67,6 +68,10 @@ namespace SmartApp.Ihm
             string strAppDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName);
             m_strIniFilePath = PathTranslator.LinuxVsWindowsPathUse(strAppDir + @"\" + Cste.STR_FORMPOSINI_FILENAME);
             m_IniFile.Load(m_strIniFilePath);
+            m_DataForm = new DataForm();
+            m_DesignForm = new DesignerForm();
+            m_FrameForm = new FrameForm();
+            m_ProgForm = new ProgramForm();
             m_DataForm.MdiParent = this;
             m_DesignForm.MdiParent = this;
             m_FrameForm.MdiParent = this;
@@ -735,7 +740,7 @@ namespace SmartApp.Ihm
                         }
                         else
                         {
-                            MessageBox.Show("Application fail on startup.", "Error");
+                            MessageBox.Show(Program.LangSys.C("Application fail on startup."), Program.LangSys.C("Error"));
                         }
                         this.Show();
                     }

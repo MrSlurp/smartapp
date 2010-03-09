@@ -143,7 +143,7 @@ namespace CtrlDataTrigger
                     if (dt == null)
                     {
                         bRet = false;
-                        strMessage = string.Format("Associate \"Off to On\" data {0} is not valid", this.edtOffToOn.Text);
+                        strMessage = string.Format(DllEntryClass.LangSys.C("Associate Off to On data {0} is not valid"), this.edtOffToOn.Text);
                     }
                 }
 
@@ -154,7 +154,7 @@ namespace CtrlDataTrigger
                     if (dt == null)
                     {
                         bRet = false;
-                        strMessage = string.Format("Associate \"On to Off\" data {0} is not valid", this.edtOnToOff.Text);
+                        strMessage = string.Format(DllEntryClass.LangSys.C("Associate On to Off data {0} is not valid"), this.edtOnToOff.Text);
                     }
                 }
             }

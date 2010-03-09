@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
@@ -42,54 +42,15 @@ namespace CommonLib
             // il servira de clé d'indexation
             FilePath = m_LangSys.CreateFilePath(frm);
             // attache l'intercepteur d'évènements
-            frm.Load += UserControl_Load;
+            frm.Load += new EventHandler(this.UserControl_Load);
+            //frm.ParentChanged += new EventHandler(this.UserControl_Load); 
             // charge le fichier de langue adapté
             m_LangSys.LoadLangage(FilePath);
             // Vérification des textes demandés par Lang.C(****)
             if (m_LangSys.CreateOnMissingItem)
             {
                 m_LangSys.GetCode_LangC(frm);
-            }
-        }
-
-        /// <summary>
-        /// Intercepteur des evènements Load de la feuille concernée
-        /// </summary>
-        /// <param name="sender">Object System.Windows.Form</param>
-        public void Form_Load(object sender, EventArgs e)
-        {
-            if (sender != null)
-            {
-                Controls.Clear();
-                ControlsText.Clear();
-                Form frm = (Form)sender;
-                Update_Controls(frm.Controls);
-                if (frm.ContextMenu != null)
-                    Update_Controls(frm.ContextMenu.MenuItems);
-            }
-            else
-            {
-                m_LangSys.LoadLangage(FilePath);
-
-                //Update_Controls(Me.Controls);
-                foreach (object var in Controls)
-                {
-                    if (var is Control)
-                    {
-                        ((Control)var).Text = m_LangSys.C(FilePath, ControlsText[Controls.IndexOf(var)]);
-                    }
-#if !PocketPC
-                    else if (var is ToolStripItem)
-                    {
-                        ((ToolStripItem)var).Text = m_LangSys.C(FilePath, ControlsText[Controls.IndexOf(var)]);
-                    }
-#endif
-                    else if (var is MenuItem)
-                    {
-                        ((MenuItem)var).Text = m_LangSys.C(FilePath, ControlsText[Controls.IndexOf(var)]);
-                    }
-                }
-            }
+            }                                                                           
         }
 
         /// <summary>

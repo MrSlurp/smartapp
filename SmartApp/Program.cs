@@ -85,6 +85,7 @@ namespace SmartApp
             // car les membres étant statiques, il provoquent la création de la fenêtre pendant le chargement même de l'application
             Application.SetCompatibleTextRenderingDefault(false);
             Traces.Initialize(Application.StartupPath, "TraceSmartApp.txt", SmartApp.Properties.Settings.Default.LogLevel);
+            LangSys.Initialize(Cste.STR_DEV_LANG, SmartApp.Properties.Settings.Default.Lang, "SmartApp");
             CommonLib.Resources.InitializeBitmap();
             CommonLib.Lang.InitCommonLibLang(Cste.STR_DEV_LANG, SmartApp.Properties.Settings.Default.Lang);
             m_GestDlls.CurrentLang = SmartApp.Properties.Settings.Default.Lang;

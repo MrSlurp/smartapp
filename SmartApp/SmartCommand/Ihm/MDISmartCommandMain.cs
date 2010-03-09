@@ -71,7 +71,7 @@ namespace SmartApp
         //*****************************************************************************************************
         public MDISmartCommandMain()
         {
-            Program.LangSys.Initialize(this, Cste.STR_DEV_LANG, SmartApp.Properties.Settings.Default.Lang, "SmartApp");
+            Program.LangSys.Initialize(this);
             InitializeComponent();
             CommonConstructorInit();
         }
@@ -82,6 +82,7 @@ namespace SmartApp
         //*****************************************************************************************************
         public MDISmartCommandMain(string strFileName)
         {
+            Program.LangSys.Initialize(this);
             InitializeComponent();
             CommonConstructorInit();
             m_strAutoOpenFileName = strFileName;
@@ -663,14 +664,14 @@ namespace SmartApp
                 {
                     if (!OpenDoc(m_strAutoOpenFileName))
                     {
-                        MessageBox.Show("Error while reading file. File is corrupted", "Error");
+                        MessageBox.Show(Program.LangSys.C("Error while reading file. File is corrupted"), Program.LangSys.C("Error"));
                         this.CloseDoc();
                         return;
                     }
                 }
                 else
                 {
-                    MessageBox.Show(string.Format("File \"{0}\" does not exists", m_strAutoOpenFileName), "Error");
+                    MessageBox.Show(string.Format(Program.LangSys.C("File {0} does not exists"), m_strAutoOpenFileName), Program.LangSys.C("Error"));
                     return;
                 }
                 UpdateToolBarCxnItemState();

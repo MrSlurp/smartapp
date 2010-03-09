@@ -333,7 +333,7 @@ namespace CommonLib
                 if (Dat == null)
                 {
                     string strMessage;
-                    strMessage = string.Format(Lang.LangSys.C("Frame Data not found (Frame {0}, Data {1}"), m_strSymbol, strData);
+                    strMessage = string.Format(Lang.LangSys.C("Frame Data not found (Frame {0}, Data {1})"), m_strSymbol, strData);
                     LogEvent log = new LogEvent(LOG_EVENT_TYPE.INFO, strMessage);
                     AddLogEvent(log);
                     continue;
@@ -343,7 +343,7 @@ namespace CommonLib
                 if (VDat == null)
                 {
                     string strMessage;
-                    strMessage = string.Format(Lang.LangSys.C("Frame Data not found (Frame {0}, Data {1}"), m_strSymbol, strData);
+                    strMessage = string.Format(Lang.LangSys.C("Frame Data not found (Frame {0}, Data {1})"), m_strSymbol, strData);
                     LogEvent log = new LogEvent(LOG_EVENT_TYPE.INFO, strMessage);
                     AddLogEvent(log);
                     continue;

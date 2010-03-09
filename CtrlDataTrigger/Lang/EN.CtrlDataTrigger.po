@@ -1,21 +1,24 @@
 
-msgid "Data Trigger {0} : Data "
-msgstr ""
+msgid "Data Trigger {0} : Off to On Data will be removed"
+msgstr "Data Trigger {0} : Off to On Data will be removed"
+
+msgid "Data Trigger {0} : On to Off Data will be removed"
+msgstr "Data Trigger {0} : On to Off Data will be removed"
 
 msgid "Pick"
-msgstr ""
+msgstr "Pick"
 
 msgid "Off to on Script"
-msgstr ""
+msgstr "Off to on Script"
 
 msgid "On to off Script"
-msgstr ""
+msgstr "On to off Script"
 
 msgid "Off to on setpoint (can be integer or data)"
-msgstr ""
+msgstr "Off to on setpoint (can be integer or data)"
 
 msgid "On to off setpoint (can be integer or data)"
-msgstr ""
+msgstr "On to off setpoint (can be integer or data)"
 
 msgid "Behave like Schmitt Trigger"
-msgstr ""
+msgstr "Behave like Schmitt Trigger"

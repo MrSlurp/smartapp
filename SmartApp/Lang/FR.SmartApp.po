@@ -3,34 +3,34 @@ msgid "ToolStrip"
 msgstr ""
 
 msgid "New"
-msgstr ""
+msgstr "Nouveau"
 
 msgid "Open"
-msgstr ""
+msgstr "Ouvrir"
 
 msgid "Save"
-msgstr ""
+msgstr "Enregistrer"
 
 msgid "Print"
-msgstr ""
+msgstr "Imprimer"
 
 msgid "Print Preview"
-msgstr ""
+msgstr "Apperçu avant impression"
 
 msgid "Help"
-msgstr ""
+msgstr "Aide"
 
 msgid "MenuStrip"
 msgstr ""
 
 msgid "&File"
-msgstr ""
+msgstr "&Fichier"
 
 msgid "&New"
-msgstr ""
+msgstr "&Nouveau"
 
 msgid "&Open"
-msgstr ""
+msgstr "&Ouvrir"
 
 msgid "Close file"
 msgstr ""

@@ -139,8 +139,8 @@ msgstr "WARINING"
 msgid "Screen {0} Failed to load file {1}"
 msgstr "Screen {0} Failed to load file {1}"
 
-msgid "Frame Data not found (Frame {0}, Data {1}"
-msgstr "Frame Data not found (Frame {0}, Data {1}"
+msgid "Frame Data not found (Frame {0}, Data {1})"
+msgstr "Frame Data not found (Frame {0}, Data {1})"
 
 msgid "Error Frame {0} : frame size is inferior to one Byte"
 msgstr "Error Frame {0} : frame size is inferior to one Byte"
@@ -201,34 +201,8 @@ msgid "Error while loading Plugins controls (Error in DLL {0})
 msgstr "Error while loading Plugins controls (Error in DLL {0})
  Plugins control will not be available"
 
-msgid "Error plugins loading"
-msgstr "Error plugins loading"
-
-msgid "Data {0} : min value saturation ({1})"
-msgstr "Data {0} : min value saturation ({1})"
-
-msgid "Data {0} : max value saturation ({1})"
-msgstr "Data {0} : max value saturation ({1})"
-
-msgid "Missing plugins (ID = {1}) for object {0}
-If you save the file, object will be lost"
-msgstr "Missing plugins (ID = {1}) for object {0}
-If you save the file, object will be lost"
-
-msgid "Error while loading Plugins controls (Error in DLL {0})
- Plugins control will not be available"
-msgstr "Error while loading Plugins controls (Error in DLL {0})
- Plugins control will not be available"
-
-msgid "Missing plugins (ID = {1}) for object {0}
-If you save the file, object will be lost"
-msgstr "Missing plugins (ID = {1}) for object {0}
-If you save the file, object will be lost"
-
-msgid "Error while loading Plugins controls (Error in DLL {0})
- Plugins control will not be available"
-msgstr "Error while loading Plugins controls (Error in DLL {0})
- Plugins control will not be available"
+msgid "Error loading plugins"
+msgstr "Error loading plugins"
 
 msgid "Select"
 msgstr "Select"
@@ -250,13 +224,3 @@ msgstr "Cancel"
 
 msgid "OK"
 msgstr "OK"
-
-msgid "Missing plugins (ID = {1}) for object {0}
-If you save the file, object will be lost"
-msgstr "Missing plugins (ID = {1}) for object {0}
-If you save the file, object will be lost"
-
-msgid "Error while loading Plugins controls (Error in DLL {0})
- Plugins control will not be available"
-msgstr "Error while loading Plugins controls (Error in DLL {0})
- Plugins control will not be available"

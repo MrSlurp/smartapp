@@ -108,113 +108,119 @@ msgid "Data {0} : Enter max value saturation ({1})"
 msgstr "Donnée {0} : Entrée en saturation sur la valeur maximum ({1})"
 
 msgid "Data {0} : Leave saturation"
-msgstr "Donnée {0} : sortie"
+msgstr "Donnée {0} : sortie de saturation"
 
 msgid "Data {0} is constant, value can't be set"
-msgstr ""
+msgstr "La donnée {0} est une constante, sa valeur ne peut être modifiée"
 
 msgid "The file is corrupted"
-msgstr ""
+msgstr "Le fichier est corrompu"
 
 msgid "This file have been created with an oldest version, if you save this file, you will not be able tio read it with previous version"
-msgstr ""
+msgstr "Ce fichier à été crée avec une version plus ancienne, si vous enregistré le fichier, vous ne pourrez plus le relire avec une version précédente de SmartApp"
 
 msgid "Warning"
-msgstr ""
+msgstr "Attention"
 
 msgid "This file have been created with a newer version, see website for updating your software"
-msgstr ""
+msgstr "Ce fichier à été crée avec une version plus récente, consultez le site web pour une mise à jour"
 
 msgid "Default group"
-msgstr ""
-
-msgid ""
-msgstr ""
+msgstr "Groupe par défaut"
 
 msgid "Missing plugins (ID = {1}) for object {0}
 If you save the file, object will be lost"
-msgstr ""
+msgstr "Abscence du plugin (ID = {1}) pour l'objet {0}
+Si vous enregistré le fichier, l'objet sera perdu"
 
 msgid "WARINING"
-msgstr ""
+msgstr "ATTENTION"
 
 msgid "Screen {0} Failed to load file {1}"
-msgstr ""
+msgstr "Ecran {0} echec de chargement du fichier {1}"
 
 msgid "Frame Data not found (Frame {0}, Data {1}"
-msgstr ""
+msgstr "Donnée de trame non trouvée (Trame {0}, donnée {1})"
 
 msgid "Error Frame {0} : frame size is inferior to one Byte"
-msgstr ""
+msgstr "Erreur de trame {0} : la taille de la trame est inférieur à un octet"
 
 msgid "Frame {0} will lost data"
-msgstr ""
+msgstr "La trame {0} va perdre une donnée"
 
 msgid "Error reading frame {0}, {1} bytes recieved, {2} exepected"
-msgstr ""
+msgstr "Erreur de lecture de la trame {0}, {1} octet reçu, {2} octets attendus"
 
 msgid "Data to log not found (Logger {0}, Data {1}"
-msgstr ""
+msgstr "Donnée à logger non trouvée (Logger {0}, Donnée {1}"
 
 msgid "Logger {0} will lost data"
-msgstr ""
+msgstr "Le Logger {0} va perdre une donnée"
 
 msgid "{0} Can't start standard logger"
-msgstr ""
+msgstr "{0} Impossible de démarrer un logger standard"
 
 msgid "{0} Can't access file"
-msgstr ""
+msgstr "{0} Impossible d'accéder au fichier"
 
 msgid "{0} No Data to log"
-msgstr ""
+msgstr "{0} Aucune donnée à logger"
 
 msgid "Unable to open comm, Check connection configuration"
-msgstr ""
+msgstr "Impossible d'ouvrir la communication. Vérifiez la configuration de la connexion"
 
 msgid "Error opening comm"
-msgstr ""
+msgstr "Erreur d'ouvertur de la communication"
 
 msgid "Connexion with remote controller lost"
-msgstr ""
+msgstr "Connexion au controleur distant perdue"
 
 msgid "Failed to find {0}"
-msgstr ""
+msgstr "Impossible de trouver {0}"
 
 msgid "Trying sending frame {0} while connection is closed"
-msgstr ""
+msgstr "Tentative d'envoie de la trame {0} alors que la connexion est fermée"
 
 msgid "Message {0} have not been recieved (Timeout)"
-msgstr ""
+msgstr "Le message {0} n'a pas été reçu (temps dépassé)"
 
 msgid "Error reading message {0} (Recieved frame is not the one expected)"
-msgstr ""
+msgstr "erreur de lecture du message {0} (La trame reçue n'est pas celle attendue)"
 
 msgid "Error reading message {0}"
-msgstr ""
+msgstr "Erreur de lecture du message {0}"
 
 msgid "Division by zero forbidden"
-msgstr ""
+msgstr "Division par zéro interdite"
 
 msgid "Lang"
-msgstr ""
+msgstr "Lang"
 
 msgid "Error while loading Plugins controls (Error in DLL {0})
  Plugins control will not be available"
-msgstr ""
+msgstr "Erreur de chargement de plugins (erreur dans la DLL {0}) 
+ Le plugin ne sera pas utilisable"
 
-msgid "Error plugins loading"
-msgstr ""
+msgid Error loading plugins"
+msgstr "Erreur de chargement des plugins"
 
-msgid "Data {0} : min value saturation ({1})"
-msgstr ""
+msgid "Select"
+msgstr "Sélectionner"
 
-msgid "Data {0} : max value saturation ({1})"
-msgstr ""
+msgid "Active color"
+msgstr "Couleur active"
 
-msgid "Missing plugins (ID = {1}) for object {0}
-If you save the file, object will be lost"
-msgstr ""
+msgid "Inactive color"
+msgstr "Couleur Inactive"
 
-msgid "Error while loading Plugins controls (Error in DLL {0})
- Plugins control will not be available"
-msgstr ""
+msgid "Symbol"
+msgstr "Symbole"
+
+msgid "Size"
+msgstr "Taille"
+
+msgid "Cancel"
+msgstr "Annuler"
+
+msgid "OK"
+msgstr "OK"

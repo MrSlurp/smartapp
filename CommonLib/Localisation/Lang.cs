@@ -1,4 +1,4 @@
-﻿/*========================================================================== 
+/*========================================================================== 
  *  FILE:   
  *                   Lang.cs
  * 
@@ -12,12 +12,15 @@
  * =========================================================================
  *                   ANSALDO STS France - Copyright © 2009
  * ========================================================================= */
+#define LANG_LOAD_DEBUG
+
 using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
+
 
 namespace CommonLib
 {
@@ -153,7 +156,8 @@ namespace CommonLib
             frm.Closed += Form_Closed;
 #endif
             mFormList.Add(FormInfo.CreateFormInfo(this, frm));
-            m_bInitDone = true;
+            if (!m_bInitDone)
+                System.Diagnostics.Debug.Assert(false);
         }
 
         /// <summary>
@@ -164,7 +168,8 @@ namespace CommonLib
         {
             Debug.Print("Lang::Initialize({0})", frm.Name);
             mUserControlList.Add(UserControlInfo.CreateUserControlInfo(this, frm));
-            m_bInitDone = true;
+            if (!m_bInitDone)
+                System.Diagnostics.Debug.Assert(false);
         }
 
         /// <summary>
@@ -173,8 +178,10 @@ namespace CommonLib
         /// <param name="frm">feuille de l'appelant</</param>
         /// <param name="DevLang">Langue utilisée pour le développement</param>
         /// <param name="CurLang">Langue demandée</param>
+        /*
         public void Initialize(Form frm, string DevLang, string CurLang, string Assembly)
         {
+            m_bInitDone = true;
 #if !PocketPC
             Debug.Print("Lang::Initialize({0},{1},{2})",frm.Name,DevLang,CurLang);
 #endif
@@ -189,9 +196,8 @@ namespace CommonLib
                 //réinitialise
                 Initialize(frm);
             }
-            m_bInitDone = true;
         }
-
+        */
         /// <summary>
         /// Initialisation appelée par le maitre (qui défini le langage)
         /// </summary>
@@ -201,15 +207,16 @@ namespace CommonLib
         /// <param name="Assembly">Module utilisant la langue</param>
         public void Initialize(string DevLang, string CurLang, string Assembly)
         {
+            m_bInitDone = true;
 #if !PocketPC
             Debug.Print("Lang::Initialize({0},{1})", DevLang, CurLang);
 #endif
+            System.Diagnostics.Debug.Assert(!string.IsNullOrEmpty(CurLang));
             mFormList.Clear();
             Decoders.Clear();
             m_CurrentAssembly = Assembly;
             mCurrentLangage = CurLang.ToUpper();
             mDevLangage = DevLang.ToUpper();
-            m_bInitDone = true;
         }
 
         /// <summary>
@@ -219,11 +226,13 @@ namespace CommonLib
         /// <param name="DevLang">Langue utilisée pour le développement</param>
         /// <param name="CurLang">Langue demandée</param>
         /// <param name="Assembly">Module utilisant la langue</param>
+        /*
         public void Initialize(UserControl frm, string DevLang, string CurLang, string Assembly)
         {
 #if !PocketPC
             Debug.Print("Lang::Initialize({0},{1},{2})", frm.Name, DevLang, CurLang);
 #endif
+            m_bInitDone = true;
             mFormList.Clear();
             Decoders.Clear();
             m_CurrentAssembly = Assembly;
@@ -232,9 +241,8 @@ namespace CommonLib
             Form_Closed(frm, null); // décharge la feuille
             //réinitialise
             Initialize(frm);
-            m_bInitDone = true;
         }
-
+        */
         #endregion
 
         #region divers
@@ -253,7 +261,7 @@ namespace CommonLib
             }
             foreach (UserControlInfo ctrlInf in mUserControlList)
             {
-                ctrlInf.Form_Load(null, null);
+                ctrlInf.UserControl_Load(null, null);
             }
             //mInformOfMissingItem = false;
         }
@@ -308,6 +316,11 @@ namespace CommonLib
         /// <returns>Texte localisé</returns>
         public string C(string FilePath,string DevText)
         {
+            return C(FilePath,DevText, null);
+        }
+    
+        public string C(string FilePath,string DevText, string comment)
+        {
             string FileName;
             if (string.IsNullOrEmpty(m_CurrentAssembly))
                 FileName = Path.Combine(FilePath, mCurrentLangage + ".po");
@@ -355,7 +368,7 @@ namespace CommonLib
             // la chaine n'existe pas dans le fichier
             if (mCreateOnMissingItem)
             {
-                CreateLinesOnFile(FileName, DevText);
+                CreateLinesOnFile(FileName, DevText, comment);
             }
 
             if (mInformOfMissingItem)
@@ -386,6 +399,9 @@ namespace CommonLib
             {
                 if (File.Exists(FileName))
                 {
+#if LANG_LOAD_DEBUG
+                    Console.WriteLine("fichier chargé = " + FileName);
+#endif
                     using (FileStream fsw = new FileStream(FileName, FileMode.Open, FileAccess.Read, FileShare.Read))
                     {
                         StreamReader sw = new StreamReader(fsw, System.Text.Encoding.Default );
@@ -404,6 +420,9 @@ namespace CommonLib
                                 if (txt.GetLength(0) == 3)
                                 {
                                     Cur_msgid = txt[1];
+#if LANG_LOAD_DEBUG
+                                    Console.WriteLine("Langue de dev = " + Cur_msgid);
+#endif
                                 }
 
                             }
@@ -413,6 +432,9 @@ namespace CommonLib
                                 if (txt.GetLength(0) == 3)
                                 {
                                     AddLineToDictionnary(FileName, Cur_msgid, txt[1]);
+#if LANG_LOAD_DEBUG
+                                    Console.WriteLine("Langue de traduite = " + txt[1]);
+#endif
                                 }
                             }
                             else
@@ -424,6 +446,10 @@ namespace CommonLib
                         sw.Close();
                         fsw.Close();
                     }
+                }
+                else
+                {
+                    System.Diagnostics.Debug.Assert(false);
                 }
             }
         }
@@ -453,6 +479,19 @@ namespace CommonLib
             }
 
         }
+    
+        private bool CheckExistInDictionnary(string FileName,string ID)
+        {
+            if (Decoders.ContainsKey(FileName) == false)
+            {
+                return false;
+            }
+            if (Decoders[FileName].ContainsKey(ID) == false)
+            {
+                return false;
+            }
+            return true;
+        }
         #endregion
 
         #region génération des fichier po
@@ -463,34 +502,42 @@ namespace CommonLib
         /// <param name="DevText">texte à ajouter</param>
         private void CreateLinesOnFile(string FileName, string DevText)
         {
-            //string FileName = Path.Combine(FilePath, mCurrentLangage + ".po"); 
+            CreateLinesOnFile(FileName, DevText, null);
+        }
 
+        private void CreateLinesOnFile(string FileName, string DevText, string comment)
+        {
             if (Directory.Exists(Path.GetDirectoryName(FileName)) == false)
             {
                 //Le directory n'existe pas
                 Directory.CreateDirectory(Path.GetDirectoryName(FileName));
             }
 
-            // la chaine n'existe pas dans le fichier
-            using (FileStream fsw = new FileStream(FileName, FileMode.Append, FileAccess.Write, FileShare.Read))
+            if (!CheckExistInDictionnary(FileName,DevText))
             {
-
-                StreamWriter sw = new StreamWriter(fsw, System.Text.Encoding.Default);
-                //ecriture du message
-                sw.WriteLine();
-                sw.WriteLine("msgid \"" + DevText + "\"");
-                string curlng = "";
-                if (mDevLangage == mCurrentLangage)
-                    curlng = DevText;
-
-                sw.WriteLine("msgstr \"" + curlng + "\"");
-                //sw.WriteLine();
-                sw.Close();
-                fsw.Close();
+                // la chaine n'existe pas dans le fichier
+                using (FileStream fsw = new FileStream(FileName, FileMode.Append, FileAccess.Write, FileShare.Read))
+                {
+    
+                    StreamWriter sw = new StreamWriter(fsw, System.Text.Encoding.Default);
+                    //ecriture du message
+                    sw.WriteLine();
+                    if (!string.IsNullOrEmpty(comment))
+                        sw.WriteLine("// " + comment);
+                    sw.WriteLine("msgid \"" + DevText + "\"");
+                    string curlng = "";
+                    if (mDevLangage == mCurrentLangage)
+                        curlng = DevText;
+    
+                    sw.WriteLine("msgstr \"" + curlng + "\"");
+                    //sw.WriteLine();
+                    sw.Close();
+                    fsw.Close();
+                }
+    
+                // ajout de la chaine dans le dictionnaire
+                AddLineToDictionnary(FileName, DevText, DevText);
             }
-
-            // ajout de la chaine dans le dictionnaire
-            AddLineToDictionnary(FileName, DevText, DevText);
         }
 
         /// <summary>
@@ -615,7 +662,7 @@ namespace CommonLib
             // qui par effet de bord les créera s'ils manques
             foreach (string str in LangC )
             {
-                C(FilePath, str);
+                C(FilePath, str, frm.Name);
             }
 #endif
         }
@@ -681,8 +728,19 @@ namespace CommonLib
                             if (var.Contains("ldstr") == true)
                             {
                                 // on a trouvé un appel à la fonction Lang.C
-                                LangC.Add(var.Split('"')[1]);
-                                //ret += var.Split('"')[1] + Environment.NewLine;
+                                if (var.Contains("\""))
+                                {
+                                    // si la chaine contient un \", il faut prendre tout les token
+                                    int LastBackSlashQuote = var.LastIndexOf("\"");
+                                    int FirstBackSlashQuote = var.IndexOf("\"");
+                                    LangC.Add(var.Substring(FirstBackSlashQuote+1, LastBackSlashQuote-1 ));
+                                }
+                                else
+                                {
+                                    //subString
+                                    LangC.Add(var.Split('"')[1]);
+                                    //ret += var.Split('"')[1] + Environment.NewLine;
+                                }
                             }
                         }
                     }
@@ -700,7 +758,7 @@ namespace CommonLib
             // qui par effet de bord les créera s'ils manques
             foreach (string str in LangC)
             {
-                C(FilePath, str);
+                C(FilePath, str,frm.Name);
             }
 #endif
         }

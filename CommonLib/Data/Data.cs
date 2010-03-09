@@ -33,7 +33,7 @@ namespace CommonLib
         // visible a l'utilisateur?
         private bool m_bIsUserVisible = true;
 
-        private bool m_bIsSaturationNotified = false;
+        protected bool m_bIsSaturationNotified = false;
         #endregion
 
         #region Events
