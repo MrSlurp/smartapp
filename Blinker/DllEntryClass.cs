@@ -35,7 +35,7 @@ namespace Blinker
             {
                 m_CurLang = value;
                 if (!LangSys.InitDone)
-                    LangSys.Initialize(Cste.STR_DEV_LANG, m_CurLang, "CtrlDemux");
+                    LangSys.Initialize(Cste.STR_DEV_LANG, m_CurLang, "CtrlBlinker");
                 else
                     LangSys.ChangeLangage(value);
             }

@@ -404,7 +404,7 @@ namespace CommonLib
 #endif
                     using (FileStream fsw = new FileStream(FileName, FileMode.Open, FileAccess.Read, FileShare.Read))
                     {
-                        StreamReader sw = new StreamReader(fsw, System.Text.Encoding.Default );
+                        StreamReader sw = new StreamReader(fsw, System.Text.Encoding.UTF8);
                         string Cur_msgid = "";
                         do
                         {
@@ -449,7 +449,7 @@ namespace CommonLib
                 }
                 else
                 {
-                    System.Diagnostics.Debug.Assert(false);
+                    //System.Diagnostics.Debug.Assert(false);
                 }
             }
         }

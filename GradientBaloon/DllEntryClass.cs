@@ -36,7 +36,7 @@ namespace GradientBaloon
             {
                 m_CurLang = value;
                 if (!LangSys.InitDone)
-                    LangSys.Initialize(Cste.STR_DEV_LANG, m_CurLang, "CtrlDemux");
+                    LangSys.Initialize(Cste.STR_DEV_LANG, m_CurLang, "GradientBaloon");
                 else
                     LangSys.ChangeLangage(value);
             }
