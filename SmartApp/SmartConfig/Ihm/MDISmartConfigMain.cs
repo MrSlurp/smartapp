@@ -819,6 +819,7 @@ namespace SmartApp.Ihm
                 {
                     //MessageBox.Show(Program.LangSys.C("Please restart the application in order apply language change"), Program.LangSys.C("Information"), MessageBoxButtons.OK);
                     SmartApp.Properties.Settings.Default.Lang = prfForm.SelectedLang;
+                    SmartApp.Properties.Settings.Default.Save();
                     Lang.LangSys.ChangeLangage(prfForm.SelectedLang);
                     Program.ChangePluginLang(prfForm.SelectedLang);
                     Program.LangSys.ChangeLangage(prfForm.SelectedLang);

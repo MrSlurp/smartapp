@@ -12,7 +12,7 @@
  * =========================================================================
  *                   ANSALDO STS France - Copyright © 2009
  * ========================================================================= */
-//#define LANG_LOAD_DEBUG
+#define LANG_LOAD_DEBUG
 #define LANG_USE_DEBUG
 
 using System;
@@ -411,7 +411,7 @@ namespace CommonLib
 #endif
                     using (FileStream fsw = new FileStream(FileName, FileMode.Open, FileAccess.Read, FileShare.Read))
                     {
-                        StreamReader sw = new StreamReader(fsw, System.Text.Encoding.UTF8);
+                        StreamReader sw = new StreamReader(fsw, System.Text.Encoding.Unicode);
                         string Cur_msgid = "";
                         do
                         {
@@ -526,7 +526,7 @@ namespace CommonLib
                 using (FileStream fsw = new FileStream(FileName, FileMode.Append, FileAccess.Write, FileShare.Read))
                 {
     
-                    StreamWriter sw = new StreamWriter(fsw, System.Text.Encoding.UTF8);
+                    StreamWriter sw = new StreamWriter(fsw, System.Text.Encoding.Unicode);
                     //ecriture du message
                     sw.WriteLine();
                     if (!string.IsNullOrEmpty(comment))
@@ -658,7 +658,7 @@ namespace CommonLib
                 }
                 catch (Exception ex)
                 {
-                    Traces.LogAdd(Traces.LOG_LEVEL_ERROR, "Lang", ex.Message);
+                    //Traces.LogAdd(Traces.LOG_LEVEL_ERROR, "Lang", ex.Message);
                 }
             }
 
@@ -711,8 +711,8 @@ namespace CommonLib
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Trace.TraceError(ex.Message);
-                throw ex;
+                //System.Diagnostics.Trace.TraceError(ex.Message);
+                //throw ex;
             }
 
 
@@ -735,6 +735,7 @@ namespace CommonLib
                             if (var.Contains("ldstr") == true)
                             {
                                 // on a trouvé un appel à la fonction Lang.C
+                                /*
                                 if (var.Contains("\""))
                                 {
                                     // si la chaine contient un \", il faut prendre tout les tokens
@@ -744,18 +745,18 @@ namespace CommonLib
                                     //TODO
                                 }
                                 else
-                                {
+                                {*/
                                     //subString
                                     LangC.Add(var.Split('"')[1]);
                                     //ret += var.Split('"')[1] + Environment.NewLine;
-                                }
+                                //}
                             }
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    Traces.LogAdd(Traces.LOG_LEVEL_ERROR, "Lang", ex.Message);
+                    //Traces.LogAdd(Traces.LOG_LEVEL_ERROR, "Lang", ex.Message);
                 }
             }
 

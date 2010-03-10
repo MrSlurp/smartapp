@@ -82,6 +82,7 @@ namespace SmartApp
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.m_listViewDll);
             this.Name = "PluginsVersionsForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Plugins Versions";
             this.ResumeLayout(false);
 

@@ -158,17 +158,6 @@ namespace SmartApp.Ihm
             this.m_PanelScreenListAndProp.Size = new System.Drawing.Size(275, 531);
             this.m_PanelScreenListAndProp.TabIndex = 0;
             // 
-            // m_TabTools
-            // 
-            this.m_TabTools.Controls.Add(this.m_panelToolDragItem);
-            this.m_TabTools.Location = new System.Drawing.Point(4, 22);
-            this.m_TabTools.Name = "m_TabTools";
-            this.m_TabTools.Padding = new System.Windows.Forms.Padding(3);
-            this.m_TabTools.Size = new System.Drawing.Size(281, 537);
-            this.m_TabTools.TabIndex = 1;
-            this.m_TabTools.Text = "Tools";
-            this.m_TabTools.UseVisualStyleBackColor = true;
-            // 
             // m_panelToolDragItem
             // 
             this.m_panelToolDragItem.AutoScroll = true;
@@ -180,6 +169,17 @@ namespace SmartApp.Ihm
             this.m_panelToolDragItem.Size = new System.Drawing.Size(275, 531);
             this.m_panelToolDragItem.TabIndex = 1;
             // 
+            // m_TabTools
+            // 
+            this.m_TabTools.Controls.Add(this.m_panelToolDragItem);
+            this.m_TabTools.Location = new System.Drawing.Point(4, 22);
+            this.m_TabTools.Name = "m_TabTools";
+            this.m_TabTools.Padding = new System.Windows.Forms.Padding(3);
+            this.m_TabTools.Size = new System.Drawing.Size(281, 537);
+            this.m_TabTools.TabIndex = 1;
+            this.m_TabTools.Text = "Tools";
+            this.m_TabTools.UseVisualStyleBackColor = true;
+            // 
             // m_TabItemOption
             // 
             this.m_TabItemOption.BackColor = System.Drawing.Color.Transparent;
@@ -189,7 +189,7 @@ namespace SmartApp.Ihm
             this.m_TabItemOption.Padding = new System.Windows.Forms.Padding(3);
             this.m_TabItemOption.Size = new System.Drawing.Size(281, 537);
             this.m_TabItemOption.TabIndex = 0;
-            this.m_TabItemOption.Text = "Control Options";
+            this.m_TabItemOption.Text = "Tool Options";
             this.m_TabItemOption.UseVisualStyleBackColor = true;
             // 
             // m_PanelControlProperties

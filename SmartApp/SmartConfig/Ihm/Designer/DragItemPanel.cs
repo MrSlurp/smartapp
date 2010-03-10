@@ -22,13 +22,16 @@ namespace SmartApp.Ihm.Designer
         public DragItemPanel()
         {
             InitializeComponent();
-            InitDllComponent();
-            m_ToolDragItemBtn.Text = "Button";
-            m_ToolDragItemCheckBox.Text = "CheckBox";
-            m_ToolDragItemSlider.Text = "Slider";
-            m_ToolDragItemNumUpDown.Text = "Numeric Up/Down";
-            m_ToolDragItemText.Text = "Text";
-            m_ToolDragItemcombo.Text = "Combo";
+            if (!this.DesignMode)
+            {
+                InitDllComponent();
+                m_ToolDragItemBtn.Text = "Button";
+                m_ToolDragItemCheckBox.Text = "CheckBox";
+                m_ToolDragItemSlider.Text = "Slider";
+                m_ToolDragItemNumUpDown.Text = "Numeric Up/Down";
+                m_ToolDragItemText.Text = "Text";
+                m_ToolDragItemcombo.Text = "Combo";
+            }
         }
 
         protected void InitDllComponent()
@@ -45,20 +48,23 @@ namespace SmartApp.Ihm.Designer
                 }
             }
             DownPos += ECART;
-            for (int i = 0; i < Program.DllGest.Count; i++)
+            if (Program.DllGest != null)
             {
-                IDllControlInterface Dll = Program.DllGest[i];
-                Size sz = Dll.ToolWindSize;
-                InteractiveControl newICtrl = Dll.CreateInteractiveControl();
-                newICtrl.AllowDrop = true;
-                newICtrl.Location = new System.Drawing.Point(3, DownPos);
-                newICtrl.Name = Dll.DefaultControlName;
-                newICtrl.Selected = false;
-                newICtrl.Size = sz;
-                newICtrl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.OnItemMouseDown);
-                this.Controls.Add(newICtrl);
-                DownPos += newICtrl.Size.Height;
-                DownPos += ECART;
+                for (int i = 0; i < Program.DllGest.Count; i++)
+                {
+                    IDllControlInterface Dll = Program.DllGest[i];
+                    Size sz = Dll.ToolWindSize;
+                    InteractiveControl newICtrl = Dll.CreateInteractiveControl();
+                    newICtrl.AllowDrop = true;
+                    newICtrl.Location = new System.Drawing.Point(3, DownPos);
+                    newICtrl.Name = Dll.DefaultControlName;
+                    newICtrl.Selected = false;
+                    newICtrl.Size = sz;
+                    newICtrl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.OnItemMouseDown);
+                    this.Controls.Add(newICtrl);
+                    DownPos += newICtrl.Size.Height;
+                    DownPos += ECART;
+                }
             }
             this.ResumeLayout(false);
         }

@@ -57,7 +57,7 @@ namespace SmartApp
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(11, 13);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(119, 13);
+            this.label1.Size = new System.Drawing.Size(0, 13);
             this.label1.TabIndex = 1;
             // 
             // label2
@@ -65,7 +65,7 @@ namespace SmartApp
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(11, 30);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(140, 13);
+            this.label2.Size = new System.Drawing.Size(0, 13);
             this.label2.TabIndex = 2;
             // 
             // label3
@@ -73,7 +73,7 @@ namespace SmartApp
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(8, 78);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(301, 13);
+            this.label3.Size = new System.Drawing.Size(0, 13);
             this.label3.TabIndex = 3;
             // 
             // label4
@@ -81,7 +81,7 @@ namespace SmartApp
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(8, 93);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(302, 13);
+            this.label4.Size = new System.Drawing.Size(0, 13);
             this.label4.TabIndex = 4;
             // 
             // label5
@@ -89,7 +89,7 @@ namespace SmartApp
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(8, 108);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(327, 13);
+            this.label5.Size = new System.Drawing.Size(0, 13);
             this.label5.TabIndex = 4;
             // 
             // label6
@@ -97,7 +97,7 @@ namespace SmartApp
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(8, 123);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(319, 13);
+            this.label6.Size = new System.Drawing.Size(0, 13);
             this.label6.TabIndex = 4;
             // 
             // label7
@@ -105,7 +105,7 @@ namespace SmartApp
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(8, 138);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(91, 13);
+            this.label7.Size = new System.Drawing.Size(0, 13);
             this.label7.TabIndex = 4;
             // 
             // pictureBox1
@@ -146,6 +146,7 @@ namespace SmartApp
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AboutForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "About";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

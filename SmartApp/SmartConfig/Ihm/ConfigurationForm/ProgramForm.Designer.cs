@@ -101,7 +101,7 @@ namespace SmartApp.Ihm
             this.m_TabLogger.Padding = new System.Windows.Forms.Padding(3);
             this.m_TabLogger.Size = new System.Drawing.Size(654, 365);
             this.m_TabLogger.TabIndex = 2;
-            this.m_TabLogger.Text = "loggers";
+            this.m_TabLogger.Text = "Loggers";
             this.m_TabLogger.UseVisualStyleBackColor = true;
             // 
             // m_PanelProgLogger
