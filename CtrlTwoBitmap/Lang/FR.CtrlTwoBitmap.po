@@ -1,3 +1,12 @@
 
 msgid "Image Files (jpeg, gif, bmp, png)|*.jpg;*.jpeg;*.gif;*.bmp;*.png|JPEG Files(*.jpg;*.jpeg)|*.jpg;*.jpeg|GIF Files(*.gif)|*.gif|BMP Files(*.bmp)|*.bmp|PNG Files(*.png)|*.png"
-msgstr ""
+msgstr "Fichier Image (jpeg, gif, bmp, png)|*.jpg;*.jpeg;*.gif;*.bmp;*.png|Fichier JPEG(*.jpg;*.jpeg)|*.jpg;*.jpeg|Fichier GIF(*.gif)|*.gif|Fichier BMP(*.bmp)|*.bmp|Fichier PNG(*.png)|*.png"
+
+msgid "Active Bitmap"
+msgstr "Image état actif"
+
+msgid "Inactive Bitmap"
+msgstr "Image état inactif"
+
+msgid "..."
+msgstr "..."

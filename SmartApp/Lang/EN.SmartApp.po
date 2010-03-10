@@ -1,405 +1,540 @@
 
 msgid "ToolStrip"
-msgstr ""
+msgstr "ToolStrip"
 
 msgid "New"
-msgstr ""
+msgstr "New"
 
 msgid "Open"
-msgstr ""
+msgstr "Open"
 
 msgid "Save"
-msgstr ""
+msgstr "Save"
 
 msgid "Print"
-msgstr ""
+msgstr "Print"
 
 msgid "Print Preview"
-msgstr ""
+msgstr "Print Preview"
 
 msgid "Help"
-msgstr ""
+msgstr "Help"
 
 msgid "MenuStrip"
-msgstr ""
+msgstr "MenuStrip"
 
 msgid "&File"
-msgstr ""
+msgstr "&File"
 
 msgid "&New"
-msgstr ""
+msgstr "&New"
 
 msgid "&Open"
-msgstr ""
+msgstr "&Open"
 
 msgid "Close file"
-msgstr ""
+msgstr "&Close file"
 
 msgid "&Save"
-msgstr ""
+msgstr "&Save"
 
 msgid "Save &As"
-msgstr ""
+msgstr "Save &As"
 
 msgid "&Print"
-msgstr ""
+msgstr "&Print"
 
 msgid "Print Pre&view"
-msgstr ""
+msgstr "Print Pre&view"
 
 msgid "Print Setup"
-msgstr ""
+msgstr "Print Setup"
 
 msgid "Recent Fles"
-msgstr ""
+msgstr "Recent Fles"
 
 msgid "E&xit"
-msgstr ""
+msgstr "E&xit"
 
 msgid "&Edit"
-msgstr ""
+msgstr "&Edit"
 
 msgid "&Undo"
-msgstr ""
+msgstr "&Undo"
 
 msgid "&Redo"
-msgstr ""
+msgstr "&Redo"
 
 msgid "Cu&t"
-msgstr ""
+msgstr "Cu&t"
 
 msgid "&Copy"
-msgstr ""
+msgstr "&Copy"
 
 msgid "&Paste"
-msgstr ""
+msgstr "&Paste"
 
 msgid "Select &All"
-msgstr ""
+msgstr "Select &All"
 
 msgid "&Tools"
-msgstr ""
+msgstr "&Tools"
 
 msgid "&Options"
-msgstr ""
+msgstr "&Options"
 
 msgid "Jump to SmartCommand"
-msgstr ""
+msgstr "Jump to SmartCommand"
 
 msgid "M3 SL blocs Wizard"
-msgstr ""
+msgstr "M3 SL blocs Wizard"
 
 msgid "Z2 SL blocs Wizard"
-msgstr ""
+msgstr "Z2 SL blocs Wizard"
 
 msgid "TCP Modbus Wizard"
-msgstr ""
+msgstr "TCP Modbus Wizard"
 
 msgid "&View"
-msgstr ""
+msgstr "&View"
 
 msgid "&Toolbar"
-msgstr ""
+msgstr "&Toolbar"
 
 msgid "&Status Bar"
-msgstr ""
+msgstr "&Status Bar"
 
 msgid "&Windows"
-msgstr ""
+msgstr "&Windows"
 
 msgid "&Cascade"
-msgstr ""
+msgstr "&Cascade"
 
 msgid "Tile &Vertical"
-msgstr ""
+msgstr "Tile &Vertical"
 
 msgid "Tile &Horizontal"
-msgstr ""
+msgstr "Tile &Horizontal"
 
 msgid "C&lose All"
-msgstr ""
+msgstr "C&lose All"
 
 msgid "&Arrange Icons"
-msgstr ""
+msgstr "&Arrange Icons"
 
 msgid "&Help"
-msgstr ""
+msgstr "&Help"
 
 msgid "&Index"
-msgstr ""
+msgstr "&Index"
 
 msgid "&About ..."
-msgstr ""
+msgstr "&About..."
 
 msgid "Plugins versions"
-msgstr ""
+msgstr "Plugins versions"
 
 msgid "Datas configuration"
-msgstr ""
+msgstr "Datas configuration"
 
 msgid "Manage Groups"
-msgstr ""
+msgstr "Manage Groups"
 
 msgid "New Data"
-msgstr ""
+msgstr "New Data"
 
 msgid "Symbol"
-msgstr ""
+msgstr "Symbol"
 
 msgid "Constant"
-msgstr ""
+msgstr "Constant"
 
 msgid "Size"
-msgstr ""
+msgstr "Size"
 
 msgid "Values"
-msgstr ""
-
-msgid "0"
-msgstr ""
+msgstr "Values"
 
 msgid "Default"
-msgstr ""
+msgstr "Default"
 
 msgid "Max"
-msgstr ""
+msgstr "Max"
 
 msgid "Min"
-msgstr ""
+msgstr "Min"
 
 msgid "Description"
-msgstr ""
+msgstr "Description"
 
 msgid "Screens configuration"
-msgstr ""
+msgstr "Screens configuration"
 
 msgid "Screens"
-msgstr ""
+msgstr "Screens"
 
 msgid "Title"
-msgstr ""
+msgstr "Title"
 
 msgid "Remove background image"
-msgstr ""
+msgstr "Remove background image"
 
 msgid "..."
-msgstr ""
+msgstr "..."
 
 msgid "Background Image"
-msgstr ""
+msgstr "Background Image"
 
 msgid "Tools"
-msgstr ""
+msgstr "Tools"
 
 msgid "Button"
-msgstr ""
+msgstr "Button"
 
 msgid "CheckBox"
-msgstr ""
+msgstr "CheckBox"
 
 msgid "Slider"
-msgstr ""
+msgstr "Slider"
 
 msgid "Numeric Up/Down"
-msgstr ""
+msgstr "Numeric Up/Down"
 
 msgid "Text"
-msgstr ""
+msgstr "Text"
 
 msgid "Combo"
-msgstr ""
+msgstr "Combo"
 
 msgid "Item"
-msgstr ""
+msgstr "Item"
 
 msgid "Control Options"
-msgstr ""
+msgstr "Tool Options"
 
 msgid "No selection"
-msgstr ""
+msgstr "No selection"
 
 msgid "Read Only"
-msgstr ""
+msgstr "Read Only"
 
 msgid "Use Screen Event"
-msgstr ""
+msgstr "Use Screen Event"
 
 msgid "Associate Data"
-msgstr ""
+msgstr "Associate Data"
 
 msgid "Item Script"
-msgstr ""
+msgstr "Item Script"
 
 msgid "Edit Script"
-msgstr ""
+msgstr "Edit Script"
 
 msgid "No Screen"
-msgstr ""
+msgstr "No Screen"
 
 msgid "toolStrip1"
-msgstr ""
+msgstr "toolStrip1"
 
 msgid "Align left"
-msgstr ""
+msgstr "Align left"
 
 msgid "Align top"
-msgstr ""
+msgstr "Align top"
 
 msgid "Make same width"
-msgstr ""
+msgstr "Make same width"
 
 msgid "Make same height"
-msgstr ""
+msgstr "Make same height"
 
 msgid "Make same size"
-msgstr ""
+msgstr "Make same size"
 
 msgid "Make horizonntal spacing equal"
-msgstr ""
+msgstr "Make horizonntal spacing equal"
 
 msgid "Make vertical spacing equal"
-msgstr ""
+msgstr "Make vertical spacing equal"
 
 msgid "Sizes"
-msgstr ""
+msgstr "Sizes"
 
 msgid "Increase width"
-msgstr ""
+msgstr "Increase width"
 
 msgid "Decrease width"
-msgstr ""
+msgstr "Decrease width"
 
 msgid "Increase height"
-msgstr ""
+msgstr "Increase height"
 
 msgid "Decrease height"
-msgstr ""
+msgstr "Decrease height"
 
 msgid "Positions"
-msgstr ""
+msgstr "Positions"
 
 msgid "Move left"
-msgstr ""
+msgstr "Move left"
 
 msgid "Move right"
-msgstr ""
+msgstr "Move right"
 
 msgid "Move up"
-msgstr ""
+msgstr "Move up"
 
 msgid "Move down"
-msgstr ""
+msgstr "Move down"
 
 msgid "Bring to front"
-msgstr ""
+msgstr "Bring to front"
 
 msgid "Save to bitmap"
-msgstr ""
+msgstr "Save to bitmap"
 
 msgid "Frames configuration"
-msgstr ""
+msgstr "Frames configuration"
 
 msgid "New Frame"
-msgstr ""
+msgstr "New Frame"
 
 msgid "Number of data"
-msgstr ""
+msgstr "Number of data"
 
 msgid "Frame properties"
-msgstr ""
+msgstr "Frame properties"
 
 msgid "Conversion"
-msgstr ""
+msgstr "Conversion"
 
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 msgid "To"
-msgstr ""
+msgstr "To"
 
 msgid "From"
-msgstr ""
+msgstr "From"
 
 msgid "Control Data"
-msgstr ""
-
-msgid "8 bits"
-msgstr ""
+msgstr "Control Data"
 
 msgid "Frame datas"
-msgstr ""
+msgstr "Frame datas"
 
 msgid "Data Symbol"
-msgstr ""
+msgstr "Data Symbol"
 
 msgid "Default Value"
-msgstr ""
+msgstr "Default Value"
 
 msgid "Program"
-msgstr ""
+msgstr "Program"
 
 msgid "Timers"
-msgstr ""
+msgstr "Timers"
 
 msgid "new"
-msgstr ""
+msgstr "new"
 
 msgid "Period"
-msgstr ""
+msgstr "Period"
 
 msgid "Auto Start"
-msgstr ""
+msgstr "Auto Start"
 
 msgid "ms"
-msgstr ""
-
-msgid "50"
-msgstr ""
+msgstr "ms"
 
 msgid "Timer Period"
-msgstr ""
+msgstr "Timer Period"
 
 msgid "Script"
-msgstr ""
+msgstr "Script"
 
 msgid "loggers"
-msgstr ""
+msgstr "Loggers"
 
 msgid "Logger Symbol"
-msgstr ""
+msgstr "Logger Symbol"
 
 msgid ".csv"
-msgstr ""
+msgstr ".csv"
 
 msgid "Normal"
-msgstr ""
+msgstr "Normal"
 
 msgid "Logger Period"
-msgstr ""
+msgstr "Logger Period"
 
 msgid "Output file name"
-msgstr ""
+msgstr "Output file name"
 
 msgid "csv Separator"
-msgstr ""
+msgstr "csv Separator"
 
 msgid "Logger Type"
-msgstr ""
+msgstr "Logger Type"
 
 msgid "Tabulation"
-msgstr ""
+msgstr "Tabulation"
+
+msgid "Semi colon"
+msgstr "Semi colon"
+
+msgid "Comma"
+msgstr "Comma"
 
 msgid "Functions"
-msgstr ""
+msgstr "Functions"
 
 msgid "Screen Init Script"
-msgstr ""
+msgstr "Screen Init Script"
 
 msgid "Screen Event Script"
-msgstr ""
+msgstr "Screen Event Script"
 
 msgid "Control Event Script"
-msgstr ""
+msgstr "Control Event Script"
 
 msgid "Default group"
-msgstr ""
+msgstr "Default group"
+
+msgid "Error while reading file. File is corrupted"
+msgstr "Error while reading file. File is corrupted"
+
+msgid "Error"
+msgstr "Error"
+
+msgid "File {0} does not exists"
+msgstr "File {0} does not exists"
+
+msgid "You can't remove frame control data"
+msgstr "You can't remove frame control data"
+
+msgid "Application fail on startup."
+msgstr "Application fail on startup."
+
+msgid "Preferences"
+msgstr "Preferences"
+
+msgid "Smart Application Suite."
+msgstr "Smart Application Suite."
+
+msgid "Copyright Pascal Bigot 2007 - 2009"
+msgstr "Copyright Pascal Bigot 2007 - 2010"
+
+msgid "This development is realized totally outside of any professional "
+msgstr "This development is realized totally outside of any professional "
+
+msgid "activities and with no support of Crouzet. Crouzet or developer "
+msgstr "activities and with no support of Crouzet. Crouzet or developer "
+
+msgid "cant be responsible for any damages or miss-functioning that occur "
+msgstr "cant be responsible for any damages or miss-functioning that occur "
+
+msgid "through the use of this free software witch is developed only under"
+msgstr "through the use of this free software witch is developed only under"
+
+msgid "privates activities."
+msgstr "privates activities."
+
+msgid "M3 SL Bloc Bitmap"
+msgstr "M3 SL Bloc Bitmap"
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "OK"
+msgstr "OK"
+
+msgid "Generate answer frame"
+msgstr "Generate answer frame"
+
+msgid "Join selected datas"
+msgstr "Join selected datas"
+
+msgid "Split selected data"
+msgstr "Split selected data"
+
+msgid "Data size"
+msgstr "Data size"
+
+msgid "SL Input/Ouput n"
+msgstr "SL Input/Ouput n"
+
+msgid "Answer frame symbol"
+msgstr "Answer frame symbol"
+
+msgid "Frame symbol"
+msgstr "Frame symbol"
+
+msgid "Address range"
+msgstr "Address range"
+
+msgid "Frame type"
+msgstr "Frame type"
+
+msgid "Z2 SL Bloc Bitmap"
+msgstr "Z2 SL Bloc Bitmap"
+
+msgid "Register number"
+msgstr "Register number"
+
+msgid "Number of register"
+msgstr "Number of register"
+
+msgid "Starting register address"
+msgstr "Starting register address"
+
+msgid "Register Type"
+msgstr "Register Type"
+
+msgid "Application Language"
+msgstr "Application Language"
+
+msgid "Disconnected"
+msgstr "Disconnected"
+
+msgid "Stoppped"
+msgstr "Stoppped"
+
+msgid "Configure connections"
+msgstr "Configure connections"
+
+msgid "Toggle Full Screen"
+msgstr "Toggle Full Screen"
+
+msgid "Recent Files"
+msgstr "Recent Files"
+
+msgid "Application log"
+msgstr "Application log"
+
+msgid "Bring windows to top on error"
+msgstr "Bring windows to top on error"
+
+msgid "Clear"
+msgstr "Clear"
+
+msgid "Events"
+msgstr "Events"
+
+msgid "Time"
+msgstr "Time"
+
+msgid "Message"
+msgstr "Message"
+
+msgid "Data value"
+msgstr "Data value"
+
+msgid "Configured connections"
+msgstr "Configured connections"
+
+msgid "Ok"
+msgstr "OK"
+
+msgid "Save Connection parameters for each file"
+msgstr "Save Connection parameters for each file"

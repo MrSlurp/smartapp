@@ -1,24 +1,24 @@
 
 msgid "Select"
-msgstr ""
+msgstr "Select"
 
 msgid "Back color"
-msgstr ""
+msgstr "Back color"
 
 msgid "Color"
-msgstr ""
+msgstr "Color"
 
 msgid "12.345"
-msgstr ""
+msgstr "12.345"
 
 msgid "123.45"
-msgstr ""
+msgstr "123.45"
 
 msgid "1234.5"
-msgstr ""
+msgstr "1234.5"
 
 msgid "12345"
-msgstr ""
+msgstr "12345"
 
 msgid "Format"
-msgstr ""
+msgstr "Format"

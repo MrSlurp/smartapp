@@ -1,12 +1,87 @@
 
 msgid "Graphic {0} will lost data"
-msgstr ""
+msgstr "Le graphique {0} va perdre une donnée"
 
 msgid "Data to log not found (Graphic {0}, Data {1}"
-msgstr ""
+msgstr "Donnée à enrgistrer non trouvée (Graphique {0}, donnée {1}"
 
 msgid "Data {0} Symbol"
-msgstr ""
+msgstr "Symbole de donnée {0}"
 
 msgid "Data {0} Alias"
-msgstr ""
+msgstr "Alias de donnée {0}"
+
+msgid "Configure"
+msgstr "Configurer"
+
+msgid "10 minutes"
+msgstr "10 minutes"
+
+msgid "1 hour"
+msgstr "1 heure"
+
+msgid "2 hours"
+msgstr "2 heures"
+
+msgid "6 hours"
+msgstr "6 heures"
+
+msgid "12 hours"
+msgstr "12 heures"
+
+msgid "1 day"
+msgstr "1 jour"
+
+msgid "2 days"
+msgstr "2 jours"
+
+msgid "4 days"
+msgstr "4 jours"
+
+msgid "1 week"
+msgstr "1 semaine"
+
+msgid "1 sec"
+msgstr "1 sec"
+
+msgid "10 sec"
+msgstr "10 sec"
+
+msgid "30 sec"
+msgstr "30 sec"
+
+msgid "1 minute"
+msgstr "1 minute"
+
+msgid "2 minutes"
+msgstr "2 minutes"
+
+msgid "5 minutes"
+msgstr "5 minutes"
+
+msgid "Pick"
+msgstr "Sélectionner"
+
+msgid "Curve Color"
+msgstr "Couleur de courbe "
+
+msgid "Y Axis Title"
+msgstr "Titre de l'axe Y"
+
+msgid "X Axis Title"
+msgstr "Titre de l'axe X"
+
+msgid "Graphic Title"
+msgstr "Titre du graphique"
+
+msgid "Cancel"
+msgstr "Annuler"
+
+msgid "OK"
+msgstr "OK"
+
+msgid "Log Period"
+msgstr "Période d'enregistrement"
+
+msgid "Save Period"
+msgstr "Période de sauvegarde"

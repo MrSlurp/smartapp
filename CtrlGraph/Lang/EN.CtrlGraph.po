@@ -1,135 +1,87 @@
 
 msgid "Graphic {0} will lost data"
-msgstr ""
+msgstr "Graphic {0} will lost data"
 
 msgid "Data to log not found (Graphic {0}, Data {1}"
-msgstr ""
+msgstr "Data to log not found (Graphic {0}, Data {1}"
 
 msgid "Data {0} Symbol"
-msgstr ""
+msgstr "Data {0} Symbol"
 
 msgid "Data {0} Alias"
-msgstr ""
+msgstr "Data {0} Alias"
 
 msgid "Configure"
-msgstr ""
+msgstr "Configure"
 
 msgid "10 minutes"
-msgstr ""
+msgstr "10 minutes"
 
 msgid "1 hour"
-msgstr ""
+msgstr "1 hour"
 
 msgid "2 hours"
-msgstr ""
+msgstr "2 hours"
 
 msgid "6 hours"
-msgstr ""
+msgstr "6 hours"
 
 msgid "12 hours"
-msgstr ""
+msgstr "12 hours"
 
 msgid "1 day"
-msgstr ""
+msgstr "1 day"
 
 msgid "2 days"
-msgstr ""
+msgstr "2 days"
 
 msgid "4 days"
-msgstr ""
+msgstr "4 days"
 
 msgid "1 week"
-msgstr ""
+msgstr "1 week"
 
 msgid "1 sec"
-msgstr ""
+msgstr "1 sec"
 
 msgid "10 sec"
-msgstr ""
+msgstr "10 sec"
 
 msgid "30 sec"
-msgstr ""
+msgstr "30 sec"
 
 msgid "1 minute"
-msgstr ""
+msgstr "1 minute"
 
 msgid "2 minutes"
-msgstr ""
+msgstr "2 minutes"
 
 msgid "5 minutes"
-msgstr ""
+msgstr "5 minutes"
 
 msgid "Pick"
-msgstr ""
+msgstr "Pick"
 
 msgid "Curve Color"
-msgstr ""
-
-msgid "Data 1 Alias"
-msgstr ""
-
-msgid "Data 1 Symbol"
-msgstr ""
-
-msgid "Data 2 Alias"
-msgstr ""
-
-msgid "Data 2 Symbol"
-msgstr ""
-
-msgid "Data 3 Alias"
-msgstr ""
-
-msgid "Data 3 Symbol"
-msgstr ""
-
-msgid "Data 4 Alias"
-msgstr ""
-
-msgid "Data 4 Symbol"
-msgstr ""
-
-msgid "Data 5 Alias"
-msgstr ""
-
-msgid "Data 5 Symbol"
-msgstr ""
-
-msgid "Data 6 Alias"
-msgstr ""
-
-msgid "Data 6 Symbol"
-msgstr ""
-
-msgid "Data 7 Alias"
-msgstr ""
-
-msgid "Data 7 Symbol"
-msgstr ""
-
-msgid "Data 8 Alias"
-msgstr ""
-
-msgid "Data 8 Symbol"
-msgstr ""
+msgstr "Curve Color"
 
 msgid "Y Axis Title"
-msgstr ""
+msgstr "Y Axis Title"
 
 msgid "X Axis Title"
-msgstr ""
+msgstr "X Axis Title"
 
 msgid "Graphic Title"
-msgstr ""
+msgstr "Graphic Title"
 
 msgid "Cancel"
-msgstr ""
+msgstr "Cancel"
 
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 msgid "Log Period"
-msgstr ""
+msgstr "Log Period"
 
 msgid "Save Period"
-msgstr ""
+msgstr "Save Period"

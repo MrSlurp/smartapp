@@ -12,7 +12,8 @@
  * =========================================================================
  *                   ANSALDO STS France - Copyright © 2009
  * ========================================================================= */
-#define LANG_LOAD_DEBUG
+//#define LANG_LOAD_DEBUG
+#define LANG_USE_DEBUG
 
 using System;
 using System.Collections.Generic;
@@ -362,6 +363,12 @@ namespace CommonLib
                         }
                     }
                 }
+                else
+                {
+#if LANG_USE_DEBUG
+                    Console.WriteLine(string.Format("Fichier {0}, DevText {1} absent",FileName, DevText));
+#endif
+                }
             }
 
             //Le fichier n'existe (peut-être) pas dans le dictionary
@@ -433,7 +440,7 @@ namespace CommonLib
                                 {
                                     AddLineToDictionnary(FileName, Cur_msgid, txt[1]);
 #if LANG_LOAD_DEBUG
-                                    Console.WriteLine("Langue de traduite = " + txt[1]);
+                                    Console.WriteLine("Langue traduite = " + txt[1]);
 #endif
                                 }
                             }
@@ -519,17 +526,17 @@ namespace CommonLib
                 using (FileStream fsw = new FileStream(FileName, FileMode.Append, FileAccess.Write, FileShare.Read))
                 {
     
-                    StreamWriter sw = new StreamWriter(fsw, System.Text.Encoding.Default);
+                    StreamWriter sw = new StreamWriter(fsw, System.Text.Encoding.UTF8);
                     //ecriture du message
                     sw.WriteLine();
                     if (!string.IsNullOrEmpty(comment))
                         sw.WriteLine("// " + comment);
-                    sw.WriteLine("msgid \"" + DevText + "\"");
+                    sw.WriteLine(@"msgid \" + DevText + @"\");
                     string curlng = "";
                     if (mDevLangage == mCurrentLangage)
                         curlng = DevText;
     
-                    sw.WriteLine("msgstr \"" + curlng + "\"");
+                    sw.WriteLine(@"msgstr \" + curlng + @"\");
                     //sw.WriteLine();
                     sw.Close();
                     fsw.Close();
@@ -730,10 +737,11 @@ namespace CommonLib
                                 // on a trouvé un appel à la fonction Lang.C
                                 if (var.Contains("\""))
                                 {
-                                    // si la chaine contient un \", il faut prendre tout les token
-                                    int LastBackSlashQuote = var.LastIndexOf("\"");
-                                    int FirstBackSlashQuote = var.IndexOf("\"");
-                                    LangC.Add(var.Substring(FirstBackSlashQuote+1, LastBackSlashQuote-1 ));
+                                    // si la chaine contient un \", il faut prendre tout les tokens
+                                    int LastBackSlashQuote = var.LastIndexOf(@"\");
+                                    int FirstBackSlashQuote = var.IndexOf(@"\");
+                                    //LangC.Add(var.Substring(FirstBackSlashQuote+1, LastBackSlashQuote-1 ));
+                                    //TODO
                                 }
                                 else
                                 {

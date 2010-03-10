@@ -1,6 +1,6 @@
 
 msgid "ToolStrip"
-msgstr ""
+msgstr "ToolStrip"
 
 msgid "New"
 msgstr "Nouveau"
@@ -12,7 +12,7 @@ msgid "Save"
 msgstr "Enregistrer"
 
 msgid "Print"
-msgstr "Imprimer"
+msgstr "Imrimer"
 
 msgid "Print Preview"
 msgstr "Apperçu avant impression"
@@ -21,7 +21,7 @@ msgid "Help"
 msgstr "Aide"
 
 msgid "MenuStrip"
-msgstr ""
+msgstr "MenuStrip"
 
 msgid "&File"
 msgstr "&Fichier"
@@ -30,364 +30,510 @@ msgid "&New"
 msgstr "&Nouveau"
 
 msgid "&Open"
-msgstr "&Ouvrir"
+msgstr "&Oouvrir"
 
 msgid "Close file"
-msgstr ""
+msgstr "Fe&rmer"
 
 msgid "&Save"
-msgstr ""
+msgstr "&Enregistrer"
 
 msgid "Save &As"
-msgstr ""
+msgstr "Enregistrer so&us"
 
 msgid "&Print"
-msgstr ""
+msgstr "&Imrpimer"
 
 msgid "Print Pre&view"
-msgstr ""
+msgstr "Apperçu avant impression"
 
 msgid "Print Setup"
-msgstr ""
+msgstr "Mise en page"
 
 msgid "Recent Fles"
-msgstr ""
+msgstr "Fichiers récents"
 
 msgid "E&xit"
-msgstr ""
+msgstr "&Quitter"
 
 msgid "&Edit"
-msgstr ""
+msgstr "&Edition"
 
 msgid "&Undo"
-msgstr ""
+msgstr "&Annuler"
 
 msgid "&Redo"
-msgstr ""
+msgstr "&Refaire"
 
 msgid "Cu&t"
-msgstr ""
+msgstr "Couper"
 
 msgid "&Copy"
-msgstr ""
+msgstr "Copier"
 
 msgid "&Paste"
-msgstr ""
+msgstr "Coller"
 
 msgid "Select &All"
-msgstr ""
+msgstr "Tout sélectionner"
 
 msgid "&Tools"
-msgstr ""
+msgstr "Ou&tils"
 
 msgid "&Options"
-msgstr ""
+msgstr "&Options"
 
 msgid "Jump to SmartCommand"
-msgstr ""
+msgstr "Aller à SmartCommand"
 
 msgid "M3 SL blocs Wizard"
-msgstr ""
+msgstr "Assistant des blocs M3 SL"
 
 msgid "Z2 SL blocs Wizard"
-msgstr ""
+msgstr "Assistant des blocs Z2 SL"
 
 msgid "TCP Modbus Wizard"
-msgstr ""
+msgstr "Assistant TCP Modbus"
 
 msgid "&View"
-msgstr ""
+msgstr "&Affichage"
 
 msgid "&Toolbar"
-msgstr ""
+msgstr "Barre d'&outils"
 
 msgid "&Status Bar"
-msgstr ""
+msgstr "Barre de &status"
 
 msgid "&Windows"
-msgstr ""
+msgstr "&Fenêtres"
 
 msgid "&Cascade"
-msgstr ""
+msgstr "&Cascade"
 
 msgid "Tile &Vertical"
-msgstr ""
+msgstr "Arranger &Verticalement"
 
 msgid "Tile &Horizontal"
-msgstr ""
+msgstr "Arranger &Horizontalement"
 
 msgid "C&lose All"
-msgstr ""
+msgstr "&Fermer tout"
 
 msgid "&Arrange Icons"
-msgstr ""
+msgstr "&Iconiser"
 
 msgid "&Help"
-msgstr ""
+msgstr "&Aide"
 
 msgid "&Index"
-msgstr ""
+msgstr "&Index"
 
 msgid "&About ..."
-msgstr ""
+msgstr "&A propos..."
 
 msgid "Plugins versions"
-msgstr ""
+msgstr "Version des plugins"
 
 msgid "Datas configuration"
-msgstr ""
+msgstr "Configuration des données"
 
 msgid "Manage Groups"
-msgstr ""
+msgstr "Gestion des groupes"
 
 msgid "New Data"
-msgstr ""
+msgstr "Nouvelle donnée"
 
 msgid "Symbol"
-msgstr ""
+msgstr "Symbole"
 
 msgid "Constant"
-msgstr ""
+msgstr "Constante"
 
 msgid "Size"
-msgstr ""
+msgstr "Taille"
 
 msgid "Values"
-msgstr ""
-
-msgid "0"
-msgstr ""
+msgstr "Valeurs"
 
 msgid "Default"
-msgstr ""
+msgstr "Defaut"
 
 msgid "Max"
-msgstr ""
+msgstr "Max"
 
 msgid "Min"
-msgstr ""
+msgstr "Min"
 
 msgid "Description"
-msgstr ""
+msgstr "Description"
 
 msgid "Screens configuration"
-msgstr ""
+msgstr "Configuration des écrans"
 
 msgid "Screens"
-msgstr ""
+msgstr "Ecrans"
 
 msgid "Title"
-msgstr ""
+msgstr "Titre"
 
 msgid "Remove background image"
-msgstr ""
+msgstr "Retirer l'image de fond"
 
 msgid "..."
-msgstr ""
+msgstr "..."
 
 msgid "Background Image"
-msgstr ""
+msgstr "Image de fond"
 
 msgid "Tools"
-msgstr ""
+msgstr "Outils"
 
 msgid "Button"
-msgstr ""
+msgstr "Bouton"
 
 msgid "CheckBox"
-msgstr ""
+msgstr "Case a cocher"
 
 msgid "Slider"
-msgstr ""
+msgstr "Glissière"
 
 msgid "Numeric Up/Down"
-msgstr ""
+msgstr "Editeur numérique"
 
 msgid "Text"
-msgstr ""
+msgstr "Texte"
 
 msgid "Combo"
-msgstr ""
+msgstr "Liste déroulante"
 
 msgid "Item"
-msgstr ""
+msgstr "Item"
 
 msgid "Control Options"
-msgstr ""
+msgstr "Options de l'outil"
 
 msgid "No selection"
-msgstr ""
+msgstr "Aucune sélection"
 
 msgid "Read Only"
-msgstr ""
+msgstr "Lecture seule"
 
 msgid "Use Screen Event"
-msgstr ""
+msgstr "Utilise l'évènement écran"
 
 msgid "Associate Data"
-msgstr ""
+msgstr "Donnée associée"
 
 msgid "Item Script"
-msgstr ""
+msgstr "Scritp de l'objet"
 
 msgid "Edit Script"
-msgstr ""
+msgstr "Editer le script"
 
 msgid "No Screen"
-msgstr ""
+msgstr "Aucun écran"
 
 msgid "toolStrip1"
-msgstr ""
+msgstr "toolStrip1"
 
 msgid "Align left"
-msgstr ""
+msgstr "Aligner à gauche"
 
 msgid "Align top"
-msgstr ""
+msgstr "Aligner en haut"
 
 msgid "Make same width"
-msgstr ""
+msgstr "Uniformiser en largeur"
 
 msgid "Make same height"
-msgstr ""
+msgstr "Uniformiser en hauteur"
 
 msgid "Make same size"
-msgstr ""
+msgstr "Uniformiser en taille"
 
 msgid "Make horizonntal spacing equal"
-msgstr ""
+msgstr "Répartir horizonntalement"
 
 msgid "Make vertical spacing equal"
-msgstr ""
+msgstr "Répartir verticalement"
 
 msgid "Sizes"
-msgstr ""
+msgstr "Tailles"
 
 msgid "Increase width"
-msgstr ""
+msgstr "Augmenter la largeur"
 
 msgid "Decrease width"
-msgstr ""
+msgstr "Réduire la largeur"
 
 msgid "Increase height"
-msgstr ""
+msgstr "Augmenter la hauteur"
 
 msgid "Decrease height"
-msgstr ""
+msgstr "Réduire la hauteur"
 
 msgid "Positions"
-msgstr ""
+msgstr "Positions"
 
 msgid "Move left"
-msgstr ""
+msgstr "Déplacer à gauche"
 
 msgid "Move right"
-msgstr ""
+msgstr "Déplacer à droite"
 
 msgid "Move up"
-msgstr ""
+msgstr "Déplacer en haut"
 
 msgid "Move down"
-msgstr ""
+msgstr "Déplacer en bas"
 
 msgid "Bring to front"
-msgstr ""
+msgstr "Mettre au premier plan"
 
 msgid "Save to bitmap"
-msgstr ""
+msgstr "Enregistrer fond de plan"
 
 msgid "Frames configuration"
-msgstr ""
+msgstr "configuration des trames"
 
 msgid "New Frame"
-msgstr ""
+msgstr "Nouvelle trame"
 
 msgid "Number of data"
-msgstr ""
+msgstr "Nombre de données"
 
 msgid "Frame properties"
-msgstr ""
+msgstr "Propriété de la trame"
 
 msgid "Conversion"
-msgstr ""
+msgstr "Conversion"
 
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 msgid "To"
-msgstr ""
+msgstr "Jusqu'a"
 
 msgid "From"
-msgstr ""
+msgstr "A partir de"
 
 msgid "Control Data"
-msgstr ""
-
-msgid "8 bits"
-msgstr ""
-
+msgstr "Donnée de contrôle"
 msgid "Frame datas"
-msgstr ""
+msgstr "Donnée de la trame"
 
 msgid "Data Symbol"
-msgstr ""
+msgstr "Symbole de donnée"
 
 msgid "Default Value"
-msgstr ""
+msgstr "Valeur par défaut"
 
 msgid "Program"
-msgstr ""
+msgstr "Programmation"
 
 msgid "Timers"
-msgstr ""
+msgstr "Timers"
 
 msgid "new"
-msgstr ""
+msgstr "nouveau"
 
 msgid "Period"
-msgstr ""
+msgstr "Periode"
 
 msgid "Auto Start"
-msgstr ""
+msgstr "Démarrage auto"
 
 msgid "ms"
-msgstr ""
-
-msgid "50"
-msgstr ""
+msgstr "ms"
 
 msgid "Timer Period"
-msgstr ""
+msgstr "Période du timer"
 
 msgid "Script"
-msgstr ""
+msgstr "Script"
 
 msgid "loggers"
-msgstr ""
+msgstr "Enregistreur"
 
 msgid "Logger Symbol"
-msgstr ""
+msgstr "Symbole d'enregistreur"
 
 msgid ".csv"
-msgstr ""
+msgstr ".csv"
 
 msgid "Normal"
-msgstr ""
+msgstr "Normal"
 
 msgid "Logger Period"
-msgstr ""
+msgstr "Period de l'enregistreur"
 
 msgid "Output file name"
-msgstr ""
+msgstr "Nom du fichier de sortie"
 
 msgid "csv Separator"
-msgstr ""
+msgstr "Separateur csv"
 
 msgid "Logger Type"
-msgstr ""
+msgstr "Type de l'enregistreur"
 
 msgid "Tabulation"
-msgstr ""
+msgstr "Tabulation"
+
+msgid "Semi colon"
+msgstr "Point virgule"
+
+msgid "Comma"
+msgstr "virgule"
 
 msgid "Functions"
-msgstr ""
+msgstr "Fonctions"
+
+msgid "Screen Init Script"
+msgstr "Script d'init de l'écran"
+
+msgid "Screen Event Script"
+msgstr "Script d'évènement de l'écran"
+
+msgid "Control Event Script"
+msgstr "Script d'évènement du contrôle"
+
+msgid "Default group"
+msgstr "Groupe par défaut"
+
+msgid "Error while reading file. File is corrupted"
+msgstr "Erreur lors de la lecture du fichier. Le fichier est corrompu"
+
+msgid "Error"
+msgstr "Erreur"
+
+msgid "File {0} does not exists"
+msgstr "Le fichier {0} n'existe pas"
+
+msgid "You can't remove frame control data"
+msgstr "Vous ne pouvez pas supprimer la donnée de contrôle de la trame"
+
+msgid "Application fail on startup."
+msgstr "Erreur de l'application lors de son démarrage"
+
+msgid "Preferences"
+msgstr "Préférences"
+
+msgid "Smart Application Suite."
+msgstr "Suite Smart Application"
+
+msgid "Copyright Pascal Bigot 2007 - 2009"
+msgstr "Copyright Pascal Bigot 2007 - 2010"
+
+msgid "This development is realized totally outside of any professional "
+msgstr "Ce développement est réalisé totalement en dehors de toutes activité"
+
+msgid "activities and with no support of Crouzet. Crouzet or developer "
+msgstr "professionelle et sans le support de Crouzet. Crouzet ou le développeur"
+
+msgid "cant be responsible for any damages or miss-functioning that occur "
+msgstr "ne peuvent être tenu pour responsable en cas de dommages ou disfonctionnement"
+
+msgid "through the use of this free software witch is developed only under"
+msgstr "qui interviendrai lors de l'usage de ce logiciel qui est développé"
+
+msgid "privates activities."
+msgstr "uniquement de façon privée"
+
+msgid "M3 SL Bloc Bitmap"
+msgstr "Image du bloc SL M3"
+
+msgid "Cancel"
+msgstr "Annuler"
+
+msgid "OK"
+msgstr "OK"
+
+msgid "Generate answer frame"
+msgstr "Générer la trame de réponse"
+
+msgid "Join selected datas"
+msgstr "Fusionner les données sélectionnées"
+
+msgid "Split selected data"
+msgstr "Découper la donner sélectionnées"
+
+msgid "Data size"
+msgstr "Taille de donnée"
+
+msgid "SL Input/Ouput n"
+msgstr "N° de bloc SL Entrée/Sortie"
+
+msgid "Answer frame symbol"
+msgstr "Symbole de la trame de réponse"
+
+msgid "Frame symbol"
+msgstr "Symbole de la trame"
+
+msgid "Address range"
+msgstr "Plage d'adresse"
+
+msgid "Frame type"
+msgstr "Type de trame"
+
+msgid "Z2 SL Bloc Bitmap"
+msgstr "Image du bloc SL Z2"
+
+msgid "Register number"
+msgstr "Numéro de registre"
+
+msgid "Number of register"
+msgstr "Nombre de registre"
+
+msgid "Starting register address"
+msgstr "Adresse du registre de départ"
+
+msgid "Register Type"
+msgstr "Type de registre"
+
+msgid "Application Language"
+msgstr "Langue de l'application"
+
+msgid "Disconnected"
+msgstr "Déconnecté"
+
+msgid "Stoppped"
+msgstr "Arrêté"
+
+msgid "Configure connections"
+msgstr "Configurer les connexions"
+
+msgid "Toggle Full Screen"
+msgstr "Change mode plein écran"
+
+msgid "Recent Files"
+msgstr "Fichier récents"
+
+msgid "Application log"
+msgstr "Log de l'application"
+
+msgid "Bring windows to top on error"
+msgstr "Amener cette fenêtre au premier plan en cas d'erreur"
+
+msgid "Clear"
+msgstr "Effacer"
+
+msgid "Events"
+msgstr "Evènements"
+
+msgid "Time"
+msgstr "Date"
+
+msgid "Message"
+msgstr "Message"
+
+msgid "Data value"
+msgstr "Valeur de donnée"
+
+msgid "Configured connections"
+msgstr "Connexion configurées"
+
+msgid "Ok"
+msgstr "OK"
+
+msgid "Save Connection parameters for each file"
+msgstr "Sauver les paramètres de connexion pour chaque fichier"

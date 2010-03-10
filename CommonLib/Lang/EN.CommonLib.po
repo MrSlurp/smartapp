@@ -224,3 +224,21 @@ msgstr "Cancel"
 
 msgid "OK"
 msgstr "OK"
+
+msgid "Script"
+msgstr "Script"
+
+msgid "Ok"
+msgstr "OK"
+
+msgid "Check Script"
+msgstr "Check Script"
+
+msgid "Error type"
+msgstr "Error type"
+
+msgid "Line"
+msgstr "Line"
+
+msgid "Informations"
+msgstr "Informations"
