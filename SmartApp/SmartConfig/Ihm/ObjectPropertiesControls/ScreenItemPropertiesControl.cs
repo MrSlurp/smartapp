@@ -79,7 +79,7 @@ namespace SmartApp.Ihm
                     this.UseScreenEvent = false;
                     this.Enabled = false;
                     this.Txt = "";
-                    this.m_LabelCurControl.Text = "No selection";
+                    this.m_LabelCurControl.Text = Program.LangSys.C("No selection");
                 }
                 UpdateStateFromControlType();
             }
@@ -272,7 +272,7 @@ namespace SmartApp.Ihm
             string strMessage = "";
             if (string.IsNullOrEmpty(this.Symbol))
             {
-                strMessage = "Symbol must not be empty";
+                strMessage = Program.LangSys.C("Symbol must not be empty");
                 bRet = false;
             }
             if (GestControl != null)
@@ -280,7 +280,7 @@ namespace SmartApp.Ihm
                 BTControl Sc = (BTControl)GestControl.GetFromSymbol(this.Symbol);
                 if (bRet && Sc != null && Sc != this.BTControl)
                 {
-                    strMessage = string.Format("A control with symbol {0} already exist", Symbol);
+                    strMessage = string.Format(Program.LangSys.C("A control with symbol {0} already exist"), Symbol);
                     bRet = false;
                 }
             }
@@ -289,7 +289,7 @@ namespace SmartApp.Ihm
                 Data dat = (Data)this.GestData.GetFromSymbol(this.AssociateData);
                 if (bRet && dat == null)
                 {
-                    strMessage = string.Format("Associate data {0} is not valid", this.AssociateData);
+                    strMessage = string.Format(Program.LangSys.C("Associate data {0} is not valid"), this.AssociateData);
                     bRet = false;
                 }
             }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
@@ -110,7 +110,10 @@ namespace CommonLib
 #if !PocketPC
                 if (
                        !(ctrl[index] is RichTextBox)
+                    && !(ctrl[index] is TextBox)
                     && !(ctrl[index] is StatusStrip)
+                    && !(ctrl[index] is NumericUpDown)
+                    && !(ctrl[index] is ComboBox)
                     && !(ctrl[index] is ListView)
                     && (ctrl[index].Text != ""))
 #else

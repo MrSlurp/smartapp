@@ -227,13 +227,13 @@ namespace SmartApp.Ihm
             string strMessage = "";
             if (string.IsNullOrEmpty(this.Symbol))
             {
-                strMessage = "Symbol must not be empty";
+                strMessage = Program.LangSys.C("Symbol must not be empty");
                 bRet = false;
             }
             BTTimer Sc = (BTTimer)GestTimer.GetFromSymbol(this.Symbol);
             if (bRet && Sc != null && Sc != this.Timer)
             {
-                strMessage = string.Format("A timer with symbol {0} already exist", Symbol);
+                strMessage = string.Format(Program.LangSys.C("A timer with symbol {0} already exist"), Symbol);
                 bRet = false;
             }
             if (!bRet)

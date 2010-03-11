@@ -39,8 +39,8 @@ namespace SmartApp.Ihm.Wizards
         public void Initialize()
         {
             m_TabCboFrameType = new CComboData[2];
-            m_TabCboFrameType[0] = new CComboData("M3 SL Input Bloc", WIZ_SL_FRAME_TYPE.SL_INPUT_BLOC);
-            m_TabCboFrameType[1] = new CComboData("M3 SL Output Bloc", WIZ_SL_FRAME_TYPE.SL_OUTPUT_BLOC);
+            m_TabCboFrameType[0] = new CComboData(Program.LangSys.C("M3 SL Input Bloc"), WIZ_SL_FRAME_TYPE.SL_INPUT_BLOC);
+            m_TabCboFrameType[1] = new CComboData(Program.LangSys.C("M3 SL Output Bloc"), WIZ_SL_FRAME_TYPE.SL_OUTPUT_BLOC);
             m_cboFrameType.DisplayMember = "DisplayedString";
             m_cboFrameType.ValueMember = "Object";
             m_cboFrameType.DataSource = m_TabCboFrameType;
@@ -60,8 +60,8 @@ namespace SmartApp.Ihm.Wizards
         public void InitOrderCombo()
         {
             m_TabCboOrderType = new CComboData[2];
-            m_TabCboOrderType[0] = new CComboData("Read", WIZ_SL_ORDER_TYPE.READ);
-            m_TabCboOrderType[1] = new CComboData("Write", WIZ_SL_ORDER_TYPE.WRITE);
+            m_TabCboOrderType[0] = new CComboData(Program.LangSys.C("Read"), WIZ_SL_ORDER_TYPE.READ);
+            m_TabCboOrderType[1] = new CComboData(Program.LangSys.C("Write"), WIZ_SL_ORDER_TYPE.WRITE);
             m_cboReadWrite.DisplayMember = "DisplayedString";
             m_cboReadWrite.ValueMember = "Object";
             m_cboReadWrite.DataSource = m_TabCboOrderType;

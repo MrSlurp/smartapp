@@ -40,10 +40,10 @@ namespace SmartApp.Ihm
         {
             InitializeComponent();
             m_TabCboCtrlDataSize = new CComboData[4];
-            m_TabCboCtrlDataSize[0] = new CComboData("8 bits", (int)DATA_SIZE.DATA_SIZE_8B);
-            m_TabCboCtrlDataSize[1] = new CComboData("16 bits", (int)DATA_SIZE.DATA_SIZE_16B);
-            m_TabCboCtrlDataSize[2] = new CComboData("16 bits (unsigned)", (int)DATA_SIZE.DATA_SIZE_16BU);
-            m_TabCboCtrlDataSize[3] = new CComboData("32 bits", (int)DATA_SIZE.DATA_SIZE_32B);
+            m_TabCboCtrlDataSize[0] = new CComboData(Program.LangSys.C("8 bits"), (int)DATA_SIZE.DATA_SIZE_8B);
+            m_TabCboCtrlDataSize[1] = new CComboData(Program.LangSys.C("16 bits"), (int)DATA_SIZE.DATA_SIZE_16B);
+            m_TabCboCtrlDataSize[2] = new CComboData(Program.LangSys.C("16 bits (unsigned)"), (int)DATA_SIZE.DATA_SIZE_16BU);
+            m_TabCboCtrlDataSize[3] = new CComboData(Program.LangSys.C("32 bits"), (int)DATA_SIZE.DATA_SIZE_32B);
             m_cboCtrlDataSize.ValueMember = "Object";
             m_cboCtrlDataSize.DisplayMember = "DisplayedString";
             m_cboCtrlDataSize.DataSource = m_TabCboCtrlDataSize;
@@ -53,18 +53,18 @@ namespace SmartApp.Ihm
             m_bLockEvent = false;
 
             m_TabCboCtrlDataType = new CComboData[3];
-            m_TabCboCtrlDataType[0] = new CComboData("None", CTRLDATA_TYPE.NONE.ToString());
-            m_TabCboCtrlDataType[1] = new CComboData("Millenium3 SL Bloc CheckSum", CTRLDATA_TYPE.SUM_COMPL_P1.ToString());
-            m_TabCboCtrlDataType[2] = new CComboData("Modbus CRC 16", CTRLDATA_TYPE.MODBUS_CRC.ToString());
-            m_TabCboCtrlDataType[2] = new CComboData("Zelio2 SL Bloc CheckSum", CTRLDATA_TYPE.SUM_COMPL_P2.ToString());
+            m_TabCboCtrlDataType[0] = new CComboData(Program.LangSys.C("None"), CTRLDATA_TYPE.NONE.ToString());
+            m_TabCboCtrlDataType[1] = new CComboData(Program.LangSys.C("Millenium3 SL Bloc CheckSum"), CTRLDATA_TYPE.SUM_COMPL_P1.ToString());
+            m_TabCboCtrlDataType[2] = new CComboData(Program.LangSys.C("Modbus CRC 16"), CTRLDATA_TYPE.MODBUS_CRC.ToString());
+            m_TabCboCtrlDataType[2] = new CComboData(Program.LangSys.C("Zelio2 SL Bloc CheckSum"), CTRLDATA_TYPE.SUM_COMPL_P2.ToString());
             m_cboCtrlDataType.ValueMember = "Object";
             m_cboCtrlDataType.DisplayMember = "DisplayedString";
             m_cboCtrlDataType.DataSource = m_TabCboCtrlDataType;
             m_cboCtrlDataType.SelectedIndex = 0;
 
             m_TabCboConvType = new CComboData[2];
-            m_TabCboConvType[0] = new CComboData("None", CONVERT_TYPE.NONE.ToString());
-            m_TabCboConvType[1] = new CComboData("ASCII", CONVERT_TYPE.ASCII.ToString());
+            m_TabCboConvType[0] = new CComboData(Program.LangSys.C("None"), CONVERT_TYPE.NONE.ToString());
+            m_TabCboConvType[1] = new CComboData(Program.LangSys.C("ASCII"), CONVERT_TYPE.ASCII.ToString());
             m_cboConvType.ValueMember = "Object";
             m_cboConvType.DisplayMember = "DisplayedString";
             m_cboConvType.DataSource = m_TabCboConvType;
@@ -371,13 +371,13 @@ namespace SmartApp.Ihm
             bool bRet = true;
             if (string.IsNullOrEmpty(this.Symbol))
             {
-                strMessage = "Symbol must not be empty";
+                strMessage = Program.LangSys.C("Symbol must not be empty");
                 bRet = false;
             }
             Trame dt = (Trame)this.GestTrame.GetFromSymbol(this.Symbol);
             if (bRet && dt != null && dt != this.Trame)
             {
-                strMessage = string.Format("A Frame with symbol {0} already exist", Symbol);
+                strMessage = string.Format(Program.LangSys.C("A Frame with symbol {0} already exist"), Symbol);
                 bRet = false;
             }
             if (!bRet)

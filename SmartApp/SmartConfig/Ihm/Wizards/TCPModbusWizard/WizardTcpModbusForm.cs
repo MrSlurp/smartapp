@@ -34,8 +34,8 @@ namespace SmartApp.Ihm.Wizards
         public void Initialize()
         {
             m_TabCboFrameType = new CComboData[2];
-            m_TabCboFrameType[0] = new CComboData("Input Register", TCPMODBUS_REG_TYPE.INPUT_REGISTER);
-            m_TabCboFrameType[1] = new CComboData("Output Register", TCPMODBUS_REG_TYPE.OUTPUT_REGISTER);
+            m_TabCboFrameType[0] = new CComboData(Program.LangSys.C("Input Register"), TCPMODBUS_REG_TYPE.INPUT_REGISTER);
+            m_TabCboFrameType[1] = new CComboData(Program.LangSys.C("Output Register"), TCPMODBUS_REG_TYPE.OUTPUT_REGISTER);
             m_cboFrameType.DisplayMember = "DisplayedString";
             m_cboFrameType.ValueMember = "Object";
             m_cboFrameType.DataSource = m_TabCboFrameType;
@@ -60,15 +60,15 @@ namespace SmartApp.Ihm.Wizards
             if (((TCPMODBUS_REG_TYPE)m_cboFrameType.SelectedValue) == TCPMODBUS_REG_TYPE.OUTPUT_REGISTER)
             {
                 m_TabCboOrderType = new CComboData[1];
-                m_TabCboOrderType[0] = new CComboData("Read Holding resgister(s)", MODBUS_ORDER_TYPE.READ_HOLDING_REGISTER);
+                m_TabCboOrderType[0] = new CComboData(Program.LangSys.C("Read Holding resgister(s)"), MODBUS_ORDER_TYPE.READ_HOLDING_REGISTER);
                 m_cboReadWrite.SelectedValue = MODBUS_ORDER_TYPE.READ_HOLDING_REGISTER;
             }
             else
             {
                 m_TabCboOrderType = new CComboData[3];
-                m_TabCboOrderType[0] = new CComboData("Write simple resgister", MODBUS_ORDER_TYPE.WRITE_SINGLE_REGISTER);
-                m_TabCboOrderType[1] = new CComboData("Write multiple resgisters", MODBUS_ORDER_TYPE.WRITE_MULTIPLE_REGISTER);
-                m_TabCboOrderType[2] = new CComboData("Read Holding resgister(s)", MODBUS_ORDER_TYPE.READ_HOLDING_REGISTER);
+                m_TabCboOrderType[0] = new CComboData(Program.LangSys.C("Write simple resgister"), MODBUS_ORDER_TYPE.WRITE_SINGLE_REGISTER);
+                m_TabCboOrderType[1] = new CComboData(Program.LangSys.C("Write multiple resgisters"), MODBUS_ORDER_TYPE.WRITE_MULTIPLE_REGISTER);
+                m_TabCboOrderType[2] = new CComboData(Program.LangSys.C("Read Holding resgister(s)"), MODBUS_ORDER_TYPE.READ_HOLDING_REGISTER);
             }
             m_cboReadWrite.DisplayMember = "DisplayedString";
             m_cboReadWrite.ValueMember = "Object";

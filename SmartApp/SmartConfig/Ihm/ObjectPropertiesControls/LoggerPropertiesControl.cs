@@ -139,17 +139,17 @@ namespace SmartApp.Ihm
         {
             InitializeComponent();
             m_TabCboLogType = new CComboData[2];
-            m_TabCboLogType[0] = new CComboData("Normal", (object)LOGGER_TYPE.STANDARD.ToString());
-            m_TabCboLogType[1] = new CComboData("Auto", (object)LOGGER_TYPE.AUTO.ToString());
+            m_TabCboLogType[0] = new CComboData(Program.LangSys.C("Normal"), (object)LOGGER_TYPE.STANDARD.ToString());
+            m_TabCboLogType[1] = new CComboData(Program.LangSys.C("Auto"), (object)LOGGER_TYPE.AUTO.ToString());
             m_cboLogType.ValueMember = "Object";
             m_cboLogType.DisplayMember = "DisplayedString";
             m_cboLogType.DataSource = m_TabCboLogType;
             m_cboLogType.SelectedIndex = 0;
             
             m_TabCboSeparator = new CComboData[3];
-            m_TabCboSeparator[0] = new CComboData("Tabulation", '\t');
-            m_TabCboSeparator[1] = new CComboData("Semi colon", ';');
-            m_TabCboSeparator[2] = new CComboData("Coma", ',');
+            m_TabCboSeparator[0] = new CComboData(Program.LangSys.C("Tabulation"), '\t');
+            m_TabCboSeparator[1] = new CComboData(Program.LangSys.C("Semi colon"), ';');
+            m_TabCboSeparator[2] = new CComboData(Program.LangSys.C("Coma"), ',');
             
             m_cboSeparator.ValueMember = "Object";
             m_cboSeparator.DisplayMember = "DisplayedString";
@@ -283,18 +283,18 @@ namespace SmartApp.Ihm
             string strMessage = "";
             if (string.IsNullOrEmpty(this.Symbol))
             {
-                strMessage = "Symbol must not be empty";
+                strMessage = Program.LangSys.C("Symbol must not be empty");
                 bRet = false;
             }
             Logger Sc = (Logger)GestLogger.GetFromSymbol(this.Symbol);
             if (bRet && Sc != null && Sc != this.Logger)
             {
-                strMessage = string.Format("A Logger with symbol {0} already exist", Symbol);
+                strMessage = string.Format(Program.LangSys.C("A Logger with symbol {0} already exist"), Symbol);
                 bRet = false;
             }
             if (bRet && string.IsNullOrEmpty(this.LogFile))
             {
-                strMessage = string.Format("Logger output filename must not be empty", Symbol);
+                strMessage = string.Format(Program.LangSys.C("Logger output filename must not be empty"), Symbol);
                 bRet = false;
             }
             if (!bRet)

@@ -285,7 +285,13 @@ namespace CommonLib
                                             string symbol = "Unknown";
                                             if (!string.IsNullOrEmpty(AttrSymbol.Value))
                                                 symbol = AttrSymbol.Value;
-                                            MessageBox.Show(string.Format(Lang.LangSys.C("Missing plugins (ID = {1}) for object {0}\nIf you save the file, object will be lost"), symbol, DllID), Lang.LangSys.C("WARINING"));
+                                                
+                                            MessageBox.Show(string.Format(Lang.LangSys.C("Missing plugins (ID = {1}) for object {0}") 
+                                                                           + "\n" 
+                                                                           + Lang.LangSys.C("If you save the file, object will be lost"), 
+                                                                           symbol, 
+                                                                           DllID), 
+                                                                           Lang.LangSys.C("Warning"));
                                         }
                                     }
                                     else

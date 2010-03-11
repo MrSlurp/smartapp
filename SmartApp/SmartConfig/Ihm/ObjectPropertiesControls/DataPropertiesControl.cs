@@ -32,12 +32,12 @@ namespace SmartApp.Ihm
         public DataPropertiesControl()
         {
             m_TabCboDataStruct = new CComboData[6];
-            m_TabCboDataStruct[0] = new CComboData("1 bit data",DATA_SIZE.DATA_SIZE_1B);
-            m_TabCboDataStruct[1] = new CComboData("2 bits data", DATA_SIZE.DATA_SIZE_2B);
-            m_TabCboDataStruct[2] = new CComboData("4 bits data", DATA_SIZE.DATA_SIZE_4B);
-            m_TabCboDataStruct[3] = new CComboData("8 bits data", DATA_SIZE.DATA_SIZE_8B);
-            m_TabCboDataStruct[4] = new CComboData("16 bits data (signed)", DATA_SIZE.DATA_SIZE_16B);
-            m_TabCboDataStruct[5] = new CComboData("16 bits data (unsigned)", DATA_SIZE.DATA_SIZE_16BU);
+            m_TabCboDataStruct[0] = new CComboData(Program.LangSys.C("1 bit data"),DATA_SIZE.DATA_SIZE_1B);
+            m_TabCboDataStruct[1] = new CComboData(Program.LangSys.C("2 bits data"), DATA_SIZE.DATA_SIZE_2B);
+            m_TabCboDataStruct[2] = new CComboData(Program.LangSys.C("4 bits data"), DATA_SIZE.DATA_SIZE_4B);
+            m_TabCboDataStruct[3] = new CComboData(Program.LangSys.C("8 bits data"), DATA_SIZE.DATA_SIZE_8B);
+            m_TabCboDataStruct[4] = new CComboData(Program.LangSys.C("16 bits data (signed)"), DATA_SIZE.DATA_SIZE_16B);
+            m_TabCboDataStruct[5] = new CComboData(Program.LangSys.C("16 bits data (unsigned)"), DATA_SIZE.DATA_SIZE_16BU);
 
             InitializeComponent();
             m_cboSize.ValueMember = "Object";
@@ -165,24 +165,24 @@ namespace SmartApp.Ihm
             string strMessage = "";
             if (string.IsNullOrEmpty(this.Symbol))
             {
-                strMessage = "Symbol must not be empty";
+                strMessage = Program.LangSys.C("Symbol must not be empty");
                 bRet = false;
             }
 
             if (bRet && DefaultValue < MinValue)
             {
-                strMessage = "Default value must be superior to minimum value";
+                strMessage = Program.LangSys.C("Default value must be superior to minimum value");
                 bRet = false;
             }
             if (bRet && DefaultValue > MaxValue)
             {
-                strMessage = "Default value must be inferior to maximum value";
+                strMessage = Program.LangSys.C("Default value must be inferior to maximum value");
                 bRet = false;
             }
             Data dt = (Data)GestData.GetFromSymbol(this.Symbol);
             if (bRet && dt != null && dt != Data)
             {
-                strMessage = string.Format("A data with symbol {0} already exist", Symbol);
+                strMessage = string.Format(Program.LangSys.C("A data with symbol {0} already exist"), Symbol);
                 bRet = false;
             }
             if (!bRet)

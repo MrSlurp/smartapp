@@ -113,7 +113,8 @@ namespace CtrlDemux
                 DemuxParemtersOK = false;
             }
             ValueData = Dat3;
-            ValueData.DataValueChanged += new EventDataValueChange(UpdateFromData);
+            if (ValueData != null)
+                ValueData.DataValueChanged += new EventDataValueChange(UpdateFromData);
 
             if (!DemuxParemtersOK)
             {

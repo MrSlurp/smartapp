@@ -176,6 +176,14 @@ namespace SmartApp.Ihm
         #endregion
 
         #region menu File
+        private DialogResult ShowFileModifiedMessagebox()
+        {
+            return MessageBox.Show(Program.LangSys.C("File Have been modified") 
+                                                   + "\n" + 
+                                                   Program.LangSys.C("Do you want to save it?"), 
+                                                   Program.LangSys.C("Warning"),
+                                                   MessageBoxButtons.YesNoCancel);
+        }
         //*****************************************************************************************************
         // Description:
         // Return: /
@@ -194,8 +202,8 @@ namespace SmartApp.Ihm
             {
                 if (m_Document.Modified)
                 {
-                    DialogResult res = MessageBox.Show("File Have been modified\nDo you want to save it?", "Warning",
-                                                            MessageBoxButtons.YesNoCancel);
+                    DialogResult res = ShowFileModifiedMessagebox();
+                                                            
                     if (res == DialogResult.Yes)
                     {
                         DoSaveDocument();
@@ -232,8 +240,7 @@ namespace SmartApp.Ihm
         {
             if (m_Document != null && m_Document.Modified)
             {
-                DialogResult res = MessageBox.Show("File Have been modified\nDo you want to save it?", "Warning",
-                                                    MessageBoxButtons.YesNoCancel);
+                DialogResult res = ShowFileModifiedMessagebox();
                 if (res == DialogResult.Yes)
                 {
                     DoSaveDocument();
@@ -278,8 +285,7 @@ namespace SmartApp.Ihm
             {
                 if (m_Document.Modified)
                 {
-                    DialogResult res = MessageBox.Show("File Have been modified\nDo you want to save it?", "Warning",
-                                                            MessageBoxButtons.YesNoCancel);
+                    DialogResult res = ShowFileModifiedMessagebox();
                     if (res == DialogResult.Yes)
                     {
                         DoSaveDocument();
@@ -362,8 +368,7 @@ namespace SmartApp.Ihm
         {
             if (m_Document != null && m_Document.Modified)
             {
-                DialogResult res = MessageBox.Show("File Have been modified\nDo you want to save it?", "Warning",
-                                                    MessageBoxButtons.YesNoCancel);
+                DialogResult res = ShowFileModifiedMessagebox();
                 if (res == DialogResult.Yes)
                 {
                     DoSaveDocument();
@@ -629,8 +634,7 @@ namespace SmartApp.Ihm
         {
             if (m_Document != null && m_Document.Modified)
             {
-                DialogResult res = MessageBox.Show("File Have been modified\nDo you want to save it?", "Warning",
-                                                    MessageBoxButtons.YesNoCancel);
+                DialogResult res = ShowFileModifiedMessagebox();
                 if (res == DialogResult.Yes)
                 {
                     DoSaveDocument();

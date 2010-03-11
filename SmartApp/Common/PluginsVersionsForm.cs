@@ -14,6 +14,7 @@ namespace SmartApp
     {
         public PluginsVersionsForm()
         {
+            Program.LangSys.Initialize(this);
             InitializeComponent();
             LoadExistingDlls();
         }

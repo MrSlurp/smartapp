@@ -19,6 +19,7 @@ namespace SmartApp
 
         public AboutForm()
         {
+            Program.LangSys.Initialize(this);
             InitializeComponent();
             labelVersion.Text = Application.ProductVersion;
             this.label1.Text = Program.LangSys.C("Smart Application Suite.");

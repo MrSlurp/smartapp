@@ -184,13 +184,13 @@ namespace SmartApp.Ihm
             string strMessage = "";
             if (string.IsNullOrEmpty(this.Symbol))
             {
-                strMessage = "Symbol must not be empty";
+                strMessage = Program.LangSys.C("Symbol must not be empty");
                 bRet = false;
             }
             Function Sc = (Function)GestFunction.GetFromSymbol(this.Symbol);
             if (bRet && Sc != null && Sc != this.Function)
             {
-                strMessage = string.Format("A Function with symbol {0} already exist", Symbol);
+                strMessage = string.Format(Program.LangSys.C("A Function with symbol {0} already exist"), Symbol);
                 bRet = false;
             }
 

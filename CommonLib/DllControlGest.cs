@@ -63,7 +63,11 @@ namespace CommonLib
                             }
                             catch (Exception e)
                             {
-                                MessageBox.Show(string.Format(Lang.LangSys.C("Error while loading Plugins controls (Error in DLL {0})\n Plugins control will not be available"), oType.Assembly.FullName), Lang.LangSys.C("Error loading plugins"));
+                                MessageBox.Show(string.Format(Lang.LangSys.C("Error while loading Plugins controls (Error in DLL {0})") 
+                                                               + "\n" 
+                                                               + Lang.LangSys.C("Plugins control will not be available"), 
+                                                               oType.Assembly.FullName), 
+                                                               Lang.LangSys.C("Error loading plugins"));
                                 Console.WriteLine(e.Message);
                             }
                         }

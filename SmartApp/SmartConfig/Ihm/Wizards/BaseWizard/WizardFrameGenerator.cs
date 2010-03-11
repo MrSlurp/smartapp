@@ -567,8 +567,12 @@ namespace SmartApp.Ihm.Wizards
                 // on offre le choix a l'utilisateur:
                 // - soit on écrase les paramètres de l'existante
                 // - soit le symbol des données crée va changer
-                string strMessage = "Some generated datas have the same symbol as existing datas but with differents parameters. Do you want to overwrite existing data parameters?\n If no, Generated datas will be renamed";
-                DialogResult dlgRes = MessageBox.Show(strMessage, "Warning", MessageBoxButtons.YesNo);
+                string strMessage = Program.LangSys.C("Some generated datas have the same symbol as "
+                                                      +"existing datas but with differents parameters. "
+                                                      +"Do you want to overwrite existing data parameters?") 
+                                                      + "\n"+ 
+                                                      Program.LangSys.C("If no, Generated datas will be renamed");
+                DialogResult dlgRes = MessageBox.Show(strMessage, Program.LangSys.C("Warning"), MessageBoxButtons.YesNo);
                 if (dlgRes == DialogResult.Yes)
                     bModeOverwrite = true;
             }
