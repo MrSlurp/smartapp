@@ -291,7 +291,8 @@ namespace CommonLib
                                                                            + Lang.LangSys.C("If you save the file, object will be lost"), 
                                                                            symbol, 
                                                                            DllID), 
-                                                                           Lang.LangSys.C("Warning"));
+                                                                           Lang.LangSys.C("Warning"),
+                                                                           MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                                         }
                                     }
                                     else

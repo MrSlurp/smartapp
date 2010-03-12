@@ -451,12 +451,18 @@ namespace CommonLib
                                 if (FileVer < Cste.CUR_FILE_VERSION)
                                 {
                                     if (TypeApp == TYPE_APP.SMART_CONFIG)
-                                        MessageBox.Show(Lang.LangSys.C("This file have been created with an oldest version, if you save this file, you will not be able tio read it with previous version"), Lang.LangSys.C("Warning"));
+                                        MessageBox.Show(Lang.LangSys.C("This file have been created with an oldest version, if you save this file, you will not be able tio read it with previous version"), 
+                                                        Lang.LangSys.C("Warning"), 
+                                                        MessageBoxButtons.OK,
+                                                        MessageBoxIcon.Exclamation);
                                 }
                                 else if (FileVer > Cste.CUR_FILE_VERSION)
                                 {
                                     if (TypeApp == TYPE_APP.SMART_CONFIG)
-                                        MessageBox.Show(Lang.LangSys.C("This file have been created with a newer version, see website for updating your software"), Lang.LangSys.C("Warning"));
+                                        MessageBox.Show(Lang.LangSys.C("This file have been created with a newer version, see website for updating your software"), 
+                                                        Lang.LangSys.C("Warning"),
+                                                        MessageBoxButtons.OK,
+                                                        MessageBoxIcon.Exclamation);
                                     return false;
                                 }
                             }
@@ -534,7 +540,7 @@ namespace CommonLib
             catch (UnauthorizedAccessException e)
             {
                 if (bShowError)
-                    MessageBox.Show(e.Message);
+                    MessageBox.Show(e.Message, Lang.LangSys.C("Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             return true;
         }

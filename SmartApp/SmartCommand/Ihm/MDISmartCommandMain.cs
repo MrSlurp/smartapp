@@ -210,7 +210,7 @@ namespace SmartApp
                 string strFileFullName = openFileDialog.FileName;
                 if (!OpenDoc(strFileFullName))
                 {
-                    MessageBox.Show("Error while reading file. File is corrupted", "Error");
+                    MessageBox.Show("Error while reading file. File is corrupted", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     this.CloseDoc();
                 }
             }
@@ -306,7 +306,7 @@ namespace SmartApp
             if (!Doc.FinalizeRead(this))
             {
                 Console.WriteLine("Erreur lors du FinalizeRead()");
-                MessageBox.Show("Can't initialize run mode datas. Please contact support", "Error");
+                MessageBox.Show("Can't initialize run mode datas. Please contact support", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 CloseDoc();
                 return false;
             }
@@ -664,14 +664,14 @@ namespace SmartApp
                 {
                     if (!OpenDoc(m_strAutoOpenFileName))
                     {
-                        MessageBox.Show(Program.LangSys.C("Error while reading file. File is corrupted"), Program.LangSys.C("Error"));
+                        MessageBox.Show(Program.LangSys.C("Error while reading file. File is corrupted"), Program.LangSys.C("Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                         this.CloseDoc();
                         return;
                     }
                 }
                 else
                 {
-                    MessageBox.Show(string.Format(Program.LangSys.C("File {0} does not exists"), m_strAutoOpenFileName), Program.LangSys.C("Error"));
+                    MessageBox.Show(string.Format(Program.LangSys.C("File {0} does not exists"), m_strAutoOpenFileName), Program.LangSys.C("Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
                 UpdateToolBarCxnItemState();

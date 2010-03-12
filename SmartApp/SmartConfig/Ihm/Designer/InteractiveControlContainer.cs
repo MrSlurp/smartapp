@@ -843,7 +843,7 @@ namespace SmartApp.Ihm.Designer
                 int totalAvailableWidth = MostRight - MostLeft;
                 if (TotalControlWidth > totalAvailableWidth)
                 {
-                    MessageBox.Show("Not enought space");
+                    MessageBox.Show(Program.LangSys.C("Not enought space"), Program.LangSys.C("Error"), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return;
                     // marche po avec des controls de tailles varaibles
                     /*
@@ -911,7 +911,7 @@ namespace SmartApp.Ihm.Designer
                 int totalAvailableHeight = MostBottom - MostTop;
                 if (TotalControlHeight > totalAvailableHeight)
                 {
-                    MessageBox.Show("Not enough space");
+                    MessageBox.Show(Program.LangSys.C("Not enought space"), Program.LangSys.C("Error"), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return;
                     // marche po avec des controls de tailles varaibles
                     /*

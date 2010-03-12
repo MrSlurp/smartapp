@@ -301,7 +301,7 @@ namespace SmartApp.Ihm
                         m_Document.Modified = true;
                     }
                     else
-                        MessageBox.Show(Program.LangSys.C("You can't remove frame control data"));
+                        MessageBox.Show(Program.LangSys.C("You can't remove frame control data"), Program.LangSys.C("Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

@@ -572,7 +572,7 @@ namespace SmartApp.Ihm.Wizards
                                                       +"Do you want to overwrite existing data parameters?") 
                                                       + "\n"+ 
                                                       Program.LangSys.C("If no, Generated datas will be renamed");
-                DialogResult dlgRes = MessageBox.Show(strMessage, Program.LangSys.C("Warning"), MessageBoxButtons.YesNo);
+                DialogResult dlgRes = MessageBox.Show(strMessage, Program.LangSys.C("Warning"), MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (dlgRes == DialogResult.Yes)
                     bModeOverwrite = true;
             }

@@ -67,7 +67,8 @@ namespace CommonLib
                                                                + "\n" 
                                                                + Lang.LangSys.C("Plugins control will not be available"), 
                                                                oType.Assembly.FullName), 
-                                                               Lang.LangSys.C("Error loading plugins"));
+                                                               Lang.LangSys.C("Error loading plugins"),
+                                                               MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                                 Console.WriteLine(e.Message);
                             }
                         }

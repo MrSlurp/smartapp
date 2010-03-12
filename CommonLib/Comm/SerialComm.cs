@@ -133,7 +133,7 @@ namespace CommonLib
                 string str = Lang.LangSys.C("Unable to open comm, Check connection configuration");
                 DialogResult dlgRes = MessageBox.Show(str,
                     Lang.LangSys.C("Error opening comm"), MessageBoxButtons.OK,
-                    MessageBoxIcon.Exclamation,
+                    MessageBoxIcon.Error,
                     MessageBoxDefaultButton.Button1);
 
             }

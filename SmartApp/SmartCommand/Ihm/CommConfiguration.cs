@@ -74,7 +74,7 @@ namespace SmartApp
             }
             else
             {
-                MessageBox.Show(strErr, "Error");
+                MessageBox.Show(strErr, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 		

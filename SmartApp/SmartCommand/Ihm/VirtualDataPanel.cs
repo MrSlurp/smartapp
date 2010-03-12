@@ -70,13 +70,13 @@ namespace SmartApp
                 bool bRet = int.TryParse((string)e.FormattedValue, out NewValue);
                 if (!bRet)
                 {
-                    MessageBox.Show("Value must be integer", "Error");
+                    MessageBox.Show("Value must be integer", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     e.Cancel = true;
                     return;
                 }
                 if (!vData.TestValue(NewValue))
                 {
-                    MessageBox.Show("Value must be between minimum and maximum", "Error");
+                    MessageBox.Show("Value must be between minimum and maximum", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     e.Cancel = true;
                     return;
                 }

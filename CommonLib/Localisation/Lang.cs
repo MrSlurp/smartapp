@@ -83,7 +83,7 @@ namespace CommonLib
         // language demandé
         private string mCurrentLangage = Cste.STR_DEV_LANG;
         public string CurrentLangage { get { return mCurrentLangage; } }
-	
+        private bool m_bRevertLocalisation = false;
         
         // stocke la liste des feuilles localisées
         private List<FormInfo> mFormList = new List<FormInfo>();
@@ -203,8 +203,14 @@ namespace CommonLib
         public void ChangeLangage(string Langage)
         {
             mCurrentLangage = Langage;
+            
             mInformOfMissingItem = false;
             mCreateOnMissingItem = false;
+            
+            // pour faire fonctionner correctement le changement de langue,
+            // il faut travaillier en deux phases : 
+            // d'abord réstaurer les textes clef, puis réappliquer la nouvelle langue
+            m_bRevertLocalisation = true;
             foreach (FormInfo frmi in mFormList)
             {
                 frmi.Form_Load(null, null);
@@ -213,7 +219,16 @@ namespace CommonLib
             {
                 ctrlInf.UserControl_Load(null, null);
             }
-            //mInformOfMissingItem = false;
+            m_bRevertLocalisation = false;
+            foreach (FormInfo frmi in mFormList)
+            {
+                frmi.Form_Load(null, null);
+            }
+            foreach (UserControlInfo ctrlInf in mUserControlList)
+            {
+                ctrlInf.UserControl_Load(null, null);
+            }
+            
         }
         
         // Evènement appelé lorsqu'un feuille est déchargée
@@ -279,43 +294,53 @@ namespace CommonLib
 
             if (Decoders.ContainsKey(FileName) == true)
             {
-                if (Decoders[FileName].ContainsKey(DevText) == true)
+                if (m_bRevertLocalisation)
                 {
-                    if (Decoders[FileName][DevText] != "")
-                        return Decoders[FileName][DevText];
-                    else
+                    if (Decoders[FileName].ContainsValue(DevText) == true)
                     {
-                        if (mInformOfMissingItem)
-                            return (DevText + MSG_MISSING);
-                        else
-                            return DevText;
-                    }
-                }
-                else if (DevText.EndsWith(MSG_MISSING))
-                {
-                    string mDevText = DevText.TrimEnd(MSG_MISSING.ToCharArray());
-                    if (Decoders[FileName].ContainsKey(mDevText) == true)
-                    {
-                        if (Decoders[FileName][mDevText] != "")
-                            return Decoders[FileName][mDevText];
-                        else
-                        {
-                            if (mInformOfMissingItem)
-                                return (mDevText + MSG_MISSING);
-                            else
-                                return mDevText;
-                        }
+                        return KeyFromValue(Decoders[FileName], DevText);
                     }
                 }
                 else
                 {
-#if LANG_USE_DEBUG
-                    if (!Decoders[FileName].ContainsValue(DevText))
+                    if (Decoders[FileName].ContainsKey(DevText) == true)
                     {
-                        //Console.WriteLine(string.Format("Fichier {0}, missing DevText {1}",FileName, DevText));
-                        Traces.LogAdd(Traces.LOG_LEVEL_ERROR, "Lang", string.Format("Fichier {0}, missing DevText {1}",Path.GetFileName(FileName), DevText));
+                        if (Decoders[FileName][DevText] != "")
+                            return Decoders[FileName][DevText];
+                        else
+                        {
+                            if (mInformOfMissingItem)
+                                return (DevText + MSG_MISSING);
+                            else
+                                return DevText;
+                        }
                     }
+                    else if (DevText.EndsWith(MSG_MISSING))
+                    {
+                        string mDevText = DevText.TrimEnd(MSG_MISSING.ToCharArray());
+                        if (Decoders[FileName].ContainsKey(mDevText) == true)
+                        {
+                            if (Decoders[FileName][mDevText] != "")
+                                return Decoders[FileName][mDevText];
+                            else
+                            {
+                                if (mInformOfMissingItem)
+                                    return (mDevText + MSG_MISSING);
+                                else
+                                    return mDevText;
+                            }
+                        }
+                    }
+                    else
+                    {
+#if LANG_USE_DEBUG
+                        if (!Decoders[FileName].ContainsValue(DevText))
+                        {
+                            //Console.WriteLine(string.Format("Fichier {0}, missing DevText {1}",FileName, DevText));
+                            Traces.LogAdd(Traces.LOG_LEVEL_ERROR, "Lang", string.Format("Fichier {0}, missing DevText {1}", Path.GetFileName(FileName), DevText));
+                        }
 #endif
+                    }
                 }
             }
 
@@ -334,6 +359,17 @@ namespace CommonLib
             {
                 return DevText;
             }
+        }
+
+        public string KeyFromValue(Dictionary<string, string> Dico, string Value)
+        {
+            string retString = string.Empty;
+            foreach (KeyValuePair<string, string> pair in Dico)
+            {
+                if (Value == pair.Value)
+                    retString = pair.Key;
+            }
+            return retString;
         }
         #endregion
 
@@ -561,7 +597,7 @@ namespace CommonLib
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception )
             {
                 //System.Diagnostics.Trace.TraceError(ex.Message);
                 //throw ex;
@@ -592,7 +628,7 @@ namespace CommonLib
                         }
                     }
                 }
-                catch (Exception ex)
+                catch (Exception )
                 {
                     //Traces.LogAdd(Traces.LOG_LEVEL_ERROR, "Lang", ex.Message);
                 }

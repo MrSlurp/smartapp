@@ -181,7 +181,8 @@ namespace SmartApp.Ihm
                                                    + "\n" + 
                                                    Program.LangSys.C("Do you want to save it?"), 
                                                    Program.LangSys.C("Warning"),
-                                                   MessageBoxButtons.YesNoCancel);
+                                                   MessageBoxButtons.YesNoCancel,
+                                                   MessageBoxIcon.Question);
         }
         //*****************************************************************************************************
         // Description:
@@ -259,7 +260,7 @@ namespace SmartApp.Ihm
                 string strFileFullName = openFileDialog.FileName;
                 if (!OpenDoc(strFileFullName))
                 {
-                    MessageBox.Show("Error while reading file. File is corrupted", "Error");
+                    MessageBox.Show(Program.LangSys.C("Error while reading file. File is corrupted"), Program.LangSys.C("Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                     this.CloseDoc();
                 }
             }
@@ -735,7 +736,7 @@ namespace SmartApp.Ihm
                         }
                         else
                         {
-                            MessageBox.Show(Program.LangSys.C("Application fail on startup."), Program.LangSys.C("Error"));
+                            MessageBox.Show(Program.LangSys.C("Application fail on startup."), Program.LangSys.C("Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                         this.Show();
                     }
@@ -812,12 +813,12 @@ namespace SmartApp.Ihm
             {
                 if (prfForm.SelectedLang != SmartApp.Properties.Settings.Default.Lang)
                 {
-                    //MessageBox.Show(Program.LangSys.C("Please restart the application in order apply language change"), Program.LangSys.C("Information"), MessageBoxButtons.OK);
                     SmartApp.Properties.Settings.Default.Lang = prfForm.SelectedLang;
                     SmartApp.Properties.Settings.Default.Save();
-                    Lang.LangSys.ChangeLangage(prfForm.SelectedLang);
-                    Program.ChangePluginLang(prfForm.SelectedLang);
-                    Program.LangSys.ChangeLangage(prfForm.SelectedLang);
+                    MessageBox.Show(Program.LangSys.C("Please restart the application in order apply language change"), Program.LangSys.C("Informations"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //Lang.LangSys.ChangeLangage(prfForm.SelectedLang);
+                    //Program.ChangePluginLang(prfForm.SelectedLang);
+                    //Program.LangSys.ChangeLangage(prfForm.SelectedLang);
                 }
             }
         }

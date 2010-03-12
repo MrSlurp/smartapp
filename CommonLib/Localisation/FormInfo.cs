@@ -18,6 +18,7 @@ namespace CommonLib
 
         private List<object> Controls = new List<object>();
 
+        private List<string> ControlsSrcText = new List<string>();
         private List<string> ControlsText = new List<string>();
 
         private Lang m_LangSys;
@@ -73,7 +74,12 @@ namespace CommonLib
             }
             else
             {
+                Controls.Clear();
+                ControlsText.Clear();
                 m_LangSys.LoadLangage(FilePath);
+                Update_Title(Me);
+                Update_Controls(Me.Controls);
+                /*
                 foreach (object var in Controls)
                 {
                     if (var is Control)
@@ -91,7 +97,7 @@ namespace CommonLib
                         ((MenuItem)var).Text = m_LangSys.C(FilePath, ControlsText[Controls.IndexOf(var)]);
                     }
                 }
-
+                */
 
             }
         }

@@ -160,7 +160,7 @@ namespace CtrlDataTrigger
             }
             if (!bRet)
             {
-                MessageBox.Show(strMessage);
+                MessageBox.Show(strMessage, Program.LangSys.C("Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return bRet;
             }
 
