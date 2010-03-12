@@ -99,7 +99,7 @@ namespace CommonLib
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
             this.Name = "PickDataForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Pick Data";
             this.ResumeLayout(false);
 

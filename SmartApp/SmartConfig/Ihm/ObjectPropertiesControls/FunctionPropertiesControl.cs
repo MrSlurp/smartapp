@@ -193,7 +193,12 @@ namespace SmartApp.Ihm
                 strMessage = string.Format(Program.LangSys.C("A Function with symbol {0} already exist"), Symbol);
                 bRet = false;
             }
-
+            if (!bRet)
+            {
+                MessageBox.Show(strMessage);
+                return bRet;
+            }
+            
             bool bDataPropChange = false;
             if (m_Function.Description != this.Description)
                 bDataPropChange |= true;

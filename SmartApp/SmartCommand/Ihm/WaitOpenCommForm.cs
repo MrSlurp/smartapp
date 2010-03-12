@@ -8,6 +8,7 @@ using System.Windows.Forms;
 
 namespace SmartApp.Ihm
 {
+    /*
     public partial class WaitOpenCommForm : Form
     {
         public WaitOpenCommForm()
@@ -15,5 +16,5 @@ namespace SmartApp.Ihm
             Program.LangSys.Initialize(this);
             InitializeComponent();
         }
-    }
+    }*/
 }

@@ -66,6 +66,7 @@ namespace CommonLib
                 Controls.Clear();
                 ControlsText.Clear();
                 Form frm = (Form)sender;
+                Update_Title(frm);
                 Update_Controls(frm.Controls);
                 if (frm.ContextMenu != null)
                     Update_Controls(frm.ContextMenu.MenuItems);
@@ -73,8 +74,6 @@ namespace CommonLib
             else
             {
                 m_LangSys.LoadLangage(FilePath);
-
-                //Update_Controls(Me.Controls);
                 foreach (object var in Controls)
                 {
                     if (var is Control)
@@ -205,6 +204,9 @@ namespace CommonLib
                 }
             }
         }
-
+        private void Update_Title(Form frm)
+        {
+            frm.Text = m_LangSys.C(FilePath, frm.Text);
+        }
     }
 }

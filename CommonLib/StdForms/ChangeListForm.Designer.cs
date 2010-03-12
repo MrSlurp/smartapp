@@ -107,7 +107,7 @@ namespace CommonLib
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Change list";
             this.Load += new System.EventHandler(this.ChangeListForm_Load);
             this.ResumeLayout(false);

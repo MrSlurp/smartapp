@@ -99,14 +99,14 @@ namespace SmartApp
                 {
                     if (string.IsNullOrEmpty(Param))
 					{
-                        strErr = "Invalid Parameters";
+                        strErr = Program.LangSys.C("Invalid Parameters");
                         return false;
 					}
 
 
                     if (Param.IndexOf(':') == -1)
                     {
-                        strErr = "Invalid IP Address";
+                        strErr = Program.LangSys.C("Invalid IP Address");
                         return false;
                     }
 
@@ -114,7 +114,7 @@ namespace SmartApp
                     IPAddress IpAddr = new IPAddress(0);
                     if (!IPAddress.TryParse(TabIpAndPort[0], out IpAddr))
                     {
-                        strErr = "Invalid IP Address";
+                        strErr = Program.LangSys.C("Invalid IP Address");
                         return false;
                     }
                 }
@@ -122,13 +122,13 @@ namespace SmartApp
                 {
                     if (string.IsNullOrEmpty(Param))
 					{
-                        strErr = "Invalid com port";
+                        strErr = Program.LangSys.C("Invalid com port");
                         return false;
 					}
 
                     if (!Param.StartsWith("COM"))
                     {
-                        strErr = "Invalid Serial port";
+                        strErr = Program.LangSys.C("Invalid Serial port");
                         return false;
                     }
                 }
@@ -138,7 +138,7 @@ namespace SmartApp
                 }
                 else
                 {
-                    strErr = "Invalid Communication, select a type and enter parameters";
+                    strErr = Program.LangSys.C("Invalid Communication, select a type and enter parameters");
                     return false; ;
                 }
             }

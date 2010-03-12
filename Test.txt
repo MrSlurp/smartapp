@@ -1,3 +1,51 @@
+Test en V2.5.0.0
+- langue dans toutes les IHM
+	- CommonLib
+		- ScriptEditorDialog
+		- ChangeListForm 
+		- Pick Data Form 
+		- WaitOpenCommForm 
+	-Plugins
+		- DemuxConfigForm (non traduite puisque jamais affichée)
+		- GraphiqueConfigForm
+		- tous les panel de config
+	- SmartApp
+		- About Form
+		- Plugins Version Form
+		- PreferencesForm
+		- AppeventLogForm
+    - CommConfiguration
+    - MDISmartCommandLMain
+    - OptionForm
+    - VariableForm
+    - VirtualDataForm
+    - DataForm
+    - DesignerForm
+    - FrameForm
+    - ProgramForm
+    - ManageGroupForm
+    - WizardSlFormM3
+    - WizardSlFormZ2
+    - WizardTCPModbusForm
+    - MDISmartConfigMain 
+ 
+
+- Tailles des textes dans toutes les IHM (agmenter pour adapter au français)
+- Position par défaut de toutes les fenêtres (Center In Parent)
+- Affichage des fenêtre dans la barre des taches
+- changement à la volée de langue
+
+
+- Test du preparser et du nouveau moteur de script
+- Test de des fonction logiques
+- Test du parser
+  - tout les types de script (faire la liste des mot clef et fonction)
+  - un fonction par type
+
+- Utilisation de data trigger et des scénario
+- N data trigger ayant chacun une donnée déclencheuse (mode schmitt)
+    - de On a off appel au script à tester
+
 tests de l'application
 
 SmartCommand

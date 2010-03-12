@@ -279,6 +279,7 @@ namespace SmartApp.Ihm.Wizards
             this.Controls.Add(this.label1);
             this.Name = "WizardSLForm";
             this.Text = "Wizard SL Bloc M3";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             ((System.ComponentModel.ISupportInitialize)(this.m_PicSLBloc)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

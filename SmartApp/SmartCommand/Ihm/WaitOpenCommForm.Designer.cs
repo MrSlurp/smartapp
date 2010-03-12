@@ -1,5 +1,6 @@
 namespace SmartApp.Ihm
 {
+    /*
     partial class WaitOpenCommForm
     {
         /// <summary>
@@ -70,4 +71,5 @@ namespace SmartApp.Ihm
 
         private System.Windows.Forms.Label label1;
     }
+*/
 }

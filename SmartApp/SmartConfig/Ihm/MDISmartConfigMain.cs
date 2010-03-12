@@ -29,8 +29,7 @@ namespace SmartApp.Ihm
         protected FrameForm m_FrameForm;
         protected ProgramForm m_ProgForm;
         protected BTDoc m_Document = null;
-        IniFileParser m_IniFile = new IniFileParser();
-        private string m_strIniFilePath;
+        protected FormsOptions m_FrmOpt = new FormsOptions(); 
         protected string m_strDocumentName = "";
 
         protected MruStripMenuInline m_mruStripMenu;
@@ -65,9 +64,9 @@ namespace SmartApp.Ihm
         {
             this.Text = APP_TITLE;
             this.Icon = CommonLib.Resources.AppIcon;
-            string strAppDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName);
-            m_strIniFilePath = PathTranslator.LinuxVsWindowsPathUse(strAppDir + @"\" + Cste.STR_FORMPOSINI_FILENAME);
-            m_IniFile.Load(m_strIniFilePath);
+            string strAppDir = Application.StartupPath;
+            string strIniFilePath = PathTranslator.LinuxVsWindowsPathUse(strAppDir + @"\" + Cste.STR_FORMPOSINI_FILENAME);
+            m_FrmOpt.Load(strIniFilePath);
             m_DataForm = new DataForm();
             m_DesignForm = new DesignerForm();
             m_FrameForm = new FrameForm();
@@ -76,7 +75,7 @@ namespace SmartApp.Ihm
             m_DesignForm.MdiParent = this;
             m_FrameForm.MdiParent = this;
             m_ProgForm.MdiParent = this;
-            m_mruStripMenu = new MruStripMenuInline(this.m_fileMenu, this.m_MruFiles, new MruStripMenu.ClickedHandler(OnMruFile), m_strIniFilePath);
+            m_mruStripMenu = new MruStripMenuInline(this.m_fileMenu, this.m_MruFiles, new MruStripMenu.ClickedHandler(OnMruFile), strIniFilePath);
             UpdateFileCommand(null, null);
         }
         #endregion
@@ -459,17 +458,11 @@ namespace SmartApp.Ihm
             m_ProgForm.Show();
             for (int i = 0; i < this.MdiChildren.Length; i++)
             {
-                string strFramePosvalues = m_IniFile.GetValue(MdiChildren[i].Name, "Position");
-                if (!string.IsNullOrEmpty(strFramePosvalues))
-                {
-                    string[] TabPos = strFramePosvalues.Split(',');
-                    Rectangle rcForm = new Rectangle(int.Parse(TabPos[0]),
-                        int.Parse(TabPos[1]),
-                        int.Parse(TabPos[2]),
-                        int.Parse(TabPos[3]));
-                    MdiChildren[i].Location = new Point(rcForm.X, rcForm.Y);
-                    MdiChildren[i].Size = new Size(rcForm.Width, rcForm.Height);
-                }
+                MdiChildren[i].Size = m_FrmOpt.GetFormSize(MdiChildren[i]);
+                FormWindowState state = m_FrmOpt.GetFormState(MdiChildren[i]); 
+                MdiChildren[i].WindowState = state;
+                if (state != FormWindowState.Minimized) 
+                    MdiChildren[i].Location = m_FrmOpt.GetFormPos(MdiChildren[i]);
             }
 
             m_windowsMenu.Enabled = true;
@@ -647,13 +640,11 @@ namespace SmartApp.Ihm
             }
             for (int i = 0; i < this.MdiChildren.Length; i++)
             {
-                string strValue = MdiChildren[i].Location.X.ToString() + ',' +
-                    MdiChildren[i].Location.Y.ToString() + ',' +
-                    MdiChildren[i].Size.Width.ToString() + ',' +
-                    MdiChildren[i].Size.Height.ToString();
-                m_IniFile.SetValue(MdiChildren[i].Name, "Position", strValue);
+                m_FrmOpt.SetFormPos(MdiChildren[i]);
+                m_FrmOpt.SetFormSize(MdiChildren[i]);
+                m_FrmOpt.SetFormState(MdiChildren[i]);
             }
-            m_IniFile.Save(m_strIniFilePath);
+            m_FrmOpt.Save();
             m_mruStripMenu.SaveToFile();
 
         }
