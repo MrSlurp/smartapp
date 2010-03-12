@@ -1,0 +1,24 @@
+<Root>
+  <FileHeader>
+    <FileVersion Indice="3" />
+    <SoftVersion Indice="2.5.0.0" />
+  </FileHeader>
+  <DataSection>
+    <GroupSection>
+      <Group strNom="Default group" strSymbol="GROUP_0" bkColor="255, 255, 255" />
+    </GroupSection>
+  </DataSection>
+  <ScreenSection />
+  <TrameSection />
+  <Program>
+    <FunctionSection>
+      <Function strSymbol="TEST_MATHS" strNom="" />
+      <Function strSymbol="TEST_LOGIC" strNom="" />
+      <Function strSymbol="TEST_TIMER" strNom="" />
+      <Function strSymbol="TEST_LOGGER" strNom="" />
+      <Function strSymbol="TEST_SCREEN" strNom="" />
+    </FunctionSection>
+    <TimerSection />
+    <LoggerSection />
+  </Program>
+</Root>
