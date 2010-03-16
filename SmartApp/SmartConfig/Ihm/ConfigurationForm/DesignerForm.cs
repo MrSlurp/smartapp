@@ -349,7 +349,7 @@ namespace SmartApp.Ihm
                 m_PanelScreenInitScript.InitScriptableItem = null;
                 m_PanelScreenEventScript.ScriptableItem = null;
                 m_PanelCtrlEventScript.ScriptableItem = null;
-                m_LabelSelectedScreen.Text = "No selection";
+                m_LabelSelectedScreen.Text = Program.LangSys.C("No selection");
                 toolbtnScreenToBitmap.Enabled = false;
                 UpdateDesignerFromScreen(null);
                 return;

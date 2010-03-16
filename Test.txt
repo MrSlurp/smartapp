@@ -35,6 +35,11 @@ Test en V2.5.0.0
 - Affichage des fenêtre dans la barre des taches
 - changement à la volée de langue
 
+    - remarques : 
+      - managegroupform : taille de la colonne constante
+      - Data onfiguration : Idem
+      - Frame config : colonne Nombre de donnée, non mise a jour des CComboBoxData
+       
 
 - Test du preparser et du nouveau moteur de script
 - Test de des fonction logiques

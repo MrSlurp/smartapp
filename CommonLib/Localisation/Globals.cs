@@ -119,7 +119,18 @@ namespace CommonLib
         //    PostIncrement,
         //    PostDecrement
         //}
-
+    public interface ILangReloadable
+    {
+        // interface à implémenter pour les forms ou les UserControl qui possèdent des
+        // textes qui ne peuvent être mit à jour par les appels standard
+        // comme par exemples les combobox
+        // notons que cette interface n'a pour but d'être utilisé qu'avec 
+        // les controls qui sont déja affcihés lorsque se produit un changement de langue
+        // (donc pas pour les forms qui ne peuvent être ouvertes au moment 
+        // se)
+        void LoadNonStandardLang();
+        
+    }
 
 
     public static class Globals

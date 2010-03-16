@@ -11,7 +11,7 @@ using CommonLib;
 namespace SmartApp.Ihm
 {
 
-    public partial class FramePropertiesControl : UserControl
+    public partial class FramePropertiesControl : UserControl, ILangReloadable
     {
         #region données membres
         CComboData[] m_TabCboCtrlDataSize;
@@ -39,6 +39,13 @@ namespace SmartApp.Ihm
         public FramePropertiesControl()
         {
             InitializeComponent();
+            LoadNonStandardLang();
+            this.m_cboCtrlDataSize.SelectedIndexChanged += new System.EventHandler(this.OncboCtrlDataSizeSelectedIndexChanged);
+
+        }
+
+        public void LoadNonStandardLang()
+        {
             m_TabCboCtrlDataSize = new CComboData[4];
             m_TabCboCtrlDataSize[0] = new CComboData(Program.LangSys.C("8 bits"), (int)DATA_SIZE.DATA_SIZE_8B);
             m_TabCboCtrlDataSize[1] = new CComboData(Program.LangSys.C("16 bits"), (int)DATA_SIZE.DATA_SIZE_16B);
@@ -47,10 +54,6 @@ namespace SmartApp.Ihm
             m_cboCtrlDataSize.ValueMember = "Object";
             m_cboCtrlDataSize.DisplayMember = "DisplayedString";
             m_cboCtrlDataSize.DataSource = m_TabCboCtrlDataSize;
-            this.m_cboCtrlDataSize.SelectedIndexChanged += new System.EventHandler(this.OncboCtrlDataSizeSelectedIndexChanged);
-            m_bLockEvent = true;
-            m_cboCtrlDataSize.SelectedIndex = 0;
-            m_bLockEvent = false;
 
             m_TabCboCtrlDataType = new CComboData[3];
             m_TabCboCtrlDataType[0] = new CComboData(Program.LangSys.C("None"), CTRLDATA_TYPE.NONE.ToString());
@@ -60,7 +63,6 @@ namespace SmartApp.Ihm
             m_cboCtrlDataType.ValueMember = "Object";
             m_cboCtrlDataType.DisplayMember = "DisplayedString";
             m_cboCtrlDataType.DataSource = m_TabCboCtrlDataType;
-            m_cboCtrlDataType.SelectedIndex = 0;
 
             m_TabCboConvType = new CComboData[2];
             m_TabCboConvType[0] = new CComboData(Program.LangSys.C("None"), CONVERT_TYPE.NONE.ToString());
@@ -68,8 +70,13 @@ namespace SmartApp.Ihm
             m_cboConvType.ValueMember = "Object";
             m_cboConvType.DisplayMember = "DisplayedString";
             m_cboConvType.DataSource = m_TabCboConvType;
+            
+            m_bLockEvent = true;
+            m_cboCtrlDataSize.SelectedIndex = 0;
+            m_bLockEvent = false;
+            m_cboCtrlDataType.SelectedIndex = 0;
             m_cboConvType.SelectedIndex = 0;
-        }
+        }    
         #endregion
 
         #region attributs

@@ -13,7 +13,7 @@
  *                   ANSALDO STS France - Copyright © 2009
  * ========================================================================= */
 //#define LANG_LOAD_DEBUG
-#define LANG_USE_DEBUG
+//#define LANG_USE_DEBUG
 
 using System;
 using System.Collections.Generic;
@@ -210,7 +210,8 @@ namespace CommonLib
             // pour faire fonctionner correctement le changement de langue,
             // il faut travaillier en deux phases : 
             // d'abord réstaurer les textes clef, puis réappliquer la nouvelle langue
-            m_bRevertLocalisation = true;
+            //m_bRevertLocalisation = true;
+            /*
             foreach (FormInfo frmi in mFormList)
             {
                 frmi.Form_Load(null, null);
@@ -219,7 +220,8 @@ namespace CommonLib
             {
                 ctrlInf.UserControl_Load(null, null);
             }
-            m_bRevertLocalisation = false;
+            */
+            //m_bRevertLocalisation = false;
             foreach (FormInfo frmi in mFormList)
             {
                 frmi.Form_Load(null, null);
@@ -337,7 +339,7 @@ namespace CommonLib
                         if (!Decoders[FileName].ContainsValue(DevText))
                         {
                             //Console.WriteLine(string.Format("Fichier {0}, missing DevText {1}",FileName, DevText));
-                            Traces.LogAdd(Traces.LOG_LEVEL_ERROR, "Lang", string.Format("Fichier {0}, missing DevText {1}", Path.GetFileName(FileName), DevText));
+                            Traces.LogAdd(Traces.LOG_LEVEL_INFO, "Lang", string.Format("Fichier {0}, missing DevText {1}", Path.GetFileName(FileName), DevText));
                         }
 #endif
                     }
@@ -390,6 +392,7 @@ namespace CommonLib
             {
                 if (File.Exists(FileName))
                 {
+                    Traces.LogAdd(Traces.LOG_LEVEL_INFO, "Lang", string.Format("(module = {1}) chargement Fichier {0}", FileName, m_CurrentAssembly));
 #if LANG_LOAD_DEBUG
                     Console.WriteLine("fichier chargé = " + FileName);
 #endif
@@ -457,6 +460,7 @@ namespace CommonLib
 
             if (Decoders.ContainsKey(FileName) == false)
             {
+                Traces.LogAdd(Traces.LOG_LEVEL_INFO, "Lang", string.Format("(module = {1}) Ajout du fichier {0}", FileName, m_CurrentAssembly));
                 Decoders.Add(FileName, new Dictionary<string, string>());
             }
 

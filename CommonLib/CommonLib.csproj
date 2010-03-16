@@ -1,4 +1,4 @@
-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -127,6 +127,7 @@
     <Compile Include="InteractiveControl\SpecificControls\TwoColorFilledRect.Designer.cs">
       <DependentUpon>TwoColorFilledRect.cs</DependentUpon>
     </Compile>
+    <Compile Include="Localisation\BaseInfo.cs" />
     <Compile Include="Localisation\FormInfo.cs" />
     <Compile Include="Localisation\Globals.cs" />
     <Compile Include="Localisation\ILInstruction.cs" />
