@@ -17,6 +17,7 @@ namespace SmartApp.Ihm
         #region données membres
         private BTDoc m_Document = null;
         private BTScreen m_Currentscreen = null;
+        private DragItemPanel m_panelToolDragItem;
         #endregion
 
         #region attributs de la classe
@@ -74,13 +75,34 @@ namespace SmartApp.Ihm
         {
             //Program.LangSys.Initialize(this);
             InitializeComponent();
-            this.m_toolBtnAlignLeft.Image = Resources.AlignLeft;
-            this.m_toolBtnAlignTop.Image = Resources.AlignTop;
-            this.m_toolBtnArrangeAcross.Image = Resources.ArrangeAcross;
-            this.m_toolBtnArrangeDown.Image = Resources.ArrangeDown;
-            this.m_toolBtnMSHeight.Image = Resources.MakeSameHeight;
-            this.m_toolBtnMSWidth.Image = Resources.MakeSameWidth;
-            this.m_toolBtnMSSize.Image = Resources.MakeSameBoth;
+            m_toolBtnAlignLeft.Image = Resources.AlignLeft;
+            m_toolBtnAlignTop.Image = Resources.AlignTop;
+            m_toolBtnArrangeAcross.Image = Resources.ArrangeAcross;
+            m_toolBtnArrangeDown.Image = Resources.ArrangeDown;
+            m_toolBtnMSHeight.Image = Resources.MakeSameHeight;
+            m_toolBtnMSWidth.Image = Resources.MakeSameWidth;
+            m_toolBtnMSSize.Image = Resources.MakeSameBoth;
+
+            // ce code est déporté de InitializeComponent() 
+            // car ca pose un problème dans le designer
+            m_tabCTrlConfig.SuspendLayout();
+            m_panelToolDragItem = new DragItemPanel();
+            // 
+            // m_panelToolDragItem
+            // 
+            m_panelToolDragItem.AutoScroll = true;
+            m_panelToolDragItem.BackColor = System.Drawing.Color.Transparent;
+            m_panelToolDragItem.Dock = System.Windows.Forms.DockStyle.Fill;
+            m_panelToolDragItem.Location = new System.Drawing.Point(3, 3);
+            m_panelToolDragItem.Margin = new System.Windows.Forms.Padding(0);
+            m_panelToolDragItem.Name = "m_panelToolDragItem";
+            m_panelToolDragItem.Size = new System.Drawing.Size(275, 531);
+            m_panelToolDragItem.TabIndex = 1;
+
+            m_TabTools.Controls.Add(this.m_panelToolDragItem);
+            m_tabCTrlConfig.ResumeLayout(false);
+            // fin de code déporté de suspend layout
+
             m_InteractiveControlContainer.SelectionChange += new SelectionChangeEvent(OnScreenDesignerSelectionChange);
             m_InteractiveControlContainer.EventControlAdded += new IControlAddedEvent(this.OnDesignerControAdded);
             m_InteractiveControlContainer.EventControlRemoved += new IControlRemovedEvent(this.OnDesignerControRemoved);
@@ -91,6 +113,11 @@ namespace SmartApp.Ihm
             m_InteractiveControlContainer.AllowDrop = false;
             OnScreenDesignerSelectionChange();
             this.m_PanelScreenListAndProp.SelectedScreenChange += new ScreenPropertiesChange(this.OnSelectedScreenChange);
+        }
+
+        void SubInitComponent()
+        {
+
         }
 
         void ControlPosChanged()

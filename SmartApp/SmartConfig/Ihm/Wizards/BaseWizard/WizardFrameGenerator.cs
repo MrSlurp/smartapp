@@ -182,7 +182,7 @@ namespace SmartApp.Ihm.Wizards
         {
             Trame tr = new Trame();
             tr.Symbol = FrameSymbol;
-            tr.Description = "Auto generated TCP Modbus frame";
+            tr.Description = Program.LangSys.C("Auto generated TCP Modbus frame");
             tr.ConvType = CONVERT_TYPE.NONE.ToString();
             tr.ConvFrom = 0;
             tr.ConvTo = 0; 
@@ -333,7 +333,7 @@ namespace SmartApp.Ihm.Wizards
         {
             Trame tr = new Trame();
             tr.Symbol = FrameSymbol;
-            tr.Description = "Auto generated M3 frame";
+            tr.Description = Program.LangSys.C("Auto generated M3 frame");
             // dans le cas d'un trame M3:
             // il y a conversion ASCII
             // - elle commence a la seconde donnée
@@ -493,7 +493,7 @@ namespace SmartApp.Ihm.Wizards
         {
             Trame tr = new Trame();
             tr.Symbol = FrameSymbol;
-            tr.Description = "Auto generated Z2 frame";
+            tr.Description = Program.LangSys.C("Auto generated Z2 frame");
             // dans le cas d'un trame M3:
             // il y a conversion ASCII
             // - elle commence a la seconde donnée

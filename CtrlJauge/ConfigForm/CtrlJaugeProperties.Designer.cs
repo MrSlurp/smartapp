@@ -44,9 +44,9 @@ namespace CtrlJauge
             // 
             // m_BtnSelecMaxColor
             // 
-            this.m_BtnSelecMaxColor.Location = new System.Drawing.Point(115, 131);
+            this.m_BtnSelecMaxColor.Location = new System.Drawing.Point(127, 131);
             this.m_BtnSelecMaxColor.Name = "m_BtnSelecMaxColor";
-            this.m_BtnSelecMaxColor.Size = new System.Drawing.Size(51, 20);
+            this.m_BtnSelecMaxColor.Size = new System.Drawing.Size(86, 20);
             this.m_BtnSelecMaxColor.TabIndex = 17;
             this.m_BtnSelecMaxColor.Text = "Select";
             this.m_BtnSelecMaxColor.UseVisualStyleBackColor = true;
@@ -55,7 +55,7 @@ namespace CtrlJauge
             // m_TextMaxColor
             // 
             this.m_TextMaxColor.BackColor = System.Drawing.Color.White;
-            this.m_TextMaxColor.Location = new System.Drawing.Point(86, 131);
+            this.m_TextMaxColor.Location = new System.Drawing.Point(98, 131);
             this.m_TextMaxColor.Name = "m_TextMaxColor";
             this.m_TextMaxColor.ReadOnly = true;
             this.m_TextMaxColor.Size = new System.Drawing.Size(28, 20);
@@ -63,9 +63,9 @@ namespace CtrlJauge
             // 
             // m_BtnSelectMinColor
             // 
-            this.m_BtnSelectMinColor.Location = new System.Drawing.Point(115, 107);
+            this.m_BtnSelectMinColor.Location = new System.Drawing.Point(127, 107);
             this.m_BtnSelectMinColor.Name = "m_BtnSelectMinColor";
-            this.m_BtnSelectMinColor.Size = new System.Drawing.Size(51, 20);
+            this.m_BtnSelectMinColor.Size = new System.Drawing.Size(86, 20);
             this.m_BtnSelectMinColor.TabIndex = 15;
             this.m_BtnSelectMinColor.Text = "Select";
             this.m_BtnSelectMinColor.UseVisualStyleBackColor = true;
@@ -74,7 +74,7 @@ namespace CtrlJauge
             // m_TextMinColor
             // 
             this.m_TextMinColor.BackColor = System.Drawing.Color.White;
-            this.m_TextMinColor.Location = new System.Drawing.Point(86, 107);
+            this.m_TextMinColor.Location = new System.Drawing.Point(98, 107);
             this.m_TextMinColor.Name = "m_TextMinColor";
             this.m_TextMinColor.ReadOnly = true;
             this.m_TextMinColor.Size = new System.Drawing.Size(28, 20);
@@ -172,7 +172,7 @@ namespace CtrlJauge
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "CtrlJaugeProperties";
-            this.Size = new System.Drawing.Size(176, 157);
+            this.Size = new System.Drawing.Size(216, 157);
             this.ResumeLayout(false);
             this.PerformLayout();
 

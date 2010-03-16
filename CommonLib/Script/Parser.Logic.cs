@@ -59,7 +59,7 @@ namespace CommonLib
                         if (SecondTokenType == LOGIC_FUNC.XOR)
                             MaxParameterCount = 3;
                             
-                        if (SecondTokenType == LOGIC_FUNC.XOR)
+                        if (SecondTokenType == LOGIC_FUNC.NOT)
                         {
                             MinParamCount = 2;
                             MaxParameterCount = 2;

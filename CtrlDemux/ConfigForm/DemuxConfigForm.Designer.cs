@@ -82,9 +82,9 @@ namespace CtrlDemux
             // btnPickAddr
             // 
             this.btnPickAddr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPickAddr.Location = new System.Drawing.Point(252, 24);
+            this.btnPickAddr.Location = new System.Drawing.Point(249, 24);
             this.btnPickAddr.Name = "btnPickAddr";
-            this.btnPickAddr.Size = new System.Drawing.Size(44, 23);
+            this.btnPickAddr.Size = new System.Drawing.Size(69, 23);
             this.btnPickAddr.TabIndex = 2;
             this.btnPickAddr.Text = "Pick";
             this.btnPickAddr.UseVisualStyleBackColor = true;
@@ -93,9 +93,9 @@ namespace CtrlDemux
             // btnPickValue
             // 
             this.btnPickValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPickValue.Location = new System.Drawing.Point(252, 68);
+            this.btnPickValue.Location = new System.Drawing.Point(249, 68);
             this.btnPickValue.Name = "btnPickValue";
-            this.btnPickValue.Size = new System.Drawing.Size(44, 23);
+            this.btnPickValue.Size = new System.Drawing.Size(69, 23);
             this.btnPickValue.TabIndex = 2;
             this.btnPickValue.Text = "Pick";
             this.btnPickValue.UseVisualStyleBackColor = true;
@@ -115,7 +115,7 @@ namespace CtrlDemux
             this.m_listViewData.Location = new System.Drawing.Point(12, 126);
             this.m_listViewData.MultiSelect = false;
             this.m_listViewData.Name = "m_listViewData";
-            this.m_listViewData.Size = new System.Drawing.Size(284, 199);
+            this.m_listViewData.Size = new System.Drawing.Size(306, 199);
             this.m_listViewData.TabIndex = 9;
             this.m_listViewData.UseCompatibleStateImageBehavior = false;
             this.m_listViewData.View = System.Windows.Forms.View.Details;
@@ -130,7 +130,7 @@ namespace CtrlDemux
             // m_ColHeadSize
             // 
             this.m_ColHeadSize.Text = "Size";
-            this.m_ColHeadSize.Width = 40;
+            this.m_ColHeadSize.Width = 51;
             // 
             // btnAdd
             // 
@@ -145,7 +145,7 @@ namespace CtrlDemux
             // btnRemove
             // 
             this.btnRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRemove.Location = new System.Drawing.Point(194, 97);
+            this.btnRemove.Location = new System.Drawing.Point(216, 97);
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Size = new System.Drawing.Size(102, 23);
             this.btnRemove.TabIndex = 10;
@@ -168,7 +168,7 @@ namespace CtrlDemux
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(219, 331);
+            this.btnCancel.Location = new System.Drawing.Point(241, 331);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 11;
@@ -181,7 +181,7 @@ namespace CtrlDemux
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(306, 366);
+            this.ClientSize = new System.Drawing.Size(328, 366);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.btnRemove);

@@ -101,9 +101,9 @@ namespace DigitalDisplay
             // 
             // m_BtnSelectDigitColor
             // 
-            this.m_BtnSelectDigitColor.Location = new System.Drawing.Point(93, 8);
+            this.m_BtnSelectDigitColor.Location = new System.Drawing.Point(126, 8);
             this.m_BtnSelectDigitColor.Name = "m_BtnSelectDigitColor";
-            this.m_BtnSelectDigitColor.Size = new System.Drawing.Size(51, 20);
+            this.m_BtnSelectDigitColor.Size = new System.Drawing.Size(85, 20);
             this.m_BtnSelectDigitColor.TabIndex = 18;
             this.m_BtnSelectDigitColor.Text = "Select";
             this.m_BtnSelectDigitColor.UseVisualStyleBackColor = true;
@@ -112,7 +112,7 @@ namespace DigitalDisplay
             // m_TextColor
             // 
             this.m_TextColor.BackColor = System.Drawing.Color.White;
-            this.m_TextColor.Location = new System.Drawing.Point(64, 8);
+            this.m_TextColor.Location = new System.Drawing.Point(97, 8);
             this.m_TextColor.Name = "m_TextColor";
             this.m_TextColor.ReadOnly = true;
             this.m_TextColor.Size = new System.Drawing.Size(28, 20);
@@ -139,7 +139,7 @@ namespace DigitalDisplay
             // m_TextBackColor
             // 
             this.m_TextBackColor.BackColor = System.Drawing.Color.White;
-            this.m_TextBackColor.Location = new System.Drawing.Point(64, 34);
+            this.m_TextBackColor.Location = new System.Drawing.Point(97, 34);
             this.m_TextBackColor.Name = "m_TextBackColor";
             this.m_TextBackColor.ReadOnly = true;
             this.m_TextBackColor.Size = new System.Drawing.Size(28, 20);
@@ -147,9 +147,9 @@ namespace DigitalDisplay
             // 
             // m_BtnSelectBackColor
             // 
-            this.m_BtnSelectBackColor.Location = new System.Drawing.Point(93, 34);
+            this.m_BtnSelectBackColor.Location = new System.Drawing.Point(126, 34);
             this.m_BtnSelectBackColor.Name = "m_BtnSelectBackColor";
-            this.m_BtnSelectBackColor.Size = new System.Drawing.Size(51, 20);
+            this.m_BtnSelectBackColor.Size = new System.Drawing.Size(85, 20);
             this.m_BtnSelectBackColor.TabIndex = 18;
             this.m_BtnSelectBackColor.Text = "Select";
             this.m_BtnSelectBackColor.UseVisualStyleBackColor = true;
@@ -172,7 +172,7 @@ namespace DigitalDisplay
             this.Controls.Add(this.m_rdBtn0);
             this.Controls.Add(this.label1);
             this.Name = "DigitalDisplayProperties";
-            this.Size = new System.Drawing.Size(147, 169);
+            this.Size = new System.Drawing.Size(214, 169);
             this.ResumeLayout(false);
             this.PerformLayout();
 

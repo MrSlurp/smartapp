@@ -57,9 +57,9 @@ namespace CommonLib
             // 
             // m_BtnSelectActiveColor
             // 
-            this.m_BtnSelectActiveColor.Location = new System.Drawing.Point(101, 0);
+            this.m_BtnSelectActiveColor.Location = new System.Drawing.Point(116, 0);
             this.m_BtnSelectActiveColor.Name = "m_BtnSelectActiveColor";
-            this.m_BtnSelectActiveColor.Size = new System.Drawing.Size(51, 20);
+            this.m_BtnSelectActiveColor.Size = new System.Drawing.Size(84, 20);
             this.m_BtnSelectActiveColor.TabIndex = 9;
             this.m_BtnSelectActiveColor.Text = "Select";
             this.m_BtnSelectActiveColor.UseVisualStyleBackColor = true;
@@ -68,7 +68,7 @@ namespace CommonLib
             // m_TextActiveColor
             // 
             this.m_TextActiveColor.BackColor = System.Drawing.Color.White;
-            this.m_TextActiveColor.Location = new System.Drawing.Point(72, 0);
+            this.m_TextActiveColor.Location = new System.Drawing.Point(87, 0);
             this.m_TextActiveColor.Name = "m_TextActiveColor";
             this.m_TextActiveColor.ReadOnly = true;
             this.m_TextActiveColor.Size = new System.Drawing.Size(28, 20);
@@ -76,9 +76,9 @@ namespace CommonLib
             // 
             // m_BtnSelectInactiveColor
             // 
-            this.m_BtnSelectInactiveColor.Location = new System.Drawing.Point(101, 24);
+            this.m_BtnSelectInactiveColor.Location = new System.Drawing.Point(116, 24);
             this.m_BtnSelectInactiveColor.Name = "m_BtnSelectInactiveColor";
-            this.m_BtnSelectInactiveColor.Size = new System.Drawing.Size(51, 20);
+            this.m_BtnSelectInactiveColor.Size = new System.Drawing.Size(84, 20);
             this.m_BtnSelectInactiveColor.TabIndex = 11;
             this.m_BtnSelectInactiveColor.Text = "Select";
             this.m_BtnSelectInactiveColor.UseVisualStyleBackColor = true;
@@ -87,7 +87,7 @@ namespace CommonLib
             // m_TextInactiveColor
             // 
             this.m_TextInactiveColor.BackColor = System.Drawing.Color.White;
-            this.m_TextInactiveColor.Location = new System.Drawing.Point(72, 24);
+            this.m_TextInactiveColor.Location = new System.Drawing.Point(87, 24);
             this.m_TextInactiveColor.Name = "m_TextInactiveColor";
             this.m_TextInactiveColor.ReadOnly = true;
             this.m_TextInactiveColor.Size = new System.Drawing.Size(28, 20);
@@ -105,7 +105,7 @@ namespace CommonLib
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "TwoColorProperties";
-            this.Size = new System.Drawing.Size(155, 47);
+            this.Size = new System.Drawing.Size(203, 47);
             this.ResumeLayout(false);
             this.PerformLayout();
 

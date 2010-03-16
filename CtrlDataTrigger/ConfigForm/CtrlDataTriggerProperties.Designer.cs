@@ -106,7 +106,7 @@ namespace CtrlDataTrigger
             // 
             this.btnPickOnToOff.Location = new System.Drawing.Point(219, 35);
             this.btnPickOnToOff.Name = "btnPickOnToOff";
-            this.btnPickOnToOff.Size = new System.Drawing.Size(38, 23);
+            this.btnPickOnToOff.Size = new System.Drawing.Size(58, 23);
             this.btnPickOnToOff.TabIndex = 4;
             this.btnPickOnToOff.Text = "Pick";
             this.btnPickOnToOff.UseVisualStyleBackColor = true;
@@ -116,7 +116,7 @@ namespace CtrlDataTrigger
             // 
             this.btnPickOffToOn.Location = new System.Drawing.Point(220, 76);
             this.btnPickOffToOn.Name = "btnPickOffToOn";
-            this.btnPickOffToOn.Size = new System.Drawing.Size(38, 23);
+            this.btnPickOffToOn.Size = new System.Drawing.Size(57, 23);
             this.btnPickOffToOn.TabIndex = 4;
             this.btnPickOffToOn.Text = "Pick";
             this.btnPickOffToOn.UseVisualStyleBackColor = true;
@@ -136,7 +136,7 @@ namespace CtrlDataTrigger
             this.Controls.Add(this.edtOnToOff);
             this.Controls.Add(this.cbxSchmitt);
             this.Name = "CtrlDataTriggerProperties";
-            this.Size = new System.Drawing.Size(258, 139);
+            this.Size = new System.Drawing.Size(280, 139);
             this.ResumeLayout(false);
             this.PerformLayout();
 
