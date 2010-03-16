@@ -29,7 +29,7 @@ namespace SmartApp.Ihm
         //*****************************************************************************************************
         public FrameForm()
         {
-            Program.LangSys.Initialize(this);
+            //Program.LangSys.Initialize(this);
             InitializeComponent();
             m_PanelFrameProp.BeforeDataListChange += new BeforeCurrentDataListChange(OnTrameDataListWillChange);
             m_PanelFrameProp.DataListChange += new CurrentDataListChanged(OnTrameDataListChanged);
@@ -77,7 +77,10 @@ namespace SmartApp.Ihm
         {
             get
             {
-                return m_Document.GestTrame;
+                if (m_Document == null)
+                    return null;
+                else
+                    return m_Document.GestTrame;
             }
         }
 

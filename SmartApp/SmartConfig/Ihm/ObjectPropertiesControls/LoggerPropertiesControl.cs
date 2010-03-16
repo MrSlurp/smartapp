@@ -12,7 +12,7 @@ using CommonLib;
 namespace SmartApp.Ihm
 {
 
-    public partial class LoggerPropertiesControl : UserControl
+    public partial class LoggerPropertiesControl : UserControl, ILangReloadable
     {
         #region données membres
         private Logger m_Logger = null;
@@ -138,6 +138,15 @@ namespace SmartApp.Ihm
         public LoggerPropertiesControl()
         {
             InitializeComponent();
+            LoadNonStandardLang();
+            m_LoggerPeriod.Minimum = 20;
+            m_LoggerPeriod.Maximum = 3600000;
+
+            m_txtFileName.CharacterCasing = CharacterCasing.Normal;
+        }
+
+        public void LoadNonStandardLang()
+        {
             m_TabCboLogType = new CComboData[2];
             m_TabCboLogType[0] = new CComboData(Program.LangSys.C("Normal"), (object)LOGGER_TYPE.STANDARD.ToString());
             m_TabCboLogType[1] = new CComboData(Program.LangSys.C("Auto"), (object)LOGGER_TYPE.AUTO.ToString());
@@ -145,21 +154,16 @@ namespace SmartApp.Ihm
             m_cboLogType.DisplayMember = "DisplayedString";
             m_cboLogType.DataSource = m_TabCboLogType;
             m_cboLogType.SelectedIndex = 0;
-            
+
             m_TabCboSeparator = new CComboData[3];
             m_TabCboSeparator[0] = new CComboData(Program.LangSys.C("Tabulation"), '\t');
             m_TabCboSeparator[1] = new CComboData(Program.LangSys.C("Semi colon"), ';');
             m_TabCboSeparator[2] = new CComboData(Program.LangSys.C("Coma"), ',');
-            
+
             m_cboSeparator.ValueMember = "Object";
             m_cboSeparator.DisplayMember = "DisplayedString";
             m_cboSeparator.DataSource = m_TabCboSeparator;
             m_cboSeparator.SelectedIndex = 0;
-
-            m_LoggerPeriod.Minimum = 20;
-            m_LoggerPeriod.Maximum = 3600000;
-
-            m_txtFileName.CharacterCasing = CharacterCasing.Normal;
         }
         #endregion
 

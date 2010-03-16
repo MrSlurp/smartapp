@@ -43,7 +43,10 @@ namespace SmartApp.Ihm
         {
             get
             {
-                return m_Document.GestData;
+                if (m_Document == null)
+                    return null;
+                else
+                    return m_Document.GestData;
             }
         }
         #endregion
@@ -55,7 +58,7 @@ namespace SmartApp.Ihm
         //*****************************************************************************************************      
         public DataForm()
         {
-            Program.LangSys.Initialize(this);
+            //Program.LangSys.Initialize(this);
             InitializeComponent();
             m_DataPropertyPage.DataPropertiesChanged += new DataPropertiesChange(this.OnDataPropertiesChange);            
         }

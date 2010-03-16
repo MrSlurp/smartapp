@@ -10,7 +10,7 @@ namespace CommonLib
     /// </summary>
     internal class BaseInfo
     {
-        protected readonly string FilePath = "";
+        protected string FilePath = "";
 
         // cette liste stock les controls de la form
         protected List<object> Controls = new List<object>();
@@ -54,7 +54,8 @@ namespace CommonLib
                     && !(ctrl[index] is NumericUpDown)
                     && !(ctrl[index] is ComboBox)
                     && !(ctrl[index] is ListView)
-                    && (ctrl[index].Text != ""))
+                    && (ctrl[index].Text != "" || (ctrl[index] is ILangReloadable))
+                    )
 #else
                     if (!(ctrl[index] is ListView)
                         && (ctrl[index].Text != ""))
@@ -62,9 +63,9 @@ namespace CommonLib
                 {
                     if (!Controls.Contains(ctrl[index]))
                     {
-                      Controls.Add(ctrl[index]);
-                      ControlsText.Add(ctrl[index].Text);
-                      ctrl[index].Text = m_LangSys.C(FilePath, ctrl[index].Text);
+                        Controls.Add(ctrl[index]);
+                        ControlsText.Add(ctrl[index].Text);
+                        ctrl[index].Text = m_LangSys.C(FilePath, ctrl[index].Text);
                     }
                     else
                     {
@@ -105,9 +106,9 @@ namespace CommonLib
                 {
                     if (!Controls.Contains(ctrl[index]))
                     {
-                      Controls.Add(ctrl[index]);
-                      ControlsText.Add(ctrl[index].Text);
-                      ctrl[index].Text = m_LangSys.C(FilePath, ctrl[index].Text);
+                        Controls.Add(ctrl[index]);
+                        ControlsText.Add(ctrl[index].Text);
+                        ctrl[index].Text = m_LangSys.C(FilePath, ctrl[index].Text);
                     }
                     else
                     {
@@ -138,9 +139,9 @@ namespace CommonLib
                 {
                     if (!Controls.Contains(ctrl.Columns[index]))
                     {
-                      Controls.Add(ctrl.Columns[index]);
-                      ControlsText.Add(ctrl.Columns[index].Text);
-                      ctrl.Columns[index].Text = m_LangSys.C(FilePath, ctrl.Columns[index].Text);
+                        Controls.Add(ctrl.Columns[index]);
+                        ControlsText.Add(ctrl.Columns[index].Text);
+                        ctrl.Columns[index].Text = m_LangSys.C(FilePath, ctrl.Columns[index].Text);
                     }
                     else
                     {

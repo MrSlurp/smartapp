@@ -48,7 +48,10 @@ namespace SmartApp.Ihm
         {
             get
             {
-                return m_Document.GestScreen;
+                if (m_Document == null)
+                    return null;
+                else
+                    return m_Document.GestScreen;
             }
         }
         #endregion

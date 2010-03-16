@@ -13,7 +13,7 @@
  *                   ANSALDO STS France - Copyright © 2009
  * ========================================================================= */
 //#define LANG_LOAD_DEBUG
-//#define LANG_USE_DEBUG
+#define LANG_USE_DEBUG
 
 using System;
 using System.Collections.Generic;
@@ -210,8 +210,8 @@ namespace CommonLib
             // pour faire fonctionner correctement le changement de langue,
             // il faut travaillier en deux phases : 
             // d'abord réstaurer les textes clef, puis réappliquer la nouvelle langue
-            //m_bRevertLocalisation = true;
-            /*
+            m_bRevertLocalisation = true;
+            
             foreach (FormInfo frmi in mFormList)
             {
                 frmi.Form_Load(null, null);
@@ -220,8 +220,8 @@ namespace CommonLib
             {
                 ctrlInf.UserControl_Load(null, null);
             }
-            */
-            //m_bRevertLocalisation = false;
+            
+            m_bRevertLocalisation = false;
             foreach (FormInfo frmi in mFormList)
             {
                 frmi.Form_Load(null, null);
@@ -344,6 +344,10 @@ namespace CommonLib
 #endif
                     }
                 }
+            }
+            else
+            {
+                Traces.LogAdd(Traces.LOG_LEVEL_INFO, "Lang", string.Format("Fichier manquant {0}",Path.GetFileName(FileName)));
             }
 
             //Le fichier n'existe (peut-être) pas dans le dictionary
@@ -542,22 +546,14 @@ namespace CommonLib
         /// <returns>nom complet du fichier de langue</returns>
         public string CreateFilePath(Control frm)
         {
-#if !PocketPC
             string FilePath = Path.GetDirectoryName(Assembly.GetAssembly(frm.GetType()).Location);
-#else
-            string FilePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase);
-#endif
             FilePath = Path.Combine(FilePath, LANG_DIRECTORY_NAME);
             return FilePath;
         }
 
         public static string CreateFilePath()
         {
-#if !PocketPC
-            string FilePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase);
-#else
-            string FilePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase);
-#endif
+            string FilePath = Application.StartupPath;
             FilePath = Path.Combine(FilePath, LANG_DIRECTORY_NAME);
             return FilePath;
         }

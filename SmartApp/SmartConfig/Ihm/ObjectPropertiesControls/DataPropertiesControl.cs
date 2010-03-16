@@ -10,7 +10,7 @@ using CommonLib;
 
 namespace SmartApp.Ihm
 {
-    public partial class DataPropertiesControl : UserControl
+    public partial class DataPropertiesControl : UserControl, ILangReloadable
     {
         #region données membres
         CComboData[] m_TabCboDataStruct;
@@ -31,21 +31,27 @@ namespace SmartApp.Ihm
         //*****************************************************************************************************
         public DataPropertiesControl()
         {
+            InitializeComponent();
+            LoadNonStandardLang();
+            this.Enabled = false;
+        }
+
+        public void LoadNonStandardLang()
+        {
             m_TabCboDataStruct = new CComboData[6];
-            m_TabCboDataStruct[0] = new CComboData(Program.LangSys.C("1 bit data"),DATA_SIZE.DATA_SIZE_1B);
+            m_TabCboDataStruct[0] = new CComboData(Program.LangSys.C("1 bit data"), DATA_SIZE.DATA_SIZE_1B);
             m_TabCboDataStruct[1] = new CComboData(Program.LangSys.C("2 bits data"), DATA_SIZE.DATA_SIZE_2B);
             m_TabCboDataStruct[2] = new CComboData(Program.LangSys.C("4 bits data"), DATA_SIZE.DATA_SIZE_4B);
             m_TabCboDataStruct[3] = new CComboData(Program.LangSys.C("8 bits data"), DATA_SIZE.DATA_SIZE_8B);
             m_TabCboDataStruct[4] = new CComboData(Program.LangSys.C("16 bits data (signed)"), DATA_SIZE.DATA_SIZE_16B);
             m_TabCboDataStruct[5] = new CComboData(Program.LangSys.C("16 bits data (unsigned)"), DATA_SIZE.DATA_SIZE_16BU);
 
-            InitializeComponent();
             m_cboSize.ValueMember = "Object";
             m_cboSize.DisplayMember = "DisplayedString";
             m_cboSize.DataSource = m_TabCboDataStruct;
             m_cboSize.SelectedIndex = 0;
-            this.Enabled = false;
         }
+
         #endregion
 
         #region attributs

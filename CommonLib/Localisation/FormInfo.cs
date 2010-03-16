@@ -36,7 +36,12 @@ namespace CommonLib
             FormName = frm.Name;
             Me = frm;
             // attache l'intercepteur d'évènements
+            // stocke de nom du fichier de langue concerné
+            // il servira de clé d'indexation
+            //FilePath = m_LangSys.CreateFilePath(frm);
             frm.Load += Form_Load;
+            // charge le fichier de langue adapté
+            //m_LangSys.LoadLangage(FilePath);
             // Vérification des textes demandés par Lang.C(****)
             if (m_LangSys.CreateOnMissingItem)
             {

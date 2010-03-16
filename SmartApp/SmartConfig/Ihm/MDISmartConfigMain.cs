@@ -565,23 +565,30 @@ namespace SmartApp.Ihm
         {
             if (Mess == null)
             {
-                m_DataForm.Initialize();
-                m_FrameForm.Initialize();
-                m_DesignForm.Initialize();
-                m_ProgForm.Initialize();
+                if (m_DataForm != null)
+                    m_DataForm.Initialize();
+
+                if (m_FrameForm != null)
+                    m_FrameForm.Initialize();
+
+                if (m_DesignForm != null)
+                    m_DesignForm.Initialize();
+
+                if (m_ProgForm != null)
+                    m_ProgForm.Initialize();
             }
             else
             {
-                if (Mess.bUpdateDataForm)
+                if (Mess.bUpdateDataForm && m_DataForm != null)
                     m_DataForm.Initialize();
 
-                if (Mess.bUpdateFrameForm)
+                if (Mess.bUpdateFrameForm && m_FrameForm != null)
                     m_FrameForm.Initialize();
 
-                if (Mess.bUpdateProgramForm)
+                if (Mess.bUpdateProgramForm && m_ProgForm != null)
                     m_ProgForm.Initialize();
 
-                if (Mess.bUpdateScreenForm)
+                if (Mess.bUpdateScreenForm && m_DesignForm != null)
                     m_DesignForm.Initialize();
             }
         }
