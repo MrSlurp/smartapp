@@ -410,6 +410,7 @@ namespace CommonLib
                 {
                     LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format(Lang.LangSys.C("{0} Can't access file"), Symbol));
                     AddLogEvent(log);
+                    Traces.LogAddDebug(TraceCat.CommonLib, "Erreur accès au fichier dans LogData");
                     return;
                 }
                 // et on logue
@@ -437,6 +438,7 @@ namespace CommonLib
                 {
                     LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format(Lang.LangSys.C("{0} Can't access file"), Symbol));
                     AddLogEvent(log);
+                    Traces.LogAddDebug(TraceCat.CommonLib, "Erreur accès au fichier dans LogData");
                     return;
                 }
                 if (m_FileWriter != null)
@@ -452,6 +454,7 @@ namespace CommonLib
                 {
                     LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format(Lang.LangSys.C("{0} Can't access file"), Symbol));
                     AddLogEvent(log);
+                    Traces.LogAddDebug(TraceCat.CommonLib, "Erreur accès au fichier dans LogData");
                     return;
                 }
             }
@@ -467,6 +470,7 @@ namespace CommonLib
                 {
                     LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format(Lang.LangSys.C("{0} Can't access file"), Symbol));
                     AddLogEvent(log);
+                    Traces.LogAddDebug(TraceCat.CommonLib, "Erreur accès au fichier dans LogData");
                     return;
                 }
                 m_FileWriter.Close();

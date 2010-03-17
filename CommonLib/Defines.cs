@@ -43,6 +43,7 @@ namespace CommonLib
         public const string STRCMD_AUTOSTART = "-AS";
         public const string STRCMD_AUTOMAXFIRST = "-AMF";
         public const string STRCMD_OPMOD = "-OPMOD";
+        public const string STRCMD_DEV = "-DEV";
 
         public const int CUR_FILE_VERSION = 3;
 

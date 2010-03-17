@@ -21,6 +21,8 @@ namespace SmartApp
         private static bool m_AutoMaximizeFirstScreen = false;
         private static bool m_OperatorMode = false;
 
+        private static bool m_DevMode = false;
+
         public static bool AutoConnect
         {
             get
@@ -58,6 +60,14 @@ namespace SmartApp
             get
             {
                 return m_OperatorMode;
+            }
+        }
+
+        public static bool DevMode
+        {
+            get
+            {
+                return m_DevMode;
             }
         }
 
@@ -153,6 +163,10 @@ namespace SmartApp
                     else if (strArgsList[i].ToUpper() == Cste.STRCMD_OPMOD)
                     {
                         m_OperatorMode = true;
+                    }
+                    else if (strArgsList[i].ToUpper() == Cste.STRCMD_DEV)
+                    {
+                        m_DevMode = true;
                     }
                 }
                 else

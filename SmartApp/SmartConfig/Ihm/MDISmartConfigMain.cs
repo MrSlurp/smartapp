@@ -76,6 +76,9 @@ namespace SmartApp.Ihm
             m_FrameForm.MdiParent = this;
             m_ProgForm.MdiParent = this;
             m_mruStripMenu = new MruStripMenuInline(this.m_fileMenu, this.m_MruFiles, new MruStripMenu.ClickedHandler(OnMruFile), strIniFilePath);
+            if (LaunchArgParser.DevMode)
+                m_tsMenuLogConfig.Visible = true;
+
             UpdateFileCommand(null, null);
         }
         #endregion
@@ -828,6 +831,19 @@ namespace SmartApp.Ihm
                     Program.ChangePluginLang(prfForm.SelectedLang);
                     Program.LangSys.ChangeLangage(prfForm.SelectedLang);
                 }
+            }
+        }
+
+        private void m_tsMenuLogConfig_Click(object sender, EventArgs e)
+        {
+            LogCatForm LogForm = new LogCatForm();
+            LogForm.Level = (TracesLevel)SmartApp.Properties.Settings.Default.LogLevel;
+            LogForm.ActiveCats = (TraceCat)Convert.ToInt32(SmartApp.Properties.Settings.Default.LogCat, 16);
+            if (LogForm.ShowDialog() == DialogResult.OK)
+            {
+                SmartApp.Properties.Settings.Default.LogLevel = (int)LogForm.Level;
+                SmartApp.Properties.Settings.Default.LogCat = Convert.ToString((int)LogForm.ActiveCats, 16);
+                SmartApp.Properties.Settings.Default.Save();
             }
         }
     }

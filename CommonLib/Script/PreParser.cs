@@ -131,6 +131,7 @@ namespace CommonLib
                 }
                 catch (Exception)
                 {
+                    Traces.LogAddDebug(TraceCat.Parser, "Erreur parsing premier token");
                     return SCR_OBJECT.INVALID;
                 }
                 return FirstTokenType;
@@ -159,6 +160,7 @@ namespace CommonLib
                 }
                 catch (Exception)
                 {
+                    Traces.LogAddDebug(TraceCat.Parser, "Erreur parsing frame func");
                     return;
                 }
                 retPreParsedLine.m_Arguments = new BaseObject[1] {m_Document.GestTrame.QuickGetFromSymbol(strFrame)};  
@@ -204,6 +206,7 @@ namespace CommonLib
                 }
                 catch (Exception)
                 {
+                    Traces.LogAddDebug(TraceCat.Parser, "Erreur parsing timer func");
                     return;
                 }
                 retPreParsedLine.m_Arguments = new BaseObject[1] {m_Document.GestTimer.QuickGetFromSymbol(strTimer)};  
@@ -240,6 +243,7 @@ namespace CommonLib
                 }
                 catch (Exception)
                 {
+                    Traces.LogAddDebug(TraceCat.Parser, "Erreur parsing maths func");
                     return;
                 }
                 if (SecondTokenType != MATHS_FUNC.INVALID)
@@ -292,6 +296,7 @@ namespace CommonLib
                 }
                 catch (Exception)
                 {
+                    Traces.LogAddDebug(TraceCat.Parser, "Erreur parsing logic func");
                     return;
                 }
                 if (SecondTokenType != LOGIC_FUNC.INVALID)
@@ -350,6 +355,7 @@ namespace CommonLib
                 }
                 catch (Exception)
                 {
+                    Traces.LogAddDebug(TraceCat.Parser, "Erreur parsing screen func");
                     return;
                 }
                 retPreParsedLine.m_Arguments = new BaseObject[1] {m_Document.GestScreen.QuickGetFromSymbol(strScreen)};  
@@ -383,6 +389,7 @@ namespace CommonLib
                 }
                 catch (Exception)
                 {
+                    Traces.LogAddDebug(TraceCat.Parser, "Erreur parsing logger func");
                     return;
                 }
                 retPreParsedLine.m_Arguments = new BaseObject[1] {m_Document.GestLogger.QuickGetFromSymbol(strLogger)};  

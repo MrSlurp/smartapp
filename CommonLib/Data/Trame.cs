@@ -224,6 +224,7 @@ namespace CommonLib
                 {
                     // en cas de tag non reconne dans l'enum, une exeption est levée, 
                     // on la récupère car ca peut arriver
+                    Traces.LogAddDebug(TraceCat.Serialization, "Erreur parsing noeud fils de Trame");
                     continue;
                 }
                 switch (TypeId)

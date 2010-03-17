@@ -77,7 +77,9 @@ namespace SmartApp
                 fState = (FormWindowState)Enum.Parse(typeof(FormWindowState), strFState, true);
             }
             catch (Exception)
-            {}  
+            {
+                Traces.LogAddDebug(TraceCat.SmartConfig, "Exception lors de la récupération de l'état de la form " + frm.Name);
+            }  
             return fState;
         }
     

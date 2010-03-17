@@ -128,9 +128,10 @@ namespace SmartApp
             }
             catch (Exception ex)
             {
-                string strErr = "The file is corrupted";
+                string strErr = Program.LangSys.C("The file is corrupted");
                 strErr += ex.Message;
                 Console.WriteLine(strErr);
+                Traces.LogAddDebug(TraceCat.SmartCommand, "Load Cliche", strErr);
                 return;
             }
 
@@ -208,9 +209,10 @@ namespace SmartApp
                 }
                 catch (Exception ex)
                 {
-                    string strErr = "The file is corrupted";
+                    string strErr = Program.LangSys.C("The file is corrupted");
                     strErr += ex.Message;
                     Console.WriteLine(strErr);
+                    Traces.LogAddDebug(TraceCat.SmartCommand, "Load Scen", strErr);
                     return;
                 }
                 XmlNode RootNode = XmlDoc.FirstChild;

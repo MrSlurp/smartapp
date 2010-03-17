@@ -70,6 +70,7 @@ namespace CommonLib
                                                                Lang.LangSys.C("Error loading plugins"),
                                                                MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                                 Console.WriteLine(e.Message);
+                                Traces.LogAddDebug(TraceCat.Plugin, "Erreur chargement DLL plugin");
                             }
                         }
                     }

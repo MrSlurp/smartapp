@@ -87,7 +87,7 @@ namespace SmartApp
             Traces.Initialize(Application.StartupPath, 
                               "TraceSmartApp.txt", 
                               (TracesLevel)SmartApp.Properties.Settings.Default.LogLevel, 
-                              TraceCat.Executer | TraceCat.ExecuteAllButFrame
+                              (TraceCat)Convert.ToInt32(SmartApp.Properties.Settings.Default.LogCat, 16)
                               );
             LangSys.Initialize(Cste.STR_DEV_LANG, SmartApp.Properties.Settings.Default.Lang, "SmartApp");
             CommonLib.Resources.InitializeBitmap();

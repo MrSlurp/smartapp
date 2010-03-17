@@ -406,6 +406,7 @@ namespace SmartApp.Ihm
             catch (Exception )
             {
                 m_InteractiveControlContainer.ScreenBckImage = null;
+                Traces.LogAddDebug(TraceCat.SmartConfig, "Erreur chargement du fichier fond de plan");
             }
             // on met a jour le designer avec l'écran séléctionné
             UpdateDesignerFromScreen(m_Currentscreen);

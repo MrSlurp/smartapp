@@ -1385,7 +1385,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_02E63C948F23424D8DD7AA34561CC24D"
             {
-            "SourcePath" = "8:..\\FourBitmap\\obj\\BuildLang\\FourBitmap.dll"
+            "SourcePath" = "8:..\\obj\\Debug\\Debug\\FourBitmap.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8421F5FDC69F48CA8248FC20B9EEBC38"
@@ -1411,9 +1411,65 @@
                 {
                 }
             }
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_099A4EF729D4412D8DB91DE1B78763E4"
+            {
+            "SourcePath" = "8:"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_8421F5FDC69F48CA8248FC20B9EEBC38"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:ContentFiles"
+            "OutputProjectGuid" = "8:{99E4B4D9-CDE5-491F-923A-1FA0FA5839D4}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_0CFA00D7E64548D3A2343B82BD955E91"
+            {
+            "SourcePath" = "8:"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_8421F5FDC69F48CA8248FC20B9EEBC38"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:ContentFiles"
+            "OutputProjectGuid" = "8:{76222E36-853A-4DEF-8354-031B954796C8}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_118CC6BE63C245D993479E97588549FA"
             {
-            "SourcePath" = "8:..\\CtrlGraph\\obj\\BuildLang\\CtrlGraph.dll"
+            "SourcePath" = "8:..\\obj\\Debug\\Debug\\CtrlGraph.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8421F5FDC69F48CA8248FC20B9EEBC38"
@@ -1441,7 +1497,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_11A77C95C80A47E982A0DD860FF76C84"
             {
-            "SourcePath" = "8:..\\GradientBaloon\\obj\\BuildLang\\GradientBaloon.dll"
+            "SourcePath" = "8:..\\obj\\Debug\\Debug\\GradientBaloon.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8421F5FDC69F48CA8248FC20B9EEBC38"
@@ -1469,7 +1525,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_2DAC164338CC4F44921DF3FD6DCD20D0"
             {
-            "SourcePath" = "8:..\\CtrlJauge\\obj\\BuildLang\\CtrlJauge.dll"
+            "SourcePath" = "8:..\\obj\\Debug\\Debug\\CtrlJauge.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8421F5FDC69F48CA8248FC20B9EEBC38"
@@ -1497,7 +1553,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_2E21CDD5506149EB99D4AC9AB068F560"
             {
-            "SourcePath" = "8:..\\CtrlDataTrigger\\obj\\BuildLang\\CtrlDataTrigger.dll"
+            "SourcePath" = "8:..\\obj\\Debug\\Debug\\CtrlDataTrigger.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8421F5FDC69F48CA8248FC20B9EEBC38"
@@ -1525,7 +1581,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_3E3AFC53A79F438A9E8825628FBF38C2"
             {
-            "SourcePath" = "8:..\\CtrlSerpentin\\obj\\BuildLang\\CtrlSerpentin.dll"
+            "SourcePath" = "8:..\\obj\\Debug\\Debug\\CtrlSerpentin.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8421F5FDC69F48CA8248FC20B9EEBC38"
@@ -1546,6 +1602,34 @@
             "OutputConfiguration" = "8:"
             "OutputGroupCanonicalName" = "8:Built"
             "OutputProjectGuid" = "8:{94373D87-E83C-4FDF-A029-792A4A48C680}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_41517137D46745DC9E396290D2A573B4"
+            {
+            "SourcePath" = "8:"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_8421F5FDC69F48CA8248FC20B9EEBC38"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:ContentFiles"
+            "OutputProjectGuid" = "8:{486930DE-F974-4E9B-87A5-5BF43D2BA463}"
             "ShowKeyOutput" = "11:TRUE"
                 "ExcludeFilters"
                 {
@@ -1607,9 +1691,37 @@
                 {
                 }
             }
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_46E1A83A970E4BF49886A97C5F5C1BD5"
+            {
+            "SourcePath" = "8:"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_8421F5FDC69F48CA8248FC20B9EEBC38"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:ContentFiles"
+            "OutputProjectGuid" = "8:{6F150ACD-AD51-43DB-BF98-433D9F9D03F1}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_4C9F4229D2B64447A88FC59B02CBB014"
             {
-            "SourcePath" = "8:..\\CtrlTwoBitmap\\obj\\BuildLang\\CtrlTwoBitmap.dll"
+            "SourcePath" = "8:..\\obj\\Debug\\Debug\\CtrlTwoBitmap.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8421F5FDC69F48CA8248FC20B9EEBC38"
@@ -1693,7 +1805,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_B32CBED26CFC4272B17AA02D003C2F52"
             {
-            "SourcePath" = "8:..\\FormatedDisplay\\obj\\BuildLang\\FormatedDisplay.dll"
+            "SourcePath" = "8:..\\obj\\Debug\\Debug\\FormatedDisplay.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8421F5FDC69F48CA8248FC20B9EEBC38"
@@ -1721,7 +1833,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_BB858A71E3BC4B3F865A62D0D2D5D75F"
             {
-            "SourcePath" = "8:..\\DigitalDisplay\\obj\\BuildLang\\DigitalDisplay.dll"
+            "SourcePath" = "8:..\\obj\\Debug\\Debug\\DigitalDisplay.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8421F5FDC69F48CA8248FC20B9EEBC38"
@@ -1747,9 +1859,37 @@
                 {
                 }
             }
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_C73CE89F0ABF4E13B5589EDC6728F229"
+            {
+            "SourcePath" = "8:"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_8421F5FDC69F48CA8248FC20B9EEBC38"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:ContentFiles"
+            "OutputProjectGuid" = "8:{7B2150F6-8F06-49C9-8CE7-D298DE5E04EF}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_ED6AD66369934C128648CBD99834A9DC"
             {
-            "SourcePath" = "8:..\\SmartApp\\obj\\BuildLang\\SmartApp.exe"
+            "SourcePath" = "8:..\\obj\\Debug\\Debug\\SmartApp.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8421F5FDC69F48CA8248FC20B9EEBC38"
@@ -1777,7 +1917,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_F40EE24552644B2E982E6BA140CF8DE8"
             {
-            "SourcePath" = "8:..\\CtrlDemux\\obj\\BuildLang\\CtrlDemux.dll"
+            "SourcePath" = "8:..\\obj\\Debug\\Debug\\CtrlDemux.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8421F5FDC69F48CA8248FC20B9EEBC38"

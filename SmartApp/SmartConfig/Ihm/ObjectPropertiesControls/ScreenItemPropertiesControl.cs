@@ -40,8 +40,10 @@ namespace SmartApp.Ihm
             InitializeComponent();
             m_BeginWithDataList = new AutoCompleteStringCollection();
             // c'est bien beau l'auto completion mais encore faut t'il que ca ne plante pas
-            // trouvé ou est le problem
-            //m_EditAssociateData.AutoCompleteCustomSource = m_BeginWithDataList;
+            // trouver ou est le problem
+            //m_EditAssociateData.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            //m_EditAssociateData.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            //m_EditAssociateData.AutoCompleteCustomSource;
         }
         #endregion
 
@@ -343,17 +345,23 @@ namespace SmartApp.Ihm
             
             try
             {
+                /*
                 string strValue = m_EditAssociateData.Text;
-                m_BeginWithDataList.Clear();
-                for (int i = 0; i < GestData.Count; i++)
+                object locker = new object();
+                lock (locker)
                 {
-                    Data dt = (Data)GestData[i];
-                    if (strValue.Length < dt.Symbol.Length
-                        && dt.Symbol.StartsWith(strValue, StringComparison.CurrentCultureIgnoreCase))
+                    m_EditAssociateData.AutoCompleteCustomSource.Clear();
+                    //m_BeginWithDataList.Clear();
+                    for (int i = 0; i < GestData.Count; i++)
                     {
-                        m_BeginWithDataList.Add(dt.Symbol);
+                        Data dt = (Data)GestData[i];
+                        if (strValue.Length < dt.Symbol.Length
+                            && dt.Symbol.StartsWith(strValue, StringComparison.CurrentCultureIgnoreCase))
+                        {
+                            m_EditAssociateData.AutoCompleteCustomSource.Add(dt.Symbol);
+                        }
                     }
-                }
+                }*/
             }
             catch (Exception)
             {
@@ -484,6 +492,7 @@ namespace SmartApp.Ihm
                 catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
+                    Traces.LogAddDebug(TraceCat.SmartConfig, "Erreur de mise en place du panneau des propriété spécifiques");
                 }
             }
         }

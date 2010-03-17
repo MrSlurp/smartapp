@@ -32,6 +32,7 @@ namespace CommonLib
                 // en cas de tag non reconne dans l'enum, une exeption est levée, 
                 // on la récupère car ca peut arriver
                 Console.WriteLine("Impossible de parser le type de controle specifique");
+                Traces.LogAddDebug(TraceCat.Serialization, "Impossible de parser le type de controle specifique");
             }
 
             switch (TypeId)
@@ -68,6 +69,7 @@ namespace CommonLib
             {
                 // en cas de tag non reconne dans l'enum, une exeption est levée, 
                 // on la récupère car ca peut arriver
+                Traces.LogAddDebug(TraceCat.CommonLib, "Impossible de parser le type de controle specifique");
             }
 
             return TypeId;

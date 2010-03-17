@@ -148,10 +148,6 @@ namespace CommonLib
         public void Initialize(Form frm)
         {
 #if !PocketPC
-            Debug.Print("Lang::Initialize({0})",frm.Name);
-#endif
-            
-#if !PocketPC
             frm.FormClosed += Form_Closed;
 #else
             frm.Closed += Form_Closed;
@@ -167,7 +163,6 @@ namespace CommonLib
         /// <param name="frm">UserControl de l'appelant</param>
         public void Initialize(UserControl frm)
         {
-            Debug.Print("Lang::Initialize({0})", frm.Name);
             mUserControlList.Add(UserControlInfo.CreateUserControlInfo(this, frm));
             if (!m_bInitDone)
                 System.Diagnostics.Debug.Assert(false);
@@ -183,9 +178,6 @@ namespace CommonLib
         public void Initialize(string DevLang, string CurLang, string Assembly)
         {
             m_bInitDone = true;
-#if !PocketPC
-            Debug.Print("Lang::Initialize({0},{1})", DevLang, CurLang);
-#endif
             System.Diagnostics.Debug.Assert(!string.IsNullOrEmpty(CurLang));
             mFormList.Clear();
             Decoders.Clear();
@@ -238,9 +230,6 @@ namespace CommonLib
         {
             // recherche la feuille dans la liste des feuille interceptées
             Form frm = (Form)sender;
-#if !PocketPC
-            Debug.Print("Lang::Form_Closed --> " + sender.GetType().ToString());
-#endif
             for (int index = 0; index < mFormList.Count; index++)
             {
                 if (mFormList[index].FormName == frm.Name)

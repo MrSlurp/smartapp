@@ -282,7 +282,7 @@ namespace CommonLib
                     break;
                 case CONTROL_TYPE.NULL:
                 default:
-                    Console.WriteLine("Type de control indéfini");
+                    Traces.LogAddDebug(TraceCat.Serialization, "Erreur récupération du type de controle");
                     return false;
             }
             ReadInCommonBTControl(Node);

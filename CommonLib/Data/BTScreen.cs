@@ -227,6 +227,7 @@ namespace CommonLib
                 {
                     // en cas de tag non reconne dans l'enum, une exeption est levée, 
                     // on la récupère car ca peut arriver
+                    Traces.LogAddDebug(TraceCat.Serialization, "Erreur récupération du type noeud fils dans BTScreen");
                     continue;
                 }
                 switch (TypeId)
@@ -375,6 +376,7 @@ namespace CommonLib
                     {
                         // en cas de tag non reconne dans l'enum, une exeption est levée, 
                         // on la récupère car ca peut arriver
+                        Traces.LogAddDebug(TraceCat.Serialization, "Erreur récupération du type de controle BTScreen");
                         continue;
                     }
 
