@@ -80,25 +80,37 @@ namespace CommonLib
     
         public int PreParseScript(IScriptable scriptable)
         {
-            int Id = ++m_iQuickIdCounter;
+            int Id = 0;
             List<PreParsedLine> preParsedScript = m_PreParser.PreParseScript(scriptable.ScriptLines);
-            m_DictioQuickScripts.Add(Id, preParsedScript);
+            if (preParsedScript != null)
+            {
+                Id = ++m_iQuickIdCounter;
+                m_DictioQuickScripts.Add(Id, preParsedScript);
+            }
             return Id;
         }
     
         public int PreParseScript(String[] script)
         {
-            int Id = ++m_iQuickIdCounter;
+            int Id = 0;
             List<PreParsedLine> preParsedScript = m_PreParser.PreParseScript(script);
-            m_DictioQuickScripts.Add(Id, preParsedScript);
+            if (preParsedScript != null)
+            {
+                Id = ++m_iQuickIdCounter;
+                m_DictioQuickScripts.Add(Id, preParsedScript);
+            }
             return Id;
         }
 
         public int PreParseScript(IInitScriptable scriptable)
         {
-            int Id = ++m_iQuickIdCounter;
+            int Id = 0;
             List<PreParsedLine> preParsedScript = m_PreParser.PreParseScript(scriptable.InitScriptLines);
-            m_DictioQuickScripts.Add(Id, preParsedScript);
+            if (preParsedScript != null)
+            {
+                Id = ++m_iQuickIdCounter;
+                m_DictioQuickScripts.Add(Id, preParsedScript);
+            }
             return Id;
         }
     
@@ -150,8 +162,12 @@ namespace CommonLib
 #if DEBUG
             else
             {
-                LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format(Lang.LangSys.C("Failed to find {0}"), QuickID)); 
-                AddLogEvent(log);
+                // l'ID 0 est l'ID script vide, on ne le trace pas
+                if (QuickID != 0)
+                {
+                    LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format(Lang.LangSys.C("Failed to find {0}"), QuickID)); 
+                    AddLogEvent(log);
+                }
             }
 #endif
         }
@@ -173,6 +189,9 @@ namespace CommonLib
                         break;
                     case SCR_OBJECT.FUNCTIONS:
                         int Id = QuickScript[i].m_Arguments[0].QuickScriptID;
+                        if (Traces.IsDebugAndCatOK(TraceCat.ExecuteFunc))
+                            Traces.LogAddDebug(TraceCat.ExecuteFunc, 
+                                               string.Format("Executing func {0}", QuickScript[i].m_Arguments[0].Symbol));
                         InternalExecuteScript(Id);  
                         break;
                     case SCR_OBJECT.LOGIC:
@@ -200,24 +219,45 @@ namespace CommonLib
                     QuickExecuteSendFrame((Trame)QuickScript.m_Arguments[0]);
                     break;
                 case ALL_FUNC.LOGGER_CLEAR:
+                    if (Traces.IsDebugAndCatOK(TraceCat.ExecuteLogger))
+                        Traces.LogAddDebug(TraceCat.ExecuteLogger, 
+                                           string.Format("Logger Clear {0}", QuickScript.m_Arguments[0].Symbol));
                     ((Logger)QuickScript.m_Arguments[0]).ClearLog();
                     break;
                 case ALL_FUNC.LOGGER_LOG:
+                    if (Traces.IsDebugAndCatOK(TraceCat.ExecuteLogger))
+                        Traces.LogAddDebug(TraceCat.ExecuteLogger, 
+                                           string.Format("Logger Log {0}", QuickScript.m_Arguments[0].Symbol));
                     ((Logger)QuickScript.m_Arguments[0]).LogData();
                     break;
                 case ALL_FUNC.LOGGER_START:
+                    if (Traces.IsDebugAndCatOK(TraceCat.ExecuteLogger))
+                        Traces.LogAddDebug(TraceCat.ExecuteLogger, 
+                                           string.Format("Logger.Start {0}", QuickScript.m_Arguments[0].Symbol));
                     ((Logger)QuickScript.m_Arguments[0]).StartAutoLogger();
                     break;
                 case ALL_FUNC.LOGGER_STOP:
+                    if (Traces.IsDebugAndCatOK(TraceCat.ExecuteLogger))
+                        Traces.LogAddDebug(TraceCat.ExecuteLogger, 
+                                           string.Format("Logger.STOP {0}", QuickScript.m_Arguments[0].Symbol));
                     ((Logger)QuickScript.m_Arguments[0]).StopAutoLogger();
                     break;
                 case ALL_FUNC.TIMER_START:
+                    if (Traces.IsDebugAndCatOK(TraceCat.ExecuteTimer))
+                        Traces.LogAddDebug(TraceCat.ExecuteTimer, 
+                                           string.Format("timer.START {0}", QuickScript.m_Arguments[0].Symbol));
                     ((BTTimer)QuickScript.m_Arguments[0]).StartTimer();
                     break;
                 case ALL_FUNC.TIMER_STOP:
+                    if (Traces.IsDebugAndCatOK(TraceCat.ExecuteTimer))
+                        Traces.LogAddDebug(TraceCat.ExecuteTimer, 
+                                           string.Format("timer.STOP {0}", QuickScript.m_Arguments[0].Symbol));
                     ((BTTimer)QuickScript.m_Arguments[0]).StopTimer();
                     break;
                 case ALL_FUNC.SCREEN_SHOW_ON_TOP:
+                    if (Traces.IsDebugAndCatOK(TraceCat.ExecuteScreen))
+                        Traces.LogAddDebug(TraceCat.ExecuteScreen, 
+                                           string.Format("Screen.SHOW_ON_TOP {0}", QuickScript.m_Arguments[0].Symbol));
                     ((BTScreen)QuickScript.m_Arguments[0]).ShowScreenToTop();
                     break;
             }
@@ -227,6 +267,9 @@ namespace CommonLib
         #region execution des trames
         internal void QuickExecuteSendFrame(Trame tr)
         {
+            if (Traces.IsDebugAndCatOK(TraceCat.ExecuteFrame))
+                Traces.LogAddDebug(TraceCat.ExecuteFrame, string.Format("Send frame {0}", tr.Symbol));
+                
             Byte[] buffer = tr.CreateTrameToSend(false);
             if (m_Document.m_Comm.IsOpen)
             {
@@ -244,6 +287,9 @@ namespace CommonLib
 
         internal void QuickExecuteRecieveFrame(Trame TrameToRecieve)
         {
+            if (Traces.IsDebugAndCatOK(TraceCat.ExecuteFrame))
+                Traces.LogAddDebug(TraceCat.ExecuteFrame, string.Format("Recieve frame {0}", TrameToRecieve.Symbol));
+                
             if (m_Document.m_Comm.IsOpen)
             {
                 byte[] FrameHeader = TrameToRecieve.FrameHeader;
@@ -311,18 +357,24 @@ namespace CommonLib
         internal void ExecuteMathAdd(Data Result, Data Operator1, Data Operator2)
         {
             Result.Value = Operator1.Value + Operator2.Value;
+            if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
+                Traces.LogAddDebug(TraceCat.ExecuteMath, "Math.ADD", string.Format("{0} = {1} + {2}", Result.Value, Operator1.Value, Operator2.Value));
         }
 
         //*****************************************************************************************************
         internal void ExecuteMathSub(Data Result, Data Operator1, Data Operator2)
         {
             Result.Value = Operator1.Value - Operator2.Value;
+            if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
+                Traces.LogAddDebug(TraceCat.ExecuteMath, "Math.SUB", string.Format("{0} = {1} - {2}", Result.Value, Operator1.Value, Operator2.Value));
         }
 
         //*****************************************************************************************************
         protected void ExecuteMathMul(Data Result, Data Operator1, Data Operator2)
         {
             Result.Value = Operator1.Value * Operator2.Value;
+            if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
+                Traces.LogAddDebug(TraceCat.ExecuteMath, "Math.MUL", string.Format("{0} = {1} * {2}", Result.Value, Operator1.Value, Operator2.Value));
         }
 
         //*****************************************************************************************************
@@ -331,11 +383,15 @@ namespace CommonLib
             if (Operator2.Value != 0)
             {
                 Result.Value = Operator1.Value / Operator2.Value;
+                if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
+                    Traces.LogAddDebug(TraceCat.ExecuteMath, "Math.DIV", string.Format("{0} = {1} / {2}", Result.Value, Operator1.Value, Operator2.Value));
             }
             else
             {
                 LogEvent logEvent = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format(Lang.LangSys.C("Division by zero forbidden")));
                 AddLogEvent(logEvent);
+                if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
+                    Traces.LogAddDebug(TraceCat.ExecuteMath, "Math.DIV", "Division by zero");
                 return;
             }
         }
@@ -376,6 +432,8 @@ namespace CommonLib
 
         internal void ExecuteLogicNOT(Data Result, Data Operator1)
         {
+            if (Traces.IsDebugAndCatOK(TraceCat.ExecuteLogic))
+                Traces.LogAddDebug(TraceCat.ExecuteLogic, "Logic.NOT", string.Format("{0} = !{1}", Result.Value, Operator1.Value));
             if (Operator1.Value == 0)
                 Result.Value = 1;
             else
@@ -385,6 +443,18 @@ namespace CommonLib
         //*****************************************************************************************************
         internal void ExecuteLogicAND(Data Result, Data[] Operators)
         {
+            if (Traces.IsDebugAndCatOK(TraceCat.ExecuteLogic))
+            {
+                Traces.LogAddDebug(TraceCat.ExecuteLogic, 
+                                   "Logic.AND", 
+                                   string.Format("{0} = {1} & {2} & {3} & {4}", 
+                                                 Result.Value, 
+                                                 Operators[0] != null? Operators[0].Value.ToString() : "NA",
+                                                 Operators[1] != null? Operators[1].Value.ToString() : "NA",
+                                                 Operators.Length >= 3? Operators[2].Value.ToString() : "NA",
+                                                 Operators.Length >= 4? Operators[3].Value.ToString() : "NA")
+                                   );
+            }
             bool bRes = true;
             for (int i = 0; i < Operators.Length; i++)
             {
@@ -396,6 +466,18 @@ namespace CommonLib
         //*****************************************************************************************************
         internal void ExecuteLogicOR(Data Result, Data[] Operators)
         {
+            if (Traces.IsDebugAndCatOK(TraceCat.ExecuteLogic))
+            {
+                Traces.LogAddDebug(TraceCat.ExecuteLogic, 
+                                   "Logic.OR", 
+                                   string.Format("{0} = {1} | {2} | {3} | {4}", 
+                                                 Result.Value, 
+                                                 Operators[0] != null? Operators[0].Value.ToString() : "NA",
+                                                 Operators[1] != null? Operators[1].Value.ToString() : "NA",
+                                                 Operators.Length >= 3? Operators[2].Value.ToString() : "NA",
+                                                 Operators.Length >= 4? Operators[3].Value.ToString() : "NA")
+                                   );
+            }            
             bool bRes = false;
             for (int i = 0; i < Operators.Length; i++)
             {
@@ -407,6 +489,18 @@ namespace CommonLib
         //*****************************************************************************************************
         internal void ExecuteLogicNAND(Data Result, Data[] Operators)
         {
+            if (Traces.IsDebugAndCatOK(TraceCat.ExecuteLogic))
+            {
+                Traces.LogAddDebug(TraceCat.ExecuteLogic, 
+                                   "Logic.NAND", 
+                                   string.Format("{0} = !({1} & {2} & {3} & {4})", 
+                                                 Result.Value, 
+                                                 Operators[0] != null? Operators[0].Value.ToString() : "NA",
+                                                 Operators[1] != null? Operators[1].Value.ToString() : "NA",
+                                                 Operators.Length >= 3? Operators[2].Value.ToString() : "NA",
+                                                 Operators.Length >= 4? Operators[3].Value.ToString() : "NA")
+                                   );
+            }
             bool bRes = true;
             for (int i = 0; i < Operators.Length; i++)
             {
@@ -418,6 +512,18 @@ namespace CommonLib
         //*****************************************************************************************************
         internal void ExecuteLogicNOR(Data Result, Data[] Operators)
         {
+            if (Traces.IsDebugAndCatOK(TraceCat.ExecuteLogic))
+            {
+                Traces.LogAddDebug(TraceCat.ExecuteLogic, 
+                                   "Logic.NOR", 
+                                   string.Format("{0} = !({1} | {2} | {3} | {4})", 
+                                                 Result.Value, 
+                                                 Operators[0] != null? Operators[0].Value.ToString() : "NA",
+                                                 Operators[1] != null? Operators[1].Value.ToString() : "NA",
+                                                 Operators.Length >= 3? Operators[2].Value.ToString() : "NA",
+                                                 Operators.Length >= 4? Operators[3].Value.ToString() : "NA")
+                                   );
+            }            
             bool bRes = false;
             for (int i = 0; i < Operators.Length; i++)
             {
@@ -428,6 +534,16 @@ namespace CommonLib
 
         internal void ExecuteLogicXOR(Data Result, Data[] Operators)
         {
+            if (Traces.IsDebugAndCatOK(TraceCat.ExecuteLogic))
+            {
+                Traces.LogAddDebug(TraceCat.ExecuteLogic, 
+                                   "Logic.XOR", 
+                                   string.Format("{0} = {1} XOR {2}", 
+                                                 Result.Value, 
+                                                 Operators[0] != null? Operators[0].Value.ToString() : "NA",
+                                                 Operators[1] != null? Operators[1].Value.ToString() : "NA")
+                                   );
+            }            
             bool bRes = false;
             if ((Operators[0].Value == 0 && Operators[1].Value == 1)
                 || (Operators[0].Value == 1 && Operators[1].Value == 0)

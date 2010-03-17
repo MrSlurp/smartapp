@@ -54,12 +54,12 @@ namespace CommonLib
             m_PortSerie.ReceivedBytesThreshold = 1;
 #endif
 
-            Traces.LogAddDebug("Configuration du port com", "");
-            Traces.LogAddDebug("Bits de donnée", m_PortSerie.DataBits.ToString());
-            Traces.LogAddDebug("DTR", m_PortSerie.DtrEnable.ToString());
-            Traces.LogAddDebug("Bits de stop", m_PortSerie.StopBits.ToString());
-            Traces.LogAddDebug("Read Timeout", m_PortSerie.ReadTimeout.ToString());
-            Traces.LogAddDebug("Write Timeout", m_PortSerie.WriteTimeout.ToString());
+            Traces.LogAddDebug(TraceCat.Communication, "Configuration du port com", "");
+            Traces.LogAddDebug(TraceCat.Communication, "Bits de donnée", m_PortSerie.DataBits.ToString());
+            Traces.LogAddDebug(TraceCat.Communication, "DTR", m_PortSerie.DtrEnable.ToString());
+            Traces.LogAddDebug(TraceCat.Communication, "Bits de stop", m_PortSerie.StopBits.ToString());
+            Traces.LogAddDebug(TraceCat.Communication, "Read Timeout", m_PortSerie.ReadTimeout.ToString());
+            Traces.LogAddDebug(TraceCat.Communication, "Write Timeout", m_PortSerie.WriteTimeout.ToString());
 
             m_bDataAvailable = false;
             m_CommErrorCode = COMM_ERROR.ERROR_NONE;
@@ -75,7 +75,7 @@ namespace CommonLib
             set
             {
                 m_PortSerie.PortName = value;
-                Traces.LogAddDebug("Port COM", value);
+                Traces.LogAddDebug(TraceCat.Communication, "Port COM", value);
             }
             get
             {
@@ -95,7 +95,7 @@ namespace CommonLib
             set
             {
                 m_PortSerie.BaudRate = (int)value;
-                Traces.LogAddDebug("BaudRate", value.ToString());
+                Traces.LogAddDebug(TraceCat.Communication, "BaudRate", value.ToString());
             }
         }
 
@@ -111,7 +111,7 @@ namespace CommonLib
             set
             {
                 m_PortSerie.Parity = value;
-                Traces.LogAddDebug("Paritée", value.ToString());
+                Traces.LogAddDebug(TraceCat.Communication, "Paritée", value.ToString());
             }
         }
         #endregion
@@ -187,15 +187,15 @@ namespace CommonLib
                     m_PortSerie.DiscardInBuffer();
                     m_PortSerie.DiscardOutBuffer();
                     m_PortSerie.Write(buffer, 0, buffer.Length);
-                    Traces.LogAddDebug("SendData", "envoie de la trame :");
+                    Traces.LogAddDebug(TraceCat.Communication, "SendData", "envoie de la trame :");
                     string strSendData = "";
-                    if (Traces.IsLogLevelOK(Traces.LOG_LEVEL_DEBUG))
+                    if (Traces.IsLogLevelOK(TracesLevel.Debug))
                     {
                         for (int i = 0; i < buffer.Length; i++)
                         {
                             strSendData += string.Format(" {0:x2}", buffer[i]);
                         }
-                        Traces.LogAddDebug("SendData", strSendData);
+                        Traces.LogAddDebug(TraceCat.Communication, "SendData", strSendData);
                     }
                 }
                 bReturnValue = false;
@@ -204,19 +204,19 @@ namespace CommonLib
             {
                 m_CommErrorCode = COMM_ERROR.ERROR_TIMEOUT;
                 bReturnValue = false;
-                Traces.LogAddDebug("SendData", "Erreur timeour exception : " + te.Message + "\n" + te.StackTrace);
+                Traces.LogAddDebug(TraceCat.Communication, "SendData", "Erreur timeour exception : " + te.Message + "\n" + te.StackTrace);
             }
             catch (IOException ioe)
             {
                 m_CommErrorCode = COMM_ERROR.ERROR_UNKNOWN;
                 bReturnValue = false;
-                Traces.LogAddDebug("SendData", "Erreur IO exception : " + ioe.Message + "\n" + ioe.StackTrace);
+                Traces.LogAddDebug(TraceCat.Communication, "SendData", "Erreur IO exception : " + ioe.Message + "\n" + ioe.StackTrace);
             }
             catch (Exception e)
             {
                 m_CommErrorCode = COMM_ERROR.ERROR_UNKNOWN;
                 bReturnValue = false;
-                Traces.LogAddDebug("SendData", "Erreur exception : " + e.Message + "\n" + e.StackTrace);
+                Traces.LogAddDebug(TraceCat.Communication, "SendData", "Erreur exception : " + e.Message + "\n" + e.StackTrace);
             }
             if (!bReturnValue)
             {
@@ -238,7 +238,7 @@ namespace CommonLib
         {
             if (m_PortSerie.IsOpen && m_bDataAvailable)
             {
-                Traces.LogAddDebug("GetRecievedData", "Nombre de messages dans la file = " + m_MessageList.Count);
+                Traces.LogAddDebug(TraceCat.Communication, "GetRecievedData", "Nombre de messages dans la file = " + m_MessageList.Count);
                 if (m_MessageList.Count != 0)
                 {
                     // on parcour la liste des trames reçues pour vois si par hasard on en aurai
@@ -246,12 +246,12 @@ namespace CommonLib
                     int indexOfFrame = -1;
                     for (int i = 0; i < m_MessageList.Count; i++)
                     {
-                        Traces.LogAddDebug("GetRecievedData", "Longueur de la trame n°" + i + " dans la file = " + m_MessageList[i].Length);
-                        Traces.LogAddDebug("GetRecievedData", "Longueur de la trame attendue = " + NumberOfByte);
+                        Traces.LogAddDebug(TraceCat.Communication, "GetRecievedData", "Longueur de la trame n°" + i + " dans la file = " + m_MessageList[i].Length);
+                        Traces.LogAddDebug(TraceCat.Communication, "GetRecievedData", "Longueur de la trame attendue = " + NumberOfByte);
                         if (m_MessageList[i].Length == NumberOfByte)
                         {
                             indexOfFrame = i;
-                            Traces.LogAddDebug("GetRecievedData", "Trame attendu trouvée");
+                            Traces.LogAddDebug(TraceCat.Communication, "GetRecievedData", "Trame attendu trouvée");
                             break;
                         }
                     }
@@ -285,11 +285,11 @@ namespace CommonLib
                 int indexOfFrame = -1;
                 try
                 {
-                    Traces.LogAddDebug("TestFrame", "Nombre de messages dans la file = " + m_MessageList.Count);
+                    Traces.LogAddDebug(TraceCat.Communication, "TestFrame", "Nombre de messages dans la file = " + m_MessageList.Count);
                     for (int i = 0; i < m_MessageList.Count; i++)
                     {
-                        Traces.LogAddDebug("TestFrame", "Longueur de la trame " + i + " dans la file = " + m_MessageList[i].Length);
-                        Traces.LogAddDebug("TestFrame", "Longueur de la trame attendue = " + FrameLenght);
+                        Traces.LogAddDebug(TraceCat.Communication, "TestFrame", "Longueur de la trame " + i + " dans la file = " + m_MessageList[i].Length);
+                        Traces.LogAddDebug(TraceCat.Communication, "TestFrame", "Longueur de la trame attendue = " + FrameLenght);
                         if (m_MessageList[i].Length == FrameLenght)
                         {
                             if (FrameHeader == null)
@@ -324,8 +324,8 @@ namespace CommonLib
                     }
                     else
                     {
-                        Traces.LogAddDebug("TestFrame", "Aucune trame correspondante");
-                        Traces.LogAddDebug("TestFrame", "Dump des trames");
+                        Traces.LogAddDebug(TraceCat.Communication, "TestFrame", "Aucune trame correspondante");
+                        Traces.LogAddDebug(TraceCat.Communication, "TestFrame", "Dump des trames");
                         for (int i = 0; i < m_MessageList.Count; i++)
                         {
                             string trame = "";
@@ -334,7 +334,7 @@ namespace CommonLib
                                 trame += m_MessageList[i][t];
                                 trame += " ";
                             }
-                            Traces.LogAddDebug("TestFrame", "trame" + i + " = "+ trame);
+                            Traces.LogAddDebug(TraceCat.Communication, "TestFrame", "trame" + i + " = "+ trame);
                         }
                     }
                 }
@@ -362,7 +362,7 @@ namespace CommonLib
             bool bSuccess = false;
             try
             {
-                Traces.LogAddDebug("DataRecieved", m_PortSerie.BytesToRead + " octets à lire");
+                Traces.LogAddDebug(TraceCat.Communication, "DataRecieved", m_PortSerie.BytesToRead + " octets à lire");
                 string strDataRecieved = "";
                 bool bFullTrameRecieved = false;
                 bool bBeginFrameRecieved = false;
@@ -393,9 +393,9 @@ namespace CommonLib
             }
             catch (Exception ex)
             {
-                Traces.LogAddDebug("DataRecieved", "Exception lors de la récéption de données");
-                Traces.LogAddDebug("DataRecieved", ex.StackTrace);
-                Traces.LogAddDebug("DataRecieved", ex.Message);
+                Traces.LogAddDebug(TraceCat.Communication, "DataRecieved", "Exception lors de la récéption de données");
+                Traces.LogAddDebug(TraceCat.Communication, "DataRecieved", ex.StackTrace);
+                Traces.LogAddDebug(TraceCat.Communication, "DataRecieved", ex.Message);
                 bSuccess = false;
             }
             if (!bSuccess)

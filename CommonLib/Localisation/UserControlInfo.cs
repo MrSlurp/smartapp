@@ -64,7 +64,7 @@ namespace CommonLib
                     if (var is ILangReloadable)
                     {
                         ((ILangReloadable)var).LoadNonStandardLang();
-                        Traces.LogAdd(Traces.LOG_LEVEL_INFO, "Lang", "appel à LoadNonStandardLang");
+                        Traces.LogAddDebug(TraceCat.Lang, "appel à LoadNonStandardLang");
                     }
                 }
             }

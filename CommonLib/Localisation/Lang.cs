@@ -339,7 +339,7 @@ namespace CommonLib
                         if (!Decoders[FileName].ContainsValue(DevText))
                         {
                             //Console.WriteLine(string.Format("Fichier {0}, missing DevText {1}",FileName, DevText));
-                            Traces.LogAdd(Traces.LOG_LEVEL_INFO, "Lang", string.Format("Fichier {0}, missing DevText {1}", Path.GetFileName(FileName), DevText));
+                            Traces.LogAddDebug(TraceCat.Lang, string.Format("Fichier {0}, missing DevText {1}", Path.GetFileName(FileName), DevText));
                         }
 #endif
                     }
@@ -347,7 +347,7 @@ namespace CommonLib
             }
             else
             {
-                Traces.LogAdd(Traces.LOG_LEVEL_INFO, "Lang", string.Format("Fichier manquant {0}",Path.GetFileName(FileName)));
+                Traces.LogAddDebug(TraceCat.Lang, string.Format("Fichier manquant {0}",Path.GetFileName(FileName)));
             }
 
             //Le fichier n'existe (peut-être) pas dans le dictionary
@@ -396,7 +396,7 @@ namespace CommonLib
             {
                 if (File.Exists(FileName))
                 {
-                    Traces.LogAdd(Traces.LOG_LEVEL_INFO, "Lang", string.Format("(module = {1}) chargement Fichier {0}", FileName, m_CurrentAssembly));
+                    Traces.LogAddDebug(TraceCat.Lang, string.Format("(module = {1}) chargement Fichier {0}", FileName, m_CurrentAssembly));
 #if LANG_LOAD_DEBUG
                     Console.WriteLine("fichier chargé = " + FileName);
 #endif
@@ -464,7 +464,7 @@ namespace CommonLib
 
             if (Decoders.ContainsKey(FileName) == false)
             {
-                Traces.LogAdd(Traces.LOG_LEVEL_INFO, "Lang", string.Format("(module = {1}) Ajout du fichier {0}", FileName, m_CurrentAssembly));
+                Traces.LogAddDebug(TraceCat.Lang, string.Format("(module = {1}) Ajout du fichier {0}", FileName, m_CurrentAssembly));
                 Decoders.Add(FileName, new Dictionary<string, string>());
             }
 

@@ -75,7 +75,7 @@ namespace CommonLib
                     if (var is ILangReloadable)
                     {
                         ((ILangReloadable)var).LoadNonStandardLang();
-                        Traces.LogAdd(Traces.LOG_LEVEL_INFO, "Lang", "appel à LoadNonStandardLang");
+                        Traces.LogAddDebug(TraceCat.Lang, "appel à LoadNonStandardLang");
                     }
                 }
             }
@@ -87,7 +87,7 @@ namespace CommonLib
             {
                 m_FormSrcTitle = frm.Text; 
                 frm.Text = m_LangSys.C(FilePath, frm.Text);
-                Traces.LogAdd(Traces.LOG_LEVEL_INFO, "Lang", "Form traitée = " + m_FormSrcTitle); 
+                Traces.LogAddDebug(TraceCat.Lang, "Form traitée = " + m_FormSrcTitle); 
             }
             else
                 frm.Text = m_LangSys.C(FilePath, m_FormSrcTitle);

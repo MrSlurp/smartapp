@@ -97,6 +97,29 @@ namespace CommonLib
                 Node.AppendChild(XmlGroup);
                 return true;
             }
+        
+            public bool IsEmpty
+            {
+                get
+                {
+                    return (m_ArrayObjectOfGroup.Count == 0);
+                }
+            }
+        
+            public bool OwnOnlyConstData
+            {
+                get
+                {
+                    bool bHaveNonConst = false;
+                    for (int i = 0; i < m_ArrayObjectOfGroup.Count; i++)
+                    {
+                        Data dt = m_ArrayObjectOfGroup[i] as Data;
+                        if (dt != null && !dt.IsConstant)
+                            bHaveNonConst = true;
+                    }
+                    return !bHaveNonConst;
+                }
+            }
         }
         #endregion
 

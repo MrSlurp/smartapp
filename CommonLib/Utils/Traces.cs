@@ -7,31 +7,97 @@ namespace CommonLib
 	/// <summary>
 	/// Description résumée de Traces.
 	/// </summary>
+	public enum TracesLevel
+	{
+		NoLog    = 0, // aucune trace
+		Critical = 1, // Erreures critiques
+		Error    = 2, // erreur non critique
+		Warning  = 3, // warning 
+		Info     = 4, // message d'info
+		Debug    = 5, // message de deboggage
+    }
+
+    [Flags]
+    public enum TraceCat
+    {
+        // aucune trace
+        None = 0x00000000,
+        // traces du parser
+        Parser = 0x00000001,
+        // traces de l'executer
+        Executer = 0x00000002,
+        // traces du système de lang
+        Lang = 0x00000004,
+        // traces de smart config
+        SmartConfig = 0x00000008,
+        // traces de smartcommand
+        SmartCommand = 0x00000010,
+        // traces diver commonlib (gestionnaire, objets de bases, etc))
+        CommonLib = 0x00000020,
+        // traces de la sérialisation
+        Serialization = 0x00000040,
+        // traces des plugins
+        Plugin = 0x00000080,
+        // traces de la partir comm
+        Communication = 0x00000100,
+        // 11 places libres ici
+        //0x00000200
+        //0x00000400
+        //0x00000800
+        //0x00001000
+        //0x00002000
+        //0x00004000
+        //0x00008000
+        //0x00010000
+        //0x00020000
+        //0x00040000
+        //0x00080000
+        
+        // traces autres
+        Others = 0x00080000,
+        
+        LogDispCats = 0x000FFFFF,
+        
+       
+        // sous catégories de l'execution
+        // permet de controler l'execution d'un type de fonction
+        // en particulier 
+        ExecuteFrame = 0x00100000 | Executer,
+        ExecuteMath = 0x00200000 | Executer,
+        ExecuteLogic = 0x00400000 | Executer, 
+        ExecuteFunc = 0x00800000 | Executer,
+        ExecuteScreen = 0x01000000 | Executer,
+        ExecuteTimer = 0x02000000 | Executer, 
+        ExecuteLogger = 0x04000000 | Executer,
+        // je garde de la marge pour les futures fonction de script (4 places libres)
+        //0x08000000
+        //0x10000000
+        //0x20000000
+        //0x40000000
+        ExecuteAll = 0x7FF00002, 
+        ExecuteAllButFrame = ExecuteAll | ~ExecuteFrame,    
+        // toutes traces actives
+        All = 0x7FFFFFFF,  
+    }
+    
 	public class Traces
 	{
-		// Niveaux de trace
-		public const int LOG_LEVEL_DEBUG    = 0;
-		public const int LOG_LEVEL_INFO     = 1;
-		public const int LOG_LEVEL_WARNING  = 2;
-		public const int LOG_LEVEL_ERROR    = 3;
-		public const int LOG_LEVEL_CRITICAL = 4;
-		public const int LOG_LEVEL_NOLOG    = 5;
-		static string[] LOG_LEVEL_DESCRIPTIONS = {"DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL","NOLOG"};
-
 		// Taille maximale de la chaine 1 du fichier de traces
-		private const int TAILLEMAX_MESSAGE1	= 40;
+		private const int TAILLEMAX_CAT	= 20;
 		
 		// Nombre de jours de logs conservés
-		public const int NBR_JOURS = 7 ;
+		public const int NBR_JOURS = 2 ;
 
 		// Répertoire dans lequel les logs doivent être écrits
 		private static string sLogDirectory ;
 		// Nom du fichier de traces
 		private static string sLogFileName ;
 		// Niveau de trace demandé
-        private static int iLogTracesLevel = LOG_LEVEL_NOLOG;
+        private static TracesLevel mTracesLevel = TracesLevel.Debug;
 		// Fichier de logs
 		private static StreamWriter TxtLog;
+		
+		private static TraceCat mTraceCat = TraceCat.All; 
 
 		// Protection des fonctions de traces avec une section critique
 		// Cette fonctionalité est rendue nécessaire par le fait que plusieurs Threads
@@ -50,17 +116,27 @@ namespace CommonLib
         /// </summary>
         /// <param name="sDirectory"></param>
         /// <param name="sFileName"></param>
-        /// <param name="iTracesLevel"></param>
-		public static void Initialize(string sDirectory,string sFileName,int iTracesLevel)
+        /// <param name="Level"></param>
+		public static void Initialize(string sDirectory,string sFileName,TracesLevel Level)
 		{
-			sLogDirectory = sDirectory ;
-			sLogFileName = sFileName ;
-			
-			// Contrôle du niveau de trace demandé
-			//if(iTracesLevel > LOG_LEVEL_CRITICAL) iTracesLevel = LOG_LEVEL_CRITICAL ;
-			if(iTracesLevel > LOG_LEVEL_NOLOG) iTracesLevel = LOG_LEVEL_NOLOG ;
-			if(iTracesLevel < LOG_LEVEL_DEBUG) iTracesLevel = LOG_LEVEL_DEBUG ;
-			iLogTracesLevel = iTracesLevel ;
+		    Initialize(sDirectory,sFileName,Level, TraceCat.All);
+		}
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sDirectory"></param>
+        /// <param name="sFileName"></param>
+        /// <param name="Level"></param>
+        /// <param name="cat"></param>
+		public static void Initialize(string sDirectory,string sFileName,TracesLevel Level, TraceCat cat)
+		{
+			sLogDirectory = sDirectory;
+			sLogFileName = sFileName;
+			mTracesLevel = Level;
+			mTraceCat = cat;
+            LogAdd(TracesLevel.Info, TraceCat.All, Convert.ToString((int) cat,16), Convert.ToString((int) TraceCat.ExecuteFrame,16));
+             
 		}
 
         /// <summary>
@@ -68,12 +144,37 @@ namespace CommonLib
         /// </summary>
         /// <param name="LogLevelTest"></param>
         /// <returns></returns>
-        public static bool IsLogLevelOK(int LogLevelTest)
+        public static bool IsLogLevelOK(TracesLevel Level)
         {
-            if (iLogTracesLevel <= LogLevelTest)
+            if (Level <= mTracesLevel)
             {
                 return true;
             }
+            return false;
+        }
+        
+        public static bool IsCatOK(TraceCat cat)
+        {
+            if ((cat & mTraceCat) == cat)
+            {
+                return true;
+            }
+            return false;
+        }
+    
+        public static bool IsLevelAndCatOK(TracesLevel Level, TraceCat cat)
+        {
+            if (IsLogLevelOK(Level) && IsCatOK(cat))
+                return true;
+                
+            return false;
+        }
+
+        public static bool IsDebugAndCatOK(TraceCat cat)
+        {
+            if (IsLogLevelOK(TracesLevel.Debug) && IsCatOK(cat))
+                return true;
+                
             return false;
         }
         
@@ -127,9 +228,39 @@ namespace CommonLib
         /// <param name="sMessage1"></param>
         /// <param name="sMessage2"></param>
         /// <returns></returns>
-        public static bool LogAddDebug(string sMessage1, string sMessage2)
+        public static bool LogAddDebug(TraceCat cat,string sMessage1)
         {
-            return LogAdd(LOG_LEVEL_DEBUG, sMessage1, sMessage2);
+            return LogAdd(TracesLevel.Debug, cat, sMessage1);
+        }
+
+        public static bool LogAddDebug(TraceCat cat,string sMessage1, string sMessage2)
+        {
+            return LogAdd(TracesLevel.Debug, cat, sMessage1, sMessage2);
+        }
+
+
+        public static bool LogAddInfo(TraceCat cat,string sMessage1)
+        {
+            return LogAdd(TracesLevel.Info, cat, sMessage1);
+        }
+        public static bool LogAddInfo(TraceCat cat,string sMessage1, string sMessage2)
+        {
+            return LogAdd(TracesLevel.Info, cat, sMessage1, sMessage2);
+        }
+
+        public static bool LogAddWarning(TraceCat cat,string sMessage1, string sMessage2)
+        {
+            return LogAdd(TracesLevel.Warning, cat, sMessage1, sMessage2);
+        }
+
+        public static bool LogAddError(TraceCat cat,string sMessage1, string sMessage2)
+        {
+            return LogAdd(TracesLevel.Error, cat, sMessage1, sMessage2);
+        }
+
+        public static bool LogAddCritical(TraceCat cat,string sMessage1, string sMessage2)
+        {
+            return LogAdd(TracesLevel.Critical, cat, sMessage1, sMessage2);
         }
 
         /// <summary>
@@ -138,9 +269,9 @@ namespace CommonLib
         /// <param name="iTracesLevel"></param>
         /// <param name="sMessage1"></param>
         /// <returns></returns>
-        public static bool LogAdd(int iTracesLevel, string sMessage1)
+        public static bool LogAdd(TracesLevel Level, TraceCat cat, string sMessage1)
         {
-            return LogAdd(iTracesLevel, sMessage1, "");
+            return LogAdd(Level, cat, sMessage1, "");
         }
 
 		// Routine permettant d'ajouter une trace au fichier de logs
@@ -151,20 +282,17 @@ namespace CommonLib
         /// <param name="sMessage1"></param>
         /// <param name="sMessage2"></param>
         /// <returns></returns>
-		public static bool LogAdd(int iTracesLevel, string sMessage1, string sMessage2)
+		public static bool LogAdd(TracesLevel Level, TraceCat cat, string sMessage1, string sMessage2)
 		{
 			string sFileName ;
 			DateTime oDHSysteme;
 			bool bRetour = true ;
 			
-			// Contrôle du niveau de trace demandé
-			//if(iTracesLevel > LOG_LEVEL_CRITICAL) iTracesLevel = LOG_LEVEL_CRITICAL ;
-			//if(iTracesLevel < LOG_LEVEL_DEBUG) iTracesLevel = LOG_LEVEL_DEBUG ;
-			
 			// On n'enregistre la trace que si le niveau est supérieur ou égal
 			// au niveau demandé lors de l'initialisation
-			if(iTracesLevel >= iLogTracesLevel)
-			{							   
+			// et dont les catégories sont actives
+			if(IsLevelAndCatOK(Level ,cat))
+			{
 				// On récupère l'heure système en UTC
 				oDHSysteme = DateTime.UtcNow ;
 				
@@ -182,20 +310,17 @@ namespace CommonLib
 							// Fabrication du message ajouté dans les logs :
 							// DateHeure de l'écriture : LEVEL : Message1 : Message 2
 							// Message 1 est tronqué à TAILLEMAX_MESSAGE1 caractères ou complété par des espaces
-
-                            string strLog = oDHSysteme.ToString("dd") + @"/" + oDHSysteme.ToString("MM") +
-                                @"/" + oDHSysteme.ToString("yyyy") + " " + oDHSysteme.ToString("HH") + ":"
-                                + oDHSysteme.ToString("mm") + ":" + oDHSysteme.ToString("ss") + " " +
-                                LOG_LEVEL_DESCRIPTIONS[iTracesLevel].PadRight(8, ' ') + " " +
-                                sMessage1.PadRight(TAILLEMAX_MESSAGE1, ' ').Substring(0, TAILLEMAX_MESSAGE1) + " " +
-                                sMessage2;
+                            TraceCat DispCat = cat & TraceCat.LogDispCats;
+                            string strLog = oDHSysteme.ToString("dd/MM/yyyy HH:mm:ss") + " " +
+                                            Level.ToString().PadRight(8, ' ') + " " + 
+                                            DispCat.ToString().PadRight(TAILLEMAX_CAT, ' ') + " " +
+                                            sMessage1 + " " +sMessage2;
+                                
                             Console.WriteLine(strLog);
                             TxtLog.WriteLine(strLog);
-
 						}
 						catch
 						{ 
-//							System.Console.WriteLine("Exception Traces");
 							bRetour = false ;								
 						}
 
@@ -296,7 +421,7 @@ namespace CommonLib
 					bRetour = false ;
 				}
 			}
-			LogAdd(LOG_LEVEL_INFO,"Traces","Nombre de repertoire(s) supprime(s) : " + iNbrRepsSupprimes.ToString());
+			LogAddInfo(TraceCat.Others, "Nombre de repertoire(s) supprime(s) : " + iNbrRepsSupprimes.ToString());
 			return bRetour ;
 		}
 	}

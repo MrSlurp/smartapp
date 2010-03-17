@@ -48,6 +48,8 @@ namespace CommonLib
 
         public List<PreParsedLine> PreParseScript(string[] script)
         {
+            if (script.Length == 0)
+                return null;
             List<PreParsedLine> retPreParsedScript = new List<PreParsedLine>();
             for (int i = 0; i < script.Length; i++)
             {            
@@ -58,6 +60,8 @@ namespace CommonLib
 
         public List<PreParsedLine> PreParseScript(StringCollection script)
         {
+            if (script.Count == 0)
+                return null;
             List<PreParsedLine> retPreParsedScript = new List<PreParsedLine>();
             for (int i = 0; i < script.Count; i++)
             {   

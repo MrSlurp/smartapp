@@ -40,16 +40,19 @@ namespace SmartApp
             for (int i = 0; i < m_GestVirtualData.GroupCount; i++)
             {
                 BaseGestGroup.Group group = m_GestVirtualData.Groups[i];
-                TabPage GroupTabPage = new TabPage(group.GroupName);
-                m_tabControlDataPanels.TabPages.Add(GroupTabPage);
-                GroupTabPage.SuspendLayout();
-                VirtualDataPanel vdPanel = new VirtualDataPanel(m_GestVirtualData, m_GestData, group.GroupSymbol);
-                vdPanel.Size = GroupTabPage.Size;
-                vdPanel.Dock = DockStyle.Fill;
-                vdPanel.Anchor = AnchorStyles.Bottom | AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-                GroupTabPage.Controls.Add(vdPanel);
-                GroupTabPage.ResumeLayout();
-                vdPanel.Initialize();
+                if (!group.IsEmpty && !group.OwnOnlyConstData)
+                {
+                    TabPage GroupTabPage = new TabPage(group.GroupName);
+                    m_tabControlDataPanels.TabPages.Add(GroupTabPage);
+                    GroupTabPage.SuspendLayout();
+                    VirtualDataPanel vdPanel = new VirtualDataPanel(m_GestVirtualData, m_GestData, group.GroupSymbol);
+                    vdPanel.Size = GroupTabPage.Size;
+                    vdPanel.Dock = DockStyle.Fill;
+                    vdPanel.Anchor = AnchorStyles.Bottom | AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+                    GroupTabPage.Controls.Add(vdPanel);
+                    GroupTabPage.ResumeLayout();
+                    vdPanel.Initialize();
+                }
             }
             m_tabControlDataPanels.ResumeLayout();
         }

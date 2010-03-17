@@ -252,7 +252,7 @@ namespace SmartApp.Ihm
                 this.CloseDoc();
             } 
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "SmartApp File (*.saf)|*.saf";
+            openFileDialog.Filter = Program.LangSys.C("SmartApp File (*.saf)|*.saf");
             openFileDialog.InitialDirectory = Application.StartupPath;
             DialogResult dlgRes = openFileDialog.ShowDialog();
             if (dlgRes == DialogResult.OK)
@@ -335,7 +335,7 @@ namespace SmartApp.Ihm
         private void OnSaveAsClick()
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "SmartApp File (*.saf)|*.saf";
+            saveFileDialog.Filter = Program.LangSys.C("SmartApp File (*.saf)|*.saf");
             saveFileDialog.InitialDirectory = Application.StartupPath;
             DialogResult dlgRes = saveFileDialog.ShowDialog();
             if (dlgRes == DialogResult.OK)

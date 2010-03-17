@@ -48,8 +48,27 @@
     <Data strSymbol="TCPMB_OUT_REG_17" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
     <Data strSymbol="TCPMB_OUT_REG_18" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
     <Data strSymbol="TCPMB_OUT_REG_19" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="RES_NOT" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="RES_AND2" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="RES_AND3" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="RES_AND4" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="RES_NAND2" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="RES_NAND3" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="RES_NAND4" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="RES_OR2" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="RES_OR3" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="RES_OR4" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="RES_NOR2" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="RES_NOR3" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="RES_NOR4" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="RES_XOR" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="RES_ADD" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="RES_SUB" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="RES_MUL" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="RES_DIV" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
     <GroupSection>
-      <Group strNom="Groupe par défaut" strSymbol="GROUP_0" bkColor="255, 255, 255">
+      <Group strNom="Groupe par défaut" strSymbol="GROUP_0" bkColor="255, 255, 255" />
+      <Group strNom="constantes" strSymbol="GROUP_1" bkColor="255, 255, 255">
         <Object strSymbol="TRANSACTION_ID" />
         <Object strSymbol="PROTOCO_ID" />
         <Object strSymbol="FOLLOWING_6_BYTES" />
@@ -59,6 +78,8 @@
         <Object strSymbol="BYTE_READ_20_REG" />
         <Object strSymbol="FOLLOWING_43_BYTES" />
         <Object strSymbol="READ_RECIEVE_40_BYTES" />
+      </Group>
+      <Group strNom="donnée trame bit" strSymbol="GROUP_2" bkColor="255, 255, 255">
         <Object strSymbol="TCPMB_OUT_REG_0_B16" />
         <Object strSymbol="TCPMB_OUT_REG_0_B15" />
         <Object strSymbol="TCPMB_OUT_REG_0_B14" />
@@ -75,6 +96,8 @@
         <Object strSymbol="TCPMB_OUT_REG_0_B3" />
         <Object strSymbol="TCPMB_OUT_REG_0_B2" />
         <Object strSymbol="TCPMB_OUT_REG_0_B1" />
+      </Group>
+      <Group strNom="donnée trame mot" strSymbol="GROUP_3" bkColor="255, 255, 255">
         <Object strSymbol="TCPMB_OUT_REG_1" />
         <Object strSymbol="TCPMB_OUT_REG_2" />
         <Object strSymbol="TCPMB_OUT_REG_3" />
@@ -95,11 +118,97 @@
         <Object strSymbol="TCPMB_OUT_REG_18" />
         <Object strSymbol="TCPMB_OUT_REG_19" />
       </Group>
+      <Group strNom="résultats des bool" strSymbol="GROUP_4" bkColor="255, 255, 255">
+        <Object strSymbol="RES_NOT" />
+        <Object strSymbol="RES_XOR" />
+        <Object strSymbol="RES_AND2" />
+        <Object strSymbol="RES_AND3" />
+        <Object strSymbol="RES_AND4" />
+        <Object strSymbol="RES_NAND2" />
+        <Object strSymbol="RES_NAND3" />
+        <Object strSymbol="RES_NAND4" />
+        <Object strSymbol="RES_OR2" />
+        <Object strSymbol="RES_OR3" />
+        <Object strSymbol="RES_OR4" />
+        <Object strSymbol="RES_NOR2" />
+        <Object strSymbol="RES_NOR3" />
+        <Object strSymbol="RES_NOR4" />
+      </Group>
+      <Group strNom="résultats des maths" strSymbol="GROUP_5" bkColor="255, 255, 255">
+        <Object strSymbol="RES_ADD" />
+        <Object strSymbol="RES_SUB" />
+        <Object strSymbol="RES_MUL" />
+        <Object strSymbol="RES_DIV" />
+      </Group>
     </GroupSection>
   </DataSection>
   <ScreenSection>
     <Screen strSymbol="NEW_SCREEN_0" strNom="" Text="">
-      <ControlList />
+      <ControlList>
+        <DllControl strSymbol="NEW_CTRL_0" strNom="" DllID="170" AssociateData="TCPMB_OUT_REG_0_B1" ScreenEvent="False" Pos="0,0" size="70,30" Text="" ReadOnly="False">
+          <TRIGGERPARAM SchmittBehave="True" OnToOff="0" OffToOn="1" />
+          <ONOFFSCRIPT />
+          <OFFONSCRIPT>
+            <Line>FUNCTIONS.TEST_MATHS()</Line>
+          </OFFONSCRIPT>
+          <EventScript />
+        </DllControl>
+        <DllControl strSymbol="NEW_CTRL_1" strNom="" DllID="170" AssociateData="TCPMB_OUT_REG_0_B2" ScreenEvent="False" Pos="78,0" size="70,30" Text="" ReadOnly="False">
+          <TRIGGERPARAM SchmittBehave="True" OnToOff="0" OffToOn="1" />
+          <ONOFFSCRIPT />
+          <OFFONSCRIPT>
+            <Line>FUNCTIONS.TEST_LOGIC_AND()</Line>
+            <Line>FUNCTIONS.TEST_LOGIC_NAND()</Line>
+            <Line>FUNCTIONS.TEST_LOGIC_OR()</Line>
+            <Line>FUNCTIONS.TEST_LOGIC_NOR()</Line>
+            <Line>FUNCTIONS.TEST_LOGIC_NOT()</Line>
+            <Line>FUNCTIONS.TEST_LOGIC_XOR()</Line>
+          </OFFONSCRIPT>
+          <EventScript />
+        </DllControl>
+        <DllControl strSymbol="NEW_CTRL_2" strNom="" DllID="170" AssociateData="TCPMB_OUT_REG_0_B3" ScreenEvent="False" Pos="154,0" size="70,30" Text="" ReadOnly="False">
+          <TRIGGERPARAM SchmittBehave="True" OnToOff="0" OffToOn="1" />
+          <ONOFFSCRIPT />
+          <OFFONSCRIPT />
+          <EventScript />
+        </DllControl>
+        <DllControl strSymbol="NEW_CTRL_3" strNom="" DllID="170" AssociateData="TCPMB_OUT_REG_0_B4" ScreenEvent="False" Pos="231,0" size="70,30" Text="" ReadOnly="False">
+          <TRIGGERPARAM SchmittBehave="True" OnToOff="0" OffToOn="1" />
+          <ONOFFSCRIPT />
+          <OFFONSCRIPT />
+          <EventScript />
+        </DllControl>
+        <DllControl strSymbol="NEW_CTRL_4" strNom="" DllID="170" AssociateData="TCPMB_OUT_REG_0_B5" ScreenEvent="False" Pos="305,0" size="70,30" Text="" ReadOnly="False">
+          <TRIGGERPARAM SchmittBehave="True" OnToOff="0" OffToOn="1" />
+          <ONOFFSCRIPT />
+          <OFFONSCRIPT />
+          <EventScript />
+        </DllControl>
+        <DllControl strSymbol="NEW_CTRL_5" strNom="" DllID="170" AssociateData="TCPMB_OUT_REG_0_B6" ScreenEvent="False" Pos="383,0" size="70,30" Text="" ReadOnly="False">
+          <TRIGGERPARAM SchmittBehave="True" OnToOff="0" OffToOn="1" />
+          <ONOFFSCRIPT />
+          <OFFONSCRIPT />
+          <EventScript />
+        </DllControl>
+        <DllControl strSymbol="NEW_CTRL_6" strNom="" DllID="110" AssociateData="TCPMB_OUT_REG_0_B1" ScreenEvent="False" Pos="6,36" size="40,38" Text="" ReadOnly="False" AciveBitmap="$ExePath$\ImgLib\Voyant\VoyantBleuOn.png" InactiveBitmap="$ExePath$\ImgLib\Voyant\VoyantBleuOff.png">
+          <EventScript />
+        </DllControl>
+        <DllControl strSymbol="NEW_CTRL_7" strNom="" DllID="110" AssociateData="TCPMB_OUT_REG_0_B2" ScreenEvent="False" Pos="62,36" size="40,38" Text="" ReadOnly="False" AciveBitmap="$ExePath$\ImgLib\Voyant\VoyantBleuOn.png" InactiveBitmap="$ExePath$\ImgLib\Voyant\VoyantBleuOff.png">
+          <EventScript />
+        </DllControl>
+        <DllControl strSymbol="NEW_CTRL_8" strNom="" DllID="110" AssociateData="TCPMB_OUT_REG_0_B3" ScreenEvent="False" Pos="118,36" size="40,38" Text="" ReadOnly="False" AciveBitmap="$ExePath$\ImgLib\Voyant\VoyantBleuOn.png" InactiveBitmap="$ExePath$\ImgLib\Voyant\VoyantBleuOff.png">
+          <EventScript />
+        </DllControl>
+        <DllControl strSymbol="NEW_CTRL_9" strNom="" DllID="110" AssociateData="TCPMB_OUT_REG_0_B4" ScreenEvent="False" Pos="174,36" size="40,38" Text="" ReadOnly="False" AciveBitmap="$ExePath$\ImgLib\Voyant\VoyantBleuOn.png" InactiveBitmap="$ExePath$\ImgLib\Voyant\VoyantBleuOff.png">
+          <EventScript />
+        </DllControl>
+        <DllControl strSymbol="NEW_CTRL_10" strNom="" DllID="110" AssociateData="TCPMB_OUT_REG_0_B5" ScreenEvent="False" Pos="230,36" size="40,38" Text="" ReadOnly="False" AciveBitmap="$ExePath$\ImgLib\Voyant\VoyantBleuOn.png" InactiveBitmap="$ExePath$\ImgLib\Voyant\VoyantBleuOff.png">
+          <EventScript />
+        </DllControl>
+        <DllControl strSymbol="NEW_CTRL_11" strNom="" DllID="110" AssociateData="TCPMB_OUT_REG_0_B6" ScreenEvent="False" Pos="286,36" size="40,38" Text="" ReadOnly="False" AciveBitmap="$ExePath$\ImgLib\Voyant\VoyantBleuOn.png" InactiveBitmap="$ExePath$\ImgLib\Voyant\VoyantBleuOff.png">
+          <EventScript />
+        </DllControl>
+      </ControlList>
       <InitScript />
       <EventScript />
       <ImagePath>
@@ -171,18 +280,10 @@
   <Program>
     <FunctionSection>
       <Function strSymbol="TEST_MATHS" strNom="">
-        <Line>MATHS.ADD(TCPMB_OUT_REG_1, TCPMB_OUT_REG_2, TCPMB_OUT_REG_3)</Line>
-        <Line>MATHS.SUB(TCPMB_OUT_REG_4, TCPMB_OUT_REG_5, TCPMB_OUT_REG_6)</Line>
-        <Line>MATHS.MUL(TCPMB_OUT_REG_7, TCPMB_OUT_REG_8, TCPMB_OUT_REG_9)</Line>
-        <Line>MATHS.DIV(TCPMB_OUT_REG_10, TCPMB_OUT_REG_11, TCPMB_OUT_REG_12)</Line>
-      </Function>
-      <Function strSymbol="TEST_LOGIC" strNom="">
-        <Line>LOGIC.AND(TCPMB_OUT_REG_0_B1, TCPMB_OUT_REG_0_B2, TCPMB_OUT_REG_0_B3)</Line>
-        <Line>LOGIC.OR(TCPMB_OUT_REG_0_B4, TCPMB_OUT_REG_0_B5, TCPMB_OUT_REG_0_B6)</Line>
-        <Line>LOGIC.NAND(TCPMB_OUT_REG_0_B1, TCPMB_OUT_REG_0_B2, TCPMB_OUT_REG_0_B3)</Line>
-        <Line>LOGIC.NOR(TCPMB_OUT_REG_0_B4, TCPMB_OUT_REG_0_B5, TCPMB_OUT_REG_0_B6)</Line>
-        <Line>LOGIC.NOT(TCPMB_OUT_REG_0_B7, TCPMB_OUT_REG_0_B7)</Line>
-        <Line>LOGIC.XOR(TCPMB_OUT_REG_0_B8, TCPMB_OUT_REG_0_B9, TCPMB_OUT_REG_0_B10)</Line>
+        <Line>MATHS.ADD(RES_ADD, TCPMB_OUT_REG_2, TCPMB_OUT_REG_3)</Line>
+        <Line>MATHS.SUB(RES_SUB, TCPMB_OUT_REG_4, TCPMB_OUT_REG_5)</Line>
+        <Line>MATHS.MUL(RES_MUL, TCPMB_OUT_REG_6, TCPMB_OUT_REG_7)</Line>
+        <Line>MATHS.DIV(RES_DIV, TCPMB_OUT_REG_8, TCPMB_OUT_REG_9)</Line>
       </Function>
       <Function strSymbol="TEST_TIMER" strNom="">
         <Line>TIMERS.NEW_TIMER_0.START()</Line>
@@ -197,17 +298,48 @@
       <Function strSymbol="TEST_SCREEN" strNom="">
         <Line>SCREEN.NEW_SCREEN_0.SHOW_ON_TOP()</Line>
       </Function>
+      <Function strSymbol="TEST_LOGIC_NOT" strNom="">
+        <Line>LOGIC.NOT(RES_NOT,TCPMB_OUT_REG_0_B16)</Line>
+      </Function>
+      <Function strSymbol="TEST_LOGIC_XOR" strNom="">
+        <Line>LOGIC.XOR(RES_XOR, TCPMB_OUT_REG_0_B15, TCPMB_OUT_REG_0_B14)</Line>
+      </Function>
+      <Function strSymbol="TEST_LOGIC_AND" strNom="">
+        <Line>LOGIC.AND(RES_AND2, TCPMB_OUT_REG_0_B10, TCPMB_OUT_REG_0_B11)</Line>
+        <Line>LOGIC.AND(RES_AND3, TCPMB_OUT_REG_0_B10, TCPMB_OUT_REG_0_B11, TCPMB_OUT_REG_0_B12)</Line>
+        <Line>LOGIC.AND(RES_AND4, TCPMB_OUT_REG_0_B10, TCPMB_OUT_REG_0_B11, TCPMB_OUT_REG_0_B12, TCPMB_OUT_REG_0_B13)</Line>
+      </Function>
+      <Function strSymbol="TEST_LOGIC_NAND" strNom="">
+        <Line>LOGIC.NAND(RES_NAND2, TCPMB_OUT_REG_0_B10, TCPMB_OUT_REG_0_B11)</Line>
+        <Line>LOGIC.NAND(RES_NAND3, TCPMB_OUT_REG_0_B10, TCPMB_OUT_REG_0_B11, TCPMB_OUT_REG_0_B12)</Line>
+        <Line>LOGIC.NAND(RES_NAND4, TCPMB_OUT_REG_0_B10, TCPMB_OUT_REG_0_B11, TCPMB_OUT_REG_0_B12, TCPMB_OUT_REG_0_B13)</Line>
+      </Function>
+      <Function strSymbol="TEST_LOGIC_OR" strNom="">
+        <Line>LOGIC.OR(RES_OR2, TCPMB_OUT_REG_0_B6, TCPMB_OUT_REG_0_B7)</Line>
+        <Line>LOGIC.OR(RES_OR3, TCPMB_OUT_REG_0_B6, TCPMB_OUT_REG_0_B7, TCPMB_OUT_REG_0_B8)</Line>
+        <Line>LOGIC.OR(RES_OR4, TCPMB_OUT_REG_0_B6, TCPMB_OUT_REG_0_B7, TCPMB_OUT_REG_0_B8, TCPMB_OUT_REG_0_B9)</Line>
+      </Function>
+      <Function strSymbol="TEST_LOGIC_NOR" strNom="">
+        <Line>LOGIC.NOR(RES_NOR2, TCPMB_OUT_REG_0_B6, TCPMB_OUT_REG_0_B7)</Line>
+        <Line>LOGIC.NOR(RES_NOR3, TCPMB_OUT_REG_0_B6, TCPMB_OUT_REG_0_B7, TCPMB_OUT_REG_0_B8)</Line>
+        <Line>LOGIC.NOR(RES_NOR4, TCPMB_OUT_REG_0_B6, TCPMB_OUT_REG_0_B7, TCPMB_OUT_REG_0_B8, TCPMB_OUT_REG_0_B9)</Line>
+      </Function>
     </FunctionSection>
     <TimerSection>
       <Timer strSymbol="NEW_TIMER_0" strNom="" Period="1000" AutoStart="True" />
-      <Timer strSymbol="NEW_TIMER_1" strNom="" Period="1000" AutoStart="True">
+      <Timer strSymbol="TIMER_READ" strNom="" Period="1000" AutoStart="True">
         <Line>FRAMES.TCPMB_READ_20_OUT_REG_FROM_AD0.SEND()</Line>
         <Line>FRAMES.TCPMB_READ_20_OUT_REG_FROM_AD0_RET.RECEIVE()</Line>
       </Timer>
     </TimerSection>
     <LoggerSection>
-      <Logger strSymbol="NEW_LOGGER_0" strNom="" Period="1000" LoggerType="STANDARD" FileName="" AutoStart="False" CsvSeparator="	">
-        <DataList />
+      <Logger strSymbol="NEW_LOGGER_0" strNom="" Period="1000" LoggerType="AUTO" FileName="loggertest.csv" AutoStart="False" CsvSeparator=";">
+        <DataList>
+          <Data strSymbol="RES_ADD" />
+          <Data strSymbol="RES_SUB" />
+          <Data strSymbol="RES_MUL" />
+          <Data strSymbol="RES_DIV" />
+        </DataList>
       </Logger>
     </LoggerSection>
   </Program>

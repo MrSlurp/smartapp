@@ -159,7 +159,7 @@ namespace SmartApp
                 if (m_Document.m_Comm.IsOpen)
                 {
                     m_tsBtnConnexion.Checked = true;
-                    m_tsBtnConnexion.Text = "Connected";
+                    m_tsBtnConnexion.Text = Program.LangSys.C("Connected");
                     m_tsBtnConnexion.Image = Resources.CxnOn;
                     m_tsBtnStartStop.Enabled = true;
                     UpdateToolBarCxnItemState();
@@ -167,7 +167,7 @@ namespace SmartApp
                 else
                 {
                     m_tsBtnConnexion.Checked = false;
-                    m_tsBtnConnexion.Text = "Disconnected";
+                    m_tsBtnConnexion.Text = Program.LangSys.C("Disconnected");
                     m_tsBtnConnexion.Image = Resources.CxnOff;
                     m_tsBtnStartStop.Enabled = false;
                     m_Document.TraiteMessage(MESSAGE.MESS_CMD_STOP, null, Program.TypeApp);
@@ -184,7 +184,7 @@ namespace SmartApp
             else
             {
                 m_tsBtnConnexion.Checked = false;
-                m_tsBtnConnexion.Text = "Disconnected";
+                m_tsBtnConnexion.Text = Program.LangSys.C("Disconnected");
                 m_tsBtnConnexion.Image = Resources.CxnOff;
                 m_tsBtnStartStop.Enabled = false;
                 UpdateStartStopButtonState();
@@ -202,7 +202,7 @@ namespace SmartApp
         {
             this.CloseDoc();
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "SmartApp File (*.saf)|*.saf";
+            openFileDialog.Filter = Program.LangSys.C("SmartApp File (*.saf)|*.saf");
             openFileDialog.InitialDirectory = Application.StartupPath;
             DialogResult dlgRes = openFileDialog.ShowDialog();
             if (dlgRes == DialogResult.OK)
@@ -210,7 +210,7 @@ namespace SmartApp
                 string strFileFullName = openFileDialog.FileName;
                 if (!OpenDoc(strFileFullName))
                 {
-                    MessageBox.Show("Error while reading file. File is corrupted", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(Program.LangSys.C("Error while reading file. File is corrupted"), Program.LangSys.C("Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                     this.CloseDoc();
                 }
             }
@@ -230,8 +230,8 @@ namespace SmartApp
         {
             if (!File.Exists(filename))
             {
-                MessageBox.Show("The file '" + filename + "'cannot be opened and will be removed from the Recent list(s)"
-                    , "MruToolStripMenu Demo"
+                MessageBox.Show(string.Format(Program.LangSys.C("The file '{0}' cannot be opened and will be removed from the Recent list"), filename)
+                    , Program.LangSys.C("Erreur")
                     , MessageBoxButtons.OK
                     , MessageBoxIcon.Error);
                 m_mruStripMenu.RemoveFile(number);
@@ -306,7 +306,7 @@ namespace SmartApp
             if (!Doc.FinalizeRead(this))
             {
                 Console.WriteLine("Erreur lors du FinalizeRead()");
-                MessageBox.Show("Can't initialize run mode datas. Please contact support", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Program.LangSys.C("Can't initialize run mode datas. Please contact support"), Program.LangSys.C("Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 CloseDoc();
                 return false;
             }
@@ -507,12 +507,12 @@ namespace SmartApp
         {
             if (m_tsBtnStartStop.Checked == true)
             {
-                m_tsBtnStartStop.Text = "Running";
+                m_tsBtnStartStop.Text = Program.LangSys.C("Running");
                 m_tsBtnStartStop.Image = Resources.CxnOn;
             }
             else
             {
-                m_tsBtnStartStop.Text = "Stoppped";
+                m_tsBtnStartStop.Text = Program.LangSys.C("Stoppped");
                 m_tsBtnStartStop.Image = Resources.CxnOff;
             }
         }
@@ -551,7 +551,7 @@ namespace SmartApp
                 }
                 if (!bCxnExist)
                 {
-                    int index = m_tsCboCurConnection.Items.Add("New connection /" + strTypeComm + "/" + strCommParam);
+                    int index = m_tsCboCurConnection.Items.Add(Program.LangSys.C("New connection /") + strTypeComm + "/" + strCommParam);
                     m_tsCboCurConnection.SelectedIndex = index;
                 }
             }
@@ -575,7 +575,7 @@ namespace SmartApp
                     )
                 {
                     if (string.IsNullOrEmpty(strName))
-                        strName = string.Format("Connection {0}", i);
+                        strName = string.Format(Program.LangSys.C("Connection {0}"), i);
                     AddStringToCombo(strName, strCommType, strCommParam, strSection);
                 }
             }
@@ -691,12 +691,12 @@ namespace SmartApp
                     }
                     else if (!m_Document.m_Comm.IsOpen && LaunchArgParser.AutoStart == false)
                     {
-                        LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, "Failed to connect");
+                        LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, Program.LangSys.C("Failed to connect"));
                         MDISmartCommandMain.EventLogger.AddLogEvent(log);
                     }
                     else if (!m_Document.m_Comm.IsOpen && LaunchArgParser.AutoStart == true)
                     {
-                        LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, "Failed to connect. Application not started");
+                        LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, Program.LangSys.C("Failed to connect. Application not started"));
                         MDISmartCommandMain.EventLogger.AddLogEvent(log);
                     }
                 }
