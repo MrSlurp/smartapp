@@ -32,18 +32,20 @@ namespace SmartApp
                 {
                     AddDataToDataGrid(vData);
                     vData.VirtualDataValueChanged += new EventVirtualDataValueChange(VirtualDataValueChange);
+                    vData.VirtualDataSaveStateChange += new EventVirtualDataSaveStateChange(VirtualDataSaveStateChange);
                 }
             }
         }
 
         protected void AddDataToDataGrid(VirtualData vData)
         {
-            string[] TabValues = new string[5];
+            string[] TabValues = new string[6];
             TabValues[0] = vData.Symbol;
             TabValues[1] = vData.Description.Replace("\n", " ");
             TabValues[2] = vData.Minimum.ToString();
             TabValues[3] = vData.Maximum.ToString();
             TabValues[4] = vData.Value.ToString();
+            TabValues[5] = vData.SaveInCliche.ToString();
             m_dataGrid.Rows.Add(TabValues);
         }
 
@@ -55,6 +57,19 @@ namespace SmartApp
                 if (RowDataSymbol == vData.Symbol)
                 {
                     m_dataGrid.Rows[i].Cells["Value"].Value = vData.Value.ToString();
+                    return;
+                }
+            }
+        }
+
+        void VirtualDataSaveStateChange(VirtualData vData)
+        {
+            for (int i = 0; i < m_dataGrid.Rows.Count; i++)
+            {
+                string RowDataSymbol = (string)m_dataGrid.Rows[i].Cells[0].Value;
+                if (RowDataSymbol == vData.Symbol)
+                {
+                    m_dataGrid.Rows[i].Cells["m_colSaved"].Value = vData.SaveInCliche;
                     return;
                 }
             }
@@ -81,26 +96,63 @@ namespace SmartApp
                     return;
                 }
             }
+            else if (e.ColumnIndex == m_dataGrid.Columns["m_colSaved"].DisplayIndex)
+            {
+
+            }
         }
 
         private void m_dataGrid_CellEnter(object sender, DataGridViewCellEventArgs e)
         {
-            string DataSymbol = (string)m_dataGrid.Rows[e.RowIndex].Cells[0].Value;
-            VirtualData vData = (VirtualData)m_GestVirtualData.GetFromSymbol(DataSymbol);
-            if (vData.IsConstant)
+            if (e.ColumnIndex == m_dataGrid.Columns["Value"].DisplayIndex)
             {
-                m_dataGrid.CancelEdit();
+                string DataSymbol = (string)m_dataGrid.Rows[e.RowIndex].Cells[0].Value;
+                VirtualData vData = (VirtualData)m_GestVirtualData.GetFromSymbol(DataSymbol);
+                if (vData.IsConstant)
+                {
+                    m_dataGrid.CancelEdit();
+                }
+            }
+            else if (e.ColumnIndex == m_dataGrid.Columns["m_colSaved"].DisplayIndex)
+            {
             }
         }
 
         private void m_dataGrid_CellValidated(object sender, DataGridViewCellEventArgs e)
         {
-            string DataSymbol = (string)m_dataGrid.Rows[e.RowIndex].Cells[0].Value;
-            VirtualData vData = (VirtualData)m_GestVirtualData.GetFromSymbol(DataSymbol);
-            int NewValue = 0;
-            bool bRet = int.TryParse((string)m_dataGrid.Rows[e.RowIndex].Cells["Value"].Value, out NewValue);
-            vData.Value = NewValue;
-            vData.SaveInCliche = true;
+            if (e.ColumnIndex == m_dataGrid.Columns["Value"].DisplayIndex)
+            {
+                string DataSymbol = (string)m_dataGrid.Rows[e.RowIndex].Cells[0].Value;
+                VirtualData vData = (VirtualData)m_GestVirtualData.GetFromSymbol(DataSymbol);
+                int NewValue = 0;
+                bool bRet = int.TryParse((string)m_dataGrid.Rows[e.RowIndex].Cells["Value"].Value, out NewValue);
+                vData.Value = NewValue;
+                vData.SaveInCliche = true;
+                return;
+            }
+            if (e.ColumnIndex == m_dataGrid.Columns["m_colSaved"].DisplayIndex)
+            {
+                string DataSymbol = (string)m_dataGrid.Rows[e.RowIndex].Cells[0].Value;
+                string Value = (string)m_dataGrid.Rows[e.RowIndex].Cells["m_colSaved"].Value;
+                VirtualData vData = (VirtualData)m_GestVirtualData.GetFromSymbol(DataSymbol);
+                vData.SaveInCliche = bool.Parse(Value);
+                return;
+            }
+        }
+
+        private void m_dataGrid_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+
+        }
+
+        private void btn_checkAll_Click(object sender, EventArgs e)
+        {
+            m_GestVirtualData.SetAllSaveInCliche(m_strSymbolGroup, true);
+        }
+
+        private void btn_uncheckAll_Click(object sender, EventArgs e)
+        {
+            m_GestVirtualData.SetAllSaveInCliche(m_strSymbolGroup, false);
         }
     }
 }

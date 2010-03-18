@@ -1,0 +1,42 @@
+REGEDIT4
+
+[HKEY_CURRENT_USER\SOFTWARE\Jordan Russell]
+
+[HKEY_CURRENT_USER\SOFTWARE\Jordan Russell\Inno Setup]
+
+[HKEY_CURRENT_USER\SOFTWARE\Jordan Russell\Inno Setup\Options]
+"ShowToolbar"="1"
+"ShowStatusBar"="1"
+"LowPriorityDuringCompile"="0"
+"ShowStartupForm"="0"
+"UseWizard"="1"
+"MakeBackups"="0"
+"FullPathInTitleBar"="0"
+"UndoAfterSave"="0"
+"PauseOnDebuggerExceptions"="1"
+"UseSynHigh"="1"
+"EditorCursorPastEOL"="1"
+"TabWidth"="2"
+"EditorFontName"="Courier New"
+"EditorFontSize"="10"
+"EditorFontCharset"="1"
+
+[HKEY_CURRENT_USER\SOFTWARE\Jordan Russell\Inno Setup\ScriptFileHistoryNew]
+"History0"="F:\\travail\\Perso\\_SmartApp\\InnoSetup\\SetupSmartApp.iss"
+"History1"="F:\\travail\\Perso\\_SmartApp\\InnoSetup\\setup.iss"
+"History2"="F:\\travail\\Perso\\_SmartApp\\InnoSetup\\ressources\\FR.SmartApp.exe.config"
+"History3"="F:\\travail\\Perso\\_SmartApp\\InnoSetup\\LicenseEN.txt"
+"History4"="D:\\ClearCaseViews\\pbigot_MASTHER2_PH3_view\\MASTHER2\\installer\\Alices\\Cfg\\Template.iss"
+"History5"=""
+"History6"=""
+"History7"=""
+"History8"=""
+"History9"=""
+
+[HKEY_CURRENT_USER\SOFTWARE\Jordan Russell\Inno Setup\State]
+"WindowLeft"="210"
+"WindowTop"="189"
+"WindowRight"="978"
+"WindowBottom"="726"
+"WindowMaximized"="1"
+"StatusPanelHeight"="104"

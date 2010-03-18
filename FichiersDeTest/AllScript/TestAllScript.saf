@@ -68,7 +68,7 @@
     <Data strSymbol="RES_DIV" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
     <Data strSymbol="COMBO_STATE" strNom="" Min="0" Max="255" DefVal="0" size="8" Constant="False" />
     <GroupSection>
-      <Group strNom="Groupe par défaut" strSymbol="GROUP_0" bkColor="255, 255, 255">
+      <Group strNom="Default group" strSymbol="GROUP_0" bkColor="255, 255, 255">
         <Object strSymbol="COMBO_STATE" />
       </Group>
       <Group strNom="constantes" strSymbol="GROUP_1" bkColor="255, 255, 255">

@@ -68,12 +68,12 @@ namespace CtrlDataTrigger
                 if (Props.ScriptOffToOn.Length == 0)
                     m_lblScriptOffToOnComm.Text = DllEntryClass.LangSys.C("Empty");
                 else
-                    m_lblScriptOffToOnComm.Text = DllEntryClass.LangSys.C("No empty");
+                    m_lblScriptOffToOnComm.Text = DllEntryClass.LangSys.C("Not empty");
 
                 if (Props.ScriptOnToOff.Length == 0)
                     m_lblScriptOnToOffComm.Text = DllEntryClass.LangSys.C("Empty");
                 else
-                    m_lblScriptOnToOffComm.Text = DllEntryClass.LangSys.C("No empty");
+                    m_lblScriptOnToOffComm.Text = DllEntryClass.LangSys.C("Not empty");
             }
             else
             {
