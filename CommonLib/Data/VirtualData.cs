@@ -6,10 +6,29 @@ using System.Xml;
 namespace CommonLib
 {
     public delegate void EventVirtualDataValueChange(VirtualData vData);
+    public delegate void EventVirtualDataSaveStateChange(VirtualData vData);
     public class VirtualData : Data
     {
+        private bool m_bSaveInCliche = false;
+        
+        public bool SaveInCliche
+        {
+            get
+            {
+                return m_bSaveInCliche;
+            }
+            set
+            {
+                bool bOldState = m_bSaveInCliche; 
+                m_bSaveInCliche = value;
+                if (VirtualDataSaveStateChange != null && bOldState != m_bSaveInCliche)
+                    VirtualDataSaveStateChange(this);                
+            }
+            
+        }  
         #region Events
         public event EventVirtualDataValueChange VirtualDataValueChanged;
+        public event EventVirtualDataSaveStateChange VirtualDataSaveStateChange;
         #endregion
 
         #region attributs
@@ -151,7 +170,6 @@ namespace CommonLib
         {
             // on écrit la base pour avoir le symbole
             WriteOutBaseObject(XmlDoc, Node);
-            //base.WriteOut(XmlDoc, Node);
             this.DefaultValue = this.Value;
             XmlAttribute AttrDefVal = XmlDoc.CreateAttribute(XML_CF_ATTRIB.DefVal.ToString());
             AttrDefVal.Value = DefaultValue.ToString();

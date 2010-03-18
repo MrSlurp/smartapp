@@ -196,6 +196,7 @@ namespace CtrlDemux
             this.MinimumSize = new System.Drawing.Size(270, 400);
             this.Name = "DemuxConfigForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.ShowInTaskbar = false;
             this.Text = "Demux Configuration";
             this.ResumeLayout(false);
             this.PerformLayout();

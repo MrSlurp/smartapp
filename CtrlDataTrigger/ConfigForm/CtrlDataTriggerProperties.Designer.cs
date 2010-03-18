@@ -32,6 +32,8 @@ namespace CtrlDataTrigger
             this.edtOnToOff = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.m_lblScriptOnToOffComm = new System.Windows.Forms.Label();
+            this.m_lblScriptOffToOnComm = new System.Windows.Forms.Label();
             this.edtOffToOn = new System.Windows.Forms.TextBox();
             this.btnOnToOffScript = new System.Windows.Forms.Button();
             this.btnOffToOnScript = new System.Windows.Forms.Button();
@@ -86,7 +88,7 @@ namespace CtrlDataTrigger
             // 
             this.btnOnToOffScript.Location = new System.Drawing.Point(4, 106);
             this.btnOnToOffScript.Name = "btnOnToOffScript";
-            this.btnOnToOffScript.Size = new System.Drawing.Size(95, 23);
+            this.btnOnToOffScript.Size = new System.Drawing.Size(130, 23);
             this.btnOnToOffScript.TabIndex = 3;
             this.btnOnToOffScript.Text = "On to off Script";
             this.btnOnToOffScript.UseVisualStyleBackColor = true;
@@ -94,17 +96,36 @@ namespace CtrlDataTrigger
             // 
             // btnOffToOnScript
             // 
-            this.btnOffToOnScript.Location = new System.Drawing.Point(105, 105);
+            this.btnOffToOnScript.Location = new System.Drawing.Point(4, 135);
             this.btnOffToOnScript.Name = "btnOffToOnScript";
-            this.btnOffToOnScript.Size = new System.Drawing.Size(95, 23);
+            this.btnOffToOnScript.Size = new System.Drawing.Size(130, 23);
             this.btnOffToOnScript.TabIndex = 3;
             this.btnOffToOnScript.Text = "Off to on Script";
             this.btnOffToOnScript.UseVisualStyleBackColor = true;
             this.btnOffToOnScript.Click += new System.EventHandler(this.btnOffToOnScript_Click);
             // 
+            // label3
+            // 
+            this.m_lblScriptOnToOffComm.AutoSize = true;
+            this.m_lblScriptOnToOffComm.Location = new System.Drawing.Point(145, 110);
+            this.m_lblScriptOnToOffComm.Name = "m_lblScriptOnToOffComm";
+            this.m_lblScriptOnToOffComm.Size = new System.Drawing.Size(50, 13);
+            this.m_lblScriptOnToOffComm.TabIndex = 6;
+            this.m_lblScriptOnToOffComm.Text = "Empty";
+            // 
+            // label3
+            // 
+            this.m_lblScriptOffToOnComm.AutoSize = true;
+            this.m_lblScriptOffToOnComm.Location = new System.Drawing.Point(145, 139);
+            this.m_lblScriptOffToOnComm.Name = "m_lblScriptOffToOnComm";
+            this.m_lblScriptOffToOnComm.Size = new System.Drawing.Size(50, 13);
+            this.m_lblScriptOffToOnComm.TabIndex = 7;
+            this.m_lblScriptOffToOnComm.Text = "Empty";
+
+            // 
             // btnPickOnToOff
             // 
-            this.btnPickOnToOff.Location = new System.Drawing.Point(219, 35);
+            this.btnPickOnToOff.Location = new System.Drawing.Point(219, 38);
             this.btnPickOnToOff.Name = "btnPickOnToOff";
             this.btnPickOnToOff.Size = new System.Drawing.Size(58, 23);
             this.btnPickOnToOff.TabIndex = 4;
@@ -114,10 +135,10 @@ namespace CtrlDataTrigger
             // 
             // btnPickOffToOn
             // 
-            this.btnPickOffToOn.Location = new System.Drawing.Point(220, 76);
+            this.btnPickOffToOn.Location = new System.Drawing.Point(220, 79);
             this.btnPickOffToOn.Name = "btnPickOffToOn";
             this.btnPickOffToOn.Size = new System.Drawing.Size(57, 23);
-            this.btnPickOffToOn.TabIndex = 4;
+            this.btnPickOffToOn.TabIndex = 5;
             this.btnPickOffToOn.Text = "Pick";
             this.btnPickOffToOn.UseVisualStyleBackColor = true;
             this.btnPickOffToOn.Click += new System.EventHandler(this.btnPickOffToOn_Click);
@@ -135,6 +156,8 @@ namespace CtrlDataTrigger
             this.Controls.Add(this.edtOffToOn);
             this.Controls.Add(this.edtOnToOff);
             this.Controls.Add(this.cbxSchmitt);
+            this.Controls.Add(this.m_lblScriptOnToOffComm);
+            this.Controls.Add(this.m_lblScriptOffToOnComm);
             this.Name = "CtrlDataTriggerProperties";
             this.Size = new System.Drawing.Size(280, 139);
             this.ResumeLayout(false);
@@ -153,6 +176,8 @@ namespace CtrlDataTrigger
         private System.Windows.Forms.Button btnOffToOnScript;
         private System.Windows.Forms.Button btnPickOnToOff;
         private System.Windows.Forms.Button btnPickOffToOn;
+        private System.Windows.Forms.Label m_lblScriptOnToOffComm;
+        private System.Windows.Forms.Label m_lblScriptOffToOnComm;
 
     }
 }

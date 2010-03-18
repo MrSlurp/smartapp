@@ -138,10 +138,10 @@ namespace CtrlDataTrigger
         {
             //on update que si on a une donnée associée (sinon c'est une constante
             if (m_AssocDataOnToOff != null)
-                m_iValueOnToOff = m_AssocDataOnToOff.DefaultValue;
+                m_iValueOnToOff = m_AssocDataOnToOff.Value;
 
             if (m_AssocDataOffToOn != null)
-                m_iValueOffToOn = m_AssocDataOffToOn.DefaultValue;
+                m_iValueOffToOn = m_AssocDataOffToOn.Value;
         }
 
         public override bool FinalizeRead(BTDoc Doc)
@@ -159,7 +159,10 @@ namespace CtrlDataTrigger
                     {
                         m_AssocDataOnToOff = (Data)Doc.GestData.GetFromSymbol(prop.DataOnToOff);
                         if (m_AssocDataOnToOff != null)
+                        {
                             m_iValueOnToOff = m_AssocDataOnToOff.DefaultValue;
+                            m_AssocDataOnToOff.DataValueChanged += new EventDataValueChange(UpdateFromData);
+                        }
                     }
                 }
                 if (!string.IsNullOrEmpty(prop.DataOffToOn))
@@ -169,7 +172,10 @@ namespace CtrlDataTrigger
                     {
                         m_AssocDataOffToOn = (Data)Doc.GestData.GetFromSymbol(prop.DataOffToOn);
                         if (m_AssocDataOffToOn != null)
+                        {
                             m_iValueOffToOn = m_AssocDataOffToOn.DefaultValue;
+                            m_AssocDataOnToOff.DataValueChanged += new EventDataValueChange(UpdateFromData);
+                        }
                     }
                 }
             }

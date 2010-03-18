@@ -66,8 +66,11 @@
     <Data strSymbol="RES_SUB" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
     <Data strSymbol="RES_MUL" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
     <Data strSymbol="RES_DIV" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="COMBO_STATE" strNom="" Min="0" Max="255" DefVal="0" size="8" Constant="False" />
     <GroupSection>
-      <Group strNom="Groupe par défaut" strSymbol="GROUP_0" bkColor="255, 255, 255" />
+      <Group strNom="Groupe par défaut" strSymbol="GROUP_0" bkColor="255, 255, 255">
+        <Object strSymbol="COMBO_STATE" />
+      </Group>
       <Group strNom="constantes" strSymbol="GROUP_1" bkColor="255, 255, 255">
         <Object strSymbol="TRANSACTION_ID" />
         <Object strSymbol="PROTOCO_ID" />
@@ -145,15 +148,16 @@
   <ScreenSection>
     <Screen strSymbol="NEW_SCREEN_0" strNom="" Text="">
       <ControlList>
-        <DllControl strSymbol="NEW_CTRL_0" strNom="" DllID="170" AssociateData="TCPMB_OUT_REG_0_B1" ScreenEvent="False" Pos="0,0" size="70,30" Text="" ReadOnly="False">
+        <DllControl strSymbol="NEW_CTRL_0" strNom="Trigger de test des fonction maths" DllID="170" AssociateData="TCPMB_OUT_REG_0_B1" ScreenEvent="False" Pos="0,0" size="70,30" Text="" ReadOnly="False">
           <TRIGGERPARAM SchmittBehave="True" OnToOff="0" OffToOn="1" />
           <ONOFFSCRIPT />
           <OFFONSCRIPT>
             <Line>FUNCTIONS.TEST_MATHS()</Line>
+            <Line>MATHS.ADD(COMBO_STATE, 0,1)</Line>
           </OFFONSCRIPT>
           <EventScript />
         </DllControl>
-        <DllControl strSymbol="NEW_CTRL_1" strNom="" DllID="170" AssociateData="TCPMB_OUT_REG_0_B2" ScreenEvent="False" Pos="78,0" size="70,30" Text="" ReadOnly="False">
+        <DllControl strSymbol="NEW_CTRL_1" strNom="trigger de test des fonction logiques" DllID="170" AssociateData="TCPMB_OUT_REG_0_B2" ScreenEvent="False" Pos="78,0" size="70,30" Text="" ReadOnly="False">
           <TRIGGERPARAM SchmittBehave="True" OnToOff="0" OffToOn="1" />
           <ONOFFSCRIPT />
           <OFFONSCRIPT>
@@ -163,31 +167,46 @@
             <Line>FUNCTIONS.TEST_LOGIC_NOR()</Line>
             <Line>FUNCTIONS.TEST_LOGIC_NOT()</Line>
             <Line>FUNCTIONS.TEST_LOGIC_XOR()</Line>
+            <Line>MATHS.ADD(COMBO_STATE, 0,2)</Line>
           </OFFONSCRIPT>
           <EventScript />
         </DllControl>
-        <DllControl strSymbol="NEW_CTRL_2" strNom="" DllID="170" AssociateData="TCPMB_OUT_REG_0_B3" ScreenEvent="False" Pos="154,0" size="70,30" Text="" ReadOnly="False">
+        <DllControl strSymbol="NEW_CTRL_2" strNom="trigger de test des fonction logger" DllID="170" AssociateData="TCPMB_OUT_REG_0_B3" ScreenEvent="False" Pos="154,0" size="70,30" Text="" ReadOnly="False">
           <TRIGGERPARAM SchmittBehave="True" OnToOff="0" OffToOn="1" />
           <ONOFFSCRIPT />
-          <OFFONSCRIPT />
+          <OFFONSCRIPT>
+            <Line>FUNCTIONS.TEST_LOGGER()</Line>
+            <Line>MATHS.ADD(COMBO_STATE, 0,3)</Line>
+          </OFFONSCRIPT>
           <EventScript />
         </DllControl>
-        <DllControl strSymbol="NEW_CTRL_3" strNom="" DllID="170" AssociateData="TCPMB_OUT_REG_0_B4" ScreenEvent="False" Pos="231,0" size="70,30" Text="" ReadOnly="False">
+        <DllControl strSymbol="NEW_CTRL_3" strNom="trigger provoquant la mise au premier plan de l'écran 2" DllID="170" AssociateData="TCPMB_OUT_REG_0_B4" ScreenEvent="False" Pos="231,0" size="70,30" Text="" ReadOnly="False">
           <TRIGGERPARAM SchmittBehave="True" OnToOff="0" OffToOn="1" />
           <ONOFFSCRIPT />
-          <OFFONSCRIPT />
+          <OFFONSCRIPT>
+            <Line>SCREEN.NEW_SCREEN_1.SHOW_ON_TOP()</Line>
+            <Line>MATHS.ADD(COMBO_STATE, 0,4)</Line>
+          </OFFONSCRIPT>
           <EventScript />
         </DllControl>
-        <DllControl strSymbol="NEW_CTRL_4" strNom="" DllID="170" AssociateData="TCPMB_OUT_REG_0_B5" ScreenEvent="False" Pos="305,0" size="70,30" Text="" ReadOnly="False">
+        <DllControl strSymbol="NEW_CTRL_4" strNom="trigger provoquant la mise au premier plan de l'écran 1" DllID="170" AssociateData="TCPMB_OUT_REG_0_B5" ScreenEvent="False" Pos="305,0" size="70,30" Text="" ReadOnly="False">
           <TRIGGERPARAM SchmittBehave="True" OnToOff="0" OffToOn="1" />
           <ONOFFSCRIPT />
-          <OFFONSCRIPT />
+          <OFFONSCRIPT>
+            <Line>SCREEN.NEW_SCREEN_0.SHOW_ON_TOP()</Line>
+            <Line>MATHS.ADD(COMBO_STATE, 0,5)</Line>
+          </OFFONSCRIPT>
           <EventScript />
         </DllControl>
-        <DllControl strSymbol="NEW_CTRL_5" strNom="" DllID="170" AssociateData="TCPMB_OUT_REG_0_B6" ScreenEvent="False" Pos="383,0" size="70,30" Text="" ReadOnly="False">
+        <DllControl strSymbol="NEW_CTRL_5" strNom="trigger testant les fonction de timer" DllID="170" AssociateData="TCPMB_OUT_REG_0_B6" ScreenEvent="False" Pos="383,0" size="70,30" Text="" ReadOnly="False">
           <TRIGGERPARAM SchmittBehave="True" OnToOff="0" OffToOn="1" />
-          <ONOFFSCRIPT />
-          <OFFONSCRIPT />
+          <ONOFFSCRIPT>
+            <Line>MATHS.ADD(COMBO_STATE, 0,0)</Line>
+          </ONOFFSCRIPT>
+          <OFFONSCRIPT>
+            <Line>FUNCTIONS.TEST_TIMER()</Line>
+            <Line>MATHS.ADD(COMBO_STATE, 0,6)</Line>
+          </OFFONSCRIPT>
           <EventScript />
         </DllControl>
         <DllControl strSymbol="NEW_CTRL_6" strNom="" DllID="110" AssociateData="TCPMB_OUT_REG_0_B1" ScreenEvent="False" Pos="6,36" size="40,38" Text="" ReadOnly="False" AciveBitmap="$ExePath$\ImgLib\Voyant\VoyantBleuOn.png" InactiveBitmap="$ExePath$\ImgLib\Voyant\VoyantBleuOff.png">
@@ -208,6 +227,20 @@
         <DllControl strSymbol="NEW_CTRL_11" strNom="" DllID="110" AssociateData="TCPMB_OUT_REG_0_B6" ScreenEvent="False" Pos="286,36" size="40,38" Text="" ReadOnly="False" AciveBitmap="$ExePath$\ImgLib\Voyant\VoyantBleuOn.png" InactiveBitmap="$ExePath$\ImgLib\Voyant\VoyantBleuOff.png">
           <EventScript />
         </DllControl>
+        <Control strSymbol="NEW_CTRL_12" strNom="" Type="COMBO" AssociateData="COMBO_STATE" ScreenEvent="False" Pos="7,85" size="132,20" Text="aucun ;test maths ;test logic ;test logger ;test screen 2 ;test screen1 ;test screen 2 ;test timer" ReadOnly="False">
+          <EventScript />
+        </Control>
+      </ControlList>
+      <InitScript />
+      <EventScript />
+      <ImagePath>
+      </ImagePath>
+    </Screen>
+    <Screen strSymbol="NEW_SCREEN_1" strNom="" Text="">
+      <ControlList>
+        <Control strSymbol="NEW_CTRL_0" strNom="" Type="STATIC" AssociateData="" ScreenEvent="False" Pos="7,11" size="132,20" Text="Ecran 2" ReadOnly="False">
+          <EventScript />
+        </Control>
       </ControlList>
       <InitScript />
       <EventScript />
@@ -294,9 +327,6 @@
         <Line>LOGGERS.NEW_LOGGER_0.STOP()</Line>
         <Line>LOGGERS.NEW_LOGGER_0.LOG()</Line>
         <Line>LOGGERS.NEW_LOGGER_0.CLEAR()</Line>
-      </Function>
-      <Function strSymbol="TEST_SCREEN" strNom="">
-        <Line>SCREEN.NEW_SCREEN_0.SHOW_ON_TOP()</Line>
       </Function>
       <Function strSymbol="TEST_LOGIC_NOT" strNom="">
         <Line>LOGIC.NOT(RES_NOT,TCPMB_OUT_REG_0_B16)</Line>

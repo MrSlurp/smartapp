@@ -1,4 +1,4 @@
-﻿namespace SmartApp
+namespace SmartApp
 {
     partial class PreferencesForm
     {
@@ -86,6 +86,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "PreferencesForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.ShowInTaskbar = false;
             this.Text = "PreferencesForm";
             this.ResumeLayout(false);
             this.PerformLayout();

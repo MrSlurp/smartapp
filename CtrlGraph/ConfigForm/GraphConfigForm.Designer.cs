@@ -192,6 +192,7 @@ namespace CtrlGraph
             this.MinimumSize = new System.Drawing.Size(470, 420);
             this.Name = "GraphConfigForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.ShowInTaskbar = false;
             this.Text = "Graphic parameters";
             this.ResumeLayout(false);
             this.PerformLayout();

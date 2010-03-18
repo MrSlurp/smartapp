@@ -1,0 +1,12 @@
+<Root>
+  <DataSection>
+    <Data strSymbol="TCPMB_OUT_REG_2" strNom="" DefVal="10" />
+    <Data strSymbol="TCPMB_OUT_REG_3" strNom="" DefVal="20" />
+    <Data strSymbol="TCPMB_OUT_REG_4" strNom="" DefVal="20" />
+    <Data strSymbol="TCPMB_OUT_REG_5" strNom="" DefVal="10" />
+    <Data strSymbol="TCPMB_OUT_REG_6" strNom="" DefVal="50" />
+    <Data strSymbol="TCPMB_OUT_REG_7" strNom="" DefVal="5" />
+    <Data strSymbol="TCPMB_OUT_REG_8" strNom="" DefVal="10" />
+    <Data strSymbol="TCPMB_OUT_REG_9" strNom="" DefVal="2" />
+  </DataSection>
+</Root>

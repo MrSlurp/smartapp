@@ -1,0 +1,57 @@
+<Root>
+  <DataSection>
+    <Data strSymbol="TCPMB_OUT_REG_0_B16" strNom="" DefVal="0" />
+    <Data strSymbol="TCPMB_OUT_REG_0_B15" strNom="" DefVal="0" />
+    <Data strSymbol="TCPMB_OUT_REG_0_B14" strNom="" DefVal="0" />
+    <Data strSymbol="TCPMB_OUT_REG_0_B13" strNom="" DefVal="0" />
+    <Data strSymbol="TCPMB_OUT_REG_0_B12" strNom="" DefVal="0" />
+    <Data strSymbol="TCPMB_OUT_REG_0_B11" strNom="" DefVal="0" />
+    <Data strSymbol="TCPMB_OUT_REG_0_B10" strNom="" DefVal="0" />
+    <Data strSymbol="TCPMB_OUT_REG_0_B9" strNom="" DefVal="0" />
+    <Data strSymbol="TCPMB_OUT_REG_0_B8" strNom="" DefVal="0" />
+    <Data strSymbol="TCPMB_OUT_REG_0_B7" strNom="" DefVal="0" />
+    <Data strSymbol="TCPMB_OUT_REG_0_B6" strNom="" DefVal="0" />
+    <Data strSymbol="TCPMB_OUT_REG_0_B5" strNom="" DefVal="0" />
+    <Data strSymbol="TCPMB_OUT_REG_0_B4" strNom="" DefVal="0" />
+    <Data strSymbol="TCPMB_OUT_REG_0_B3" strNom="" DefVal="0" />
+    <Data strSymbol="TCPMB_OUT_REG_0_B2" strNom="" DefVal="0" />
+    <Data strSymbol="TCPMB_OUT_REG_0_B1" strNom="" DefVal="0" />
+    <Data strSymbol="TCPMB_OUT_REG_1" strNom="" DefVal="0" />
+    <Data strSymbol="TCPMB_OUT_REG_2" strNom="" DefVal="0" />
+    <Data strSymbol="TCPMB_OUT_REG_3" strNom="" DefVal="0" />
+    <Data strSymbol="TCPMB_OUT_REG_4" strNom="" DefVal="0" />
+    <Data strSymbol="TCPMB_OUT_REG_5" strNom="" DefVal="0" />
+    <Data strSymbol="TCPMB_OUT_REG_6" strNom="" DefVal="0" />
+    <Data strSymbol="TCPMB_OUT_REG_7" strNom="" DefVal="0" />
+    <Data strSymbol="TCPMB_OUT_REG_8" strNom="" DefVal="0" />
+    <Data strSymbol="TCPMB_OUT_REG_9" strNom="" DefVal="0" />
+    <Data strSymbol="TCPMB_OUT_REG_10" strNom="" DefVal="0" />
+    <Data strSymbol="TCPMB_OUT_REG_11" strNom="" DefVal="0" />
+    <Data strSymbol="TCPMB_OUT_REG_12" strNom="" DefVal="0" />
+    <Data strSymbol="TCPMB_OUT_REG_13" strNom="" DefVal="0" />
+    <Data strSymbol="TCPMB_OUT_REG_14" strNom="" DefVal="0" />
+    <Data strSymbol="TCPMB_OUT_REG_15" strNom="" DefVal="0" />
+    <Data strSymbol="TCPMB_OUT_REG_16" strNom="" DefVal="0" />
+    <Data strSymbol="TCPMB_OUT_REG_17" strNom="" DefVal="0" />
+    <Data strSymbol="TCPMB_OUT_REG_18" strNom="" DefVal="0" />
+    <Data strSymbol="TCPMB_OUT_REG_19" strNom="" DefVal="0" />
+    <Data strSymbol="RES_NOT" strNom="" DefVal="0" />
+    <Data strSymbol="RES_AND2" strNom="" DefVal="0" />
+    <Data strSymbol="RES_AND3" strNom="" DefVal="0" />
+    <Data strSymbol="RES_AND4" strNom="" DefVal="0" />
+    <Data strSymbol="RES_NAND2" strNom="" DefVal="0" />
+    <Data strSymbol="RES_NAND3" strNom="" DefVal="0" />
+    <Data strSymbol="RES_NAND4" strNom="" DefVal="0" />
+    <Data strSymbol="RES_OR2" strNom="" DefVal="0" />
+    <Data strSymbol="RES_OR3" strNom="" DefVal="0" />
+    <Data strSymbol="RES_OR4" strNom="" DefVal="0" />
+    <Data strSymbol="RES_NOR2" strNom="" DefVal="0" />
+    <Data strSymbol="RES_NOR3" strNom="" DefVal="0" />
+    <Data strSymbol="RES_NOR4" strNom="" DefVal="0" />
+    <Data strSymbol="RES_XOR" strNom="" DefVal="0" />
+    <Data strSymbol="RES_ADD" strNom="" DefVal="0" />
+    <Data strSymbol="RES_SUB" strNom="" DefVal="0" />
+    <Data strSymbol="RES_MUL" strNom="" DefVal="0" />
+    <Data strSymbol="RES_DIV" strNom="" DefVal="0" />
+  </DataSection>
+</Root>

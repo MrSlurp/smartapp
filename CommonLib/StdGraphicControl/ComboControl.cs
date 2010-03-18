@@ -57,7 +57,7 @@ namespace CommonLib
                 {
                     if (m_AssociateData.Value < ((ComboBox)m_Ctrl).Items.Count)
                         ((ComboBox)m_Ctrl).SelectedIndex = m_AssociateData.Value;
-                    else
+                    else if (((ComboBox)m_Ctrl).Items.Count > 0)
                         ((ComboBox)m_Ctrl).SelectedIndex = 0;
 
                 }
@@ -102,7 +102,7 @@ namespace CommonLib
             {
                 if (m_AssociateData.Value < ((ComboBox)m_Ctrl).Items.Count)
                     ((ComboBox)m_Ctrl).SelectedIndex = m_AssociateData.Value;
-                else
+                else if (((ComboBox)m_Ctrl).Items.Count > 0)
                     ((ComboBox)m_Ctrl).SelectedIndex = 0;
             }
         }

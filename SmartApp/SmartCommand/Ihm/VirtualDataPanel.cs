@@ -100,6 +100,7 @@ namespace SmartApp
             int NewValue = 0;
             bool bRet = int.TryParse((string)m_dataGrid.Rows[e.RowIndex].Cells["Value"].Value, out NewValue);
             vData.Value = NewValue;
+            vData.SaveInCliche = true;
         }
     }
 }

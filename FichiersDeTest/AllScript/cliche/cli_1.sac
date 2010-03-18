@@ -1,0 +1,5 @@
+<Root>
+  <DataSection>
+    <Data strSymbol="TCPMB_OUT_REG_0_B1" strNom="" DefVal="1" />
+  </DataSection>
+</Root>

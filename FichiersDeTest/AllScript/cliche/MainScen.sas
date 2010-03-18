@@ -1,0 +1,12 @@
+<Root>
+  <FileList>
+    <File>$DocPath$\cliche\cli_Init.sac</File>
+    <File>$DocPath$\cliche\cli_ana.sac</File>
+    <File>$DocPath$\cliche\cli_1.sac</File>
+    <File>$DocPath$\cliche\cli_2.sac</File>
+    <File>$DocPath$\cliche\cli_3.sac</File>
+    <File>$DocPath$\cliche\cli_4.sac</File>
+    <File>$DocPath$\cliche\cli_5.sac</File>
+    <File>$DocPath$\cliche\cli_6.sac</File>
+  </FileList>
+</Root>

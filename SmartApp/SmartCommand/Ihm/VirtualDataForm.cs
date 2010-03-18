@@ -16,6 +16,12 @@ namespace SmartApp
         private bool m_bIsScenRunning = false;
         private GestDataVirtual m_GestVirtualData = null;
         private GestData m_GestData = null;
+        
+        private SaveFileDialog m_CliSavedlg = new SaveFileDialog();
+        private OpenFileDialog m_CliOpendlg = new OpenFileDialog();
+        
+        private SaveFileDialog m_ScnSavedlg = new SaveFileDialog();
+        private OpenFileDialog m_ScnOpendlg = new OpenFileDialog();
         public VirtualDataForm(GestDataVirtual GestVData, GestData GestData)
         {
             Program.LangSys.Initialize(this);
@@ -23,6 +29,14 @@ namespace SmartApp
             m_GestVirtualData = GestVData;
             m_GestData = GestData;
             m_TimerScenPlayer.Tick += new EventHandler(m_TimerScenPlayer_Tick);
+            m_CliSavedlg.Filter = "Data cliche File (*.sac)|*.sac";
+            m_CliSavedlg.InitialDirectory = Application.StartupPath;
+            m_CliOpendlg.Filter = "Data cliche File (*.sac)|*.sac";
+            m_CliOpendlg.InitialDirectory = Application.StartupPath;
+            m_ScnOpendlg.Filter = "Scenario cliche File (*.sas)|*.sas";
+            m_ScnOpendlg.InitialDirectory = Application.StartupPath;
+            m_ScnSavedlg.Filter = "Scenario cliche File (*.sas)|*.sas";
+            m_ScnSavedlg.InitialDirectory = Application.StartupPath;
         }
 
         private void m_TimerScenPlayer_Tick(object sender, EventArgs e)
@@ -46,8 +60,10 @@ namespace SmartApp
                     m_tabControlDataPanels.TabPages.Add(GroupTabPage);
                     GroupTabPage.SuspendLayout();
                     VirtualDataPanel vdPanel = new VirtualDataPanel(m_GestVirtualData, m_GestData, group.GroupSymbol);
-                    vdPanel.Size = GroupTabPage.Size;
-                    vdPanel.Dock = DockStyle.Fill;
+                    Size tmpSz = GroupTabPage.Size;
+                    tmpSz.Width = tmpSz.Width-5; 
+                    vdPanel.Size = tmpSz;
+                    //vdPanel.Dock = DockStyle.Fill;
                     vdPanel.Anchor = AnchorStyles.Bottom | AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
                     GroupTabPage.Controls.Add(vdPanel);
                     GroupTabPage.ResumeLayout();
@@ -91,10 +107,7 @@ namespace SmartApp
     
         private void SaveDataCliche_click(object sender, EventArgs e)
         {
-            SaveFileDialog dlg = new SaveFileDialog();
-            dlg.Filter = "Data cliche File (*.sac)|*.sac";
-            dlg.InitialDirectory = Application.StartupPath;
-            if (dlg.ShowDialog() == DialogResult.OK)
+            if (m_CliSavedlg.ShowDialog() == DialogResult.OK)
             {
               XmlDocument XmlDoc = new XmlDocument();
               XmlDoc.LoadXml("<Root></Root>");
@@ -103,19 +116,17 @@ namespace SmartApp
               XmlDoc.DocumentElement.AppendChild(NodeDataSection);
             
               m_GestVirtualData.WriteOutInstantImage(XmlDoc, NodeDataSection);
-              string strfileFullName = dlg.FileName;
+              string strfileFullName = m_CliSavedlg.FileName;
               XmlDoc.Save(strfileFullName);
             }   
         }
 
         private void LoadDataCliche_click(object sender, EventArgs e)
         {
-            OpenFileDialog dlg = new OpenFileDialog();
-            dlg.Filter = "Data cliche File (*.sac)|*.sac";
-            dlg.InitialDirectory = Application.StartupPath;
-            if (dlg.ShowDialog() == DialogResult.OK)
+            m_CliOpendlg.Multiselect = false;
+            if (m_CliOpendlg.ShowDialog() == DialogResult.OK)
             {
-                LoadCliche(dlg.FileName);
+                LoadCliche(m_CliOpendlg.FileName);
             }
         }
 
@@ -169,13 +180,10 @@ namespace SmartApp
 
         private void m_btnAddCliche_Click(object sender, EventArgs e)
         {
-            OpenFileDialog dlg = new OpenFileDialog();
-            dlg.Filter = "Data cliche File (*.sac)|*.sac";
-            dlg.InitialDirectory = Application.StartupPath;
-            dlg.Multiselect = true;
-            if (dlg.ShowDialog() == DialogResult.OK)
+            m_CliOpendlg.Multiselect = true;
+            if (m_CliOpendlg.ShowDialog() == DialogResult.OK)
             {
-                m_PanelScenario.AddClicheFiles(dlg.FileNames);
+                m_PanelScenario.AddClicheFiles(m_CliOpendlg.FileNames);
             }
         }
 
@@ -196,12 +204,9 @@ namespace SmartApp
 
         private void m_btnLoadScen_Click(object sender, EventArgs e)
         {
-            OpenFileDialog dlg = new OpenFileDialog();
-            dlg.Filter = "Scenario cliche File (*.sas)|*.sas";
-            dlg.InitialDirectory = Application.StartupPath;
-            if (dlg.ShowDialog() == DialogResult.OK)
+            if (m_ScnOpendlg.ShowDialog() == DialogResult.OK)
             {
-                string strfileFullName = dlg.FileName;
+                string strfileFullName = m_ScnOpendlg.FileName;
                 XmlDocument XmlDoc = new XmlDocument();
                 try
                 {
@@ -227,17 +232,14 @@ namespace SmartApp
 
         private void m_btnSaveScen_Click(object sender, EventArgs e)
         {
-            SaveFileDialog dlg = new SaveFileDialog();
-            dlg.Filter = "Scenario cliche File (*.sas)|*.sas";
-            dlg.InitialDirectory = Application.StartupPath;
-            if (dlg.ShowDialog() == DialogResult.OK)
+            if (m_ScnSavedlg.ShowDialog() == DialogResult.OK)
             {
                 XmlDocument XmlDoc = new XmlDocument();
                 XmlDoc.LoadXml("<Root></Root>");
                 XmlNode NodeFileListe = XmlDoc.CreateElement(XML_CF_TAG.FileList.ToString());
                 XmlDoc.DocumentElement.AppendChild(NodeFileListe);
                 m_PanelScenario.SaveScenario(XmlDoc, NodeFileListe);
-                string strfileFullName = dlg.FileName;
+                string strfileFullName = m_ScnSavedlg.FileName;
                 XmlDoc.Save(strfileFullName);
             }   
         }

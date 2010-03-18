@@ -102,7 +102,7 @@ namespace CommonLib
                 VirtualData dt = (VirtualData)m_ListObject[i];
                 //XML_CF_TAG.DataTemp => on change le type de tag pour bien faire la différence
                 //entre le fichier de sauvegarde normal et le fichier de mémorisation temporaire
-                if (!dt.IsConstant)
+                if (!dt.IsConstant && dt.SaveInCliche)
                 {
                     XmlNode XmlData = XmlDoc.CreateElement(XML_CF_TAG.Data.ToString());
                     dt.WriteOutInstantImage(XmlDoc, XmlData);
@@ -110,6 +110,38 @@ namespace CommonLib
                 }
             }
             return true;
+        }
+    
+        public void SetAllSaveInCliche(bool bSaveInCliche)
+        {
+            for (int i = 0; i < this.m_ListObject.Count; i++)
+            {
+                VirtualData dt = (VirtualData)m_ListObject[i];
+                if (!dt.IsConstant)
+                {
+                    dt.SaveInCliche = bSaveInCliche;
+                }
+            }
+        }
+
+        public void SetAllSaveInCliche(string GroupName, bool bSaveInCliche)
+        {
+            for (int i = 0; i < this.GroupCount; i++)
+            {
+                BaseGestGroup.Group gr = Groups[i];
+                if (gr.GroupSymbol == GroupName)
+                {
+                    for (int j = 0; j< gr.Items.Count; j++)
+                    {
+                        VirtualData dt = (VirtualData)gr.Items[j];
+                        if (!dt.IsConstant)
+                        {
+                            dt.SaveInCliche = bSaveInCliche;
+                        }
+                    }
+                    break;
+                }
+            }
         }
 
         #endregion

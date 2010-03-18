@@ -296,6 +296,7 @@ namespace SmartApp.Ihm.Wizards
             this.Name = "WizardTcpModbusForm";
             this.Text = "Wizard Tcp Modbus";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.ShowInTaskbar = false;
             ((System.ComponentModel.ISupportInitialize)(this.m_numStartingRegAddr)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_numNumberOfReg)).EndInit();
             this.ResumeLayout(false);

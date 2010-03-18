@@ -126,9 +126,9 @@ namespace SmartApp
             // 
             this.m_checkPlayLoop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.m_checkPlayLoop.AutoSize = true;
-            this.m_checkPlayLoop.Location = new System.Drawing.Point(424, 238);
+            this.m_checkPlayLoop.Location = new System.Drawing.Point(434, 238);
             this.m_checkPlayLoop.Name = "m_checkPlayLoop";
-            this.m_checkPlayLoop.Size = new System.Drawing.Size(69, 17);
+            this.m_checkPlayLoop.Size = new System.Drawing.Size(80, 17);
             this.m_checkPlayLoop.TabIndex = 2;
             this.m_checkPlayLoop.Text = "Play loop";
             this.m_checkPlayLoop.UseVisualStyleBackColor = true;
@@ -147,7 +147,7 @@ namespace SmartApp
             // m_btnStartStopPlay
             // 
             this.m_btnStartStopPlay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_btnStartStopPlay.Location = new System.Drawing.Point(502, 234);
+            this.m_btnStartStopPlay.Location = new System.Drawing.Point(522, 234);
             this.m_btnStartStopPlay.Name = "m_btnStartStopPlay";
             this.m_btnStartStopPlay.Size = new System.Drawing.Size(96, 23);
             this.m_btnStartStopPlay.TabIndex = 1;
@@ -168,7 +168,7 @@ namespace SmartApp
             // 
             // m_btnSaveScen
             // 
-            this.m_btnSaveScen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_btnSaveScen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.m_btnSaveScen.Location = new System.Drawing.Point(322, 234);
             this.m_btnSaveScen.Name = "m_btnSaveScen";
             this.m_btnSaveScen.Size = new System.Drawing.Size(96, 23);
@@ -179,7 +179,7 @@ namespace SmartApp
             // 
             // m_btnLoadScen
             // 
-            this.m_btnLoadScen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_btnLoadScen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.m_btnLoadScen.Location = new System.Drawing.Point(322, 205);
             this.m_btnLoadScen.Name = "m_btnLoadScen";
             this.m_btnLoadScen.Size = new System.Drawing.Size(96, 23);
@@ -292,16 +292,17 @@ namespace SmartApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(628, 293);
+            this.ClientSize = new System.Drawing.Size(652, 293);
             this.ControlBox = false;
             this.Controls.Add(this.m_MainTabControl);
-            this.MinimumSize = new System.Drawing.Size(636, 300);
+            this.MinimumSize = new System.Drawing.Size(660, 300);
             this.Name = "VirtualDataForm";
             this.Text = "Virtual Data and Scenario";
             this.Load += new System.EventHandler(this.VirtualDataForm_Load);
             this.m_MainTabControl.ResumeLayout(false);
             this.m_TabPageScenario.ResumeLayout(false);
             this.m_TabPageScenario.PerformLayout();
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             ((System.ComponentModel.ISupportInitialize)(this.m_NumPeriod)).EndInit();
             this.m_TabPageVData.ResumeLayout(false);
             this.ResumeLayout(false);

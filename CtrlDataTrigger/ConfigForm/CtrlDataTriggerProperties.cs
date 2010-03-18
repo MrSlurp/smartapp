@@ -47,6 +47,7 @@ namespace CtrlDataTrigger
                     this.AdvPropEnable(this.cbxSchmitt.Checked);
                     this.edtOffToOn.Text = Props.DataOffToOn;
                     this.edtOnToOff.Text = Props.DataOnToOff;
+                    
                 }
                 else
                 {
@@ -55,7 +56,31 @@ namespace CtrlDataTrigger
                     this.edtOffToOn.Text = string.Empty;
                     this.edtOnToOff.Text = string.Empty;
                 }
+                UpdateScriptPresenceLabels();
             }
+        }
+    
+        void UpdateScriptPresenceLabels()
+        {
+            if (m_Control != null)
+            {
+                DllCtrlDataTriggerProp Props = (DllCtrlDataTriggerProp)m_Control.SpecificProp;
+                if (Props.ScriptOffToOn.Length == 0)
+                    m_lblScriptOffToOnComm.Text = DllEntryClass.LangSys.C("Empty");
+                else
+                    m_lblScriptOffToOnComm.Text = DllEntryClass.LangSys.C("No empty");
+
+                if (Props.ScriptOnToOff.Length == 0)
+                    m_lblScriptOnToOffComm.Text = DllEntryClass.LangSys.C("Empty");
+                else
+                    m_lblScriptOnToOffComm.Text = DllEntryClass.LangSys.C("No empty");
+            }
+            else
+            {
+                m_lblScriptOffToOnComm.Text = DllEntryClass.LangSys.C("Empty");
+                m_lblScriptOnToOffComm.Text = DllEntryClass.LangSys.C("Empty");
+            }
+            
         }
 
         void AdvPropEnable(bool bEnable)
@@ -237,6 +262,7 @@ namespace CtrlDataTrigger
                 prop.ScriptOnToOff = DlgScript.ScriptLines;
                 bScriptChange = true;
             }
+            UpdateScriptPresenceLabels();
         }
 
         private void btnOffToOnScript_Click(object sender, EventArgs e)
@@ -251,6 +277,7 @@ namespace CtrlDataTrigger
                 prop.ScriptOffToOn = DlgScript.ScriptLines;
                 bScriptChange = true;
             }
+            UpdateScriptPresenceLabels();        
         }
     }
 }

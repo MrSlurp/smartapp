@@ -1,0 +1,9 @@
+License de Smart Application 
+Copyright Pascal Bigot 2007-2010
+
+Smart Application est un logiciel gratuit développé dans le cadre d'activités privées. 
+Bien que ce logiciel soit principalement destiné à l'utilisation avec des produits Crouzet©, ce logiciel à été développé sans le support de Crouzet©.
+Crouzet© ou le développeur ne pourront en aucun cas être tenus pour responsables en cas de dommage ou disfonctionnement qui interviendrait lors l'utilisation de cette application.
+ 
+Cette application ne peut en aucun cas être redistribuée ailleurs que sur le site qui y est dédié sans l'accord préalable du développeur.
+

@@ -91,7 +91,7 @@ namespace SmartApp.AppEventLog
             // checkBringToTop
             // 
             this.checkBringToTop.AutoSize = true;
-            this.checkBringToTop.Location = new System.Drawing.Point(379, 12);
+            this.checkBringToTop.Location = new System.Drawing.Point(280, 12);
             this.checkBringToTop.Name = "checkBringToTop";
             this.checkBringToTop.Size = new System.Drawing.Size(163, 17);
             this.checkBringToTop.TabIndex = 3;
