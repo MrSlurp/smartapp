@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Text;
+using System.IO;
 using System.Windows.Forms;
 using System.Xml;
 using CommonLib;
@@ -22,21 +23,21 @@ namespace SmartApp
         
         private SaveFileDialog m_ScnSavedlg = new SaveFileDialog();
         private OpenFileDialog m_ScnOpendlg = new OpenFileDialog();
-        public VirtualDataForm(GestDataVirtual GestVData, GestData GestData)
+        public VirtualDataForm(BTDoc Document)
         {
             Program.LangSys.Initialize(this);
             InitializeComponent();
-            m_GestVirtualData = GestVData;
-            m_GestData = GestData;
+            m_GestVirtualData = Document.GestDataVirtual;
+            m_GestData = Document.GestData;
             m_TimerScenPlayer.Tick += new EventHandler(m_TimerScenPlayer_Tick);
             m_CliSavedlg.Filter = "Data cliche File (*.sac)|*.sac";
-            m_CliSavedlg.InitialDirectory = Application.StartupPath;
+            m_CliSavedlg.InitialDirectory = Path.GetDirectoryName(Document.FileName);
             m_CliOpendlg.Filter = "Data cliche File (*.sac)|*.sac";
-            m_CliOpendlg.InitialDirectory = Application.StartupPath;
+            m_CliOpendlg.InitialDirectory = Path.GetDirectoryName(Document.FileName);
             m_ScnOpendlg.Filter = "Scenario cliche File (*.sas)|*.sas";
-            m_ScnOpendlg.InitialDirectory = Application.StartupPath;
+            m_ScnOpendlg.InitialDirectory = Path.GetDirectoryName(Document.FileName);
             m_ScnSavedlg.Filter = "Scenario cliche File (*.sas)|*.sas";
-            m_ScnSavedlg.InitialDirectory = Application.StartupPath;
+            m_ScnSavedlg.InitialDirectory = Path.GetDirectoryName(Document.FileName);
         }
 
         private void m_TimerScenPlayer_Tick(object sender, EventArgs e)
@@ -109,15 +110,16 @@ namespace SmartApp
         {
             if (m_CliSavedlg.ShowDialog() == DialogResult.OK)
             {
-              XmlDocument XmlDoc = new XmlDocument();
-              XmlDoc.LoadXml("<Root></Root>");
+                XmlDocument XmlDoc = new XmlDocument();
+                XmlDoc.LoadXml("<Root></Root>");
 
-              XmlNode NodeDataSection = XmlDoc.CreateElement(XML_CF_TAG.DataSection.ToString());
-              XmlDoc.DocumentElement.AppendChild(NodeDataSection);
-            
-              m_GestVirtualData.WriteOutInstantImage(XmlDoc, NodeDataSection);
-              string strfileFullName = m_CliSavedlg.FileName;
-              XmlDoc.Save(strfileFullName);
+                XmlNode NodeDataSection = XmlDoc.CreateElement(XML_CF_TAG.DataSection.ToString());
+                XmlDoc.DocumentElement.AppendChild(NodeDataSection);
+
+                m_GestVirtualData.WriteOutInstantImage(XmlDoc, NodeDataSection);
+                m_GestVirtualData.SetAllSaveInCliche(false);
+                string strfileFullName = m_CliSavedlg.FileName;
+                XmlDoc.Save(strfileFullName);
             }   
         }
 

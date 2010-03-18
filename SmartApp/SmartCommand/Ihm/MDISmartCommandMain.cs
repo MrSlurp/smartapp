@@ -740,7 +740,7 @@ namespace SmartApp
                 {
                     if (m_Document.TypeComm == TYPE_COMM.VIRTUAL && m_VirtualDataForm == null)
                     {
-                        m_VirtualDataForm = new VirtualDataForm(m_Document.GestDataVirtual, m_Document.GestData);
+                        m_VirtualDataForm = new VirtualDataForm(m_Document);
                         m_VirtualDataForm.Show();
                         m_VirtualDataForm.BringToFront();
                     }
