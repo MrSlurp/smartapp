@@ -1,0 +1,6 @@
+<Root>
+  <DataSection>
+    <Data strSymbol="TCPMB_OUT_REG_22" strNom="" Min="-32768" Max="32767" DefVal="300" size="16" Constant="False" />
+    <Data strSymbol="TCPMB_OUT_REG_23" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+  </DataSection>
+</Root>

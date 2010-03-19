@@ -126,14 +126,16 @@ namespace SmartApp
                 VirtualData vData = (VirtualData)m_GestVirtualData.GetFromSymbol(DataSymbol);
                 int NewValue = 0;
                 bool bRet = int.TryParse((string)m_dataGrid.Rows[e.RowIndex].Cells["Value"].Value, out NewValue);
+                if (vData.Value != NewValue)
+                    vData.SaveInCliche = true;
+                    
                 vData.Value = NewValue;
-                vData.SaveInCliche = true;
                 return;
             }
             if (e.ColumnIndex == m_dataGrid.Columns["m_colSaved"].DisplayIndex)
             {
                 string DataSymbol = (string)m_dataGrid.Rows[e.RowIndex].Cells[0].Value;
-                string Value = (string)m_dataGrid.Rows[e.RowIndex].Cells["m_colSaved"].Value;
+                string Value = m_dataGrid.Rows[e.RowIndex].Cells["m_colSaved"].Value.ToString();
                 VirtualData vData = (VirtualData)m_GestVirtualData.GetFromSymbol(DataSymbol);
                 vData.SaveInCliche = bool.Parse(Value);
                 return;

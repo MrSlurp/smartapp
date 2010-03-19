@@ -21,16 +21,8 @@
     <Data strSymbol="TCPMB_OUT_REG_25" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
     <Data strSymbol="TCPMB_OUT_REG_26" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
     <Data strSymbol="TCPMB_OUT_REG_27" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
-    <Data strSymbol="DONNE_TEST_1" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
-    <Data strSymbol="DONNE_TEST_2" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
-    <Data strSymbol="DONNE_TEST_3" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
     <GroupSection>
       <Group strNom="Groupe par défaut" strSymbol="GROUP_0" bkColor="255, 255, 255">
-        <Object strSymbol="DONNE_TEST_1" />
-        <Object strSymbol="DONNE_TEST_2" />
-        <Object strSymbol="DONNE_TEST_3" />
-      </Group>
-      <Group strNom="Groupe des données TCPMB" strSymbol="GROUP_1" bkColor="255, 255, 128">
         <Object strSymbol="TCPMB_OUT_REG_20" />
         <Object strSymbol="TCPMB_OUT_REG_21" />
         <Object strSymbol="TCPMB_OUT_REG_22" />
@@ -40,7 +32,7 @@
         <Object strSymbol="TCPMB_OUT_REG_26" />
         <Object strSymbol="TCPMB_OUT_REG_27" />
       </Group>
-      <Group strNom="Frame Const" strSymbol="GROUP_2" bkColor="128, 255, 255">
+      <Group strNom="constantes" strSymbol="GROUP_1" bkColor="255, 255, 255">
         <Object strSymbol="TRANSACTION_ID" />
         <Object strSymbol="PROTOCO_ID" />
         <Object strSymbol="FOLLOWING_6_BYTES" />
@@ -56,33 +48,11 @@
   <ScreenSection>
     <Screen strSymbol="NEW_SCREEN_0" strNom="" Text="">
       <ControlList>
-        <DllControl strSymbol="NEW_CTRL_0" strNom="" DllID="170" AssociateData="TCPMB_OUT_REG_20" ScreenEvent="False" Pos="15,15" size="70,30" Text="" ReadOnly="False">
-          <TRIGGERPARAM SchmittBehave="True" OnToOff="TCPMB_OUT_REG_21" OffToOn="TCPMB_OUT_REG_22" />
-          <ONOFFSCRIPT>
-            <Line>MATHS.ADD(DONNE_TEST_3,DONNE_TEST_3, 1)</Line>
-          </ONOFFSCRIPT>
-          <OFFONSCRIPT>
-            <Line>MATHS.ADD(DONNE_TEST_3,DONNE_TEST_3, -1)</Line>
-          </OFFONSCRIPT>
+        <DllControl strSymbol="NEW_CTRL_0" strNom="" DllID="120" AssociateData="TCPMB_OUT_REG_20" ScreenEvent="False" Pos="27,18" size="59,55" Text="" ReadOnly="False" Bitmap0="$ExePath$\ImgLib\Voyant\VoyantBleuOn.png" Bitmap1="$ExePath$\ImgLib\Voyant\VoyantOrangeOn.png" Bitmap2="$ExePath$\ImgLib\Voyant\VoyantRougeOn.png" Bitmap3="$ExePath$\ImgLib\Voyant\VoyantVertOn.png">
           <EventScript />
         </DllControl>
-        <DllControl strSymbol="NEW_CTRL_1" strNom="" DllID="170" AssociateData="TCPMB_OUT_REG_20" ScreenEvent="False" Pos="14,92" size="70,30" Text="" ReadOnly="False">
-          <TRIGGERPARAM SchmittBehave="True" OnToOff="200" OffToOn="400" />
-          <ONOFFSCRIPT>
-            <Line>MATHS.ADD(DONNE_TEST_2,DONNE_TEST_2, 1)</Line>
-          </ONOFFSCRIPT>
-          <OFFONSCRIPT>
-            <Line>MATHS.ADD(DONNE_TEST_2,DONNE_TEST_2, -1)</Line>
-          </OFFONSCRIPT>
+        <DllControl strSymbol="NEW_CTRL_1" strNom="" DllID="120" AssociateData="TCPMB_OUT_REG_21" ScreenEvent="False" Pos="107,20" size="59,55" Text="" ReadOnly="False" Bitmap0="$ExePath$\ImgLib\Vanne 4 voies\Vanne4VoiesA1.png" Bitmap1="$ExePath$\ImgLib\Vanne 4 voies\Vanne4VoiesA2.png" Bitmap2="$ExePath$\ImgLib\Vanne 4 voies\Vanne4VoiesA3.png" Bitmap3="$ExePath$\ImgLib\Vanne 4 voies\Vanne4VoiesA4.png">
           <EventScript />
-        </DllControl>
-        <DllControl strSymbol="NEW_CTRL_2" strNom="" DllID="170" AssociateData="TCPMB_OUT_REG_20" ScreenEvent="False" Pos="15,173" size="70,30" Text="" ReadOnly="False">
-          <TRIGGERPARAM SchmittBehave="False" OnToOff="" OffToOn="" />
-          <ONOFFSCRIPT />
-          <OFFONSCRIPT />
-          <EventScript>
-            <Line>MATHS.ADD(DONNE_TEST_1,DONNE_TEST_1, 1)</Line>
-          </EventScript>
         </DllControl>
       </ControlList>
       <InitScript />
@@ -129,7 +99,7 @@
   <Program>
     <FunctionSection />
     <TimerSection>
-      <Timer strSymbol="NEW_TIMER_0" strNom="" Period="100" AutoStart="True">
+      <Timer strSymbol="TIMER_READ" strNom="" Period="500" AutoStart="True">
         <Line>FRAMES.M3_READ_8_OUT_REG.SEND()</Line>
         <Line>FRAMES.M3_READ_8_OUT_REG_RET.RECEIVE()</Line>
       </Timer>

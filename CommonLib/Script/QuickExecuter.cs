@@ -356,25 +356,34 @@ namespace CommonLib
         //*****************************************************************************************************
         internal void ExecuteMathAdd(Data Result, Data Operator1, Data Operator2)
         {
+            string opsValues = string.Empty;
+            if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
+                   opsValues = string.Format("{0} + {1}", Operator1.Value, Operator2.Value);
             Result.Value = Operator1.Value + Operator2.Value;
             if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
-                Traces.LogAddDebug(TraceCat.ExecuteMath, "Math.ADD", string.Format("{0} = {1} + {2}", Result.Value, Operator1.Value, Operator2.Value));
+                Traces.LogAddDebug(TraceCat.ExecuteMath, "Math.ADD", string.Format("{0} = {1}", Result.Value, opsValues));
         }
 
         //*****************************************************************************************************
         internal void ExecuteMathSub(Data Result, Data Operator1, Data Operator2)
         {
+            string opsValues = string.Empty;
+            if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
+                   opsValues = string.Format("{0} - {1}", Operator1.Value, Operator2.Value);
             Result.Value = Operator1.Value - Operator2.Value;
             if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
-                Traces.LogAddDebug(TraceCat.ExecuteMath, "Math.SUB", string.Format("{0} = {1} - {2}", Result.Value, Operator1.Value, Operator2.Value));
+                Traces.LogAddDebug(TraceCat.ExecuteMath, "Math.SUB", string.Format("{0} = {1}", Result.Value, opsValues));
         }
 
         //*****************************************************************************************************
         protected void ExecuteMathMul(Data Result, Data Operator1, Data Operator2)
         {
+            string opsValues = string.Empty;
+            if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
+                   opsValues = string.Format("{0} * {1}", Operator1.Value, Operator2.Value);
             Result.Value = Operator1.Value * Operator2.Value;
             if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
-                Traces.LogAddDebug(TraceCat.ExecuteMath, "Math.MUL", string.Format("{0} = {1} * {2}", Result.Value, Operator1.Value, Operator2.Value));
+                Traces.LogAddDebug(TraceCat.ExecuteMath, "Math.MUL", string.Format("{0} = {1}", Result.Value, opsValues));
         }
 
         //*****************************************************************************************************
@@ -382,9 +391,12 @@ namespace CommonLib
         {
             if (Operator2.Value != 0)
             {
+                string opsValues = string.Empty;
+                if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
+                       opsValues = string.Format("{0} / {1}", Operator1.Value, Operator2.Value);
                 Result.Value = Operator1.Value / Operator2.Value;
                 if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
-                    Traces.LogAddDebug(TraceCat.ExecuteMath, "Math.DIV", string.Format("{0} = {1} / {2}", Result.Value, Operator1.Value, Operator2.Value));
+                    Traces.LogAddDebug(TraceCat.ExecuteMath, "Math.DIV", string.Format("{0} = {1} ", Result.Value, opsValues));
             }
             else
             {

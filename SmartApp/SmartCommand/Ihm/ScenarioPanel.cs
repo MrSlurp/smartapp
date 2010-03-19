@@ -199,7 +199,7 @@ namespace SmartApp
                 m_dataGrid.Rows[idx].Cells[1].Value = str22;
                 m_dataGrid.Rows[idx+1].Cells[2].Value = str11;
                 m_dataGrid.Rows[idx+1].Cells[1].Value = str12;
-                m_dataGrid.Rows[idx + 1].Selected = true;
+                m_dataGrid.Rows[idx+1].Selected = true;
             }
         }
 
@@ -208,5 +208,12 @@ namespace SmartApp
             LoadSelectedLine();
         }
 
+        private void m_dataGrid_CellMouseClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == m_dataGrid.Columns["ColButtonEdit"].DisplayIndex)
+            {
+                // todo, editeur de cliché
+            }
+        }
     }
 }

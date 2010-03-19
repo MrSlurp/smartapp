@@ -141,19 +141,20 @@ begin
 	//kb928366(); //better use windows update
 	
 	//install .netfx 2.0 sp2 if possible; if not sp1 if possible; if not .netfx 2.0
-	if minwinversion(5, 1) then begin
-		dotnetfx20sp2();
+	//if minwinversion(5, 0) then begin
+		dotnetfx20();
+		//dotnetfx20sp2();
 		//dotnetfx20sp2lp();
-	end else begin
-		if minwinversion(5, 0) and minwinspversion(5, 0, 4) then begin
+	//end else begin
+		//if minwinversion(5, 0) and minwinspversion(5, 0, 4) then begin
 			//kb835732();
-			dotnetfx20sp1();
+			//dotnetfx20sp1();
 			//dotnetfx20sp1lp();
-		end else begin
-			dotnetfx20();
+		//end else begin
+			//dotnetfx20();
 			//dotnetfx20lp();
-		end;
-	end;
+		//end;
+	//end;
 	
 	//dotnetfx35();
 	//dotnetfx35lp();

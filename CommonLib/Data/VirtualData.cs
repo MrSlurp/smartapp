@@ -124,6 +124,18 @@ namespace CommonLib
 
         #region Read In / Write Out
         /// <summary>
+        /// Lit les données de l'objet a partir de son noeud XML
+        /// </summary>
+        /// <param name="Node">Noeud Xml de l'objet</param>
+        /// <param name="TypeApp">type d'application courante</param>
+        /// <returns>true si la lecture s'est bien passé</returns>
+        public override bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
+        {
+            // en cas de lecture des clichés pour affichage du contenu/edition
+            return base.ReadIn(Node, TypeApp);;             
+        }
+    
+        /// <summary>
         /// NE JAMAIS UTILISER
         /// </summary>
         /// <param name="XmlDoc"></param>
@@ -132,20 +144,24 @@ namespace CommonLib
         public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
         {
             // il est interdit de faire une écriture complète des paramètres pour une données virtuelle
+            // enfin si on peu mais ca sert à rien puisqu'on ne mémorise pas la valeur
             return false;
         }
 
         /// <summary>
-        /// lit un "cliché" de la valeur (fichier contenant juste la valeur des données)
+        /// lit un "cliché" de la valeur (juste la valeur de la données)
         /// </summary>
         /// <param name="Node">Noeud de a donnée</param>
         /// <param name="TypeApp">Type de l'application</param>
         /// <returns>true en cas de succès</returns>
         public bool ReadInInstantImage(XmlNode Node, TYPE_APP TypeApp)
         {
+            // on ne relit que la valeur par défaut
             XmlNode AttrDefVal = Node.Attributes.GetNamedItem(XML_CF_ATTRIB.DefVal.ToString());
             if (AttrDefVal == null)
                 return false;
+                
+            // et on fait ce cette valeur par defaut la valeur courante
             DefaultValue = int.Parse(AttrDefVal.Value);
             this.VirtualInitVal();
             return true;
@@ -161,7 +177,9 @@ namespace CommonLib
     
 
         /// <summary>
-        /// écrit un "cliché" de la valeur (fichier contenant juste la valeur des données)
+        /// écrit un "cliché" de la valeur 
+        /// on écrit l'équivalent de l'enregistrement afin de pouvoir relire 
+        /// le cliché dans l'editeur de cliché en ayant la taille, le min et le max
         /// </summary>
         /// <param name="XmlDoc"></param>
         /// <param name="Node"></param>
@@ -169,12 +187,9 @@ namespace CommonLib
         public bool WriteOutInstantImage(XmlDocument XmlDoc, XmlNode Node)
         {
             // on écrit la base pour avoir le symbole
-            WriteOutBaseObject(XmlDoc, Node);
             this.DefaultValue = this.Value;
-            XmlAttribute AttrDefVal = XmlDoc.CreateAttribute(XML_CF_ATTRIB.DefVal.ToString());
-            AttrDefVal.Value = DefaultValue.ToString();
-            Node.Attributes.Append(AttrDefVal);
-            return true;
+            //WriteOutBaseObject(XmlDoc, Node);
+            return base.WriteOut(XmlDoc, Node);
         }
         #endregion
 

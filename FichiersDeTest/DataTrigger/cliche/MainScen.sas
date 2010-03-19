@@ -1,0 +1,13 @@
+<Root>
+  <FileList>
+    <File>$DocPath$\cliche\cli_init.sac</File>
+    <File>$DocPath$\cliche\cli_trigsetpoint.sac</File>
+    <File>$DocPath$\cliche\cli_val50.sac</File>
+    <File>$DocPath$\cliche\cli_val100.sac</File>
+    <File>$DocPath$\cliche\cli_val150.sac</File>
+    <File>$DocPath$\cliche\cli_val200.sac</File>
+    <File>$DocPath$\cliche\cli_val250.sac</File>
+    <File>$DocPath$\cliche\cli_setpointH300.sac</File>
+    <File>$DocPath$\cliche\cli_setpointL275.sac</File>
+  </FileList>
+</Root>

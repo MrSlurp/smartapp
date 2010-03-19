@@ -1,0 +1,9 @@
+<Root>
+  <DataSection>
+    <Data strSymbol="TCPMB_OUT_REG_23" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="TCPMB_OUT_REG_24" strNom="" Min="-32768" Max="32767" DefVal="10" size="16" Constant="False" />
+    <Data strSymbol="TCPMB_OUT_REG_25" strNom="" Min="-32768" Max="32767" DefVal="20" size="16" Constant="False" />
+    <Data strSymbol="TCPMB_OUT_REG_26" strNom="" Min="-32768" Max="32767" DefVal="30" size="16" Constant="False" />
+    <Data strSymbol="TCPMB_OUT_REG_27" strNom="" Min="-32768" Max="32767" DefVal="40" size="16" Constant="False" />
+  </DataSection>
+</Root>

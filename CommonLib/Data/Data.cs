@@ -363,16 +363,17 @@ namespace CommonLib
             XmlNode AttrDefVal = Node.Attributes.GetNamedItem(XML_CF_ATTRIB.DefVal.ToString());
             XmlNode AttrSize = Node.Attributes.GetNamedItem(XML_CF_ATTRIB.size.ToString());
             XmlNode AttrConstant = Node.Attributes.GetNamedItem(XML_CF_ATTRIB.Constant.ToString());
+               
             if (AttrMin == null 
                 || AttrMax == null 
+                || AttrSize == null
                 || AttrDefVal == null 
-                || AttrSize == null 
                 )
                 return false;
             m_MinVal = int.Parse(AttrMin.Value);
             m_MaxVal = int.Parse(AttrMax.Value);
-            m_DefVal = int.Parse(AttrDefVal.Value);
             m_Size = int.Parse(AttrSize.Value);
+            m_DefVal = int.Parse(AttrDefVal.Value);
             m_CurrentVal = m_DefVal;
             if (AttrConstant != null)
                 m_bConstant = bool.Parse(AttrConstant.Value);

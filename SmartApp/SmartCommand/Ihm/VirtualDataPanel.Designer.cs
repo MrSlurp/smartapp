@@ -78,7 +78,6 @@ namespace SmartApp
             this.ColDescription.HeaderText = "Description";
             this.ColDescription.Name = "ColDescription";
             this.ColDescription.ReadOnly = true;
-            this.ColDescription.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.ColDescription.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.ColDescription.Width = 160;
             // 
@@ -89,6 +88,7 @@ namespace SmartApp
             this.ColMin.MinimumWidth = 50;
             this.ColMin.Name = "ColMin";
             this.ColMin.ReadOnly = true;
+            this.ColMin.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.ColMin.Width = 55;
             // 
             // ColMax
@@ -98,6 +98,7 @@ namespace SmartApp
             this.ColMax.MinimumWidth = 50;
             this.ColMax.Name = "ColMax";
             this.ColMax.ReadOnly = true;
+            this.ColMax.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.ColMax.Width = 55;
             // 
             // Value
@@ -105,6 +106,7 @@ namespace SmartApp
             this.Value.HeaderText = "Value";
             this.Value.MinimumWidth = 50;
             this.Value.Name = "Value";
+            this.Value.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.Value.Width = 55;
             // 
             // m_colSaved
@@ -112,8 +114,7 @@ namespace SmartApp
             this.m_colSaved.FalseValue = "False";
             this.m_colSaved.HeaderText = "Saved in cliche";
             this.m_colSaved.Name = "m_colSaved";
-            this.m_colSaved.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.m_colSaved.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.m_colSaved.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.m_colSaved.TrueValue = "True";
             this.m_colSaved.Width = 40;
             // 

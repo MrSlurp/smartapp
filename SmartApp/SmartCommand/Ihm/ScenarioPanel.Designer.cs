@@ -32,6 +32,7 @@ namespace SmartApp
             this.ColStep = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColFileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColFilePath = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColButtonEdit = new System.Windows.Forms.DataGridViewButtonColumn(); 
             ((System.ComponentModel.ISupportInitialize)(this.m_dataGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -44,7 +45,8 @@ namespace SmartApp
             this.m_dataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColStep,
             this.ColFileName,
-            this.ColFilePath});
+            this.ColFilePath,
+            this.ColButtonEdit});
             this.m_dataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.m_dataGrid.Location = new System.Drawing.Point(0, 0);
             this.m_dataGrid.MultiSelect = false;
@@ -55,6 +57,7 @@ namespace SmartApp
             this.m_dataGrid.TabIndex = 1;
             this.m_dataGrid.DoubleClick += new System.EventHandler(this.m_dataGrid_DoubleClick);
             this.m_dataGrid.SelectionChanged += new System.EventHandler(this.m_dataGrid_SelectionChanged);
+            this.m_dataGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.m_dataGrid_CellMouseClick);
             // 
             // ColStep
             // 
@@ -71,16 +74,24 @@ namespace SmartApp
             this.ColFileName.MinimumWidth = 20;
             this.ColFileName.Name = "ColFileName";
             this.ColFileName.ReadOnly = true;
-            this.ColFileName.Width = 200;
+            this.ColFileName.Width = 150;
             // 
             // ColFilePath
             // 
             this.ColFilePath.HeaderText = "File Path";
-            this.ColFilePath.MaxInputLength = 10;
             this.ColFilePath.MinimumWidth = 50;
             this.ColFilePath.Name = "ColFilePath";
             this.ColFilePath.ReadOnly = true;
             this.ColFilePath.Width = 300;
+            
+            // 
+            // ColButtonEdit
+            // 
+            this.ColButtonEdit.HeaderText = "View/Edit";
+            this.ColButtonEdit.MinimumWidth = 50;
+            this.ColButtonEdit.Name = "ColButtonEdit";
+            this.ColButtonEdit.Width = 100;
+            this.ColButtonEdit.UseColumnTextForButtonValue = true;
             // 
             // ScenarioPanel
             // 
@@ -100,5 +111,6 @@ namespace SmartApp
         private System.Windows.Forms.DataGridViewTextBoxColumn ColStep;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColFileName;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColFilePath;
+        private System.Windows.Forms.DataGridViewButtonColumn ColButtonEdit;
     }
 }
