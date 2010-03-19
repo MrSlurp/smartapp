@@ -356,9 +356,8 @@ namespace CommonLib
             }
             catch (Exception e)
             {
-                string strErr = Lang.LangSys.C("The file is corrupted");
-                strErr += e.Message;
-                Console.WriteLine(strErr);
+                Traces.LogAddDebug(TraceCat.Document, "Le fichier est corrompu");
+                Console.WriteLine(e.Message);
                 return false;
             }
 

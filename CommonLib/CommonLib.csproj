@@ -1,4 +1,4 @@
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -234,6 +234,13 @@
     <Compile Include="Utils\IniFileParser.cs" />
     <Compile Include="Utils\PathTranslator.cs" />
     <Compile Include="Utils\PerfChrono.cs" />
+    <Compile Include="Utils\TextBoxStreamWriter.cs" />
+    <Compile Include="Utils\TraceConsole.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Utils\TraceConsole.Designer.cs">
+      <DependentUpon>TraceConsole.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utils\Traces.cs" />
     <Compile Include="Utils\UtilsClasses.cs" />
   </ItemGroup>
@@ -277,6 +284,10 @@
     <EmbeddedResource Include="StdForms\WaitOpenCommForm.resx">
       <DependentUpon>WaitOpenCommForm.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Utils\TraceConsole.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>TraceConsole.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -413,7 +413,7 @@ namespace CommonLib
                             break;
                         case CONTROL_TYPE.NULL:
                         default:
-                            Console.WriteLine("Type de control indéfini");
+                            Traces.LogAddDebug(TraceCat.Serialization, "ScreenReadCommand", "Type de control indéfini");
                             NewControl = null;
                             break;
                     }
@@ -439,7 +439,7 @@ namespace CommonLib
                             break;
                         case SPECIFIC_TYPE.NULL:
                         default:
-                            Console.WriteLine("Type de control indéfini");
+                            Traces.LogAddDebug(TraceCat.Serialization, "ScreenReadCommand", "Type de control spécifique indéfini");
                             break;
                     }
                     if (NewControl != null)

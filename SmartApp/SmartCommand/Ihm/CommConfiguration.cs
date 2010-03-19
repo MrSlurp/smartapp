@@ -65,7 +65,6 @@ namespace SmartApp
 
         private void button1_Click(object sender, EventArgs e)
         {
-			Console.WriteLine("Le clique bouton à bien été executé");
             string strErr;
             if (IsDataGridViewValid(out strErr))
             {
@@ -74,13 +73,12 @@ namespace SmartApp
             }
             else
             {
-                MessageBox.Show(strErr, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(strErr, Program.LangSys.C("Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 		
         private bool IsDataGridViewValid(out string strErr)
         {
-			Console.WriteLine(string.Format("nombre de ligne dans la gridview {0}", m_dataGrid.Rows.Count));
             for (int i = 0; i < m_dataGrid.Rows.Count; i++)
             {
                 //ttes les comms doivent être valides
@@ -91,7 +89,6 @@ namespace SmartApp
                 string Param = (string)dtgrRow.Cells[2].Value;
                 if (string.IsNullOrEmpty(Type))
 				{
-					Console.WriteLine("Ligne type vide");
                     continue;
 				}
 
@@ -167,7 +164,7 @@ namespace SmartApp
                 m_IniFile.SetValue(strSection, Cste.STR_FILE_DESC_COMM, Type);
                 m_IniFile.SetValue(strSection, Cste.STR_FILE_DESC_ADDR, Param);
             }
-			Console.WriteLine("le fichier à bien été sauvegardé");
+            Traces.LogAddDebug(TraceCat.SmartCommand, "CommConfig", "le fichier à bien été sauvegardé");
             m_IniFile.Save();
         }
     }

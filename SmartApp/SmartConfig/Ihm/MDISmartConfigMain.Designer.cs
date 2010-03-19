@@ -44,6 +44,7 @@ namespace SmartApp.Ihm
             this.m_printSetupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.m_tsItemPref = new System.Windows.Forms.ToolStripMenuItem();
+            this.m_tsMenuLogConfig = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             this.m_MruFiles = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
@@ -89,7 +90,7 @@ namespace SmartApp.Ihm
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.m_ToolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.m_tsMenuLogConfig = new System.Windows.Forms.ToolStripMenuItem();
+            this.m_tsMenuOpenDebugConsole = new System.Windows.Forms.ToolStripMenuItem();
             this.m_menuStrip.SuspendLayout();
             this.m_toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
@@ -127,6 +128,7 @@ namespace SmartApp.Ihm
             this.toolStripSeparator5,
             this.m_tsItemPref,
             this.m_tsMenuLogConfig,
+            this.m_tsMenuOpenDebugConsole,
             this.toolStripSeparator10,
             this.m_MruFiles,
             this.toolStripSeparator8,
@@ -143,7 +145,7 @@ namespace SmartApp.Ihm
             this.m_newToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
             this.m_newToolStripMenuItem.Name = "m_newToolStripMenuItem";
             this.m_newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.m_newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.m_newToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.m_newToolStripMenuItem.Text = "&New";
             this.m_newToolStripMenuItem.Click += new System.EventHandler(this.OnNewMenuItemClick);
             // 
@@ -153,21 +155,21 @@ namespace SmartApp.Ihm
             this.m_openToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
             this.m_openToolStripMenuItem.Name = "m_openToolStripMenuItem";
             this.m_openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.m_openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.m_openToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.m_openToolStripMenuItem.Text = "&Open";
             this.m_openToolStripMenuItem.Click += new System.EventHandler(this.OpenFile);
             // 
             // m_MenuItemClose
             // 
             this.m_MenuItemClose.Name = "m_MenuItemClose";
-            this.m_MenuItemClose.Size = new System.Drawing.Size(152, 22);
+            this.m_MenuItemClose.Size = new System.Drawing.Size(186, 22);
             this.m_MenuItemClose.Text = "Close file";
             this.m_MenuItemClose.Click += new System.EventHandler(this.m_MenuItemClose_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(183, 6);
             // 
             // m_saveToolStripMenuItem
             // 
@@ -175,21 +177,21 @@ namespace SmartApp.Ihm
             this.m_saveToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
             this.m_saveToolStripMenuItem.Name = "m_saveToolStripMenuItem";
             this.m_saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.m_saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.m_saveToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.m_saveToolStripMenuItem.Text = "&Save";
             this.m_saveToolStripMenuItem.Click += new System.EventHandler(this.OnSaveMenuItemClick);
             // 
             // m_saveAsToolStripMenuItem
             // 
             this.m_saveAsToolStripMenuItem.Name = "m_saveAsToolStripMenuItem";
-            this.m_saveAsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.m_saveAsToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.m_saveAsToolStripMenuItem.Text = "Save &As";
             this.m_saveAsToolStripMenuItem.Click += new System.EventHandler(this.OnSaveAsMenuItemClick);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(183, 6);
             // 
             // m_printToolStripMenuItem
             // 
@@ -197,7 +199,7 @@ namespace SmartApp.Ihm
             this.m_printToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
             this.m_printToolStripMenuItem.Name = "m_printToolStripMenuItem";
             this.m_printToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
-            this.m_printToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.m_printToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.m_printToolStripMenuItem.Text = "&Print";
             this.m_printToolStripMenuItem.Visible = false;
             // 
@@ -206,52 +208,60 @@ namespace SmartApp.Ihm
             this.m_printPreviewToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("m_printPreviewToolStripMenuItem.Image")));
             this.m_printPreviewToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
             this.m_printPreviewToolStripMenuItem.Name = "m_printPreviewToolStripMenuItem";
-            this.m_printPreviewToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.m_printPreviewToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.m_printPreviewToolStripMenuItem.Text = "Print Pre&view";
             this.m_printPreviewToolStripMenuItem.Visible = false;
             // 
             // m_printSetupToolStripMenuItem
             // 
             this.m_printSetupToolStripMenuItem.Name = "m_printSetupToolStripMenuItem";
-            this.m_printSetupToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.m_printSetupToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.m_printSetupToolStripMenuItem.Text = "Print Setup";
             this.m_printSetupToolStripMenuItem.Visible = false;
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(183, 6);
             this.toolStripSeparator5.Visible = false;
             // 
             // m_tsItemPref
             // 
             this.m_tsItemPref.Name = "m_tsItemPref";
-            this.m_tsItemPref.Size = new System.Drawing.Size(152, 22);
+            this.m_tsItemPref.Size = new System.Drawing.Size(186, 22);
             this.m_tsItemPref.Text = "Preferences";
             this.m_tsItemPref.Click += new System.EventHandler(this.m_tsItemPref_Click);
+            // 
+            // m_tsMenuLogConfig
+            // 
+            this.m_tsMenuLogConfig.Name = "m_tsMenuLogConfig";
+            this.m_tsMenuLogConfig.Size = new System.Drawing.Size(186, 22);
+            this.m_tsMenuLogConfig.Text = "Trace Config";
+            this.m_tsMenuLogConfig.Visible = false;
+            this.m_tsMenuLogConfig.Click += new System.EventHandler(this.m_tsMenuLogConfig_Click);
             // 
             // toolStripSeparator10
             // 
             this.toolStripSeparator10.Name = "toolStripSeparator10";
-            this.toolStripSeparator10.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator10.Size = new System.Drawing.Size(183, 6);
             // 
             // m_MruFiles
             // 
             this.m_MruFiles.Enabled = false;
             this.m_MruFiles.Name = "m_MruFiles";
-            this.m_MruFiles.Size = new System.Drawing.Size(152, 22);
+            this.m_MruFiles.Size = new System.Drawing.Size(186, 22);
             this.m_MruFiles.Text = "Recent Fles";
             // 
             // toolStripSeparator8
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator8.Size = new System.Drawing.Size(183, 6);
             this.toolStripSeparator8.Visible = false;
             // 
             // m_exitToolStripMenuItem
             // 
             this.m_exitToolStripMenuItem.Name = "m_exitToolStripMenuItem";
-            this.m_exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.m_exitToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.m_exitToolStripMenuItem.Text = "E&xit";
             this.m_exitToolStripMenuItem.Visible = false;
             this.m_exitToolStripMenuItem.Click += new System.EventHandler(this.OnExitMenuItemClick);
@@ -610,13 +620,13 @@ namespace SmartApp.Ihm
             this.toolStripStatusLabel.Size = new System.Drawing.Size(38, 17);
             this.toolStripStatusLabel.Text = "Status";
             // 
-            // m_tsMenuLogConfig
+            // m_tsMenuOpenDebugConsole
             // 
-            this.m_tsMenuLogConfig.Name = "m_tsMenuLogConfig";
-            this.m_tsMenuLogConfig.Size = new System.Drawing.Size(152, 22);
-            this.m_tsMenuLogConfig.Text = "Trace Config";
-            this.m_tsMenuLogConfig.Visible = false;
-            this.m_tsMenuLogConfig.Click += new System.EventHandler(this.m_tsMenuLogConfig_Click);
+            this.m_tsMenuOpenDebugConsole.Name = "m_tsMenuOpenDebugConsole";
+            this.m_tsMenuOpenDebugConsole.Size = new System.Drawing.Size(186, 22);
+            this.m_tsMenuOpenDebugConsole.Text = "Open Debug Console";
+            this.m_tsMenuOpenDebugConsole.Visible = false;
+            this.m_tsMenuOpenDebugConsole.Click += new System.EventHandler(this.m_tsMenuOpenDebugConsole_Click);
             // 
             // MDISmartConfigMain
             // 
@@ -703,6 +713,7 @@ namespace SmartApp.Ihm
         private System.Windows.Forms.ToolStripMenuItem m_tsItemPref;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
         private System.Windows.Forms.ToolStripMenuItem m_tsMenuLogConfig;
+        private System.Windows.Forms.ToolStripMenuItem m_tsMenuOpenDebugConsole;
     }
 }
 

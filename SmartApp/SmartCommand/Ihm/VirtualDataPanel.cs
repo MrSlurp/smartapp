@@ -16,6 +16,7 @@ namespace SmartApp
         string m_strSymbolGroup = null;
         public VirtualDataPanel(GestDataVirtual GestVirtualData, GestData GestData, string strSymbolGroup)
         {
+            Program.LangSys.Initialize(this);
             InitializeComponent();
             m_GestVirtualData = GestVirtualData;
             m_GestData = GestData;

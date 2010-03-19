@@ -143,7 +143,6 @@ namespace SmartApp
             {
                 string strErr = Program.LangSys.C("The file is corrupted");
                 strErr += ex.Message;
-                Console.WriteLine(strErr);
                 Traces.LogAddDebug(TraceCat.SmartCommand, "Load Cliche", strErr);
                 return;
             }
@@ -218,7 +217,6 @@ namespace SmartApp
                 {
                     string strErr = Program.LangSys.C("The file is corrupted");
                     strErr += ex.Message;
-                    Console.WriteLine(strErr);
                     Traces.LogAddDebug(TraceCat.SmartCommand, "Load Scen", strErr);
                     return;
                 }

@@ -31,8 +31,7 @@ namespace CommonLib
             {
                 // en cas de tag non reconne dans l'enum, une exeption est levée, 
                 // on la récupère car ca peut arriver
-                Console.WriteLine("Impossible de parser le type de controle specifique");
-                Traces.LogAddDebug(TraceCat.Serialization, "Impossible de parser le type de controle specifique");
+                Traces.LogAddDebug(TraceCat.Serialization, "BTSpecific", "Impossible de parser le type de controle specifique");
             }
 
             switch (TypeId)
@@ -45,7 +44,7 @@ namespace CommonLib
                     break;
                 case SPECIFIC_TYPE.NULL:
                 default:
-                    Console.WriteLine("Type de control indéfini");
+                    Traces.LogAddDebug(TraceCat.Serialization, "BTSpecific", "type de controle specifique indéfini");
                     return null;
             }
             return newControl;

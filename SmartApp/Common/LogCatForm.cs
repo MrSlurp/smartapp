@@ -39,6 +39,18 @@ namespace SmartApp
             }
         }
 
+        public bool LogToFile
+        {
+            get
+            {
+                return m_chkLogToFile.Checked;
+            }
+            set
+            {
+                m_chkLogToFile.Checked = value;
+            }
+        }
+
 
         public TraceCat ActiveCats
         {
@@ -70,6 +82,12 @@ namespace SmartApp
                     retCat |= TraceCat.Plugin;
                 if (m_chkCatOther.Checked)
                     retCat |= TraceCat.Others;
+                if (m_chkCatDocument.Checked)
+                    retCat |= TraceCat.Document;
+                if (m_chkCatScriptEditor.Checked)
+                    retCat |= TraceCat.ScriptEditor;
+                if (m_chkCatPerf.Checked)
+                    retCat |= TraceCat.PerfChrono;
 
                 if (m_chkCatExec.Checked)
                     retCat |= TraceCat.Executer;
@@ -103,6 +121,10 @@ namespace SmartApp
                 m_chkCatSerialize.Checked  = ((value & TraceCat.Serialization) != TraceCat.None);
                 m_chkCatPlugin.Checked     = ((value & TraceCat.Plugin) != TraceCat.None);
                 m_chkCatOther.Checked      = ((value & TraceCat.Others) != TraceCat.None);
+                m_chkCatDocument.Checked   = ((value & TraceCat.Document) != TraceCat.None);
+                m_chkCatScriptEditor.Checked=((value & TraceCat.ScriptEditor) != TraceCat.None);
+                m_chkCatPerf.Checked       = ((value & TraceCat.PerfChrono) != TraceCat.None);
+
                 m_chkCatExec.Checked       = ((value & TraceCat.Executer) != TraceCat.None);
                 m_chkCatExecFrame.Checked  = ((value & TraceCat.ExecuteFrame) != TraceCat.None);
                 m_chkCatExecFunc.Checked   = ((value & TraceCat.ExecuteFunc) != TraceCat.None);

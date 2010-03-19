@@ -327,7 +327,6 @@ namespace CommonLib
 #if LANG_USE_DEBUG
                         if (!Decoders[FileName].ContainsValue(DevText))
                         {
-                            //Console.WriteLine(string.Format("Fichier {0}, missing DevText {1}",FileName, DevText));
                             Traces.LogAddDebug(TraceCat.Lang, string.Format("Fichier {0}, missing DevText {1}", Path.GetFileName(FileName), DevText));
                         }
 #endif
@@ -386,9 +385,6 @@ namespace CommonLib
                 if (File.Exists(FileName))
                 {
                     Traces.LogAddDebug(TraceCat.Lang, string.Format("(module = {1}) chargement Fichier {0}", FileName, m_CurrentAssembly));
-#if LANG_LOAD_DEBUG
-                    Console.WriteLine("fichier chargé = " + FileName);
-#endif
                     using (FileStream fsw = new FileStream(FileName, FileMode.Open, FileAccess.Read, FileShare.Read))
                     {
                         StreamReader sw = new StreamReader(fsw, System.Text.Encoding.Unicode);
@@ -407,9 +403,6 @@ namespace CommonLib
                                 if (txt.GetLength(0) == 3)
                                 {
                                     Cur_msgid = txt[1];
-#if LANG_LOAD_DEBUG
-                                    Console.WriteLine("Langue de dev = " + Cur_msgid);
-#endif
                                 }
 
                             }
@@ -419,9 +412,6 @@ namespace CommonLib
                                 if (txt.GetLength(0) == 3)
                                 {
                                     AddLineToDictionnary(FileName, Cur_msgid, txt[1]);
-#if LANG_LOAD_DEBUG
-                                    Console.WriteLine("Langue traduite = " + txt[1]);
-#endif
                                 }
                             }
                             else

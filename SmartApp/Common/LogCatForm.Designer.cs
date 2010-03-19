@@ -41,6 +41,7 @@
             this.m_chkCatExecLogic = new System.Windows.Forms.CheckBox();
             this.m_chkCatExecMaths = new System.Windows.Forms.CheckBox();
             this.m_chkCatExecFrame = new System.Windows.Forms.CheckBox();
+            this.m_chkCatDocument = new System.Windows.Forms.CheckBox();
             this.m_chkCatOther = new System.Windows.Forms.CheckBox();
             this.m_chkCatComm = new System.Windows.Forms.CheckBox();
             this.m_chkCatPlugin = new System.Windows.Forms.CheckBox();
@@ -51,6 +52,9 @@
             this.m_chkCatLang = new System.Windows.Forms.CheckBox();
             this.m_chkCatExec = new System.Windows.Forms.CheckBox();
             this.m_chkCatParser = new System.Windows.Forms.CheckBox();
+            this.m_chkCatScriptEditor = new System.Windows.Forms.CheckBox();
+            this.m_chkCatPerf = new System.Windows.Forms.CheckBox();
+            this.m_chkLogToFile = new System.Windows.Forms.CheckBox();
             this.m_grAllCat.SuspendLayout();
             this.m_grExecCat.SuspendLayout();
             this.SuspendLayout();
@@ -59,7 +63,7 @@
             // 
             this.m_btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.m_btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.m_btnOK.Location = new System.Drawing.Point(172, 292);
+            this.m_btnOK.Location = new System.Drawing.Point(172, 361);
             this.m_btnOK.Name = "m_btnOK";
             this.m_btnOK.Size = new System.Drawing.Size(75, 23);
             this.m_btnOK.TabIndex = 0;
@@ -70,7 +74,7 @@
             // 
             this.m_btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.m_btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.m_btnCancel.Location = new System.Drawing.Point(253, 292);
+            this.m_btnCancel.Location = new System.Drawing.Point(253, 361);
             this.m_btnCancel.Name = "m_btnCancel";
             this.m_btnCancel.Size = new System.Drawing.Size(75, 23);
             this.m_btnCancel.TabIndex = 1;
@@ -98,7 +102,13 @@
             // 
             // m_grAllCat
             // 
+            this.m_grAllCat.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.m_grAllCat.Controls.Add(this.m_grExecCat);
+            this.m_grAllCat.Controls.Add(this.m_chkCatPerf);
+            this.m_grAllCat.Controls.Add(this.m_chkCatScriptEditor);
+            this.m_grAllCat.Controls.Add(this.m_chkCatDocument);
             this.m_grAllCat.Controls.Add(this.m_chkCatOther);
             this.m_grAllCat.Controls.Add(this.m_chkCatComm);
             this.m_grAllCat.Controls.Add(this.m_chkCatPlugin);
@@ -111,13 +121,16 @@
             this.m_grAllCat.Controls.Add(this.m_chkCatParser);
             this.m_grAllCat.Location = new System.Drawing.Point(15, 53);
             this.m_grAllCat.Name = "m_grAllCat";
-            this.m_grAllCat.Size = new System.Drawing.Size(311, 229);
+            this.m_grAllCat.Size = new System.Drawing.Size(311, 302);
             this.m_grAllCat.TabIndex = 5;
             this.m_grAllCat.TabStop = false;
             this.m_grAllCat.Text = "Traces Categories";
             // 
             // m_grExecCat
             // 
+            this.m_grExecCat.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.m_grExecCat.Controls.Add(this.m_chkCatExecLogger);
             this.m_grExecCat.Controls.Add(this.m_chkCatExecTimer);
             this.m_grExecCat.Controls.Add(this.m_chkCatExecScreen);
@@ -127,7 +140,7 @@
             this.m_grExecCat.Controls.Add(this.m_chkCatExecFrame);
             this.m_grExecCat.Location = new System.Drawing.Point(148, 42);
             this.m_grExecCat.Name = "m_grExecCat";
-            this.m_grExecCat.Size = new System.Drawing.Size(153, 178);
+            this.m_grExecCat.Size = new System.Drawing.Size(153, 254);
             this.m_grExecCat.TabIndex = 3;
             this.m_grExecCat.TabStop = false;
             this.m_grExecCat.Text = "Executer Sub Categories";
@@ -201,6 +214,16 @@
             this.m_chkCatExecFrame.TabIndex = 2;
             this.m_chkCatExecFrame.Text = "ExecuteFrame";
             this.m_chkCatExecFrame.UseVisualStyleBackColor = true;
+            // 
+            // m_chkCatDocument
+            // 
+            this.m_chkCatDocument.AutoSize = true;
+            this.m_chkCatDocument.Location = new System.Drawing.Point(6, 226);
+            this.m_chkCatDocument.Name = "m_chkCatDocument";
+            this.m_chkCatDocument.Size = new System.Drawing.Size(75, 17);
+            this.m_chkCatDocument.TabIndex = 2;
+            this.m_chkCatDocument.Text = "Document";
+            this.m_chkCatDocument.UseVisualStyleBackColor = true;
             // 
             // m_chkCatOther
             // 
@@ -303,12 +326,43 @@
             this.m_chkCatParser.Text = "Parser";
             this.m_chkCatParser.UseVisualStyleBackColor = true;
             // 
+            // m_chkCatScriptEditor
+            // 
+            this.m_chkCatScriptEditor.AutoSize = true;
+            this.m_chkCatScriptEditor.Location = new System.Drawing.Point(6, 249);
+            this.m_chkCatScriptEditor.Name = "m_chkCatScriptEditor";
+            this.m_chkCatScriptEditor.Size = new System.Drawing.Size(80, 17);
+            this.m_chkCatScriptEditor.TabIndex = 2;
+            this.m_chkCatScriptEditor.Text = "ScriptEditor";
+            this.m_chkCatScriptEditor.UseVisualStyleBackColor = true;
+            // 
+            // m_chkCatPerf
+            // 
+            this.m_chkCatPerf.AutoSize = true;
+            this.m_chkCatPerf.Location = new System.Drawing.Point(6, 272);
+            this.m_chkCatPerf.Name = "m_chkCatPerf";
+            this.m_chkCatPerf.Size = new System.Drawing.Size(79, 17);
+            this.m_chkCatPerf.TabIndex = 2;
+            this.m_chkCatPerf.Text = "PerfChrono";
+            this.m_chkCatPerf.UseVisualStyleBackColor = true;
+            // 
+            // m_chkLogToFile
+            // 
+            this.m_chkLogToFile.AutoSize = true;
+            this.m_chkLogToFile.Location = new System.Drawing.Point(163, 26);
+            this.m_chkLogToFile.Name = "m_chkLogToFile";
+            this.m_chkLogToFile.Size = new System.Drawing.Size(76, 17);
+            this.m_chkLogToFile.TabIndex = 2;
+            this.m_chkLogToFile.Text = "Log To file";
+            this.m_chkLogToFile.UseVisualStyleBackColor = true;
+            // 
             // LogCatForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(337, 327);
+            this.ClientSize = new System.Drawing.Size(337, 396);
             this.Controls.Add(this.m_grAllCat);
+            this.Controls.Add(this.m_chkLogToFile);
             this.Controls.Add(this.m_cboLevel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.m_btnCancel);
@@ -350,5 +404,9 @@
         private System.Windows.Forms.CheckBox m_chkCatExecFrame;
         private System.Windows.Forms.CheckBox m_chkCatExecLogger;
         private System.Windows.Forms.CheckBox m_chkCatExecTimer;
+        private System.Windows.Forms.CheckBox m_chkCatDocument;
+        private System.Windows.Forms.CheckBox m_chkCatPerf;
+        private System.Windows.Forms.CheckBox m_chkCatScriptEditor;
+        private System.Windows.Forms.CheckBox m_chkLogToFile;
     }
 }

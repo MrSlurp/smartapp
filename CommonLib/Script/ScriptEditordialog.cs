@@ -170,28 +170,28 @@ namespace CommonLib
             // on selectionne entre ces deux points
             if (CarretIsAfterPointAt != -1 && CarretIsBeforePointAt != int.MaxValue)
             {
-                Console.WriteLine("entre deux points");
+                Traces.LogAddDebug(TraceCat.ScriptEditor, "TextChange", "Curseur entre deux points");
                 m_EditScript.SelectionStart = posFirstCharOfLine + (CarretIsAfterPointAt + 1);
                 m_EditScript.SelectionLength = CarretIsBeforePointAt - (CarretIsAfterPointAt + 1);
             }
             //Le chariot est après le dernier point
             else if (CarretIsAfterPointAt != -1 && CarretIsBeforePointAt == int.MaxValue)
             {
-                Console.WriteLine("après dernier point");
+                Traces.LogAddDebug(TraceCat.ScriptEditor, "TextChange", "Curseur après dernier point");
                 m_EditScript.SelectionStart = posFirstCharOfLine + (CarretIsAfterPointAt + 1); // +1 car après le point
                 m_EditScript.SelectionLength = line.Length - (CarretIsAfterPointAt + 1);// dela fin jusqu'au point
             }
             // le chariot se trouve avant le premier point
             else if (CarretIsAfterPointAt == -1 && CarretIsBeforePointAt != int.MaxValue)
             {
-                Console.WriteLine("avant premier point");
+                Traces.LogAddDebug(TraceCat.ScriptEditor, "TextChange", "Curseur avant premier point");
                 m_EditScript.SelectionStart = posFirstCharOfLine;
                 m_EditScript.SelectionLength = CarretIsBeforePointAt;
             }
             // pas de points
             else if (CarretIsAfterPointAt == -1 && CarretIsBeforePointAt == int.MaxValue)
             {
-                Console.WriteLine("pas de points sur la ligne");
+                Traces.LogAddDebug(TraceCat.ScriptEditor, "TextChange", "pas de points sur la ligne");
                 m_EditScript.SelectionStart = posFirstCharOfLine;
                 m_EditScript.SelectionLength = line.Length;
             }
@@ -434,28 +434,28 @@ namespace CommonLib
             // on selectionne entre ces deux separateur
             if (CarretIsAfterSepAt != -1 && CarretIsBeforeSepAt != int.MaxValue)
             {
-                Console.WriteLine("entre deux points");
+                Traces.LogAddDebug(TraceCat.ScriptEditor, "DoInsert", "entre deux points");
                 m_EditScript.SelectionStart = posFirstCharOfLine + (CarretIsAfterSepAt + 1);
                 m_EditScript.SelectionLength = CarretIsBeforeSepAt - (CarretIsAfterSepAt + 1);
             }
             //Le chariot est après le dernier separateur
             else if (CarretIsAfterSepAt != -1 && CarretIsBeforeSepAt == int.MaxValue)
             {
-                Console.WriteLine("après dernier point");
+                Traces.LogAddDebug(TraceCat.ScriptEditor, "DoInsert", "après dernier point");
                 m_EditScript.SelectionStart = posFirstCharOfLine + (CarretIsAfterSepAt + 1); // +1 car après le separateur
                 m_EditScript.SelectionLength = line.Length - (CarretIsAfterSepAt + 1);// dela fin jusqu'au separateur
             }
             // le chariot se trouve avant le premier separateur
             else if (CarretIsAfterSepAt == -1 && CarretIsBeforeSepAt != int.MaxValue)
             {
-                Console.WriteLine("avant premier separateur");
+                Traces.LogAddDebug(TraceCat.ScriptEditor, "DoInsert", "avant premier separateur");
                 m_EditScript.SelectionStart = posFirstCharOfLine;
                 m_EditScript.SelectionLength = CarretIsBeforeSepAt;
             }
             // pas de separateur
             else if (CarretIsAfterSepAt == -1 && CarretIsBeforeSepAt == int.MaxValue)
             {
-                Console.WriteLine("pas de separateur sur la ligne");
+                Traces.LogAddDebug(TraceCat.ScriptEditor, "DoInsert", "pas de separateur sur la ligne");
                 m_EditScript.SelectionStart = posFirstCharOfLine;
                 m_EditScript.SelectionLength = line.Length;
             }

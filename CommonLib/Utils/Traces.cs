@@ -40,10 +40,13 @@ namespace CommonLib
         Plugin = 0x00000080,
         // traces de la partir comm
         Communication = 0x00000100,
-        // 11 places libres ici
-        //0x00000200
-        //0x00000400
-        //0x00000800
+        // traces BTDoc
+        Document = 0x00000200,
+        // traces de l'éditeur de script
+        ScriptEditor = 0x00000400,
+        // traces de performances
+        PerfChrono = 0x00000800,
+        // 8 places libres ici
         //0x00001000
         //0x00002000
         //0x00004000
@@ -95,9 +98,11 @@ namespace CommonLib
 		// Niveau de trace demandé
         private static TracesLevel mTracesLevel = TracesLevel.Debug;
 		// Fichier de logs
-		private static StreamWriter TxtLog;
+		//private static StreamWriter TxtLog;
 		
-		private static TraceCat mTraceCat = TraceCat.All; 
+		private static TraceCat mTraceCat = TraceCat.All;
+
+        private static bool m_bTraceToFile = false;
 
 		// Protection des fonctions de traces avec une section critique
 		// Cette fonctionalité est rendue nécessaire par le fait que plusieurs Threads
@@ -119,7 +124,7 @@ namespace CommonLib
         /// <param name="Level"></param>
 		public static void Initialize(string sDirectory,string sFileName,TracesLevel Level)
 		{
-		    Initialize(sDirectory,sFileName,Level, TraceCat.All);
+		    Initialize(sDirectory,sFileName,Level, TraceCat.All, false);
 		}
 
         /// <summary>
@@ -129,14 +134,13 @@ namespace CommonLib
         /// <param name="sFileName"></param>
         /// <param name="Level"></param>
         /// <param name="cat"></param>
-		public static void Initialize(string sDirectory,string sFileName,TracesLevel Level, TraceCat cat)
+        public static void Initialize(string sDirectory, string sFileName, TracesLevel Level, TraceCat cat, bool bToFile)
 		{
 			sLogDirectory = sDirectory;
 			sLogFileName = sFileName;
 			mTracesLevel = Level;
 			mTraceCat = cat;
-            LogAdd(TracesLevel.Info, TraceCat.All, Convert.ToString((int) cat,16), Convert.ToString((int) TraceCat.ExecuteFrame,16));
-             
+            m_bTraceToFile = bToFile;
 		}
 
         /// <summary>
@@ -303,9 +307,11 @@ namespace CommonLib
 					if(LogDirectory(out sFileName))
 					{
 						sFileName = sFileName + sLogFileName ;
-						try
+                        StreamWriter TxtLog = null;
+                        try
 						{
-							TxtLog = new StreamWriter(sFileName, true);
+                            if (m_bTraceToFile)
+                                TxtLog = new StreamWriter(sFileName, true);
 					
 							// Fabrication du message ajouté dans les logs :
 							// DateHeure de l'écriture : LEVEL : Message1 : Message 2
@@ -317,13 +323,13 @@ namespace CommonLib
                                             sMessage1 + " " +sMessage2;
                                 
                             Console.WriteLine(strLog);
-                            TxtLog.WriteLine(strLog);
+                            if (TxtLog != null)
+                                TxtLog.WriteLine(strLog);
 						}
 						catch
 						{ 
 							bRetour = false ;								
 						}
-
 						try
 						{
 							if(TxtLog != null) TxtLog.Close();							

@@ -491,8 +491,8 @@ namespace SmartApp.Ihm
                 }
                 catch (Exception e)
                 {
+                    Traces.LogAddDebug(TraceCat.SmartConfig,"Item PropPanel","Erreur de mise en place du panneau des propriété spécifiques");
                     Console.WriteLine(e.Message);
-                    Traces.LogAddDebug(TraceCat.SmartConfig, "Erreur de mise en place du panneau des propriété spécifiques");
                 }
             }
         }

@@ -26,12 +26,12 @@ namespace CommonLib
 
             for (int i = 0; i < 2 && i < stackFrames.Length; i++)
             {
-                Console.WriteLine(stackFrames[i].GetFileName() + "." +stackFrames[i].GetMethod().Name);   // write method name
+                Traces.LogAddDebug(TraceCat.PerfChrono, stackFrames[i].GetFileName() + "." + stackFrames[i].GetMethod().Name);
             }
 
-            Console.WriteLine("Execution time = " + spentTime.ToString() + "ms");
+            Traces.LogAddDebug(TraceCat.PerfChrono, "Execution time = " + spentTime.ToString() + "ms");
             if (!string.IsNullOrEmpty(strIndication))
-                Console.WriteLine(strIndication);
+                Traces.LogAddDebug(TraceCat.PerfChrono, strIndication);
         }
     }
 }

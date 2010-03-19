@@ -22,6 +22,7 @@ namespace SmartApp
 #endif
 
         #region données membres
+        protected TraceConsole m_TraceConsole = new TraceConsole();
         // fenêtre des variables (Watch)
         private VariableForm m_VariableForm;
         // fenêtre des données virtuelles (affichée que si on utilise une connexion virtuell
@@ -104,6 +105,11 @@ namespace SmartApp
             string strAppDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName);
             string strIniFilePath = PathTranslator.LinuxVsWindowsPathUse(strAppDir + @"\" + Cste.STR_FORMPOSINI_FILENAME);
             m_mruStripMenu = new MruStripMenuInline(this.fileMenu, this.m_MruFiles, new MruStripMenu.ClickedHandler(OnMruFile), strIniFilePath);
+            if (LaunchArgParser.DevMode)
+            {
+                m_tsMenuLogConfig.Visible = true;
+                m_tsMenuOpenDebugConsole.Visible = true;
+            }
             UpdateToolBarCxnItemState();
             AsyncUpdater();
             InitCboComms();
@@ -238,6 +244,7 @@ namespace SmartApp
             }
             else
             {
+                this.CloseDoc();
                 OpenDoc(filename);
                 m_mruStripMenu.SetFirstFile(number);
             }
@@ -305,7 +312,7 @@ namespace SmartApp
             m_EventLog.Show();
             if (!Doc.FinalizeRead(this))
             {
-                Console.WriteLine("Erreur lors du FinalizeRead()");
+                Traces.LogAddDebug(TraceCat.SmartCommand, "MDICommand", "Erreur lors du FinalizeRead()");
                 MessageBox.Show(Program.LangSys.C("Can't initialize run mode datas. Please contact support"), Program.LangSys.C("Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 CloseDoc();
                 return false;
@@ -825,6 +832,26 @@ namespace SmartApp
         {
             PluginsVersionsForm plVer = new PluginsVersionsForm();
             plVer.ShowDialog();
+        }
+
+        private void m_tsMenuLogConfig_Click(object sender, EventArgs e)
+        {
+            LogCatForm LogForm = new LogCatForm();
+            LogForm.Level = (TracesLevel)SmartApp.Properties.Settings.Default.LogLevel;
+            LogForm.ActiveCats = (TraceCat)Convert.ToInt32(SmartApp.Properties.Settings.Default.LogCat, 16);
+            LogForm.LogToFile = SmartApp.Properties.Settings.Default.LogToFile;
+            if (LogForm.ShowDialog() == DialogResult.OK)
+            {
+                SmartApp.Properties.Settings.Default.LogLevel = (int)LogForm.Level;
+                SmartApp.Properties.Settings.Default.LogCat = Convert.ToString((int)LogForm.ActiveCats, 16);
+                SmartApp.Properties.Settings.Default.LogToFile = LogForm.LogToFile;
+                SmartApp.Properties.Settings.Default.Save();
+            }
+        }
+
+        private void m_tsMenuOpenDebugConsole_Click(object sender, EventArgs e)
+        {
+            m_TraceConsole.Show();
         }
     }
 }

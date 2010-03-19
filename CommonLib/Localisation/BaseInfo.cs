@@ -54,6 +54,7 @@ namespace CommonLib
                     && !(ctrl[index] is NumericUpDown)
                     && !(ctrl[index] is ComboBox)
                     && !(ctrl[index] is ListView)
+                    && !(ctrl[index] is DataGridView)
                     && (ctrl[index].Text != "" || (ctrl[index] is ILangReloadable))
                     )
 #else
@@ -83,6 +84,10 @@ namespace CommonLib
                     Update_Controls((((ToolStrip)ctrl[index]).Items));
                 }
 #endif
+                else if (ctrl[index] is DataGridView)
+                {
+                    Update_Controls(ctrl[index] as DataGridView);
+                }
                 else
                 {
                     Update_Controls(ctrl[index].Controls);
@@ -172,6 +177,26 @@ namespace CommonLib
                     {
                         int ListIdx = Controls.IndexOf(Collection[index]);
                         Collection[index].Text = m_LangSys.C(FilePath, ControlsText[ListIdx]);
+                    }
+                }
+            }
+        }
+        protected void Update_Controls(DataGridView gridView)
+        {
+            for (int index = 0; index < gridView.ColumnCount; index++)
+            {
+                if (gridView.Columns[index].HeaderText != "")
+                {
+                    if (!Controls.Contains(gridView.Columns[index]))
+                    {
+                        Controls.Add(gridView.Columns[index]);
+                        ControlsText.Add(gridView.Columns[index].HeaderText);
+                        gridView.Columns[index].HeaderText = m_LangSys.C(FilePath, gridView.Columns[index].HeaderText);
+                    }
+                    else
+                    {
+                        int ListIdx = Controls.IndexOf(gridView.Columns[index]);
+                        gridView.Columns[index].HeaderText = m_LangSys.C(FilePath, ControlsText[ListIdx]);
                     }
                 }
             }

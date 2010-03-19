@@ -34,7 +34,10 @@ namespace SmartApp
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.fileMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.m_tsMenuLogConfig = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.m_MruFiles = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.toolBarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -54,8 +57,7 @@ namespace SmartApp
             this.m_tsBtnFullScreen = new System.Windows.Forms.ToolStripButton();
             this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.m_StatusBar = new System.Windows.Forms.StatusStrip();
-            this.m_MruFiles = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.m_tsMenuOpenDebugConsole = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.SuspendLayout();
@@ -77,6 +79,8 @@ namespace SmartApp
             // 
             this.fileMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openToolStripMenuItem,
+            this.m_tsMenuLogConfig,
+            this.m_tsMenuOpenDebugConsole,
             this.toolStripSeparator3,
             this.m_MruFiles,
             this.toolStripSeparator1,
@@ -92,19 +96,39 @@ namespace SmartApp
             this.openToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.openToolStripMenuItem.Text = "&Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.OpenFile);
+            // 
+            // m_tsMenuLogConfig
+            // 
+            this.m_tsMenuLogConfig.Name = "m_tsMenuLogConfig";
+            this.m_tsMenuLogConfig.Size = new System.Drawing.Size(186, 22);
+            this.m_tsMenuLogConfig.Text = "Trace Config";
+            this.m_tsMenuLogConfig.Visible = false;
+            this.m_tsMenuLogConfig.Click += new System.EventHandler(this.m_tsMenuLogConfig_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(183, 6);
+            // 
+            // m_MruFiles
+            // 
+            this.m_MruFiles.Enabled = false;
+            this.m_MruFiles.Name = "m_MruFiles";
+            this.m_MruFiles.Size = new System.Drawing.Size(186, 22);
+            this.m_MruFiles.Text = "Recent Files";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(183, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolsStripMenuItem_Click);
             // 
@@ -257,17 +281,13 @@ namespace SmartApp
             this.m_StatusBar.TabIndex = 3;
             this.m_StatusBar.Text = "statusStrip1";
             // 
-            // m_MruFiles
+            // m_tsMenuOpenDebugConsole
             // 
-            this.m_MruFiles.Enabled = false;
-            this.m_MruFiles.Name = "m_MruFiles";
-            this.m_MruFiles.Size = new System.Drawing.Size(152, 22);
-            this.m_MruFiles.Text = "Recent Files";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.m_tsMenuOpenDebugConsole.Name = "m_tsMenuOpenDebugConsole";
+            this.m_tsMenuOpenDebugConsole.Size = new System.Drawing.Size(186, 22);
+            this.m_tsMenuOpenDebugConsole.Text = "Open Debug Console";
+            this.m_tsMenuOpenDebugConsole.Visible = false;
+            this.m_tsMenuOpenDebugConsole.Click += new System.EventHandler(this.m_tsMenuOpenDebugConsole_Click);
             // 
             // MDISmartCommandMain
             // 
@@ -281,10 +301,10 @@ namespace SmartApp
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip;
             this.Name = "MDISmartCommandMain";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MDISmartCommandMain_FormClosed);
-            this.Shown += new System.EventHandler(this.MDISmartCommandMain_Shown);
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnFormClosing);
             this.Load += new System.EventHandler(this.MDISmartCommandMain_Load);
+            this.Shown += new System.EventHandler(this.MDISmartCommandMain_Shown);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MDISmartCommandMain_FormClosed);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnFormClosing);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.toolStrip.ResumeLayout(false);
@@ -321,6 +341,8 @@ namespace SmartApp
         private System.Windows.Forms.ToolStripMenuItem pluginsVersionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem m_MruFiles;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem m_tsMenuLogConfig;
+        private System.Windows.Forms.ToolStripMenuItem m_tsMenuOpenDebugConsole;
     }
 }
 

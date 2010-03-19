@@ -48,6 +48,7 @@ namespace SmartApp.Ihm
             // 
             // m_textSymbol
             // 
+            this.m_textSymbol.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.m_textSymbol.Location = new System.Drawing.Point(6, 94);
             this.m_textSymbol.Name = "m_textSymbol";
             this.m_textSymbol.Size = new System.Drawing.Size(180, 20);
@@ -96,7 +97,7 @@ namespace SmartApp.Ihm
             this.m_BtnEditScript.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.m_BtnEditScript.Location = new System.Drawing.Point(12, 323);
             this.m_BtnEditScript.Name = "m_BtnEditScript";
-            this.m_BtnEditScript.Size = new System.Drawing.Size(75, 23);
+            this.m_BtnEditScript.Size = new System.Drawing.Size(126, 23);
             this.m_BtnEditScript.TabIndex = 16;
             this.m_BtnEditScript.Text = "Edit Script";
             this.m_BtnEditScript.UseVisualStyleBackColor = true;

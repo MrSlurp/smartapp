@@ -32,7 +32,7 @@ namespace SmartApp
             this.ColStep = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColFileName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColFilePath = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColButtonEdit = new System.Windows.Forms.DataGridViewButtonColumn(); 
+            this.ColButtonEdit = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.m_dataGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -56,8 +56,8 @@ namespace SmartApp
             this.m_dataGrid.Size = new System.Drawing.Size(609, 290);
             this.m_dataGrid.TabIndex = 1;
             this.m_dataGrid.DoubleClick += new System.EventHandler(this.m_dataGrid_DoubleClick);
-            this.m_dataGrid.SelectionChanged += new System.EventHandler(this.m_dataGrid_SelectionChanged);
             this.m_dataGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.m_dataGrid_CellMouseClick);
+            this.m_dataGrid.SelectionChanged += new System.EventHandler(this.m_dataGrid_SelectionChanged);
             // 
             // ColStep
             // 
@@ -74,6 +74,7 @@ namespace SmartApp
             this.ColFileName.MinimumWidth = 20;
             this.ColFileName.Name = "ColFileName";
             this.ColFileName.ReadOnly = true;
+            this.ColFileName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.ColFileName.Width = 150;
             // 
             // ColFilePath
@@ -82,16 +83,18 @@ namespace SmartApp
             this.ColFilePath.MinimumWidth = 50;
             this.ColFilePath.Name = "ColFilePath";
             this.ColFilePath.ReadOnly = true;
+            this.ColFilePath.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.ColFilePath.Width = 300;
-            
             // 
             // ColButtonEdit
             // 
             this.ColButtonEdit.HeaderText = "View/Edit";
             this.ColButtonEdit.MinimumWidth = 50;
             this.ColButtonEdit.Name = "ColButtonEdit";
-            this.ColButtonEdit.Width = 100;
+            this.ColButtonEdit.ReadOnly = true;
+            this.ColButtonEdit.Text = "View/Edit";
             this.ColButtonEdit.UseColumnTextForButtonValue = true;
+            this.ColButtonEdit.Visible = false;
             // 
             // ScenarioPanel
             // 

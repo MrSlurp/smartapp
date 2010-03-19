@@ -374,7 +374,7 @@ namespace CommonLib
                     System.Diagnostics.Debug.Assert(false);
                     break;
                 default:
-                    Console.WriteLine("Type de control indéfini");
+                    Traces.LogAddDebug(TraceCat.Serialization, "ControlWrite", "Type de control indéfini");
                     break;
             }
             NodeControl.Attributes.Append(AttrType);
@@ -478,7 +478,6 @@ namespace CommonLib
                 if (m_AssociateData == null)
                 {
                     // pas d'assert ici, car par exemple un bouton ou un static peuvent ne pas avoir de donnée
-                    //Console.WriteLine("Donnée Associée non trouvée");
                     return true;
                 }
                 else

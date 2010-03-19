@@ -47,7 +47,7 @@ namespace SmartApp.Ihm
             this.m_BtnEditScript.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.m_BtnEditScript.Location = new System.Drawing.Point(3, 305);
             this.m_BtnEditScript.Name = "m_BtnEditScript";
-            this.m_BtnEditScript.Size = new System.Drawing.Size(75, 24);
+            this.m_BtnEditScript.Size = new System.Drawing.Size(139, 24);
             this.m_BtnEditScript.TabIndex = 23;
             this.m_BtnEditScript.Text = "Edit Script";
             this.m_BtnEditScript.UseVisualStyleBackColor = true;

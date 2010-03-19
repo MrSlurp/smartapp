@@ -24,6 +24,7 @@ namespace SmartApp.Ihm
         protected delegate void UpdateTitleDg(string str);
 
         #region données membres
+        protected TraceConsole m_TraceConsole = new TraceConsole();
         protected DataForm m_DataForm;
         protected DesignerForm m_DesignForm;
         protected FrameForm m_FrameForm;
@@ -42,7 +43,6 @@ namespace SmartApp.Ihm
         //*****************************************************************************************************
         public MDISmartConfigMain()
         {
-            DoFileFormatRegistration();
             Program.LangSys.Initialize(this);
             InitializeComponent();
             CommonConstructorInit();
@@ -53,7 +53,6 @@ namespace SmartApp.Ihm
         //*****************************************************************************************************
         public MDISmartConfigMain(string FileName)
         {
-            DoFileFormatRegistration();
             Program.LangSys.Initialize(this);
             InitializeComponent();
             CommonConstructorInit();
@@ -77,7 +76,10 @@ namespace SmartApp.Ihm
             m_ProgForm.MdiParent = this;
             m_mruStripMenu = new MruStripMenuInline(this.m_fileMenu, this.m_MruFiles, new MruStripMenu.ClickedHandler(OnMruFile), strIniFilePath);
             if (LaunchArgParser.DevMode)
+            {
                 m_tsMenuLogConfig.Visible = true;
+                m_tsMenuOpenDebugConsole.Visible = true;
+            }
 
             UpdateFileCommand(null, null);
         }
@@ -661,53 +663,6 @@ namespace SmartApp.Ihm
         }
         #endregion
 
-        #region Base de Registre
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
-        private void DoFileFormatRegistration()
-        {
-            try
-            {
-                RegistryKey Extkey = Registry.ClassesRoot.OpenSubKey(".saf");
-                if (Extkey == null)
-                {
-                    Extkey = Registry.ClassesRoot.CreateSubKey(".saf");
-                }
-                RegistryKey ShellKey = Extkey.OpenSubKey("shell");
-                if (ShellKey == null)
-                {
-                    ShellKey = Extkey.CreateSubKey("shell");
-                }
-                RegistryKey AppKey = ShellKey.OpenSubKey("SmartApp");
-                if (AppKey == null)
-                {
-                    AppKey = ShellKey.CreateSubKey("SmartApp");
-                }
-                RegistryKey CmdKey = AppKey.OpenSubKey("command");
-                string existingCommandValue = "";
-                if (CmdKey == null)
-                {
-                    CmdKey = AppKey.CreateSubKey("command");
-                }
-                else
-                {
-                    existingCommandValue = (string)CmdKey.GetValue("", "");
-                }
-                string value = Application.StartupPath + @"\SmartApp.exe" + " -Cfg \"%1\"";
-                if (existingCommandValue != value)
-                    CmdKey.DeleteValue("");
-
-                CmdKey.SetValue("", value);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-        }
-        #endregion
-
         #region menu ?
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -839,12 +794,19 @@ namespace SmartApp.Ihm
             LogCatForm LogForm = new LogCatForm();
             LogForm.Level = (TracesLevel)SmartApp.Properties.Settings.Default.LogLevel;
             LogForm.ActiveCats = (TraceCat)Convert.ToInt32(SmartApp.Properties.Settings.Default.LogCat, 16);
+            LogForm.LogToFile = SmartApp.Properties.Settings.Default.LogToFile;
             if (LogForm.ShowDialog() == DialogResult.OK)
             {
                 SmartApp.Properties.Settings.Default.LogLevel = (int)LogForm.Level;
                 SmartApp.Properties.Settings.Default.LogCat = Convert.ToString((int)LogForm.ActiveCats, 16);
+                SmartApp.Properties.Settings.Default.LogToFile = LogForm.LogToFile;
                 SmartApp.Properties.Settings.Default.Save();
             }
+        }
+
+        private void m_tsMenuOpenDebugConsole_Click(object sender, EventArgs e)
+        {
+            m_TraceConsole.Show();
         }
     }
 }

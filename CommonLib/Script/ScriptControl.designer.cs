@@ -61,7 +61,7 @@ namespace CommonLib
             this.m_BtnEditScript.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.m_BtnEditScript.Location = new System.Drawing.Point(3, 126);
             this.m_BtnEditScript.Name = "m_BtnEditScript";
-            this.m_BtnEditScript.Size = new System.Drawing.Size(75, 23);
+            this.m_BtnEditScript.Size = new System.Drawing.Size(137, 23);
             this.m_BtnEditScript.TabIndex = 17;
             this.m_BtnEditScript.Text = "Edit Script";
             this.m_BtnEditScript.UseVisualStyleBackColor = true;
