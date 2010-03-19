@@ -22,7 +22,7 @@ namespace SmartApp
 #endif
 
         #region données membres
-        protected TraceConsole m_TraceConsole = new TraceConsole();
+        protected TraceConsole m_TraceConsole;
         // fenêtre des variables (Watch)
         private VariableForm m_VariableForm;
         // fenêtre des données virtuelles (affichée que si on utilise une connexion virtuell
@@ -846,11 +846,22 @@ namespace SmartApp
                 SmartApp.Properties.Settings.Default.LogCat = Convert.ToString((int)LogForm.ActiveCats, 16);
                 SmartApp.Properties.Settings.Default.LogToFile = LogForm.LogToFile;
                 SmartApp.Properties.Settings.Default.Save();
+                Traces.Cats = LogForm.ActiveCats;
+                Traces.Level = LogForm.Level;
+                Traces.LogToFile = LogForm.LogToFile;
             }
         }
 
         private void m_tsMenuOpenDebugConsole_Click(object sender, EventArgs e)
         {
+            if (m_TraceConsole == null)
+                m_TraceConsole = new TraceConsole();
+            else
+            {
+                m_TraceConsole.Dispose();
+                m_TraceConsole = new TraceConsole();
+            }
+
             m_TraceConsole.Show();
         }
     }

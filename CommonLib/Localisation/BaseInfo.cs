@@ -46,6 +46,8 @@ namespace CommonLib
             // il faut rechercher les controls à la mano
             for (int index = 0; index < ctrl.Count; index++)
             {
+                if (ctrl[index] is DynamicPanel)
+                    continue;
 #if !PocketPC
                 if (
                        !(ctrl[index] is RichTextBox)

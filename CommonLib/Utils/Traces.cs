@@ -116,6 +116,41 @@ namespace CommonLib
 		{
 		}
 
+        public static TraceCat Cats
+        {
+            get
+            {
+                return mTraceCat;
+            }
+            set
+            {
+                mTraceCat = value;
+            }
+        }
+
+        public static TracesLevel Level
+        {
+            get
+            {
+                return mTracesLevel;
+            }
+            set
+            {
+                mTracesLevel = value;
+            }
+        }
+
+        public static bool LogToFile
+        {
+            get
+            {
+                return m_bTraceToFile;
+            }
+            set
+            {
+                m_bTraceToFile = value;
+            }
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -208,7 +243,8 @@ namespace CommonLib
 			{
 				if(! Directory.Exists(PathTranslator.LinuxVsWindowsPathUse(sLogDirectory + @"\" + sRepDuJour)))
 				{
-					Directory.CreateDirectory(PathTranslator.LinuxVsWindowsPathUse(sLogDirectory + @"\" + sRepDuJour));
+                    if (m_bTraceToFile)
+					    Directory.CreateDirectory(PathTranslator.LinuxVsWindowsPathUse(sLogDirectory + @"\" + sRepDuJour));
 					
 					// Si le répertoire a été créé, on 
 					LogPurge(NBR_JOURS) ;
@@ -427,7 +463,7 @@ namespace CommonLib
 					bRetour = false ;
 				}
 			}
-			LogAddInfo(TraceCat.Others, "Nombre de repertoire(s) supprime(s) : " + iNbrRepsSupprimes.ToString());
+			//LogAddInfo(TraceCat.Others, "Nombre de repertoire(s) supprime(s) : " + iNbrRepsSupprimes.ToString());
 			return bRetour ;
 		}
 	}

@@ -1,0 +1,102 @@
+<Root>
+  <FileHeader>
+    <FileVersion Indice="3" />
+    <SoftVersion Indice="2.5.1.0" />
+  </FileHeader>
+  <DataSection>
+    <Data strSymbol="TRANSACTION_ID" strNom="" Min="-32768" Max="32767" DefVal="1" size="16" Constant="True" />
+    <Data strSymbol="PROTOCO_ID" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="True" />
+    <Data strSymbol="FOLLOWING_6_BYTES" strNom="" Min="-32768" Max="32767" DefVal="6" size="16" Constant="True" />
+    <Data strSymbol="MODBUS_SLAVE_ADDR" strNom="" Min="0" Max="255" DefVal="1" size="8" Constant="True" />
+    <Data strSymbol="MODBUS_READ_REG" strNom="" Min="0" Max="255" DefVal="3" size="8" Constant="True" />
+    <Data strSymbol="TCPMB_REG_ADDR_20" strNom="" Min="-32768" Max="32767" DefVal="20" size="16" Constant="True" />
+    <Data strSymbol="BYTE_READ_8_REG" strNom="" Min="-32768" Max="32767" DefVal="8" size="16" Constant="True" />
+    <Data strSymbol="FOLLOWING_19_BYTES" strNom="" Min="-32768" Max="32767" DefVal="19" size="16" Constant="True" />
+    <Data strSymbol="READ_RECIEVE_16_BYTES" strNom="" Min="0" Max="255" DefVal="16" size="8" Constant="True" />
+    <Data strSymbol="TCPMB_OUT_REG_20" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="TCPMB_OUT_REG_21" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="TCPMB_OUT_REG_22" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="TCPMB_OUT_REG_23" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="TCPMB_OUT_REG_24" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="TCPMB_OUT_REG_25" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="TCPMB_OUT_REG_26" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="TCPMB_OUT_REG_27" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <GroupSection>
+      <Group strNom="Groupe par défaut" strSymbol="GROUP_0" bkColor="255, 255, 255">
+        <Object strSymbol="TCPMB_OUT_REG_20" />
+        <Object strSymbol="TCPMB_OUT_REG_21" />
+        <Object strSymbol="TCPMB_OUT_REG_22" />
+        <Object strSymbol="TCPMB_OUT_REG_23" />
+        <Object strSymbol="TCPMB_OUT_REG_24" />
+        <Object strSymbol="TCPMB_OUT_REG_25" />
+        <Object strSymbol="TCPMB_OUT_REG_26" />
+        <Object strSymbol="TCPMB_OUT_REG_27" />
+      </Group>
+      <Group strNom="constantes" strSymbol="GROUP_1" bkColor="255, 255, 255">
+        <Object strSymbol="TRANSACTION_ID" />
+        <Object strSymbol="PROTOCO_ID" />
+        <Object strSymbol="FOLLOWING_6_BYTES" />
+        <Object strSymbol="MODBUS_SLAVE_ADDR" />
+        <Object strSymbol="MODBUS_READ_REG" />
+        <Object strSymbol="TCPMB_REG_ADDR_20" />
+        <Object strSymbol="BYTE_READ_8_REG" />
+        <Object strSymbol="FOLLOWING_19_BYTES" />
+        <Object strSymbol="READ_RECIEVE_16_BYTES" />
+      </Group>
+    </GroupSection>
+  </DataSection>
+  <ScreenSection>
+    <Screen strSymbol="NEW_SCREEN_0" strNom="" Text="">
+      <ControlList />
+      <InitScript />
+      <EventScript />
+      <ImagePath>
+      </ImagePath>
+    </Screen>
+  </ScreenSection>
+  <TrameSection>
+    <Trame strSymbol="M3_READ_8_OUT_REG" strNom="Auto generated TCP Modbus frame">
+      <DataList>
+        <Data strSymbol="TRANSACTION_ID" />
+        <Data strSymbol="PROTOCO_ID" />
+        <Data strSymbol="FOLLOWING_6_BYTES" />
+        <Data strSymbol="MODBUS_SLAVE_ADDR" />
+        <Data strSymbol="MODBUS_READ_REG" />
+        <Data strSymbol="TCPMB_REG_ADDR_20" />
+        <Data strSymbol="BYTE_READ_8_REG" />
+      </DataList>
+      <ControlData Type="NONE" From="0" To="0" />
+      <DataConvert Type="NONE" From="0" To="0" />
+    </Trame>
+    <Trame strSymbol="M3_READ_8_OUT_REG_RET" strNom="Auto generated TCP Modbus frame">
+      <DataList>
+        <Data strSymbol="TRANSACTION_ID" />
+        <Data strSymbol="PROTOCO_ID" />
+        <Data strSymbol="FOLLOWING_19_BYTES" />
+        <Data strSymbol="MODBUS_SLAVE_ADDR" />
+        <Data strSymbol="MODBUS_READ_REG" />
+        <Data strSymbol="READ_RECIEVE_16_BYTES" />
+        <Data strSymbol="TCPMB_OUT_REG_20" />
+        <Data strSymbol="TCPMB_OUT_REG_21" />
+        <Data strSymbol="TCPMB_OUT_REG_22" />
+        <Data strSymbol="TCPMB_OUT_REG_23" />
+        <Data strSymbol="TCPMB_OUT_REG_24" />
+        <Data strSymbol="TCPMB_OUT_REG_25" />
+        <Data strSymbol="TCPMB_OUT_REG_26" />
+        <Data strSymbol="TCPMB_OUT_REG_27" />
+      </DataList>
+      <ControlData Type="NONE" From="0" To="0" />
+      <DataConvert Type="NONE" From="0" To="0" />
+    </Trame>
+  </TrameSection>
+  <Program>
+    <FunctionSection />
+    <TimerSection>
+      <Timer strSymbol="TIMER_READ" strNom="" Period="500" AutoStart="True">
+        <Line>FRAMES.M3_READ_8_OUT_REG.SEND()</Line>
+        <Line>FRAMES.M3_READ_8_OUT_REG_RET.RECEIVE()</Line>
+      </Timer>
+    </TimerSection>
+    <LoggerSection />
+  </Program>
+</Root>

@@ -24,7 +24,7 @@ namespace SmartApp.Ihm
         protected delegate void UpdateTitleDg(string str);
 
         #region données membres
-        protected TraceConsole m_TraceConsole = new TraceConsole();
+        protected TraceConsole m_TraceConsole;
         protected DataForm m_DataForm;
         protected DesignerForm m_DesignForm;
         protected FrameForm m_FrameForm;
@@ -500,6 +500,7 @@ namespace SmartApp.Ihm
             m_MenuItemZ2SLWiz.Enabled = false;
             m_MenuItemTCPMBWiz.Enabled = false;
             m_Document = null;
+            SaveFormsPos();
             UpdateFileCommand(null, null);
             return true;
         }
@@ -651,6 +652,14 @@ namespace SmartApp.Ihm
                     return;
                 }
             }
+            SaveFormsPos();
+            m_mruStripMenu.SaveToFile();
+
+        }
+        #endregion
+
+        private void SaveFormsPos()
+        {
             for (int i = 0; i < this.MdiChildren.Length; i++)
             {
                 m_FrmOpt.SetFormPos(MdiChildren[i]);
@@ -658,10 +667,7 @@ namespace SmartApp.Ihm
                 m_FrmOpt.SetFormState(MdiChildren[i]);
             }
             m_FrmOpt.Save();
-            m_mruStripMenu.SaveToFile();
-
         }
-        #endregion
 
         #region menu ?
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -692,6 +698,8 @@ namespace SmartApp.Ihm
 			            Application.DoEvents();
                         System.Diagnostics.Process proc = new System.Diagnostics.Process();
                         string Arguments = "-Cmd \"" + m_Document.FileName + "\"";
+                        if (LaunchArgParser.DevMode)
+                            Arguments += " -dev";
                         proc.StartInfo = new System.Diagnostics.ProcessStartInfo(Application.ExecutablePath, Arguments);
                         proc.StartInfo.UseShellExecute = true;
 
@@ -801,11 +809,21 @@ namespace SmartApp.Ihm
                 SmartApp.Properties.Settings.Default.LogCat = Convert.ToString((int)LogForm.ActiveCats, 16);
                 SmartApp.Properties.Settings.Default.LogToFile = LogForm.LogToFile;
                 SmartApp.Properties.Settings.Default.Save();
+                Traces.Cats = LogForm.ActiveCats;
+                Traces.Level = LogForm.Level;
+                Traces.LogToFile = LogForm.LogToFile;
             }
         }
 
         private void m_tsMenuOpenDebugConsole_Click(object sender, EventArgs e)
         {
+            if (m_TraceConsole == null)
+                m_TraceConsole = new TraceConsole();
+            else
+            {
+                m_TraceConsole.Dispose();
+                m_TraceConsole = new TraceConsole();
+            }
             m_TraceConsole.Show();
         }
     }
