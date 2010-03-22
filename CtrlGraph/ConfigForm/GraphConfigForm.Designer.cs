@@ -45,9 +45,8 @@ namespace CtrlGraph
             // 
             // label1
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 328);
+            this.label1.Location = new System.Drawing.Point(10, 123);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(65, 13);
             this.label1.TabIndex = 3;
@@ -55,10 +54,9 @@ namespace CtrlGraph
             // 
             // cboDispPeriod
             // 
-            this.cboDispPeriod.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cboDispPeriod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboDispPeriod.FormattingEnabled = true;
-            this.cboDispPeriod.Location = new System.Drawing.Point(12, 345);
+            this.cboDispPeriod.Location = new System.Drawing.Point(10, 140);
             this.cboDispPeriod.Name = "cboDispPeriod";
             this.cboDispPeriod.Size = new System.Drawing.Size(121, 21);
             this.cboDispPeriod.TabIndex = 16;
@@ -66,9 +64,8 @@ namespace CtrlGraph
             // 
             // label2
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(205, 328);
+            this.label2.Location = new System.Drawing.Point(208, 123);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(58, 13);
             this.label2.TabIndex = 5;
@@ -76,10 +73,9 @@ namespace CtrlGraph
             // 
             // cboLogPeriod
             // 
-            this.cboLogPeriod.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cboLogPeriod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboLogPeriod.FormattingEnabled = true;
-            this.cboLogPeriod.Location = new System.Drawing.Point(205, 345);
+            this.cboLogPeriod.Location = new System.Drawing.Point(206, 140);
             this.cboLogPeriod.Name = "cboLogPeriod";
             this.cboLogPeriod.Size = new System.Drawing.Size(121, 21);
             this.cboLogPeriod.TabIndex = 17;
@@ -88,7 +84,7 @@ namespace CtrlGraph
             // 
             this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(306, 377);
+            this.btnOK.Location = new System.Drawing.Point(344, 431);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 18;
@@ -99,7 +95,7 @@ namespace CtrlGraph
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(387, 377);
+            this.btnCancel.Location = new System.Drawing.Point(425, 431);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 19;
@@ -162,9 +158,9 @@ namespace CtrlGraph
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.uscPanelCurveCfg.AutoScroll = true;
             this.uscPanelCurveCfg.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.uscPanelCurveCfg.Location = new System.Drawing.Point(8, 120);
+            this.uscPanelCurveCfg.Location = new System.Drawing.Point(8, 167);
             this.uscPanelCurveCfg.Name = "uscPanelCurveCfg";
-            this.uscPanelCurveCfg.Size = new System.Drawing.Size(500, 200);
+            this.uscPanelCurveCfg.Size = new System.Drawing.Size(500, 258);
             this.uscPanelCurveCfg.TabIndex = 0;
             // 
             // GraphConfigForm
@@ -173,7 +169,7 @@ namespace CtrlGraph
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(492, 412);
+            this.ClientSize = new System.Drawing.Size(512, 466);
             this.ControlBox = false;
             this.Controls.Add(this.uscPanelCurveCfg);
             this.Controls.Add(this.edtYAxis);
@@ -191,8 +187,8 @@ namespace CtrlGraph
             this.MaximumSize = new System.Drawing.Size(520, 1000);
             this.MinimumSize = new System.Drawing.Size(520, 420);
             this.Name = "GraphConfigForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Graphic parameters";
             this.ResumeLayout(false);
             this.PerformLayout();

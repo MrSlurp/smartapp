@@ -443,7 +443,7 @@ namespace CommonLib
 
             if (Decoders.ContainsKey(FileName) == false)
             {
-                Traces.LogAddDebug(TraceCat.Lang, string.Format("(module = {1}) Ajout du fichier {0}", FileName, m_CurrentAssembly));
+                //Traces.LogAddDebug(TraceCat.Lang, string.Format("(module = {1}) Ajout du fichier {0}", FileName, m_CurrentAssembly));
                 Decoders.Add(FileName, new Dictionary<string, string>());
             }
 
