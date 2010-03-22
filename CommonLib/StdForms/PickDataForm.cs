@@ -84,7 +84,7 @@ namespace CommonLib
             // on ajoute un élément vide
             if (m_HaveEmptyItem)
             {
-                ListViewItem lviData = new ListViewItem("No Data");
+                ListViewItem lviData = new ListViewItem(Lang.LangSys.C("No Data"));
                 lviData.SubItems.Add("NA");
                 m_listViewData.Items.Add(lviData);
             }

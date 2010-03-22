@@ -135,7 +135,7 @@ namespace CtrlGraph
                         continue;
 
                     string strMessage;
-                    strMessage = string.Format(DllEntryClass.LangSys.C("Data to log not found (Graphic {0}, Data {1}"), m_strSymbol, strData);
+                    strMessage = string.Format(DllEntryClass.LangSys.C("Data to log not found (Graphic {0}, Data {1})"), m_strSymbol, strData);
                     LogEvent log = new LogEvent(LOG_EVENT_TYPE.INFO, strMessage);
                     AddLogEvent(log);
                     continue;
@@ -262,13 +262,18 @@ namespace CtrlGraph
         /// <param name="objState"></param>
         void ZedGraphCtrl_ContextMenuBuilder(ZedGraphControl sender, ContextMenuStrip menuStrip, Point mousePt, ZedGraphControl.ContextMenuObjectState objState)
         {
+            // traduction hors zed graph
+            for (int i = 0; i< menuStrip.Items.Count; i++)
+            {
+                menuStrip.Items[i].Text = DllEntryClass.LangSys.C(menuStrip.Items[i].Text);                 
+            }
             // create a new menu item
             ToolStripMenuItem itemDropDispPer = new ToolStripMenuItem();
             // This is the user-defined Tag so you can find this menu item later if necessary
             itemDropDispPer.Name = "Disp_Period";
             itemDropDispPer.Tag = "Disp_Period";
             // This is the text that will show up in the menu
-            itemDropDispPer.Text = "Displayed Period";
+            itemDropDispPer.Text = DllEntryClass.LangSys.C("Displayed Period");
             // Add a handler that will respond when that menu item is selected
             // Add the menu item to the menu
             menuStrip.Items.Add(itemDropDispPer);
@@ -280,7 +285,7 @@ namespace CtrlGraph
             {
                 ToolStripMenuItem Disp10Min = new ToolStripMenuItem();
                 Disp10Min.Name = "10Min";
-                Disp10Min.Text = "10 Minutes";
+                Disp10Min.Text = DllEntryClass.LangSys.C("10 Minutes");
                 Disp10Min.Tag = SAVE_PERIOD.SAVE_10_min;
                 Disp10Min.Click += new EventHandler(DispPerdiodIem_Click);
                 itemDropDispPer.DropDownItems.Add(Disp10Min);
@@ -289,7 +294,7 @@ namespace CtrlGraph
             {
                 ToolStripMenuItem Disp1Hour = new ToolStripMenuItem();
                 Disp1Hour.Name = "1Hour";
-                Disp1Hour.Text = "1 Hour";
+                Disp1Hour.Text = DllEntryClass.LangSys.C("1 Hour");
                 Disp1Hour.Tag = SAVE_PERIOD.SAVE_1_h;
                 Disp1Hour.Click += new EventHandler(DispPerdiodIem_Click);
                 itemDropDispPer.DropDownItems.Add(Disp1Hour);
@@ -298,7 +303,7 @@ namespace CtrlGraph
             {
                 ToolStripMenuItem Disp2Hour = new ToolStripMenuItem();
                 Disp2Hour.Name = "2Hours";
-                Disp2Hour.Text = "2 Hours";
+                Disp2Hour.Text = DllEntryClass.LangSys.C("2 Hours");
                 Disp2Hour.Tag = SAVE_PERIOD.SAVE_2_h;
                 Disp2Hour.Click += new EventHandler(DispPerdiodIem_Click);
                 itemDropDispPer.DropDownItems.Add(Disp2Hour);
@@ -307,7 +312,7 @@ namespace CtrlGraph
             {
                 ToolStripMenuItem Disp6Hour = new ToolStripMenuItem();
                 Disp6Hour.Name = "6Hours";
-                Disp6Hour.Text = "6 Hours";
+                Disp6Hour.Text = DllEntryClass.LangSys.C("6 Hours");
                 Disp6Hour.Tag = SAVE_PERIOD.SAVE_6_h;
                 Disp6Hour.Click += new EventHandler(DispPerdiodIem_Click);
                 itemDropDispPer.DropDownItems.Add(Disp6Hour);
@@ -316,7 +321,7 @@ namespace CtrlGraph
             {
                 ToolStripMenuItem Disp12Hour = new ToolStripMenuItem();
                 Disp12Hour.Name = "12Hours";
-                Disp12Hour.Text = "12 Hours";
+                Disp12Hour.Text = DllEntryClass.LangSys.C("12 Hours");
                 Disp12Hour.Tag = SAVE_PERIOD.SAVE_12_h;
                 Disp12Hour.Click += new EventHandler(DispPerdiodIem_Click);
                 itemDropDispPer.DropDownItems.Add(Disp12Hour);
@@ -325,7 +330,7 @@ namespace CtrlGraph
             {
                 ToolStripMenuItem Disp1Day = new ToolStripMenuItem();
                 Disp1Day.Name = "1Day";
-                Disp1Day.Text = "1 Day";
+                Disp1Day.Text = DllEntryClass.LangSys.C("1 Day");
                 Disp1Day.Tag = SAVE_PERIOD.SAVE_1_j;
                 Disp1Day.Click += new EventHandler(DispPerdiodIem_Click);
                 itemDropDispPer.DropDownItems.Add(Disp1Day);
@@ -334,7 +339,7 @@ namespace CtrlGraph
             {
                 ToolStripMenuItem Disp2Day = new ToolStripMenuItem();
                 Disp2Day.Name = "2Days";
-                Disp2Day.Text = "2 Days";
+                Disp2Day.Text = DllEntryClass.LangSys.C("2 Days");
                 Disp2Day.Tag = SAVE_PERIOD.SAVE_2_j;
                 Disp2Day.Click += new EventHandler(DispPerdiodIem_Click);
                 itemDropDispPer.DropDownItems.Add(Disp2Day);
@@ -343,7 +348,7 @@ namespace CtrlGraph
             {
                 ToolStripMenuItem Disp4Day = new ToolStripMenuItem();
                 Disp4Day.Name = "4Days";
-                Disp4Day.Text = "4 Days";
+                Disp4Day.Text = DllEntryClass.LangSys.C("4 Days");
                 Disp4Day.Tag = SAVE_PERIOD.SAVE_4_j;
                 Disp4Day.Click += new EventHandler(DispPerdiodIem_Click);
                 itemDropDispPer.DropDownItems.Add(Disp4Day);
@@ -352,7 +357,7 @@ namespace CtrlGraph
             {
                 ToolStripMenuItem Disp1Week = new ToolStripMenuItem();
                 Disp1Week.Name = "1 Week";
-                Disp1Week.Text = "1 Week";
+                Disp1Week.Text = DllEntryClass.LangSys.C("1 Week");
                 Disp1Week.Tag = SAVE_PERIOD.SAVE_7_j;
                 Disp1Week.Click += new EventHandler(DispPerdiodIem_Click);
                 itemDropDispPer.DropDownItems.Add(Disp1Week);
@@ -363,7 +368,7 @@ namespace CtrlGraph
             itemHideCurves.Name = "Curves_Visib";
             itemHideCurves.Tag = "Curves_Visib";
             // This is the text that will show up in the menu
-            itemHideCurves.Text = "Curves Visibility";
+            itemHideCurves.Text = DllEntryClass.LangSys.C("Curves Visibility");
             // Add a handler that will respond when that menu item is selected
             // Add the menu item to the menu
             menuStrip.Items.Add(itemHideCurves);

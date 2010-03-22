@@ -987,22 +987,23 @@ namespace SmartApp.Ihm.Designer
                 m_bDrawGuides = false;
                 this.Refresh();
                 //getthe instance of the graphics from the control
-                Graphics g = this.CreateGraphics();
-
-                //new bitmap object to save the image
-                Bitmap bmp = new Bitmap(this.Width, this.Height);
-
-                //Drawing control to the bitmap
-                this.DrawToBitmap(bmp, new Rectangle(0, 0, this.Width, this.Height));
-
-                bmp.Save(dlg.FileName);
-                bmp.Dispose();
-                for (int i = 0; i < tmpHidedCtrlList.Count; i++)
+                using (Graphics g = this.CreateGraphics())
                 {
-                    tmpHidedCtrlList[i].Visible = true;
+                    //new bitmap object to save the image
+                    Bitmap bmp = new Bitmap(this.Width, this.Height);
+    
+                    //Drawing control to the bitmap
+                    this.DrawToBitmap(bmp, new Rectangle(0, 0, this.Width, this.Height));
+    
+                    bmp.Save(dlg.FileName);
+                    bmp.Dispose();
+                    for (int i = 0; i < tmpHidedCtrlList.Count; i++)
+                    {
+                        tmpHidedCtrlList[i].Visible = true;
+                    }
+                    m_bDrawGuides = true;
+                    this.Refresh();
                 }
-                m_bDrawGuides = true;
-                this.Refresh();
             }
 
         }

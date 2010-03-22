@@ -88,7 +88,7 @@ namespace CtrlGraph
             // 
             this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(286, 377);
+            this.btnOK.Location = new System.Drawing.Point(306, 377);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 18;
@@ -99,7 +99,7 @@ namespace CtrlGraph
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(367, 377);
+            this.btnCancel.Location = new System.Drawing.Point(387, 377);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 19;
@@ -164,7 +164,7 @@ namespace CtrlGraph
             this.uscPanelCurveCfg.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.uscPanelCurveCfg.Location = new System.Drawing.Point(8, 120);
             this.uscPanelCurveCfg.Name = "uscPanelCurveCfg";
-            this.uscPanelCurveCfg.Size = new System.Drawing.Size(447, 200);
+            this.uscPanelCurveCfg.Size = new System.Drawing.Size(500, 200);
             this.uscPanelCurveCfg.TabIndex = 0;
             // 
             // GraphConfigForm
@@ -173,7 +173,7 @@ namespace CtrlGraph
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(462, 412);
+            this.ClientSize = new System.Drawing.Size(492, 412);
             this.ControlBox = false;
             this.Controls.Add(this.uscPanelCurveCfg);
             this.Controls.Add(this.edtYAxis);
@@ -188,8 +188,8 @@ namespace CtrlGraph
             this.Controls.Add(this.label2);
             this.Controls.Add(this.cboDispPeriod);
             this.Controls.Add(this.label1);
-            this.MaximumSize = new System.Drawing.Size(470, 1000);
-            this.MinimumSize = new System.Drawing.Size(470, 420);
+            this.MaximumSize = new System.Drawing.Size(520, 1000);
+            this.MinimumSize = new System.Drawing.Size(520, 420);
             this.Name = "GraphConfigForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.ShowInTaskbar = false;

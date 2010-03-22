@@ -1,4 +1,4 @@
-﻿namespace CtrlGraph
+namespace CtrlGraph
 {
     partial class CurveParam
     {
@@ -40,9 +40,9 @@
             // 
             // bntPickColor1
             // 
-            this.bntPickColor1.Location = new System.Drawing.Point(374, 17);
+            this.bntPickColor1.Location = new System.Drawing.Point(401, 17);
             this.bntPickColor1.Name = "bntPickColor1";
-            this.bntPickColor1.Size = new System.Drawing.Size(38, 23);
+            this.bntPickColor1.Size = new System.Drawing.Size(75, 23);
             this.bntPickColor1.TabIndex = 27;
             this.bntPickColor1.Text = "Pick";
             this.bntPickColor1.UseVisualStyleBackColor = true;
@@ -52,7 +52,7 @@
             // 
             this.btnPickData1.Location = new System.Drawing.Point(152, 18);
             this.btnPickData1.Name = "btnPickData1";
-            this.btnPickData1.Size = new System.Drawing.Size(38, 23);
+            this.btnPickData1.Size = new System.Drawing.Size(75, 23);
             this.btnPickData1.TabIndex = 25;
             this.btnPickData1.Text = "Pick";
             this.btnPickData1.UseVisualStyleBackColor = true;
@@ -60,16 +60,16 @@
             // 
             // edtColor1
             // 
-            this.edtColor1.Location = new System.Drawing.Point(317, 20);
+            this.edtColor1.Location = new System.Drawing.Point(354, 20);
             this.edtColor1.Name = "edtColor1";
             this.edtColor1.ReadOnly = true;
-            this.edtColor1.Size = new System.Drawing.Size(51, 20);
+            this.edtColor1.Size = new System.Drawing.Size(40, 20);
             this.edtColor1.TabIndex = 24;
             this.edtColor1.TabStop = false;
             // 
             // edtAlias1
             // 
-            this.edtAlias1.Location = new System.Drawing.Point(196, 20);
+            this.edtAlias1.Location = new System.Drawing.Point(233, 20);
             this.edtAlias1.Name = "edtAlias1";
             this.edtAlias1.Size = new System.Drawing.Size(115, 20);
             this.edtAlias1.TabIndex = 26;
@@ -77,7 +77,7 @@
             // lblColor1
             // 
             this.lblColor1.AutoSize = true;
-            this.lblColor1.Location = new System.Drawing.Point(313, 4);
+            this.lblColor1.Location = new System.Drawing.Point(340, 4);
             this.lblColor1.Name = "lblColor1";
             this.lblColor1.Size = new System.Drawing.Size(62, 13);
             this.lblColor1.TabIndex = 22;
@@ -95,7 +95,7 @@
             // lblAlias1
             // 
             this.lblAlias1.AutoSize = true;
-            this.lblAlias1.Location = new System.Drawing.Point(196, 4);
+            this.lblAlias1.Location = new System.Drawing.Point(233, 4);
             this.lblAlias1.Name = "lblAlias1";
             this.lblAlias1.Size = new System.Drawing.Size(64, 13);
             this.lblAlias1.TabIndex = 21;
@@ -121,7 +121,7 @@
             this.Controls.Add(this.lblAlias1);
             this.Controls.Add(this.lblSymb1);
             this.Name = "CurveParam";
-            this.Size = new System.Drawing.Size(416, 43);
+            this.Size = new System.Drawing.Size(480, 43);
             this.ResumeLayout(false);
             this.PerformLayout();
 
