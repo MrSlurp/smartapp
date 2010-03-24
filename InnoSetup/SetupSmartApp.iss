@@ -90,6 +90,7 @@ Source: "ressources\FR.SmartApp.exe.config"; DestDir: "{app}"; DestName:"SmartAp
 ; fichier de fournitures
 Source: "fournitures\*.saf"; DestDir: "{app}\exemples"; Flags: recursesubdirs createallsubdirs
 Source: "fournitures\*.pm3"; DestDir: "{app}\exemples"; Flags: recursesubdirs createallsubdirs
+Source: "fournitures\*.bmp"; DestDir: "{app}\exemples"; Flags: onlyifdoesntexist uninsneveruninstall
 Source: "fournitures\*.ini"; DestDir: "{app}"; Flags: onlyifdoesntexist uninsneveruninstall
 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
@@ -167,4 +168,5 @@ begin
 	
 	Result := true;
 end;
+
 
