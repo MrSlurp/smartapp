@@ -38,7 +38,8 @@ namespace CtrlDemux
             // modifiez ici les valeur afin que le control ai la taille min souhaité et ses possibilité de redimensionnement
             m_SpecGraphicProp.m_bcanResizeWidth = false;
             m_SpecGraphicProp.m_bcanResizeHeight = false;
-            m_SpecGraphicProp.m_MinSize = new Size(5, 5);
+            m_SpecGraphicProp.m_MinSize = new Size(70, 30);
+            m_SpecGraphicProp.m_MaxSize = new Size(70, 30);
             this.ControlType = InteractiveControlType.DllControl;
 
         }

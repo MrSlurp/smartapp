@@ -1,4 +1,4 @@
-﻿namespace CommonLib
+namespace CommonLib
 {
     partial class TraceConsole
     {
@@ -49,6 +49,8 @@
             // 
             // btn_clear
             // 
+            this.btn_clear.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)));
             this.btn_clear.Location = new System.Drawing.Point(13, 396);
             this.btn_clear.Name = "btn_clear";
             this.btn_clear.Size = new System.Drawing.Size(75, 23);
