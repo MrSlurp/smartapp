@@ -32,6 +32,8 @@ namespace SmartApp.Ihm
         protected BTDoc m_Document = null;
         protected FormsOptions m_FrmOpt = new FormsOptions(); 
         protected string m_strDocumentName = "";
+        
+        private OpenFileDialog m_openFileDiag = new OpenFileDialog(); 
 
         protected MruStripMenuInline m_mruStripMenu;
         #endregion
@@ -80,6 +82,9 @@ namespace SmartApp.Ihm
                 m_tsMenuLogConfig.Visible = true;
                 m_tsMenuOpenDebugConsole.Visible = true;
             }
+            m_openFileDiag.Filter = Program.LangSys.C("SmartApp File (*.saf)|*.saf");
+            m_openFileDiag.InitialDirectory = Application.StartupPath;
+        
 
             UpdateFileCommand(null, null);
         }
@@ -256,13 +261,10 @@ namespace SmartApp.Ihm
                 }
                 this.CloseDoc();
             } 
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = Program.LangSys.C("SmartApp File (*.saf)|*.saf");
-            openFileDialog.InitialDirectory = Application.StartupPath;
-            DialogResult dlgRes = openFileDialog.ShowDialog();
+            DialogResult dlgRes = m_openFileDiag.ShowDialog();
             if (dlgRes == DialogResult.OK)
             {
-                string strFileFullName = openFileDialog.FileName;
+                string strFileFullName = m_openFileDiag.FileName;
                 if (!OpenDoc(strFileFullName))
                 {
                     MessageBox.Show(Program.LangSys.C("Error while reading file. File is corrupted"), Program.LangSys.C("Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);

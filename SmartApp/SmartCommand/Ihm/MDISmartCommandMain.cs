@@ -48,6 +48,8 @@ namespace SmartApp
         private FormWindowState m_PrevFullScreenState = FormWindowState.Normal;
 
         protected MruStripMenuInline m_mruStripMenu;
+        
+        protected OpenFileDialog m_openFileDiag = new OpenFileDialog(); 
 
         #endregion
 
@@ -113,6 +115,9 @@ namespace SmartApp
             UpdateToolBarCxnItemState();
             AsyncUpdater();
             InitCboComms();
+            m_openFileDiag.Filter = Program.LangSys.C("SmartApp File (*.saf)|*.saf");
+            m_openFileDiag.InitialDirectory = Application.StartupPath;
+            
         }
         #endregion
 
@@ -207,13 +212,11 @@ namespace SmartApp
         private void OpenFile(object sender, EventArgs e)
         {
             this.CloseDoc();
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = Program.LangSys.C("SmartApp File (*.saf)|*.saf");
-            openFileDialog.InitialDirectory = Application.StartupPath;
-            DialogResult dlgRes = openFileDialog.ShowDialog();
+            
+            DialogResult dlgRes = m_openFileDiag.ShowDialog();
             if (dlgRes == DialogResult.OK)
             {
-                string strFileFullName = openFileDialog.FileName;
+                string strFileFullName = m_openFileDiag.FileName;
                 if (!OpenDoc(strFileFullName))
                 {
                     MessageBox.Show(Program.LangSys.C("Error while reading file. File is corrupted"), Program.LangSys.C("Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);

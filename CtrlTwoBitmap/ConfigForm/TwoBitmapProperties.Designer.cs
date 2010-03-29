@@ -118,7 +118,6 @@ namespace CtrlTwoBitmap
         private System.Windows.Forms.Button m_btnImg1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox m_txtBoxImg1;
-        private System.Windows.Forms.OpenFileDialog m_openFileDialog;
         private System.Windows.Forms.Button m_btnImg2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox m_txtBoxImg2;
