@@ -68,7 +68,7 @@ namespace CommonLib
             m_DefVal = DefaultValue;
             m_Size = size;
             m_bConstant = bIsConstant;
-            switch ((DATA_SIZE)this.SizeInBits)
+            switch ((DATA_SIZE)this.SizeAndSign)
             {
                 case DATA_SIZE.DATA_SIZE_1B:
                     m_MaxVal = 1;

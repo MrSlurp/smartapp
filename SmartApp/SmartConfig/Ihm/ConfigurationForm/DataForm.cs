@@ -253,12 +253,7 @@ namespace SmartApp.Ihm
             string strSymbol = GestData.GetNextDefaultSymbol();
             if (string.IsNullOrEmpty(strSymbol))
                 return;
-            Data NewDat = new Data();
-            NewDat.Symbol = strSymbol;
-            NewDat.SizeAndSign = (int)DATA_SIZE.DATA_SIZE_1B;
-            NewDat.Maximum = 1;
-            NewDat.Minimum = 0;
-            NewDat.DefaultValue = 0;
+            Data NewDat = new Data(strSymbol, 0, DATA_SIZE.DATA_SIZE_16B, false);
             string strGroupName = (string)m_cboGroups.SelectedValue;
             GestData.AddObjAtGroup(NewDat, strGroupName);
             InitListViewFromGroup();

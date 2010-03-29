@@ -500,5 +500,19 @@ namespace SmartApp.Ihm
         {
             base.OnControlAdded(e);
         }
+
+        private void btn_pickdata_Click(object sender, EventArgs e)
+        {
+            PickDataForm PickData = new PickDataForm();
+            PickData.Document = this.Doc;
+            if (PickData.ShowDialog() == DialogResult.OK)
+            {
+                if (PickData.SelectedData != null)
+                    this.AssociateData = PickData.SelectedData.Symbol;
+                else
+                    this.AssociateData = string.Empty;
+            }
+
+        }
     }
 }

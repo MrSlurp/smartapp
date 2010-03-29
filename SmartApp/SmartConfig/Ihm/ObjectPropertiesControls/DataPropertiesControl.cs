@@ -38,13 +38,14 @@ namespace SmartApp.Ihm
 
         public void LoadNonStandardLang()
         {
-            m_TabCboDataStruct = new CComboData[6];
+            m_TabCboDataStruct = new CComboData[7];
             m_TabCboDataStruct[0] = new CComboData(Program.LangSys.C("1 bit data"), DATA_SIZE.DATA_SIZE_1B);
             m_TabCboDataStruct[1] = new CComboData(Program.LangSys.C("2 bits data"), DATA_SIZE.DATA_SIZE_2B);
             m_TabCboDataStruct[2] = new CComboData(Program.LangSys.C("4 bits data"), DATA_SIZE.DATA_SIZE_4B);
             m_TabCboDataStruct[3] = new CComboData(Program.LangSys.C("8 bits data"), DATA_SIZE.DATA_SIZE_8B);
             m_TabCboDataStruct[4] = new CComboData(Program.LangSys.C("16 bits data (signed)"), DATA_SIZE.DATA_SIZE_16B);
             m_TabCboDataStruct[5] = new CComboData(Program.LangSys.C("16 bits data (unsigned)"), DATA_SIZE.DATA_SIZE_16BU);
+            m_TabCboDataStruct[6] = new CComboData(Program.LangSys.C("32 bits data (signed)"), DATA_SIZE.DATA_SIZE_32B);
 
             m_cboSize.ValueMember = "Object";
             m_cboSize.DisplayMember = "DisplayedString";
@@ -437,6 +438,16 @@ namespace SmartApp.Ihm
                     m_numUDMax.Value = 0xFFFF;
                     m_numUDMin.Value = 0;
                     break;
+                case DATA_SIZE.DATA_SIZE_32B:
+                    m_numUDMax.Maximum = int.MaxValue;
+                    m_numUDMax.Minimum = int.MinValue;
+                    m_numUDMax.Maximum = int.MaxValue;
+                    m_numUDMin.Minimum = int.MinValue;
+                    m_numUDDefault.Maximum = int.MaxValue;
+                    m_numUDDefault.Minimum = int.MinValue;
+                    m_numUDMax.Value = int.MaxValue;
+                    m_numUDMin.Value = int.MinValue;
+                    break;
                 default:
                     System.Diagnostics.Debug.Assert(false);
                     break;
@@ -476,6 +487,9 @@ namespace SmartApp.Ihm
                     break;
                 case DATA_SIZE.DATA_SIZE_16BU:
                     this.m_cboSize.SelectedIndex = 5;
+                    break;
+                case DATA_SIZE.DATA_SIZE_32B:
+                    this.m_cboSize.SelectedIndex = 6;
                     break;
                 default:
                     System.Diagnostics.Debug.Assert(false);

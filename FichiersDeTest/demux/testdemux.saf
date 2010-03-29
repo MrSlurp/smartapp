@@ -21,6 +21,38 @@
     <Data strSymbol="TCPMB_OUT_REG_25" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
     <Data strSymbol="TCPMB_OUT_REG_26" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
     <Data strSymbol="TCPMB_OUT_REG_27" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="DEMUX_0" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="DEMUX_1" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="DEMUX_2" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="DEMUX_3" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="DEMUX_4" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="DEMUX_5" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="DEMUX_6" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="DEMUX_7" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="DEMUX_8" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="DEMUX_9" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="DEMUX_10" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="DEMUX_11" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="DEMUX_12" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="DEMUX_13" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="DEMUX_14" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="DEMUX_15" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="DEMUX_16" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="DEMUX_17" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="DEMUX_18" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="DEMUX_19" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="DEMUX_20" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="DEMUX_21" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="DEMUX_22" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="DEMUX_23" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="DEMUX_24" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="DEMUX_25" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="DEMUX_26" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="DEMUX_27" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="DEMUX_28" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="DEMUX_29" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="DEMUX_30" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="DEMUX_31" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
     <GroupSection>
       <Group strNom="Groupe par défaut" strSymbol="GROUP_0" bkColor="255, 255, 255">
         <Object strSymbol="TCPMB_OUT_REG_20" />
@@ -31,6 +63,38 @@
         <Object strSymbol="TCPMB_OUT_REG_25" />
         <Object strSymbol="TCPMB_OUT_REG_26" />
         <Object strSymbol="TCPMB_OUT_REG_27" />
+        <Object strSymbol="DEMUX_0" />
+        <Object strSymbol="DEMUX_1" />
+        <Object strSymbol="DEMUX_2" />
+        <Object strSymbol="DEMUX_3" />
+        <Object strSymbol="DEMUX_4" />
+        <Object strSymbol="DEMUX_5" />
+        <Object strSymbol="DEMUX_6" />
+        <Object strSymbol="DEMUX_7" />
+        <Object strSymbol="DEMUX_8" />
+        <Object strSymbol="DEMUX_9" />
+        <Object strSymbol="DEMUX_10" />
+        <Object strSymbol="DEMUX_11" />
+        <Object strSymbol="DEMUX_12" />
+        <Object strSymbol="DEMUX_13" />
+        <Object strSymbol="DEMUX_14" />
+        <Object strSymbol="DEMUX_15" />
+        <Object strSymbol="DEMUX_16" />
+        <Object strSymbol="DEMUX_17" />
+        <Object strSymbol="DEMUX_18" />
+        <Object strSymbol="DEMUX_19" />
+        <Object strSymbol="DEMUX_20" />
+        <Object strSymbol="DEMUX_21" />
+        <Object strSymbol="DEMUX_22" />
+        <Object strSymbol="DEMUX_23" />
+        <Object strSymbol="DEMUX_24" />
+        <Object strSymbol="DEMUX_25" />
+        <Object strSymbol="DEMUX_26" />
+        <Object strSymbol="DEMUX_27" />
+        <Object strSymbol="DEMUX_28" />
+        <Object strSymbol="DEMUX_29" />
+        <Object strSymbol="DEMUX_30" />
+        <Object strSymbol="DEMUX_31" />
       </Group>
       <Group strNom="constantes" strSymbol="GROUP_1" bkColor="255, 255, 255">
         <Object strSymbol="TRANSACTION_ID" />
@@ -47,7 +111,44 @@
   </DataSection>
   <ScreenSection>
     <Screen strSymbol="NEW_SCREEN_0" strNom="" Text="">
-      <ControlList />
+      <ControlList>
+        <DllControl strSymbol="NEW_CTRL_0" strNom="" DllID="190" AssociateData="" ScreenEvent="False" Pos="17,17" size="70,30" Text="" ReadOnly="False">
+          <DEMUX_DATA strSymbol="DEMUX_0" />
+          <DEMUX_DATA strSymbol="DEMUX_1" />
+          <DEMUX_DATA strSymbol="DEMUX_2" />
+          <DEMUX_DATA strSymbol="DEMUX_3" />
+          <DEMUX_DATA strSymbol="DEMUX_4" />
+          <DEMUX_DATA strSymbol="DEMUX_5" />
+          <DEMUX_DATA strSymbol="DEMUX_6" />
+          <DEMUX_DATA strSymbol="DEMUX_7" />
+          <DEMUX_DATA strSymbol="DEMUX_8" />
+          <DEMUX_DATA strSymbol="DEMUX_9" />
+          <DEMUX_DATA strSymbol="DEMUX_10" />
+          <DEMUX_DATA strSymbol="DEMUX_11" />
+          <DEMUX_DATA strSymbol="DEMUX_12" />
+          <DEMUX_DATA strSymbol="DEMUX_13" />
+          <DEMUX_DATA strSymbol="DEMUX_14" />
+          <DEMUX_DATA strSymbol="DEMUX_15" />
+          <DEMUX_DATA strSymbol="DEMUX_16" />
+          <DEMUX_DATA strSymbol="DEMUX_17" />
+          <DEMUX_DATA strSymbol="DEMUX_18" />
+          <DEMUX_DATA strSymbol="DEMUX_19" />
+          <DEMUX_DATA strSymbol="DEMUX_20" />
+          <DEMUX_DATA strSymbol="DEMUX_21" />
+          <DEMUX_DATA strSymbol="DEMUX_22" />
+          <DEMUX_DATA strSymbol="DEMUX_23" />
+          <DEMUX_DATA strSymbol="DEMUX_24" />
+          <DEMUX_DATA strSymbol="DEMUX_25" />
+          <DEMUX_DATA strSymbol="DEMUX_26" />
+          <DEMUX_DATA strSymbol="DEMUX_27" />
+          <DEMUX_DATA strSymbol="DEMUX_28" />
+          <DEMUX_DATA strSymbol="DEMUX_29" />
+          <DEMUX_DATA strSymbol="DEMUX_30" />
+          <DEMUX_DATA strSymbol="DEMUX_31" />
+          <DEMUX_PROP AddrData="TCPMB_OUT_REG_20" ValueData="TCPMB_OUT_REG_21" />
+          <EventScript />
+        </DllControl>
+      </ControlList>
       <InitScript />
       <EventScript />
       <ImagePath>

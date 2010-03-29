@@ -40,6 +40,7 @@ namespace SmartApp.Ihm
             this.m_EditAssociateData = new SmartApp.Ihm.SymbolTextBox();
             this.m_LabelCurControl = new System.Windows.Forms.Label();
             this.m_panelPlaceSpec = new System.Windows.Forms.Panel();
+            this.btn_pickdata = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // m_textSymbol
@@ -49,7 +50,7 @@ namespace SmartApp.Ihm
             this.m_textSymbol.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.m_textSymbol.Location = new System.Drawing.Point(3, 147);
             this.m_textSymbol.Name = "m_textSymbol";
-            this.m_textSymbol.Size = new System.Drawing.Size(193, 20);
+            this.m_textSymbol.Size = new System.Drawing.Size(218, 20);
             this.m_textSymbol.TabIndex = 6;
             // 
             // m_labelSymbol
@@ -80,7 +81,7 @@ namespace SmartApp.Ihm
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.m_richTextBoxDesc.Location = new System.Drawing.Point(3, 43);
             this.m_richTextBoxDesc.Name = "m_richTextBoxDesc";
-            this.m_richTextBoxDesc.Size = new System.Drawing.Size(193, 79);
+            this.m_richTextBoxDesc.Size = new System.Drawing.Size(218, 79);
             this.m_richTextBoxDesc.TabIndex = 3;
             this.m_richTextBoxDesc.Text = "";
             // 
@@ -100,7 +101,7 @@ namespace SmartApp.Ihm
             this.m_checkScreenEvent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.m_checkScreenEvent.AutoSize = true;
-            this.m_checkScreenEvent.Location = new System.Drawing.Point(7, 252);
+            this.m_checkScreenEvent.Location = new System.Drawing.Point(7, 281);
             this.m_checkScreenEvent.Name = "m_checkScreenEvent";
             this.m_checkScreenEvent.Size = new System.Drawing.Size(113, 17);
             this.m_checkScreenEvent.TabIndex = 9;
@@ -112,7 +113,7 @@ namespace SmartApp.Ihm
             this.m_checkReadOnly.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.m_checkReadOnly.AutoSize = true;
-            this.m_checkReadOnly.Location = new System.Drawing.Point(7, 275);
+            this.m_checkReadOnly.Location = new System.Drawing.Point(7, 304);
             this.m_checkReadOnly.Name = "m_checkReadOnly";
             this.m_checkReadOnly.Size = new System.Drawing.Size(76, 17);
             this.m_checkReadOnly.TabIndex = 10;
@@ -124,9 +125,9 @@ namespace SmartApp.Ihm
             // 
             this.m_EditText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_EditText.Location = new System.Drawing.Point(3, 226);
+            this.m_EditText.Location = new System.Drawing.Point(3, 255);
             this.m_EditText.Name = "m_EditText";
-            this.m_EditText.Size = new System.Drawing.Size(193, 20);
+            this.m_EditText.Size = new System.Drawing.Size(218, 20);
             this.m_EditText.TabIndex = 12;
             // 
             // labelText
@@ -134,7 +135,7 @@ namespace SmartApp.Ihm
             this.labelText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.labelText.AutoSize = true;
-            this.labelText.Location = new System.Drawing.Point(3, 210);
+            this.labelText.Location = new System.Drawing.Point(3, 239);
             this.labelText.Name = "labelText";
             this.labelText.Size = new System.Drawing.Size(28, 13);
             this.labelText.TabIndex = 11;
@@ -150,11 +151,11 @@ namespace SmartApp.Ihm
             this.m_EditAssociateData.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.m_EditAssociateData.Location = new System.Drawing.Point(4, 187);
             this.m_EditAssociateData.Name = "m_EditAssociateData";
-            this.m_EditAssociateData.Size = new System.Drawing.Size(192, 20);
+            this.m_EditAssociateData.Size = new System.Drawing.Size(217, 20);
             this.m_EditAssociateData.TabIndex = 13;
+            this.m_EditAssociateData.TextChanged += new System.EventHandler(this.OnEditAssocDataEdited);
             this.m_EditAssociateData.DragDrop += new System.Windows.Forms.DragEventHandler(this.OnEditAssociateDataDragDrop);
             this.m_EditAssociateData.DragEnter += new System.Windows.Forms.DragEventHandler(this.OnEditAssociateDataDragEnter);
-            this.m_EditAssociateData.TextChanged += new System.EventHandler(this.OnEditAssocDataEdited);
             // 
             // m_LabelCurControl
             // 
@@ -167,17 +168,29 @@ namespace SmartApp.Ihm
             // 
             // m_panelPlaceSpec
             // 
-            this.m_panelPlaceSpec.Location = new System.Drawing.Point(7, 301);
+            this.m_panelPlaceSpec.Location = new System.Drawing.Point(7, 330);
             this.m_panelPlaceSpec.Name = "m_panelPlaceSpec";
             this.m_panelPlaceSpec.Size = new System.Drawing.Size(37, 20);
             this.m_panelPlaceSpec.TabIndex = 15;
             this.m_panelPlaceSpec.Visible = false;
             // 
+            // btn_pickdata
+            // 
+            this.btn_pickdata.Location = new System.Drawing.Point(4, 213);
+            this.btn_pickdata.Name = "btn_pickdata";
+            this.btn_pickdata.Size = new System.Drawing.Size(98, 23);
+            this.btn_pickdata.TabIndex = 16;
+            this.btn_pickdata.Text = "Pick";
+            this.btn_pickdata.UseVisualStyleBackColor = true;
+            this.btn_pickdata.Click += new System.EventHandler(this.btn_pickdata_Click);
+            // 
             // ScreenItemPropertiesControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(this.btn_pickdata);
             this.Controls.Add(this.m_panelPlaceSpec);
             this.Controls.Add(this.m_LabelCurControl);
             this.Controls.Add(this.m_EditAssociateData);
@@ -191,7 +204,7 @@ namespace SmartApp.Ihm
             this.Controls.Add(this.m_labelDesc);
             this.Controls.Add(this.m_richTextBoxDesc);
             this.Name = "ScreenItemPropertiesControl";
-            this.Size = new System.Drawing.Size(201, 401);
+            this.Size = new System.Drawing.Size(226, 409);
             this.Validating += new System.ComponentModel.CancelEventHandler(this.PropertiesControlValidating);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -212,5 +225,6 @@ namespace SmartApp.Ihm
         private SmartApp.Ihm.SymbolTextBox m_EditAssociateData;
         private System.Windows.Forms.Label m_LabelCurControl;
         private System.Windows.Forms.Panel m_panelPlaceSpec;
+        private System.Windows.Forms.Button btn_pickdata;
     }
 }
