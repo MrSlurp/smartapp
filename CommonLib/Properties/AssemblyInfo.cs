@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Bigot Pascal")]
 [assembly: AssemblyProduct("SmartApp CommonLib")]
-[assembly: AssemblyCopyright("Copyright © Bigot Pascal 2008")]
+[assembly: AssemblyCopyright("Copyright © Bigot Pascal 2008-2010")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -31,5 +31,5 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("2.5.1.0")]
-[assembly: AssemblyFileVersion("2.5.1.0")]
+[assembly: AssemblyVersion("2.5.1.1")]
+[assembly: AssemblyFileVersion("2.5.1.1")]
