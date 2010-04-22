@@ -41,6 +41,7 @@ namespace CommonLib
     // Description: Aspects possibles des intercatives control
     // Return: /
     //*****************************************************************************************************
+    [Serializable]
     public enum InteractiveControlType
     {
         Button,
@@ -58,6 +59,7 @@ namespace CommonLib
     /// un contrôle interactif est un contrôle qu'on peut placer et redimensionné
     /// dans la surface de dessin
     /// </summary>
+    [Serializable]
     public partial class InteractiveControl : UserControl, IInteractive
     {
         #region données membres

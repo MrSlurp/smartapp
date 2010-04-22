@@ -46,6 +46,69 @@ namespace CommonLib
                 m_ListObject.Insert(m_ListObject.Count, ctrl);
             }
         }
+
+        public bool ReadInForClipBoard(XmlNode Node, DllControlGest GestDLL)
+        {
+            for (int j = 0; j < Node.ChildNodes.Count; j++)
+            {
+                XmlNode NodeControl = Node.ChildNodes[j];
+                if (NodeControl.Name == XML_CF_TAG.Control.ToString())
+                {
+                    BTControl Control = new BTControl();
+                    if (!Control.ReadIn(NodeControl, TYPE_APP.SMART_CONFIG ))
+                        return false;
+
+                    AddObj(Control);
+                }
+                else if (NodeControl.Name == XML_CF_TAG.SpecificControl.ToString())
+                {
+                    BTControl Control = SpecificControlParser.ParseAndCreateSpecificControl(NodeControl);
+                    if (Control != null)
+                    {
+                        if (!Control.ReadIn(NodeControl, TYPE_APP.SMART_CONFIG))
+                            return false;
+                        AddObj(Control);
+                    }
+                }
+                else if (NodeControl.Name == XML_CF_TAG.DllControl.ToString())
+                {
+                    uint DllID = SpecificControlParser.ParseDllID(NodeControl);
+                    if (GestDLL[DllID] != null)
+                    {
+                        BTControl Control = GestDLL[DllID].CreateBTControl();
+                        if (Control != null)
+                        {
+                            if (!Control.ReadIn(NodeControl, TYPE_APP.SMART_CONFIG))
+                                return false;
+                            AddObj(Control);
+                        }
+                        else
+                        {
+                            System.Diagnostics.Debug.Assert(false);
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    System.Diagnostics.Debug.Assert(false);
+                }
+            }
+            return true;
+        }
+
+        public void WriteOutForClipBoard(XmlDocument XmlDoc, XmlNode Node)
+        {
+            for (int i = 0; i < m_ListObject.Count; i++)
+            {
+                BTControl dt = (BTControl)m_ListObject[i];
+                dt.WriteOut(XmlDoc, Node);
+            }
+        }
         #endregion
     }
 }

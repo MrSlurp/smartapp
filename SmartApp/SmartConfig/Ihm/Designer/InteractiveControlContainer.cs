@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Data;
 using System.Text;
+using System.Xml;
 using System.Windows.Forms;
 using Microsoft.VisualBasic.Devices;
 using CommonLib;
@@ -41,6 +42,8 @@ namespace SmartApp.Ihm.Designer
     //*****************************************************************************************************
     public partial class InteractiveControlContainer : UserControl
     {
+        private const string CLIP_FORMAT = "SmartAppCtrlList";
+        DataFormats.Format InternalFormat = DataFormats.GetFormat(CLIP_FORMAT);
         #region données membres
         private ArrayList m_ListSelection = null;
         private Rectangle m_RectSelection;
@@ -599,6 +602,46 @@ namespace SmartApp.Ihm.Designer
                 {
                     this.SizeCtrlsMinusH();
                 }
+                else if (e == Keys.C)
+                {
+                    // copier
+                    Clipboard.Clear();
+                    /*
+                    for (int i = 0; i< m_ListSelection.Count; i++)
+                    {
+                        DataObject obj = new DataObject(InternalFormat.Name, m_ListSelection);
+                        Clipboard.SetData(InternalFormat.Name, obj);
+                        Traces.LogAddDebug(TraceCat.SmartConfig, string.Format("l'objet à l'indice {0} dans la liste est de type {1}", i, m_ListSelection[i].GetType().ToString()));
+                    }
+                     * */
+                    GestControl ctrlGest = new GestControl();
+                    for (int i = 0; i< m_ListSelection.Count; i++)
+                    {
+                        ctrlGest.AddObj(((InteractiveControl)m_ListSelection[i]).SourceBTControl);
+                    }
+                    XmlDocument clipDoc = new XmlDocument();
+                    clipDoc.LoadXml("<Root></Root>");
+                    ctrlGest.WriteOutForClipBoard(clipDoc, clipDoc.DocumentElement);
+                    Clipboard.SetData(InternalFormat.Name, clipDoc.OuterXml);
+                }
+                else if (e == Keys.V)
+                {
+                    // coller
+                    if (Clipboard.ContainsData(InternalFormat.Name))
+                    {
+                        //Traces.LogAddDebug(TraceCat.SmartConfig, "Données présentes dans le presse papier");
+                        IDataObject DataObj = Clipboard.GetDataObject(); 
+                        string PasteText = DataObj.GetData(InternalFormat.Name) as string;
+
+                        GestControl ctrlGest = new GestControl();
+                        if (PasteText != null)
+                        {
+                            XmlDocument clipDoc = new XmlDocument();
+                            clipDoc.LoadXml(PasteText);
+                            ctrlGest.ReadInForClipBoard(clipDoc.DocumentElement, Program.DllGest);
+                        }
+                    }
+                }
             }
         }
 
@@ -655,42 +698,66 @@ namespace SmartApp.Ihm.Designer
                 // si on a bien dropé un InteractiveControl
                 // on crée un nouvel objet avec les meme caractéristiques
                 // et on le place a la position de la souris
+                List<InteractiveControl> ListSrc = new List<InteractiveControl>();
+                ListSrc.Add(DropedItem);
                 InteractiveControl newControl = DropedItem.CreateNew();
-                Point PtMouse = new Point(e.X, e.Y);
+                List<InteractiveControl> ListControls = new List<InteractiveControl>();
+                ListControls.Add(newControl);
+                InsertDropedItems(ListControls, ListSrc, new Point(e.X, e.Y));
+            }
+        }
+
+        private void InsertDropedItems(List<InteractiveControl> ListNew, List<InteractiveControl> ListSrc, Point PtMouse)
+        {
+            bool bFirstItemDone = false;
+            Point ptFirstInsertedItem;
+            for (int i = 0; i < ListNew.Count; i++)
+            {
                 PtMouse = PointToClient(PtMouse);
-                newControl.Name = DropedItem.Name;
-                newControl.Location = new Point(PtMouse.X - DropedItem.PtMouseDown.X, 
-                                                PtMouse.Y - DropedItem.PtMouseDown.Y);
-                if (!newControl.IsDllControl)
-                    newControl.ControlType = DropedItem.ControlType;
-
-                int newHeigh = DropedItem.Size.Height;
-                int newWidth = DropedItem.Size.Width;
-                if (newControl.Size.Height < DropedItem.MinSize.Height)
-                    newHeigh = DropedItem.MinSize.Height;
-
-                if (newControl.Size.Width < DropedItem.MinSize.Width)
-                    newWidth = DropedItem.MinSize.Width;
-
-                newControl.Size = new Size(newWidth, newHeigh);
-                newControl.Text = DropedItem.Text;
-                // lorsqu'un control est ajouté, on supprime la séléction
-                for (int i = 0; i < m_ListSelection.Count; i++)
+                ListNew[i].Name = ListSrc[i].Name;
+                if (!bFirstItemDone)
                 {
-                    ((IInteractive)m_ListSelection[i]).Selected = false;
+                    ListNew[i].Location = new Point(PtMouse.X - ListSrc[i].PtMouseDown.X,
+                                                    PtMouse.Y - ListSrc[i].PtMouseDown.Y);
+                    ptFirstInsertedItem = ListNew[i].Location;
+                }
+                // on est sur les items suivants, leurs positions sera déterminé en offset de la position 
+                // du premier objet traité
+                else
+                {
+
+                }
+
+                if (!ListNew[i].IsDllControl)
+                    ListNew[i].ControlType = ListSrc[i].ControlType;
+
+                int newHeigh = ListSrc[i].Size.Height;
+                int newWidth = ListSrc[i].Size.Width;
+                if (ListNew[i].Size.Height < ListSrc[i].MinSize.Height)
+                    newHeigh = ListSrc[i].MinSize.Height;
+
+                if (ListNew[i].Size.Width < ListSrc[i].MinSize.Width)
+                    newWidth = ListSrc[i].MinSize.Width;
+
+                ListNew[i].Size = new Size(newWidth, newHeigh);
+                ListNew[i].Text = ListSrc[i].Text;
+                // lorsqu'un control est ajouté, on supprime la séléction
+                for (int j = 0; j < m_ListSelection.Count; j++)
+                {
+                    ((IInteractive)m_ListSelection[j]).Selected = false;
                 }
                 // et on séléctionne l'objet posé 
                 m_ListSelection.Clear();
-                newControl.Selected = true;
+                ListNew[i].Selected = true;
                 if (EventControlAdded != null)
-                    EventControlAdded(newControl, DropedItem.SourceBTControl);
+                    EventControlAdded(ListNew[i], ListSrc[i].SourceBTControl);
 
-                this.Controls.Add(newControl);
-                m_ListSelection.Add(newControl);
-                newControl.Focus();
-                if (SelectionChange != null)
-                    SelectionChange();
+                this.Controls.Add(ListNew[i]);
+                m_ListSelection.Add(ListNew[i]);
+                //newControl.Focus();
             }
+            if (SelectionChange != null)
+                SelectionChange();
         }
 
         #endregion

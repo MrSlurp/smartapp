@@ -415,6 +415,16 @@ namespace CommonLib
             return true;
         }
 
+        /*
+        public bool ReadInForClipBoard(XmlNode Node, GestControl CtrlGest)
+        {
+            bool bRet = ReadIn(Node, TYPE_APP.SMART_CONFIG);
+            this.Symbol = CtrlGest.GetNextDefaultSymbol();
+            return bRet;
+        }
+         * */
+
+
         /// <summary>
         /// écrit le script de l'objet
         /// </summary>
