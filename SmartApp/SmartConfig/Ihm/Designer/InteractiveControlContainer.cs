@@ -408,8 +408,10 @@ namespace SmartApp.Ihm.Designer
                     m_RectSelection.Offset(0, m_RectSelection.Height);
                     m_RectSelection.Height = -m_RectSelection.Height;
                 }
+                //m_RectSelection.Offset(-5,-5);
+                //m_RectSelection.Inflate(10,10);
+                //Invalidate(m_RectSelection);
                 Invalidate();
-                
             }
         }
 
@@ -606,41 +608,57 @@ namespace SmartApp.Ihm.Designer
                 {
                     // copier
                     Clipboard.Clear();
-                    /*
-                    for (int i = 0; i< m_ListSelection.Count; i++)
-                    {
-                        DataObject obj = new DataObject(InternalFormat.Name, m_ListSelection);
-                        Clipboard.SetData(InternalFormat.Name, obj);
-                        Traces.LogAddDebug(TraceCat.SmartConfig, string.Format("l'objet à l'indice {0} dans la liste est de type {1}", i, m_ListSelection[i].GetType().ToString()));
-                    }
-                     * */
                     GestControl ctrlGest = new GestControl();
                     for (int i = 0; i< m_ListSelection.Count; i++)
                     {
                         ctrlGest.AddObj(((InteractiveControl)m_ListSelection[i]).SourceBTControl);
                     }
                     XmlDocument clipDoc = new XmlDocument();
-                    clipDoc.LoadXml("<Root></Root>");
+                    string strRootXml = string.Format("<Root><pid id=\"{0}\" /></Root>", System.Diagnostics.Process.GetCurrentProcess().Id);;
+                    clipDoc.LoadXml(strRootXml);
                     ctrlGest.WriteOutForClipBoard(clipDoc, clipDoc.DocumentElement);
                     Clipboard.SetData(InternalFormat.Name, clipDoc.OuterXml);
                 }
                 else if (e == Keys.V)
                 {
-                    // coller
-                    if (Clipboard.ContainsData(InternalFormat.Name))
+                    TreatPaste();
+                }
+            }
+        }
+    
+        private void TreatPaste()
+        {
+            // coller
+            if (Clipboard.ContainsData(InternalFormat.Name))
+            {
+                IDataObject DataObj = Clipboard.GetDataObject(); 
+                string PasteText = DataObj.GetData(InternalFormat.Name) as string;
+  
+                GestControl ctrlGest = new GestControl();
+                if (PasteText != null)
+                {
+                    XmlDocument clipDoc = new XmlDocument();
+                    clipDoc.LoadXml(PasteText);
+                    if (clipDoc.FirstChild.Name == "pid")
                     {
-                        //Traces.LogAddDebug(TraceCat.SmartConfig, "Données présentes dans le presse papier");
-                        IDataObject DataObj = Clipboard.GetDataObject(); 
-                        string PasteText = DataObj.GetData(InternalFormat.Name) as string;
-
-                        GestControl ctrlGest = new GestControl();
-                        if (PasteText != null)
+                        
+                    } 
+                    Traces.LogAddDebug(TraceCat.SmartConfig, "Paste en cours avec LoadXml OK");
+                    if (ctrlGest.ReadInForClipBoard(clipDoc.DocumentElement, Program.DllGest))
+                    {
+                        List<InteractiveControl> ListSrc = new List<InteractiveControl>();
+                        List<InteractiveControl> ListNew = new List<InteractiveControl>();
+                        for (int i = 0; i< ctrlGest.Count; i++)
                         {
-                            XmlDocument clipDoc = new XmlDocument();
-                            clipDoc.LoadXml(PasteText);
-                            ctrlGest.ReadInForClipBoard(clipDoc.DocumentElement, Program.DllGest);
+                            Traces.LogAddDebug(TraceCat.SmartConfig, "Un objet ajouté de type " + ((BTControl)ctrlGest[i]).IControl.GetType().ToString());
+                            InteractiveControl newICtrl = ((BTControl)ctrlGest[i]).IControl.CreateNew();
+                            ListNew.Add(newICtrl);                            
+                            ListSrc.Add(((BTControl)ctrlGest[i]).IControl);
                         }
+                        InsertDropedItems(ListNew, ListSrc, Point.Empty);                            
                     }
+                    else
+                        Traces.LogAddDebug(TraceCat.SmartConfig, "Erreur ReadInForClipBoard ");
                 }
             }
         }
@@ -709,23 +727,71 @@ namespace SmartApp.Ihm.Designer
 
         private void InsertDropedItems(List<InteractiveControl> ListNew, List<InteractiveControl> ListSrc, Point PtMouse)
         {
-            bool bFirstItemDone = false;
-            Point ptFirstInsertedItem;
-            for (int i = 0; i < ListNew.Count; i++)
+            //bool bFirstItemDone = false;
+            //Point ptFirstInsertedItem;
+            // si on a pas le même nombre d'item on sort de suite
+            if (ListSrc.Count != ListNew.Count)
+                return;
+                
+            // lorsqu'un control est ajouté, on supprime la séléction
+            for (int j = 0; j < m_ListSelection.Count; j++)
             {
-                PtMouse = PointToClient(PtMouse);
+                ((IInteractive)m_ListSelection[j]).Selected = false;
+            }
+            m_ListSelection.Clear();
+            
+            Point SrcMousePos = Form.MousePosition;
+            Traces.LogAddDebug(TraceCat.SmartConfig, "Position ecran de la souris = " + SrcMousePos.ToString());
+            Traces.LogAddDebug(TraceCat.SmartConfig, "Position client de la souris = " + PointToClient(SrcMousePos).ToString());
+            SrcMousePos = PointToClient(SrcMousePos);
+            
+            // on commence par déterminer l'item le plus en haut à gauche de la liste, 
+            // ainsi que le rectangle total de la sélection
+            Point ptTpLeft = new Point(int.MaxValue, int.MaxValue);
+            Point ptBtRight = Point.Empty;
+            for (int i = 0; i < ListSrc.Count; i++)
+            {
+                if (ptTpLeft.X > ListSrc[i].Left)
+                    ptTpLeft.X = ListSrc[i].Left;
+                if (ptTpLeft.Y > ListSrc[i].Top)
+                    ptTpLeft.Y = ListSrc[i].Top;
+
+                if (ptBtRight.X < ListSrc[i].Right)
+                    ptBtRight.X = ListSrc[i].Right;
+                if (ptBtRight.Y < ListSrc[i].Bottom)
+                    ptBtRight.Y = ListSrc[i].Bottom;
+            }
+
+            // Calcule du rectangle total des objets insérés
+            Rectangle rectSel = new Rectangle(ptTpLeft.X, ptTpLeft.Y, 
+                                              ptBtRight.X - ptTpLeft.X, ptBtRight.Y - ptTpLeft.Y);
+
+            if (SrcMousePos.X < 0)
+                SrcMousePos.X = 0;
+            if (SrcMousePos.Y < 0)
+                SrcMousePos.Y = 0;
+            if (SrcMousePos.X + rectSel.Width > this.Width)
+                SrcMousePos.X = SrcMousePos.X - ((SrcMousePos.X + rectSel.Width) - this.Width );
+            if (SrcMousePos.Y + rectSel.Height > this.Height)
+                SrcMousePos.Y = SrcMousePos.Y - ((SrcMousePos.Y + rectSel.Height) - this.Height ); 
+
+            for (int i = 0; i < ListSrc.Count; i++)
+            {
+                //PtMouse = PointToClient(PtMouse);
                 ListNew[i].Name = ListSrc[i].Name;
-                if (!bFirstItemDone)
+                if (Point.Empty != PtMouse)
                 {
-                    ListNew[i].Location = new Point(PtMouse.X - ListSrc[i].PtMouseDown.X,
-                                                    PtMouse.Y - ListSrc[i].PtMouseDown.Y);
-                    ptFirstInsertedItem = ListNew[i].Location;
+                    // on repasse en coordonnée client
+                    ListNew[i].Location = PointToClient( new Point(PtMouse.X - ListSrc[i].PtMouseDown.X,
+                                                         PtMouse.Y - ListSrc[i].PtMouseDown.Y));
                 }
-                // on est sur les items suivants, leurs positions sera déterminé en offset de la position 
-                // du premier objet traité
                 else
                 {
-
+                    // on calcule l'offset avec l'item le plus en haut à gauche
+                    // dans les objets source. Les objet sont soit à la position ptTpLeft, soit plus
+                    // loin en X et en Y 
+                    Size offset = new Size(ListSrc[i].Left - ptTpLeft.X, ListSrc[i].Top - ptTpLeft.Y);
+                    ListNew[i].Location = new Point(SrcMousePos.X + offset.Width, SrcMousePos.Y + offset.Height);
                 }
 
                 if (!ListNew[i].IsDllControl)
@@ -741,14 +807,11 @@ namespace SmartApp.Ihm.Designer
 
                 ListNew[i].Size = new Size(newWidth, newHeigh);
                 ListNew[i].Text = ListSrc[i].Text;
-                // lorsqu'un control est ajouté, on supprime la séléction
-                for (int j = 0; j < m_ListSelection.Count; j++)
-                {
-                    ((IInteractive)m_ListSelection[j]).Selected = false;
-                }
                 // et on séléctionne l'objet posé 
-                m_ListSelection.Clear();
                 ListNew[i].Selected = true;
+                Traces.LogAddDebug(TraceCat.SmartConfig, string.Format("Objet inséré de type {0}, position = {1}",ListNew[i].GetType().ToString()
+                                                                                                ,ListNew[i].Location.ToString())
+                                                                                                );
                 if (EventControlAdded != null)
                     EventControlAdded(ListNew[i], ListSrc[i].SourceBTControl);
 

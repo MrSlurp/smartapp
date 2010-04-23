@@ -95,7 +95,7 @@ namespace CommonLib
                 }
                 else
                 {
-                    System.Diagnostics.Debug.Assert(false);
+                    //System.Diagnostics.Debug.Assert(false);
                 }
             }
             return true;
