@@ -436,7 +436,7 @@ namespace SmartApp.Ihm
         // ajoute le control dans la liste des controls de l'écran
         // Return: /
         //*****************************************************************************************************      
-        private void OnDesignerControAdded(InteractiveControl ctrl, BTControl SrcBtControl)
+        private void OnDesignerControAdded(InteractiveControl ctrl, BTControl SrcBtControl,bool bFromOtherInstance)
         {
             if (m_Currentscreen == null)
                 return;
@@ -447,7 +447,7 @@ namespace SmartApp.Ihm
             else
                 NewCtrl = BTControl.CreateNewBTControl(ctrl);
 
-            if (SrcBtControl != null)
+            if (SrcBtControl != null && !bFromOtherInstance)
             {
                 NewCtrl.CopyParametersFrom(SrcBtControl);
             }

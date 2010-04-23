@@ -13,7 +13,7 @@ using CommonLib;
 
 namespace SmartApp.Ihm.Designer
 {
-    public delegate void IControlAddedEvent(InteractiveControl Ctrl, BTControl SrcBtControl);
+    public delegate void IControlAddedEvent(InteractiveControl Ctrl, BTControl SrcBtControl, bool bFromDiffInstance);
     public delegate void IControlRemovedEvent(InteractiveControl Ctrl);
     public delegate void IControlBringToTop(InteractiveControl Ctrl);
     public delegate void SelectionChangeEvent();
@@ -606,24 +606,37 @@ namespace SmartApp.Ihm.Designer
                 }
                 else if (e == Keys.C)
                 {
-                    // copier
-                    Clipboard.Clear();
-                    GestControl ctrlGest = new GestControl();
-                    for (int i = 0; i< m_ListSelection.Count; i++)
-                    {
-                        ctrlGest.AddObj(((InteractiveControl)m_ListSelection[i]).SourceBTControl);
-                    }
-                    XmlDocument clipDoc = new XmlDocument();
-                    string strRootXml = string.Format("<Root><pid id=\"{0}\" /></Root>", System.Diagnostics.Process.GetCurrentProcess().Id);;
-                    clipDoc.LoadXml(strRootXml);
-                    ctrlGest.WriteOutForClipBoard(clipDoc, clipDoc.DocumentElement);
-                    Clipboard.SetData(InternalFormat.Name, clipDoc.OuterXml);
+                    TreatCopy();
                 }
                 else if (e == Keys.V)
                 {
-                    TreatPaste();
+                    if (AllowDrop)
+                        TreatPaste();
                 }
             }
+        }
+
+        private void TreatCopy()
+        {
+            // copier
+            Clipboard.Clear();
+            GestControl ctrlGest = new GestControl();
+            for (int i = 0; i < m_ListSelection.Count; i++)
+            {
+                ctrlGest.AddObj(((InteractiveControl)m_ListSelection[i]).SourceBTControl);
+            }
+            XmlDocument clipDoc = new XmlDocument();
+            string strRootXml = string.Format("<Root><pid id=\"{0}\" /></Root>", System.Diagnostics.Process.GetCurrentProcess().Id); ;
+            try
+            {
+                clipDoc.LoadXml(strRootXml);
+            }
+            catch (Exception)
+            {
+                return;
+            }
+            ctrlGest.WriteOutForClipBoard(clipDoc, clipDoc.DocumentElement);
+            Clipboard.SetData(InternalFormat.Name, clipDoc.OuterXml);
         }
     
         private void TreatPaste()
@@ -638,10 +651,19 @@ namespace SmartApp.Ihm.Designer
                 if (PasteText != null)
                 {
                     XmlDocument clipDoc = new XmlDocument();
-                    clipDoc.LoadXml(PasteText);
+                    try
+                    {
+                        clipDoc.LoadXml(PasteText);
+                    }
+                    catch (Exception)
+                    {
+                        return;
+                    }
+                    int Pid = 0;
                     if (clipDoc.FirstChild.Name == "pid")
                     {
-                        
+                        XmlNode AttrPid = clipDoc.FirstChild.Attributes.GetNamedItem("pid");
+                        Pid = int.Parse(AttrPid.Value);
                     } 
                     Traces.LogAddDebug(TraceCat.SmartConfig, "Paste en cours avec LoadXml OK");
                     if (ctrlGest.ReadInForClipBoard(clipDoc.DocumentElement, Program.DllGest))
@@ -655,7 +677,8 @@ namespace SmartApp.Ihm.Designer
                             ListNew.Add(newICtrl);                            
                             ListSrc.Add(((BTControl)ctrlGest[i]).IControl);
                         }
-                        InsertDropedItems(ListNew, ListSrc, Point.Empty);                            
+                        bool bDiffInstance = Pid != System.Diagnostics.Process.GetCurrentProcess().Id;
+                        InsertDropedItems(ListNew, ListSrc, Point.Empty, bDiffInstance);                            
                     }
                     else
                         Traces.LogAddDebug(TraceCat.SmartConfig, "Erreur ReadInForClipBoard ");
@@ -721,11 +744,11 @@ namespace SmartApp.Ihm.Designer
                 InteractiveControl newControl = DropedItem.CreateNew();
                 List<InteractiveControl> ListControls = new List<InteractiveControl>();
                 ListControls.Add(newControl);
-                InsertDropedItems(ListControls, ListSrc, new Point(e.X, e.Y));
+                InsertDropedItems(ListControls, ListSrc, new Point(e.X, e.Y), false);
             }
         }
 
-        private void InsertDropedItems(List<InteractiveControl> ListNew, List<InteractiveControl> ListSrc, Point PtMouse)
+        private void InsertDropedItems(List<InteractiveControl> ListNew, List<InteractiveControl> ListSrc, Point PtMouse, bool bFromOtherInstance)
         {
             //bool bFirstItemDone = false;
             //Point ptFirstInsertedItem;
@@ -813,7 +836,7 @@ namespace SmartApp.Ihm.Designer
                                                                                                 ,ListNew[i].Location.ToString())
                                                                                                 );
                 if (EventControlAdded != null)
-                    EventControlAdded(ListNew[i], ListSrc[i].SourceBTControl);
+                    EventControlAdded(ListNew[i], ListSrc[i].SourceBTControl, bFromOtherInstance);
 
                 this.Controls.Add(ListNew[i]);
                 m_ListSelection.Add(ListNew[i]);
