@@ -41,7 +41,7 @@ namespace CtrlDemux
             {
                 if (value != null)
                 {
-                    m_Props.CopyParametersFrom(value);
+                    m_Props.CopyParametersFrom(value, false);
                     edtAddrData.Text = m_Props.AdressData;
                     edtValueData.Text = m_Props.ValueData;
                     CopyOutputDataToListView(m_Props.ListDemuxData);

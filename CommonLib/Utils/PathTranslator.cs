@@ -41,6 +41,10 @@ namespace CommonLib
                 {
                     return CheminCompletFichier.Replace(Application.StartupPath, EXE_KEY);
                 }
+                else if (CheminCompletFichier.Contains(EXE_KEY) && string.IsNullOrEmpty(m_BTDocPath))
+                {
+                    return CheminCompletFichier.Replace(Application.StartupPath, EXE_KEY);
+                }
                 else
                     return CheminCompletFichier;
             }

@@ -40,7 +40,7 @@ namespace Blinker
         /// Recopie les paramètres d'un control source du même type vers les paramètres courants
         /// </summary>
         /// <param name="SrcSpecificProp">Paramètres sources</param>
-        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp)
+        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance)
         {
             DllBlinkerProp SrcProp = (DllBlinkerProp)SrcSpecificProp;
         }

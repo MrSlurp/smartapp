@@ -182,7 +182,7 @@ namespace CtrlGraph
             {
                 if (value != null)
                 {
-                    m_Props.CopyParametersFrom(value);
+                    m_Props.CopyParametersFrom(value, false);
                     for (int i = 0; i < DllCtrlGraphProp.NB_CURVE; i++)
                     {
                         m_ListCurve[i].DataSymbol = m_Props.GetSymbol(i);

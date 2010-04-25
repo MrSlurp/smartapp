@@ -114,7 +114,7 @@ namespace CtrlDemux
             if (CfgForm.ShowDialog() == DialogResult.OK)
             {
                 // si OK on recopie les param
-                this.BTControl.SpecificProp.CopyParametersFrom(CfgForm.Props);
+                this.BTControl.SpecificProp.CopyParametersFrom(CfgForm.Props, false);
             }
 
         }

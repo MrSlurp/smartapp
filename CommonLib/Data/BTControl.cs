@@ -564,13 +564,19 @@ namespace CommonLib
         #endregion
 
         #region Méthodes diverses
-        public void CopyParametersFrom(BTControl SrcBtControl)
+        public void CopyParametersFrom(BTControl SrcBtControl, bool bFromOtherInstance)
         {
-            m_strAssociateData = SrcBtControl.m_strAssociateData;
+            if (!bFromOtherInstance)
+            {
+                m_strAssociateData = SrcBtControl.m_strAssociateData;
+                
+                this.ScriptLines = SrcBtControl.ScriptLines;
+            }
+
             m_bUseScreenEvent = SrcBtControl.m_bUseScreenEvent;
             if (SpecificProp != null && SrcBtControl.SpecificProp != null)
             {
-                SpecificProp.CopyParametersFrom(SrcBtControl.SpecificProp);
+                SpecificProp.CopyParametersFrom(SrcBtControl.SpecificProp, bFromOtherInstance);
             }
         }
         #endregion

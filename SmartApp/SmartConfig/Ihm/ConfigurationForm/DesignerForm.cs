@@ -447,9 +447,9 @@ namespace SmartApp.Ihm
             else
                 NewCtrl = BTControl.CreateNewBTControl(ctrl);
 
-            if (SrcBtControl != null && !bFromOtherInstance)
+            if (SrcBtControl != null )
             {
-                NewCtrl.CopyParametersFrom(SrcBtControl);
+                NewCtrl.CopyParametersFrom(SrcBtControl, bFromOtherInstance);
             }
 
             NewCtrl.Symbol = m_Currentscreen.Controls.GetNextDefaultSymbol();

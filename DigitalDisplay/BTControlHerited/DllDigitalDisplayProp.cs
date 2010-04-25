@@ -83,7 +83,7 @@ namespace DigitalDisplay
             return true;
         }
 
-        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp)
+        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance)
         {
             FormatString = ((DllDigitalDisplayProp)SrcSpecificProp).FormatString;
             DigitColor = ((DllDigitalDisplayProp)SrcSpecificProp).DigitColor;

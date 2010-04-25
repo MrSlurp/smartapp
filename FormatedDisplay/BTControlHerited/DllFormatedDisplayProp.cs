@@ -43,7 +43,7 @@ namespace FormatedDisplay
             return true;
         }
 
-        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp)
+        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance)
         {
             FormatString = ((DllFormatedDisplayProp)SrcSpecificProp).FormatString;
         }

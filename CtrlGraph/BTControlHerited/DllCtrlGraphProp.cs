@@ -250,21 +250,24 @@ namespace CtrlGraph
         /// 
         /// </summary>
         /// <param name="SrcSpecificProp"></param>
-        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp)
+        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance)
         {
-            if (SrcSpecificProp.GetType() == typeof(DllCtrlGraphProp))
+            if (!bFromOtherInstance)
             {
-                for (int i = 0; i < NB_CURVE; i++)
+                if (SrcSpecificProp.GetType() == typeof(DllCtrlGraphProp))
                 {
-                    ListDataSymbol[i] = ((DllCtrlGraphProp)SrcSpecificProp).ListDataSymbol[i];
-                    ListDataAlias[i] = ((DllCtrlGraphProp)SrcSpecificProp).ListDataAlias[i];
-                    ListCurveColor[i] = ((DllCtrlGraphProp)SrcSpecificProp).ListCurveColor[i];
+                    for (int i = 0; i < NB_CURVE; i++)
+                    {
+                        ListDataSymbol[i] = ((DllCtrlGraphProp)SrcSpecificProp).ListDataSymbol[i];
+                        ListDataAlias[i] = ((DllCtrlGraphProp)SrcSpecificProp).ListDataAlias[i];
+                        ListCurveColor[i] = ((DllCtrlGraphProp)SrcSpecificProp).ListCurveColor[i];
+                    }
+                    m_SavePeriod = ((DllCtrlGraphProp)SrcSpecificProp).m_SavePeriod;
+                    m_LoggingPeriod = ((DllCtrlGraphProp)SrcSpecificProp).m_LoggingPeriod;
+                    strGraphTitle = ((DllCtrlGraphProp)SrcSpecificProp).strGraphTitle;
+                    strXAxisTitle = ((DllCtrlGraphProp)SrcSpecificProp).strXAxisTitle;
+                    strYAxisTitle = ((DllCtrlGraphProp)SrcSpecificProp).strYAxisTitle;
                 }
-                m_SavePeriod = ((DllCtrlGraphProp)SrcSpecificProp).m_SavePeriod;
-                m_LoggingPeriod = ((DllCtrlGraphProp)SrcSpecificProp).m_LoggingPeriod;
-                strGraphTitle = ((DllCtrlGraphProp)SrcSpecificProp).strGraphTitle;
-                strXAxisTitle = ((DllCtrlGraphProp)SrcSpecificProp).strXAxisTitle;
-                strYAxisTitle = ((DllCtrlGraphProp)SrcSpecificProp).strYAxisTitle;
             }
         }
         #endregion

@@ -175,16 +175,22 @@ namespace CtrlDataTrigger
             return true;
         }
 
-        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp)
+        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance)
         {
             if (SrcSpecificProp.GetType() == typeof(DllCtrlDataTriggerProp))
             {
                 m_bBehaveLikeTrigger = ((DllCtrlDataTriggerProp)SrcSpecificProp).m_bBehaveLikeTrigger;
-                m_strDataOffToOn = ((DllCtrlDataTriggerProp)SrcSpecificProp).m_strDataOffToOn;
-                m_strDataOnToOff = ((DllCtrlDataTriggerProp)SrcSpecificProp).m_strDataOnToOff;
+                if (!bFromOtherInstance)
+                {
+                    m_strDataOffToOn = ((DllCtrlDataTriggerProp)SrcSpecificProp).m_strDataOffToOn;
+                    m_strDataOnToOff = ((DllCtrlDataTriggerProp)SrcSpecificProp).m_strDataOnToOff;
+                }
 
-                base.CopyScript(ref m_ScriptOffToOn, ((DllCtrlDataTriggerProp)SrcSpecificProp).m_ScriptOffToOn);
-                base.CopyScript(ref m_ScriptOnToOff, ((DllCtrlDataTriggerProp)SrcSpecificProp).m_ScriptOnToOff);
+                if (!bFromOtherInstance)
+                {
+                    base.CopyScript(ref m_ScriptOffToOn, ((DllCtrlDataTriggerProp)SrcSpecificProp).m_ScriptOffToOn);
+                    base.CopyScript(ref m_ScriptOnToOff, ((DllCtrlDataTriggerProp)SrcSpecificProp).m_ScriptOnToOff);
+                }
             }
         }
 

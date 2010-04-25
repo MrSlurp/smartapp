@@ -63,10 +63,28 @@ namespace CtrlTwoBitmap
             return true;
         }
 
-        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp)
+        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance)
         {
-            NomFichierActif = ((TwoBitmapProp)SrcSpecificProp).NomFichierActif;
-            NomFichierInactif = ((TwoBitmapProp)SrcSpecificProp).NomFichierInactif;
+            if (bFromOtherInstance)
+            {
+                if (File.Exists(PathTranslator.LinuxVsWindowsPathUse(
+                                PathTranslator.RelativePathToAbsolute(
+                                ((TwoBitmapProp)SrcSpecificProp).NomFichierActif))))
+                {
+                    NomFichierActif = ((TwoBitmapProp)SrcSpecificProp).NomFichierActif;
+                }
+                if (File.Exists(PathTranslator.LinuxVsWindowsPathUse(
+                                PathTranslator.RelativePathToAbsolute(
+                                ((TwoBitmapProp)SrcSpecificProp).NomFichierInactif))))
+                {
+                    NomFichierInactif = ((TwoBitmapProp)SrcSpecificProp).NomFichierInactif;
+                }
+            }
+            else
+            {
+                NomFichierActif = ((TwoBitmapProp)SrcSpecificProp).NomFichierActif;
+                NomFichierInactif = ((TwoBitmapProp)SrcSpecificProp).NomFichierInactif;
+            }
         }
 
     }

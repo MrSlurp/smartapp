@@ -104,12 +104,43 @@ namespace FourBitmap
             return true;
         }
 
-        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp)
+        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance)
         {
-            NomFichier0 = ((DllFourBitmapProp)SrcSpecificProp).NomFichier0;
-            NomFichier1 = ((DllFourBitmapProp)SrcSpecificProp).NomFichier1;
-            NomFichier2 = ((DllFourBitmapProp)SrcSpecificProp).NomFichier2;
-            NomFichier3 = ((DllFourBitmapProp)SrcSpecificProp).NomFichier3;
+            if (bFromOtherInstance)
+            {
+                if (File.Exists(PathTranslator.LinuxVsWindowsPathUse(
+                                PathTranslator.RelativePathToAbsolute(
+                                ((DllFourBitmapProp)SrcSpecificProp).NomFichier0))))
+                {
+                    NomFichier0 = ((DllFourBitmapProp)SrcSpecificProp).NomFichier0;
+                }
+                if (File.Exists(PathTranslator.LinuxVsWindowsPathUse(
+                                PathTranslator.RelativePathToAbsolute(
+                                ((DllFourBitmapProp)SrcSpecificProp).NomFichier1))))
+                {
+                    NomFichier1 = ((DllFourBitmapProp)SrcSpecificProp).NomFichier1;
+                }
+                if (File.Exists(PathTranslator.LinuxVsWindowsPathUse(
+                                PathTranslator.RelativePathToAbsolute(
+                                ((DllFourBitmapProp)SrcSpecificProp).NomFichier2))))
+                {
+                    NomFichier2 = ((DllFourBitmapProp)SrcSpecificProp).NomFichier2;
+                }
+                if (File.Exists(PathTranslator.LinuxVsWindowsPathUse(
+                                PathTranslator.RelativePathToAbsolute(
+                                ((DllFourBitmapProp)SrcSpecificProp).NomFichier3))))
+                {
+                    NomFichier3 = ((DllFourBitmapProp)SrcSpecificProp).NomFichier3;
+                }
+            }
+            else
+            {
+                NomFichier0 = ((DllFourBitmapProp)SrcSpecificProp).NomFichier0;
+                NomFichier1 = ((DllFourBitmapProp)SrcSpecificProp).NomFichier1;
+                NomFichier2 = ((DllFourBitmapProp)SrcSpecificProp).NomFichier2;
+                NomFichier3 = ((DllFourBitmapProp)SrcSpecificProp).NomFichier3;
+
+            }
         }
 
     }

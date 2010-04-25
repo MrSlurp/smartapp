@@ -32,7 +32,7 @@ namespace CommonLib
         /// copy les paramètres spécifiques à l'identique
         /// </summary>
         /// <param name="SrcSpecificProp">paramètres sources</param>
-        public abstract void CopyParametersFrom(SpecificControlProp SrcSpecificProp);
+        public abstract void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance);
         #endregion
 
         #region methodes utiles pour la lecture et l'ecriture de script
@@ -317,7 +317,7 @@ namespace CommonLib
         /// copie les paramètre des propriété spécifiques passé en paramètre
         /// </summary>
         /// <param name="SrcSpecificProp">propriété sources</param>
-        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp)
+        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance)
         {
             ColorInactive = ((TwoColorProp)SrcSpecificProp).ColorInactive;
             ColorActive = ((TwoColorProp)SrcSpecificProp).ColorActive;

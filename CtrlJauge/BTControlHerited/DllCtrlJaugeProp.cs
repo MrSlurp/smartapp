@@ -83,7 +83,7 @@ namespace CtrlJauge
             return true;
         }
 
-        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp)
+        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance)
         {
             Orientation = ((DllCtrlJaugeProp)SrcSpecificProp).Orientation;
             ColorMin = ((DllCtrlJaugeProp)SrcSpecificProp).ColorMin;

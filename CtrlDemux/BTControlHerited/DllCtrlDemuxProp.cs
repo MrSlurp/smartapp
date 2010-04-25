@@ -102,17 +102,20 @@ namespace CtrlDemux
             return true;
         }
 
-        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp)
+        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance)
         {
-            if (SrcSpecificProp.GetType() == typeof(DllCtrlDemuxProp))
+            if (!bFromOtherInstance)
             {
-                m_ListDemuxData.Clear();
-                for (int i = 0; i < ((DllCtrlDemuxProp)SrcSpecificProp).m_ListDemuxData.Count; i++)
+                if (SrcSpecificProp.GetType() == typeof(DllCtrlDemuxProp))
                 {
-                  m_ListDemuxData.Add(((DllCtrlDemuxProp)SrcSpecificProp).m_ListDemuxData[i]);
+                    m_ListDemuxData.Clear();
+                    for (int i = 0; i < ((DllCtrlDemuxProp)SrcSpecificProp).m_ListDemuxData.Count; i++)
+                    {
+                        m_ListDemuxData.Add(((DllCtrlDemuxProp)SrcSpecificProp).m_ListDemuxData[i]);
+                    }
+                    m_strAdressData = ((DllCtrlDemuxProp)SrcSpecificProp).m_strAdressData;
+                    m_strValueData = ((DllCtrlDemuxProp)SrcSpecificProp).m_strValueData;
                 }
-                m_strAdressData = ((DllCtrlDemuxProp)SrcSpecificProp).m_strAdressData;
-                m_strValueData = ((DllCtrlDemuxProp)SrcSpecificProp).m_strValueData;
             }
         }
 		
