@@ -1,0 +1,120 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{099CFCFC-63A2-4A1A-AE6C-4E301B0E1CD5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CtrlDataGrid</RootNamespace>
+    <AssemblyName>CtrlDataGrid</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Prod\Debug\</OutputPath>
+    <IntermediatePath>..\obj\Debug\</IntermediatePath>
+    <IntermediateOuputPath>..\obj\Debug\</IntermediateOuputPath>
+    <BaseIntermediateOutputPath>..\obj\Debug\</BaseIntermediateOutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\Prod\Release\</OutputPath>
+    <IntermediatePath>..\obj\Release\</IntermediatePath>
+    <IntermediateOuputPath>..\obj\Release\</IntermediateOuputPath>
+    <BaseIntermediateOutputPath>..\obj\Release\</BaseIntermediateOutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'BuildLang|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\Prod\BuildLang\</OutputPath>
+    <IntermediatePath>..\obj\BuildLang\</IntermediatePath>
+    <IntermediateOuputPath>..\obj\BuildLang\</IntermediateOuputPath>
+    <BaseIntermediateOutputPath>..\obj\BuildLang\</BaseIntermediateOutputPath>
+    <DefineConstants>TRACE;DEBUG;BUILD_LANG</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BTControlHerited\BTDllCtrlDataGridControl.cs" />
+    <Compile Include="BTControlHerited\DllCtrlDataGridProp.cs" />
+    <Compile Include="ConfigForm\CtrlDataGridProperties.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ConfigForm\CtrlDataGridProperties.Designer.cs">
+      <DependentUpon>CtrlDataGridProperties.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConfigForm\DataParam.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ConfigForm\DataParam.Designer.cs">
+      <DependentUpon>DataParam.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConfigForm\DataGridConfigForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfigForm\DataGridConfigForm.Designer.cs">
+      <DependentUpon>DataGridConfigForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DllEntryClass.cs" />
+    <Compile Include="GraphicCommandControl\CtrlDataGridCmdControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="InteractiveHerited\InteractiveCtrlDataGridDllControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="InteractiveHerited\InteractiveCtrlDataGridDllControl.Designer.cs">
+      <DependentUpon>InteractiveCtrlDataGridDllControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Res\CtrlDataGridRes.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CommonLib\CommonLib.csproj">
+      <Project>{3EFBC5AC-5842-4DE5-85C2-507E24AEC46F}</Project>
+      <Name>CommonLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ConfigForm\CtrlDataGridProperties.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>CtrlDataGridProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfigForm\DataGridConfigForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>DataGridConfigForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfigForm\DataParam.resx">
+      <DependentUpon>DataParam.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InteractiveHerited\InteractiveCtrlDataGridDllControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>InteractiveCtrlDataGridDllControl.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
