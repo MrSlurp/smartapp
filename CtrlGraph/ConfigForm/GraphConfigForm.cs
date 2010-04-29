@@ -27,9 +27,6 @@ namespace CtrlGraph
 
         DllCtrlGraphProp m_Props = new DllCtrlGraphProp();
         CurveParam[] m_ListCurve = new CurveParam[DllCtrlGraphProp.NB_CURVE];
-        //TextBox[] m_ListSymb = new TextBox[DllCtrlGraphProp.NB_CURVE];
-        //TextBox[] m_ListAlias = new TextBox[DllCtrlGraphProp.NB_CURVE];
-        //TextBox[] m_ListColors = new TextBox[DllCtrlGraphProp.NB_CURVE];
 
         CComboData[] m_CboDataDispPeriod;
         CComboData[] m_CboDataLogPeriod;

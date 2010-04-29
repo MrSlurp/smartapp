@@ -28,10 +28,19 @@ namespace CtrlDataTrigger
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // InteractiveCtrlDataTriggerDllControl
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Name = "InteractiveCtrlDataTriggerDllControl";
+            this.Size = new System.Drawing.Size(118, 86);
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
     }
 }

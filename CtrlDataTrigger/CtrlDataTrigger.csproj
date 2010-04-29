@@ -84,6 +84,10 @@
       <SubType>Designer</SubType>
       <DependentUpon>CtrlDataTriggerProperties.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="InteractiveHerited\InteractiveCtrlDataTriggerDllControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>InteractiveCtrlDataTriggerDllControl.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Lang\FR.CtrlDataTrigger.po">
