@@ -616,7 +616,7 @@ namespace SmartApp.Ihm.Designer
             }
         }
 
-        private void TreatCopy()
+        public void TreatCopy()
         {
             // copier
             Clipboard.Clear();
@@ -639,7 +639,7 @@ namespace SmartApp.Ihm.Designer
             Clipboard.SetData(InternalFormat.Name, clipDoc.OuterXml);
         }
     
-        private void TreatPaste()
+        public void TreatPaste()
         {
             // coller
             if (Clipboard.ContainsData(InternalFormat.Name))
@@ -660,9 +660,11 @@ namespace SmartApp.Ihm.Designer
                         return;
                     }
                     int Pid = 0;
-                    if (clipDoc.FirstChild.Name == "pid")
+                    Traces.LogAddDebug(TraceCat.SmartConfig, "clipDoc.DocumentElement.FirstChild.Name = " + clipDoc.DocumentElement.FirstChild.Name);
+                    Traces.LogAddDebug(TraceCat.SmartConfig, "clipDoc.DocumentElement.FirstChild.OuterXml = " + clipDoc.DocumentElement.FirstChild.OuterXml);
+                    if (clipDoc.DocumentElement.FirstChild.Name == "pid")
                     {
-                        XmlNode AttrPid = clipDoc.FirstChild.Attributes.GetNamedItem("pid");
+                        XmlNode AttrPid = clipDoc.DocumentElement.FirstChild.Attributes.GetNamedItem("id");
                         Pid = int.Parse(AttrPid.Value);
                     } 
                     Traces.LogAddDebug(TraceCat.SmartConfig, "Paste en cours avec LoadXml OK");
@@ -678,6 +680,7 @@ namespace SmartApp.Ihm.Designer
                             ListSrc.Add(((BTControl)ctrlGest[i]).IControl);
                         }
                         bool bDiffInstance = Pid != System.Diagnostics.Process.GetCurrentProcess().Id;
+                        Traces.LogAddDebug(TraceCat.SmartConfig, "myPID = " + System.Diagnostics.Process.GetCurrentProcess().Id + " / clipboardPID = " + Pid);
                         InsertDropedItems(ListNew, ListSrc, Point.Empty, bDiffInstance);                            
                     }
                     else

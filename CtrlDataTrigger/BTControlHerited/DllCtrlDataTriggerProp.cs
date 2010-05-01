@@ -179,9 +179,9 @@ namespace CtrlDataTrigger
         {
             if (SrcSpecificProp.GetType() == typeof(DllCtrlDataTriggerProp))
             {
-                m_bBehaveLikeTrigger = ((DllCtrlDataTriggerProp)SrcSpecificProp).m_bBehaveLikeTrigger;
                 if (!bFromOtherInstance)
                 {
+                    m_bBehaveLikeTrigger = ((DllCtrlDataTriggerProp)SrcSpecificProp).m_bBehaveLikeTrigger;
                     m_strDataOffToOn = ((DllCtrlDataTriggerProp)SrcSpecificProp).m_strDataOffToOn;
                     m_strDataOnToOff = ((DllCtrlDataTriggerProp)SrcSpecificProp).m_strDataOnToOff;
                 }

@@ -67,6 +67,8 @@ namespace SmartApp.Ihm
             this.tsbtn_moveDown = new System.Windows.Forms.ToolStripMenuItem();
             this.m_toolBtnBringToFront = new System.Windows.Forms.ToolStripButton();
             this.toolbtnScreenToBitmap = new System.Windows.Forms.ToolStripButton();
+            this.tsbtn_copy = new System.Windows.Forms.ToolStripButton();
+            this.tsbtn_paste = new System.Windows.Forms.ToolStripButton() ;
             this.m_PanelScreenListAndProp = new SmartApp.Ihm.ScreenPropPanel();
             this.m_PanelControlProperties = new SmartApp.Ihm.ScreenItemPropertiesControl();
             this.panel1 = new SmartApp.Ihm.InteractivePanelContainer();
@@ -278,12 +280,30 @@ namespace SmartApp.Ihm
             this.toolStripDropDownButton1,
             this.toolStripDropDownButton2,
             this.m_toolBtnBringToFront,
+            this.tsbtn_copy,
+            this.tsbtn_paste,
             this.toolbtnScreenToBitmap});
             this.m_toolStripDesignLayout.Location = new System.Drawing.Point(0, 0);
             this.m_toolStripDesignLayout.Name = "m_toolStripDesignLayout";
             this.m_toolStripDesignLayout.Size = new System.Drawing.Size(454, 25);
             this.m_toolStripDesignLayout.TabIndex = 0;
             this.m_toolStripDesignLayout.Text = "toolStrip1";
+            // 
+            // tsbtn_copy
+            // 
+            this.tsbtn_copy.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsbtn_copy.Name = "tsbtn_copy";
+            this.tsbtn_copy.Size = new System.Drawing.Size(30, 22);
+            this.tsbtn_copy.Text = "Copy";
+            this.tsbtn_copy.Click += new System.EventHandler(this.tsbtn_copy_click);
+            // 
+            // tsbtn_paste
+            // 
+            this.tsbtn_paste.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsbtn_paste.Name = "tsbtn_paste";
+            this.tsbtn_paste.Size = new System.Drawing.Size(30, 22);
+            this.tsbtn_paste.Text = "Paste";
+            this.tsbtn_paste.Click += new System.EventHandler(this.tsbtn_paste_click);
             // 
             // m_toolBtnAlignLeft
             // 
@@ -593,6 +613,8 @@ namespace SmartApp.Ihm
         private System.Windows.Forms.ToolStripMenuItem tsbtn_moveRight;
         private System.Windows.Forms.ToolStripMenuItem tsbtn_moveUp;
         private System.Windows.Forms.ToolStripMenuItem tsbtn_moveDown;
+        private System.Windows.Forms.ToolStripButton tsbtn_copy;
+        private System.Windows.Forms.ToolStripButton tsbtn_paste;
 
     }
 }

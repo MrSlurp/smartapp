@@ -1,7 +1,7 @@
 <Root>
   <FileHeader>
     <FileVersion Indice="3" />
-    <SoftVersion Indice="2.5.1.0" />
+    <SoftVersion Indice="2.5.2.0" />
   </FileHeader>
   <DataSection>
     <Data strSymbol="TRANSACTION_ID" strNom="" Min="-32768" Max="32767" DefVal="1" size="16" Constant="True" />
@@ -22,7 +22,7 @@
     <Data strSymbol="TCPMB_OUT_REG_26" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
     <Data strSymbol="TCPMB_OUT_REG_27" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
     <GroupSection>
-      <Group strNom="Groupe par défaut" strSymbol="GROUP_0" bkColor="255, 255, 255">
+      <Group strNom="Default group" strSymbol="GROUP_0" bkColor="255, 255, 255">
         <Object strSymbol="TCPMB_OUT_REG_20" />
         <Object strSymbol="TCPMB_OUT_REG_21" />
         <Object strSymbol="TCPMB_OUT_REG_22" />
@@ -52,6 +52,17 @@
           <EventScript />
         </DllControl>
         <DllControl strSymbol="NEW_CTRL_1" strNom="" DllID="120" AssociateData="TCPMB_OUT_REG_21" ScreenEvent="False" Pos="107,20" size="59,55" Text="" ReadOnly="False" Bitmap0="$ExePath$\ImgLib\Vanne 4 voies\Vanne4VoiesA1.png" Bitmap1="$ExePath$\ImgLib\Vanne 4 voies\Vanne4VoiesA2.png" Bitmap2="$ExePath$\ImgLib\Vanne 4 voies\Vanne4VoiesA3.png" Bitmap3="$ExePath$\ImgLib\Vanne 4 voies\Vanne4VoiesA4.png">
+          <EventScript />
+        </DllControl>
+        <DllControl strSymbol="NEW_CTRL_2" strNom="" DllID="210" AssociateData="" ScreenEvent="False" Pos="21,106" size="381,200" Text="Item" ReadOnly="False" SavePeriod="10" LogPeriod="1">
+          <DATA_ITEM_0 strSymbol="TCPMB_OUT_REG_20" Text="" />
+          <DATA_ITEM_1 strSymbol="TCPMB_OUT_REG_21" Text="" />
+          <DATA_ITEM_2 strSymbol="" Text="" />
+          <DATA_ITEM_3 strSymbol="" Text="" />
+          <DATA_ITEM_4 strSymbol="" Text="" />
+          <DATA_ITEM_5 strSymbol="" Text="" />
+          <DATA_ITEM_6 strSymbol="" Text="" />
+          <DATA_ITEM_7 strSymbol="" Text="" />
           <EventScript />
         </DllControl>
       </ControlList>

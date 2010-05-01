@@ -174,7 +174,7 @@ namespace CtrlDataTrigger
                         if (m_AssocDataOffToOn != null)
                         {
                             m_iValueOffToOn = m_AssocDataOffToOn.DefaultValue;
-                            m_AssocDataOnToOff.DataValueChanged += new EventDataValueChange(UpdateFromData);
+                            m_AssocDataOffToOn.DataValueChanged += new EventDataValueChange(UpdateFromData);
                         }
                     }
                 }

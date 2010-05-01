@@ -378,6 +378,8 @@ namespace SmartApp.Ihm
                 m_PanelCtrlEventScript.ScriptableItem = null;
                 m_LabelSelectedScreen.Text = Program.LangSys.C("No selection");
                 toolbtnScreenToBitmap.Enabled = false;
+                tsbtn_copy.Enabled = false;
+                tsbtn_paste.Enabled = false;
                 UpdateDesignerFromScreen(null);
                 return;
             }
@@ -386,6 +388,8 @@ namespace SmartApp.Ihm
             m_PanelScreenEventScript.ScriptableItem = m_Currentscreen;
             m_InteractiveControlContainer.AllowDrop = true;
             toolbtnScreenToBitmap.Enabled = true;
+            tsbtn_copy.Enabled = true;
+            tsbtn_paste.Enabled = true;
 
             try
             {
@@ -595,6 +599,16 @@ namespace SmartApp.Ihm
         {
             Size szMove = new Size(0, 1);
             m_InteractiveControlContainer.TraiteMove(null, szMove);
+        }
+    
+        private void tsbtn_copy_click(object sender, EventArgs e)
+        {
+            m_InteractiveControlContainer.TreatCopy();            
+        }
+    
+        private void tsbtn_paste_click(object sender, EventArgs e)
+        {
+            m_InteractiveControlContainer.TreatPaste();            
         }
         #endregion
     }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml;
@@ -35,7 +35,7 @@ namespace CtrlDataGrid
     {
         #region constantes
         public const int NB_DATA = 8;
-        private const string NODE_GRAPH_ITEM = "DATAGRID_ITEM_{0}";
+        private const string NODE_DATA_ITEM = "DATA_ITEM_{0}";
         private const string ATTR_SAVE_PERIOD = "SavePeriod";
         private const string ATTR_LOG_PERIOD = "LogPeriod";
         #endregion
@@ -107,13 +107,14 @@ namespace CtrlDataGrid
             {
                 for (int ch = 0; ch < Node.ChildNodes.Count && NodeGraphItemCount < NB_DATA; ch++)
                 {
-                    string strNodeItemName = string.Format(NODE_GRAPH_ITEM, NodeGraphItemCount);
+                    string strNodeItemName = string.Format(NODE_DATA_ITEM, NodeGraphItemCount);
                     if (Node.ChildNodes[ch].Name == strNodeItemName)
                     {
                         XmlNode AttrSymbol = Node.ChildNodes[ch].Attributes.GetNamedItem(XML_CF_ATTRIB.strSymbol.ToString());
                         XmlNode AttrText = Node.ChildNodes[ch].Attributes.GetNamedItem(XML_CF_ATTRIB.Text.ToString());
                         ListDataSymbol[NodeGraphItemCount] = AttrSymbol.Value;
                         ListDataAlias[NodeGraphItemCount] = AttrText.Value;
+
                         NodeGraphItemCount++;
                         // on reprend à 0 si les items ne sont pas dans le bon ordre
                         ch = 0;
@@ -122,10 +123,12 @@ namespace CtrlDataGrid
             }
             XmlNode AttrSavePeriod = Node.Attributes.GetNamedItem(ATTR_SAVE_PERIOD);
             XmlNode AttrLogPeriod = Node.Attributes.GetNamedItem(ATTR_LOG_PERIOD);
-            m_SavePeriod = (SAVE_PERIOD)int.Parse(AttrSavePeriod.Value);
-            m_LoggingPeriod = (LOG_PERIOD)int.Parse(AttrLogPeriod.Value);
-            return true;
-        }
+            if (AttrLogPeriod != null)
+                m_LoggingPeriod = (LOG_PERIOD)int.Parse(AttrLogPeriod.Value);
+            if (AttrSavePeriod != null)
+                m_SavePeriod = (SAVE_PERIOD)int.Parse(AttrSavePeriod.Value);
+
+            return true;        }
 
         /// <summary>
         /// écriture des paramètres dans le fichier XML
@@ -135,6 +138,26 @@ namespace CtrlDataGrid
         /// <returns>true en cas de succès de l'écriture</returns>
         public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
         {
+            for (int i = 0; i < NB_DATA; i++)
+            {
+                XmlNode CurvPropNode = XmlDoc.CreateElement(string.Format(NODE_DATA_ITEM, i));
+                Traces.LogAddDebug(TraceCat.Serialization, "Ecriture de la donnée" + i + "du DataGrid");
+                XmlAttribute AttrSymbol = XmlDoc.CreateAttribute(XML_CF_ATTRIB.strSymbol.ToString());
+                XmlAttribute AttrText = XmlDoc.CreateAttribute(XML_CF_ATTRIB.Text.ToString());
+                AttrSymbol.Value = ListDataSymbol[i];
+                AttrText.Value = ListDataAlias[i];
+                CurvPropNode.Attributes.Append(AttrSymbol);
+                CurvPropNode.Attributes.Append(AttrText);
+                Node.AppendChild(CurvPropNode);
+            }
+            XmlAttribute AttrSavePeriod = XmlDoc.CreateAttribute(ATTR_SAVE_PERIOD);
+            XmlAttribute AttrLogPeriod = XmlDoc.CreateAttribute(ATTR_LOG_PERIOD);
+            AttrSavePeriod.Value = ((int)m_SavePeriod).ToString();
+            AttrLogPeriod.Value = ((int)m_LoggingPeriod).ToString();
+
+            Node.Attributes.Append(AttrSavePeriod);
+            Node.Attributes.Append(AttrLogPeriod);
+
             return true;
         }
 
