@@ -26,6 +26,7 @@ namespace CtrlDataGrid
         /// </summary>
         public CtrlDataGridProperties()
         {
+            DllEntryClass.LangSys.Initialize(this);
             InitializeComponent();
         }
 
