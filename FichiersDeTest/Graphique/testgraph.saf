@@ -1,7 +1,7 @@
 <Root>
   <FileHeader>
     <FileVersion Indice="3" />
-    <SoftVersion Indice="2.5.1.0" />
+    <SoftVersion Indice="2.5.2.0" />
   </FileHeader>
   <DataSection>
     <Data strSymbol="TRANSACTION_ID" strNom="" Min="-32768" Max="32767" DefVal="1" size="16" Constant="True" />
@@ -22,7 +22,7 @@
     <Data strSymbol="TCPMB_OUT_REG_26" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
     <Data strSymbol="TCPMB_OUT_REG_27" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
     <GroupSection>
-      <Group strNom="Groupe par défaut" strSymbol="GROUP_0" bkColor="255, 255, 255">
+      <Group strNom="Default group" strSymbol="GROUP_0" bkColor="255, 255, 255">
         <Object strSymbol="TCPMB_OUT_REG_20" />
         <Object strSymbol="TCPMB_OUT_REG_21" />
         <Object strSymbol="TCPMB_OUT_REG_22" />
@@ -58,6 +58,17 @@
           <GRAPH_ITEM_6 strSymbol="TCPMB_OUT_REG_26" Text="valeur 7" bkColor="255, 0, 0" />
           <GRAPH_ITEM_7 strSymbol="TCPMB_OUT_REG_27" Text="valeur 8" bkColor="128, 0, 128" />
           <GRAPH_TITLES GraphTitle="Graphique de test" XTitle="temps" YTitle="valeur" />
+          <EventScript />
+        </DllControl>
+        <DllControl strSymbol="NEW_CTRL_1" strNom="" DllID="210" AssociateData="" ScreenEvent="False" Pos="7,364" size="610,296" Text="" ReadOnly="False" SavePeriod="10" LogPeriod="1">
+          <DATA_ITEM_0 strSymbol="TCPMB_OUT_REG_20" Text="V1" />
+          <DATA_ITEM_1 strSymbol="TCPMB_OUT_REG_21" Text="V2" />
+          <DATA_ITEM_2 strSymbol="TCPMB_OUT_REG_22" Text="V3" />
+          <DATA_ITEM_3 strSymbol="TCPMB_OUT_REG_23" Text="V4" />
+          <DATA_ITEM_4 strSymbol="TCPMB_OUT_REG_24" Text="V5" />
+          <DATA_ITEM_5 strSymbol="TCPMB_OUT_REG_25" Text="V6" />
+          <DATA_ITEM_6 strSymbol="TCPMB_OUT_REG_26" Text="V7" />
+          <DATA_ITEM_7 strSymbol="TCPMB_OUT_REG_27" Text="V8" />
           <EventScript />
         </DllControl>
       </ControlList>

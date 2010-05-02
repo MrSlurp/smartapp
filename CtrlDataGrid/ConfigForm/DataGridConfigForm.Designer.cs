@@ -46,14 +46,14 @@
             this.uscPanelCurveCfg.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.uscPanelCurveCfg.Location = new System.Drawing.Point(6, 53);
             this.uscPanelCurveCfg.Name = "uscPanelCurveCfg";
-            this.uscPanelCurveCfg.Size = new System.Drawing.Size(400, 292);
+            this.uscPanelCurveCfg.Size = new System.Drawing.Size(400, 318);
             this.uscPanelCurveCfg.TabIndex = 20;
             // 
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(323, 351);
+            this.btnCancel.Location = new System.Drawing.Point(325, 377);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 22;
@@ -64,7 +64,7 @@
             // 
             this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(242, 351);
+            this.btnOK.Location = new System.Drawing.Point(244, 377);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 21;
@@ -111,7 +111,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(412, 386);
+            this.ClientSize = new System.Drawing.Size(412, 412);
             this.ControlBox = false;
             this.Controls.Add(this.cboLogPeriod);
             this.Controls.Add(this.label2);
@@ -124,7 +124,7 @@
             this.MinimumSize = new System.Drawing.Size(420, 420);
             this.Name = "DataGridConfigForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "DataGridConfigForm";
+            this.Text = "Data Grid Configuration";
             this.ResumeLayout(false);
             this.PerformLayout();
 
