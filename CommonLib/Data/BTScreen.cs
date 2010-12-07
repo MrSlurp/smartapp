@@ -676,6 +676,13 @@ namespace CommonLib
                 m_DynamicPanel.SetToTop();
             }
         }
+        public void TakeScreenShot(string filePath)
+        {
+            if (m_DynamicPanel != null)
+            {
+                m_DynamicPanel.DoScreenShot(filePath);
+            }
+        }
         #endregion
 
     }

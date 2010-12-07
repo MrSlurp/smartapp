@@ -107,8 +107,12 @@ namespace SmartApp.Ihm.Wizards
 
             FrameDataList.Add(new Data("TRANSACTION_ID", 1, 16, true));
             FrameDataList.Add(new Data("PROTOCO_ID", 0, 16, true));
+            string strFollowingByte = string.Format("FOLLOWING_{0}_BYTES", 6);
+            FrameDataList.Add(new Data(strFollowingByte, 6, 16, true));
+/*
             string strFollowingByte = string.Format("FOLLOWING_{0}_BYTES", NbOfRegisters * 2 + 4);
             FrameDataList.Add(new Data(strFollowingByte, NbOfRegisters * 2 + 4, 16, true));
+*/
             FrameDataList.Add(new Data("MODBUS_SLAVE_ADDR", 1, 8, true));
             if (WriteOrder == MODBUS_ORDER_TYPE.WRITE_MULTIPLE_REGISTER)
             {
@@ -120,6 +124,13 @@ namespace SmartApp.Ihm.Wizards
 
             string strAddrReg = string.Format("TCPMB_REG_ADDR_{0}", StartAddress);
             FrameDataList.Add(new Data(strAddrReg, (int)StartAddress, 16, true));
+/*
+            if (WriteOrder == MODBUS_ORDER_TYPE.WRITE_MULTIPLE_REGISTER)
+            {
+              string strRegCount = string.Format("TCPMB_WRITE_{0}_REG", NbOfRegisters);
+              FrameDataList.Add(new Data(strRegCount, (int)NbOfRegisters, 16, true));
+            }
+*/
             return FrameDataList;
         }
         //*****************************************************************************************************

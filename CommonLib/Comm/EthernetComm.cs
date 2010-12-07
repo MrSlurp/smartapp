@@ -95,6 +95,15 @@ namespace CommonLib
             if (m_TcpClient.IsOpen)
             {
                 //m_DataBuffer = null;
+                if (Traces.IsLogLevelOK(TracesLevel.Debug))
+                {
+                    string strSendData = string.Empty; 
+                    for (int i = 0; i < buffer.Length; i++)
+                    {
+                        strSendData += string.Format(" {0:x2}", buffer[i]);
+                    }
+                    Traces.LogAddDebug(TraceCat.Communication, "SendData", strSendData);
+                }
                 m_TcpClient.SendData(buffer);
                 return true;
             }

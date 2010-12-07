@@ -20,6 +20,7 @@ namespace CommonLib
         // ou alors sous forme de tableau à index unique (0) pour les autres types
         public BaseObject[] m_Arguments = null;
 
+        public object[] m_objArguments = null;
     }
 
     public class QuickExecuter
@@ -260,6 +261,12 @@ namespace CommonLib
                                            string.Format("Screen.SHOW_ON_TOP {0}", QuickScript.m_Arguments[0].Symbol));
                     ((BTScreen)QuickScript.m_Arguments[0]).ShowScreenToTop();
                     break;
+                case ALL_FUNC.SCREEN_SCREEN_SHOT:
+                    if (Traces.IsDebugAndCatOK(TraceCat.ExecuteScreen))
+                        Traces.LogAddDebug(TraceCat.ExecuteScreen,
+                                           string.Format("Screen.SHOW_ON_TOP {0}", QuickScript.m_Arguments[0].Symbol));
+                    ((BTScreen)QuickScript.m_Arguments[0]).TakeScreenShot((string)QuickScript.m_objArguments[0]);
+                    break;
             }
         }
         #endregion
@@ -303,6 +310,16 @@ namespace CommonLib
                     // si il ne veux pas, remonter au parent qu'il doit arrèter les actions
                     //COMM_ERROR Err = m_Doc.m_Comm.ErrorCode;
                     string strmess = string.Format(Lang.LangSys.C("Message {0} have not been recieved (Timeout)"), TrameToRecieve.Symbol);
+                    if (Traces.IsDebugAndCatOK(TraceCat.ExecuteFrame))
+                    {
+                        string strSendData = string.Empty; 
+                        Byte[] buffer2 = TrameToRecieve.CreateTrameToSend(false);
+                        for (int i = 0; i < buffer2.Length; i++)
+                        {
+                            strSendData += string.Format(" {0:x2}", buffer2[i]);
+                        }
+                        Traces.LogAddDebug(TraceCat.ExecuteFrame, string.Format("Expected frame content {0}",strSendData ));
+                    }
                     LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, strmess);
                     AddLogEvent(log);
                     return;

@@ -36,6 +36,9 @@ namespace CommonLib
         public event SetMeToTopEvent SetMeToTop;
 
         private bool m_bInternalEnabled = true;
+
+        public event AddLogEventDelegate EventAddLogEvent;
+
         /// <summary>
         /// constructeur par défaut
         /// </summary>
@@ -62,14 +65,14 @@ namespace CommonLib
             }
         }
 
-            /// <summary>
-            /// Construit son affichage a partir des objets BaseControl crées a la 
-            /// lecture du fichier
-            /// </summary>
-            /// <param name="ControlsList">Liste des controls a afficher
-            /// tout les objets doivent dériver de BaseControl
-            /// </param>
-            public void MyInitializeComponent(List<BTControl> ControlsList)
+        /// <summary>
+        /// Construit son affichage a partir des objets BaseControl crées a la 
+        /// lecture du fichier
+        /// </summary>
+        /// <param name="ControlsList">Liste des controls a afficher
+        /// tout les objets doivent dériver de BaseControl
+        /// </param>
+        public void MyInitializeComponent(List<BTControl> ControlsList)
         {
             this.SuspendLayout();
             for (int i = ControlsList.Count-1; i >=0 ; i--)
@@ -124,6 +127,35 @@ namespace CommonLib
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="filePath"></param>
+        public void DoScreenShot(string filePath)
+        {
+            //"Image File (*.png)|*.png";
+            //TODO faire le screen shot du panel
+            try
+            {
+                using (Graphics g = this.CreateGraphics())
+                {
+                    //new bitmap object to save the image
+                    Bitmap bmp = new Bitmap(this.Width, this.Height);
+                    //Drawing control to the bitmap
+                    this.DrawToBitmap(bmp, new Rectangle(0, 0, this.Width, this.Height));
+
+                    bmp.Save(filePath);
+                    bmp.Dispose();
+                }
+            }
+            catch (Exception)
+            {
+                LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format("Error creating screen shot {0}", filePath));
+                AddLogEvent(log);
+            }
+        }
+
+
+        /// <summary>
         /// provoque le rafraichissementg des controls superposés à un control qui se dessine en fond
         /// </summary>
         /// <param name="ctrl">control se dessinant en fond</param>
@@ -155,5 +187,16 @@ namespace CommonLib
             }
             base.OnPaint(e);
         }
+
+        #region fonction diverses
+        public void AddLogEvent(LogEvent Event)
+        {
+            if (EventAddLogEvent != null)
+            {
+                EventAddLogEvent(Event);
+            }
+        }
+        #endregion
+
     }
 }
