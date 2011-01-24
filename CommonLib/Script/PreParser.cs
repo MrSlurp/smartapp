@@ -364,12 +364,14 @@ namespace CommonLib
                     case SCREEN_FUNC.SHOW_ON_TOP:
                         retPreParsedLine.m_FunctionToExec = ALL_FUNC.SCREEN_SHOW_ON_TOP;
                         break;
-                    case SCREEN_FUNC.SCREEN_SHOT:
+                    case SCREEN_FUNC.SNAPSHOT:
                         {
-                            retPreParsedLine.m_FunctionToExec = ALL_FUNC.SCREEN_SCREEN_SHOT;
+                            retPreParsedLine.m_FunctionToExec = ALL_FUNC.SCREEN_SNAPSHOT;
+                            /*
                             string[] strParamList = null;
                             ScriptParser.GetArgsAsString(line, ref strParamList);
-                            retPreParsedLine.m_objArguments = new object[] { strParamList[0] };
+                            retPreParsedLine.m_objArguments = new object[] { (strParamList!= null strParamList[0] : null)};
+                            */
                         }
                         break;
                 }

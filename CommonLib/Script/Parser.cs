@@ -265,6 +265,7 @@ namespace CommonLib
                     break;
                 case TOKEN_TYPE.SCREEN_FUNC:
                     AutoCompleteStrings.Add(SCREEN_FUNC.SHOW_ON_TOP.ToString());
+                    AutoCompleteStrings.Add(SCREEN_FUNC.SNAPSHOT.ToString());
                     break;
                 case TOKEN_TYPE.SCREEN:
                     for (int i = 0; i < m_Document.GestScreen.Count; i++)

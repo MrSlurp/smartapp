@@ -72,11 +72,12 @@ namespace CommonLib
                     case SCREEN_FUNC.SHOW_ON_TOP:
                         // ajouter du code ici si il faut parser le contenu des parenthèses
                         break;
-                    case SCREEN_FUNC.SCREEN_SHOT:
-                        string[] strParamList = null;
-                        if (!GetArgsAsString(line, ErrorList, ref strParamList))
-                            return;
+                    case SCREEN_FUNC.SNAPSHOT:
+                        //string[] strParamList = null;
+                        //if (!GetArgsAsString(line, ErrorList, ref strParamList))
+                        //    return;
 
+                        /*
                         if (strParamList.Length != 1)
                         {
                             string strErr = string.Format(Lang.LangSys.C("Invalid line, not enought parameters for Screen function"));
@@ -84,6 +85,7 @@ namespace CommonLib
                             ErrorList.Add(Err);
                         }
                         // TODO, vérifier que le path est valide
+                        */
                         
                         break;
                     case SCREEN_FUNC.INVALID:
