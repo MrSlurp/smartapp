@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CtrlBlinker", "Blinker\Ctrl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CtrlDataGrid", "CtrlDataGrid\CtrlDataGrid.csproj", "{099CFCFC-63A2-4A1A-AE6C-4E301B0E1CD5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CtrlTimeWatch", "CtrlTimeWatch\CtrlTimeWatch.csproj", "{A0539CB6-495E-4412-89A3-00C9CB7448E9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		BuildLang|Any CPU = BuildLang|Any CPU
@@ -394,6 +396,31 @@ Global
 		{099CFCFC-63A2-4A1A-AE6C-4E301B0E1CD5}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{099CFCFC-63A2-4A1A-AE6C-4E301B0E1CD5}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{099CFCFC-63A2-4A1A-AE6C-4E301B0E1CD5}.Release|Win32.ActiveCfg = Release|Any CPU
+		{A0539CB6-495E-4412-89A3-00C9CB7448E9}.BuildLang|Any CPU.ActiveCfg = BuildLang|Any CPU
+		{A0539CB6-495E-4412-89A3-00C9CB7448E9}.BuildLang|Any CPU.Build.0 = BuildLang|Any CPU
+		{A0539CB6-495E-4412-89A3-00C9CB7448E9}.BuildLang|Mixed Platforms.ActiveCfg = BuildLang|Any CPU
+		{A0539CB6-495E-4412-89A3-00C9CB7448E9}.BuildLang|Mixed Platforms.Build.0 = BuildLang|Any CPU
+		{A0539CB6-495E-4412-89A3-00C9CB7448E9}.BuildLang|Win32.ActiveCfg = BuildLang|Any CPU
+		{A0539CB6-495E-4412-89A3-00C9CB7448E9}.Debug Cmd|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0539CB6-495E-4412-89A3-00C9CB7448E9}.Debug Cmd|Any CPU.Build.0 = Debug|Any CPU
+		{A0539CB6-495E-4412-89A3-00C9CB7448E9}.Debug Cmd|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{A0539CB6-495E-4412-89A3-00C9CB7448E9}.Debug Cmd|Mixed Platforms.Build.0 = Debug|Any CPU
+		{A0539CB6-495E-4412-89A3-00C9CB7448E9}.Debug Cmd|Win32.ActiveCfg = Debug|Any CPU
+		{A0539CB6-495E-4412-89A3-00C9CB7448E9}.Debug Test|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0539CB6-495E-4412-89A3-00C9CB7448E9}.Debug Test|Any CPU.Build.0 = Debug|Any CPU
+		{A0539CB6-495E-4412-89A3-00C9CB7448E9}.Debug Test|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{A0539CB6-495E-4412-89A3-00C9CB7448E9}.Debug Test|Mixed Platforms.Build.0 = Debug|Any CPU
+		{A0539CB6-495E-4412-89A3-00C9CB7448E9}.Debug Test|Win32.ActiveCfg = Debug|Any CPU
+		{A0539CB6-495E-4412-89A3-00C9CB7448E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0539CB6-495E-4412-89A3-00C9CB7448E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0539CB6-495E-4412-89A3-00C9CB7448E9}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{A0539CB6-495E-4412-89A3-00C9CB7448E9}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{A0539CB6-495E-4412-89A3-00C9CB7448E9}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{A0539CB6-495E-4412-89A3-00C9CB7448E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0539CB6-495E-4412-89A3-00C9CB7448E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0539CB6-495E-4412-89A3-00C9CB7448E9}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{A0539CB6-495E-4412-89A3-00C9CB7448E9}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{A0539CB6-495E-4412-89A3-00C9CB7448E9}.Release|Win32.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

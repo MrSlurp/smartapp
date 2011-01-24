@@ -84,7 +84,7 @@ namespace SmartApp.Ihm.Wizards
             {
                 string strNbRegByte = string.Format("TCPMB_WRITE_{0}_REG", NbOfRegisters);
                 FrameDataList.Add(new Data(strNbRegByte, NbOfRegisters, 16, true));
-                strNbRegByte = string.Format("BYTE_COUNT_{0}_REG", NbOfRegisters);
+                strNbRegByte = string.Format("BYTE_COUNT_{0}_REG", NbOfRegisters*2);
                 FrameDataList.Add(new Data(strNbRegByte, NbOfRegisters*2, 8, true));
             }
 
@@ -131,7 +131,7 @@ namespace SmartApp.Ihm.Wizards
             {
               string strRegCount = string.Format("TCPMB_WRITE_{0}_REG", NbOfRegisters);
               FrameDataList.Add(new Data(strRegCount, (int)NbOfRegisters, 16, true));
-            }
+          }
 
             return FrameDataList;
         }
