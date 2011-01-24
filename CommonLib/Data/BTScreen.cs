@@ -680,7 +680,7 @@ namespace CommonLib
         {
             if (m_DynamicPanel != null)
             {
-                m_DynamicPanel.DoScreenShot(filePath);
+                m_DynamicPanel.DoScreenShot(filePath, this.Symbol);
             }
         }
         #endregion
