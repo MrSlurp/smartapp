@@ -328,6 +328,7 @@ namespace SmartApp
             {
                 BTScreen Scr = (BTScreen)Doc.GestScreen[i];
                 Scr.Panel.SetMeToTop += new DynamicPanel.SetMeToTopEvent(SetClientFormToTop);
+                Scr.Panel.DocumentFileName = Doc.FileName;
                 DynamicPanelForm Frm = new DynamicPanelForm(Scr.Panel);
                 Scr.Panel.Location = new Point(10, 10);
                 Frm.ClientSize = new System.Drawing.Size(Scr.Panel.Width + Scr.Panel.Left + 10,
