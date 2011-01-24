@@ -14,7 +14,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Text;
+using System.IO;
 using System.Windows.Forms;
 
 
@@ -38,6 +40,10 @@ namespace CommonLib
         private bool m_bInternalEnabled = true;
 
         public event AddLogEventDelegate EventAddLogEvent;
+        
+        protected string m_Title = string.Empty;
+        
+        protected string m_DocumentFileName = string.Empty;
 
         /// <summary>
         /// constructeur par défaut
@@ -47,6 +53,31 @@ namespace CommonLib
             InitializeComponent();
             
         }
+
+        public string Title
+        {
+            get
+            {
+                return m_Title;
+            }
+            set
+            {
+                m_Title = value;
+            }
+        }
+    
+        public string DocumentFileName
+        {
+            get
+            {
+                return m_DocumentFileName;
+            }
+            set
+            {
+                m_DocumentFileName = value;
+            }
+        }
+            
 
         public bool SpecialEnabled
         {
@@ -130,10 +161,11 @@ namespace CommonLib
         /// 
         /// </summary>
         /// <param name="filePath"></param>
-        public void DoScreenShot(string filePath)
+        public void DoScreenShot(string fileName, string ScreenSymbol)
         {
             //"Image File (*.png)|*.png";
             //TODO faire le screen shot du panel
+            string filePath = string.Empty;
             try
             {
                 using (Graphics g = this.CreateGraphics())
@@ -142,15 +174,35 @@ namespace CommonLib
                     Bitmap bmp = new Bitmap(this.Width, this.Height);
                     //Drawing control to the bitmap
                     this.DrawToBitmap(bmp, new Rectangle(0, 0, this.Width, this.Height));
+                    
+                    string NowTime = DateTime.Now.ToString("dd_MM_yyyy_HH-mm-ss");  
+                    if (string.IsNullOrEmpty(m_Title))
+                        m_Title = ScreenSymbol+"_"+NowTime;                           
 
-                    bmp.Save(filePath);
+                    if (string.IsNullOrEmpty(fileName))
+                        fileName = m_Title.Replace(" ","_") + ".png";
+                        
+                    filePath = Path.GetDirectoryName(m_DocumentFileName) + 
+                               Path.DirectorySeparatorChar + 
+                               "SnapShot" +  
+                               Path.DirectorySeparatorChar + fileName;
+                               
+                    if (Traces.IsDebugAndCatOK(TraceCat.ExecuteScreen))
+                        Traces.LogAddDebug(TraceCat.ExecuteScreen, 
+                                           string.Format("SnapShot {0} written", filePath));
+                                           
+                    Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+                    bmp.Save(filePath, ImageFormat.Png);
                     bmp.Dispose();
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format("Error creating screen shot {0}", filePath));
                 AddLogEvent(log);
+                if (Traces.IsDebugAndCatOK(TraceCat.ExecuteScreen))
+                    Traces.LogAddDebug(TraceCat.ExecuteScreen, 
+                                       string.Format("Error While creating SnapShot {0} ({1})", filePath, e.Message));
             }
         }
 
