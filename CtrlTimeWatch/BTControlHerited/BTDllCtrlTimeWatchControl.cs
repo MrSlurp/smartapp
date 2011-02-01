@@ -92,8 +92,6 @@ namespace CtrlTimeWatch
             if (!m_SpecificProp.WriteOut(XmlDoc, NodeControl))
                 return false;
 
-            /// on écrit le script (UseScreenEvent)
-            WriteScript(XmlDoc, NodeControl);
             return true;
         }
         #endregion
@@ -138,5 +136,17 @@ namespace CtrlTimeWatch
             m_SpecificProp.TraiteMessage(Mess, obj, TypeApp, this);
         }
 
+
+        /// <summary>
+        /// renvoie true si le control à au moins une donnée associé qui rend son état dynamique
+        /// Utilisé pour masquer les controls lors de l'enregistrement de l'image de fond de plan
+        /// </summary>
+        public override bool HaveDataAssociation
+        {
+            get
+            {
+                return true;
+            }
+        }
     }
 }

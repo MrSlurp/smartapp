@@ -31,9 +31,9 @@ namespace CtrlDataTrigger
             m_stdPropEnabling.m_bcheckReadOnlyEnabled = false;
             m_stdPropEnabling.m_bcheckScreenEventEnabled = false;
             m_stdPropEnabling.m_bcheckScreenEventChecked = false;
-            m_stdPropEnabling.m_bEditAssociateDataEnabled = true;
+            m_stdPropEnabling.m_bEditAssociateDataEnabled = false;
             m_stdPropEnabling.m_bEditTextEnabled = false;
-            m_stdPropEnabling.m_bCtrlEventScriptEnabled = true;
+            m_stdPropEnabling.m_bCtrlEventScriptEnabled = false;
 
             // modifiez ici les valeur afin que le control ai la taille min souhaité et ses possibilité de redimensionnement
             m_SpecGraphicProp.m_bcanResizeWidth = false;
@@ -43,17 +43,22 @@ namespace CtrlDataTrigger
 
             this.ControlType = InteractiveControlType.DllControl;
 
+            InitializeComponent();
         }
 
+        /// <summary>
+        /// appelé lorsqu'un control est dropé dans la surface de dessin
+        /// crée un nouveau control du même type que celui dropé
+        /// </summary>
+        /// <returns>un nouveau control du type courant</returns>
         public override InteractiveControl CreateNew()
         {
             return new InteractiveCtrlDataTriggerDllControl();
         }
 
-        //*****************************************************************************************************
-        // Description: accesseur pour le type, modifie atomatiquement les propriété de redimensionement et 
-        // la taille du control quand le type change
-        //*****************************************************************************************************
+        /// <summary>
+        /// Surcharge de la classe de base, dans le cas des template on est toujours de type DLL 
+        /// </summary>
         public override InteractiveControlType ControlType
         {
             get
@@ -62,6 +67,9 @@ namespace CtrlDataTrigger
             }
         }
 
+        /// <summary>
+        /// accesseur vers le panneau des propriété spécifiques (ReadOnly)
+        /// </summary>
         public UserControl SpecificPropPanel
         {
             get
@@ -70,6 +78,9 @@ namespace CtrlDataTrigger
             }
         }
 
+        /// <summary>
+        /// accesseur vers les propriété d'activation standard (ReadOnly)
+        /// </summary>
         public StandardPropEnabling StdPropEnabling
         {
             get
@@ -78,6 +89,9 @@ namespace CtrlDataTrigger
             }
         }
 
+        /// <summary>
+        /// accesseur vers les propriété spécifiques (ReadOnly)
+        /// </summary>
         public SpecificGraphicProp SpecGraphicProp
         {
             get

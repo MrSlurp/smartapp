@@ -13,11 +13,19 @@ namespace CtrlTimeWatch
     /// </summary>
     internal class CtrlTimeWatchCmdControl : BTDllCtrlTimeWatchControl
     {
+        Timer m_RefreshTimer = new Timer();
+
+        Data m_AssocDataHours = null;
+        Data m_AssocDataMinutes = null;
+        Data m_AssocDataSecond = null;
+
         /// <summary>
         /// Constructeur de la classe
         /// </summary>
         public CtrlTimeWatchCmdControl()
         {
+            m_RefreshTimer.Interval = 1000;
+            m_RefreshTimer.Tick += new EventHandler(RefreshTimerTick);
 
         }
 
@@ -58,6 +66,22 @@ namespace CtrlTimeWatch
             return;
         }
 
+        void RefreshTimerTick(object sender, EventArgs e)
+        {
+            if (m_AssocDataHours != null && m_Ctrl != null)
+            {
+                m_AssocDataHours.Value = DateTime.Now.Hour;
+            }
+            if (m_AssocDataMinutes != null && m_Ctrl != null)
+            {
+                m_AssocDataMinutes.Value = DateTime.Now.Minute;
+            }
+            if (m_AssocDataSecond != null && m_Ctrl != null)
+            {
+                m_AssocDataSecond.Value = DateTime.Now.Second;
+            }
+        }
+
         /// <summary>
         /// Handler de l'évènement "DataValueChanged" déclenché par la donnée associée par défaut
         /// permet de mettre a jour l'état du control associé en fonction de celle ci.
@@ -66,10 +90,39 @@ namespace CtrlTimeWatch
         /// </summary>
         public override void UpdateFromData()
         {
-            if (m_AssociateData != null && m_Ctrl != null)
+        }
+
+        public override bool FinalizeRead(BTDoc Doc)
+        {
+            bool bret = base.FinalizeRead(Doc);
+
+            
+            DllCtrlTimeWatchProp prop = (DllCtrlTimeWatchProp)m_SpecificProp;
+            if (!string.IsNullOrEmpty(prop.DataHours))
             {
-                // effectuez ici le traitement à executer lorsque la valeur change
+                m_AssocDataHours = (Data)Doc.GestData.GetFromSymbol(prop.DataHours);
+                if (m_AssocDataHours == null)
+                {
+                    return false;
+                }
             }
+            if (!string.IsNullOrEmpty(prop.DataMinutes))
+            {
+                m_AssocDataMinutes = (Data)Doc.GestData.GetFromSymbol(prop.DataMinutes);
+                if (m_AssocDataMinutes == null)
+                {
+                    return false;
+                }
+            }
+            if (!string.IsNullOrEmpty(prop.DataSecond))
+            {
+                m_AssocDataSecond = (Data)Doc.GestData.GetFromSymbol(prop.DataSecond);
+                if (m_AssocDataSecond == null)
+                {
+                    return false;
+                }
+            }
+            return bret;
         }
 
         /// <summary>
@@ -91,10 +144,17 @@ namespace CtrlTimeWatch
                     // message de requête sur les conséquence d'une supression
                     case MESSAGE.MESS_CMD_STOP:
                         // traitez ici le passage en mode stop du control si nécessaire
+                        m_RefreshTimer.Stop();
                         break;
                     case MESSAGE.MESS_CMD_RUN:
                         // traitez ici le passage en mode run du control si nécessaire
+                        m_RefreshTimer.Start();
                         break;
+#if QUICK_MOTOR
+                    case MESSAGE.MESS_PRE_PARSE:
+                        break;
+#endif
+                    case MESSAGE.MESS_PRE_PARSE:
                     default:
                         break;
                 }

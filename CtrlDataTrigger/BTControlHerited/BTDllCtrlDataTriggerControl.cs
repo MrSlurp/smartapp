@@ -10,6 +10,9 @@ namespace CtrlDataTrigger
     {
         protected SpecificControlProp m_SpecificProp = null;
 
+        /// <summary>
+        /// Constructeur de la classe
+        /// </summary>
         public BTDllCtrlDataTriggerControl()
         {
             m_IControl = new InteractiveCtrlDataTriggerDllControl();
@@ -19,6 +22,9 @@ namespace CtrlDataTrigger
             m_SpecificProp = new DllCtrlDataTriggerProp();
         }
 
+        /// <summary>
+        /// Constructeur de la à partir d'un control interactif
+        /// </summary>
         public BTDllCtrlDataTriggerControl(InteractiveControl Ctrl)
         {
             m_IControl = Ctrl;
@@ -28,6 +34,9 @@ namespace CtrlDataTrigger
             m_SpecificProp = new DllCtrlDataTriggerProp();
         }
 
+        /// <summary>
+        /// Acesseur des propriété spécifiques
+        /// </summary>
         public override SpecificControlProp SpecificProp
         {
             get
@@ -37,10 +46,12 @@ namespace CtrlDataTrigger
         }
 
         #region ReadIn / WriteOut
-        //*****************************************************************************************************
-        // Description: Lit les données de l'objet a partir de son noeud XML
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// Lit les données de l'objet a partir de son noeud XML
+        /// </summary>
+        /// <param name="Node">Noeud Xml de l'objet</param>
+        /// <param name="TypeApp">type d'application courante</param>
+        /// <returns>true si la lecture s'est bien passé</returns>
         public override bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
         {
             if (!ReadInBaseObject(Node))
@@ -55,10 +66,12 @@ namespace CtrlDataTrigger
             return true;
         }
 
-        //*****************************************************************************************************
-        // Description: ecrit les données de l'objet a partir de son noeud XML
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// écrit les données de l'objet dans le fichier XML
+        /// </summary>
+        /// <param name="XmlDoc">Document XML courant</param>
+        /// <param name="Node">Noeud parent du controle dans le document</param>
+        /// <returns>true si l'écriture s'est déroulée avec succès</returns>
         public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
         {
             XmlNode NodeControl = XmlDoc.CreateElement(XML_CF_TAG.DllControl.ToString());
@@ -80,6 +93,9 @@ namespace CtrlDataTrigger
         }
         #endregion
 
+        /// <summary>
+        /// Surcharge de la classe de base, indique que c'est un plugin DLL
+        /// </summary>
         public override bool IsDllControl
         {
             get
@@ -88,6 +104,9 @@ namespace CtrlDataTrigger
             }
         }
 
+        /// <summary>
+        /// Renvoie l'ID de la DLL
+        /// </summary>
         public override uint DllControlID
         {
             get
@@ -96,8 +115,18 @@ namespace CtrlDataTrigger
             }
         }
 
-        // le traite message dans smart config
-        // n'a lieu d'être que si dans le paramétrage on trouve des symboles d'objets
+        /// <summary>
+        /// Traite les message intra applicatif de SmartConfig
+        /// Ces messages informes de : 
+        /// - demande de suppression (non confirmée) : il faut créer un message pour informer l'utlisateur
+        /// - Supression de confirmée : il faut supprimer le paramètre concerné
+        /// - renommage : il faut mettre a jour le paramètre concerné
+        /// NOTE : n'a lieu d'être que si dans le paramétrage on trouve des symboles d'objets
+        /// </summary>
+        /// <param name="Mess">Type du message</param>
+        /// <param name="obj">paramètre du message (objet paramètre du message de type 
+        /// MessAskDelete / MessDeleted / MessItemRenamed)</param>
+        /// <param name="TypeApp">Type de l'application courante (SmartConfig / SmartCommand)</param>
         public override void TraiteMessage(MESSAGE Mess, object obj, TYPE_APP TypeApp)
         {
             base.TraiteMessage(Mess, obj, TypeApp);

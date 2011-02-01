@@ -88,7 +88,7 @@ namespace CtrlTimeWatch
             get
             {
                 // modifiez ici le nom par défaut de l'objet lors de sa création
-                return "CtrlTimeWatch";
+                return "TimeWatch";
             }
         }
 

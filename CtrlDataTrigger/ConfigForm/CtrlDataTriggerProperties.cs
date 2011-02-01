@@ -20,12 +20,18 @@ namespace CtrlDataTrigger
         public event ControlPropertiesChange ControlPropertiesChanged;
         #endregion
 
+        /// <summary>
+        /// Constructeur de la classe
+        /// </summary>
         public CtrlDataTriggerProperties()
         {
             DllEntryClass.LangSys.Initialize(this);
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Accesseur du control
+        /// </summary>
         public BTControl BTControl
         {
             get

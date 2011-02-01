@@ -77,6 +77,24 @@ namespace CtrlDataTrigger
             this.label2.TabIndex = 2;
             this.label2.Text = "Off to on setpoint (can be integer or data)";
             // 
+            // m_lblScriptOnToOffComm
+            // 
+            this.m_lblScriptOnToOffComm.AutoSize = true;
+            this.m_lblScriptOnToOffComm.Location = new System.Drawing.Point(145, 110);
+            this.m_lblScriptOnToOffComm.Name = "m_lblScriptOnToOffComm";
+            this.m_lblScriptOnToOffComm.Size = new System.Drawing.Size(36, 13);
+            this.m_lblScriptOnToOffComm.TabIndex = 6;
+            this.m_lblScriptOnToOffComm.Text = "Empty";
+            // 
+            // m_lblScriptOffToOnComm
+            // 
+            this.m_lblScriptOffToOnComm.AutoSize = true;
+            this.m_lblScriptOffToOnComm.Location = new System.Drawing.Point(145, 139);
+            this.m_lblScriptOffToOnComm.Name = "m_lblScriptOffToOnComm";
+            this.m_lblScriptOffToOnComm.Size = new System.Drawing.Size(36, 13);
+            this.m_lblScriptOffToOnComm.TabIndex = 7;
+            this.m_lblScriptOffToOnComm.Text = "Empty";
+            // 
             // edtOffToOn
             // 
             this.edtOffToOn.Location = new System.Drawing.Point(4, 79);
@@ -103,25 +121,6 @@ namespace CtrlDataTrigger
             this.btnOffToOnScript.Text = "Off to on Script";
             this.btnOffToOnScript.UseVisualStyleBackColor = true;
             this.btnOffToOnScript.Click += new System.EventHandler(this.btnOffToOnScript_Click);
-            // 
-            // label3
-            // 
-            this.m_lblScriptOnToOffComm.AutoSize = true;
-            this.m_lblScriptOnToOffComm.Location = new System.Drawing.Point(145, 110);
-            this.m_lblScriptOnToOffComm.Name = "m_lblScriptOnToOffComm";
-            this.m_lblScriptOnToOffComm.Size = new System.Drawing.Size(50, 13);
-            this.m_lblScriptOnToOffComm.TabIndex = 6;
-            this.m_lblScriptOnToOffComm.Text = "Empty";
-            // 
-            // label3
-            // 
-            this.m_lblScriptOffToOnComm.AutoSize = true;
-            this.m_lblScriptOffToOnComm.Location = new System.Drawing.Point(145, 139);
-            this.m_lblScriptOffToOnComm.Name = "m_lblScriptOffToOnComm";
-            this.m_lblScriptOffToOnComm.Size = new System.Drawing.Size(50, 13);
-            this.m_lblScriptOffToOnComm.TabIndex = 7;
-            this.m_lblScriptOffToOnComm.Text = "Empty";
-
             // 
             // btnPickOnToOff
             // 
@@ -159,7 +158,7 @@ namespace CtrlDataTrigger
             this.Controls.Add(this.m_lblScriptOnToOffComm);
             this.Controls.Add(this.m_lblScriptOffToOnComm);
             this.Name = "CtrlDataTriggerProperties";
-            this.Size = new System.Drawing.Size(280, 139);
+            this.Size = new System.Drawing.Size(280, 163);
             this.ResumeLayout(false);
             this.PerformLayout();
 

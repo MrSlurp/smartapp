@@ -45,15 +45,22 @@ namespace CtrlTimeWatch
                     m_Control = value;
                 else
                     m_Control = null;
+
                 if (m_Control != null)
                 {
+                    DllCtrlTimeWatchProp Props = (DllCtrlTimeWatchProp)m_Control.SpecificProp;
                     this.Enabled = true;
-                    // assignez ici les valeur des propriété spécifiques du control
+                    this.edtHours.Text = Props.DataHours;
+                    this.edtMinutes.Text = Props.DataMinutes;
+                    this.edtSeconds.Text = Props.DataSecond;
                 }
                 else
                 {
                     this.Enabled = false;
                     // mettez ici les valeur par défaut pour le panel de propriété spécifiques
+                    this.edtHours.Text = string.Empty;
+                    this.edtMinutes.Text = string.Empty;
+                    this.edtSeconds.Text = string.Empty;
                 }
             }
         }
@@ -82,10 +89,23 @@ namespace CtrlTimeWatch
         {
             get
             {
+                bool bRet = true;
                 if (this.BTControl == null)
                     return true;
 
-                return true;
+                Data dt = (Data)this.Doc.GestData.GetFromSymbol(this.edtHours.Text);
+                if (dt == null)
+                    bRet = false;
+
+                dt = (Data)this.Doc.GestData.GetFromSymbol(this.edtMinutes.Text);
+                if (dt == null)
+                    bRet = false;
+
+                dt = (Data)this.Doc.GestData.GetFromSymbol(this.edtSeconds.Text);
+                if (dt == null)
+                    bRet = false;
+
+                return bRet;
             }
         }
 
@@ -98,15 +118,54 @@ namespace CtrlTimeWatch
             if (this.BTControl == null)
                 return true;
 
+            bool bRet = true;
+            string strMessage = "";
+
+            Data dt = null;
+            dt = (Data)this.Doc.GestData.GetFromSymbol(this.edtHours.Text);
+            if (dt == null)
+            {
+                bRet = false;
+                strMessage = string.Format(DllEntryClass.LangSys.C("Associate data {0} is not valid"), this.edtHours.Text);
+            }
+            dt = (Data)this.Doc.GestData.GetFromSymbol(this.edtMinutes.Text);
+            if (dt == null)
+            {
+                bRet = false;
+                strMessage = string.Format(DllEntryClass.LangSys.C("Associate data {0} is not valid"), this.edtMinutes.Text);
+            }
+            dt = (Data)this.Doc.GestData.GetFromSymbol(this.edtSeconds.Text);
+            if (dt == null)
+            {
+                bRet = false;
+                strMessage = string.Format(DllEntryClass.LangSys.C("Associate data {0} is not valid"), this.edtSeconds.Text);
+            }
+
+            if (!bRet)
+            {
+                MessageBox.Show(strMessage, DllEntryClass.LangSys.C("Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return bRet;
+            }
+
+            DllCtrlTimeWatchProp prop = (DllCtrlTimeWatchProp)m_Control.SpecificProp;
+
             bool bDataPropChange = false;
 
-            // testez ici si les paramètres ont changé en les comparant avec ceux contenu dans les propriété
-            // spécifiques du BTControl
-            // si c'est le cas, assignez bDataPropChange à true;
+            if (this.edtHours.Text != prop.DataHours)
+                bDataPropChange = true;
+
+            if (this.edtMinutes.Text != prop.DataMinutes)
+                bDataPropChange = true;
+
+            if (this.edtSeconds.Text != prop.DataSecond)
+                bDataPropChange = true;
 
             if (bDataPropChange)
             {
                 Doc.Modified = true;
+                prop.DataHours = this.edtHours.Text;
+                prop.DataMinutes = this.edtMinutes.Text;
+                prop.DataSecond = this.edtSeconds.Text;
                 m_Control.IControl.Refresh();
             }
             if (bDataPropChange && ControlPropertiesChanged != null)
@@ -114,5 +173,44 @@ namespace CtrlTimeWatch
             return true;
         }
         #endregion
+
+        private void btnPickHours_Click(object sender, EventArgs e)
+        {
+            PickDataForm PickData = new PickDataForm();
+            PickData.Document = this.Doc;
+            if (PickData.ShowDialog() == DialogResult.OK)
+            {
+                if (PickData.SelectedData != null)
+                    edtHours.Text = PickData.SelectedData.Symbol;
+                else
+                    edtHours.Text = string.Empty;
+            }
+        }
+
+        private void btnPickMinutes_Click(object sender, EventArgs e)
+        {
+            PickDataForm PickData = new PickDataForm();
+            PickData.Document = this.Doc;
+            if (PickData.ShowDialog() == DialogResult.OK)
+            {
+                if (PickData.SelectedData != null)
+                    edtMinutes.Text = PickData.SelectedData.Symbol;
+                else
+                    edtMinutes.Text = string.Empty;
+            }
+        }
+
+        private void btnPickSecond_Click(object sender, EventArgs e)
+        {
+            PickDataForm PickData = new PickDataForm();
+            PickData.Document = this.Doc;
+            if (PickData.ShowDialog() == DialogResult.OK)
+            {
+                if (PickData.SelectedData != null)
+                    edtSeconds.Text = PickData.SelectedData.Symbol;
+                else
+                    edtSeconds.Text = string.Empty;
+            }
+        }
     }
 }

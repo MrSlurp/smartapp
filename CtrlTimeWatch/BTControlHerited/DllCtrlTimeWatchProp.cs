@@ -11,52 +11,103 @@ namespace CtrlTimeWatch
 {
     internal class DllCtrlTimeWatchProp : SpecificControlProp
     {
-        // ajouter ici les données membres des propriété
+        private const string SPEC_SECTION = "TIMEWATCHPARAM";
+        private const string HOUR_DATA = "HoursData";
+        private const string MINUTES_DATA = "MinutesData";
+        private const string SECOND_DATA = "SecondsData";
 
-        // ajouter ici les accesseur vers les données membres des propriété
+        private string m_strDataHours = string.Empty;
 
-        /// <summary>
-        /// Lecture des paramètres depuis le fichier XML
-        /// </summary>
-        /// <param name="Node">noeud du control a qui appartiens les propriété </param>
-        /// <returns>true en cas de succès de la lecture</returns>
-        public override bool ReadIn(XmlNode Node)
+        private string m_strDataMinutes = string.Empty;
+
+        private string m_strDataSecond = string.Empty;
+
+
+        public string DataHours
         {
+            get
+            {
+                return m_strDataHours;
+            }
+            set
+            {
+                m_strDataHours = value;
+            }
+        }
+
+        public string DataMinutes
+        {
+            get
+            {
+                return m_strDataMinutes;
+            }
+            set
+            {
+                m_strDataMinutes = value;
+            }
+        }
+
+        public string DataSecond
+        {
+            get
+            {
+                return m_strDataSecond;
+            }
+            set
+            {
+                m_strDataSecond = value;
+            }
+        }
+
+        public override bool ReadIn(System.Xml.XmlNode Node)
+        {
+            for (int ch = 0; ch < Node.ChildNodes.Count ; ch++)
+            {
+                if (Node.ChildNodes[ch].Name == SPEC_SECTION)
+                {
+                    XmlNode DataHours = Node.ChildNodes[ch].Attributes.GetNamedItem(HOUR_DATA);
+                    XmlNode DataMinutes = Node.ChildNodes[ch].Attributes.GetNamedItem(MINUTES_DATA);
+                    XmlNode DataSecond = Node.ChildNodes[ch].Attributes.GetNamedItem(SECOND_DATA);
+
+                    m_strDataHours = DataHours.Value;
+                    m_strDataMinutes = DataMinutes.Value;
+                    m_strDataSecond = DataSecond.Value;
+                    break;
+                }
+            }
             return true;
         }
 
-        /// <summary>
-        /// écriture des paramètres dans le fichier XML
-        /// </summary>
-        /// <param name="XmlDoc">Document XML</param>
-        /// <param name="Node">noeud du control a qui appartiens les propriété</param>
-        /// <returns>true en cas de succès de l'écriture</returns>
         public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
         {
+            XmlNode ElemSpecSection = XmlDoc.CreateElement(SPEC_SECTION);
+            XmlAttribute AttrDataHours = XmlDoc.CreateAttribute(HOUR_DATA);
+            XmlAttribute AttrDataMinutes = XmlDoc.CreateAttribute(MINUTES_DATA);
+            XmlAttribute AttrDataSecond = XmlDoc.CreateAttribute(SECOND_DATA);
+
+            AttrDataHours.Value = m_strDataHours;
+            AttrDataMinutes.Value = m_strDataMinutes;
+            AttrDataSecond.Value = m_strDataSecond;
+            ElemSpecSection.Attributes.Append(AttrDataHours);
+            ElemSpecSection.Attributes.Append(AttrDataMinutes);
+            ElemSpecSection.Attributes.Append(AttrDataSecond);
+            Node.AppendChild(ElemSpecSection);
             return true;
         }
 
-        /// <summary>
-        /// Recopie les paramètres d'un control source du même type vers les paramètres courants
-        /// </summary>
-        /// <param name="SrcSpecificProp">Paramètres sources</param>
         public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance)
         {
-            DllCtrlTimeWatchProp SrcProp = (DllCtrlTimeWatchProp)SrcSpecificProp;
+            if (SrcSpecificProp.GetType() == typeof(DllCtrlTimeWatchProp))
+            {
+                if (!bFromOtherInstance)
+                {
+                    m_strDataHours = ((DllCtrlTimeWatchProp)SrcSpecificProp).m_strDataHours;
+                    m_strDataMinutes = ((DllCtrlTimeWatchProp)SrcSpecificProp).m_strDataMinutes;
+                    m_strDataSecond = ((DllCtrlTimeWatchProp)SrcSpecificProp).m_strDataSecond;
+                }
+            }
         }
 
-        /// <summary>
-        /// Traite les message intra applicatif de SmartConfig
-        /// Ces messages informes de : 
-        /// - demande de suppression (non confirmée) : il faut créer un message pour informer l'utlisateur
-        /// - Supression de confirmée : il faut supprimer le paramètre concerné
-        /// - renommage : il faut mettre a jour le paramètre concerné
-        /// </summary>
-        /// <param name="Mess">Type du message</param>
-        /// <param name="obj">paramètre du message (objet paramètre du message de type 
-        /// MessAskDelete / MessDeleted / MessItemRenamed)</param>
-        /// <param name="TypeApp">Type de l'application courante (SmartConfig / SmartCommand)</param>
-        /// <param name="PropOwner">control propriétaire des propriété spécifique</param>
         public override void TraiteMessage(MESSAGE Mess, object obj, TYPE_APP TypeApp, BTControl PropOwner)
         {
             if (TypeApp == TYPE_APP.SMART_CONFIG)
@@ -64,51 +115,67 @@ namespace CtrlTimeWatch
                 switch (Mess)
                 {
                     case MESSAGE.MESS_ASK_ITEM_DELETE:
-                        // exemple de traitement de la demande de supression d'une donnée
-                        // m_strDataOffToOn est le symbol d'une donnée
-                        /*
                         if (((MessAskDelete)obj).TypeOfItem == typeof(Data))
                         {
-                            if (MessParam.WantDeletetItemSymbol == m_strDataOffToOn)
+                            MessAskDelete MessParam = (MessAskDelete)obj;
+                            string strMess = string.Empty;
+                            if (MessParam.WantDeletetItemSymbol == m_strDataHours)
                             {
-                                strMess = string.Format("Data Trigger {0} : Data \"Off to On\" will be removed", PropOwner.Symbol);
+                                strMess = string.Format(DllEntryClass.LangSys.C("TimeWatch {0} : hours data will be removed"), PropOwner.Symbol);
+                                MessParam.ListStrReturns.Add(strMess);
+                            }
+                            if (MessParam.WantDeletetItemSymbol == m_strDataMinutes)
+                            {
+                                strMess = string.Format(DllEntryClass.LangSys.C("TimeWatch {0} : minutes data will be removed"), PropOwner.Symbol);
+                                MessParam.ListStrReturns.Add(strMess);
+                            }
+                            if (MessParam.WantDeletetItemSymbol == m_strDataSecond)
+                            {
+                                strMess = string.Format(DllEntryClass.LangSys.C("TimeWatch {0} : seconds data will be removed"), PropOwner.Symbol);
                                 MessParam.ListStrReturns.Add(strMess);
                             }
                         }
-                         * */
                         break;
                     case MESSAGE.MESS_ITEM_DELETED:
-                        // exemple de traitement de la supression d'une donnée
-                        // m_strDataOffToOn est le symbol d'une donnée
-                        /*
                         if (((MessDeleted)obj).TypeOfItem == typeof(Data))
                         {
                             MessDeleted MessParam = (MessDeleted)obj;
-                            if (MessParam.DeletetedItemSymbol == m_strDataOffToOn)
+                            if (MessParam.DeletetedItemSymbol == m_strDataHours)
                             {
-                                m_strDataOffToOn = string.Empty;
+                                m_strDataHours = string.Empty;
+                            }
+                            if (MessParam.DeletetedItemSymbol == m_strDataMinutes)
+                            {
+                                m_strDataMinutes = string.Empty;
+                            }
+                            if (MessParam.DeletetedItemSymbol == m_strDataSecond)
+                            {
+                                m_strDataSecond = string.Empty;
                             }
                         }
-                         * */
                         break;
                     case MESSAGE.MESS_ITEM_RENAMED:
-                        // exemple de traitement du renommage d'une donnée
-                        // m_strDataOffToOn est le symbol d'une donnée
-                        /*
                         if (((MessItemRenamed)obj).TypeOfItem == typeof(Data))
                         {
                             MessItemRenamed MessParam = (MessItemRenamed)obj;
-                            if (MessParam.OldItemSymbol == m_strDataOffToOn)
+                            if (MessParam.OldItemSymbol == m_strDataHours)
                             {
-                                m_strDataOffToOn = MessParam.NewItemSymbol;
+                                m_strDataHours = MessParam.NewItemSymbol;
                             }
-                        }*/
+                            if (MessParam.OldItemSymbol == m_strDataMinutes)
+                            {
+                                m_strDataMinutes = MessParam.NewItemSymbol;
+                            }
+                            if (MessParam.OldItemSymbol == m_strDataSecond)
+                            {
+                                m_strDataSecond = MessParam.NewItemSymbol;
+                            }
+                        }
                         break;
                     default:
                         break;
                 }
             }
         }
-
     }
 }
