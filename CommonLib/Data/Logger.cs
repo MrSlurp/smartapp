@@ -30,12 +30,6 @@ namespace CommonLib
         // période de l'auto logger
         int m_iPeriod = 1000;
 
-        private bool m_bUseAutoDatedFileName = false;
-        // Periode d'auto datage des fichier en secondes
-        int m_iAutoDatingPeriod = 3600;
-        
-        DateTime m_LastDateTimeUsed;
-
         // indique si le logger démarre automatiquement au démarrage de la supervision
         private bool m_bAutoStart = false;
         // séparateur utilisé dans les fichier csv
@@ -99,7 +93,6 @@ namespace CommonLib
             }
         }
 
-
         /// <summary>
         /// obtient ou assigne le nom du fichier dans lequel les données seront loguées
         /// </summary>
@@ -112,6 +105,7 @@ namespace CommonLib
             set
             {
                 m_strFileName = value;
+                ComputeFileName();
             }
         }
 
@@ -146,7 +140,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// 
+        /// séparateur de fichier csv
         /// </summary>
         public char CsvSeperator
         {
@@ -160,20 +154,9 @@ namespace CommonLib
             }
         }
 
-        /*
-        public bool AutoDateFileName
-        {
-            get
-            {
-                return m_bUseAutoDatedFileName;
-            }
-            set
-            {
-                m_bUseAutoDatedFileName = value;
-            }
-        }
-        */
-
+        /// <summary>
+        /// formar string
+        /// </summary>
         public string DateFormatString
         {
             get
@@ -243,12 +226,26 @@ namespace CommonLib
                 m_CsvSeperator = attrChars[0];
             }
 
-            XmlNode AutoDateNameAttrib = Node.Attributes.GetNamedItem(XML_CF_ATTRIB.AutoDateName.ToString());
-            if (AutoDateNameAttrib != null && !string.IsNullOrEmpty(AutoDateNameAttrib.Value))
-            {   
-                m_bUseAutoDatedFileName = bool.Parse(AutoDateNameAttrib.Value);
+            XmlNode FormatStringAttrib = Node.Attributes.GetNamedItem(XML_CF_ATTRIB.FormatString.ToString());
+            if (FormatStringAttrib != null && !string.IsNullOrEmpty(FormatStringAttrib.Value))
+            {
+                m_DateFormatString = FormatStringAttrib.Value;
             }
 
+            XmlNode LogModeAttrib = Node.Attributes.GetNamedItem(XML_CF_ATTRIB.LogMode.ToString());
+            if (LogModeAttrib != null && !string.IsNullOrEmpty(LogModeAttrib.Value))
+            {
+                LogMode lgMode = LogMode.none;
+                try
+                {
+                    lgMode = (LogMode)Enum.Parse(typeof(LogMode), LogModeAttrib.Value, true);
+                }
+                catch (Exception)
+                {
+                    Traces.LogAddDebug(TraceCat.SmartConfig, "Exception lors de la récupération du mode de log " + this.Symbol);
+                }
+                m_LoggerMode = lgMode;
+            }
             return bRet;
         }
 
@@ -267,19 +264,24 @@ namespace CommonLib
             XmlAttribute FileNameAttrib = XmlDoc.CreateAttribute(XML_CF_ATTRIB.FileName.ToString());
             XmlAttribute AutoStartAttrib = XmlDoc.CreateAttribute(XML_CF_ATTRIB.AutoStart.ToString());
             XmlAttribute SepAttrib = XmlDoc.CreateAttribute(XML_CF_ATTRIB.CsvSeparator.ToString());
-            XmlAttribute AutoDateNameAttrib = XmlDoc.CreateAttribute(XML_CF_ATTRIB.AutoDateName.ToString());
+            XmlAttribute FormatStringAttrib = XmlDoc.CreateAttribute(XML_CF_ATTRIB.FormatString.ToString());
+            XmlAttribute LogModeAttrib = XmlDoc.CreateAttribute(XML_CF_ATTRIB.LogMode.ToString());
+
             PeriodAttrib.Value = m_iPeriod.ToString();
             LoggerTypeAttrib.Value = m_LogType;
             FileNameAttrib.Value = m_strFileName;
             AutoStartAttrib.Value = m_bAutoStart.ToString();
             SepAttrib.Value = new string(m_CsvSeperator,1);
-            AutoDateNameAttrib.Value = m_bUseAutoDatedFileName.ToString();
+            FormatStringAttrib.Value = m_DateFormatString;
+            LogModeAttrib.Value = m_LoggerMode.ToString();
+
             Node.Attributes.Append(PeriodAttrib);
             Node.Attributes.Append(LoggerTypeAttrib);
             Node.Attributes.Append(FileNameAttrib);
             Node.Attributes.Append(AutoStartAttrib);
             Node.Attributes.Append(SepAttrib);
-            Node.Attributes.Append(AutoDateNameAttrib);
+            Node.Attributes.Append(FormatStringAttrib);
+            Node.Attributes.Append(LogModeAttrib);
 
             XmlNode NodeDataList = XmlDoc.CreateElement(XML_CF_TAG.DataList.ToString());
             Node.AppendChild(NodeDataList);
@@ -586,29 +588,51 @@ namespace CommonLib
         public void NewFile()
         {
             CleanFileStreamClose();
-            ComputeDatedFileName();
+            ComputeFileName();
         }
 
         /// <summary>
         /// 
         /// </summary>
-        private void ComputeDatedFileName()
+        private void ComputeFileName()
         {
-
             DateTime currentTime = DateTime.Now;
-            string currentTimeString = currentTime.ToShortDateString() + currentTime.ToLongTimeString();
+            
             switch (m_LoggerMode)
             {
                 case LogMode.autoNum:
+                    for (int iIdx = 1; iIdx < int.MaxValue; iIdx++)
+                    {
+                        string finalFileName = m_strFileName + string.Format("{0}", iIdx);
+                        string FullPath = PathTranslator.LinuxVsWindowsPathUse(m_strLogFilePath + @"\" + finalFileName);
+                        if (!File.Exists(FullPath))
+                        {
+                            m_UsedFileName = finalFileName;
+                            break;
+                        }
+                    }
                     break;
                 case LogMode.autoDated:
+                    {
+                        string finalFileName = m_strFileName + currentTime.ToString(m_DateFormatString);
+                        string FullPath = PathTranslator.LinuxVsWindowsPathUse(m_strLogFilePath + @"\" + finalFileName);
+                        for (int iIdx = 1; iIdx < int.MaxValue; iIdx++)
+                        {
+                            if (File.Exists(FullPath))
+                            {
+                                m_UsedFileName = finalFileName + string.Format("_{0}", iIdx);
+                            }
+                            else
+                                break;
+                        }
+                    }
                     break;
-                case LogMode.none:
                 default:
+                case LogMode.none:
+                    m_UsedFileName = m_strFileName;
                     break;
-                
             }
-            
+            m_UsedFileName += ".csv";
         }
     
         /// <summary>

@@ -262,7 +262,7 @@ namespace CommonLib
                                            string.Format("Screen.SHOW_ON_TOP {0}", QuickScript.m_Arguments[0].Symbol));
                     ((BTScreen)QuickScript.m_Arguments[0]).ShowScreenToTop();
                     break;
-                case ALL_FUNC.SCREEN_SNAPSHOT:
+                case ALL_FUNC.SCREEN_SCREEN_SHOT:
                     if (Traces.IsDebugAndCatOK(TraceCat.ExecuteScreen))
                         Traces.LogAddDebug(TraceCat.ExecuteScreen,
                                            string.Format("Screen.SCREEN_SNAPSHOT {0}", QuickScript.m_Arguments[0].Symbol));

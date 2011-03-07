@@ -119,14 +119,14 @@ namespace SmartApp.Ihm
         {
             get
             {
-                return m_txtFileName.Text + ".csv";
+                return m_txtFileName.Text;
             }
             set
             {
                 if (value != null)
-                    m_txtFileName.Text = value.Replace(".csv", "");
+                    m_txtFileName.Text = value;
                 else
-                    m_txtFileName.Text = "";
+                    m_txtFileName.Text = string.Empty;
             }
         }
 
@@ -317,6 +317,27 @@ namespace SmartApp.Ihm
                 if (string.IsNullOrEmpty(this.LogFile))
                     bRet = false;
 
+                if (this.LoggerMode == Logger.LogMode.autoDated)
+                {
+                    if (string.IsNullOrEmpty(this.DateFormatString))
+                    {
+                        bRet = false;
+                    }
+                    else
+                    {
+                        string illegal = this.DateFormatString;
+                        string illegachars = new string(Path.GetInvalidFileNameChars());
+                        foreach (char c in illegachars)
+                        {
+                            if (illegal.Contains(c.ToString()))
+                            {
+                                bRet = false;
+                                break;
+                            }
+                        }
+                    }
+                }
+
                 return bRet;
             }
         }
@@ -365,6 +386,7 @@ namespace SmartApp.Ihm
                         {
                             strMessage = string.Format(Program.LangSys.C("Following chars can't be used for file names : ") + illegachars);
                             bRet = false;
+                            break;
                         }
                     }
                 }
@@ -397,6 +419,12 @@ namespace SmartApp.Ihm
             if (m_Logger.CsvSeperator != this.CsvSeperator)
                 bDataPropChange |= true;
 
+            if (m_Logger.LoggerMode != this.LoggerMode)
+                bDataPropChange |= true;
+
+            if (m_Logger.DateFormatString != this.DateFormatString)
+                bDataPropChange |= true;
+
             if (bDataPropChange)
             {
                 m_Logger.Description = this.Description;
@@ -406,6 +434,8 @@ namespace SmartApp.Ihm
                 m_Logger.LogFile = this.LogFile;
                 m_Logger.AutoStart = this.AutoStart;
                 m_Logger.CsvSeperator = this.CsvSeperator;
+                m_Logger.LoggerMode = this.LoggerMode;
+                m_Logger.DateFormatString = this.DateFormatString;
                 Doc.Modified = true;
             }
             
@@ -555,23 +585,31 @@ namespace SmartApp.Ihm
             {
                 default : 
                     edtDateFormat.Enabled = false;
-                    lblFormatHelp.Text = "";
+                    edtFormatHelp.Text = "";
                     break;
                 case Logger.LogMode.none:
                     edtDateFormat.Enabled = false;
-                    lblFormatHelp.Text= "";
+                    edtFormatHelp.Text = "";
                     break;
                 case Logger.LogMode.autoNum:
                     edtDateFormat.Enabled = false;
-                    lblFormatHelp.Text= 
-                    Program.LangSys.C(@"Add automaticaly an auto incremented number to the file name.")+ "\n" +
+                    edtFormatHelp.Text = 
+                    Program.LangSys.C(@"Add automaticaly an auto incremented number to the file name.")+ "\r\n" +
                     Program.LangSys.C(@"The choosen number will be the first available (no existing file) from 1 to N");
                     break;
                 case Logger.LogMode.autoDated:
                     edtDateFormat.Enabled = true;
-                    lblFormatHelp.Text= 
-                    Program.LangSys.C(@"Add automaticaly date and time according to the specified format string.") + "\n" +
-                    Program.LangSys.C(@"YYYY : years, MM : months, dd : days, HH : hours (24h format), hh : hours (12h format) mm : minutes, ss : seconds, tt : PM/AM");
+                    edtFormatHelp.Text =
+                    Program.LangSys.C(@"Add automaticaly date and time according to the specified format string.") + "\r\n" +
+                    Program.LangSys.C(@"YYYY : years") + "\r\n" +
+                    Program.LangSys.C(@"MM : months") + "\r\n" +
+                    Program.LangSys.C(@"dd : days") + "\r\n" +
+                    Program.LangSys.C(@"HH : hours (24h format)") + "\r\n" +
+                    Program.LangSys.C(@"hh : hours (12h format)") + "\r\n" +
+                    Program.LangSys.C(@"mm : minutes") + "\r\n" +
+                    Program.LangSys.C(@"ss : seconds") + "\r\n" +
+                    Program.LangSys.C(@"tt : PM/AM") + "\r\n" +
+                    Program.LangSys.C(@"(you can add any other text you want since there is not file name forbidden characters)");
                     break;
             }
         }

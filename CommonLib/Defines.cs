@@ -168,7 +168,8 @@ namespace CommonLib
         SpecificType,
         DllID,
         CsvSeparator,
-        AutoDateName,
+        FormatString,
+        LogMode,
     }
 
     /// <summary>

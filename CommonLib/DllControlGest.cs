@@ -61,7 +61,7 @@ namespace CommonLib
                                     m_ListDlls.Add(oDll);
                                 }
                             }
-                            catch (Exception e)
+                            catch (Exception)
                             {
                                 MessageBox.Show(string.Format(Lang.LangSys.C("Error while loading Plugins controls (Error in DLL {0})") 
                                                                + "\n" 

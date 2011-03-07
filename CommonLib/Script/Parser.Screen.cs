@@ -72,7 +72,7 @@ namespace CommonLib
                     case SCREEN_FUNC.SHOW_ON_TOP:
                         // ajouter du code ici si il faut parser le contenu des parenthèses
                         break;
-                    case SCREEN_FUNC.SNAPSHOT:
+                    case SCREEN_FUNC.SCREEN_SHOT:
                         //string[] strParamList = null;
                         //if (!GetArgsAsString(line, ErrorList, ref strParamList))
                         //    return;

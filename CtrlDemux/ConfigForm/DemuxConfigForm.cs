@@ -157,8 +157,7 @@ namespace CtrlDemux
 
         private void m_listViewData_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Delete
-                || e.KeyCode == Keys.Back)
+            if (e == null || e.KeyCode == Keys.Delete)
             {
                 ListViewItem lviData = null;
                 if (m_listViewData.SelectedItems.Count > 0)
