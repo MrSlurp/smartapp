@@ -65,6 +65,7 @@ namespace CommonLib
         CLEAR,
         START,
         STOP,
+        NEW_FILE,
     }
 
     /// <summary>
@@ -110,6 +111,7 @@ namespace CommonLib
     {
         INVALID,
         SHOW_ON_TOP,
+        SCREEN_SHOT,
         SNAPSHOT,
     }
 
@@ -122,6 +124,7 @@ namespace CommonLib
         LOGGER_CLEAR,
         LOGGER_START,
         LOGGER_STOP,
+        LOGGER_NEW_FILE,
         TIMER_START,
         TIMER_STOP,
         MATHS_ADD,

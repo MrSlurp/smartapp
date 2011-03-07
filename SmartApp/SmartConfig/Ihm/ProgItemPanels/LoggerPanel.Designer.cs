@@ -103,7 +103,7 @@ namespace SmartApp.Ihm.ProgItemPanels
             this.m_panelLogProp.Logger = null;
             this.m_panelLogProp.LogType = "STANDARD";
             this.m_panelLogProp.Name = "m_panelLogProp";
-            this.m_panelLogProp.Period = 50;
+            this.m_panelLogProp.Period = 200;
             this.m_panelLogProp.Size = new System.Drawing.Size(415, 363);
             this.m_panelLogProp.Symbol = "";
             this.m_panelLogProp.TabIndex = 0;

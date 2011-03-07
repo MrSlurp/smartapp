@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Data;
 using System.Text;
+using System.IO;
 using System.Windows.Forms;
 using CommonLib;
 
@@ -19,6 +20,7 @@ namespace SmartApp.Ihm
         private BTDoc m_Document = null;
         CComboData[] m_TabCboLogType;
         CComboData[] m_TabCboSeparator;
+        CComboData[] m_TabNamingType;
         #endregion
 
         #region Events
@@ -26,10 +28,9 @@ namespace SmartApp.Ihm
         #endregion
 
         #region attributs de la classe
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
         public BTDoc Doc
         {
             get
@@ -42,10 +43,9 @@ namespace SmartApp.Ihm
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
         public GestLogger GestLogger
         {
             get
@@ -54,10 +54,9 @@ namespace SmartApp.Ihm
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
         public Logger Logger
         {
             get
@@ -77,6 +76,8 @@ namespace SmartApp.Ihm
                     this.LogFile = m_Logger.LogFile;
                     this.AutoStart = m_Logger.AutoStart;
                     this.CsvSeperator = m_Logger.CsvSeperator;
+                    this.LoggerMode = m_Logger.LoggerMode;
+                    this.DateFormatString = m_Logger.DateFormatString;
                 }
                 else
                 {
@@ -84,20 +85,21 @@ namespace SmartApp.Ihm
                     this.Symbol = "";
                     this.Enabled = false;
                     this.LogType = LOGGER_TYPE.STANDARD.ToString();
-                    this.Period = 50;
+                    this.Period = 200;
                     this.LogFile = "";
                     this.AutoStart = false;
                     this.CsvSeperator = '\t';
+                    this.LoggerMode = Logger.LogMode.none;
+                    this.DateFormatString = "";
                 }
                 this.InitListViewData();
                 this.UpdateFromLogType();
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
         public int Period
         {
             get
@@ -109,10 +111,10 @@ namespace SmartApp.Ihm
                 m_LoggerPeriod.Value = value;
             }
         }
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string LogFile
         {
             get
@@ -131,20 +133,22 @@ namespace SmartApp.Ihm
         #endregion
 
         #region constructeur
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
         public LoggerPropertiesControl()
         {
             InitializeComponent();
             LoadNonStandardLang();
-            m_LoggerPeriod.Minimum = 20;
+            m_LoggerPeriod.Minimum = 200;
             m_LoggerPeriod.Maximum = 3600000;
 
             m_txtFileName.CharacterCasing = CharacterCasing.Normal;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void LoadNonStandardLang()
         {
             m_TabCboLogType = new CComboData[2];
@@ -164,14 +168,23 @@ namespace SmartApp.Ihm
             m_cboSeparator.DisplayMember = "DisplayedString";
             m_cboSeparator.DataSource = m_TabCboSeparator;
             m_cboSeparator.SelectedIndex = 0;
+
+            m_TabNamingType = new CComboData[3];
+            m_TabNamingType[0] = new CComboData(Program.LangSys.C("None"), Logger.LogMode.none);
+            m_TabNamingType[1] = new CComboData(Program.LangSys.C("Auto number"), Logger.LogMode.autoNum);
+            m_TabNamingType[2] = new CComboData(Program.LangSys.C("Auto date time"), Logger.LogMode.autoDated);
+
+            m_cboNaming.ValueMember = "Object";
+            m_cboNaming.DisplayMember = "DisplayedString";
+            m_cboNaming.DataSource = m_TabNamingType;
+            m_cboNaming.SelectedIndex = 0;
         }
         #endregion
 
         #region attribut d'accès aux valeurs de la page de propriété
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
         public string Description
         {
             get
@@ -184,10 +197,9 @@ namespace SmartApp.Ihm
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
         public string Symbol
         {
             get
@@ -200,10 +212,9 @@ namespace SmartApp.Ihm
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
         public string LogType
         {
             get
@@ -220,6 +231,9 @@ namespace SmartApp.Ihm
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public char CsvSeperator
         {
             get
@@ -236,6 +250,9 @@ namespace SmartApp.Ihm
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public bool AutoStart
         {
             get
@@ -247,13 +264,43 @@ namespace SmartApp.Ihm
                 m_chkAutoStart.Checked = value;
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Logger.LogMode LoggerMode
+        {
+            get
+            {
+                if (this.m_cboNaming != null && this.m_cboNaming.SelectedValue != null)
+                    return (Logger.LogMode) this.m_cboNaming.SelectedValue;
+                else
+                    return Logger.LogMode.none;
+            }
+            set
+            {
+                if (this.m_cboNaming != null)
+                    this.m_cboNaming.SelectedValue = value;
+            }
+        }
+
+        public string DateFormatString
+        {
+            get
+            {
+                return edtDateFormat.Text;
+            }
+            set
+            {
+                edtDateFormat.Text = value;
+            }
+        }
         #endregion
 
         #region validation des données
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
         public bool IsDataValuesValid
         {
             get
@@ -274,10 +321,10 @@ namespace SmartApp.Ihm
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+       /// <summary>
+       /// 
+       /// </summary>
+       /// <returns></returns>
         public bool ValidateValues()
         {
             if (this.Logger == null)
@@ -298,9 +345,31 @@ namespace SmartApp.Ihm
             }
             if (bRet && string.IsNullOrEmpty(this.LogFile))
             {
-                strMessage = string.Format(Program.LangSys.C("Logger output filename must not be empty"), Symbol);
+                strMessage = string.Format(Program.LangSys.C("Logger output filename must not be empty"));
                 bRet = false;
             }
+            if (bRet && (this.LoggerMode == Logger.LogMode.autoDated))
+            {
+                if (string.IsNullOrEmpty(this.DateFormatString))
+                {
+                    strMessage = string.Format(Program.LangSys.C("Logger date time format must not be empty"));
+                    bRet = false;
+                }
+                else
+                {
+                    string illegal = this.DateFormatString;
+                    string illegachars = new string(Path.GetInvalidFileNameChars());
+                    foreach (char c in illegachars)
+                    {
+                        if (illegal.Contains(c.ToString()))
+                        {
+                            strMessage = string.Format(Program.LangSys.C("Following chars can't be used for file names : ") + illegachars);
+                            bRet = false;
+                        }
+                    }
+                }
+            }
+
             if (!bRet)
             {
                 MessageBox.Show(strMessage, Program.LangSys.C("Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -345,10 +414,11 @@ namespace SmartApp.Ihm
             return true;
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void PropertiesControlValidating(object sender, CancelEventArgs e)
         {
             if (!ValidateValues())
@@ -442,10 +512,9 @@ namespace SmartApp.Ihm
         #endregion
 
         #region update divers
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
+        /// <summary>
+        /// 
+        /// </summary>
         private void UpdateLoggerDataListFromListView()
         {
             if (this.Logger == null)
@@ -459,10 +528,9 @@ namespace SmartApp.Ihm
 
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
+        /// <summary>
+        /// 
+        /// </summary>
         public void UpdateFromLogType()
         {
             if (this.LogType == LOGGER_TYPE.AUTO.ToString())
@@ -477,13 +545,45 @@ namespace SmartApp.Ihm
                 m_chkAutoStart.Checked = false;
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void UpdateFormatEdtFromMode()
+        {
+            switch(this.LoggerMode)
+            {
+                default : 
+                    edtDateFormat.Enabled = false;
+                    lblFormatHelp.Text = "";
+                    break;
+                case Logger.LogMode.none:
+                    edtDateFormat.Enabled = false;
+                    lblFormatHelp.Text= "";
+                    break;
+                case Logger.LogMode.autoNum:
+                    edtDateFormat.Enabled = false;
+                    lblFormatHelp.Text= 
+                    Program.LangSys.C(@"Add automaticaly an auto incremented number to the file name.")+ "\n" +
+                    Program.LangSys.C(@"The choosen number will be the first available (no existing file) from 1 to N");
+                    break;
+                case Logger.LogMode.autoDated:
+                    edtDateFormat.Enabled = true;
+                    lblFormatHelp.Text= 
+                    Program.LangSys.C(@"Add automaticaly date and time according to the specified format string.") + "\n" +
+                    Program.LangSys.C(@"YYYY : years, MM : months, dd : days, HH : hours (24h format), hh : hours (12h format) mm : minutes, ss : seconds, tt : PM/AM");
+                    break;
+            }
+        }
+
         #endregion
 
         #region gestion du drag drop dans la liste des données de la trame
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnListViewDataDragEnter(object sender, DragEventArgs e)
         {
             Data dt = (Data)e.Data.GetData(typeof(Data));
@@ -514,10 +614,11 @@ namespace SmartApp.Ihm
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnListViewDataItemDrag(object sender, ItemDragEventArgs e)
         {
             try
@@ -531,10 +632,11 @@ namespace SmartApp.Ihm
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnListViewDataDragDrop(object sender, DragEventArgs e)
         {
             Data DropedItem = (Data)e.Data.GetData(typeof(Data));
@@ -588,10 +690,11 @@ namespace SmartApp.Ihm
             UpdateListViewData();
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnListViewDataDragOver(object sender, DragEventArgs e)
         {
             Data DropItem = (Data)e.Data.GetData(typeof(Data));
@@ -622,15 +725,51 @@ namespace SmartApp.Ihm
 
         #endregion
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void m_cboLogType_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateFromLogType();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void m_cboNaming_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateFormatEdtFromMode();
+        }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnAddData_Click(object sender, EventArgs e)
+        {
+            PickDataForm PickData = new PickDataForm();
+            PickData.AllowMultipleSelect = true;
+            PickData.Document = this.Doc;
+            if (PickData.ShowDialog() == DialogResult.OK)
+            {
+                if (PickData.SelectedDatas != null)
+                {
+                    for (int i = 0; i < PickData.SelectedDatas.Length; i++)
+                    {
+                        if (PickData.SelectedDatas[i] != null)
+                        {
+                            Data dt = PickData.SelectedDatas[i];
+                            ListViewItem lviData = new ListViewItem(dt.Symbol);
+                            m_ListViewData.Items.Add(lviData);
+                        }
+                    }
+                }
+            }
+        }
     }
 }

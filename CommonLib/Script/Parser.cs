@@ -244,6 +244,7 @@ namespace CommonLib
                     AutoCompleteStrings.Add(LOGGER_FUNC.LOG.ToString());
                     AutoCompleteStrings.Add(LOGGER_FUNC.START.ToString());
                     AutoCompleteStrings.Add(LOGGER_FUNC.STOP.ToString());
+                    AutoCompleteStrings.Add(LOGGER_FUNC.NEW_FILE.ToString());
                     break;
                 case TOKEN_TYPE.FUNCTION:
                     for (int i = 0; i < m_Document.GestFunction.Count; i++)
@@ -265,7 +266,7 @@ namespace CommonLib
                     break;
                 case TOKEN_TYPE.SCREEN_FUNC:
                     AutoCompleteStrings.Add(SCREEN_FUNC.SHOW_ON_TOP.ToString());
-                    AutoCompleteStrings.Add(SCREEN_FUNC.SNAPSHOT.ToString());
+                    AutoCompleteStrings.Add(SCREEN_FUNC.SCREEN_SHOT.ToString());
                     break;
                 case TOKEN_TYPE.SCREEN:
                     for (int i = 0; i < m_Document.GestScreen.Count; i++)

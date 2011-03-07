@@ -43,6 +43,12 @@ namespace SmartApp.Ihm
             this.label5 = new System.Windows.Forms.Label();
             this.m_chkAutoStart = new System.Windows.Forms.CheckBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.m_cboNaming = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.edtDateFormat = new System.Windows.Forms.TextBox();
+            this.lblFormatHelp = new System.Windows.Forms.Label();
+            this.btnAddData = new System.Windows.Forms.Button();
             this.m_txtFileName = new SmartApp.Ihm.SymbolTextBox();
             this.m_textSymbol = new SmartApp.Ihm.SymbolTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.m_LoggerPeriod)).BeginInit();
@@ -69,7 +75,7 @@ namespace SmartApp.Ihm
             // 
             this.m_cboSeparator.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.m_cboSeparator.FormattingEnabled = true;
-            this.m_cboSeparator.Location = new System.Drawing.Point(3, 318);
+            this.m_cboSeparator.Location = new System.Drawing.Point(3, 322);
             this.m_cboSeparator.Name = "m_cboSeparator";
             this.m_cboSeparator.Size = new System.Drawing.Size(108, 21);
             this.m_cboSeparator.TabIndex = 23;
@@ -77,8 +83,7 @@ namespace SmartApp.Ihm
             // m_ListViewData
             // 
             this.m_ListViewData.AllowDrop = true;
-            this.m_ListViewData.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
+            this.m_ListViewData.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.m_ListViewData.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.m_colDataSymb});
@@ -89,22 +94,22 @@ namespace SmartApp.Ihm
             this.m_ListViewData.MultiSelect = false;
             this.m_ListViewData.Name = "m_ListViewData";
             this.m_ListViewData.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.m_ListViewData.Size = new System.Drawing.Size(212, 387);
+            this.m_ListViewData.Size = new System.Drawing.Size(212, 219);
             this.m_ListViewData.TabIndex = 20;
             this.m_ListViewData.UseCompatibleStateImageBehavior = false;
             this.m_ListViewData.View = System.Windows.Forms.View.Details;
-            this.m_ListViewData.DragEnter += new System.Windows.Forms.DragEventHandler(this.OnListViewDataDragEnter);
-            this.m_ListViewData.DragDrop += new System.Windows.Forms.DragEventHandler(this.OnListViewDataDragDrop);
-            this.m_ListViewData.DragOver += new System.Windows.Forms.DragEventHandler(this.OnListViewDataDragOver);
             this.m_ListViewData.SelectedIndexChanged += new System.EventHandler(this.OnListViewDataDragLeave);
+            this.m_ListViewData.DragDrop += new System.Windows.Forms.DragEventHandler(this.OnListViewDataDragDrop);
+            this.m_ListViewData.DragEnter += new System.Windows.Forms.DragEventHandler(this.OnListViewDataDragEnter);
             this.m_ListViewData.DragLeave += new System.EventHandler(this.OnListViewDataDragLeave);
             this.m_ListViewData.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnListViewDataKeyDown);
             this.m_ListViewData.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.OnListViewDataItemDrag);
+            this.m_ListViewData.DragOver += new System.Windows.Forms.DragEventHandler(this.OnListViewDataDragOver);
             // 
             // m_colDataSymb
             // 
             this.m_colDataSymb.Text = "Data Symbol";
-            this.m_colDataSymb.Width = 180;
+            this.m_colDataSymb.Width = 200;
             // 
             // label1
             // 
@@ -190,11 +195,65 @@ namespace SmartApp.Ihm
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(3, 299);
+            this.label6.Location = new System.Drawing.Point(3, 303);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(73, 13);
             this.label6.TabIndex = 17;
             this.label6.Text = "csv Separator";
+            // 
+            // m_cboNaming
+            // 
+            this.m_cboNaming.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.m_cboNaming.FormattingEnabled = true;
+            this.m_cboNaming.Location = new System.Drawing.Point(201, 273);
+            this.m_cboNaming.Name = "m_cboNaming";
+            this.m_cboNaming.Size = new System.Drawing.Size(181, 21);
+            this.m_cboNaming.TabIndex = 23;
+            this.m_cboNaming.SelectedIndexChanged += new System.EventHandler(this.m_cboNaming_SelectedIndexChanged);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(201, 254);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(78, 13);
+            this.label7.TabIndex = 17;
+            this.label7.Text = "Log file naming";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(201, 297);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(62, 13);
+            this.label8.TabIndex = 29;
+            this.label8.Text = "Date format";
+            // 
+            // edtDateFormat
+            // 
+            this.edtDateFormat.Location = new System.Drawing.Point(201, 314);
+            this.edtDateFormat.Name = "edtDateFormat";
+            this.edtDateFormat.Size = new System.Drawing.Size(181, 20);
+            this.edtDateFormat.TabIndex = 30;
+            // 
+            // lblFormatHelp
+            // 
+            this.lblFormatHelp.Location = new System.Drawing.Point(146, 341);
+            this.lblFormatHelp.Name = "lblFormatHelp";
+            this.lblFormatHelp.Size = new System.Drawing.Size(270, 84);
+            this.lblFormatHelp.TabIndex = 31;
+            // 
+            // btnAddData
+            // 
+            this.btnAddData.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddData.Location = new System.Drawing.Point(204, 224);
+            this.btnAddData.Name = "btnAddData";
+            this.btnAddData.Size = new System.Drawing.Size(212, 23);
+            this.btnAddData.TabIndex = 32;
+            this.btnAddData.Text = "Add Datas";
+            this.btnAddData.UseVisualStyleBackColor = true;
+            this.btnAddData.Click += new System.EventHandler(this.btnAddData_Click);
             // 
             // m_txtFileName
             // 
@@ -217,6 +276,10 @@ namespace SmartApp.Ihm
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(this.btnAddData);
+            this.Controls.Add(this.lblFormatHelp);
+            this.Controls.Add(this.edtDateFormat);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.m_chkAutoStart);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -227,14 +290,16 @@ namespace SmartApp.Ihm
             this.Controls.Add(this.m_textSymbol);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label3);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.m_labelSymbol);
             this.Controls.Add(this.m_labelDesc);
             this.Controls.Add(this.m_richTextDesc);
+            this.Controls.Add(this.m_cboNaming);
             this.Controls.Add(this.m_cboSeparator);
             this.Name = "LoggerPropertiesControl";
-            this.Size = new System.Drawing.Size(419, 390);
+            this.Size = new System.Drawing.Size(419, 425);
             this.Validating += new System.ComponentModel.CancelEventHandler(this.PropertiesControlValidating);
             ((System.ComponentModel.ISupportInitialize)(this.m_LoggerPeriod)).EndInit();
             this.ResumeLayout(false);
@@ -261,5 +326,11 @@ namespace SmartApp.Ihm
         private System.Windows.Forms.CheckBox m_chkAutoStart;
         private System.Windows.Forms.ComboBox m_cboSeparator;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox m_cboNaming;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox edtDateFormat;
+        private System.Windows.Forms.Label lblFormatHelp;
+        private System.Windows.Forms.Button btnAddData;
     }
 }

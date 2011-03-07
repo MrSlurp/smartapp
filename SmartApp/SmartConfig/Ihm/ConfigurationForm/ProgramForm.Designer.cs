@@ -29,16 +29,16 @@ namespace SmartApp.Ihm
         private void InitializeComponent()
         {
             this.m_TabCtrlProgramItems = new System.Windows.Forms.TabControl();
-            this.m_TabFunction = new System.Windows.Forms.TabPage();
-            this.m_PanelProgFunc = new SmartApp.Ihm.ProgItemPanels.FunctionPanel();
             this.m_TabTimer = new System.Windows.Forms.TabPage();
             this.m_PanelProgTimer = new SmartApp.Ihm.ProgItemPanels.TimerPanel();
             this.m_TabLogger = new System.Windows.Forms.TabPage();
             this.m_PanelProgLogger = new SmartApp.Ihm.ProgItemPanels.LoggerPanel();
+            this.m_TabFunction = new System.Windows.Forms.TabPage();
+            this.m_PanelProgFunc = new SmartApp.Ihm.ProgItemPanels.FunctionPanel();
             this.m_TabCtrlProgramItems.SuspendLayout();
-            this.m_TabFunction.SuspendLayout();
             this.m_TabTimer.SuspendLayout();
             this.m_TabLogger.SuspendLayout();
+            this.m_TabFunction.SuspendLayout();
             this.SuspendLayout();
             // 
             // m_TabCtrlProgramItems
@@ -50,28 +50,8 @@ namespace SmartApp.Ihm
             this.m_TabCtrlProgramItems.Location = new System.Drawing.Point(0, 0);
             this.m_TabCtrlProgramItems.Name = "m_TabCtrlProgramItems";
             this.m_TabCtrlProgramItems.SelectedIndex = 0;
-            this.m_TabCtrlProgramItems.Size = new System.Drawing.Size(662, 391);
+            this.m_TabCtrlProgramItems.Size = new System.Drawing.Size(664, 462);
             this.m_TabCtrlProgramItems.TabIndex = 0;
-            // 
-            // m_TabFunction
-            // 
-            this.m_TabFunction.Controls.Add(this.m_PanelProgFunc);
-            this.m_TabFunction.Location = new System.Drawing.Point(4, 22);
-            this.m_TabFunction.Name = "m_TabFunction";
-            this.m_TabFunction.Padding = new System.Windows.Forms.Padding(3);
-            this.m_TabFunction.Size = new System.Drawing.Size(654, 365);
-            this.m_TabFunction.TabIndex = 0;
-            this.m_TabFunction.Text = "Functions";
-            this.m_TabFunction.UseVisualStyleBackColor = true;
-            // 
-            // m_PanelProgFunc
-            // 
-            this.m_PanelProgFunc.Doc = null;
-            this.m_PanelProgFunc.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.m_PanelProgFunc.Location = new System.Drawing.Point(3, 3);
-            this.m_PanelProgFunc.Name = "m_PanelProgFunc";
-            this.m_PanelProgFunc.Size = new System.Drawing.Size(648, 359);
-            this.m_PanelProgFunc.TabIndex = 0;
             // 
             // m_TabTimer
             // 
@@ -99,7 +79,7 @@ namespace SmartApp.Ihm
             this.m_TabLogger.Location = new System.Drawing.Point(4, 22);
             this.m_TabLogger.Name = "m_TabLogger";
             this.m_TabLogger.Padding = new System.Windows.Forms.Padding(3);
-            this.m_TabLogger.Size = new System.Drawing.Size(654, 365);
+            this.m_TabLogger.Size = new System.Drawing.Size(656, 436);
             this.m_TabLogger.TabIndex = 2;
             this.m_TabLogger.Text = "Loggers";
             this.m_TabLogger.UseVisualStyleBackColor = true;
@@ -110,25 +90,45 @@ namespace SmartApp.Ihm
             this.m_PanelProgLogger.Dock = System.Windows.Forms.DockStyle.Fill;
             this.m_PanelProgLogger.Location = new System.Drawing.Point(3, 3);
             this.m_PanelProgLogger.Name = "m_PanelProgLogger";
-            this.m_PanelProgLogger.Size = new System.Drawing.Size(648, 359);
+            this.m_PanelProgLogger.Size = new System.Drawing.Size(650, 430);
             this.m_PanelProgLogger.TabIndex = 0;
+            // 
+            // m_TabFunction
+            // 
+            this.m_TabFunction.Controls.Add(this.m_PanelProgFunc);
+            this.m_TabFunction.Location = new System.Drawing.Point(4, 22);
+            this.m_TabFunction.Name = "m_TabFunction";
+            this.m_TabFunction.Padding = new System.Windows.Forms.Padding(3);
+            this.m_TabFunction.Size = new System.Drawing.Size(654, 365);
+            this.m_TabFunction.TabIndex = 0;
+            this.m_TabFunction.Text = "Functions";
+            this.m_TabFunction.UseVisualStyleBackColor = true;
+            // 
+            // m_PanelProgFunc
+            // 
+            this.m_PanelProgFunc.Doc = null;
+            this.m_PanelProgFunc.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.m_PanelProgFunc.Location = new System.Drawing.Point(3, 3);
+            this.m_PanelProgFunc.Name = "m_PanelProgFunc";
+            this.m_PanelProgFunc.Size = new System.Drawing.Size(648, 359);
+            this.m_PanelProgFunc.TabIndex = 0;
             // 
             // ProgramForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(662, 391);
+            this.ClientSize = new System.Drawing.Size(664, 462);
             this.Controls.Add(this.m_TabCtrlProgramItems);
             this.DoubleBuffered = true;
-            this.MinimumSize = new System.Drawing.Size(670, 417);
+            this.MinimumSize = new System.Drawing.Size(680, 500);
             this.Name = "ProgramForm";
             this.ShowIcon = false;
             this.Text = "Program";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnFormClosing);
             this.m_TabCtrlProgramItems.ResumeLayout(false);
-            this.m_TabFunction.ResumeLayout(false);
             this.m_TabTimer.ResumeLayout(false);
             this.m_TabLogger.ResumeLayout(false);
+            this.m_TabFunction.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

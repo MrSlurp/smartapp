@@ -11,6 +11,12 @@ namespace CommonLib
 {
     public class Logger : BaseObject
     {
+        public enum LogMode
+        {
+            none,
+            autoNum,
+            autoDated,
+        };
         #region Déclaration des données de la classe
         // liste des symbols des données a loguer
         private StringCollection m_ListStrDatas = new StringCollection();
@@ -22,7 +28,7 @@ namespace CommonLib
         string m_strFileName;
         string m_UsedFileName;
         // période de l'auto logger
-        int m_iPeriod;
+        int m_iPeriod = 1000;
 
         private bool m_bUseAutoDatedFileName = false;
         // Periode d'auto datage des fichier en secondes
@@ -30,10 +36,14 @@ namespace CommonLib
         
         DateTime m_LastDateTimeUsed;
 
-
+        // indique si le logger démarre automatiquement au démarrage de la supervision
         private bool m_bAutoStart = false;
-        
+        // séparateur utilisé dans les fichier csv
         private char m_CsvSeperator = '\t';
+
+        LogMode m_LoggerMode = LogMode.none;
+
+        string m_DateFormatString = "YYYY-MM-dd_HH-mm-ss";
         #endregion
 
         #region donnée spécifiques aux fonctionement en mode Command
@@ -73,6 +83,22 @@ namespace CommonLib
                 m_LogType = value;
             }
         }
+
+        /// <summary>
+        /// obtient ou assigne le mode de loggere
+        /// </summary>e
+        public LogMode LoggerMode
+        {
+            get
+            {
+                return m_LoggerMode;
+            }
+            set
+            {
+                m_LoggerMode = value;
+            }
+        }
+
 
         /// <summary>
         /// obtient ou assigne le nom du fichier dans lequel les données seront loguées
@@ -119,6 +145,9 @@ namespace CommonLib
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public char CsvSeperator
         {
             get
@@ -131,6 +160,7 @@ namespace CommonLib
             }
         }
 
+        /*
         public bool AutoDateFileName
         {
             get
@@ -142,6 +172,19 @@ namespace CommonLib
                 m_bUseAutoDatedFileName = value;
             }
         }
+        */
+
+        public string DateFormatString
+        {
+            get
+            {
+                return m_DateFormatString;
+            }
+            set
+            {
+                m_DateFormatString = value;
+            }
+        }
         #endregion
 
         #region constructeurs
@@ -151,7 +194,6 @@ namespace CommonLib
         public Logger()
         {
             m_LogType = LOGGER_TYPE.STANDARD.ToString();
-            m_iPeriod = 1000;
         }
         #endregion
 
@@ -262,7 +304,6 @@ namespace CommonLib
         /// <returns>true si tout s'est bien passé</returns>
         public override bool FinalizeRead(BTDoc Doc)
         {
-
             // on fait une liste de références directe sur les données
             for (int i = 0; i < m_ListStrDatas.Count; i++)
             {
@@ -351,8 +392,6 @@ namespace CommonLib
                     case MESSAGE.MESS_CMD_RUN:
                         if (m_LogType == LOGGER_TYPE.AUTO.ToString() && m_bAutoStart)
                         {
-                            //string fileFullPath = PathTranslator.LinuxVsWindowsPathUse(m_strLogFilePath + @"\" + m_UsedFileName);
-                            //m_FileWriter = new StreamWriter(File.Open(fileFullPath, FileMode.Append, FileAccess.Write, FileShare.Read));
                             this.StartAutoLogger();
                         }
                         break;
@@ -360,9 +399,7 @@ namespace CommonLib
                         if (m_LogType == LOGGER_TYPE.AUTO.ToString())
                         {
                             this.StopAutoLogger();
-                            if (m_FileWriter != null)
-                                m_FileWriter.Close();
-                            m_FileWriter = null;
+                            CleanFileStreamClose();
                         }
                         break;
                     default:
@@ -385,10 +422,11 @@ namespace CommonLib
                     //LogEvent log = new LogEvent(LOG_EVENT_TYPE.INFO, string.Format("{0} Trying to start an already started auto logger", Symbol));
                     //AddLogEvent(log);
                 }
-                m_Timer.Start();
-                m_bTimerActive = true;
-                //string fileFullPath = m_strLogFilePath + @"\" + m_UsedFileName;
-                //m_FileWriter = new StreamWriter(File.Open(fileFullPath, FileMode.Append));
+                else
+                {
+                    m_Timer.Start();
+                    m_bTimerActive = true;
+                }
             }
             else
             {
@@ -409,12 +447,15 @@ namespace CommonLib
                     //LogEvent log = new LogEvent(LOG_EVENT_TYPE.INFO, string.Format("{0} Trying to stop an already stopped auto logger", Symbol));
                     //AddLogEvent(log);
                 }
-                m_Timer.Stop();
-                m_bTimerActive = false;
+                else
+                {
+                    m_Timer.Stop();
+                    m_bTimerActive = false;
+                }
             }
             else
             {
-                LogEvent log = new LogEvent(LOG_EVENT_TYPE.INFO, string.Format(Lang.LangSys.C("{0} Can't start standard logger"), Symbol));
+                LogEvent log = new LogEvent(LOG_EVENT_TYPE.INFO, string.Format(Lang.LangSys.C("{0} Can't stop standard logger"), Symbol));
                 AddLogEvent(log);
             }
         }
@@ -424,27 +465,46 @@ namespace CommonLib
         /// </summary>
         public void LogData()
         {
-            if (m_FileWriter != null)
+            OpenStreamWriter(FileMode.Append);
+            LogLine();
+        }
+
+        /// <summary>
+        /// ouvre le filestream pour écrire dans le fichier
+        /// </summary>
+        /// <param name="fm"></param>
+        /// <returns></returns>
+        private bool OpenStreamWriter(FileMode fm)
+        {
+            if (m_FileWriter == null)
             {
-                LogLine();
-            }
-            else
-            {
-                // sile fichier est fermé, on l'ouvre
                 string fileFullPath = PathTranslator.LinuxVsWindowsPathUse(m_strLogFilePath + @"\" + m_UsedFileName);
                 try
                 {
-                    m_FileWriter = new StreamWriter(File.Open(fileFullPath, FileMode.Append, FileAccess.Write, FileShare.Read));
+                    m_FileWriter = new StreamWriter(File.Open(fileFullPath, fm, FileAccess.Write, FileShare.Read));
                 }
                 catch (Exception)
                 {
                     LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format(Lang.LangSys.C("{0} Can't access file"), Symbol));
                     AddLogEvent(log);
                     Traces.LogAddDebug(TraceCat.CommonLib, "Erreur accès au fichier dans LogData");
-                    return;
+                    return false;
                 }
-                // et on logue
-                LogLine();
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// ferme le filestream proprement et remet la référence à null
+        /// </summary>
+        private void CleanFileStreamClose()
+        {
+            if (m_FileWriter != null)
+            {
+                // on ferme le fichier en cour
+                m_FileWriter.Close();
+                m_FileWriter.Dispose();
+                m_FileWriter = null;
             }
         }
 
@@ -456,55 +516,22 @@ namespace CommonLib
             if (m_FileWriter != null)
             {
                 // on ferme le fichier en cour
-                m_FileWriter.Close();
-                m_FileWriter = null;
-                string fileFullPath = PathTranslator.LinuxVsWindowsPathUse(m_strLogFilePath + @"\" + m_UsedFileName);
+                CleanFileStreamClose();
                 // on supprime son contenu
-                try
-                {
-                    m_FileWriter = new StreamWriter(File.Open(fileFullPath, FileMode.Truncate, FileAccess.Write, FileShare.Read));
-                }
-                catch (Exception )
-                {
-                    LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format(Lang.LangSys.C("{0} Can't access file"), Symbol));
-                    AddLogEvent(log);
-                    Traces.LogAddDebug(TraceCat.CommonLib, "Erreur accès au fichier dans LogData");
+                if (!OpenStreamWriter(FileMode.Truncate))
                     return;
-                }
-                if (m_FileWriter != null)
-                    m_FileWriter.Close();
-                m_FileWriter = null;
 
+                CleanFileStreamClose();
                 // on dois ensuite le réouvrir en ecriture
-                try
-                {
-                    m_FileWriter = new StreamWriter(File.Open(fileFullPath, FileMode.Append, FileAccess.Write, FileShare.Read));
-                }
-                catch (Exception )
-                {
-                    LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format(Lang.LangSys.C("{0} Can't access file"), Symbol));
-                    AddLogEvent(log);
-                    Traces.LogAddDebug(TraceCat.CommonLib, "Erreur accès au fichier dans LogData");
+                if (!OpenStreamWriter(FileMode.Append))
                     return;
-                }
             }
             else
             {
                 // sinon on est en mode manuel, on ouvre le fichier et on le fermera a la fin
-                string fileFullPath = PathTranslator.LinuxVsWindowsPathUse(m_strLogFilePath + @"\" + m_UsedFileName);
-                try
-                {
-                    m_FileWriter = new StreamWriter(File.Open(fileFullPath, FileMode.Truncate, FileAccess.Write, FileShare.Read));
-                }
-                catch (Exception )
-                {
-                    LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format(Lang.LangSys.C("{0} Can't access file"), Symbol));
-                    AddLogEvent(log);
-                    Traces.LogAddDebug(TraceCat.CommonLib, "Erreur accès au fichier dans LogData");
+                if (!OpenStreamWriter(FileMode.Truncate))
                     return;
-                }
-                m_FileWriter.Close();
-                m_FileWriter = null;
+                CleanFileStreamClose();
             }
         }
 
@@ -553,18 +580,37 @@ namespace CommonLib
             m_FileWriter.Flush();
         }
 
+        /// <summary>
+        /// ferme le file stream et met a jour le nom de fichier à utiliser à la prochaine ouverture de celui ci.
+        /// </summary>
+        public void NewFile()
+        {
+            CleanFileStreamClose();
+            ComputeDatedFileName();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         private void ComputeDatedFileName()
         {
-                        
+
+            DateTime currentTime = DateTime.Now;
+            string currentTimeString = currentTime.ToShortDateString() + currentTime.ToLongTimeString();
+            switch (m_LoggerMode)
+            {
+                case LogMode.autoNum:
+                    break;
+                case LogMode.autoDated:
+                    break;
+                case LogMode.none:
+                default:
+                    break;
+                
+            }
             
         }
     
-        private void UpdateAutoDatedFileNameAndStream()
-        {
-            //m_LastDateTimeUsed            
-            
-        }
-
         /// <summary>
         /// évènement du timer
         /// </summary>
