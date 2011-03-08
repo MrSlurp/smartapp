@@ -486,9 +486,9 @@ namespace SmartApp.Ihm
                     {
                         lviData.BackColor = gr.m_GroupColor;
                     }
-                    lviData.SubItems.Add(dt.SizeInBits.ToString());
-                    lviData.SubItems.Add(dt.IsConstant.ToString());
-                    lviData.SubItems.Add(dt.DefaultValue.ToString());
+                    //lviData.SubItems.Add(dt.SizeInBits.ToString());
+                    //lviData.SubItems.Add(dt.IsConstant.ToString());
+                    //lviData.SubItems.Add(dt.DefaultValue.ToString());
                     m_ListViewData.Items.Add(lviData);
                 }
             }
@@ -510,9 +510,9 @@ namespace SmartApp.Ihm
                 {
                     lviData.BackColor = gr.m_GroupColor;
                 }
-                lviData.SubItems[1].Text = dt.SizeInBits.ToString();
-                lviData.SubItems[2].Text = dt.IsConstant.ToString();
-                lviData.SubItems[3].Text = dt.DefaultValue.ToString();
+                //lviData.SubItems[1].Text = dt.SizeInBits.ToString();
+                //lviData.SubItems[2].Text = dt.IsConstant.ToString();
+                //lviData.SubItems[3].Text = dt.DefaultValue.ToString();
 
             }
         }
@@ -713,9 +713,9 @@ namespace SmartApp.Ihm
 
                     ListViewItem lviData = new ListViewItem(DropedItem.Symbol);
                     lviData.Tag = DropedItem;
-                    lviData.SubItems.Add(DropedItem.SizeInBits.ToString());
-                    lviData.SubItems.Add(DropedItem.IsConstant.ToString());
-                    lviData.SubItems.Add(DropedItem.DefaultValue.ToString());
+                    //lviData.SubItems.Add(DropedItem.SizeInBits.ToString());
+                    //lviData.SubItems.Add(DropedItem.IsConstant.ToString());
+                    //lviData.SubItems.Add(DropedItem.DefaultValue.ToString());
                     //m_ListViewData.Items.Add(lviData);
 
                     if (lviAtCursor != null)
@@ -756,6 +756,11 @@ namespace SmartApp.Ihm
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnListViewDataDragLeave(object sender, EventArgs e)
         {
             UpdateListViewData();
@@ -803,10 +808,16 @@ namespace SmartApp.Ihm
                         {
                             Data dt = PickData.SelectedDatas[i];
                             ListViewItem lviData = new ListViewItem(dt.Symbol);
+                            lviData.Tag = dt;
+                            //lviData.SubItems.Add(dt.SizeInBits.ToString());
+                            //lviData.SubItems.Add(dt.IsConstant.ToString());
+                            //lviData.SubItems.Add(dt.DefaultValue.ToString());
                             m_ListViewData.Items.Add(lviData);
                         }
                     }
                 }
+                UpdateLoggerDataListFromListView();
+                UpdateListViewData();
             }
         }
     }

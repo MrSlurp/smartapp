@@ -33,13 +33,14 @@ namespace CommonLib
             this.m_listViewData = new System.Windows.Forms.ListView();
             this.m_ColHeadSymbol = new System.Windows.Forms.ColumnHeader();
             this.m_ColHeadSize = new System.Windows.Forms.ColumnHeader();
+            this.cboShowConst = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // btnOK
             // 
             this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(125, 369);
+            this.btnOK.Location = new System.Drawing.Point(190, 369);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 0;
@@ -50,7 +51,7 @@ namespace CommonLib
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(206, 369);
+            this.btnCancel.Location = new System.Drawing.Point(271, 369);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 0;
@@ -71,7 +72,7 @@ namespace CommonLib
             this.m_listViewData.Location = new System.Drawing.Point(12, 12);
             this.m_listViewData.MultiSelect = false;
             this.m_listViewData.Name = "m_listViewData";
-            this.m_listViewData.Size = new System.Drawing.Size(269, 342);
+            this.m_listViewData.Size = new System.Drawing.Size(334, 342);
             this.m_listViewData.TabIndex = 8;
             this.m_listViewData.UseCompatibleStateImageBehavior = false;
             this.m_listViewData.View = System.Windows.Forms.View.Details;
@@ -80,12 +81,23 @@ namespace CommonLib
             // m_ColHeadSymbol
             // 
             this.m_ColHeadSymbol.Text = "Symbol";
-            this.m_ColHeadSymbol.Width = 182;
+            this.m_ColHeadSymbol.Width = 244;
             // 
             // m_ColHeadSize
             // 
             this.m_ColHeadSize.Text = "Size";
-            this.m_ColHeadSize.Width = 40;
+            this.m_ColHeadSize.Width = 58;
+            // 
+            // cboShowConst
+            // 
+            this.cboShowConst.AutoSize = true;
+            this.cboShowConst.Location = new System.Drawing.Point(12, 369);
+            this.cboShowConst.Name = "cboShowConst";
+            this.cboShowConst.Size = new System.Drawing.Size(126, 17);
+            this.cboShowConst.TabIndex = 9;
+            this.cboShowConst.Text = "Show constants data";
+            this.cboShowConst.UseVisualStyleBackColor = true;
+            this.cboShowConst.CheckedChanged += new System.EventHandler(this.cboShowConst_CheckedChanged);
             // 
             // PickDataForm
             // 
@@ -93,16 +105,19 @@ namespace CommonLib
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(293, 404);
+            this.ClientSize = new System.Drawing.Size(358, 404);
             this.ControlBox = false;
+            this.Controls.Add(this.cboShowConst);
             this.Controls.Add(this.m_listViewData);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
+            this.MinimumSize = new System.Drawing.Size(374, 442);
             this.Name = "PickDataForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Pick Data";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -113,5 +128,6 @@ namespace CommonLib
         private System.Windows.Forms.ListView m_listViewData;
         private System.Windows.Forms.ColumnHeader m_ColHeadSymbol;
         private System.Windows.Forms.ColumnHeader m_ColHeadSize;
+        private System.Windows.Forms.CheckBox cboShowConst;
     }
 }

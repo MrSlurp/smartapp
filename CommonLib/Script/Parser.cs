@@ -205,13 +205,7 @@ namespace CommonLib
             switch (CurTokenType)
             {
                 case TOKEN_TYPE.SCR_OBJECT:
-                    AutoCompleteStrings.Add(SCR_OBJECT.FRAMES.ToString());
-                    AutoCompleteStrings.Add(SCR_OBJECT.FUNCTIONS.ToString());
-                    AutoCompleteStrings.Add(SCR_OBJECT.LOGGERS.ToString());
-                    AutoCompleteStrings.Add(SCR_OBJECT.TIMERS.ToString());
-                    AutoCompleteStrings.Add(SCR_OBJECT.MATHS.ToString());
-                    AutoCompleteStrings.Add(SCR_OBJECT.SCREEN.ToString());
-                    AutoCompleteStrings.Add(SCR_OBJECT.LOGIC.ToString());
+                    AutoCompleteStrings.AddRange(Enum.GetNames(typeof(SCR_OBJECT)));
                     break;
                 case TOKEN_TYPE.FRAME:
                     for (int i = 0; i < m_Document.GestTrame.Count; i++)
@@ -220,8 +214,7 @@ namespace CommonLib
                     }
                     break;
                 case TOKEN_TYPE.FRAME_FUNC:
-                    AutoCompleteStrings.Add(FRAME_FUNC.SEND.ToString());
-                    AutoCompleteStrings.Add(FRAME_FUNC.RECEIVE.ToString());
+                    AutoCompleteStrings.AddRange(Enum.GetNames(typeof(FRAME_FUNC)));
                     break;
                 case TOKEN_TYPE.TIMER:
                     for (int i = 0; i < m_Document.GestTimer.Count; i++)
@@ -230,8 +223,7 @@ namespace CommonLib
                     }
                     break;
                 case TOKEN_TYPE.TIMER_FUNC:
-                    AutoCompleteStrings.Add(TIMER_FUNC.START.ToString());
-                    AutoCompleteStrings.Add(TIMER_FUNC.STOP.ToString());
+                    AutoCompleteStrings.AddRange(Enum.GetNames(typeof(TIMER_FUNC)));
                     break;
                 case TOKEN_TYPE.LOGGER:
                     for (int i = 0; i < m_Document.GestLogger.Count; i++)
@@ -240,11 +232,7 @@ namespace CommonLib
                     }
                     break;
                 case TOKEN_TYPE.LOGGER_FUNC:
-                    AutoCompleteStrings.Add(LOGGER_FUNC.CLEAR.ToString());
-                    AutoCompleteStrings.Add(LOGGER_FUNC.LOG.ToString());
-                    AutoCompleteStrings.Add(LOGGER_FUNC.START.ToString());
-                    AutoCompleteStrings.Add(LOGGER_FUNC.STOP.ToString());
-                    AutoCompleteStrings.Add(LOGGER_FUNC.NEW_FILE.ToString());
+                    AutoCompleteStrings.AddRange(Enum.GetNames(typeof(LOGGER_FUNC)));
                     break;
                 case TOKEN_TYPE.FUNCTION:
                     for (int i = 0; i < m_Document.GestFunction.Count; i++)
@@ -253,10 +241,7 @@ namespace CommonLib
                     }
                     break;
                 case TOKEN_TYPE.MATHS_FUNC:
-                    AutoCompleteStrings.Add(MATHS_FUNC.ADD.ToString());
-                    AutoCompleteStrings.Add(MATHS_FUNC.SUB.ToString());
-                    AutoCompleteStrings.Add(MATHS_FUNC.MUL.ToString());
-                    AutoCompleteStrings.Add(MATHS_FUNC.DIV.ToString());
+                    AutoCompleteStrings.AddRange(Enum.GetNames(typeof(MATHS_FUNC)));
                     break;
                 case TOKEN_TYPE.DATA:
                     for (int i = 0; i < m_Document.GestData.Count; i++)
@@ -265,8 +250,7 @@ namespace CommonLib
                     }
                     break;
                 case TOKEN_TYPE.SCREEN_FUNC:
-                    AutoCompleteStrings.Add(SCREEN_FUNC.SHOW_ON_TOP.ToString());
-                    AutoCompleteStrings.Add(SCREEN_FUNC.SCREEN_SHOT.ToString());
+                    AutoCompleteStrings.AddRange(Enum.GetNames(typeof(SCREEN_FUNC)));
                     break;
                 case TOKEN_TYPE.SCREEN:
                     for (int i = 0; i < m_Document.GestScreen.Count; i++)
@@ -275,17 +259,15 @@ namespace CommonLib
                     }
                     break;
                 case TOKEN_TYPE.LOGIC_FUNC:
-                    AutoCompleteStrings.Add(LOGIC_FUNC.NOT.ToString());
-                    AutoCompleteStrings.Add(LOGIC_FUNC.AND.ToString());
-                    AutoCompleteStrings.Add(LOGIC_FUNC.OR.ToString());
-                    AutoCompleteStrings.Add(LOGIC_FUNC.NAND.ToString());
-                    AutoCompleteStrings.Add(LOGIC_FUNC.NOR.ToString());
-                    AutoCompleteStrings.Add(LOGIC_FUNC.XOR.ToString());
+                    AutoCompleteStrings.AddRange(Enum.GetNames(typeof(LOGIC_FUNC)));
                     break;
                 case TOKEN_TYPE.NULL:
                 default:
                     break;
             }
+            // on filtre les chaines qui ne doivent pas être visibles
+            AutoCompleteStrings.Remove("NULL");
+            AutoCompleteStrings.Remove("INVALID");
             return AutoCompleteStrings;
         }
         #endregion

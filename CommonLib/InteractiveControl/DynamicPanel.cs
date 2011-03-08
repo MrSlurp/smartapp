@@ -163,8 +163,6 @@ namespace CommonLib
         /// <param name="filePath"></param>
         public void DoScreenShot(string fileName, string ScreenSymbol)
         {
-            //"Image File (*.png)|*.png";
-            //TODO faire le screen shot du panel
             string filePath = string.Empty;
             try
             {
@@ -175,17 +173,26 @@ namespace CommonLib
                     //Drawing control to the bitmap
                     this.DrawToBitmap(bmp, new Rectangle(0, 0, this.Width, this.Height));
                     
-                    string NowTime = DateTime.Now.ToString("dd_MM_yyyy_HH-mm-ss");  
-                    if (string.IsNullOrEmpty(m_Title))
-                        m_Title = ScreenSymbol+"_"+NowTime;                           
+                    //string NowTime = DateTime.Now.ToString("dd_MM__HH-mm-ss");  
+                    string NowTime = DateTime.Now.ToString("yyyy-MM_dd_HH-mm-ss");
+                    string outFileName;
 
                     if (string.IsNullOrEmpty(fileName))
-                        fileName = m_Title.Replace(" ","_") + ".png";
+                    {
+                        if (string.IsNullOrEmpty(m_Title))
+                            outFileName = ScreenSymbol + "_" + NowTime;
+                        else 
+                            outFileName = m_Title+ "_" + NowTime;
+                    }
+                    else
+                        outFileName = fileName + "_" + NowTime;
+
+                    outFileName = outFileName.Replace(" ", "_") + ".png";
                         
                     filePath = Path.GetDirectoryName(m_DocumentFileName) + 
                                Path.DirectorySeparatorChar + 
-                               "SnapShot" +  
-                               Path.DirectorySeparatorChar + fileName;
+                               "SnapShot" +
+                               Path.DirectorySeparatorChar + outFileName;
                                
                     if (Traces.IsDebugAndCatOK(TraceCat.ExecuteScreen))
                         Traces.LogAddDebug(TraceCat.ExecuteScreen, 

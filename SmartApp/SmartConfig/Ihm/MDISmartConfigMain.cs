@@ -61,6 +61,9 @@ namespace SmartApp.Ihm
             OpenDoc(FileName);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void CommonConstructorInit()
         {
             this.Text = APP_TITLE;
@@ -135,46 +138,51 @@ namespace SmartApp.Ihm
         #endregion
 
         #region réarangement des fenêtres
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CascadeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LayoutMdi(MdiLayout.Cascade);
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TileVerticleToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LayoutMdi(MdiLayout.TileVertical);
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TileHorizontalToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LayoutMdi(MdiLayout.TileHorizontal);
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ArrangeIconsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LayoutMdi(MdiLayout.ArrangeIcons);
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CloseAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
             foreach (Form childForm in MdiChildren)
@@ -660,6 +668,9 @@ namespace SmartApp.Ihm
         }
         #endregion
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void SaveFormsPos()
         {
             for (int i = 0; i < this.MdiChildren.Length; i++)
@@ -672,6 +683,11 @@ namespace SmartApp.Ihm
         }
 
         #region menu ?
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AboutForm.ShowAbout();
@@ -679,10 +695,11 @@ namespace SmartApp.Ihm
         #endregion
 
         #region Commandes du menu Tool
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void JumpToSmartCommandMenuItemClick(object sender, EventArgs e)
         {
             if (m_Document != null)
@@ -719,10 +736,11 @@ namespace SmartApp.Ihm
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void m_MenuItemZ2SLWiz_Click(object sender, EventArgs e)
         {
             if (m_Document != null)
@@ -737,10 +755,11 @@ namespace SmartApp.Ihm
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void m_MenuItemTCPMBWiz_Click(object sender, EventArgs e)
         {
             if (m_Document != null)
@@ -755,10 +774,11 @@ namespace SmartApp.Ihm
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnMenuItemM3SLWizClick(object sender, EventArgs e)
         {
             if (m_Document != null)
@@ -774,12 +794,22 @@ namespace SmartApp.Ihm
         }
         #endregion
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void pluginsVersionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             PluginsVersionsForm plVer = new PluginsVersionsForm();
             plVer.ShowDialog();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void m_tsItemPref_Click(object sender, EventArgs e)
         {
             PreferencesForm prfForm = new PreferencesForm();
@@ -799,6 +829,11 @@ namespace SmartApp.Ihm
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void m_tsMenuLogConfig_Click(object sender, EventArgs e)
         {
             LogCatForm LogForm = new LogCatForm();
@@ -817,6 +852,11 @@ namespace SmartApp.Ihm
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void m_tsMenuOpenDebugConsole_Click(object sender, EventArgs e)
         {
             if (m_TraceConsole == null)
@@ -827,6 +867,78 @@ namespace SmartApp.Ihm
                 m_TraceConsole = new TraceConsole();
             }
             m_TraceConsole.Show();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tsbtn_gotoScreen_Click(object sender, EventArgs e)
+        {
+            if (this.ActiveMdiChild != m_DesignForm)
+            {
+                if (m_DesignForm.WindowState == FormWindowState.Minimized)
+                    m_DesignForm.WindowState =
+                        this.ActiveMdiChild.WindowState == FormWindowState.Maximized ?
+                        FormWindowState.Maximized : FormWindowState.Normal;
+
+                m_DesignForm.BringToFront();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tsbtn_gotoProgram_Click(object sender, EventArgs e)
+        {
+            if (this.ActiveMdiChild != m_ProgForm)
+            {
+                if (m_ProgForm.WindowState == FormWindowState.Minimized)
+                    m_ProgForm.WindowState = 
+                        this.ActiveMdiChild.WindowState == FormWindowState.Maximized?
+                        FormWindowState.Maximized : FormWindowState.Normal;
+
+                m_ProgForm.BringToFront();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tsbtn_gotoData_Click(object sender, EventArgs e)
+        {
+            if (this.ActiveMdiChild != m_DataForm)
+            {
+                if (m_DataForm.WindowState == FormWindowState.Minimized)
+                    m_DataForm.WindowState =
+                        this.ActiveMdiChild.WindowState == FormWindowState.Maximized ?
+                        FormWindowState.Maximized : FormWindowState.Normal;
+
+                m_DataForm.BringToFront();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tsbtn_gotoFrame_Click(object sender, EventArgs e)
+        {
+            if (this.ActiveMdiChild != m_ProgForm)
+            {
+                if (m_ProgForm.WindowState == FormWindowState.Minimized)
+                    m_ProgForm.WindowState =
+                        this.ActiveMdiChild.WindowState == FormWindowState.Maximized ?
+                        FormWindowState.Maximized : FormWindowState.Normal;
+
+                m_ProgForm.BringToFront();
+            }
         }
     }
 }

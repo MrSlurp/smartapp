@@ -18,6 +18,9 @@ namespace CommonLib
 
         bool m_bAllowMultipleSelect = false;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public bool AllowMultipleSelect
         {
             get
@@ -32,12 +35,18 @@ namespace CommonLib
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public PickDataForm()
         {
             Lang.LangSys.Initialize(this);
             InitializeComponent();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public BTDoc Document
         {
             set
@@ -50,6 +59,9 @@ namespace CommonLib
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public Data SelectedData
         {
             get
@@ -61,6 +73,9 @@ namespace CommonLib
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public Data[] SelectedDatas
         {
             get
@@ -69,12 +84,19 @@ namespace CommonLib
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnShown(EventArgs e)
         {
             base.OnShown(e);
             InitListViewData();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void InitListViewData()
         {
             m_listViewData.Items.Clear();
@@ -102,20 +124,27 @@ namespace CommonLib
                         System.Diagnostics.Debug.Assert(false);
                         continue;
                     }
-
-                    ListViewItem lviData = new ListViewItem(dt.Symbol);
-                    lviData.Tag = dt;
-                    BaseGestGroup.Group gr = DataGest.GetGroupFromObject(dt);
-                    if (gr != null)
+                    if (((dt.IsConstant && cboShowConst.Checked) || !dt.IsConstant ) && dt.IsUserVisible)
                     {
-                        lviData.BackColor = gr.m_GroupColor;
+                        ListViewItem lviData = new ListViewItem(dt.Symbol);
+                        lviData.Tag = dt;
+                        BaseGestGroup.Group gr = DataGest.GetGroupFromObject(dt);
+                        if (gr != null)
+                        {
+                            lviData.BackColor = gr.m_GroupColor;
+                        }
+                        lviData.SubItems.Add(dt.SizeInBits.ToString());
+                        m_listViewData.Items.Add(lviData);
                     }
-                    lviData.SubItems.Add(dt.SizeInBits.ToString());
-                    m_listViewData.Items.Add(lviData);
                 }
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void m_listViewData_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (m_listViewData.SelectedItems.Count == 0)
@@ -130,6 +159,16 @@ namespace CommonLib
                     m_SelectedDatas[i] = (Data)m_listViewData.SelectedItems[i].Tag;
                 }
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cboShowConst_CheckedChanged(object sender, EventArgs e)
+        {
+            InitListViewData();
         }
     }
 }
