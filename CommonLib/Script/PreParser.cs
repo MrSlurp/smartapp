@@ -417,6 +417,12 @@ namespace CommonLib
                     case LOGGER_FUNC.CLEAR:
                         retPreParsedLine.m_FunctionToExec = ALL_FUNC.LOGGER_CLEAR;
                         break;
+                    case LOGGER_FUNC.NEW_FILE:
+                        retPreParsedLine.m_FunctionToExec = ALL_FUNC.LOGGER_NEW_FILE;
+                        break;
+                    default:
+                        Traces.LogAddDebug(TraceCat.Parser, "parsing logger func : fonction non implémenté");
+                        break;
                 }
             }            
         }

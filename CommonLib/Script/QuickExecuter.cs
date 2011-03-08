@@ -60,6 +60,9 @@ namespace CommonLib
         }
         #endregion
 
+        /// <summary>
+        /// 
+        /// </summary>
         public bool PreParsedDone
         {
             get
@@ -71,7 +74,12 @@ namespace CommonLib
                 m_bPreParsedDone = value;
             }
         }
+
         #region fonction diverses
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Event"></param>
         public void AddLogEvent(LogEvent Event)
         {
             if (EventAddLogEvent != null)
@@ -80,6 +88,11 @@ namespace CommonLib
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="scriptable"></param>
+        /// <returns></returns>
         public int PreParseScript(IScriptable scriptable)
         {
             int Id = 0;
@@ -92,6 +105,11 @@ namespace CommonLib
             return Id;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="script"></param>
+        /// <returns></returns>
         public int PreParseScript(String[] script)
         {
             int Id = 0;
@@ -104,6 +122,11 @@ namespace CommonLib
             return Id;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="scriptable"></param>
+        /// <returns></returns>
         public int PreParseScript(IInitScriptable scriptable)
         {
             int Id = 0;
@@ -115,7 +138,6 @@ namespace CommonLib
             }
             return Id;
         }
-
         #endregion
 
         #region attributs
@@ -134,6 +156,9 @@ namespace CommonLib
         #endregion
 
         #region execution
+        /// <summary>
+        /// 
+        /// </summary>
         internal void ScriptExecuter_EvScriptToExecute()
         {
             CommonLib.PerfChrono theChrono = new PerfChrono();
@@ -151,6 +176,10 @@ namespace CommonLib
             theChrono.EndMeasure("ScriptExecuter");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="QuickID"></param>
         public void ExecuteScript(int QuickID)
         {
             if (m_DictioQuickScripts.ContainsKey(QuickID))
@@ -174,7 +203,10 @@ namespace CommonLib
 #endif
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="QuickID"></param>
         internal void InternalExecuteScript(int QuickID)
         {
             List<PreParsedLine> QuickScript = m_DictioQuickScripts[QuickID];
@@ -184,10 +216,12 @@ namespace CommonLib
                 switch (QuickScript[i].m_SrcObject)
                 {
                     case SCR_OBJECT.FRAMES:
-                    case SCR_OBJECT.LOGGERS:
                     case SCR_OBJECT.TIMERS:
                     case SCR_OBJECT.SCREEN:
                         QuickExecuteFunc(QuickScript[i]);
+                        break;
+                    case SCR_OBJECT.LOGGERS:
+                        QuickExecuteLogger(QuickScript[i]);
                         break;
                     case SCR_OBJECT.FUNCTIONS:
                         int Id = QuickScript[i].m_Arguments[0].QuickScriptID;
@@ -210,6 +244,10 @@ namespace CommonLib
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="QuickScript"></param>
         internal void QuickExecuteFunc(PreParsedLine QuickScript)
         {
             switch (QuickScript.m_FunctionToExec)
@@ -219,30 +257,6 @@ namespace CommonLib
                     break;
                 case ALL_FUNC.FRAME_SEND:
                     QuickExecuteSendFrame((Trame)QuickScript.m_Arguments[0]);
-                    break;
-                case ALL_FUNC.LOGGER_CLEAR:
-                    if (Traces.IsDebugAndCatOK(TraceCat.ExecuteLogger))
-                        Traces.LogAddDebug(TraceCat.ExecuteLogger,
-                                           string.Format("Logger Clear {0}", QuickScript.m_Arguments[0].Symbol));
-                    ((Logger)QuickScript.m_Arguments[0]).ClearLog();
-                    break;
-                case ALL_FUNC.LOGGER_LOG:
-                    if (Traces.IsDebugAndCatOK(TraceCat.ExecuteLogger))
-                        Traces.LogAddDebug(TraceCat.ExecuteLogger,
-                                           string.Format("Logger Log {0}", QuickScript.m_Arguments[0].Symbol));
-                    ((Logger)QuickScript.m_Arguments[0]).LogData();
-                    break;
-                case ALL_FUNC.LOGGER_START:
-                    if (Traces.IsDebugAndCatOK(TraceCat.ExecuteLogger))
-                        Traces.LogAddDebug(TraceCat.ExecuteLogger,
-                                           string.Format("Logger.Start {0}", QuickScript.m_Arguments[0].Symbol));
-                    ((Logger)QuickScript.m_Arguments[0]).StartAutoLogger();
-                    break;
-                case ALL_FUNC.LOGGER_STOP:
-                    if (Traces.IsDebugAndCatOK(TraceCat.ExecuteLogger))
-                        Traces.LogAddDebug(TraceCat.ExecuteLogger,
-                                           string.Format("Logger.STOP {0}", QuickScript.m_Arguments[0].Symbol));
-                    ((Logger)QuickScript.m_Arguments[0]).StopAutoLogger();
                     break;
                 case ALL_FUNC.TIMER_START:
                     if (Traces.IsDebugAndCatOK(TraceCat.ExecuteTimer))
@@ -273,6 +287,10 @@ namespace CommonLib
         #endregion
 
         #region execution des trames
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tr"></param>
         internal void QuickExecuteSendFrame(Trame tr)
         {
             if (Traces.IsDebugAndCatOK(TraceCat.ExecuteFrame))
@@ -293,6 +311,10 @@ namespace CommonLib
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="TrameToRecieve"></param>
         internal void QuickExecuteRecieveFrame(Trame TrameToRecieve)
         {
             if (Traces.IsDebugAndCatOK(TraceCat.ExecuteFrame))
@@ -349,6 +371,10 @@ namespace CommonLib
         #endregion
 
         #region fonction maths
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="QuickScript"></param>
         internal void QuickExecuteMaths(PreParsedLine QuickScript)
         {
             Data ResultData = (Data)QuickScript.m_Arguments[0];
@@ -371,7 +397,12 @@ namespace CommonLib
             }
         }
 
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Result"></param>
+        /// <param name="Operator1"></param>
+        /// <param name="Operator2"></param>
         internal void ExecuteMathAdd(Data Result, Data Operator1, Data Operator2)
         {
             string opsValues = string.Empty;
@@ -382,7 +413,12 @@ namespace CommonLib
                 Traces.LogAddDebug(TraceCat.ExecuteMath, "Math.ADD", string.Format("{0} = {1}", Result.Value, opsValues));
         }
 
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Result"></param>
+        /// <param name="Operator1"></param>
+        /// <param name="Operator2"></param>
         internal void ExecuteMathSub(Data Result, Data Operator1, Data Operator2)
         {
             string opsValues = string.Empty;
@@ -393,7 +429,12 @@ namespace CommonLib
                 Traces.LogAddDebug(TraceCat.ExecuteMath, "Math.SUB", string.Format("{0} = {1}", Result.Value, opsValues));
         }
 
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Result"></param>
+        /// <param name="Operator1"></param>
+        /// <param name="Operator2"></param>
         protected void ExecuteMathMul(Data Result, Data Operator1, Data Operator2)
         {
             string opsValues = string.Empty;
@@ -404,7 +445,12 @@ namespace CommonLib
                 Traces.LogAddDebug(TraceCat.ExecuteMath, "Math.MUL", string.Format("{0} = {1}", Result.Value, opsValues));
         }
 
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Result"></param>
+        /// <param name="Operator1"></param>
+        /// <param name="Operator2"></param>
         internal void ExecuteMathDiv(Data Result, Data Operator1, Data Operator2)
         {
             if (Operator2.Value != 0)
@@ -425,10 +471,13 @@ namespace CommonLib
                 return;
             }
         }
-        //*****************************************************************************************************
         #endregion
 
         #region fonction logiques
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="QuickScript"></param>
         internal void QuickExecuteLogic(PreParsedLine QuickScript)
         {
             Data[] Arguments = new Data[QuickScript.m_Arguments.Length - 1];
@@ -460,6 +509,11 @@ namespace CommonLib
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Result"></param>
+        /// <param name="Operator1"></param>
         internal void ExecuteLogicNOT(Data Result, Data Operator1)
         {
             if (Traces.IsDebugAndCatOK(TraceCat.ExecuteLogic))
@@ -470,7 +524,11 @@ namespace CommonLib
                 Result.Value = 0;
         }
 
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Result"></param>
+        /// <param name="Operators"></param>
         internal void ExecuteLogicAND(Data Result, Data[] Operators)
         {
             if (Traces.IsDebugAndCatOK(TraceCat.ExecuteLogic))
@@ -493,7 +551,11 @@ namespace CommonLib
             Result.Value = bRes ? 1 : 0;
         }
 
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Result"></param>
+        /// <param name="Operators"></param>
         internal void ExecuteLogicOR(Data Result, Data[] Operators)
         {
             if (Traces.IsDebugAndCatOK(TraceCat.ExecuteLogic))
@@ -516,7 +578,11 @@ namespace CommonLib
             Result.Value = bRes ? 1 : 0;
         }
 
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Result"></param>
+        /// <param name="Operators"></param>
         internal void ExecuteLogicNAND(Data Result, Data[] Operators)
         {
             if (Traces.IsDebugAndCatOK(TraceCat.ExecuteLogic))
@@ -539,7 +605,11 @@ namespace CommonLib
             Result.Value = bRes ? 0 : 1;
         }
 
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Result"></param>
+        /// <param name="Operators"></param>
         internal void ExecuteLogicNOR(Data Result, Data[] Operators)
         {
             if (Traces.IsDebugAndCatOK(TraceCat.ExecuteLogic))
@@ -562,6 +632,11 @@ namespace CommonLib
             Result.Value = bRes ? 0 : 1;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Result"></param>
+        /// <param name="Operators"></param>
         internal void ExecuteLogicXOR(Data Result, Data[] Operators)
         {
             if (Traces.IsDebugAndCatOK(TraceCat.ExecuteLogic))
@@ -583,5 +658,39 @@ namespace CommonLib
         }
         #endregion
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="QuickScript"></param>
+        internal void QuickExecuteLogger(PreParsedLine QuickScript)
+        {
+            switch (QuickScript.m_FunctionToExec)
+            {
+                case ALL_FUNC.LOGGER_LOG:
+                    if (Traces.IsDebugAndCatOK(TraceCat.ExecuteLogger))
+                        Traces.LogAddDebug(TraceCat.ExecuteLogger,
+                                           string.Format("Logger Log {0}", QuickScript.m_Arguments[0].Symbol));
+                    ((Logger)QuickScript.m_Arguments[0]).LogData();
+                    break;
+                case ALL_FUNC.LOGGER_START:
+                    if (Traces.IsDebugAndCatOK(TraceCat.ExecuteLogger))
+                        Traces.LogAddDebug(TraceCat.ExecuteLogger,
+                                           string.Format("Logger.Start {0}", QuickScript.m_Arguments[0].Symbol));
+                    ((Logger)QuickScript.m_Arguments[0]).StartAutoLogger();
+                    break;
+                case ALL_FUNC.LOGGER_STOP:
+                    if (Traces.IsDebugAndCatOK(TraceCat.ExecuteLogger))
+                        Traces.LogAddDebug(TraceCat.ExecuteLogger,
+                                           string.Format("Logger.STOP {0}", QuickScript.m_Arguments[0].Symbol));
+                    ((Logger)QuickScript.m_Arguments[0]).StopAutoLogger();
+                    break;
+                case ALL_FUNC.LOGGER_NEW_FILE:
+                    if (Traces.IsDebugAndCatOK(TraceCat.ExecuteLogger))
+                        Traces.LogAddDebug(TraceCat.ExecuteLogger,
+                                           string.Format("Logger.NEW_FILE {0}", QuickScript.m_Arguments[0].Symbol));
+                    ((Logger)QuickScript.m_Arguments[0]).NewFile();
+                    break;
+            }
+        }
     }
 }

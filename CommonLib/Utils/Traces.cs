@@ -236,7 +236,7 @@ namespace CommonLib
 			oDHSysteme = DateTime.UtcNow ;
 			
 			// On va utiliser un répertoire de Logs dont le nom est la date du jour
-			sRepDuJour = oDHSysteme.ToString("yyyyMMdd") ;
+			sRepDuJour = oDHSysteme.ToString("yyyy-MM-dd") ;
 
 			// Si le répertoire n'existe pas, on le créé
 			try
@@ -417,7 +417,7 @@ namespace CommonLib
 			// Calcul de la chaine permettant de définir les répertoires à supprimer
 			oDHSysteme = DateTime.UtcNow ;
 			oDHSysteme = oDHSysteme.AddDays(-iNbrJours);
-			sDateLimite = oDHSysteme.ToString("yyyyMMdd");
+			sDateLimite = oDHSysteme.ToString("yyyy-MM-dd");
 			//LogAdd(LOG_LEVEL_INFO,"DIR","DateLimite : " + sDateLimite);
 			
 			// On protège le parcours des répertoires et leur suppression par la même

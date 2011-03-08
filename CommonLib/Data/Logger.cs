@@ -37,7 +37,7 @@ namespace CommonLib
 
         LogMode m_LoggerMode = LogMode.none;
 
-        string m_DateFormatString = "YYYY-MM-dd_HH-mm-ss";
+        string m_DateFormatString = "yyyy-MM-dd_HH-mm-ss";
         #endregion
 
         #region donnée spécifiques aux fonctionement en mode Command
@@ -392,6 +392,7 @@ namespace CommonLib
                 {
 
                     case MESSAGE.MESS_CMD_RUN:
+                        ComputeFileName();
                         if (m_LogType == LOGGER_TYPE.AUTO.ToString() && m_bAutoStart)
                         {
                             this.StartAutoLogger();
@@ -580,6 +581,11 @@ namespace CommonLib
             }
             m_FileWriter.WriteLine(lineToWrite);
             m_FileWriter.Flush();
+            if (m_LogType == LOGGER_TYPE.STANDARD.ToString())
+            {
+                CleanFileStreamClose();
+            }
+
         }
 
         /// <summary>
@@ -605,7 +611,7 @@ namespace CommonLib
                     {
                         string finalFileName = m_strFileName + string.Format("{0}", iIdx);
                         string FullPath = PathTranslator.LinuxVsWindowsPathUse(m_strLogFilePath + @"\" + finalFileName);
-                        if (!File.Exists(FullPath))
+                        if (!File.Exists(FullPath + ".csv"))
                         {
                             m_UsedFileName = finalFileName;
                             break;
@@ -618,12 +624,15 @@ namespace CommonLib
                         string FullPath = PathTranslator.LinuxVsWindowsPathUse(m_strLogFilePath + @"\" + finalFileName);
                         for (int iIdx = 1; iIdx < int.MaxValue; iIdx++)
                         {
-                            if (File.Exists(FullPath))
+                            if (File.Exists(FullPath + ".csv"))
                             {
                                 m_UsedFileName = finalFileName + string.Format("_{0}", iIdx);
                             }
                             else
+                            {
+                                m_UsedFileName = finalFileName;
                                 break;
+                            }
                         }
                     }
                     break;

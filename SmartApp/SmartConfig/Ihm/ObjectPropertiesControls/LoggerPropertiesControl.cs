@@ -601,7 +601,7 @@ namespace SmartApp.Ihm
                     edtDateFormat.Enabled = true;
                     edtFormatHelp.Text =
                     Program.LangSys.C(@"Add automaticaly date and time according to the specified format string.") + "\r\n" +
-                    Program.LangSys.C(@"YYYY : years") + "\r\n" +
+                    Program.LangSys.C(@"yyyy : years") + "\r\n" +
                     Program.LangSys.C(@"MM : months") + "\r\n" +
                     Program.LangSys.C(@"dd : days") + "\r\n" +
                     Program.LangSys.C(@"HH : hours (24h format)") + "\r\n" +
