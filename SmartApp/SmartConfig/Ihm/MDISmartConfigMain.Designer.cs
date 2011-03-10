@@ -575,6 +575,7 @@ namespace SmartApp.Ihm
             this.m_newToolStripButton.Name = "m_newToolStripButton";
             this.m_newToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.m_newToolStripButton.Text = "New";
+            this.m_newToolStripButton.Click += new System.EventHandler(this.OnNewMenuItemClick);
             // 
             // m_openToolStripButton
             // 
@@ -584,6 +585,7 @@ namespace SmartApp.Ihm
             this.m_openToolStripButton.Name = "m_openToolStripButton";
             this.m_openToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.m_openToolStripButton.Text = "Open";
+            this.m_openToolStripButton.Click += new System.EventHandler(this.OpenFile);
             // 
             // m_saveToolStripButton
             // 
@@ -593,6 +595,7 @@ namespace SmartApp.Ihm
             this.m_saveToolStripButton.Name = "m_saveToolStripButton";
             this.m_saveToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.m_saveToolStripButton.Text = "Save";
+            this.m_saveToolStripButton.Click += new System.EventHandler(this.OnSaveMenuItemClick);
             // 
             // toolStripSeparator1
             // 

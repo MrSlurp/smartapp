@@ -128,7 +128,7 @@ namespace CommonLib
             this.m_BtnOk.Name = "m_BtnOk";
             this.m_BtnOk.Size = new System.Drawing.Size(75, 23);
             this.m_BtnOk.TabIndex = 1;
-            this.m_BtnOk.Text = "Ok";
+            this.m_BtnOk.Text = "OK";
             this.m_BtnOk.UseVisualStyleBackColor = true;
             this.m_BtnOk.Click += new System.EventHandler(this.m_BtnOK_Click);
             // 

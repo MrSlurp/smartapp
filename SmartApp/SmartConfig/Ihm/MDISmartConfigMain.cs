@@ -400,8 +400,8 @@ namespace SmartApp.Ihm
         {
             if (!File.Exists(filename))
             {
-                MessageBox.Show("The file '" + filename + "'cannot be opened and will be removed from the Recent list(s)"
-                    , "MruToolStripMenu Demo"
+                MessageBox.Show(string.Format(Program.LangSys.C("The file '{0}' cannot be opened and will be removed from the recent list"), filename)
+                    , Program.LangSys.C("Error")
                     , MessageBoxButtons.OK
                     , MessageBoxIcon.Error);
                 m_mruStripMenu.RemoveFile(number);

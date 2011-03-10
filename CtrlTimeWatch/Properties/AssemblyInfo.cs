@@ -9,8 +9,8 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Bigot Pascal")]
-[assembly: AssemblyProduct("CtrlTimeWatch")]
-[assembly: AssemblyCopyright("Copyright © Bigot Pascal 2008-2010")]
+[assembly: AssemblyProduct("SmartApp plugin")]
+[assembly: AssemblyCopyright("Copyright © Bigot Pascal 2008-2011")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

@@ -1,18 +1,4 @@
-/*========================================================================== 
- *  FILE:   
- *                   Lang.cs
- * 
- *  PROJECT:
- *                   VIDMID
- * 
- * La description du format des fichiers PO est disponible sur le site :
- * 
- *      http://www.gnu.org/software/autoconf/manual/gettext/PO-Files.html
- * 
- * =========================================================================
- *                   ANSALDO STS France - Copyright © 2009
- * ========================================================================= */
-//#define LANG_LOAD_DEBUG
+#define LANG_LOAD_DEBUG
 #define LANG_USE_DEBUG
 
 using System;
@@ -184,6 +170,7 @@ namespace CommonLib
             m_CurrentAssembly = Assembly;
             mCurrentLangage = CurLang.ToUpper();
             mDevLangage = DevLang.ToUpper();
+            LoadDefaultLangFile();
         }
         #endregion
 
@@ -272,6 +259,8 @@ namespace CommonLib
         /// <returns>Texte localisé</returns>
         public string C(string FilePath,string DevText)
         {
+            string DefaultFileName = Path.Combine(FilePath, mCurrentLangage + ".default.po");
+
             string FileName;
             if (string.IsNullOrEmpty(m_CurrentAssembly))
                 FileName = Path.Combine(FilePath, mCurrentLangage + ".po");
@@ -283,21 +272,44 @@ namespace CommonLib
                 LoadLangage(FilePath);
             }
 
-            if (Decoders.ContainsKey(FileName) == true)
+            if (Decoders.ContainsKey(FileName) == true
+                || Decoders.ContainsKey(DefaultFileName) == true)
             {
                 if (m_bRevertLocalisation)
                 {
-                    if (Decoders[FileName].ContainsValue(DevText) == true)
+                    if (Decoders.ContainsKey(FileName) && 
+                        Decoders[FileName].ContainsValue(DevText) == true)
                     {
                         return KeyFromValue(Decoders[FileName], DevText);
+                    }
+                    else if (Decoders.ContainsKey(DefaultFileName) && 
+                        Decoders[DefaultFileName].ContainsKey(DevText) == true)
+                    {
+                        return KeyFromValue(Decoders[DefaultFileName], DevText);
                     }
                 }
                 else
                 {
-                    if (Decoders[FileName].ContainsKey(DevText) == true)
+                    // on test d'abord le fichier spécifique
+                    if (Decoders.ContainsKey(FileName) && 
+                        Decoders[FileName].ContainsKey(DevText) == true)
                     {
                         if (Decoders[FileName][DevText] != "")
                             return Decoders[FileName][DevText];
+                        else
+                        {
+                            if (mInformOfMissingItem)
+                                return (DevText + MSG_MISSING);
+                            else
+                                return DevText;
+                        }
+                    }
+                    // ensuite on test si a la chaine dans le fichier par défaut
+                    else if (Decoders.ContainsKey(DefaultFileName) && 
+                             Decoders[DefaultFileName].ContainsKey(DevText) == true)
+                    {
+                        if (Decoders[DefaultFileName][DevText] != "")
+                            return Decoders[DefaultFileName][DevText];
                         else
                         {
                             if (mInformOfMissingItem)
@@ -355,6 +367,12 @@ namespace CommonLib
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Dico"></param>
+        /// <param name="Value"></param>
+        /// <returns></returns>
         public string KeyFromValue(Dictionary<string, string> Dico, string Value)
         {
             string retString = string.Empty;
@@ -369,6 +387,17 @@ namespace CommonLib
 
         #region chargement des fichier de langue
         /// <summary>
+        /// 
+        /// </summary>
+        public void LoadDefaultLangFile()
+        {
+            string FilePath = CreateFilePath();
+            string FileName = Path.Combine(FilePath, mCurrentLangage + ".default.po");
+
+            LoadLangFile(FileName);
+        }
+
+        /// <summary>
         /// Charge un fichier de langue dans le dictionnaire
         /// </summary>
         /// <param name="FilePath"></param>
@@ -378,8 +407,17 @@ namespace CommonLib
             if (string.IsNullOrEmpty(m_CurrentAssembly))
                 FileName = Path.Combine(FilePath, mCurrentLangage + ".po"); 
             else
-                FileName = Path.Combine(FilePath, mCurrentLangage + "." + m_CurrentAssembly + ".po"); 
-            
+                FileName = Path.Combine(FilePath, mCurrentLangage + "." + m_CurrentAssembly + ".po");
+
+            LoadLangFile(FileName);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fileFullPath"></param>
+        public void LoadLangFile(string FileName)
+        {
             if (Decoders.ContainsKey(FileName) == false)
             {
                 if (File.Exists(FileName))
@@ -397,9 +435,9 @@ namespace CommonLib
                             else
                                 Line = Line.Trim();
 
-                            if (Line.ToLower().StartsWith ("msgid"))
+                            if (Line.ToLower().StartsWith("msgid"))
                             {
-                                string[] txt = Line.Split('"'  );
+                                string[] txt = Line.Split('"');
                                 if (txt.GetLength(0) == 3)
                                 {
                                     Cur_msgid = txt[1];
@@ -426,7 +464,7 @@ namespace CommonLib
                 }
                 else
                 {
-                    //System.Diagnostics.Debug.Assert(false);
+                    Traces.LogAddDebug(TraceCat.Lang, string.Format("Missing file {0}", Path.GetFileName(FileName)));
                 }
             }
         }
@@ -439,8 +477,6 @@ namespace CommonLib
         /// <param name="Value">Texte dans la langue de sortie</param>
         private void AddLineToDictionnary(string FileName,string ID, string Value)
         {
-            //string FileName = Path.Combine(FilePath, mCurrentLangage + ".po"); 
-
             if (Decoders.ContainsKey(FileName) == false)
             {
                 //Traces.LogAddDebug(TraceCat.Lang, string.Format("(module = {1}) Ajout du fichier {0}", FileName, m_CurrentAssembly));
@@ -458,6 +494,12 @@ namespace CommonLib
 
         }
     
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="FileName"></param>
+        /// <param name="ID"></param>
+        /// <returns></returns>
         private bool CheckExistInDictionnary(string FileName,string ID)
         {
             if (Decoders.ContainsKey(FileName) == false)
@@ -530,6 +572,10 @@ namespace CommonLib
             return FilePath;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public static string CreateFilePath()
         {
             string FilePath = Application.StartupPath;

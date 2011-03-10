@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Blinker")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Privé")]
-[assembly: AssemblyProduct("Blinker")]
-[assembly: AssemblyCopyright("Copyright © Privé 2008")]
+[assembly: AssemblyCompany("Bigot Pascal")]
+[assembly: AssemblyProduct("SmartApp plugin")]
+[assembly: AssemblyCopyright("Copyright © Bigot Pascal 2008-2011")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

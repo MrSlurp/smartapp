@@ -239,8 +239,8 @@ namespace SmartApp
         {
             if (!File.Exists(filename))
             {
-                MessageBox.Show(string.Format(Program.LangSys.C("The file '{0}' cannot be opened and will be removed from the Recent list"), filename)
-                    , Program.LangSys.C("Erreur")
+                MessageBox.Show(string.Format(Program.LangSys.C("The file '{0}' cannot be opened and will be removed from the recent list"), filename)
+                    , Program.LangSys.C("Error")
                     , MessageBoxButtons.OK
                     , MessageBoxIcon.Error);
                 m_mruStripMenu.RemoveFile(number);

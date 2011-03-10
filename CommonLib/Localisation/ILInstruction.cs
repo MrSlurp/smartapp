@@ -1,16 +1,3 @@
-/*========================================================================== 
- *  FILE:   
- *                   ILInstruction.cs
- * 
- *  PROJECT:
- *                   VIDMID
- * 
- *  REFERENCE:
- *                http://www.codeproject.com/KB/cs/sdilreader.aspx
- * 
- * =========================================================================
- *                   ANSALDO STS France - Copyright © 2009
- * ========================================================================= */
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -78,28 +65,25 @@ namespace CommonLib
                             "::" + fOperand.Name + "";
                         break;
                     case OperandType.InlineMethod:
-                        try
+                        System.Reflection.MethodInfo mOperand = operand as System.Reflection.MethodInfo;
+                        if (mOperand != null)
                         {
-                            System.Reflection.MethodInfo mOperand = (System.Reflection.MethodInfo)operand;
                             result += " ";
                             if (!mOperand.IsStatic) result += "instance ";
                             result += Globals.ProcessSpecialTypes(mOperand.ReturnType.ToString()) +
                                 " " + Globals.ProcessSpecialTypes(mOperand.ReflectedType.ToString()) +
                                 "::" + mOperand.Name + "()";
                         }
-                        catch
+                        else
                         {
-                            try
+                            System.Reflection.ConstructorInfo mOperand2 = operand as System.Reflection.ConstructorInfo;
+                            if (mOperand2 != null)
                             {
-                                System.Reflection.ConstructorInfo mOperand = (System.Reflection.ConstructorInfo)operand;
                                 result += " ";
-                                if (!mOperand.IsStatic) result += "instance ";
+                                if (!mOperand2.IsStatic) result += "instance ";
                                 result += "void " +
-                                    Globals.ProcessSpecialTypes(mOperand.ReflectedType.ToString()) +
-                                    "::" + mOperand.Name + "()";
-                            }
-                            catch
-                            {
+                                    Globals.ProcessSpecialTypes(mOperand2.ReflectedType.ToString()) +
+                                    "::" + mOperand2.Name + "()";
                             }
                         }
                         break;

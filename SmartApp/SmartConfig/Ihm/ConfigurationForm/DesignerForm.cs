@@ -36,11 +36,11 @@ namespace SmartApp.Ihm
                 m_Document = value;
                 m_PanelScreenListAndProp.Doc = m_Document;
                 m_PanelControlProperties.Doc = m_Document;
-                m_PanelScreenInitScript.Title = "Screen Init Script";
+                m_PanelScreenInitScript.Title = Program.LangSys.C("Screen Init Script");
                 m_PanelScreenInitScript.Doc = m_Document;
-                m_PanelScreenEventScript.Title = "Screen Event Script";
+                m_PanelScreenEventScript.Title = Program.LangSys.C("Screen Event Script");
                 m_PanelScreenEventScript.Doc = m_Document;
-                m_PanelCtrlEventScript.Title = "Control Event Script";
+                m_PanelCtrlEventScript.Title = Program.LangSys.C("Control Event Script");
                 m_PanelCtrlEventScript.Doc = m_Document;
             }
         }
