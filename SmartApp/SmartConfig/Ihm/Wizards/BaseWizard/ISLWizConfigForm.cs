@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SmartApp.Ihm.Wizards
+namespace SmartApp.Wizards
 {
-    interface ISLWizConfigForm
+    interface IWizConfigForm
     {
-        SLWizardConfigData WizConfig
+        WizardConfigData WizConfig
         { set; }
 
         void HmiToData();

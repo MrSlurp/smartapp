@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using CommonLib;
 
 
-namespace SmartApp.Ihm.Wizards
+namespace SmartApp.Wizards
 {
     public static partial class WizardFrameGenerator
     {

@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using CommonLib;
 
 
-namespace SmartApp.Ihm.Wizards
+namespace SmartApp.Wizards
 {
     public enum TCPMODBUS_REG_TYPE
     {
