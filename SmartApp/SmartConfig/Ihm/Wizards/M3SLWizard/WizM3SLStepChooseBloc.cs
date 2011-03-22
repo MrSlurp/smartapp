@@ -5,14 +5,15 @@ using System.Drawing;
 using System.Data;
 using System.Text;
 using System.Windows.Forms;
+using SmartApp.Wizards;
 
 namespace SmartApp.Ihm.Wizards
 {
-    public partial class WizM3SLStepChooseBloc : UserControl, ISLWizConfigForm
+    public partial class WizM3SLStepChooseBloc : UserControl, IWizConfigForm
     {
-        SLWizardConfigData m_WizConfig;
+        WizardConfigData m_WizConfig;
 
-        public SLWizardConfigData WizConfig
+        public WizardConfigData WizConfig
         {
             set { m_WizConfig = value; }
         }
@@ -65,12 +66,12 @@ namespace SmartApp.Ihm.Wizards
 
         public void HmiToData()
         {
-            m_WizConfig.SetBlocUsed(BlocsType.IN, 1, cboSLIN1.Checked);
-            m_WizConfig.SetBlocUsed(BlocsType.IN, 2, cboSLIN2.Checked);
-            m_WizConfig.SetBlocUsed(BlocsType.IN, 3, cboSLIN3.Checked);
-            m_WizConfig.SetBlocUsed(BlocsType.OUT, 1, cboSLOUT1.Checked);
-            m_WizConfig.SetBlocUsed(BlocsType.OUT, 2, cboSLOUT2.Checked);
-            m_WizConfig.SetBlocUsed(BlocsType.OUT, 3, cboSLOUT3.Checked);
+            m_WizConfig.SetBlocUsed(BlocsType.IN, 0, cboSLIN1.Checked);
+            m_WizConfig.SetBlocUsed(BlocsType.IN, 1, cboSLIN2.Checked);
+            m_WizConfig.SetBlocUsed(BlocsType.IN, 2, cboSLIN3.Checked);
+            m_WizConfig.SetBlocUsed(BlocsType.OUT, 0, cboSLOUT1.Checked);
+            m_WizConfig.SetBlocUsed(BlocsType.OUT, 1, cboSLOUT2.Checked);
+            m_WizConfig.SetBlocUsed(BlocsType.OUT, 2, cboSLOUT3.Checked);
         }
 
     }

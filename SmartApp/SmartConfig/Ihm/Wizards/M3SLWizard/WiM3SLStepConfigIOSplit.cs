@@ -5,20 +5,21 @@ using System.Drawing;
 using System.Data;
 using System.Text;
 using System.Windows.Forms;
+using SmartApp.Wizards;
 using CommonLib;
 
 namespace SmartApp.Ihm.Wizards
 {
-    public partial class WiM3SLStepConfigIOSplit : UserControl, ISLWizConfigForm
+    public partial class WiM3SLStepConfigIOSplit : UserControl, IWizConfigForm
     {
         private BlocsType m_TypeBlocConfigured = BlocsType.IN;
 
-        private SLWizardConfigData m_WizConfig;
+        private WizardConfigData m_WizConfig;
 
         private CComboData[] m_ListCboChoicesIN;
         private CComboData[] m_ListCboChoicesOUT;
 
-        public SLWizardConfigData WizConfig
+        public WizardConfigData WizConfig
         {
             set { m_WizConfig = value; }
         }
@@ -69,7 +70,7 @@ namespace SmartApp.Ihm.Wizards
         {
             m_dataGrid.Rows.Clear();
 
-            SLBlocConfig[] BlocConfig = m_WizConfig.GetBlocListByType(m_TypeBlocConfigured);
+            BlocConfig[] BlocConfig = m_WizConfig.GetBlocListByType(m_TypeBlocConfigured);
             for (int NbIOBloc = 0; NbIOBloc < BlocConfig.Length; NbIOBloc++)
             {
                 if (BlocConfig[NbIOBloc].IsUsed)
@@ -98,7 +99,7 @@ namespace SmartApp.Ihm.Wizards
 
         public void HmiToData()
         {
-            SLBlocConfig[] BlocConfig = m_WizConfig.GetBlocListByType(m_TypeBlocConfigured);
+            BlocConfig[] BlocConfig = m_WizConfig.GetBlocListByType(m_TypeBlocConfigured);
             for (int iRow = 0; iRow < m_dataGrid.Rows.Count; iRow++)
             {
                 int BlocIdx = (int)m_dataGrid.Rows[iRow].Cells[0].Tag;

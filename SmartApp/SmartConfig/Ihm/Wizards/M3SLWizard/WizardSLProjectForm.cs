@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using SmartApp.Wizards;
 
 namespace SmartApp.Ihm.Wizards
 {
@@ -20,14 +21,15 @@ namespace SmartApp.Ihm.Wizards
             Final = 5,
         }
 
-        ISLWizConfigForm m_CurrentDispForm = null;
+        IWizConfigForm m_CurrentDispPanel = null;
         SLWizardSteps m_CurrentState = SLWizardSteps.Welcome;
         WizM3SLStepChooseBloc m_UCStepChooseBloc = new WizM3SLStepChooseBloc();
         WizM3SLStepWelcome m_UCStepWelcome = new WizM3SLStepWelcome();
         WiM3SLStepConfigIOSplit m_UCStepConfigINSplit = new WiM3SLStepConfigIOSplit(BlocsType.IN);
         WiM3SLStepConfigIOSplit m_UCStepConfigOUTSplit = new WiM3SLStepConfigIOSplit(BlocsType.OUT);
+        List<IWizConfigForm> m_listWizPanel = new List<IWizConfigForm>();
 
-        SLWizardConfigData m_WizConfigData = new SLWizardConfigData();
+        WizardConfigData m_WizConfigData = new SLWizardConfigData();
 
         public WizardSLProjectForm()
         {
@@ -36,27 +38,29 @@ namespace SmartApp.Ihm.Wizards
             btnPrev.Text = Program.LangSys.C("Previous");
             SuspendLayout();
 
-            PlaceWizForm(m_UCStepWelcome);
-            m_UCStepWelcome.WizConfig = m_WizConfigData;
+            m_listWizPanel.Add(m_UCStepWelcome);
             this.Controls.Add(m_UCStepWelcome);
 
-            PlaceWizForm(m_UCStepChooseBloc);
-            m_UCStepChooseBloc.WizConfig = m_WizConfigData;
+            m_listWizPanel.Add(m_UCStepChooseBloc);
             this.Controls.Add(m_UCStepChooseBloc);
 
-            PlaceWizForm(m_UCStepConfigINSplit);
-            m_UCStepConfigINSplit.WizConfig = m_WizConfigData;
+            m_listWizPanel.Add(m_UCStepConfigINSplit);
             this.Controls.Add(m_UCStepConfigINSplit);
 
-            PlaceWizForm(m_UCStepConfigOUTSplit);
-            m_UCStepConfigOUTSplit.WizConfig = m_WizConfigData;
+            m_listWizPanel.Add(m_UCStepConfigOUTSplit);
             this.Controls.Add(m_UCStepConfigOUTSplit);
 
+            for (int i = 0; i < m_listWizPanel.Count; i++)
+            {
+                m_listWizPanel[i].WizConfig = m_WizConfigData;
+                PlaceWizForm(m_listWizPanel[i]);
+            }
             ResumeLayout();
+
             StateMachine();
         }
 
-        private void PlaceWizForm(UserControl frm)
+        private void PlaceWizForm(IWizConfigForm frm)
         {
             frm.Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right;
             frm.Width = this.ClientSize.Width;
@@ -87,40 +91,27 @@ namespace SmartApp.Ihm.Wizards
 
         private void StateMachine()
         {
-            if (m_CurrentDispForm != null)
-                m_CurrentDispForm.HmiToData();
-            switch (m_CurrentState)
-            {
-                case SLWizardSteps.Welcome:
-                    m_UCStepWelcome.Visible = true;
-                    m_UCStepChooseBloc.Visible = false;
-                    m_CurrentDispForm = m_UCStepWelcome;
-                    break;
-                case SLWizardSteps.Step1:
-                    m_UCStepWelcome.Visible = false;
-                    m_UCStepChooseBloc.Visible = true;
-                    m_UCStepConfigINSplit.Visible = false;
-                    m_CurrentDispForm = m_UCStepChooseBloc;
-                    break;
-                case SLWizardSteps.Step2:
-                    m_UCStepConfigINSplit.Visible = true;
-                    m_UCStepChooseBloc.Visible = false;
-                    m_UCStepConfigOUTSplit.Visible = false;
-                    m_CurrentDispForm = m_UCStepConfigINSplit;
-                    break;
-                case SLWizardSteps.Step3:
-                    m_UCStepConfigINSplit.Visible = false;
-                    m_UCStepConfigOUTSplit.Visible = true;
-                    m_CurrentDispForm = m_UCStepConfigOUTSplit;
-                    break;
-                case SLWizardSteps.Step4:
-                    m_UCStepConfigOUTSplit.Visible = false;
-                    m_CurrentDispForm = null;
-                    break;
-                case SLWizardSteps.Final:
-                    break;
-            }
+            if (m_CurrentDispPanel != null)
+                m_CurrentDispPanel.HmiToData();
+
+            ShowStepPanel(m_CurrentState);
+
             UpdatePrevNextBtnStates();
+        }
+
+        private void ShowStepPanel(SLWizardSteps step)
+        {
+            for (int i = 0; i < m_listWizPanel.Count; i++)
+            {
+                m_listWizPanel[i].Visible = false;
+            }
+            if ((int)step >= 0 && (int)step < m_listWizPanel.Count)
+            {
+                m_listWizPanel[(int)step].Visible = true;
+                m_CurrentDispPanel = m_listWizPanel[(int)step];
+            }
+            else
+                m_CurrentDispPanel = null;
         }
 
         private void btnPrev_Click(object sender, EventArgs e)

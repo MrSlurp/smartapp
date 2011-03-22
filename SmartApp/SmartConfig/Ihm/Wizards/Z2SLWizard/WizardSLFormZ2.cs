@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using CommonLib;
 using SmartApp.Ihm.Designer;
+using SmartApp.Wizards;
 
 namespace SmartApp.Ihm.Wizards
 {

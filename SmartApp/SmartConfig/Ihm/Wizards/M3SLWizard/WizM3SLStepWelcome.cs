@@ -5,14 +5,15 @@ using System.Drawing;
 using System.Data;
 using System.Text;
 using System.Windows.Forms;
+using SmartApp.Wizards;
 
 namespace SmartApp.Ihm.Wizards
 {
-    public partial class WizM3SLStepWelcome : UserControl, ISLWizConfigForm
+    public partial class WizM3SLStepWelcome : UserControl, IWizConfigForm
     {
-        SLWizardConfigData m_WizConfig;
+        WizardConfigData m_WizConfig;
 
-        public SLWizardConfigData WizConfig
+        public WizardConfigData WizConfig
         {
             set { m_WizConfig = value; }
         }
