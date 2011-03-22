@@ -466,17 +466,33 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SmartConfig\Ihm\Wizards\M3SLWizard\WizardSLFormM3.resx">
+    <EmbeddedResource Include="SmartConfig\Ihm\Wizards\M3SLWizard\WiM3SLStepConfigIOSplit.resx">
       <SubType>Designer</SubType>
+      <DependentUpon>WiM3SLStepConfigIOSplit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\Wizards\M3SLWizard\WizardSLFormM3.resx">
       <DependentUpon>WizardSLFormM3.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\Wizards\M3SLWizard\WizardSLProjectForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>WizardSLProjectForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\Wizards\M3SLWizard\WizM3SLStepWelcome.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>WizM3SLStepWelcome.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SmartConfig\Ihm\Wizards\TCPModbusWizard\WizardTcpModbusForm.resx">
-      <SubType>Designer</SubType>
       <DependentUpon>WizardTcpModbusForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\Wizards\M3SLWizard\WizM3SLStepChooseBloc.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>WizM3SLStepChooseBloc.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SmartConfig\Ihm\Wizards\Z2SLWizard\WizardSLFormZ2.resx">
-      <SubType>Designer</SubType>
       <DependentUpon>WizardSLFormZ2.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -492,18 +508,48 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\WizardFrameGenerator.cs" />
+    <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\WizardFrameGenerator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\WizardFrameGenerator.SL.cs" />
+    <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\WizardFrameGenerator.TCPMB.cs" />
+    <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\ISLWizConfigForm.cs" />
+    <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\SLWizardConfigData.cs" />
+    <Compile Include="SmartConfig\Ihm\Wizards\M3SLWizard\WiM3SLStepConfigIOSplit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Wizards\M3SLWizard\WiM3SLStepConfigIOSplit.Designer.cs">
+      <DependentUpon>WiM3SLStepConfigIOSplit.cs</DependentUpon>
+    </Compile>
     <Compile Include="SmartConfig\Ihm\Wizards\M3SLWizard\WizardSLFormM3.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SmartConfig\Ihm\Wizards\M3SLWizard\WizardSLFormM3.Designer.cs">
       <DependentUpon>WizardSLFormM3.cs</DependentUpon>
     </Compile>
+    <Compile Include="SmartConfig\Ihm\Wizards\M3SLWizard\WizardSLProjectForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Wizards\M3SLWizard\WizardSLProjectForm.Designer.cs">
+      <DependentUpon>WizardSLProjectForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Wizards\M3SLWizard\WizM3SLStepWelcome.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Wizards\M3SLWizard\WizM3SLStepWelcome.Designer.cs">
+      <DependentUpon>WizM3SLStepWelcome.cs</DependentUpon>
+    </Compile>
     <Compile Include="SmartConfig\Ihm\Wizards\TCPModbusWizard\WizardTcpModbusForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SmartConfig\Ihm\Wizards\TCPModbusWizard\WizardTcpModbusForm.Designer.cs">
       <DependentUpon>WizardTcpModbusForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Wizards\M3SLWizard\WizM3SLStepChooseBloc.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Wizards\M3SLWizard\WizM3SLStepChooseBloc.Designer.cs">
+      <DependentUpon>WizM3SLStepChooseBloc.cs</DependentUpon>
     </Compile>
     <Compile Include="SmartConfig\Ihm\Wizards\Z2SLWizard\WizardSLFormZ2.cs">
       <SubType>Form</SubType>

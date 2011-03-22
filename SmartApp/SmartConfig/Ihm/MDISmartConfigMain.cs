@@ -940,5 +940,20 @@ namespace SmartApp.Ihm
                 m_ProgForm.BringToFront();
             }
         }
+
+        private void tsmi3SLProjectWizard_Click(object sender, EventArgs e)
+        {
+            if (m_Document != null)
+            {
+                WizardSLProjectForm wiz = new WizardSLProjectForm();
+                //wiz.m_Document = m_Document;
+                if (wiz.ShowDialog() == DialogResult.OK)
+                {
+                    //this.OnNeedUpdateHMI(null);
+                    //m_Document.Modified = true;
+                }
+            }
+
+        }
     }
 }
