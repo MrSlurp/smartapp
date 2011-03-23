@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Text;
 
 namespace SmartApp.Wizards
@@ -15,17 +16,27 @@ namespace SmartApp.Wizards
         private IOSplitFormat m_SplitFormat = IOSplitFormat.SplitNone;
 
         /// <summary>
+        /// liste des symbols à associer à l'ES
+        /// </summary>
+        private StringCollection m_ListSymbol = new StringCollection();
+
+        /// <summary>
         /// Nom de l'ES de la forme Ox/Ix
         /// </summary>
         private string m_IOName = string.Empty;
 
+        private string m_ShortName = string.Empty;
+
+
         /// <summary>
         /// constructeur par défaut
         /// </summary>
-        /// <param name="Name"></param>
-        public IOConfig(string Name)
+        /// <param name="Name">Nom long</param>
+        /// <param name="shortName">Nom court</param>
+        public IOConfig(string Name, string shortName)
         {
             m_IOName = Name;
+            m_ShortName = shortName;
         }
 
         /// <summary>
@@ -37,10 +48,25 @@ namespace SmartApp.Wizards
             set { m_SplitFormat = value; }
         }
 
-        // accesseur sur le nom de l'ES
+        /// <summary>
+        /// accesseur sur le nom de l'ES
+        /// </summary>
         public string Name
         {
             get { return m_IOName; }
+        }
+
+        /// <summary>
+        /// accesseur sur le nom court de l'ES
+        /// </summary>
+        public string ShortName
+        {
+            get { return m_ShortName; }
+        }
+
+        public StringCollection ListSymbol
+        {
+            get { return m_ListSymbol; }
         }
     }
 }

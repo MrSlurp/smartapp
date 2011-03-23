@@ -31,11 +31,6 @@ namespace SmartApp.Ihm.Wizards
 
         public void HmiToData()
         {
-            if (m_WizConfig != null)
-            {
-
-            }
-
         }
     }
 }

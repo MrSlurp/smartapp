@@ -26,5 +26,10 @@ namespace SmartApp.Wizards
 
         int Height
         { get; set;}
+
+        /*
+        bool CanGoBack();
+
+        bool CanGoNext();*/
     }
 }

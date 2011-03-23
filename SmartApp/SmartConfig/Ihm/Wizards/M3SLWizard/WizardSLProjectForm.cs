@@ -11,33 +11,80 @@ namespace SmartApp.Ihm.Wizards
 {
     public partial class WizardSLProjectForm : Form
     {
+        /// <summary>
+        /// enum des etapes de wizard
+        /// </summary>
         enum SLWizardSteps
         {
             Welcome = 0,
-            Step1 = 1,
-            Step2 = 2,
-            Step3 = 3,
-            Step4 = 4,
-            Final = 5,
+            Step1 = 1, // configuration des bloc utilisés
+            Step2 = 2, // configuration des split IN
+            Step3 = 3, // configuration des split OUT
+            Step4 = 4, // configuration des nom des sorties supervision (entree programme)
+            Step5 = 5, // configuration des nom des entree supervision (sortie programme)
+            Final = 6, // resumé avant géneration
         }
 
+        /// <summary>
+        /// panel affiché
+        /// </summary>
         IWizConfigForm m_CurrentDispPanel = null;
+
+        /// <summary>
+        /// Etat courant du wizard
+        /// </summary>
         SLWizardSteps m_CurrentState = SLWizardSteps.Welcome;
-        WizM3SLStepChooseBloc m_UCStepChooseBloc = new WizM3SLStepChooseBloc();
+
+        /// <summary>
+        /// Panel de bienvenu dans le wizard
+        /// </summary>
         WizM3SLStepWelcome m_UCStepWelcome = new WizM3SLStepWelcome();
-        WiM3SLStepConfigIOSplit m_UCStepConfigINSplit = new WiM3SLStepConfigIOSplit(BlocsType.IN);
-        WiM3SLStepConfigIOSplit m_UCStepConfigOUTSplit = new WiM3SLStepConfigIOSplit(BlocsType.OUT);
+
+        /// <summary>
+        /// panel de l'étape de choix du bloc
+        /// </summary>
+        WizM3SLStepChooseBloc m_UCStepChooseBloc = new WizM3SLStepChooseBloc();
+
+        /// <summary>
+        /// panel de config des split IN
+        /// </summary>
+        WizM3SLStepConfigIOSplit m_UCStepConfigINSplit = new WizM3SLStepConfigIOSplit(BlocsType.IN);
+
+        /// <summary>
+        /// panel de config des split OUT
+        /// </summary>
+        WizM3SLStepConfigIOSplit m_UCStepConfigOUTSplit = new WizM3SLStepConfigIOSplit(BlocsType.OUT);
+
+        /// <summary>
+        /// panel de config des split IN
+        /// </summary>
+        WizM3SLStepConfigIOName m_UCStepConfigInName = new WizM3SLStepConfigIOName(BlocsType.IN);
+        /// <summary>
+        /// panel de config des split OUT
+        /// </summary>
+        WizM3SLStepConfigIOName m_UCStepConfigOutName = new WizM3SLStepConfigIOName(BlocsType.OUT);
+
+        /// <summary>
+        /// liste des panels du wzard
+        /// </summary>
         List<IWizConfigForm> m_listWizPanel = new List<IWizConfigForm>();
 
+        /// <summary>
+        /// données de configuration du wizard
+        /// </summary>
         WizardConfigData m_WizConfigData = new SLWizardConfigData();
 
+        /// <summary>
+        /// constructeur de la form
+        /// </summary>
         public WizardSLProjectForm()
         {
             InitializeComponent();
-            btnNext.Text = Program.LangSys.C("Next");
+            // init des bouton du wizard
             btnPrev.Text = Program.LangSys.C("Previous");
-            SuspendLayout();
 
+            // init des panel du wizard
+            SuspendLayout();
             m_listWizPanel.Add(m_UCStepWelcome);
             this.Controls.Add(m_UCStepWelcome);
 
@@ -50,6 +97,12 @@ namespace SmartApp.Ihm.Wizards
             m_listWizPanel.Add(m_UCStepConfigOUTSplit);
             this.Controls.Add(m_UCStepConfigOUTSplit);
 
+            m_listWizPanel.Add(m_UCStepConfigInName);
+            this.Controls.Add(m_UCStepConfigInName);
+
+            m_listWizPanel.Add(m_UCStepConfigOutName);
+            this.Controls.Add(m_UCStepConfigOutName);
+
             for (int i = 0; i < m_listWizPanel.Count; i++)
             {
                 m_listWizPanel[i].WizConfig = m_WizConfigData;
@@ -60,6 +113,10 @@ namespace SmartApp.Ihm.Wizards
             StateMachine();
         }
 
+        /// <summary>
+        /// position les panel de wizard dans la form
+        /// </summary>
+        /// <param name="frm">panel à positionner</param>
         private void PlaceWizForm(IWizConfigForm frm)
         {
             frm.Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right;
@@ -67,28 +124,26 @@ namespace SmartApp.Ihm.Wizards
             frm.Visible = false;
         }
 
+        /// <summary>
+        /// met a jour l'état des boutons en fonction de l'étape
+        /// </summary>
         private void UpdatePrevNextBtnStates()
         {
-            switch (m_CurrentState)
-            {
-                case SLWizardSteps.Welcome:
-                    btnNext.Enabled = true;
-                    btnPrev.Enabled = false;
-                    break;
-                case SLWizardSteps.Step1:
-                case SLWizardSteps.Step2:
-                case SLWizardSteps.Step3:
-                    btnPrev.Enabled = true;
-                    break;
-                case SLWizardSteps.Step4:
-                    btnNext.Text = Program.LangSys.C("Next");
-                    break;
-                case SLWizardSteps.Final:
-                    btnNext.Text = Program.LangSys.C("Finish");
-                    break;
-            }
+            int count = Enum.GetValues(typeof(SLWizardSteps)).Length;
+            if (m_CurrentState == SLWizardSteps.Final)
+                btnNext.Text = Program.LangSys.C("Finish");
+            else
+                btnNext.Text = Program.LangSys.C("Next");
+
+            if (m_CurrentState == 0)
+                btnPrev.Enabled = false;
+            else
+                btnPrev.Enabled = true;
         }
 
+        /// <summary>
+        /// gère les changement d'étapes
+        /// </summary>
         private void StateMachine()
         {
             if (m_CurrentDispPanel != null)
@@ -99,6 +154,10 @@ namespace SmartApp.Ihm.Wizards
             UpdatePrevNextBtnStates();
         }
 
+        /// <summary>
+        /// affiche le panel correspondant à l'étape en cours
+        /// </summary>
+        /// <param name="step"></param>
         private void ShowStepPanel(SLWizardSteps step)
         {
             for (int i = 0; i < m_listWizPanel.Count; i++)
@@ -114,6 +173,11 @@ namespace SmartApp.Ihm.Wizards
                 m_CurrentDispPanel = null;
         }
 
+        /// <summary>
+        /// bouton précédent
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnPrev_Click(object sender, EventArgs e)
         {
             if (m_CurrentState > SLWizardSteps.Welcome)
@@ -121,11 +185,24 @@ namespace SmartApp.Ihm.Wizards
             StateMachine();
         }
 
+        /// <summary>
+        /// bouton suivant
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnNext_Click(object sender, EventArgs e)
         {
             if (m_CurrentState < SLWizardSteps.Final)
+            {
                 m_CurrentState += 1;
-            StateMachine();
+                StateMachine();
+            }
+            else
+            {
+                // todo ==> generation de tout
+                DialogResult = DialogResult.OK;
+            }
+
         }
 
 

@@ -37,7 +37,7 @@ namespace SmartApp.Ihm.Wizards
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(12, 360);
+            this.btnCancel.Location = new System.Drawing.Point(12, 427);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(87, 23);
             this.btnCancel.TabIndex = 8;
@@ -47,7 +47,7 @@ namespace SmartApp.Ihm.Wizards
             // btnPrev
             // 
             this.btnPrev.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPrev.Location = new System.Drawing.Point(330, 360);
+            this.btnPrev.Location = new System.Drawing.Point(362, 427);
             this.btnPrev.Name = "btnPrev";
             this.btnPrev.Size = new System.Drawing.Size(102, 23);
             this.btnPrev.TabIndex = 9;
@@ -58,7 +58,7 @@ namespace SmartApp.Ihm.Wizards
             // btnNext
             // 
             this.btnNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnNext.Location = new System.Drawing.Point(438, 360);
+            this.btnNext.Location = new System.Drawing.Point(470, 427);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(102, 23);
             this.btnNext.TabIndex = 10;
@@ -71,11 +71,16 @@ namespace SmartApp.Ihm.Wizards
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(552, 395);
+            this.ClientSize = new System.Drawing.Size(584, 462);
+            this.ControlBox = false;
             this.Controls.Add(this.btnNext);
             this.Controls.Add(this.btnPrev);
             this.Controls.Add(this.btnCancel);
+            this.MinimumSize = new System.Drawing.Size(600, 500);
             this.Name = "WizardSLProjectForm";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "WizardSLProjectForm";
             this.ResumeLayout(false);
 

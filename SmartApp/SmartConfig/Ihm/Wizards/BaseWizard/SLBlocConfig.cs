@@ -28,11 +28,13 @@ namespace SmartApp.Wizards
             {
                 if (m_BlocType == BlocsType.IN)
                 {
-                    m_ListIO[i] = new IOConfig(string.Format("{0}{1}", "Output ", i + 1));
+                    m_ListIO[i] = new IOConfig(string.Format("{0}{1}", "Output ", i + 1),
+                                               string.Format("{0}{1}", "O", i + 1));
                 }
                 else if (m_BlocType == BlocsType.OUT)
                 {
-                    m_ListIO[i] = new IOConfig(string.Format("{0}{1}", "Input ", i + 1));
+                    m_ListIO[i] = new IOConfig(string.Format("{0}{1}", "Input ", i + 1),
+                                               string.Format("{0}{1}", "I", i + 1));
                 }
             }
         }
