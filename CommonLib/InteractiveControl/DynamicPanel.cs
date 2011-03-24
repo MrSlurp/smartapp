@@ -169,9 +169,19 @@ namespace CommonLib
                 using (Graphics g = this.CreateGraphics())
                 {
                     //new bitmap object to save the image
-                    Bitmap bmp = new Bitmap(this.Width, this.Height);
+                    Bitmap bmp = new Bitmap(this.Width, this.Height, g);
                     //Drawing control to the bitmap
+
                     this.DrawToBitmap(bmp, new Rectangle(0, 0, this.Width, this.Height));
+
+                    // truc de con, le Draw to bitmap fait un render inversé par rapport au paint
+                    // il faut donc redessiner manuellement les controls dans l'ordre voulu pour que les superpositions
+                    // se passent bien.
+                    for (int i = this.Controls.Count -1; i >= 0; i--)
+                    {
+                        Control c = this.Controls[i];
+                        c.DrawToBitmap(bmp, new Rectangle(c.Location.X, c.Location.Y, c.Width, c.Height));
+                    }
                     
                     //string NowTime = DateTime.Now.ToString("dd_MM__HH-mm-ss");  
                     string NowTime = DateTime.Now.ToString("yyyy-MM_dd_HH-mm-ss");

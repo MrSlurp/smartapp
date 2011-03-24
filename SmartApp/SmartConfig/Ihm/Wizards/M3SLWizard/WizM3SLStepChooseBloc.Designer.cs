@@ -60,6 +60,8 @@ namespace SmartApp.Ihm.Wizards
             // cboSLIN3
             // 
             this.cboSLIN3.AutoSize = true;
+            this.cboSLIN3.Checked = true;
+            this.cboSLIN3.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cboSLIN3.Location = new System.Drawing.Point(6, 66);
             this.cboSLIN3.Name = "cboSLIN3";
             this.cboSLIN3.Size = new System.Drawing.Size(168, 17);
@@ -71,6 +73,8 @@ namespace SmartApp.Ihm.Wizards
             // cboSLIN2
             // 
             this.cboSLIN2.AutoSize = true;
+            this.cboSLIN2.Checked = true;
+            this.cboSLIN2.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cboSLIN2.Location = new System.Drawing.Point(7, 43);
             this.cboSLIN2.Name = "cboSLIN2";
             this.cboSLIN2.Size = new System.Drawing.Size(162, 17);
@@ -82,6 +86,8 @@ namespace SmartApp.Ihm.Wizards
             // cboSLIN1
             // 
             this.cboSLIN1.AutoSize = true;
+            this.cboSLIN1.Checked = true;
+            this.cboSLIN1.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cboSLIN1.Location = new System.Drawing.Point(7, 20);
             this.cboSLIN1.Name = "cboSLIN1";
             this.cboSLIN1.Size = new System.Drawing.Size(156, 17);
@@ -114,6 +120,8 @@ namespace SmartApp.Ihm.Wizards
             // cboSLOUT3
             // 
             this.cboSLOUT3.AutoSize = true;
+            this.cboSLOUT3.Checked = true;
+            this.cboSLOUT3.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cboSLOUT3.Location = new System.Drawing.Point(6, 66);
             this.cboSLOUT3.Name = "cboSLOUT3";
             this.cboSLOUT3.Size = new System.Drawing.Size(180, 17);
@@ -125,6 +133,8 @@ namespace SmartApp.Ihm.Wizards
             // cboSLOUT2
             // 
             this.cboSLOUT2.AutoSize = true;
+            this.cboSLOUT2.Checked = true;
+            this.cboSLOUT2.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cboSLOUT2.Location = new System.Drawing.Point(7, 43);
             this.cboSLOUT2.Name = "cboSLOUT2";
             this.cboSLOUT2.Size = new System.Drawing.Size(180, 17);
@@ -136,6 +146,8 @@ namespace SmartApp.Ihm.Wizards
             // cboSLOUT1
             // 
             this.cboSLOUT1.AutoSize = true;
+            this.cboSLOUT1.Checked = true;
+            this.cboSLOUT1.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cboSLOUT1.Location = new System.Drawing.Point(7, 20);
             this.cboSLOUT1.Name = "cboSLOUT1";
             this.cboSLOUT1.Size = new System.Drawing.Size(180, 17);

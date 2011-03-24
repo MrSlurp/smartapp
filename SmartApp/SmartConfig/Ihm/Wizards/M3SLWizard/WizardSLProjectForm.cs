@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using SmartApp.Wizards;
+using CommonLib;
 
 namespace SmartApp.Ihm.Wizards
 {
@@ -25,6 +26,13 @@ namespace SmartApp.Ihm.Wizards
             Final = 6, // resumé avant géneration
         }
 
+        protected BTDoc m_Document;
+
+        public BTDoc Document
+        {
+            set { m_Document = value; }
+        }
+
         /// <summary>
         /// panel affiché
         /// </summary>
@@ -36,7 +44,7 @@ namespace SmartApp.Ihm.Wizards
         SLWizardSteps m_CurrentState = SLWizardSteps.Welcome;
 
         /// <summary>
-        /// Panel de bienvenu dans le wizard
+        /// Panel de bienvenue dans le wizard
         /// </summary>
         WizM3SLStepWelcome m_UCStepWelcome = new WizM3SLStepWelcome();
 
@@ -63,6 +71,12 @@ namespace SmartApp.Ihm.Wizards
         /// panel de config des split OUT
         /// </summary>
         WizM3SLStepConfigIOName m_UCStepConfigOutName = new WizM3SLStepConfigIOName(BlocsType.OUT);
+
+        /// <summary>
+        /// Panel de fin du wizard
+        /// </summary>
+        WizM3SLStepFinish m_UCStepFinish = new WizM3SLStepFinish();
+
 
         /// <summary>
         /// liste des panels du wzard
@@ -93,15 +107,28 @@ namespace SmartApp.Ihm.Wizards
 
             m_listWizPanel.Add(m_UCStepConfigINSplit);
             this.Controls.Add(m_UCStepConfigINSplit);
+            m_UCStepConfigINSplit.TypeSplitImage1 = Resources.TypeSplit16;
+            m_UCStepConfigINSplit.TypeSplitLabel1 = Program.LangSys.C("Split to 16");
+            m_UCStepConfigINSplit.TypeSplitImage2 = Resources.TypeSplit4;
+            m_UCStepConfigINSplit.TypeSplitLabel2 = Program.LangSys.C("Split to 4");
+            m_UCStepConfigINSplit.TypeSplitImage3 = Resources.TypeSplit2;
+            m_UCStepConfigINSplit.TypeSplitLabel3 = Program.LangSys.C("Split to 2");
 
             m_listWizPanel.Add(m_UCStepConfigOUTSplit);
             this.Controls.Add(m_UCStepConfigOUTSplit);
+            m_UCStepConfigOUTSplit.TypeSplitImage1 = Resources.TypeSplit16;
+            m_UCStepConfigOUTSplit.TypeSplitLabel1 = Program.LangSys.C("Split to 16");
+            m_UCStepConfigOUTSplit.TypeSplitLabel2 = string.Empty;
+            m_UCStepConfigOUTSplit.TypeSplitLabel3 = string.Empty;
 
             m_listWizPanel.Add(m_UCStepConfigInName);
             this.Controls.Add(m_UCStepConfigInName);
 
             m_listWizPanel.Add(m_UCStepConfigOutName);
             this.Controls.Add(m_UCStepConfigOutName);
+
+            m_listWizPanel.Add(m_UCStepFinish);
+            this.Controls.Add(m_UCStepFinish);
 
             for (int i = 0; i < m_listWizPanel.Count; i++)
             {
@@ -119,8 +146,9 @@ namespace SmartApp.Ihm.Wizards
         /// <param name="frm">panel à positionner</param>
         private void PlaceWizForm(IWizConfigForm frm)
         {
-            frm.Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right;
             frm.Width = this.ClientSize.Width;
+            frm.Height = this.ClientSize.Height - (this.ClientSize.Height - btnCancel.Top) -10;
+            frm.Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right | AnchorStyles.Bottom;
             frm.Visible = false;
         }
 
@@ -200,6 +228,8 @@ namespace SmartApp.Ihm.Wizards
             else
             {
                 // todo ==> generation de tout
+                SLM3ProjectCreator ProjectGen = new SLM3ProjectCreator(m_Document, m_WizConfigData);
+                ProjectGen.CreateProjectFromWizConfig();
                 DialogResult = DialogResult.OK;
             }
 

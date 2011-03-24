@@ -29,24 +29,39 @@ namespace SmartApp.Ihm.Wizards
         private void InitializeComponent()
         {
             this.lblWelcome = new System.Windows.Forms.Label();
+            this.pic_m3 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pic_m3)).BeginInit();
             this.SuspendLayout();
             // 
             // lblWelcome
             // 
             this.lblWelcome.AutoSize = true;
-            this.lblWelcome.Location = new System.Drawing.Point(13, 13);
+            this.lblWelcome.Location = new System.Drawing.Point(3, 9);
             this.lblWelcome.Name = "lblWelcome";
             this.lblWelcome.Size = new System.Drawing.Size(62, 13);
             this.lblWelcome.TabIndex = 0;
             this.lblWelcome.Text = "lblWelcome";
             // 
-            // WizM3SLProjWelcome
+            // pic_m3
+            // 
+            this.pic_m3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.pic_m3.Location = new System.Drawing.Point(0, 85);
+            this.pic_m3.Name = "pic_m3";
+            this.pic_m3.Size = new System.Drawing.Size(407, 164);
+            this.pic_m3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pic_m3.TabIndex = 1;
+            this.pic_m3.TabStop = false;
+            // 
+            // WizM3SLStepWelcome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.pic_m3);
             this.Controls.Add(this.lblWelcome);
-            this.Name = "WizM3SLProjWelcome";
-            this.Size = new System.Drawing.Size(383, 235);
+            this.Name = "WizM3SLStepWelcome";
+            this.Size = new System.Drawing.Size(410, 252);
+            ((System.ComponentModel.ISupportInitialize)(this.pic_m3)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -55,5 +70,6 @@ namespace SmartApp.Ihm.Wizards
         #endregion
 
         private System.Windows.Forms.Label lblWelcome;
+        private System.Windows.Forms.PictureBox pic_m3;
     }
 }

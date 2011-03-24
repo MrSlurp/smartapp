@@ -6,6 +6,7 @@ using System.Data;
 using System.Text;
 using System.Windows.Forms;
 using SmartApp.Wizards;
+using CommonLib;
 
 namespace SmartApp.Ihm.Wizards
 {
@@ -26,6 +27,8 @@ namespace SmartApp.Ihm.Wizards
                               Program.LangSys.C("This wizard will help you to create a new project for ") +
                               "\n" +
                               Program.LangSys.C("Millenium 3 supervision through Serial (or USB) link");
+
+            pic_m3.Image = Resources.WizardSLProject;
 
         }
 

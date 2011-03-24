@@ -54,6 +54,11 @@ namespace CommonLib
 		public static Bitmap SLO1;
 		public static Bitmap SLO2;
 		public static Bitmap SLO3;
+
+        public static Bitmap WizardSLProject;
+        public static Bitmap TypeSplit16;
+        public static Bitmap TypeSplit4;
+        public static Bitmap TypeSplit2;
 		
 		public static Bitmap move;
 		
@@ -103,7 +108,14 @@ namespace CommonLib
 
             CxnOn = NewBmpTrPath(strAppDir + "\\Res\\CxnOn.bmp");
             CxnOff = NewBmpTrPath(strAppDir + "\\Res\\CxnOff.bmp");
-            Empty = NewBmpTrPath(strAppDir + "\\Res\\EmptyImg.bmp");			
+            Empty = NewBmpTrPath(strAppDir + "\\Res\\EmptyImg.bmp");
+
+            WizardSLProject = NewBmpTrPath(strAppDir + "\\Res\\WizRes\\M3SL_wiz.png");
+
+            TypeSplit16 = NewBmpTrPath(strAppDir + "\\Res\\WizRes\\Type_Split16.png");
+            TypeSplit4 = NewBmpTrPath(strAppDir + "\\Res\\WizRes\\Type_Split4.png");
+            TypeSplit2 = NewBmpTrPath(strAppDir + "\\Res\\WizRes\\Type_Split2.png");
+
 		}
 
         public static Bitmap NewBmpTrPath(string path)

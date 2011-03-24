@@ -930,14 +930,14 @@ namespace SmartApp.Ihm
         /// <param name="e"></param>
         private void tsbtn_gotoFrame_Click(object sender, EventArgs e)
         {
-            if (this.ActiveMdiChild != m_ProgForm)
+            if (this.ActiveMdiChild != m_FrameForm)
             {
-                if (m_ProgForm.WindowState == FormWindowState.Minimized)
-                    m_ProgForm.WindowState =
+                if (m_FrameForm.WindowState == FormWindowState.Minimized)
+                    m_FrameForm.WindowState =
                         this.ActiveMdiChild.WindowState == FormWindowState.Maximized ?
                         FormWindowState.Maximized : FormWindowState.Normal;
 
-                m_ProgForm.BringToFront();
+                m_FrameForm.BringToFront();
             }
         }
 
@@ -946,11 +946,11 @@ namespace SmartApp.Ihm
             if (m_Document != null)
             {
                 WizardSLProjectForm wiz = new WizardSLProjectForm();
-                //wiz.m_Document = m_Document;
+                wiz.Document = m_Document;
                 if (wiz.ShowDialog() == DialogResult.OK)
                 {
-                    //this.OnNeedUpdateHMI(null);
-                    //m_Document.Modified = true;
+                    this.OnNeedUpdateHMI(null);
+                    m_Document.Modified = true;
                 }
             }
 

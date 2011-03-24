@@ -115,5 +115,31 @@ namespace SmartApp.Ihm.Wizards
             Console.WriteLine(e.Exception.Message);
         }
 
+        public string TypeSplitLabel1
+        {
+            set { lblTypeSplit1.Text = value; }
+        }
+        public string TypeSplitLabel2
+        {
+            set { lblTypeSplit2.Text = value; }
+        }
+        public string TypeSplitLabel3
+        {
+            set { lblTypeSplit3.Text = value; }
+        }
+
+        public Image TypeSplitImage1
+        {
+            set { picTypeSplit1.Image = value; }
+        }
+        public Image TypeSplitImage2
+        {
+            set { picTypeSplit2.Image = value; }
+        }
+        public Image TypeSplitImage3
+        {
+            set { picTypeSplit3.Image = value; }
+        }
+
     }
 }
