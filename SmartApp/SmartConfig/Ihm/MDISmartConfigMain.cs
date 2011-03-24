@@ -941,6 +941,11 @@ namespace SmartApp.Ihm
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tsmi3SLProjectWizard_Click(object sender, EventArgs e)
         {
             if (m_Document != null)

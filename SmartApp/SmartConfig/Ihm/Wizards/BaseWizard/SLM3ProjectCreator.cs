@@ -40,11 +40,54 @@ namespace SmartApp.Wizards
                 if (OutBlocs[i].IsUsed)
                     CreateSLFrames(OutBlocs[i], false, ref SLOutReadFrameName);
             }
+            CreateFrameFunction("READ_SL_IN", SLInReadFrameName);
+            CreateFrameFunction("WRITE_SL_IN", SLInWriteFrameName);
+            CreateFrameFunction("READ_SL_OUT", SLOutReadFrameName);
         }
 
-        private void CreateFrameFunction(string FuncName, StringCollection FrameNames)
+        private string CreateFrameFunction(string FuncName, StringCollection FrameNames)
         {
-
+            Function func = new Function();
+            func.Symbol = FuncName;
+            string[] functionScripLines = new string[FrameNames.Count];
+            for (int i = 0; i < FrameNames.Count; i++)
+            {
+                string FrameFuncToUse = ((i%2) != 0)? FRAME_FUNC.RECEIVE.ToString() : FRAME_FUNC.SEND.ToString();
+                functionScripLines[i] = SCR_OBJECT.FRAMES.ToString() + "." +
+                                        FrameNames[i] + "." +
+                                        FrameFuncToUse + "()";
+                                        
+            }
+            func.ScriptLines = functionScripLines;
+            BaseObject obj = m_Document.GestFunction.GetFromSymbol(func.Symbol);
+            if (obj == null)
+            {
+                m_Document.GestFunction.AddObj(func);
+            }
+            else
+            {
+                Function existingFunc = obj as Function;
+                if (existingFunc.ScriptLines != func.ScriptLines)
+                {
+                    for (int indexFormat = 0; indexFormat < BaseGest.MAX_DEFAULT_ITEM_SYMBOL; indexFormat++)
+                    {
+                        //      - on crée une chaine temporaire = symbole + suffix de type "_AG{0}"
+                        string strTempSymb = func.Symbol + string.Format("_AG{0}", indexFormat);
+                        obj = m_Document.GestFunction.GetFromSymbol(func.Symbol);
+                        if (obj == null)
+                        {
+                            func.Symbol = strTempSymb;
+                            m_Document.GestFunction.AddObj(func);
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    // les fonctions sont identiques, rien a faire
+                }
+            }
+            return func.Symbol;
         }
 
         private void CreateSLFrames(BlocConfig Bloc, bool bWrite, ref StringCollection FrameNames)
@@ -52,7 +95,8 @@ namespace SmartApp.Wizards
             string slBlocName = Bloc.Name.Replace(' ', '_').ToUpper();
             string FrameName = slBlocName + (bWrite? "_WRITE" : "_READ");
             string retFrameName = FrameName + "_RET";
-
+            FrameNames.Add(FrameName);
+            FrameNames.Add(retFrameName);
             ArrayList UserDataList = new ArrayList();
             for (int i = 0; i < Bloc.ListIO.Length; i++)
             {
