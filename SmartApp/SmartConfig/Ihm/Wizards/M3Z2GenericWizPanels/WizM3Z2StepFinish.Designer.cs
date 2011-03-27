@@ -1,6 +1,6 @@
 namespace SmartApp.Ihm.Wizards
 {
-    partial class WizM3SLStepFinish
+    partial class WizM3Z2StepFinish
     {
         /// <summary> 
         /// Required designer variable.
@@ -55,13 +55,13 @@ namespace SmartApp.Ihm.Wizards
             this.edtResume.Size = new System.Drawing.Size(484, 206);
             this.edtResume.TabIndex = 1;
             // 
-            // WizM3SLStepFinish
+            // WizM3Z2StepFinish
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.edtResume);
             this.Controls.Add(this.lblTitle);
-            this.Name = "WizM3SLStepFinish";
+            this.Name = "WizM3Z2StepFinish";
             this.Size = new System.Drawing.Size(493, 334);
             this.ResumeLayout(false);
             this.PerformLayout();

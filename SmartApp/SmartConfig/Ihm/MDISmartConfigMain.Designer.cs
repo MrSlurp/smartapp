@@ -66,6 +66,7 @@ namespace SmartApp.Ihm
             this.m_MenuItemM3SLWiz = new System.Windows.Forms.ToolStripMenuItem();
             this.m_MenuItemZ2SLWiz = new System.Windows.Forms.ToolStripMenuItem();
             this.m_MenuItemTCPMBWiz = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmi3SLProjectWizard = new System.Windows.Forms.ToolStripMenuItem();
             this.m_viewMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.m_toolBarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.m_statusBarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -96,7 +97,7 @@ namespace SmartApp.Ihm
             this.tsbtn_gotoProgram = new System.Windows.Forms.ToolStripButton();
             this.tsbtn_gotoData = new System.Windows.Forms.ToolStripButton();
             this.tsbtn_gotoFrame = new System.Windows.Forms.ToolStripButton();
-            this.tsmi3SLProjectWizard = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmi3XN05ProjectWizard = new System.Windows.Forms.ToolStripMenuItem();
             this.m_menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.m_toolStrip.SuspendLayout();
@@ -370,7 +371,8 @@ namespace SmartApp.Ihm
             this.m_MenuItemM3SLWiz,
             this.m_MenuItemZ2SLWiz,
             this.m_MenuItemTCPMBWiz,
-            this.tsmi3SLProjectWizard});
+            this.tsmi3SLProjectWizard,
+            this.tsmi3XN05ProjectWizard});
             this.m_toolsMenu.Name = "m_toolsMenu";
             this.m_toolsMenu.Size = new System.Drawing.Size(48, 20);
             this.m_toolsMenu.Text = "&Tools";
@@ -419,6 +421,13 @@ namespace SmartApp.Ihm
             this.m_MenuItemTCPMBWiz.Size = new System.Drawing.Size(227, 22);
             this.m_MenuItemTCPMBWiz.Text = "TCP Modbus Wizard";
             this.m_MenuItemTCPMBWiz.Click += new System.EventHandler(this.m_MenuItemTCPMBWiz_Click);
+            // 
+            // tsmi3SLProjectWizard
+            // 
+            this.tsmi3SLProjectWizard.Name = "tsmi3SLProjectWizard";
+            this.tsmi3SLProjectWizard.Size = new System.Drawing.Size(227, 22);
+            this.tsmi3SLProjectWizard.Text = "M3 SL Project Wizard";
+            this.tsmi3SLProjectWizard.Click += new System.EventHandler(this.tsmi3SLProjectWizard_Click);
             // 
             // m_viewMenu
             // 
@@ -688,12 +697,12 @@ namespace SmartApp.Ihm
             this.tsbtn_gotoFrame.Text = "Frame";
             this.tsbtn_gotoFrame.Click += new System.EventHandler(this.tsbtn_gotoFrame_Click);
             // 
-            // tsmi3SLProjectWizard
+            // tsmi3XN05ProjectWizard
             // 
-            this.tsmi3SLProjectWizard.Name = "tsmi3SLProjectWizard";
-            this.tsmi3SLProjectWizard.Size = new System.Drawing.Size(227, 22);
-            this.tsmi3SLProjectWizard.Text = "M3 SL Project Wizard";
-            this.tsmi3SLProjectWizard.Click += new System.EventHandler(this.tsmi3SLProjectWizard_Click);
+            this.tsmi3XN05ProjectWizard.Name = "tsmi3XN05ProjectWizard";
+            this.tsmi3XN05ProjectWizard.Size = new System.Drawing.Size(227, 22);
+            this.tsmi3XN05ProjectWizard.Text = "M3 XN05 Project Wizard";
+            this.tsmi3XN05ProjectWizard.Click += new System.EventHandler(this.tsmi3XN05ProjectWizard_Click);
             // 
             // MDISmartConfigMain
             // 
@@ -787,6 +796,7 @@ namespace SmartApp.Ihm
         private System.Windows.Forms.ToolStripButton tsbtn_gotoData;
         private System.Windows.Forms.ToolStripButton tsbtn_gotoFrame;
         private System.Windows.Forms.ToolStripMenuItem tsmi3SLProjectWizard;
+        private System.Windows.Forms.ToolStripMenuItem tsmi3XN05ProjectWizard;
     }
 }
 

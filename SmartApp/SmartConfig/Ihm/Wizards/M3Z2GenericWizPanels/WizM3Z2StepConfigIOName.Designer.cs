@@ -1,6 +1,6 @@
 namespace SmartApp.Ihm.Wizards
 {
-    partial class WizM3SLStepConfigIOName
+    partial class WizM3Z2StepConfigIOName
     {
         /// <summary> 
         /// Required designer variable.

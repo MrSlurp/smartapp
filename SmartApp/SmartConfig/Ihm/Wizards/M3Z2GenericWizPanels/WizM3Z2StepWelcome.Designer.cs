@@ -1,6 +1,6 @@
 namespace SmartApp.Ihm.Wizards
 {
-    partial class WizM3SLStepWelcome
+    partial class WizM3Z2StepWelcome
     {
         /// <summary> 
         /// Required designer variable.
@@ -53,13 +53,13 @@ namespace SmartApp.Ihm.Wizards
             this.pic_m3.TabIndex = 1;
             this.pic_m3.TabStop = false;
             // 
-            // WizM3SLStepWelcome
+            // WizM3Z2StepWelcome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.pic_m3);
             this.Controls.Add(this.lblWelcome);
-            this.Name = "WizM3SLStepWelcome";
+            this.Name = "WizM3Z2StepWelcome";
             this.Size = new System.Drawing.Size(410, 252);
             ((System.ComponentModel.ISupportInitialize)(this.pic_m3)).EndInit();
             this.ResumeLayout(false);

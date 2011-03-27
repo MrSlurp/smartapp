@@ -10,7 +10,7 @@ using CommonLib;
 
 namespace SmartApp.Ihm.Wizards
 {
-    public partial class WizM3SLStepConfigIOSplit : UserControl, IWizConfigForm
+    public partial class WizM3Z2StepConfigIOSplit : UserControl, IWizConfigForm
     {
         private BlocsType m_TypeBlocConfigured = BlocsType.IN;
 
@@ -24,7 +24,7 @@ namespace SmartApp.Ihm.Wizards
             set { m_WizConfig = value; }
         }
 
-        public WizM3SLStepConfigIOSplit(BlocsType type)
+        public WizM3Z2StepConfigIOSplit(BlocsType type)
         {
             InitializeComponent();
             m_TypeBlocConfigured = type;

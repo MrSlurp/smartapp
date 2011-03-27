@@ -1,6 +1,6 @@
 namespace SmartApp.Ihm.Wizards
 {
-    partial class WizM3SLStepConfigIOSplit
+    partial class WizM3Z2StepConfigIOSplit
     {
         /// <summary> 
         /// Required designer variable.
@@ -167,7 +167,7 @@ namespace SmartApp.Ihm.Wizards
             this.picTypeSplit3.TabIndex = 4;
             this.picTypeSplit3.TabStop = false;
             // 
-            // WizM3SLStepConfigIOSplit
+            // WizM3Z2StepConfigIOSplit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -179,7 +179,7 @@ namespace SmartApp.Ihm.Wizards
             this.Controls.Add(this.lblTypeSplit1);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.m_dataGrid);
-            this.Name = "WizM3SLStepConfigIOSplit";
+            this.Name = "WizM3Z2StepConfigIOSplit";
             this.Size = new System.Drawing.Size(508, 410);
             ((System.ComponentModel.ISupportInitialize)(this.m_dataGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picTypeSplit1)).EndInit();

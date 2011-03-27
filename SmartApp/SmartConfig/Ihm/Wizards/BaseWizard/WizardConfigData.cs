@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Drawing;
 
 namespace SmartApp.Wizards
 {
     /// <summary>
     /// classe de base représentant les élément standard d'une config de project wizard
     /// </summary>
-    public class WizardConfigData
+    public abstract class WizardConfigData
     {
         /// <summary>
         /// liste des blocs d'entrée de données (blocs qui ont des sorties)
@@ -81,5 +82,11 @@ namespace SmartApp.Wizards
             else
                 return false;
         }
+
+        public abstract string GetWelcomeSpeech();
+
+        public abstract Image GetWelcomeImage();
+
+        public abstract string CreateFinalSummury();
     }
 }

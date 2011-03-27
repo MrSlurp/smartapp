@@ -7,26 +7,26 @@ using CommonLib;
 namespace SmartApp.Wizards
 {
     /// <summary>
-    /// classe spécifique de configuration d'un project wizard utilisant les bloc SL M3Z2
+    /// classe spécifique de configuration d'un project wizard utilisant les bloc NUM IN/OUT M3Z2
     /// </summary>
-    public class SLWizardConfigData : WizardConfigData
+    class M3XN05WizardConfigData : WizardConfigData
     {
         /// <summary>
         /// nombre de bloc SL de chaque type
         /// </summary>
-        protected const int NB_SL_IO_BLOC = 3;
+        protected const int NB_XN05_IO_BLOC = 8;
 
         /// <summary>
         /// constructeur par défaut initialisant les tables de la classe
         /// </summary>
-        public SLWizardConfigData()
+        public M3XN05WizardConfigData()
         {
-            m_INBlocList = new SLBlocConfig[NB_SL_IO_BLOC];
-            m_OUTBlocList = new SLBlocConfig[NB_SL_IO_BLOC];
-            for (int i = 1; i <= NB_SL_IO_BLOC; i++)
+            m_INBlocList = new M3XN05BlocConfig[NB_XN05_IO_BLOC];
+            m_OUTBlocList = new M3XN05BlocConfig[NB_XN05_IO_BLOC];
+            for (int i = 1; i <= NB_XN05_IO_BLOC; i++)
             {
-                m_INBlocList[i-1] = new SLBlocConfig(BlocsType.IN, i);
-                m_OUTBlocList[i-1] = new SLBlocConfig(BlocsType.OUT, i);
+                m_INBlocList[i - 1] = new M3XN05BlocConfig(BlocsType.IN, i);
+                m_OUTBlocList[i - 1] = new M3XN05BlocConfig(BlocsType.OUT, i);
             }
         }
 
@@ -36,7 +36,7 @@ namespace SmartApp.Wizards
                               "\n" +
                               Program.LangSys.C("This wizard will help you to create a new project for ") +
                               "\n" +
-                              Program.LangSys.C("Millenium 3 supervision through Serial (or USB) link");
+                              Program.LangSys.C("Millenium 3 supervision through TCP Modbus link using XN05 expansion module");
             return speech;
         }
 

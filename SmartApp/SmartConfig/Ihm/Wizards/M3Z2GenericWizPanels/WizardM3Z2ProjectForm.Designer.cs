@@ -1,6 +1,6 @@
 namespace SmartApp.Ihm.Wizards
 {
-    partial class WizardSLProjectForm
+    partial class WizardM3Z2ProjectForm
     {
         /// <summary>
         /// Required designer variable.
@@ -80,7 +80,7 @@ namespace SmartApp.Ihm.Wizards
             this.Name = "WizardSLProjectForm";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.Text = "WizardSLProjectForm";
             this.ResumeLayout(false);
 

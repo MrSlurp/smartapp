@@ -28,7 +28,7 @@ namespace SmartApp.Wizards
         /// <summary>
         /// indique si le bloc est utilisé
         /// </summary>
-        protected bool m_IsUsed = false;
+        protected bool m_IsUsed = true;
 
         /// <summary>
         /// accesseur de la liste des ES du bloc

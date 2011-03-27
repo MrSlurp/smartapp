@@ -7,19 +7,18 @@ using CommonLib;
 
 namespace SmartApp.Wizards
 {
-    public class SLM3ProjectCreator
+    public class SLM3ProjectCreator : BaseM3Z2ProjectCreator
     {
-        WizardConfigData m_WizConfig;
 
-        protected BTDoc m_Document;
-
-        public SLM3ProjectCreator(BTDoc Document, WizardConfigData WizConfig)
+        public SLM3ProjectCreator(BTDoc Document):
+            base(Document)
         {
-            m_Document = Document;
-            m_WizConfig = WizConfig;
         }
 
-        public void CreateProjectFromWizConfig()
+        /// <summary>
+        /// 
+        /// </summary>
+        public override void CreateProjectFromWizConfig()
         {
             StringCollection SLInReadFrameName = new StringCollection();
             StringCollection SLInWriteFrameName = new StringCollection();
@@ -40,56 +39,19 @@ namespace SmartApp.Wizards
                 if (OutBlocs[i].IsUsed)
                     CreateSLFrames(OutBlocs[i], false, ref SLOutReadFrameName);
             }
-            CreateFrameFunction("READ_SL_IN", SLInReadFrameName);
+            string readSLInFunc = CreateFrameFunction("READ_SL_IN", SLInReadFrameName);
             CreateFrameFunction("WRITE_SL_IN", SLInWriteFrameName);
-            CreateFrameFunction("READ_SL_OUT", SLOutReadFrameName);
+            string readSLOutFunc = CreateFrameFunction("READ_SL_OUT", SLOutReadFrameName);
+            CreateReadSLOutTimer("REFRESH_OUT", readSLOutFunc);
+            CreateDefaultScreen("MAIN_SCREEN", readSLInFunc);
         }
 
-        private string CreateFrameFunction(string FuncName, StringCollection FrameNames)
-        {
-            Function func = new Function();
-            func.Symbol = FuncName;
-            string[] functionScripLines = new string[FrameNames.Count];
-            for (int i = 0; i < FrameNames.Count; i++)
-            {
-                string FrameFuncToUse = ((i%2) != 0)? FRAME_FUNC.RECEIVE.ToString() : FRAME_FUNC.SEND.ToString();
-                functionScripLines[i] = SCR_OBJECT.FRAMES.ToString() + "." +
-                                        FrameNames[i] + "." +
-                                        FrameFuncToUse + "()";
-                                        
-            }
-            func.ScriptLines = functionScripLines;
-            BaseObject obj = m_Document.GestFunction.GetFromSymbol(func.Symbol);
-            if (obj == null)
-            {
-                m_Document.GestFunction.AddObj(func);
-            }
-            else
-            {
-                Function existingFunc = obj as Function;
-                if (existingFunc.ScriptLines != func.ScriptLines)
-                {
-                    for (int indexFormat = 0; indexFormat < BaseGest.MAX_DEFAULT_ITEM_SYMBOL; indexFormat++)
-                    {
-                        //      - on crée une chaine temporaire = symbole + suffix de type "_AG{0}"
-                        string strTempSymb = func.Symbol + string.Format("_AG{0}", indexFormat);
-                        obj = m_Document.GestFunction.GetFromSymbol(func.Symbol);
-                        if (obj == null)
-                        {
-                            func.Symbol = strTempSymb;
-                            m_Document.GestFunction.AddObj(func);
-                            break;
-                        }
-                    }
-                }
-                else
-                {
-                    // les fonctions sont identiques, rien a faire
-                }
-            }
-            return func.Symbol;
-        }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Bloc"></param>
+        /// <param name="bWrite"></param>
+        /// <param name="FrameNames"></param>
         private void CreateSLFrames(BlocConfig Bloc, bool bWrite, ref StringCollection FrameNames)
         {
             string slBlocName = Bloc.Name.Replace(' ', '_').ToUpper();
@@ -124,37 +86,5 @@ namespace SmartApp.Wizards
             Trame Frame2 = WizardFrameGenerator.CreateM3FrameObject(retFrameName, Frame2Datas);
             WizardFrameGenerator.InsertFrameInDoc(m_Document, Frame2, Frame2Datas);
         }
-
-        private WIZ_SL_ADRESS_RANGE GetAddrRangeFromBloc(BlocConfig Bloc)
-        {
-            WIZ_SL_ADRESS_RANGE addrRange = WIZ_SL_ADRESS_RANGE.ADDR_1_8;
-            switch (Bloc.Indice)
-            {
-                case 0:
-                    addrRange = (Bloc.BlocType == BlocsType.IN)? WIZ_SL_ADRESS_RANGE.ADDR_1_8 : WIZ_SL_ADRESS_RANGE.ADDR_25_32;
-                    break;
-                case 1:
-                    addrRange = (Bloc.BlocType == BlocsType.IN)? WIZ_SL_ADRESS_RANGE.ADDR_9_16 : WIZ_SL_ADRESS_RANGE.ADDR_33_40;
-                    break;
-                case 2:
-                    addrRange = (Bloc.BlocType == BlocsType.IN) ? WIZ_SL_ADRESS_RANGE.ADDR_17_24 : WIZ_SL_ADRESS_RANGE.ADDR_41_48;
-                    break;
-                default:
-                    System.Diagnostics.Debug.Assert(false);
-                    break;
-            }
-            return addrRange;
-        }
-
-        private void CreateReadSLOutTimer()
-        {
-
-        }
-
-        private void CreateDefaultScreen()
-        {
-
-        }
-
     }
 }

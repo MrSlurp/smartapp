@@ -8,7 +8,8 @@ using System.Text;
 using System.Windows.Forms;
 using SmartApp.Ihm;
 using SmartApp.Ihm.Wizards;
-using Microsoft.Win32;
+using SmartApp.Wizards;
+//using Microsoft.Win32;
 using System.Reflection;
 using CommonLib;
 
@@ -486,6 +487,7 @@ namespace SmartApp.Ihm
             m_MenuItemM3SLWiz.Enabled = true;
             m_MenuItemTCPMBWiz.Enabled = true;
             m_MenuItemZ2SLWiz.Enabled = true;
+            tsmi3SLProjectWizard.Enabled = false;
             m_Document.UpdateDocumentFrame += new NeedRefreshHMI(OnNeedUpdateHMI);
             m_Document.OnDocumentModified += new DocumentModifiedEvent(UpdateModifiedFlag);
             UpdateFileCommand(null, null);
@@ -509,6 +511,7 @@ namespace SmartApp.Ihm
             m_MenuItemM3SLWiz.Enabled = false;
             m_MenuItemZ2SLWiz.Enabled = false;
             m_MenuItemTCPMBWiz.Enabled = false;
+            tsmi3SLProjectWizard.Enabled = true;
             m_Document = null;
             SaveFormsPos();
             UpdateFileCommand(null, null);
@@ -948,12 +951,28 @@ namespace SmartApp.Ihm
         /// <param name="e"></param>
         private void tsmi3SLProjectWizard_Click(object sender, EventArgs e)
         {
-            if (m_Document != null)
+            if (m_Document == null)
             {
-                WizardSLProjectForm wiz = new WizardSLProjectForm();
-                wiz.Document = m_Document;
+                WizardM3Z2ProjectForm wiz = new WizardM3Z2ProjectForm(new SLWizardConfigData());
                 if (wiz.ShowDialog() == DialogResult.OK)
                 {
+                    OnNewMenuItemClick(null, null);
+                    wiz.CreateAllFromWizardData(new SLM3ProjectCreator(m_Document));
+                    this.OnNeedUpdateHMI(null);
+                    m_Document.Modified = true;
+                }
+            }
+        }
+
+        private void tsmi3XN05ProjectWizard_Click(object sender, EventArgs e)
+        {
+            if (m_Document == null)
+            {
+                WizardM3Z2ProjectForm wiz = new WizardM3Z2ProjectForm(new M3XN05WizardConfigData());
+                if (wiz.ShowDialog() == DialogResult.OK)
+                {
+                    OnNewMenuItemClick(null, null);
+                    wiz.CreateAllFromWizardData(new ETHM3ProjectCreator(m_Document));
                     this.OnNeedUpdateHMI(null);
                     m_Document.Modified = true;
                 }
