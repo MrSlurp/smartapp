@@ -11,6 +11,16 @@ namespace SmartApp.Wizards
     public abstract class WizardConfigData
     {
         /// <summary>
+        /// table des images a afficher pour le split des entrée
+        /// </summary>
+        protected Image[] m_SplitInTabImages;
+
+        /// <summary>
+        /// table des images a afficher pour le split des entrée
+        /// </summary>
+        protected Image[] m_SplitOutTabImages;
+
+        /// <summary>
         /// liste des blocs d'entrée de données (blocs qui ont des sorties)
         /// </summary>
         protected BlocConfig[] m_INBlocList;
@@ -88,5 +98,15 @@ namespace SmartApp.Wizards
         public abstract Image GetWelcomeImage();
 
         public abstract string CreateFinalSummury();
+
+        public Image[] TabInSplitImage
+        {
+            get { return m_SplitInTabImages; }
+        }
+        public Image[] TabOutSplitImage
+        {
+            get { return m_SplitOutTabImages; }
+        }
+
     }
 }

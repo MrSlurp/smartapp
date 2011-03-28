@@ -28,6 +28,12 @@ namespace SmartApp.Wizards
                 m_INBlocList[i-1] = new SLBlocConfig(BlocsType.IN, i);
                 m_OUTBlocList[i-1] = new SLBlocConfig(BlocsType.OUT, i);
             }
+            m_SplitInTabImages = new Image[3];
+            m_SplitInTabImages[0] = Resources.TypeSplit16_SL_IN;
+            m_SplitInTabImages[1] = Resources.TypeSplit4_SL_IN;
+            m_SplitInTabImages[2] = Resources.TypeSplit2_SL_IN;
+            m_SplitOutTabImages = new Image[1];
+            m_SplitOutTabImages[0] = Resources.TypeSplit16_SL_IN;
         }
 
         public override string GetWelcomeSpeech()

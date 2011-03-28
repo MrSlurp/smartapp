@@ -87,16 +87,16 @@ namespace SmartApp.Ihm.Wizards
 
             m_listWizPanel.Add(m_UCStepConfigINSplit);
             this.Controls.Add(m_UCStepConfigINSplit);
-            m_UCStepConfigINSplit.TypeSplitImage1 = Resources.TypeSplit16;
+            m_UCStepConfigINSplit.TypeSplitImage1 = WizCfgData.TabInSplitImage.Length > 0 ? WizCfgData.TabInSplitImage[0] : null;
             m_UCStepConfigINSplit.TypeSplitLabel1 = Program.LangSys.C("Split to 16");
-            m_UCStepConfigINSplit.TypeSplitImage2 = Resources.TypeSplit4;
+            m_UCStepConfigINSplit.TypeSplitImage2 = WizCfgData.TabInSplitImage.Length > 1 ? WizCfgData.TabInSplitImage[1] : null;
             m_UCStepConfigINSplit.TypeSplitLabel2 = Program.LangSys.C("Split to 4");
-            m_UCStepConfigINSplit.TypeSplitImage3 = Resources.TypeSplit2;
+            m_UCStepConfigINSplit.TypeSplitImage3 = WizCfgData.TabInSplitImage.Length > 2 ? WizCfgData.TabInSplitImage[2] : null;
             m_UCStepConfigINSplit.TypeSplitLabel3 = Program.LangSys.C("Split to 2");
 
             m_listWizPanel.Add(m_UCStepConfigOUTSplit);
             this.Controls.Add(m_UCStepConfigOUTSplit);
-            m_UCStepConfigOUTSplit.TypeSplitImage1 = Resources.TypeSplit16;
+            m_UCStepConfigOUTSplit.TypeSplitImage1 = WizCfgData.TabOutSplitImage.Length > 0 ? WizCfgData.TabOutSplitImage[0] : null;
             m_UCStepConfigOUTSplit.TypeSplitLabel1 = Program.LangSys.C("Split to 16");
             m_UCStepConfigOUTSplit.TypeSplitLabel2 = string.Empty;
             m_UCStepConfigOUTSplit.TypeSplitLabel3 = string.Empty;
