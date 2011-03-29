@@ -93,16 +93,35 @@ namespace SmartApp.Wizards
                 return false;
         }
 
+        /// <summary>
+        /// renvoie le speech de bienvenue du wizard
+        /// </summary>
+        /// <returns>speech d'intro</returns>
         public abstract string GetWelcomeSpeech();
 
+        /// <summary>
+        /// renvoie l'image affichée sur la page de bienvenue
+        /// </summary>
+        /// <returns>Image d'intro</returns>
         public abstract Image GetWelcomeImage();
 
+        /// <summary>
+        /// crée le résumé final du wizard en fonction de ce qui est configuré
+        /// </summary>
+        /// <returns>résume</returns>
         public abstract string CreateFinalSummury();
 
+        /// <summary>
+        /// renvoie les images correspondantes au mode de split pour les entrée supervision
+        /// </summary>
         public Image[] TabInSplitImage
         {
             get { return m_SplitInTabImages; }
         }
+
+        /// <summary>
+        /// renvoie les images correspondantes au mode de split pour les entrée sorties
+        /// </summary>
         public Image[] TabOutSplitImage
         {
             get { return m_SplitOutTabImages; }

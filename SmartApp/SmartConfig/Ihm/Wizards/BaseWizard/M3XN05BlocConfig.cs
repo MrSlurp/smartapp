@@ -14,11 +14,24 @@ namespace SmartApp.Wizards
         /// </summary>
         protected const int IO_PER_BLOC = 1;
 
+        /// <summary>
+        /// adresse de base des registre ETH IN
+        /// </summary>
         protected const int BaseInRegAddr = 12;
+
+        /// <summary>
+        /// adresse de base des registre ETH OUT
+        /// </summary>
         protected const int BaseOutRegAddr = 20;
 
+        /// <summary>
+        /// adresse absolue du registre modbus
+        /// </summary>
         protected int m_MbRegAddr;
 
+        /// <summary>
+        /// obtient l'adresse du registre modbus correspondant au bloc
+        /// </summary>
         public int MbRegAddr
         {
             get { return m_MbRegAddr; }
@@ -56,7 +69,7 @@ namespace SmartApp.Wizards
         /// </summary>
         public override string Name
         {
-            get { return string.Format("ETH {0} {1}", m_BlocType.ToString(), m_Indice); }
+            get { return string.Format("ETH {0}{1}", m_BlocType.ToString(), m_Indice); }
         }
     }
 }

@@ -9,19 +9,17 @@ using System.Windows.Forms;
 using SmartApp.Ihm;
 using SmartApp.Ihm.Wizards;
 using SmartApp.Wizards;
-//using Microsoft.Win32;
 using System.Reflection;
 using CommonLib;
 
 namespace SmartApp.Ihm
 {
+    /// <summary>
+    /// fenêtre principale de SmartConfig
+    /// </summary>
     public partial class MDISmartConfigMain : Form
     {
-#if KENNEN
-        private const string APP_TITLE = "Kennen";
-#else
         private const string APP_TITLE = "SmartConfig";
-#endif
         protected delegate void UpdateTitleDg(string str);
 
         #region données membres
@@ -194,6 +192,11 @@ namespace SmartApp.Ihm
         #endregion
 
         #region menu File
+        /// <summary>
+        /// affiche une message box indiquant que le fichier a été modifié
+        /// et propose le choix de sauvegarder/annuler/ignorer
+        /// </summary>
+        /// <returns></returns>
         private DialogResult ShowFileModifiedMessagebox()
         {
             return MessageBox.Show(Program.LangSys.C("File Have been modified") 
@@ -203,10 +206,12 @@ namespace SmartApp.Ihm
                                                    MessageBoxButtons.YesNoCancel,
                                                    MessageBoxIcon.Question);
         }
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+
+        /// <summary>
+        /// handler du menu New File
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnNewMenuItemClick(object sender, EventArgs e)
         {
             if (m_Document == null)
@@ -251,10 +256,11 @@ namespace SmartApp.Ihm
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// handler du menu Open
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OpenFile(object sender, EventArgs e)
         {
             if (m_Document != null && m_Document.Modified)
@@ -282,19 +288,21 @@ namespace SmartApp.Ihm
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// handler du menu save as
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnSaveAsMenuItemClick(object sender, EventArgs e)
         {
             OnSaveAsClick();
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// handler du menu exit
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnExitMenuItemClick(object sender, EventArgs e)
         {
             if (m_Document != null)
@@ -316,20 +324,20 @@ namespace SmartApp.Ihm
             this.Close();
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// handler du menu save
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnSaveMenuItemClick(object sender, EventArgs e)
         {
             DoSaveDocument();
             UpdateTitle();
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// effectue la sauvegarde du document en cours d'édition
+        /// </summary>
         private void DoSaveDocument()
         {
             if (m_Document != null)
@@ -344,10 +352,9 @@ namespace SmartApp.Ihm
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// gestion du SaveAs
+        /// </summary>
         private void OnSaveAsClick()
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
@@ -376,10 +383,11 @@ namespace SmartApp.Ihm
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
+        /// <summary>
+        /// handler du menu de fermeture du fichier
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void m_MenuItemClose_Click(object sender, EventArgs e)
         {
             if (m_Document != null && m_Document.Modified)
@@ -397,6 +405,11 @@ namespace SmartApp.Ihm
             this.CloseDoc();
         }
 
+        /// <summary>
+        /// gestion des most recent used
+        /// </summary>
+        /// <param name="number"></param>
+        /// <param name="filename"></param>
         private void OnMruFile(int number, String filename)
         {
             if (!File.Exists(filename))
@@ -414,6 +427,69 @@ namespace SmartApp.Ihm
             }
         }
 
+        /// <summary>
+        /// affiche le panel de préférence de l'application
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void m_tsItemPref_Click(object sender, EventArgs e)
+        {
+            PreferencesForm prfForm = new PreferencesForm();
+            prfForm.SelectedLang = SmartApp.Properties.Settings.Default.Lang;
+            if (prfForm.ShowDialog() == DialogResult.OK)
+            {
+                if (prfForm.SelectedLang != SmartApp.Properties.Settings.Default.Lang)
+                {
+                    SmartApp.Properties.Settings.Default.Lang = prfForm.SelectedLang;
+                    SmartApp.Properties.Settings.Default.Save();
+                    OnNeedUpdateHMI(null);
+                    //MessageBox.Show(Program.LangSys.C("Please restart the application in order apply language change"), Program.LangSys.C("Informations"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Lang.LangSys.ChangeLangage(prfForm.SelectedLang);
+                    Program.ChangePluginLang(prfForm.SelectedLang);
+                    Program.LangSys.ChangeLangage(prfForm.SelectedLang);
+                }
+            }
+        }
+
+        /// <summary>
+        /// affiche le panel de configuration des logs
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void m_tsMenuLogConfig_Click(object sender, EventArgs e)
+        {
+            LogCatForm LogForm = new LogCatForm();
+            LogForm.Level = (TracesLevel)SmartApp.Properties.Settings.Default.LogLevel;
+            LogForm.ActiveCats = (TraceCat)Convert.ToInt32(SmartApp.Properties.Settings.Default.LogCat, 16);
+            LogForm.LogToFile = SmartApp.Properties.Settings.Default.LogToFile;
+            if (LogForm.ShowDialog() == DialogResult.OK)
+            {
+                SmartApp.Properties.Settings.Default.LogLevel = (int)LogForm.Level;
+                SmartApp.Properties.Settings.Default.LogCat = Convert.ToString((int)LogForm.ActiveCats, 16);
+                SmartApp.Properties.Settings.Default.LogToFile = LogForm.LogToFile;
+                SmartApp.Properties.Settings.Default.Save();
+                Traces.Cats = LogForm.ActiveCats;
+                Traces.Level = LogForm.Level;
+                Traces.LogToFile = LogForm.LogToFile;
+            }
+        }
+
+        /// <summary>
+        /// ouvre la console d'affichage des logs
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void m_tsMenuOpenDebugConsole_Click(object sender, EventArgs e)
+        {
+            if (m_TraceConsole == null)
+                m_TraceConsole = new TraceConsole();
+            else
+            {
+                m_TraceConsole.Dispose();
+                m_TraceConsole = new TraceConsole();
+            }
+            m_TraceConsole.Show();
+        }
         #endregion
 
         #region fonction d'ouverture sauvegarde et fermeture du document
@@ -520,11 +596,10 @@ namespace SmartApp.Ihm
         #endregion
 
         #region Update divers
-        //*****************************************************************************************************
-        // Description: met a jour le titre de l'application en fonction du nom du document et de son état 
-        // modifié ou non
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// Met a jour le titre de l'application avec le nom du document courant
+        /// (si il y a) et le flag de modification
+        /// </summary>
         public void UpdateTitle()
         {
             string strTitle = APP_TITLE;
@@ -549,20 +624,20 @@ namespace SmartApp.Ihm
             }
         }
 
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
+        /// <summary>
+        /// fonction qui n'a lieu d'être qu'en cas d'appel asynchrone
+        /// </summary>
+        /// <param name="str"></param>
         private void SetTitle(string str)
         {
             this.Text = str;
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
+        /// <summary>
+        /// appelé lorsqu'une opération nécessite la mise a jour de l'intégralité des IHM
+        /// (modification ayant un impacte dans toutes les formes)
+        /// </summary>
+        /// <param name="Mess"></param>
         protected void OnNeedUpdateHMI(MessNeedUpdate Mess)
         {
             if (this.InvokeRequired)
@@ -576,10 +651,10 @@ namespace SmartApp.Ihm
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
+        /// <summary>
+        /// met a jour l'état des différentes formes de l'appplication
+        /// </summary>
+        /// <param name="Mess"></param>
         protected void AsyncUpdater(MessNeedUpdate Mess)
         {
             if (Mess == null)
@@ -612,10 +687,11 @@ namespace SmartApp.Ihm
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
+        /// <summary>
+        /// met a jour l'état des commandes du menu fichier
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UpdateFileCommand(object sender, EventArgs e)
         {
             if (m_Document == null)
@@ -634,15 +710,27 @@ namespace SmartApp.Ihm
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
+        /// <summary>
+        /// met a jour le titre en fonction de l'état de modification du document
+        /// </summary>
         protected void UpdateModifiedFlag()
         {
             UpdateTitle();
         }
 
+        /// <summary>
+        /// sauvegarde la position des différents MdiChilds
+        /// </summary>
+        private void SaveFormsPos()
+        {
+            for (int i = 0; i < this.MdiChildren.Length; i++)
+            {
+                m_FrmOpt.SetFormPos(MdiChildren[i]);
+                m_FrmOpt.SetFormSize(MdiChildren[i]);
+                m_FrmOpt.SetFormState(MdiChildren[i]);
+            }
+            m_FrmOpt.Save();
+        }
         #endregion
 
         #region handler's devent
@@ -671,20 +759,6 @@ namespace SmartApp.Ihm
         }
         #endregion
 
-        /// <summary>
-        /// 
-        /// </summary>
-        private void SaveFormsPos()
-        {
-            for (int i = 0; i < this.MdiChildren.Length; i++)
-            {
-                m_FrmOpt.SetFormPos(MdiChildren[i]);
-                m_FrmOpt.SetFormSize(MdiChildren[i]);
-                m_FrmOpt.SetFormState(MdiChildren[i]);
-            }
-            m_FrmOpt.Save();
-        }
-
         #region menu ?
         /// <summary>
         /// 
@@ -695,9 +769,94 @@ namespace SmartApp.Ihm
         {
             AboutForm.ShowAbout();
         }
+
+        /// <summary>
+        /// affiche le panel de version des plugins
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void pluginsVersionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PluginsVersionsForm plVer = new PluginsVersionsForm();
+            plVer.ShowDialog();
+        }
         #endregion
 
-        #region Commandes du menu Tool
+        #region toolbar de navigation
+        /// <summary>
+        /// met la fenêtre de configuration des écran au premier plan
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tsbtn_gotoScreen_Click(object sender, EventArgs e)
+        {
+            if (this.ActiveMdiChild != m_DesignForm)
+            {
+                if (m_DesignForm.WindowState == FormWindowState.Minimized)
+                    m_DesignForm.WindowState =
+                        this.ActiveMdiChild.WindowState == FormWindowState.Maximized ?
+                        FormWindowState.Maximized : FormWindowState.Normal;
+
+                m_DesignForm.BringToFront();
+            }
+        }
+
+        /// <summary>
+        /// met la fenêtre de programmation au premier plan
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tsbtn_gotoProgram_Click(object sender, EventArgs e)
+        {
+            if (this.ActiveMdiChild != m_ProgForm)
+            {
+                if (m_ProgForm.WindowState == FormWindowState.Minimized)
+                    m_ProgForm.WindowState = 
+                        this.ActiveMdiChild.WindowState == FormWindowState.Maximized?
+                        FormWindowState.Maximized : FormWindowState.Normal;
+
+                m_ProgForm.BringToFront();
+            }
+        }
+
+        /// <summary>
+        /// met la fenêtre de configuration des donnée au premier plan
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tsbtn_gotoData_Click(object sender, EventArgs e)
+        {
+            if (this.ActiveMdiChild != m_DataForm)
+            {
+                if (m_DataForm.WindowState == FormWindowState.Minimized)
+                    m_DataForm.WindowState =
+                        this.ActiveMdiChild.WindowState == FormWindowState.Maximized ?
+                        FormWindowState.Maximized : FormWindowState.Normal;
+
+                m_DataForm.BringToFront();
+            }
+        }
+
+        /// <summary>
+        /// met la fenêtre de configuration des trames au premier plan
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tsbtn_gotoFrame_Click(object sender, EventArgs e)
+        {
+            if (this.ActiveMdiChild != m_FrameForm)
+            {
+                if (m_FrameForm.WindowState == FormWindowState.Minimized)
+                    m_FrameForm.WindowState =
+                        this.ActiveMdiChild.WindowState == FormWindowState.Maximized ?
+                        FormWindowState.Maximized : FormWindowState.Normal;
+
+                m_FrameForm.BringToFront();
+            }
+        }
+        #endregion
+
+        #region Menu Tools
         /// <summary>
         /// 
         /// </summary>
@@ -717,7 +876,7 @@ namespace SmartApp.Ihm
                     if (File.Exists(m_Document.FileName))
                     {
                         this.Hide();
-			            Application.DoEvents();
+                        Application.DoEvents();
                         System.Diagnostics.Process proc = new System.Diagnostics.Process();
                         string Arguments = "-Cmd \"" + m_Document.FileName + "\"";
                         if (LaunchArgParser.DevMode)
@@ -795,157 +954,9 @@ namespace SmartApp.Ihm
                 }
             }
         }
-        #endregion
 
         /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void pluginsVersionsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            PluginsVersionsForm plVer = new PluginsVersionsForm();
-            plVer.ShowDialog();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void m_tsItemPref_Click(object sender, EventArgs e)
-        {
-            PreferencesForm prfForm = new PreferencesForm();
-            prfForm.SelectedLang = SmartApp.Properties.Settings.Default.Lang;
-            if (prfForm.ShowDialog() == DialogResult.OK)
-            {
-                if (prfForm.SelectedLang != SmartApp.Properties.Settings.Default.Lang)
-                {
-                    SmartApp.Properties.Settings.Default.Lang = prfForm.SelectedLang;
-                    SmartApp.Properties.Settings.Default.Save();
-                    OnNeedUpdateHMI(null);
-                    //MessageBox.Show(Program.LangSys.C("Please restart the application in order apply language change"), Program.LangSys.C("Informations"), MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    Lang.LangSys.ChangeLangage(prfForm.SelectedLang);
-                    Program.ChangePluginLang(prfForm.SelectedLang);
-                    Program.LangSys.ChangeLangage(prfForm.SelectedLang);
-                }
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void m_tsMenuLogConfig_Click(object sender, EventArgs e)
-        {
-            LogCatForm LogForm = new LogCatForm();
-            LogForm.Level = (TracesLevel)SmartApp.Properties.Settings.Default.LogLevel;
-            LogForm.ActiveCats = (TraceCat)Convert.ToInt32(SmartApp.Properties.Settings.Default.LogCat, 16);
-            LogForm.LogToFile = SmartApp.Properties.Settings.Default.LogToFile;
-            if (LogForm.ShowDialog() == DialogResult.OK)
-            {
-                SmartApp.Properties.Settings.Default.LogLevel = (int)LogForm.Level;
-                SmartApp.Properties.Settings.Default.LogCat = Convert.ToString((int)LogForm.ActiveCats, 16);
-                SmartApp.Properties.Settings.Default.LogToFile = LogForm.LogToFile;
-                SmartApp.Properties.Settings.Default.Save();
-                Traces.Cats = LogForm.ActiveCats;
-                Traces.Level = LogForm.Level;
-                Traces.LogToFile = LogForm.LogToFile;
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void m_tsMenuOpenDebugConsole_Click(object sender, EventArgs e)
-        {
-            if (m_TraceConsole == null)
-                m_TraceConsole = new TraceConsole();
-            else
-            {
-                m_TraceConsole.Dispose();
-                m_TraceConsole = new TraceConsole();
-            }
-            m_TraceConsole.Show();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void tsbtn_gotoScreen_Click(object sender, EventArgs e)
-        {
-            if (this.ActiveMdiChild != m_DesignForm)
-            {
-                if (m_DesignForm.WindowState == FormWindowState.Minimized)
-                    m_DesignForm.WindowState =
-                        this.ActiveMdiChild.WindowState == FormWindowState.Maximized ?
-                        FormWindowState.Maximized : FormWindowState.Normal;
-
-                m_DesignForm.BringToFront();
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void tsbtn_gotoProgram_Click(object sender, EventArgs e)
-        {
-            if (this.ActiveMdiChild != m_ProgForm)
-            {
-                if (m_ProgForm.WindowState == FormWindowState.Minimized)
-                    m_ProgForm.WindowState = 
-                        this.ActiveMdiChild.WindowState == FormWindowState.Maximized?
-                        FormWindowState.Maximized : FormWindowState.Normal;
-
-                m_ProgForm.BringToFront();
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void tsbtn_gotoData_Click(object sender, EventArgs e)
-        {
-            if (this.ActiveMdiChild != m_DataForm)
-            {
-                if (m_DataForm.WindowState == FormWindowState.Minimized)
-                    m_DataForm.WindowState =
-                        this.ActiveMdiChild.WindowState == FormWindowState.Maximized ?
-                        FormWindowState.Maximized : FormWindowState.Normal;
-
-                m_DataForm.BringToFront();
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void tsbtn_gotoFrame_Click(object sender, EventArgs e)
-        {
-            if (this.ActiveMdiChild != m_FrameForm)
-            {
-                if (m_FrameForm.WindowState == FormWindowState.Minimized)
-                    m_FrameForm.WindowState =
-                        this.ActiveMdiChild.WindowState == FormWindowState.Maximized ?
-                        FormWindowState.Maximized : FormWindowState.Normal;
-
-                m_FrameForm.BringToFront();
-            }
-        }
-
-        /// <summary>
-        /// 
+        /// lance le wizard de projet SL M3
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -964,6 +975,11 @@ namespace SmartApp.Ihm
             }
         }
 
+        /// <summary>
+        /// lance le wizard de projet ETH M3
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tsmi3XN05ProjectWizard_Click(object sender, EventArgs e)
         {
             if (m_Document == null)
@@ -979,5 +995,6 @@ namespace SmartApp.Ihm
             }
 
         }
+        #endregion
     }
 }

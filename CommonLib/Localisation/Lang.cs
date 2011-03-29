@@ -190,7 +190,8 @@ namespace CommonLib
             // il faut travaillier en deux phases : 
             // d'abord réstaurer les textes clef, puis réappliquer la nouvelle langue
             m_bRevertLocalisation = true;
-            
+
+            LoadDefaultLangFile();
             foreach (FormInfo frmi in mFormList)
             {
                 frmi.Form_Load(null, null);
@@ -464,7 +465,7 @@ namespace CommonLib
                 }
                 else
                 {
-                    Traces.LogAddDebug(TraceCat.Lang, string.Format("Missing file {0}", Path.GetFileName(FileName)));
+                    Traces.LogAddDebug(TraceCat.Lang, string.Format("Missing file {0}", FileName));
                 }
             }
         }

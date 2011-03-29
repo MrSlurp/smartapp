@@ -34,12 +34,13 @@ namespace SmartApp.Ihm.Wizards
             // 
             // lblTitle
             // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Location = new System.Drawing.Point(3, 9);
+            this.lblTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblTitle.Location = new System.Drawing.Point(0, 0);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(35, 13);
+            this.lblTitle.Size = new System.Drawing.Size(493, 35);
             this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "label1";
+            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // edtResume
             // 
@@ -48,11 +49,11 @@ namespace SmartApp.Ihm.Wizards
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.edtResume.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.edtResume.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.edtResume.Location = new System.Drawing.Point(6, 38);
+            this.edtResume.Location = new System.Drawing.Point(3, 38);
             this.edtResume.Multiline = true;
             this.edtResume.Name = "edtResume";
             this.edtResume.ReadOnly = true;
-            this.edtResume.Size = new System.Drawing.Size(484, 206);
+            this.edtResume.Size = new System.Drawing.Size(487, 293);
             this.edtResume.TabIndex = 1;
             // 
             // WizM3Z2StepFinish

@@ -66,7 +66,7 @@ namespace SmartApp.Ihm.Wizards
             // 
             this.colSLBloc.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.colSLBloc.Frozen = true;
-            this.colSLBloc.HeaderText = "SL Bloc";
+            this.colSLBloc.HeaderText = "Bloc";
             this.colSLBloc.MinimumWidth = 120;
             this.colSLBloc.Name = "colSLBloc";
             this.colSLBloc.ReadOnly = true;
@@ -104,24 +104,24 @@ namespace SmartApp.Ihm.Wizards
             // 
             // lblTitle
             // 
-            this.lblTitle.AutoSize = true;
+            this.lblTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTitle.Location = new System.Drawing.Point(3, 0);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(35, 13);
+            this.lblTitle.Size = new System.Drawing.Size(548, 36);
             this.lblTitle.TabIndex = 3;
-            this.lblTitle.Text = "label1";
+            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // WiM3SLStepConfigIOName
+            // WizM3Z2StepConfigIOName
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.m_dataGrid);
-            this.Name = "WiM3SLStepConfigIOName";
+            this.Name = "WizM3Z2StepConfigIOName";
             this.Size = new System.Drawing.Size(554, 323);
             ((System.ComponentModel.ISupportInitialize)(this.m_dataGrid)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 

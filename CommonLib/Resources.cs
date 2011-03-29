@@ -22,7 +22,7 @@ using System.Windows.Forms;
 namespace CommonLib
 {
 	/// <summary>
-	/// Description of Class1.
+	/// Classes des ressources (images) communes de SmartApp.
 	/// </summary>
 	public static class Resources
 	{
@@ -56,9 +56,17 @@ namespace CommonLib
 		public static Bitmap SLO3;
 
         public static Bitmap WizardSLProject;
-        public static Bitmap TypeSplit16;
-        public static Bitmap TypeSplit4;
-        public static Bitmap TypeSplit2;
+        public static Bitmap WizardEthProject;
+
+        public static Bitmap TypeSplit16_SL_IN;
+        public static Bitmap TypeSplit4_SL_IN;
+        public static Bitmap TypeSplit2_SL_IN;
+        public static Bitmap TypeSplit16_SL_OUT;
+
+        public static Bitmap TypeSplit16_ETH_IN;
+        public static Bitmap TypeSplit4_ETH_IN;
+        public static Bitmap TypeSplit2_ETH_IN;
+        public static Bitmap TypeSplit16_ETH_OUT;
 		
 		public static Bitmap move;
 		
@@ -70,11 +78,7 @@ namespace CommonLib
 		public static void InitializeBitmap()
 		{
             string strAppDir = Path.GetDirectoryName(Application.ExecutablePath);
-#if KENNEN
-            AppIcon = NewIcoTrPath(strAppDir + "\\Kennen.ico");
-#else
             AppIcon = NewIcoTrPath(strAppDir + "\\SmartApp.ico");
-#endif
             AlignLeft = NewBmpTrPath(strAppDir + "\\Res\\ToolBar\\AlignLeft.bmp");
             AlignTop = NewBmpTrPath(strAppDir + "\\Res\\ToolBar\\AlignTop.bmp");
             ArrangeAcross = NewBmpTrPath(strAppDir + "\\Res\\ToolBar\\ArrangeAcross.bmp");
@@ -111,12 +115,18 @@ namespace CommonLib
             Empty = NewBmpTrPath(strAppDir + "\\Res\\EmptyImg.bmp");
 
             WizardSLProject = NewBmpTrPath(strAppDir + "\\Res\\WizRes\\M3SL_wiz.png");
+            WizardEthProject = NewBmpTrPath(strAppDir + "\\Res\\WizRes\\M3Eth_wiz.png");
 
-            TypeSplit16 = NewBmpTrPath(strAppDir + "\\Res\\WizRes\\Type_Split16.png");
-            TypeSplit4 = NewBmpTrPath(strAppDir + "\\Res\\WizRes\\Type_Split4.png");
-            TypeSplit2 = NewBmpTrPath(strAppDir + "\\Res\\WizRes\\Type_Split2.png");
+            TypeSplit16_SL_IN = NewBmpTrPath(strAppDir + "\\Res\\WizRes\\SLType_Split16.png");
+            TypeSplit4_SL_IN = NewBmpTrPath(strAppDir + "\\Res\\WizRes\\SLType_Split4.png");
+            TypeSplit2_SL_IN = NewBmpTrPath(strAppDir + "\\Res\\WizRes\\SLType_Split2.png");
+            TypeSplit16_SL_OUT = NewBmpTrPath(strAppDir + "\\Res\\WizRes\\SLType_Split16O.png");
 
-		}
+            TypeSplit16_ETH_IN = NewBmpTrPath(strAppDir + "\\Res\\WizRes\\EthType_Split16.png");
+            TypeSplit4_ETH_IN = NewBmpTrPath(strAppDir + "\\Res\\WizRes\\EthType_Split4.png");
+            TypeSplit2_ETH_IN = NewBmpTrPath(strAppDir + "\\Res\\WizRes\\EthType_Split2.png");
+            TypeSplit16_ETH_OUT = NewBmpTrPath(strAppDir + "\\Res\\WizRes\\EthType_Split16O.png");
+        }
 
         public static Bitmap NewBmpTrPath(string path)
         {

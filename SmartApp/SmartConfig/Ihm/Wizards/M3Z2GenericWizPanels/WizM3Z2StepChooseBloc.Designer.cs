@@ -32,9 +32,9 @@ namespace SmartApp.Ihm.Wizards
             this.btnAll = new System.Windows.Forms.Button();
             this.btnNone = new System.Windows.Forms.Button();
             this.m_dataGridIn = new System.Windows.Forms.DataGridView();
-            this.m_dataGridOut = new System.Windows.Forms.DataGridView();
             this.colSLBloc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colUsed = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.m_dataGridOut = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -53,7 +53,7 @@ namespace SmartApp.Ihm.Wizards
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(521, 34);
             this.label1.TabIndex = 1;
-            this.label1.Text = "In this first step, you msut select wich SL blocs are used in your M3 program";
+            this.label1.Text = "In this first step, you msut select wich blocs are used in your M3 program";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnAll
@@ -97,23 +97,6 @@ namespace SmartApp.Ihm.Wizards
             this.m_dataGridIn.Size = new System.Drawing.Size(259, 225);
             this.m_dataGridIn.TabIndex = 6;
             // 
-            // m_dataGridOut
-            // 
-            this.m_dataGridOut.AllowUserToAddRows = false;
-            this.m_dataGridOut.AllowUserToDeleteRows = false;
-            this.m_dataGridOut.AllowUserToResizeRows = false;
-            this.m_dataGridOut.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            this.m_dataGridOut.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.m_dataGridOut.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
-            this.dataGridViewCheckBoxColumn1});
-            this.m_dataGridOut.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.m_dataGridOut.Location = new System.Drawing.Point(0, 0);
-            this.m_dataGridOut.MultiSelect = false;
-            this.m_dataGridOut.Name = "m_dataGridOut";
-            this.m_dataGridOut.Size = new System.Drawing.Size(255, 225);
-            this.m_dataGridOut.TabIndex = 7;
-            // 
             // colSLBloc
             // 
             this.colSLBloc.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
@@ -131,6 +114,23 @@ namespace SmartApp.Ihm.Wizards
             this.colUsed.MinimumWidth = 40;
             this.colUsed.Name = "colUsed";
             this.colUsed.Width = 40;
+            // 
+            // m_dataGridOut
+            // 
+            this.m_dataGridOut.AllowUserToAddRows = false;
+            this.m_dataGridOut.AllowUserToDeleteRows = false;
+            this.m_dataGridOut.AllowUserToResizeRows = false;
+            this.m_dataGridOut.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+            this.m_dataGridOut.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.m_dataGridOut.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewCheckBoxColumn1});
+            this.m_dataGridOut.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.m_dataGridOut.Location = new System.Drawing.Point(0, 0);
+            this.m_dataGridOut.MultiSelect = false;
+            this.m_dataGridOut.Name = "m_dataGridOut";
+            this.m_dataGridOut.Size = new System.Drawing.Size(255, 225);
+            this.m_dataGridOut.TabIndex = 7;
             // 
             // dataGridViewTextBoxColumn1
             // 

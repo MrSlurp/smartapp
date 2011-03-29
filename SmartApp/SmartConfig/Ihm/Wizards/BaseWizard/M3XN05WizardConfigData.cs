@@ -34,24 +34,37 @@ namespace SmartApp.Wizards
             m_SplitInTabImages[1] = Resources.TypeSplit4_ETH_IN;
             m_SplitInTabImages[2] = Resources.TypeSplit2_ETH_IN;
             m_SplitOutTabImages = new Image[1];
-            m_SplitOutTabImages[0] = Resources.TypeSplit16_ETH_IN;
+            m_SplitOutTabImages[0] = Resources.TypeSplit16_ETH_OUT;
 
         }
 
+        /// <summary>
+        /// renvoie le speech de bienvenue du wizard
+        /// </summary>
+        /// <returns>speech d'intro</returns>
         public override string GetWelcomeSpeech()
         {
             string speech = Program.LangSys.C("Welcome to the Millenium 3 project wizard") +
                               "\n" +
-                              Program.LangSys.C("This wizard will help you to create a new project for ") +
+                              Program.LangSys.C("This wizard will help you to create a new project for") +
                               "\n" +
                               Program.LangSys.C("Millenium 3 supervision through TCP Modbus link using XN05 expansion module");
             return speech;
         }
 
+        /// <summary>
+        /// renvoie l'image affichée sur la page de bienvenue
+        /// </summary>
+        /// <returns>Image d'intro</returns>
         public override Image GetWelcomeImage()
         {
-            return Resources.WizardSLProject;
+            return Resources.WizardEthProject;
         }
+
+        /// <summary>
+        /// crée le résumé final du wizard en fonction de ce qui est configuré
+        /// </summary>
+        /// <returns>résume</returns>
         public override string CreateFinalSummury()
         {
             string resume = string.Empty;
@@ -87,7 +100,7 @@ namespace SmartApp.Wizards
                     }
                 }
                 resume += "\r\n" + Program.LangSys.C("(All will be included in a single function)");
-                resume += "\r\n" + Program.LangSys.C("A timer will be created for periodically reading SL out bloc");
+                resume += "\r\n" + Program.LangSys.C("A timer will be created for periodically reading Eth out bloc");
                 resume += "\r\n";
             }
             resume += "\r\n" + Program.LangSys.C("All datas corresponding to your configurations");

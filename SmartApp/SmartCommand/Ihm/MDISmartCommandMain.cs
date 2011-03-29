@@ -15,11 +15,7 @@ namespace SmartApp
 {
     public partial class MDISmartCommandMain : Form
     {
-#if KENNEN
-        private const string APP_TITLE = "Kennen";
-#else
         private const string APP_TITLE = "SmartCommand";
-#endif
 
         #region données membres
         protected TraceConsole m_TraceConsole;

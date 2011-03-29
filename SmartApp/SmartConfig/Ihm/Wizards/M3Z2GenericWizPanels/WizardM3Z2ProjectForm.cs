@@ -72,6 +72,7 @@ namespace SmartApp.Ihm.Wizards
         /// </summary>
         public WizardM3Z2ProjectForm(WizardConfigData WizCfgData)
         {
+            Program.LangSys.Initialize(this);
             m_WizConfigData = WizCfgData;
             InitializeComponent();
             // init des bouton du wizard
@@ -137,7 +138,7 @@ namespace SmartApp.Ihm.Wizards
         /// </summary>
         private void UpdatePrevNextBtnStates()
         {
-            if (m_CurrentStep == m_listWizPanel.Count)
+            if (m_CurrentStep == m_listWizPanel.Count-1)
                 btnNext.Text = Program.LangSys.C("Finish");
             else
                 btnNext.Text = Program.LangSys.C("Next");
@@ -199,25 +200,26 @@ namespace SmartApp.Ihm.Wizards
         /// <param name="e"></param>
         private void btnNext_Click(object sender, EventArgs e)
         {
-            if (m_CurrentStep < m_listWizPanel.Count)
+            if (m_CurrentStep < m_listWizPanel.Count-1)
             {
                 m_CurrentStep += 1;
                 StepMachine();
             }
             else
             {
-                // todo ==> generation de tout
                 DialogResult = DialogResult.OK;
             }
 
         }
 
+        /// <summary>
+        /// Appelé par la main frame pour la création des données du projet
+        /// </summary>
+        /// <param name="PrjCreator"></param>
         public void CreateAllFromWizardData(BaseM3Z2ProjectCreator PrjCreator)
         {
             PrjCreator.WizConfig = m_WizConfigData;
             PrjCreator.CreateProjectFromWizConfig();
         }
-
-
     }
 }

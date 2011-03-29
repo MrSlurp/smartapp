@@ -7,19 +7,33 @@ using CommonLib;
 
 namespace SmartApp.Wizards
 {
+
+    /// <summary>
+    /// classe de base pour la génération des projets issuent du wizard M3/Z2
+    /// </summary>
     public abstract class BaseM3Z2ProjectCreator
     {
+        /// <summary>
+        /// donnée de configuration du wizard
+        /// </summary>
         protected WizardConfigData m_WizConfig;
 
+        /// <summary>
+        /// document de l'application ou créer les objets
+        /// </summary>
         protected BTDoc m_Document;
 
+        /// <summary>
+        /// accesseur en assignation seul pour donner les données de configuration
+        /// au créateur de projet
+        /// </summary>
         public WizardConfigData WizConfig
         {
             set { m_WizConfig = value; }
         }
 
         /// <summary>
-        /// 
+        /// constructeur par défaut
         /// </summary>
         /// <param name="Document"></param>
         /// <param name="WizConfig"></param>
@@ -28,14 +42,19 @@ namespace SmartApp.Wizards
             m_Document = Document;
         }
 
+        /// <summary>
+        /// fonction chargé de la création de tout les objets configuré dans le wizard
+        /// </summary>
         public abstract void CreateProjectFromWizConfig();
 
         /// <summary>
-        /// 
+        /// crée et insert dans le docuement une fonction contenant les appels
+        /// d'envoie et de récéption des trames. Les trames doivent aller par deux 
+        /// (requête et retour) dans la collection des nom de trame
         /// </summary>
-        /// <param name="FuncName"></param>
-        /// <param name="FrameNames"></param>
-        /// <returns></returns>
+        /// <param name="FuncName">Nom de la fonction à créer</param>
+        /// <param name="FrameNames">Liste des symboles de trame</param>
+        /// <returns>le nom de la fonction crée</returns>
         protected string CreateFrameFunction(string FuncName, StringCollection FrameNames)
         {
             Function func = new Function();
@@ -82,36 +101,10 @@ namespace SmartApp.Wizards
         }
 
         /// <summary>
-        /// 
+        /// Crée le timer de lecture périodique des bloc de sortie supervision
         /// </summary>
-        /// <param name="Bloc"></param>
-        /// <returns></returns>
-        protected WIZ_SL_ADRESS_RANGE GetAddrRangeFromBloc(BlocConfig Bloc)
-        {
-            WIZ_SL_ADRESS_RANGE addrRange = WIZ_SL_ADRESS_RANGE.ADDR_1_8;
-            switch (Bloc.Indice)
-            {
-                case 0:
-                    addrRange = (Bloc.BlocType == BlocsType.IN) ? WIZ_SL_ADRESS_RANGE.ADDR_1_8 : WIZ_SL_ADRESS_RANGE.ADDR_25_32;
-                    break;
-                case 1:
-                    addrRange = (Bloc.BlocType == BlocsType.IN) ? WIZ_SL_ADRESS_RANGE.ADDR_9_16 : WIZ_SL_ADRESS_RANGE.ADDR_33_40;
-                    break;
-                case 2:
-                    addrRange = (Bloc.BlocType == BlocsType.IN) ? WIZ_SL_ADRESS_RANGE.ADDR_17_24 : WIZ_SL_ADRESS_RANGE.ADDR_41_48;
-                    break;
-                default:
-                    System.Diagnostics.Debug.Assert(false);
-                    break;
-            }
-            return addrRange;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="TimerName"></param>
-        /// <param name="functionName"></param>
+        /// <param name="TimerName">Nom du timer</param>
+        /// <param name="functionName">nom de la fonction contenant les lectures</param>
         protected void CreateReadSLOutTimer(string TimerName, string functionName)
         {
             BTTimer timer = new BTTimer();
@@ -153,7 +146,8 @@ namespace SmartApp.Wizards
         }
 
         /// <summary>
-        /// 
+        /// crée l'écran par défaut avec le script d'init qui relit les blocs
+        /// d'entrée supervision.
         /// </summary>
         /// <param name="screenName"></param>
         /// <param name="InitFunction"></param>

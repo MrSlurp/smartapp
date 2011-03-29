@@ -33,23 +33,36 @@ namespace SmartApp.Wizards
             m_SplitInTabImages[1] = Resources.TypeSplit4_SL_IN;
             m_SplitInTabImages[2] = Resources.TypeSplit2_SL_IN;
             m_SplitOutTabImages = new Image[1];
-            m_SplitOutTabImages[0] = Resources.TypeSplit16_SL_IN;
+            m_SplitOutTabImages[0] = Resources.TypeSplit16_SL_OUT;
         }
 
+        /// <summary>
+        /// renvoie le speech de bienvenue du wizard
+        /// </summary>
+        /// <returns>speech d'intro</returns>
         public override string GetWelcomeSpeech()
         {
             string speech = Program.LangSys.C("Welcome to the Millenium 3 project wizard") +
                               "\n" +
-                              Program.LangSys.C("This wizard will help you to create a new project for ") +
+                              Program.LangSys.C("This wizard will help you to create a new project for") +
                               "\n" +
                               Program.LangSys.C("Millenium 3 supervision through Serial (or USB) link");
             return speech;
         }
 
+        /// <summary>
+        /// renvoie l'image affichée sur la page de bienvenue
+        /// </summary>
+        /// <returns>Image d'intro</returns>
         public override Image GetWelcomeImage()
         {
             return Resources.WizardSLProject;
         }
+
+        /// <summary>
+        /// crée le résumé final du wizard en fonction de ce qui est configuré
+        /// </summary>
+        /// <returns>résume</returns>
         public override string CreateFinalSummury()
         {
             string resume = string.Empty;

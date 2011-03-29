@@ -8,15 +8,14 @@ using CommonLib;
 namespace SmartApp.Wizards
 {
     /// <summary>
-    /// 
+    /// classe spécifique de génération de projet ETH M3
     /// </summary>
     public class ETHM3ProjectCreator : BaseM3Z2ProjectCreator
     {
         /// <summary>
-        /// 
+        /// constructeur par défaut
         /// </summary>
-        /// <param name="Document"></param>
-        /// <param name="WizConfig"></param>
+        /// <param name="Document">document dans lequel créer les objets</param>
         public ETHM3ProjectCreator(BTDoc Document):
             base(Document)
         {
@@ -24,7 +23,7 @@ namespace SmartApp.Wizards
         }
 
         /// <summary>
-        /// 
+        /// fonction chargé de la création de tout les objets configuré dans le wizard
         /// </summary>
         public override void CreateProjectFromWizConfig()
         {
@@ -45,8 +44,15 @@ namespace SmartApp.Wizards
             CreateDefaultScreen("MAIN_SCREEN", readETHInFunc);
         }
 
+        /// <summary>
+        /// crée les trames TCP modbus en fonction de ce qui est utilisé.
+        /// </summary>
+        /// <param name="blocConfig">blocs à lire/écrire</param>
+        /// <param name="bWrite">indique si c'est pour une requête de lecture ou d'écriture</param>
+        /// <param name="FrameNames">nom des trames crées</param>
         private void CreateMBFramesForBlocs(BlocConfig[] blocConfig, bool bWrite, ref StringCollection FrameNames)
         {
+            // pour le modbus on fait en sorte de gérer les blocs consécutifs (tables)
             List<List<BlocConfig>> TabConsecBloc = new List<List<BlocConfig>>();
             List<BlocConfig> tmpList = new List<BlocConfig>();
             for (int i = 0; i < blocConfig.Length; i++)
@@ -65,6 +71,7 @@ namespace SmartApp.Wizards
             }
             TabConsecBloc.Add(tmpList);
 
+            // pour chaque table de bloc consécutifs
             for (int iConsecBloc = 0; iConsecBloc < TabConsecBloc.Count; iConsecBloc++)
             {
                 List<BlocConfig> CurList = TabConsecBloc[iConsecBloc];

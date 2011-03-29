@@ -7,16 +7,23 @@ using CommonLib;
 
 namespace SmartApp.Wizards
 {
+
+    /// <summary>
+    /// classe spécifique de génération de projet SL M3
+    /// </summary>
     public class SLM3ProjectCreator : BaseM3Z2ProjectCreator
     {
-
+        /// <summary>
+        /// constructeur par défaut
+        /// </summary>
+        /// <param name="Document"></param>
         public SLM3ProjectCreator(BTDoc Document):
             base(Document)
         {
         }
 
         /// <summary>
-        /// 
+        /// fonction chargé de la création de tout les objets configuré dans le wizard
         /// </summary>
         public override void CreateProjectFromWizConfig()
         {
@@ -47,11 +54,11 @@ namespace SmartApp.Wizards
         }
 
         /// <summary>
-        /// 
+        /// crée les trames liaison série en fonction de ce qui est utilisé.
         /// </summary>
-        /// <param name="Bloc"></param>
-        /// <param name="bWrite"></param>
-        /// <param name="FrameNames"></param>
+        /// <param name="Bloc">bloc à lire/écrire</param>
+        /// <param name="bWrite">indique si c'est pour une requête de lecture ou d'écriture</param>
+        /// <param name="FrameNames">nom des trames crées</param>
         private void CreateSLFrames(BlocConfig Bloc, bool bWrite, ref StringCollection FrameNames)
         {
             string slBlocName = Bloc.Name.Replace(' ', '_').ToUpper();
@@ -85,6 +92,32 @@ namespace SmartApp.Wizards
                 Frame2Datas = WizardFrameGenerator.GenerateM3RespReqReadSLFrameDatas(retFrameName, addrRange, UserDataList);
             Trame Frame2 = WizardFrameGenerator.CreateM3FrameObject(retFrameName, Frame2Datas);
             WizardFrameGenerator.InsertFrameInDoc(m_Document, Frame2, Frame2Datas);
+        }
+
+        /// <summary>
+        /// renvoie l'adresse des bloc Liaison série en fonction du bloc
+        /// </summary>
+        /// <param name="Bloc">bloc pour lequel on souhaite récupérer l'adresse</param>
+        /// <returns>l'adresse SL</returns>
+        protected WIZ_SL_ADRESS_RANGE GetAddrRangeFromBloc(BlocConfig Bloc)
+        {
+            WIZ_SL_ADRESS_RANGE addrRange = WIZ_SL_ADRESS_RANGE.ADDR_1_8;
+            switch (Bloc.Indice)
+            {
+                case 0:
+                    addrRange = (Bloc.BlocType == BlocsType.IN) ? WIZ_SL_ADRESS_RANGE.ADDR_1_8 : WIZ_SL_ADRESS_RANGE.ADDR_25_32;
+                    break;
+                case 1:
+                    addrRange = (Bloc.BlocType == BlocsType.IN) ? WIZ_SL_ADRESS_RANGE.ADDR_9_16 : WIZ_SL_ADRESS_RANGE.ADDR_33_40;
+                    break;
+                case 2:
+                    addrRange = (Bloc.BlocType == BlocsType.IN) ? WIZ_SL_ADRESS_RANGE.ADDR_17_24 : WIZ_SL_ADRESS_RANGE.ADDR_41_48;
+                    break;
+                default:
+                    System.Diagnostics.Debug.Assert(false);
+                    break;
+            }
+            return addrRange;
         }
     }
 }

@@ -25,6 +25,9 @@ namespace SmartApp.Wizards
         /// </summary>
         private string m_IOName = string.Empty;
 
+        /// <summary>
+        /// nom court de l'ES
+        /// </summary>
         private string m_ShortName = string.Empty;
 
 
@@ -64,6 +67,10 @@ namespace SmartApp.Wizards
             get { return m_ShortName; }
         }
 
+        /// <summary>
+        /// Liste des symboles par défaut ou utilisateur qui se trouvent dans l'ES
+        /// (un seul si pas de split, sinon autant qu'il y a de sous donnée)
+        /// </summary>
         public StringCollection ListSymbol
         {
             get { return m_ListSymbol; }

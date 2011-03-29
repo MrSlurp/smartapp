@@ -70,7 +70,7 @@ namespace SmartApp.Ihm.Wizards
             // 
             this.colSLBloc.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.colSLBloc.Frozen = true;
-            this.colSLBloc.HeaderText = "SL Bloc";
+            this.colSLBloc.HeaderText = "Bloc";
             this.colSLBloc.MinimumWidth = 120;
             this.colSLBloc.Name = "colSLBloc";
             this.colSLBloc.ReadOnly = true;
@@ -100,12 +100,13 @@ namespace SmartApp.Ihm.Wizards
             // 
             // lblTitle
             // 
-            this.lblTitle.AutoSize = true;
+            this.lblTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTitle.Location = new System.Drawing.Point(3, 0);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(35, 13);
+            this.lblTitle.Size = new System.Drawing.Size(502, 38);
             this.lblTitle.TabIndex = 2;
-            this.lblTitle.Text = "label1";
+            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblTypeSplit1
             // 
@@ -194,14 +195,14 @@ namespace SmartApp.Ihm.Wizards
 
         private System.Windows.Forms.DataGridView m_dataGrid;
         private System.Windows.Forms.Label lblTitle;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colSLBloc;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colIO;
-        private System.Windows.Forms.DataGridViewComboBoxColumn colSplitType;
         private System.Windows.Forms.Label lblTypeSplit1;
         private System.Windows.Forms.PictureBox picTypeSplit1;
         private System.Windows.Forms.Label lblTypeSplit2;
         private System.Windows.Forms.PictureBox picTypeSplit2;
         private System.Windows.Forms.Label lblTypeSplit3;
         private System.Windows.Forms.PictureBox picTypeSplit3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colSLBloc;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colIO;
+        private System.Windows.Forms.DataGridViewComboBoxColumn colSplitType;
     }
 }

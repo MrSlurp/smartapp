@@ -44,9 +44,9 @@ namespace SmartApp.Ihm.Wizards
                 else
                 {
                     if (m_TypeBlocConfigured == BlocsType.IN)
-                        lblTitle.Text = Program.LangSys.C("Here you can configure symbols for your inputs blocs outputs");
+                        lblTitle.Text = Program.LangSys.C("Here you can configure symbols for your inputs blocs datas");
                     else
-                        lblTitle.Text = Program.LangSys.C("Here you can configure symbols for your output blocs inputs");
+                        lblTitle.Text = Program.LangSys.C("Here you can configure symbols for your outputs blocs datas");
 
                     m_dataGrid.Enabled = true;
                 }

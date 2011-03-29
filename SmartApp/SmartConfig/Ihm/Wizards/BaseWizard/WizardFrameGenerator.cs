@@ -8,12 +8,18 @@ using CommonLib;
 
 namespace SmartApp.Wizards
 {
+    /// <summary>
+    /// type de registre modbus
+    /// </summary>
     public enum TCPMODBUS_REG_TYPE
     {
         INPUT_REGISTER,
         OUTPUT_REGISTER,
     }
 
+    /// <summary>
+    /// commandes modbus
+    /// </summary>
     public enum MODBUS_ORDER_TYPE
     {
         WRITE_SINGLE_REGISTER = 0x06,
@@ -21,18 +27,27 @@ namespace SmartApp.Wizards
         WRITE_MULTIPLE_REGISTER =0x10,
     }
 
+    /// <summary>
+    /// type de bloc liaison série
+    /// </summary>
     public enum WIZ_SL_FRAME_TYPE
     {
         SL_INPUT_BLOC,
         SL_OUTPUT_BLOC,
     }
 
+    /// <summary>
+    /// ordre SL link
+    /// </summary>
     public enum WIZ_SL_ORDER_TYPE
     {
         READ,
         WRITE,
     }
 
+    /// <summary>
+    /// plages d'adresses SL
+    /// </summary>
     public enum WIZ_SL_ADRESS_RANGE
     {
         // les valeurs correspondent aux adresse des bloc SL
@@ -47,12 +62,15 @@ namespace SmartApp.Wizards
 
     public static partial class WizardFrameGenerator
     {
-        //*****************************************************************************************************
-        // Description: cette fonction effectue l'insertion d''une trame dans le document
-        // la trame doit être configuré avec les bon paramètres et sa liste des donnée doit être vide
-        // elle sera remplie dans cette fonction
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// cette fonction effectue l'insertion d''une trame dans le document
+        /// la trame doit être configuré avec les bon paramètres et sa liste des donnée doit être vide
+        /// elle sera remplie dans cette fonction
+        /// </summary>
+        /// <param name="Doc">Docuement ou la trame sera insérée</param>
+        /// <param name="tr">trame à insérer</param>
+        /// <param name="ListFrameDatas">liste des donnée de la trame</param>
+        /// <returns>true si tout s'est bien passé</returns>
         static public bool InsertFrameInDoc(BTDoc Doc, Trame tr, ArrayList ListFrameDatas)
         {
             #region création des listes des données 
