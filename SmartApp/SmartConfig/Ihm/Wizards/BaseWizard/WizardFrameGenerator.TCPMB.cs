@@ -25,8 +25,22 @@ namespace SmartApp.Wizards
 
             FrameDataList.Add(new Data("TRANSACTION_ID", 1, 16, true));
             FrameDataList.Add(new Data("PROTOCO_ID", 0, 16, true));
-            string strFollowingByte = string.Format("FOLLOWING_{0}_BYTES", NbOfRegisters*2 + 4);
-            FrameDataList.Add(new Data(strFollowingByte, NbOfRegisters*2 + 4, 16, true));
+            string strFollowingByte = string.Empty;
+            int ByteCount = 0;
+            if (WriteOrder == MODBUS_ORDER_TYPE.WRITE_MULTIPLE_REGISTER)
+            {
+                ByteCount = NbOfRegisters * 2 + 7;
+            }
+            else if (WriteOrder == MODBUS_ORDER_TYPE.WRITE_SINGLE_REGISTER)
+            {
+                ByteCount = NbOfRegisters * 2 + 4;
+            }
+            else
+                System.Diagnostics.Debug.Assert(false);
+
+            strFollowingByte = string.Format("FOLLOWING_{0}_BYTES", ByteCount);
+
+            FrameDataList.Add(new Data(strFollowingByte, ByteCount, 16, true));
             FrameDataList.Add(new Data("MODBUS_SLAVE_ADDR", 1, 8, true));
             if (WriteOrder == MODBUS_ORDER_TYPE.WRITE_MULTIPLE_REGISTER)
             {

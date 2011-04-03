@@ -237,6 +237,9 @@ namespace CtrlDataGrid
             this.m_Grid.Location = new System.Drawing.Point(0, 0);
             this.m_Grid.Name = "m_Grid";
             this.m_Grid.TabIndex = 0;
+            this.m_Grid.AllowUserToAddRows = false;
+            this.m_Grid.AllowUserToDeleteRows = false;
+            this.m_Grid.AllowUserToOrderColumns = false;
             this.Controls.Add(this.m_Grid);
             this.ResumeLayout(false);
         }

@@ -525,7 +525,7 @@ namespace CommonLib
                     if (ClientSocket.Connected == true)
                     {
                         
-                        if (ClientSocket.Poll(100, SelectMode.SelectRead) && ClientSocket.Available == 0)
+                        if (ClientSocket.Poll(10000, SelectMode.SelectRead) && ClientSocket.Available == 0)
                         {
                             Stop();
                         }

@@ -564,6 +564,7 @@ namespace SmartApp.Ihm
             m_MenuItemTCPMBWiz.Enabled = true;
             m_MenuItemZ2SLWiz.Enabled = true;
             tsmi3SLProjectWizard.Enabled = false;
+            tsmi3XN05ProjectWizard.Enabled = false;
             m_Document.UpdateDocumentFrame += new NeedRefreshHMI(OnNeedUpdateHMI);
             m_Document.OnDocumentModified += new DocumentModifiedEvent(UpdateModifiedFlag);
             UpdateFileCommand(null, null);
@@ -588,6 +589,7 @@ namespace SmartApp.Ihm
             m_MenuItemZ2SLWiz.Enabled = false;
             m_MenuItemTCPMBWiz.Enabled = false;
             tsmi3SLProjectWizard.Enabled = true;
+            tsmi3XN05ProjectWizard.Enabled = true;
             m_Document = null;
             SaveFormsPos();
             UpdateFileCommand(null, null);
@@ -866,9 +868,12 @@ namespace SmartApp.Ihm
         {
             if (m_Document != null)
             {
+                // si le document n'est pas sauvegardé, on demande de le faire
                 if (string.IsNullOrEmpty(m_Document.FileName))
                     OnSaveAsClick();
-                else
+
+                // on vérifie si il a été sauvegardé
+                if (!string.IsNullOrEmpty(m_Document.FileName))
                 {
                     m_Document.WriteConfigDocument(false);
                     m_Document.Modified = false;

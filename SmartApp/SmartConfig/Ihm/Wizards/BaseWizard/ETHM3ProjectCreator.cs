@@ -75,6 +75,8 @@ namespace SmartApp.Wizards
             for (int iConsecBloc = 0; iConsecBloc < TabConsecBloc.Count; iConsecBloc++)
             {
                 List<BlocConfig> CurList = TabConsecBloc[iConsecBloc];
+                if (CurList.Count == 0)
+                    continue;
                 M3XN05BlocConfig FirstBloc = CurList[0] as M3XN05BlocConfig;
                 M3XN05BlocConfig LasttBloc = CurList[CurList.Count - 1] as M3XN05BlocConfig;
                 string FrameBaseName = "XN05";
@@ -104,20 +106,20 @@ namespace SmartApp.Wizards
 
                 if (!bWrite)
                 {
-                    Frame1Data = WizardFrameGenerator.GenerateTCPMBReqReadFrameDatas(FrameName, mbOrder, FirstBloc.MbRegAddr, FirstBloc.MbRegAddr - LasttBloc.MbRegAddr, UserDataList);
-                    Frame2Data = WizardFrameGenerator.GenerateTCPMBRespReqReadFrameDatas(retFrameName, mbOrder, FirstBloc.MbRegAddr, FirstBloc.MbRegAddr - LasttBloc.MbRegAddr, UserDataList);
+                    Frame1Data = WizardFrameGenerator.GenerateTCPMBReqReadFrameDatas(FrameName, mbOrder, FirstBloc.MbRegAddr, CurList.Count, UserDataList);
+                    Frame2Data = WizardFrameGenerator.GenerateTCPMBRespReqReadFrameDatas(retFrameName, mbOrder, FirstBloc.MbRegAddr, CurList.Count, UserDataList);
                 }
                 else
                 {
                     if (mbOrder == MODBUS_ORDER_TYPE.WRITE_MULTIPLE_REGISTER)
                     {
-                        Frame1Data = WizardFrameGenerator.GenerateTCPMBWriteFrameDatas(FrameName, mbOrder, FirstBloc.MbRegAddr, FirstBloc.MbRegAddr - LasttBloc.MbRegAddr, UserDataList);
-                        Frame2Data = WizardFrameGenerator.GenerateTCPMBRespWriteMRFrameDatas(retFrameName, mbOrder, FirstBloc.MbRegAddr, FirstBloc.MbRegAddr - LasttBloc.MbRegAddr, UserDataList);
+                        Frame1Data = WizardFrameGenerator.GenerateTCPMBWriteFrameDatas(FrameName, mbOrder, FirstBloc.MbRegAddr, CurList.Count, UserDataList);
+                        Frame2Data = WizardFrameGenerator.GenerateTCPMBRespWriteMRFrameDatas(retFrameName, mbOrder, FirstBloc.MbRegAddr, CurList.Count, UserDataList);
                     }
                     else
                     {
-                        Frame1Data = WizardFrameGenerator.GenerateTCPMBWriteFrameDatas(FrameName, mbOrder, FirstBloc.MbRegAddr, FirstBloc.MbRegAddr - LasttBloc.MbRegAddr, UserDataList);
-                        Frame2Data = WizardFrameGenerator.GenerateTCPMBWriteFrameDatas(retFrameName, mbOrder, FirstBloc.MbRegAddr, FirstBloc.MbRegAddr - LasttBloc.MbRegAddr, UserDataList);
+                        Frame1Data = WizardFrameGenerator.GenerateTCPMBWriteFrameDatas(FrameName, mbOrder, FirstBloc.MbRegAddr, CurList.Count, UserDataList);
+                        Frame2Data = WizardFrameGenerator.GenerateTCPMBWriteFrameDatas(retFrameName, mbOrder, FirstBloc.MbRegAddr, CurList.Count, UserDataList);
                     }
                 }
                 tr1 = WizardFrameGenerator.CreateTCPMBFrameObject(FrameName, Frame1Data);

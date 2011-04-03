@@ -228,7 +228,8 @@ namespace CommonLib
                         if (Traces.IsDebugAndCatOK(TraceCat.ExecuteFunc))
                             Traces.LogAddDebug(TraceCat.ExecuteFunc,
                                                string.Format("Executing func {0}", QuickScript[i].m_Arguments[0].Symbol));
-                        InternalExecuteScript(Id);
+                        if (Id != 0) //un ID a 0 signifie que le script est vide
+                            InternalExecuteScript(Id);
                         break;
                     case SCR_OBJECT.LOGIC:
                         QuickExecuteLogic(QuickScript[i]);
@@ -302,7 +303,19 @@ namespace CommonLib
                 if (m_Document.m_Comm.CommType == TYPE_COMM.VIRTUAL)
                     m_Document.m_Comm.SendData(tr, m_Document.GestData, m_Document.GestDataVirtual);
                 else
+                {
+                    string strmess = string.Format(Lang.LangSys.C("Frame {0} sent"), tr.Symbol);
+                    if (Traces.IsDebugAndCatOK(TraceCat.ExecuteFrame))
+                    {
+                        string strSendData = string.Empty;
+                        for (int i = 0; i < buffer.Length; i++)
+                        {
+                            strSendData += string.Format(" {0:x2}", buffer[i]);
+                        }
+                        Traces.LogAddDebug(TraceCat.ExecuteFrame, string.Format("Frame datas {0}", strSendData));
+                    }
                     m_Document.m_Comm.SendData(buffer);
+                }
             }
             else
             {
