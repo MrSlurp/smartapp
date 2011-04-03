@@ -85,7 +85,7 @@ namespace SmartApp.Wizards
 
             if (HaveIOTypeUsed(BlocsType.OUT))
             {
-                resume += Program.LangSys.C("Frames for read:") + "r\n";
+                resume += Program.LangSys.C("Frames for read:") + "\r\n";
                 BlocConfig[] InCfg = GetBlocListByType(BlocsType.OUT);
                 for (int i = 0; i < InCfg.Length; i++)
                 {
