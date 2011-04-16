@@ -41,6 +41,8 @@ namespace CtrlDemux
             this.btnRemove = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.btnMoveDown = new System.Windows.Forms.Button();
+            this.btnMoveUp = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -58,7 +60,7 @@ namespace CtrlDemux
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.edtAddrData.Location = new System.Drawing.Point(12, 26);
             this.edtAddrData.Name = "edtAddrData";
-            this.edtAddrData.Size = new System.Drawing.Size(231, 20);
+            this.edtAddrData.Size = new System.Drawing.Size(275, 20);
             this.edtAddrData.TabIndex = 1;
             // 
             // label2
@@ -76,13 +78,13 @@ namespace CtrlDemux
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.edtValueData.Location = new System.Drawing.Point(12, 70);
             this.edtValueData.Name = "edtValueData";
-            this.edtValueData.Size = new System.Drawing.Size(231, 20);
+            this.edtValueData.Size = new System.Drawing.Size(275, 20);
             this.edtValueData.TabIndex = 1;
             // 
             // btnPickAddr
             // 
             this.btnPickAddr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPickAddr.Location = new System.Drawing.Point(249, 24);
+            this.btnPickAddr.Location = new System.Drawing.Point(293, 24);
             this.btnPickAddr.Name = "btnPickAddr";
             this.btnPickAddr.Size = new System.Drawing.Size(69, 23);
             this.btnPickAddr.TabIndex = 2;
@@ -93,7 +95,7 @@ namespace CtrlDemux
             // btnPickValue
             // 
             this.btnPickValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPickValue.Location = new System.Drawing.Point(249, 68);
+            this.btnPickValue.Location = new System.Drawing.Point(293, 68);
             this.btnPickValue.Name = "btnPickValue";
             this.btnPickValue.Size = new System.Drawing.Size(69, 23);
             this.btnPickValue.TabIndex = 2;
@@ -115,7 +117,7 @@ namespace CtrlDemux
             this.m_listViewData.Location = new System.Drawing.Point(12, 126);
             this.m_listViewData.MultiSelect = false;
             this.m_listViewData.Name = "m_listViewData";
-            this.m_listViewData.Size = new System.Drawing.Size(306, 199);
+            this.m_listViewData.Size = new System.Drawing.Size(350, 199);
             this.m_listViewData.TabIndex = 9;
             this.m_listViewData.UseCompatibleStateImageBehavior = false;
             this.m_listViewData.View = System.Windows.Forms.View.Details;
@@ -145,7 +147,7 @@ namespace CtrlDemux
             // btnRemove
             // 
             this.btnRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRemove.Location = new System.Drawing.Point(216, 97);
+            this.btnRemove.Location = new System.Drawing.Point(260, 97);
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Size = new System.Drawing.Size(102, 23);
             this.btnRemove.TabIndex = 10;
@@ -168,12 +170,34 @@ namespace CtrlDemux
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(241, 331);
+            this.btnCancel.Location = new System.Drawing.Point(285, 331);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 11;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
+            // 
+            // btnMoveDown
+            // 
+            this.btnMoveDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnMoveDown.Location = new System.Drawing.Point(94, 331);
+            this.btnMoveDown.Name = "btnMoveDown";
+            this.btnMoveDown.Size = new System.Drawing.Size(87, 23);
+            this.btnMoveDown.TabIndex = 12;
+            this.btnMoveDown.Text = "Move Down";
+            this.btnMoveDown.UseVisualStyleBackColor = true;
+            this.btnMoveDown.Click += new System.EventHandler(this.btnMoveDown_Click);
+            // 
+            // btnMoveUp
+            // 
+            this.btnMoveUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnMoveUp.Location = new System.Drawing.Point(187, 331);
+            this.btnMoveUp.Name = "btnMoveUp";
+            this.btnMoveUp.Size = new System.Drawing.Size(87, 23);
+            this.btnMoveUp.TabIndex = 12;
+            this.btnMoveUp.Text = "Move Up";
+            this.btnMoveUp.UseVisualStyleBackColor = true;
+            this.btnMoveUp.Click += new System.EventHandler(this.btnMoveUp_Click);
             // 
             // DemuxConfigForm
             // 
@@ -181,7 +205,9 @@ namespace CtrlDemux
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(328, 366);
+            this.ClientSize = new System.Drawing.Size(372, 366);
+            this.Controls.Add(this.btnMoveUp);
+            this.Controls.Add(this.btnMoveDown);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.btnRemove);
@@ -193,10 +219,10 @@ namespace CtrlDemux
             this.Controls.Add(this.label2);
             this.Controls.Add(this.edtAddrData);
             this.Controls.Add(this.label1);
-            this.MinimumSize = new System.Drawing.Size(270, 400);
+            this.MinimumSize = new System.Drawing.Size(380, 400);
             this.Name = "DemuxConfigForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Demux Configuration";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -218,5 +244,7 @@ namespace CtrlDemux
         private System.Windows.Forms.Button btnRemove;
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnMoveDown;
+        private System.Windows.Forms.Button btnMoveUp;
     }
 }

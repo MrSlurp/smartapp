@@ -168,5 +168,38 @@ namespace CtrlDemux
                 }
             }
         }
+
+        private void btnMoveDown_Click(object sender, EventArgs e)
+        {
+            ListViewItem lviData = null;
+            if (m_listViewData.SelectedItems.Count > 0)
+                lviData = m_listViewData.SelectedItems[0];
+            if (lviData != null)
+            {
+                int idx = lviData.Index;
+                if (idx < m_listViewData.Items.Count - 2)
+                {
+                    m_listViewData.Items.Remove(lviData);
+                    m_listViewData.Items.Insert(idx + 1, lviData);
+                }
+            }
+
+        }
+
+        private void btnMoveUp_Click(object sender, EventArgs e)
+        {
+            ListViewItem lviData = null;
+            if (m_listViewData.SelectedItems.Count > 0)
+                lviData = m_listViewData.SelectedItems[0];
+            if (lviData != null)
+            {
+                int idx = lviData.Index;
+                if (idx > 0 )
+                {
+                    m_listViewData.Items.Remove(lviData);
+                    m_listViewData.Items.Insert(idx - 1, lviData);
+                }
+            }
+        }
     }
 }
