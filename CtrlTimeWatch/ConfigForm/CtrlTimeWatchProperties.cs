@@ -123,19 +123,19 @@ namespace CtrlTimeWatch
 
             Data dt = null;
             dt = (Data)this.Doc.GestData.GetFromSymbol(this.edtHours.Text);
-            if (dt == null)
+            if (dt == null && !string.IsNullOrEmpty(this.edtHours.Text))
             {
                 bRet = false;
                 strMessage = string.Format(DllEntryClass.LangSys.C("Associate data {0} is not valid"), this.edtHours.Text);
             }
             dt = (Data)this.Doc.GestData.GetFromSymbol(this.edtMinutes.Text);
-            if (dt == null)
+            if (dt == null && !string.IsNullOrEmpty(this.edtMinutes.Text))
             {
                 bRet = false;
                 strMessage = string.Format(DllEntryClass.LangSys.C("Associate data {0} is not valid"), this.edtMinutes.Text);
             }
             dt = (Data)this.Doc.GestData.GetFromSymbol(this.edtSeconds.Text);
-            if (dt == null)
+            if (dt == null && !string.IsNullOrEmpty(this.edtSeconds.Text))
             {
                 bRet = false;
                 strMessage = string.Format(DllEntryClass.LangSys.C("Associate data {0} is not valid"), this.edtSeconds.Text);

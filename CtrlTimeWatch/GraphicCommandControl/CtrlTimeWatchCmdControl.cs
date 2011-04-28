@@ -101,7 +101,7 @@ namespace CtrlTimeWatch
             if (!string.IsNullOrEmpty(prop.DataHours))
             {
                 m_AssocDataHours = (Data)Doc.GestData.GetFromSymbol(prop.DataHours);
-                if (m_AssocDataHours == null)
+                if (m_AssocDataHours == null && !string.IsNullOrEmpty(prop.DataHours))
                 {
                     return false;
                 }
@@ -109,7 +109,7 @@ namespace CtrlTimeWatch
             if (!string.IsNullOrEmpty(prop.DataMinutes))
             {
                 m_AssocDataMinutes = (Data)Doc.GestData.GetFromSymbol(prop.DataMinutes);
-                if (m_AssocDataMinutes == null)
+                if (m_AssocDataMinutes == null && !string.IsNullOrEmpty(prop.DataMinutes))
                 {
                     return false;
                 }
@@ -117,7 +117,7 @@ namespace CtrlTimeWatch
             if (!string.IsNullOrEmpty(prop.DataSecond))
             {
                 m_AssocDataSecond = (Data)Doc.GestData.GetFromSymbol(prop.DataSecond);
-                if (m_AssocDataSecond == null)
+                if (m_AssocDataSecond == null && !string.IsNullOrEmpty(prop.DataSecond))
                 {
                     return false;
                 }
