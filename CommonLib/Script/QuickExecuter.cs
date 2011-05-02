@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Text;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace CommonLib
 {
@@ -39,6 +40,12 @@ namespace CommonLib
         bool m_bPreParsedDone = false;
 
         private int m_iQuickIdCounter = 1;
+
+        private Thread m_ExecutionThread;
+
+        private bool m_bStopRequested = false;
+
+        private Mutex m_QueueMutex = new Mutex();
         #endregion
 
         #region events
@@ -47,13 +54,20 @@ namespace CommonLib
         #endregion
 
         #region cosntructeur / destructeur
+        /// <summary>
+        /// constructeur par défaut de la classe
+        /// </summary>
         public QuickExecuter()
         {
-            EvScriptToExecute += new ScriptAddedToExecute(ScriptExecuter_EvScriptToExecute);
+            //EvScriptToExecute += new ScriptAddedToExecute(ScriptExecuter_EvScriptToExecute);
             nbinstanceexecuter++;
             m_PreParser.EventAddLogEvent += new AddLogEventDelegate(AddLogEvent);
+            m_ExecutionThread = new Thread(ThreadScriptExecution);
         }
 
+        /// <summary>
+        /// destructeur
+        /// </summary>
         ~QuickExecuter()
         {
             nbinstanceexecuter--;
@@ -61,7 +75,28 @@ namespace CommonLib
         #endregion
 
         /// <summary>
-        /// 
+        /// traite les message d'application
+        /// </summary>
+        /// <param name="Mess">Type de message</param>
+        /// <param name="Param">paramètres du message</param>
+        /// <param name="TypeApp">type d'application en cours</param>
+        public void TraiteMessage(MESSAGE Mess, object Param, TYPE_APP TypeApp)
+        {
+            switch (Mess)
+            {
+                // lors du RUN on démarre le thread de traitement de la pile des scripts
+                case MESSAGE.MESS_CMD_RUN:
+                    m_ExecutionThread.Start();
+                    break;
+                // lors du STOP, on demande au thread de s'arrêter
+                case MESSAGE.MESS_CMD_STOP:
+                    m_bStopRequested = true;
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// indique si le pré parsing est fait
         /// </summary>
         public bool PreParsedDone
         {
@@ -77,7 +112,7 @@ namespace CommonLib
 
         #region fonction diverses
         /// <summary>
-        /// 
+        /// Ajout un évènement de log
         /// </summary>
         /// <param name="Event"></param>
         public void AddLogEvent(LogEvent Event)
@@ -157,38 +192,47 @@ namespace CommonLib
 
         #region execution
         /// <summary>
-        /// 
+        /// thread d'éxecution du script
         /// </summary>
-        internal void ScriptExecuter_EvScriptToExecute()
+        internal void ThreadScriptExecution()
         {
-            CommonLib.PerfChrono theChrono = new PerfChrono();
-            while (m_PileScriptsToExecute.Count != 0)
+            do
             {
-                // on prend le script sans l'enlever afin de savoir qu'il n'est pas encore executé
-                int QuickId = m_PileScriptsToExecute.Peek();
-                if (m_bIsWaiting)
-                    System.Diagnostics.Debug.Assert(false, "appel en trop");
+                CommonLib.PerfChrono theChrono = new PerfChrono();
+                while (m_PileScriptsToExecute.Count != 0)
+                {
+                    // on prend le script sans l'enlever afin de savoir qu'il n'est pas encore executé
+                    m_QueueMutex.WaitOne();
+                    int QuickId = m_PileScriptsToExecute.Peek();
+                    if (m_bIsWaiting)
+                        System.Diagnostics.Debug.Assert(false, "appel en trop");
 
-                InternalExecuteScript(QuickId);
-                // il est éxécuté, on l'enlève de la liste.
-                m_PileScriptsToExecute.Dequeue();
-            }
-            theChrono.EndMeasure("ScriptExecuter");
+                    InternalExecuteScript(QuickId);
+                    // il est éxécuté, on l'enlève de la liste.
+                    m_PileScriptsToExecute.Dequeue();
+                    m_QueueMutex.ReleaseMutex();
+                }
+                theChrono.EndMeasure("ScriptExecuter");
+                Thread.Sleep(10);
+            } while (!m_bStopRequested);
+            m_bStopRequested = false;
         }
 
         /// <summary>
-        /// 
+        /// ajoute le script dont l'id est passé en paramètre à la fifo de script.
         /// </summary>
         /// <param name="QuickID"></param>
         public void ExecuteScript(int QuickID)
         {
             if (m_DictioQuickScripts.ContainsKey(QuickID))
             {
+                m_QueueMutex.WaitOne();
                 m_PileScriptsToExecute.Enqueue(QuickID);
-                if (m_PileScriptsToExecute.Count > 1)
-                    return;
-                if (EvScriptToExecute != null)
-                    EvScriptToExecute();
+                //if (m_PileScriptsToExecute.Count > 1)
+                //    return;
+                m_QueueMutex.ReleaseMutex();
+                //if (EvScriptToExecute != null)
+                    //EvScriptToExecute();
             }
 #if DEBUG
             else
@@ -204,7 +248,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// 
+        /// execute le script dont l'ID est passé en paramètre
         /// </summary>
         /// <param name="QuickID"></param>
         internal void InternalExecuteScript(int QuickID)
@@ -246,7 +290,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// 
+        /// Execute une FUNCTION
         /// </summary>
         /// <param name="QuickScript"></param>
         internal void QuickExecuteFunc(PreParsedLine QuickScript)
@@ -289,7 +333,7 @@ namespace CommonLib
 
         #region execution des trames
         /// <summary>
-        /// 
+        /// Execute l'envoie d'une trame
         /// </summary>
         /// <param name="tr"></param>
         internal void QuickExecuteSendFrame(Trame tr)
@@ -325,7 +369,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// 
+        /// Execute la récéption d'une trame
         /// </summary>
         /// <param name="TrameToRecieve"></param>
         internal void QuickExecuteRecieveFrame(Trame TrameToRecieve)
@@ -385,7 +429,7 @@ namespace CommonLib
 
         #region fonction maths
         /// <summary>
-        /// 
+        /// Execute les fonction mathématiques
         /// </summary>
         /// <param name="QuickScript"></param>
         internal void QuickExecuteMaths(PreParsedLine QuickScript)
@@ -411,11 +455,11 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// 
+        /// Execute une addition
         /// </summary>
-        /// <param name="Result"></param>
-        /// <param name="Operator1"></param>
-        /// <param name="Operator2"></param>
+        /// <param name="Result">donnée de sortie de l'opération</param>
+        /// <param name="Operator1">premier opérateur de l'opération</param>
+        /// <param name="Operator2">second opérateur de l'opération</param>
         internal void ExecuteMathAdd(Data Result, Data Operator1, Data Operator2)
         {
             string opsValues = string.Empty;
@@ -427,11 +471,11 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// 
+        /// exécute une soustraction
         /// </summary>
-        /// <param name="Result"></param>
-        /// <param name="Operator1"></param>
-        /// <param name="Operator2"></param>
+        /// <param name="Result">donnée de sortie de l'opération</param>
+        /// <param name="Operator1">premier opérateur de l'opération</param>
+        /// <param name="Operator2">second opérateur de l'opération</param>
         internal void ExecuteMathSub(Data Result, Data Operator1, Data Operator2)
         {
             string opsValues = string.Empty;
@@ -443,11 +487,11 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// 
+        /// exécute une multiplication
         /// </summary>
-        /// <param name="Result"></param>
-        /// <param name="Operator1"></param>
-        /// <param name="Operator2"></param>
+        /// <param name="Result">donnée de sortie de l'opération</param>
+        /// <param name="Operator1">premier opérateur de l'opération</param>
+        /// <param name="Operator2">second opérateur de l'opération</param>
         protected void ExecuteMathMul(Data Result, Data Operator1, Data Operator2)
         {
             string opsValues = string.Empty;
@@ -459,11 +503,11 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// 
+        /// exécute une division
         /// </summary>
-        /// <param name="Result"></param>
-        /// <param name="Operator1"></param>
-        /// <param name="Operator2"></param>
+        /// <param name="Result">donnée de sortie de l'opération</param>
+        /// <param name="Operator1">premier opérateur de l'opération</param>
+        /// <param name="Operator2">second opérateur de l'opération</param>
         internal void ExecuteMathDiv(Data Result, Data Operator1, Data Operator2)
         {
             if (Operator2.Value != 0)
