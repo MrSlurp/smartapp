@@ -98,10 +98,23 @@ namespace CommonLib
         /// <param name="Args"></param>
         public virtual void OnControlEvent(Object Sender, EventArgs Args) { }
 
+        public virtual void UpdateFromDataDelegate()
+        {
+            if (m_Ctrl.InvokeRequired)
+            {
+                EventDataValueChange AsyncCall = new EventDataValueChange(UpdateFromData);
+                m_Ctrl.Invoke(AsyncCall);
+            }
+            else
+                UpdateFromData();
+
+        }
+
         /// <summary>
         /// met a jour le controle affiché lorsque sa donnée associée à changé
         /// </summary>
         public virtual void UpdateFromData() { }
+
         #endregion
     }
 }

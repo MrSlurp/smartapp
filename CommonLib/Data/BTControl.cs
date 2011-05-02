@@ -483,7 +483,7 @@ namespace CommonLib
                 else
                 {
                     // liaison à l'évènement de changement de valeur de la donnée
-                    m_AssociateData.DataValueChanged += new EventDataValueChange(UpdateFromData);
+                    m_AssociateData.DataValueChanged += new EventDataValueChange(UpdateFromDataDelegate);
                 }
             }
             m_Executer = Doc.Executer; 

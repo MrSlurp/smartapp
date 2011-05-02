@@ -207,7 +207,11 @@ namespace CommonLib
         {
             if (this.DoSendMessage != null)
             {
-                DoSendMessage.BeginInvoke(Mess, Param, TypeApp, null, null);
+                DoSendMessage(Mess, Param, TypeApp);
+                //DoSendMessage.BeginInvoke(Mess, Param, TypeApp, null, null);
+                //IAsyncResult 
+                //DoSendMessage.EndInvoke(null);
+                //DoSendMessage.BeginInvoke(Mess, Param, TypeApp, null, null);
             }
         }
         #endregion
