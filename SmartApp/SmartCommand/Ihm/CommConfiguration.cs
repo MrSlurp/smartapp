@@ -15,12 +15,53 @@ namespace SmartApp
     public partial class CommConfiguration : Form
     {
         protected IniFileParser m_IniFile = new IniFileParser();
-        string m_strAppDir;
+        protected string m_strAppDir;
+        protected bool m_bAllowRowSelect = false;
+
+        protected TYPE_COMM m_CurTypeCom = TYPE_COMM.SERIAL;
+        protected string m_CurComParam = string.Empty;
+
         public IniFileParser IniFile
         {
             get
             {
                 return m_IniFile;
+            }
+        }
+
+        public bool AllowRowSelect
+        {
+            set 
+            { 
+                m_bAllowRowSelect = value;
+                if (m_bAllowRowSelect)
+                    m_dataGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                else
+                    m_dataGrid.SelectionMode = DataGridViewSelectionMode.RowHeaderSelect;
+            }
+        }
+
+        public TYPE_COMM CurTypeCom
+        {
+            get
+            {
+                return m_CurTypeCom;
+            }
+            set
+            {
+                m_CurTypeCom = value;
+            }
+        }
+
+        public string CurComParam
+        {
+            get
+            {
+                return m_CurComParam;
+            }
+            set
+            {
+                m_CurComParam = value;
             }
         }
 
@@ -31,7 +72,6 @@ namespace SmartApp
             m_strAppDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName);
             string strIniFilePath = PathTranslator.LinuxVsWindowsPathUse(m_strAppDir + @"\" + Cste.STR_COMINI_FILENAME);
             m_IniFile.Load(strIniFilePath);
-            InitCommList();
         }
 
         public void InitCommList()
@@ -49,12 +89,36 @@ namespace SmartApp
                     if (string.IsNullOrEmpty(strName))
                         strName = "";
 
-                    AddCommToDataGrid(strName, strCommType, strCommParam, strSection);
+                    AddCommToDataGrid(strName, strCommType, strCommParam);
                 }
             }
         }
 
-        protected void AddCommToDataGrid(string Name, string CommType, string CommParam, string Section)
+        protected void SelectCurCom()
+        {
+            bool bCurCommFound = false;
+            if (m_CurTypeCom != TYPE_COMM.NONE)
+            {
+                for (int i = 0; i < m_dataGrid.RowCount; i++)
+                {
+                    if ((m_dataGrid.Rows[i].Cells[1].Value != null && m_dataGrid.Rows[i].Cells[2].Value != null)
+                        && m_dataGrid.Rows[i].Cells[1].Value.ToString() == m_CurTypeCom.ToString()
+                        && m_dataGrid.Rows[i].Cells[2].Value.ToString() == m_CurComParam)
+                    {
+                        m_dataGrid.Rows[i].Selected = true;
+                        bCurCommFound = true;
+                        break;
+                    }
+                }
+            }
+            if (!bCurCommFound)
+            {
+                AddCommToDataGrid(Lang.LangSys.C("Document connection"), m_CurTypeCom.ToString(), m_CurComParam);
+            }
+
+        }
+
+        protected void AddCommToDataGrid(string Name, string CommType, string CommParam)
         {
             string[] TabValues = new string[3];
             TabValues[0] = Name;
@@ -69,6 +133,8 @@ namespace SmartApp
             if (IsDataGridViewValid(out strErr))
             {
                 UpdateInitFile();
+                if (m_bAllowRowSelect)
+                    MemCurSelection();
                 DialogResult = DialogResult.OK;
             }
             else
@@ -166,6 +232,38 @@ namespace SmartApp
             }
             Traces.LogAddDebug(TraceCat.SmartCommand, "CommConfig", "le fichier à bien été sauvegardé");
             m_IniFile.Save();
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Cancel;
+        }
+
+        private void MemCurSelection()
+        {
+            if (m_bAllowRowSelect)
+            {
+                if (m_dataGrid.SelectedRows.Count == 1)
+                {
+                    string strErr;
+                    if (IsDataGridViewValid(out strErr) && m_dataGrid.SelectedRows[0].Cells[1].Value != null)
+                    {
+                        m_CurTypeCom = (TYPE_COMM)Enum.Parse(typeof(TYPE_COMM), (string)m_dataGrid.SelectedRows[0].Cells[1].Value) ;
+                        m_CurComParam = m_dataGrid.SelectedRows[0].Cells[2].Value as string;
+                    }
+                }
+            }
+        }
+
+        private void CommConfiguration_Load(object sender, EventArgs e)
+        {
+            InitCommList();
+
+        }
+
+        private void CommConfiguration_Shown(object sender, EventArgs e)
+        {
+            SelectCurCom();
         }
     }
 }

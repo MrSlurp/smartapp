@@ -1001,5 +1001,21 @@ namespace SmartApp.Ihm
 
         }
         #endregion
+
+        private void tsbtnConfigCom_Click(object sender, EventArgs e)
+        {
+            if (m_Document != null)
+            {
+                CommConfiguration commCfgPage = new CommConfiguration();
+                commCfgPage.AllowRowSelect = true;
+                commCfgPage.CurComParam = m_Document.m_Comm.CommParam;
+                commCfgPage.CurTypeCom = m_Document.m_Comm.CommType;
+                DialogResult dlgRes = commCfgPage.ShowDialog();
+                if (dlgRes == DialogResult.OK)
+                {
+                    m_Document.m_Comm.SetCommTypeAndParam(commCfgPage.CurTypeCom, commCfgPage.CurComParam);
+                }
+            }
+        }
     }
 }
