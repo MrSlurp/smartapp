@@ -161,6 +161,7 @@ namespace CtrlDataTrigger
                         if (m_AssocDataOnToOff != null)
                         {
                             m_iValueOnToOff = m_AssocDataOnToOff.DefaultValue;
+                            // ici on a pas besoin de vérifier InvokeRequired, car on ne change pas l'aspect du control
                             m_AssocDataOnToOff.DataValueChanged += new EventDataValueChange(UpdateFromData);
                         }
                     }
@@ -174,6 +175,7 @@ namespace CtrlDataTrigger
                         if (m_AssocDataOffToOn != null)
                         {
                             m_iValueOffToOn = m_AssocDataOffToOn.DefaultValue;
+                            // ici on a pas besoin de vérifier InvokeRequired, car on ne change pas l'aspect du control
                             m_AssocDataOffToOn.DataValueChanged += new EventDataValueChange(UpdateFromData);
                         }
                     }

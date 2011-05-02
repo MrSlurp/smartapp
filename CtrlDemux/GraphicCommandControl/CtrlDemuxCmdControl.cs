@@ -114,7 +114,10 @@ namespace CtrlDemux
             }
             ValueData = Dat3;
             if (ValueData != null)
+            {
+                // ici on a pas besoin de vérifier InvokeRequired, car on ne change pas l'aspect du control
                 ValueData.DataValueChanged += new EventDataValueChange(UpdateFromData);
+            }
 
             if (!DemuxParemtersOK)
             {
