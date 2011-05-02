@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
 using System.Threading;
+using System.Xml;
 
 
 namespace CommonLib
@@ -39,6 +40,7 @@ namespace CommonLib
     #region enum des types de comm
     public enum TYPE_COMM
     {
+        NONE,
         // communication de type liaison série ou bluetooth
         SERIAL,
         // communication de type Http, (le jour  ou je ferai un serveur HTTP)
@@ -65,7 +67,7 @@ namespace CommonLib
 
         private BaseComm m_Comm;
 
-        private TYPE_COMM m_TypeComm;
+        private TYPE_COMM m_TypeComm = TYPE_COMM.NONE;
 
         private System.Windows.Forms.Timer m_TimerRecieveTimeout;
 
@@ -190,7 +192,8 @@ namespace CommonLib
                     case TYPE_COMM.HTTP:
                     default:
                         // TODO évolution
-                        System.Diagnostics.Debug.Assert(false);
+                        //System.Diagnostics.Debug.Assert(false);
+                        m_strDestAdress = string.Empty;
                         return false;
                 }
             }
@@ -353,6 +356,62 @@ namespace CommonLib
                 EventAddLogEvent(Event);
             }
         }
+        #endregion
+
+        #region ReadIn / WriteOut
+        /// <summary>
+        /// Lit les données de l'objet a partir de son noeud XML
+        /// </summary>
+        /// <param name="Node">Noeud Xml de l'objet</param>
+        /// <param name="TypeApp">type d'application courante</param>
+        /// <returns>true si la lecture s'est bien passé</returns>
+        public bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
+        {
+            for (int i = 0; i < Node.ChildNodes.Count; i++)
+            {
+                if (Node.ChildNodes[i].Name == XML_CF_TAG.Comm.ToString())
+                {
+                    XmlNode commNode = Node.ChildNodes[i];
+                    for (int j = 0; j < commNode.ChildNodes.Count; j++)
+                    {
+                        if (commNode.ChildNodes[j].Name == XML_CF_TAG.CommType.ToString())
+                        {
+                            if (commNode.ChildNodes[j].FirstChild != null)
+                                m_TypeComm = (TYPE_COMM)Enum.Parse(typeof(TYPE_COMM), (string)commNode.ChildNodes[j].FirstChild.Value);
+                        }
+                        if (commNode.ChildNodes[j].Name == XML_CF_TAG.CommParam.ToString())
+                        {
+                            if (commNode.ChildNodes[j].FirstChild != null)
+                                m_strDestAdress = commNode.ChildNodes[j].FirstChild.Value;
+
+                        }
+                    }
+                    break;
+                }
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// écrit les données de l'objet dans le fichier XML
+        /// </summary>
+        /// <param name="XmlDoc">Document XML courant</param>
+        /// <param name="Node">Noeud parent du controle dans le document</param>
+        /// <returns>true si l'écriture s'est déroulée avec succès</returns>
+        public virtual bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
+        {
+            XmlNode comNode = XmlDoc.CreateElement(XML_CF_TAG.Comm.ToString());
+            XmlNode comTypeNode = XmlDoc.CreateElement(XML_CF_TAG.CommType.ToString());
+            XmlNode comParamNode = XmlDoc.CreateElement(XML_CF_TAG.CommParam.ToString());
+            comNode.AppendChild(comTypeNode);
+            comNode.AppendChild(comParamNode);
+            comTypeNode.AppendChild(XmlDoc.CreateTextNode(m_TypeComm.ToString()));
+            comParamNode.AppendChild(XmlDoc.CreateTextNode(m_strDestAdress));
+
+            Node.AppendChild(comNode);
+            return true;
+        }
+
         #endregion
     }
 }

@@ -382,6 +382,9 @@ namespace CommonLib
                 // on charge une par une chaque section
                 switch (Id)
                 {
+                    case XML_CF_TAG.Comm:
+                        m_Comm.ReadIn(RootNode, TypeApp);
+                        break;
                     case XML_CF_TAG.DataSection:
                         if (!this.GestData.ReadIn(Node, TypeApp))
                             return false;
@@ -513,6 +516,8 @@ namespace CommonLib
             XmlDocument XmlDoc = new XmlDocument();
             XmlDoc.LoadXml("<Root></Root>");
             WriteFileHeader(XmlDoc);
+
+            m_Comm.WriteOut(XmlDoc, XmlDoc.DocumentElement);
 
             XmlNode NodeDataSection = XmlDoc.CreateElement(XML_CF_TAG.DataSection.ToString());
             XmlDoc.DocumentElement.AppendChild(NodeDataSection);
