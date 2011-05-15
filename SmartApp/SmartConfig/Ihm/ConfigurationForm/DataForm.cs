@@ -79,6 +79,8 @@ namespace SmartApp.Ihm
             m_cboGroups.SelectedIndex = 0;
 
             InitListViewFromGroup();
+            gestDataTreeView.DataGest = this.GestData;
+            gestDataTreeView.InitializeTree();
         }
 
         #endregion

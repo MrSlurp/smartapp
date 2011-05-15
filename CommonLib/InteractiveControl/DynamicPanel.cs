@@ -28,6 +28,7 @@ namespace CommonLib
     public partial class DynamicPanel : UserControl
     {
         public delegate void SetMeToTopEvent(Form MyParent);
+        public delegate void SetToTopEvent();
         
         List<Control> m_ListToDrawManually = new List<Control>();
         // optimisation
@@ -154,7 +155,17 @@ namespace CommonLib
         public void SetToTop()
         {
             if (SetMeToTop != null)
-                SetMeToTop((Form)this.Parent);
+            {
+                if (this.InvokeRequired)
+                {
+                    SetToTopEvent AsyncCall = new SetToTopEvent(SetToTop);
+                    this.Invoke(AsyncCall);
+                }
+                else
+                {
+                    SetMeToTop(this.Parent as Form);
+                }
+            }
         }
 
         /// <summary>

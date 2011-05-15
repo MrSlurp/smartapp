@@ -27,7 +27,7 @@ namespace CommonLib
 
     public class QuickExecuter
     {
-        private delegate void ScriptAddedToExecute();
+        //private delegate void ScriptAddedToExecute();
 
         #region données membres
         BTDoc m_Document = null;
@@ -49,7 +49,7 @@ namespace CommonLib
         #endregion
 
         #region events
-        private event ScriptAddedToExecute EvScriptToExecute;
+        //private event ScriptAddedToExecute EvScriptToExecute;
         public event AddLogEventDelegate EventAddLogEvent;
         #endregion
 

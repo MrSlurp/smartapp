@@ -299,6 +299,7 @@ namespace CommonLib
                 case MESSAGE.MESS_ITEM_RENAMED:
                 case MESSAGE.MESS_CMD_RUN:
                 case MESSAGE.MESS_CMD_STOP:
+                    m_Executer.TraiteMessage(Mess, Param, TypeApp);
                     GestData.TraiteMessage(Mess, Param, TypeApp);
                     GestDataVirtual.TraiteMessage(Mess, Param, TypeApp);
                     GestScreen.TraiteMessage(Mess, Param, TypeApp);
