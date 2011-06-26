@@ -38,7 +38,6 @@ namespace SmartApp.Ihm
             this.m_ColHeadSize = new System.Windows.Forms.ColumnHeader();
             this.m_ColHeadSumm = new System.Windows.Forms.ColumnHeader();
             this.m_DataPropertyPage = new SmartApp.Ihm.DataPropertiesControl();
-            this.gestDataTreeView = new CommonLib.GestDataTreeView();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -55,7 +54,6 @@ namespace SmartApp.Ihm
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.gestDataTreeView);
             this.splitContainer1.Panel1.Controls.Add(this.m_btnManageGroups);
             this.splitContainer1.Panel1.Controls.Add(this.m_btnNew);
             this.splitContainer1.Panel1.Controls.Add(this.m_cboGroups);
@@ -165,13 +163,6 @@ namespace SmartApp.Ihm
             this.m_DataPropertyPage.Symbol = "";
             this.m_DataPropertyPage.TabIndex = 11;
             // 
-            // gestDataTreeView
-            // 
-            this.gestDataTreeView.Location = new System.Drawing.Point(3, 286);
-            this.gestDataTreeView.Name = "gestDataTreeView";
-            this.gestDataTreeView.Size = new System.Drawing.Size(385, 148);
-            this.gestDataTreeView.TabIndex = 12;
-            // 
             // DataForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -204,7 +195,6 @@ namespace SmartApp.Ihm
         private System.Windows.Forms.ColumnHeader m_ColHeadSize;
         private System.Windows.Forms.ColumnHeader m_ColHeadSumm;
         private DataPropertiesControl m_DataPropertyPage;
-        private CommonLib.GestDataTreeView gestDataTreeView;
 
     }
 }
