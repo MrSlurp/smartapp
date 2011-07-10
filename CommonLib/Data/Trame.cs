@@ -263,6 +263,18 @@ namespace CommonLib
 
                             XmlNode ToAttr = ChildNode.Attributes.GetNamedItem(XML_CF_ATTRIB.To.ToString());
                             m_iDataClcTo = int.Parse(ToAttr.Value);
+                            if (m_strDataClcType == CTRLDATA_TYPE.SUM_COMPL_P1.ToString())
+                            {
+                                m_iDataClcSize = (int)DATA_SIZE.DATA_SIZE_8B;
+                            }
+                            else if (m_strDataClcType == CTRLDATA_TYPE.SUM_COMPL_P2.ToString())
+                            {
+                                m_iDataClcSize = (int)DATA_SIZE.DATA_SIZE_8B;
+                            }
+                            else if (m_strDataClcType == CTRLDATA_TYPE.MODBUS_CRC.ToString())
+                            {
+                                m_iDataClcSize = (int)DATA_SIZE.DATA_SIZE_16BU;
+                            } 
                             break;
                         }
                     default:

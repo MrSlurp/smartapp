@@ -181,6 +181,7 @@ namespace CommonLib
                 Data NewData = new Data();
                 Trame tr = ListTrameNeedCtrlDatas[i];
                 NewData.Symbol = tr.Symbol + Cste.STR_SUFFIX_CTRLDATA;
+                NewData.SizeAndSign = tr.CtrlDataSize;
                 this.AddObj(NewData);
             }
             // on met a jour leurs paramètres

@@ -47,6 +47,10 @@ namespace SmartApp.Ihm
             Program.LangSys.Initialize(this);
             InitializeComponent();
             CommonConstructorInit();
+#if !_SMARTAPP_MULTICO
+            tsbtnConfigCom.Visible = false;
+#endif
+
         }
         //*****************************************************************************************************
         // Description: constructeur ouvrant le fichier passé en paramètre dès la fin de l'initialisation

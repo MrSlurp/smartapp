@@ -257,6 +257,7 @@ namespace SmartApp
 
         private void CommConfiguration_Load(object sender, EventArgs e)
         {
+            m_dataGrid.Rows.Clear();
             InitCommList();
 
         }

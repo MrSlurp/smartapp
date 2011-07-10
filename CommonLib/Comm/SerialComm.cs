@@ -402,8 +402,11 @@ namespace CommonLib
             {
                 // on vide les buffers
                 m_bDataAvailable = false;
-                m_PortSerie.DiscardInBuffer();
-                m_PortSerie.DiscardOutBuffer();
+                if (m_PortSerie.IsOpen)
+                {
+                    m_PortSerie.DiscardInBuffer();
+                    m_PortSerie.DiscardOutBuffer();
+                }
             }
         }
 

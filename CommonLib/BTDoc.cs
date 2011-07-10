@@ -383,9 +383,11 @@ namespace CommonLib
                 // on charge une par une chaque section
                 switch (Id)
                 {
+#if _SMARTAPP_MULTICO
                     case XML_CF_TAG.Comm:
                         m_Comm.ReadIn(RootNode, TypeApp);
                         break;
+#endif
                     case XML_CF_TAG.DataSection:
                         if (!this.GestData.ReadIn(Node, TypeApp))
                             return false;
@@ -518,8 +520,9 @@ namespace CommonLib
             XmlDoc.LoadXml("<Root></Root>");
             WriteFileHeader(XmlDoc);
 
+#if _SMARTAPP_MULTICO
             m_Comm.WriteOut(XmlDoc, XmlDoc.DocumentElement);
-
+#endif
             XmlNode NodeDataSection = XmlDoc.CreateElement(XML_CF_TAG.DataSection.ToString());
             XmlDoc.DocumentElement.AppendChild(NodeDataSection);
             GestData.WriteOut(XmlDoc, NodeDataSection);
