@@ -264,7 +264,9 @@ namespace SmartApp
 
         private void CommConfiguration_Shown(object sender, EventArgs e)
         {
+#if _SMARTAPP_MULTICO
             SelectCurCom();
+#endif
         }
     }
 }

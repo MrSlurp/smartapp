@@ -62,7 +62,7 @@ namespace CommonLib
             //EvScriptToExecute += new ScriptAddedToExecute(ScriptExecuter_EvScriptToExecute);
             nbinstanceexecuter++;
             m_PreParser.EventAddLogEvent += new AddLogEventDelegate(AddLogEvent);
-            m_ExecutionThread = new Thread(ThreadScriptExecution);
+            
         }
 
         /// <summary>
@@ -86,7 +86,17 @@ namespace CommonLib
             {
                 // lors du RUN on démarre le thread de traitement de la pile des scripts
                 case MESSAGE.MESS_CMD_RUN:
-                    m_ExecutionThread.Start();
+                    if (m_ExecutionThread != null && m_ExecutionThread.IsAlive)
+                    {
+                        if (Traces.IsDebugAndCatOK(TraceCat.Executer))
+                            Traces.LogAddDebug(TraceCat.Executer,
+                                               string.Format("Excuter Thread still running "));
+                    }
+                    else
+                    {
+                        m_ExecutionThread = new Thread(ThreadScriptExecution);
+                        m_ExecutionThread.Start();
+                    }
                     break;
                 // lors du STOP, on demande au thread de s'arrêter
                 case MESSAGE.MESS_CMD_STOP:
@@ -199,13 +209,13 @@ namespace CommonLib
             do
             {
                 CommonLib.PerfChrono theChrono = new PerfChrono();
-                while (m_PileScriptsToExecute.Count != 0)
+                while (m_PileScriptsToExecute.Count != 0 && !m_bStopRequested)
                 {
                     // on prend le script sans l'enlever afin de savoir qu'il n'est pas encore executé
                     m_QueueMutex.WaitOne();
                     int QuickId = m_PileScriptsToExecute.Peek();
-                    if (m_bIsWaiting)
-                        System.Diagnostics.Debug.Assert(false, "appel en trop");
+                    //if (m_bIsWaiting)
+                    //    System.Diagnostics.Debug.Assert(false, "appel en trop");
 
                     InternalExecuteScript(QuickId);
                     // il est éxécuté, on l'enlève de la liste.

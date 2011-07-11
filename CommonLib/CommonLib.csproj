@@ -296,7 +296,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ExtLib\Aga.Controls.dll" />
     <Content Include="Lang\EN.CommonLib.po">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -1,5 +1,5 @@
 Smart Application License 
-Copyright Pascal Bigot 2007-2010
+Copyright Pascal Bigot 2007-2011
 
 Smart Application is a free software devlopped only under private activities. 
 Although this software is mainly destinied to be used with Crouzet © products, it have been developped without any support of Crouzet©.
