@@ -1,39 +1,37 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 9.00
-# Visual Studio 2005
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartApp", "SmartApp\SmartApp.csproj", "{5A8BD31D-5E4E-4891-9351-DD3119CB6BC9}"
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartAppVC9", "SmartApp\SmartAppVC9.csproj", "{5A8BD31D-5E4E-4891-9351-DD3119CB6BC9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonLib", "CommonLib\CommonLib.csproj", "{3EFBC5AC-5842-4DE5-85C2-507E24AEC46F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonLibVC9", "CommonLib\CommonLibVC9.csproj", "{3EFBC5AC-5842-4DE5-85C2-507E24AEC46F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CtrlSerpentin", "CtrlSerpentin\CtrlSerpentin.csproj", "{94373D87-E83C-4FDF-A029-792A4A48C680}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CtrlSerpentinVC9", "CtrlSerpentin\CtrlSerpentinVC9.csproj", "{94373D87-E83C-4FDF-A029-792A4A48C680}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CtrlTwoBitmap", "CtrlTwoBitmap\CtrlTwoBitmap.csproj", "{4955E361-A3B1-4507-BB31-A987814A0A3B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CtrlTwoBitmapVC9", "CtrlTwoBitmap\CtrlTwoBitmapVC9.csproj", "{4955E361-A3B1-4507-BB31-A987814A0A3B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FourBitmap", "FourBitmap\FourBitmap.csproj", "{6494B802-211E-4D72-9657-22A2EE0850E8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FourBitmapVC9", "FourBitmap\FourBitmapVC9.csproj", "{6494B802-211E-4D72-9657-22A2EE0850E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GradientBaloon", "GradientBaloon\GradientBaloon.csproj", "{5ACA4CB4-0DC3-4E09-8E13-81DD29F87161}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GradientBaloonVC9", "GradientBaloon\GradientBaloonVC9.csproj", "{5ACA4CB4-0DC3-4E09-8E13-81DD29F87161}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormatedDisplay", "FormatedDisplay\FormatedDisplay.csproj", "{7B2150F6-8F06-49C9-8CE7-D298DE5E04EF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormatedDisplayVC9", "FormatedDisplay\FormatedDisplayVC9.csproj", "{7B2150F6-8F06-49C9-8CE7-D298DE5E04EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CtrlJauge", "CtrlJauge\CtrlJauge.csproj", "{6F150ACD-AD51-43DB-BF98-433D9F9D03F1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CtrlJaugeVC9", "CtrlJauge\CtrlJaugeVC9.csproj", "{6F150ACD-AD51-43DB-BF98-433D9F9D03F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitalDisplay", "DigitalDisplay\DigitalDisplay.csproj", "{486930DE-F974-4E9B-87A5-5BF43D2BA463}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitalDisplayVC9", "DigitalDisplay\DigitalDisplayVC9.csproj", "{486930DE-F974-4E9B-87A5-5BF43D2BA463}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CtrlDataTrigger", "CtrlDataTrigger\CtrlDataTrigger.csproj", "{76222E36-853A-4DEF-8354-031B954796C8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CtrlDataTriggerVC9", "CtrlDataTrigger\CtrlDataTriggerVC9.csproj", "{76222E36-853A-4DEF-8354-031B954796C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CtrlGraph", "CtrlGraph\CtrlGraph.csproj", "{F5A1ED95-18C0-4598-B25F-BE50ACC3DEE8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CtrlGraphVC9", "CtrlGraph\CtrlGraphVC9.csproj", "{F5A1ED95-18C0-4598-B25F-BE50ACC3DEE8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CtrlDemux", "CtrlDemux\CtrlDemux.csproj", "{99E4B4D9-CDE5-491F-923A-1FA0FA5839D4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CtrlDemuxVC9", "CtrlDemux\CtrlDemuxVC9.csproj", "{99E4B4D9-CDE5-491F-923A-1FA0FA5839D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CtrlBlinker", "Blinker\CtrlBlinker.csproj", "{E3A9B7AD-4434-43B2-A68F-99E00AB78BBD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CtrlDataGridVC9", "CtrlDataGrid\CtrlDataGridVC9.csproj", "{099CFCFC-63A2-4A1A-AE6C-4E301B0E1CD5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CtrlDataGrid", "CtrlDataGrid\CtrlDataGrid.csproj", "{099CFCFC-63A2-4A1A-AE6C-4E301B0E1CD5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CtrlTimeWatchVC9", "CtrlTimeWatch\CtrlTimeWatchVC9.csproj", "{A0539CB6-495E-4412-89A3-00C9CB7448E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CtrlTimeWatch", "CtrlTimeWatch\CtrlTimeWatch.csproj", "{A0539CB6-495E-4412-89A3-00C9CB7448E9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonDBAccesVC9", "CommonDBAcces\CommonDBAccesVC9.csproj", "{FCB4D44C-0DA5-461D-8B82-D82F95D121CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonDBAcces", "CommonDBAcces\CommonDBAcces.csproj", "{FCB4D44C-0DA5-461D-8B82-D82F95D121CA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PasswordControler", "PasswordControler\PasswordControler.csproj", "{A6582518-3B26-47FC-9FAF-5F53AF2EC486}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PasswordControlerVC9", "PasswordControler\PasswordControlerVC9.csproj", "{A6582518-3B26-47FC-9FAF-5F53AF2EC486}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -354,25 +352,6 @@ Global
 		{99E4B4D9-CDE5-491F-923A-1FA0FA5839D4}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{99E4B4D9-CDE5-491F-923A-1FA0FA5839D4}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{99E4B4D9-CDE5-491F-923A-1FA0FA5839D4}.Release|Win32.ActiveCfg = Release|Any CPU
-		{E3A9B7AD-4434-43B2-A68F-99E00AB78BBD}.BuildLang|Any CPU.ActiveCfg = BuildLang|Any CPU
-		{E3A9B7AD-4434-43B2-A68F-99E00AB78BBD}.BuildLang|Any CPU.Build.0 = BuildLang|Any CPU
-		{E3A9B7AD-4434-43B2-A68F-99E00AB78BBD}.BuildLang|Mixed Platforms.ActiveCfg = BuildLang|Any CPU
-		{E3A9B7AD-4434-43B2-A68F-99E00AB78BBD}.BuildLang|Win32.ActiveCfg = BuildLang|Any CPU
-		{E3A9B7AD-4434-43B2-A68F-99E00AB78BBD}.Debug Cmd|Any CPU.ActiveCfg = Debug|Any CPU
-		{E3A9B7AD-4434-43B2-A68F-99E00AB78BBD}.Debug Cmd|Any CPU.Build.0 = Debug|Any CPU
-		{E3A9B7AD-4434-43B2-A68F-99E00AB78BBD}.Debug Cmd|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{E3A9B7AD-4434-43B2-A68F-99E00AB78BBD}.Debug Cmd|Win32.ActiveCfg = Debug|Any CPU
-		{E3A9B7AD-4434-43B2-A68F-99E00AB78BBD}.Debug Test|Any CPU.ActiveCfg = Debug|Any CPU
-		{E3A9B7AD-4434-43B2-A68F-99E00AB78BBD}.Debug Test|Any CPU.Build.0 = Debug|Any CPU
-		{E3A9B7AD-4434-43B2-A68F-99E00AB78BBD}.Debug Test|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{E3A9B7AD-4434-43B2-A68F-99E00AB78BBD}.Debug Test|Win32.ActiveCfg = Debug|Any CPU
-		{E3A9B7AD-4434-43B2-A68F-99E00AB78BBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E3A9B7AD-4434-43B2-A68F-99E00AB78BBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E3A9B7AD-4434-43B2-A68F-99E00AB78BBD}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{E3A9B7AD-4434-43B2-A68F-99E00AB78BBD}.Debug|Win32.ActiveCfg = Debug|Any CPU
-		{E3A9B7AD-4434-43B2-A68F-99E00AB78BBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E3A9B7AD-4434-43B2-A68F-99E00AB78BBD}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{E3A9B7AD-4434-43B2-A68F-99E00AB78BBD}.Release|Win32.ActiveCfg = Release|Any CPU
 		{099CFCFC-63A2-4A1A-AE6C-4E301B0E1CD5}.BuildLang|Any CPU.ActiveCfg = Release|Any CPU
 		{099CFCFC-63A2-4A1A-AE6C-4E301B0E1CD5}.BuildLang|Any CPU.Build.0 = Release|Any CPU
 		{099CFCFC-63A2-4A1A-AE6C-4E301B0E1CD5}.BuildLang|Mixed Platforms.ActiveCfg = BuildLang|Any CPU

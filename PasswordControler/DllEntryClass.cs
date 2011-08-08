@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
@@ -6,12 +6,12 @@ using System.Reflection;
 using System.Drawing;
 using CommonLib;
 
-namespace CtrlGraph
+namespace PasswordControler
 {
     public class DllEntryClass : IDllControlInterface
     {
         // changes ici l'identifiant unique de la DLL
-        public const uint DLL_Control_ID = 180;
+        public const uint DLL_Control_ID = 230;
 
 #if BUILD_LANG
 #if TEST_LANG
@@ -22,6 +22,7 @@ namespace CtrlGraph
 #else
         static Lang m_SingLangSys = new Lang();
 #endif
+
         public static Lang LangSys
         {
             get { return m_SingLangSys; }
@@ -31,11 +32,11 @@ namespace CtrlGraph
         public string CurrentLang
         {
             get { return m_CurLang; }
-            set 
-            { 
+            set
+            {
                 m_CurLang = value;
                 if (!LangSys.InitDone)
-                    LangSys.Initialize(Cste.STR_DEV_LANG, m_CurLang, "CtrlGraph");
+                    LangSys.Initialize(Cste.STR_DEV_LANG, m_CurLang, "PasswordControler");
                 else
                     LangSys.ChangeLangage(value);
             }
@@ -43,7 +44,7 @@ namespace CtrlGraph
 
         public DllEntryClass()
         {
-            CtrlGraphRes.InitializeBitmap();
+            PasswordControlerRes.InitializeBitmap();
         }
 
         public uint DllID
@@ -56,21 +57,21 @@ namespace CtrlGraph
 
         public BTControl CreateBTControl()
         {
-            return new BTDllCtrlGraphControl();
+            return new BTDllPasswordControlerControl();
         }
 
         public BTControl CreateBTControl(InteractiveControl iCtrl)
         {
-            return new BTDllCtrlGraphControl(iCtrl);
+            return new BTDllPasswordControlerControl(iCtrl);
         }
         public BTControl CreateCommandBTControl()
         {
-            return new CtrlGraphCmdControl();
+            return new PasswordControlerCmdControl();
         }
 
         public InteractiveControl CreateInteractiveControl()
         {
-            return new InteractiveCtrlGraphDllControl();
+            return new InteractivePasswordControlerDllControl();
         }
 
         public Size ToolWindSize
@@ -78,7 +79,7 @@ namespace CtrlGraph
             get
             {
                 // modifiez ici la taille que le control aura dans la fenêtre d'outil
-                return new Size(130, 50);
+                return new Size(130, 30);
             }
         }
 
@@ -87,9 +88,8 @@ namespace CtrlGraph
             get
             {
                 // modifiez ici le nom par défaut de l'objet lors de sa création
-                return "CtrlGraph";
+                return "PasswordControler";
             }
         }
-
     }
 }

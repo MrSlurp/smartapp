@@ -41,7 +41,6 @@ namespace CtrlDemux
             m_SpecGraphicProp.m_MinSize = new Size(70, 30);
             m_SpecGraphicProp.m_MaxSize = new Size(70, 30);
             this.ControlType = InteractiveControlType.DllControl;
-
         }
 
         public override InteractiveControl CreateNew()

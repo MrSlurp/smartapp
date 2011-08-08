@@ -1,14 +1,34 @@
-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.50727</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{99E4B4D9-CDE5-491F-923A-1FA0FA5839D4}</ProjectGuid>
+    <ProjectGuid>{7B2150F6-8F06-49C9-8CE7-D298DE5E04EF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CtrlDemux</RootNamespace>
-    <AssemblyName>CtrlDemux</AssemblyName>
+    <RootNamespace>FormatedDisplay</RootNamespace>
+    <AssemblyName>FormatedDisplay</AssemblyName>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -52,32 +72,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BTControlHerited\BTDllCtrlDemuxControl.cs" />
-    <Compile Include="BTControlHerited\DllCtrlDemuxProp.cs" />
-    <Compile Include="ConfigForm\CtrlDemuxProperties.cs">
+    <Compile Include="BTControlHerited\BTDllFormatedDisplayControl.cs" />
+    <Compile Include="BTControlHerited\DllFormatedDisplayProp.cs" />
+    <Compile Include="ConfigForm\FormatedDisplayProperties.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ConfigForm\CtrlDemuxProperties.Designer.cs">
-      <DependentUpon>CtrlDemuxProperties.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ConfigForm\DemuxConfigForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ConfigForm\DemuxConfigForm.Designer.cs">
-      <DependentUpon>DemuxConfigForm.cs</DependentUpon>
+    <Compile Include="ConfigForm\FormatedDisplayProperties.Designer.cs">
+      <DependentUpon>FormatedDisplayProperties.cs</DependentUpon>
     </Compile>
     <Compile Include="DllEntryClass.cs" />
-    <Compile Include="GraphicCommandControl\CtrlDemuxCmdControl.cs">
+    <Compile Include="GraphicCommandControl\FormatedDisplayCmdControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="InteractiveHerited\InteractiveCtrlDemuxDllControl.cs">
+    <Compile Include="InteractiveHerited\InteractiveFormatedDisplayDllControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="InteractiveHerited\InteractiveCtrlDemuxDllControl.Designer.cs">
-      <DependentUpon>InteractiveCtrlDemuxDllControl.cs</DependentUpon>
+    <Compile Include="InteractiveHerited\InteractiveFormatedDisplayDllControl.Designer.cs">
+      <DependentUpon>InteractiveFormatedDisplayDllControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Res\CtrlDemuxRes.cs" />
+    <Compile Include="Res\FormatedDisplayRes.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CommonLib\CommonLib.csproj">
@@ -86,28 +100,47 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ConfigForm\CtrlDemuxProperties.resx">
+    <EmbeddedResource Include="ConfigForm\FormatedDisplayProperties.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>CtrlDemuxProperties.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ConfigForm\DemuxConfigForm.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>DemuxConfigForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="InteractiveHerited\InteractiveCtrlDemuxDllControl.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>InteractiveCtrlDemuxDllControl.cs</DependentUpon>
+      <DependentUpon>FormatedDisplayProperties.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Lang\FR.CtrlDemux.po">
+    <Content Include="Lang\FR.CtrlFormatedDisplay.po">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Lang\EN.CtrlDemux.po">
+    <Content Include="Lang\EN.CtrlFormatedDisplay.po">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,0 +1,962 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5A8BD31D-5E4E-4891-9351-DD3119CB6BC9}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SmartApp</RootNamespace>
+    <AssemblyName>SmartApp</AssemblyName>
+    <ApplicationIcon>SmartApp.ico</ApplicationIcon>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <SignManifests>false</SignManifests>
+    <StartupObject>SmartApp.Program</StartupObject>
+    <TargetZone>LocalIntranet</TargetZone>
+    <GenerateManifests>false</GenerateManifests>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>2.0.0.0</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Prod\Debug\</OutputPath>
+    <IntermediatePath>..\obj\Debug\</IntermediatePath>
+    <IntermediateOuputPath>..\obj\Debug\</IntermediateOuputPath>
+    <BaseIntermediateOutputPath>..\obj\Debug\</BaseIntermediateOutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\Prod\Release\</OutputPath>
+    <IntermediatePath>..\obj\Release\</IntermediatePath>
+    <IntermediateOuputPath>..\obj\Release\</IntermediateOuputPath>
+    <BaseIntermediateOutputPath>..\obj\Release\</BaseIntermediateOutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug Cmd|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\Prod\Debug\</OutputPath>
+    <IntermediatePath>..\obj\Debug\</IntermediatePath>
+    <IntermediateOuputPath>..\obj\Debug\</IntermediateOuputPath>
+    <BaseIntermediateOutputPath>..\obj\Debug\</BaseIntermediateOutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug Test|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\Prod\Debug\</OutputPath>
+    <IntermediatePath>..\obj\Debug\</IntermediatePath>
+    <IntermediateOuputPath>..\obj\Debug\</IntermediateOuputPath>
+    <BaseIntermediateOutputPath>..\obj\Debug\</BaseIntermediateOutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'BuildLang|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\Prod\BuildLang\</OutputPath>
+    <IntermediatePath>..\obj\BuildLang\</IntermediatePath>
+    <IntermediateOuputPath>..\obj\BuildLang\</IntermediateOuputPath>
+    <BaseIntermediateOutputPath>..\obj\BuildLang\</BaseIntermediateOutputPath>
+    <DefineConstants>TRACE;BUILD_LANG</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\AboutForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\AboutForm.Designer.cs">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\AppOptions.cs" />
+    <Compile Include="Common\FormsOptions.cs" />
+    <Compile Include="Common\LaunchArgParser.cs" />
+    <Compile Include="Common\LogCatForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\LogCatForm.Designer.cs">
+      <DependentUpon>LogCatForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\MruStripMenu.cs" />
+    <Compile Include="Common\PluginsVersionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\PluginsVersionsForm.Designer.cs">
+      <DependentUpon>PluginsVersionsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\PreferencesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\PreferencesForm.Designer.cs">
+      <DependentUpon>PreferencesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Settings.cs" />
+    <Compile Include="SmartCommand\AppEventLog\AppEventLogForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmartCommand\AppEventLog\AppEventLogForm.Designer.cs">
+      <DependentUpon>AppEventLogForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\Controls Personnalisables\Gauge.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Common\Controls Personnalisables\Gauge.Designer.cs">
+      <DependentUpon>Gauge.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartCommand\Ihm\CommConfiguration.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmartCommand\Ihm\CommConfiguration.Designer.cs">
+      <DependentUpon>CommConfiguration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartCommand\Ihm\DynamicPanelForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmartCommand\Ihm\DynamicPanelForm.Designer.cs">
+      <DependentUpon>DynamicPanelForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartCommand\Ihm\MDISmartCommandMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmartCommand\Ihm\MDISmartCommandMain.Designer.cs">
+      <DependentUpon>MDISmartCommandMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartCommand\Ihm\OptionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmartCommand\Ihm\OptionForm.Designer.cs">
+      <DependentUpon>OptionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartCommand\Ihm\VariableForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmartCommand\Ihm\VariableForm.Designer.cs">
+      <DependentUpon>VariableForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartCommand\Ihm\VirtualDataForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmartCommand\Ihm\VirtualDataForm.Designer.cs">
+      <DependentUpon>VirtualDataForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartCommand\Ihm\VirtualDataPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmartCommand\Ihm\VirtualDataPanel.Designer.cs">
+      <DependentUpon>VirtualDataPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartCommand\Ihm\ScenarioPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmartCommand\Ihm\ScenarioPanel.Designer.cs">
+      <DependentUpon>ScenarioPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartCommand\Ihm\WaitOpenCommForm.cs">
+    </Compile>
+    <Compile Include="SmartCommand\Ihm\WaitOpenCommForm.Designer.cs">
+      <DependentUpon>WaitOpenCommForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ConfigurationForm\DataForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ConfigurationForm\DataForm.Designer.cs">
+      <DependentUpon>DataForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ConfigurationForm\DesignerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ConfigurationForm\DesignerForm.Designer.cs">
+      <DependentUpon>DesignerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ConfigurationForm\FrameForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ConfigurationForm\FrameForm.Designer.cs">
+      <DependentUpon>FrameForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ControlConfig\GaugeConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ControlConfig\GaugeConfig.Designer.cs">
+      <DependentUpon>GaugeConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Designer\DragItemPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Designer\DragItemPanel.Designer.cs">
+      <DependentUpon>DragItemPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Designer\InteractiveControlContainer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Designer\InteractiveControlContainer.Designer.cs">
+      <DependentUpon>InteractiveControlContainer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Designer\InteractivePanelContainer.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\MDISmartConfigMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\MDISmartConfigMain.Designer.cs">
+      <DependentUpon>MDISmartConfigMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\FramePropertiesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\FramePropertiesControl.Designer.cs">
+      <DependentUpon>FramePropertiesControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\LoggerPropertiesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\LoggerPropertiesControl.Designer.cs">
+      <DependentUpon>LoggerPropertiesControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\ScreenItemPropertiesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\ScreenItemPropertiesControl.Designer.cs">
+      <DependentUpon>ScreenItemPropertiesControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ConfigurationForm\ProgramForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ConfigurationForm\ProgramForm.Designer.cs">
+      <DependentUpon>ProgramForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\DataPropertiesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\DataPropertiesControl.Designer.cs">
+      <DependentUpon>DataPropertiesControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\ScreenPropertiesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\ScreenPropertiesControl.Designer.cs">
+      <DependentUpon>ScreenPropertiesControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Designer\ScreenPropPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Designer\ScreenPropPanel.Designer.cs">
+      <DependentUpon>ScreenPropPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\FunctionPropertiesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\FunctionPropertiesControl.Designer.cs">
+      <DependentUpon>FunctionPropertiesControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\TimerPropertiesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\TimerPropertiesControl.Designer.cs">
+      <DependentUpon>TimerPropertiesControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\SpecificProperties\TwoColorProperties.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\SpecificProperties\TwoColorProperties.Designer.cs">
+      <DependentUpon>TwoColorProperties.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ProgItemPanels\FunctionPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ProgItemPanels\FunctionPanel.Designer.cs">
+      <DependentUpon>FunctionPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ProgItemPanels\LoggerPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ProgItemPanels\LoggerPanel.Designer.cs">
+      <DependentUpon>LoggerPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ProgItemPanels\TimerPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\ProgItemPanels\TimerPanel.Designer.cs">
+      <DependentUpon>TimerPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\VariousFormAndControls\SymbolTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\VariousFormAndControls\SymbolTextBox.Designer.cs">
+      <DependentUpon>SymbolTextBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\VariousFormAndControls\ManageGroupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\VariousFormAndControls\ManageGroupForm.Designer.cs">
+      <DependentUpon>ManageGroupForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Common\AboutForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\LogCatForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>LogCatForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\PluginsVersionsForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>PluginsVersionsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\PreferencesForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>PreferencesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartCommand\AppEventLog\AppEventLogForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>AppEventLogForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartCommand\Ihm\CommConfiguration.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>CommConfiguration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartCommand\Ihm\DynamicPanelForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>DynamicPanelForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartCommand\Ihm\MDISmartCommandMain.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MDISmartCommandMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartCommand\Ihm\OptionForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>OptionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartCommand\Ihm\ScenarioPanel.resx">
+      <DependentUpon>ScenarioPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartCommand\Ihm\VariableForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>VariableForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartCommand\Ihm\VirtualDataForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>VirtualDataForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartCommand\Ihm\VirtualDataPanel.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>VirtualDataPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartCommand\Ihm\WaitOpenCommForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>WaitOpenCommForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\ConfigurationForm\DataForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>DataForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\ConfigurationForm\DesignerForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>DesignerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\ConfigurationForm\FrameForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FrameForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\ConfigurationForm\ProgramForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ProgramForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\Designer\DragItemPanel.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>DragItemPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\Designer\InteractiveControlContainer.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>InteractiveControlContainer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\MDISmartConfigMain.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MDISmartConfigMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\ObjectPropertiesControls\SpecificProperties\TwoColorProperties.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>TwoColorProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\ObjectPropertiesControls\FramePropertiesControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FramePropertiesControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\ObjectPropertiesControls\FunctionPropertiesControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FunctionPropertiesControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\ObjectPropertiesControls\LoggerPropertiesControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>LoggerPropertiesControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\ObjectPropertiesControls\ScreenItemPropertiesControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ScreenItemPropertiesControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\ObjectPropertiesControls\DataPropertiesControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>DataPropertiesControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\ObjectPropertiesControls\ScreenPropertiesControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ScreenPropertiesControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\Designer\ScreenPropPanel.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ScreenPropPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\ObjectPropertiesControls\TimerPropertiesControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>TimerPropertiesControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\ProgItemPanels\FunctionPanel.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FunctionPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\ProgItemPanels\LoggerPanel.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>LoggerPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\ProgItemPanels\TimerPanel.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>TimerPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\VariousFormAndControls\ManageGroupForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ManageGroupForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\Wizards\M3Z2GenericWizPanels\WizM3Z2StepConfigIOName.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>WizM3Z2StepConfigIOName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\Wizards\M3SLWizard\WizardSLFormM3.resx">
+      <DependentUpon>WizardSLFormM3.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\Wizards\M3Z2GenericWizPanels\WizardM3Z2ProjectForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>WizardM3Z2ProjectForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\Wizards\M3Z2GenericWizPanels\WizM3Z2StepConfigIOSplit.resx">
+      <DependentUpon>WizM3Z2StepConfigIOSplit.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\Wizards\M3Z2GenericWizPanels\WizM3Z2StepFinish.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>WizM3Z2StepFinish.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\Wizards\M3Z2GenericWizPanels\WizM3Z2StepWelcome.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>WizM3Z2StepWelcome.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\Wizards\TCPModbusWizard\WizardTcpModbusForm.resx">
+      <DependentUpon>WizardTcpModbusForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\Wizards\M3Z2GenericWizPanels\WizM3Z2StepChooseBloc.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>WizM3Z2StepChooseBloc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\Wizards\Z2SLWizard\WizardSLFormZ2.resx">
+      <DependentUpon>WizardSLFormZ2.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\BaseM3Z2ProjectCreator.cs" />
+    <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\ETHM3ProjectCreator.cs" />
+    <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\IOConfig.cs" />
+    <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\IWizConfigForm.cs" />
+    <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\M3XN05BlocConfig.cs" />
+    <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\M3XN05WizardConfigData.cs" />
+    <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\WizardFrameGenerator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\WizardFrameGenerator.SL.cs" />
+    <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\WizardFrameGenerator.TCPMB.cs" />
+    <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\SLWizardConfigData.cs" />
+    <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\BlocConfig.cs" />
+    <Compile Include="SmartConfig\Ihm\Wizards\M3Z2GenericWizPanels\WizM3Z2StepConfigIOName.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Wizards\M3Z2GenericWizPanels\WizM3Z2StepConfigIOName.Designer.cs">
+      <DependentUpon>WizM3Z2StepConfigIOName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Wizards\M3SLWizard\WizardSLFormM3.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Wizards\M3SLWizard\WizardSLFormM3.Designer.cs">
+      <DependentUpon>WizardSLFormM3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Wizards\M3Z2GenericWizPanels\WizardM3Z2ProjectForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Wizards\M3Z2GenericWizPanels\WizardM3Z2ProjectForm.Designer.cs">
+      <DependentUpon>WizardM3Z2ProjectForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Wizards\M3Z2GenericWizPanels\WizM3Z2StepConfigIOSplit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Wizards\M3Z2GenericWizPanels\WizM3Z2StepConfigIOSplit.designer.cs">
+      <DependentUpon>WizM3Z2StepConfigIOSplit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Wizards\M3Z2GenericWizPanels\WizM3Z2StepFinish.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Wizards\M3Z2GenericWizPanels\WizM3Z2StepFinish.Designer.cs">
+      <DependentUpon>WizM3Z2StepFinish.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Wizards\M3Z2GenericWizPanels\WizM3Z2StepWelcome.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Wizards\M3Z2GenericWizPanels\WizM3Z2StepWelcome.Designer.cs">
+      <DependentUpon>WizM3Z2StepWelcome.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\ProjectWizardDefines.cs" />
+    <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\SLBlocConfig.cs" />
+    <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\SLM3ProjectCreator.cs" />
+    <Compile Include="SmartConfig\Ihm\Wizards\TCPModbusWizard\WizardTcpModbusForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Wizards\TCPModbusWizard\WizardTcpModbusForm.Designer.cs">
+      <DependentUpon>WizardTcpModbusForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Wizards\M3Z2GenericWizPanels\WizM3Z2StepChooseBloc.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Wizards\M3Z2GenericWizPanels\WizM3Z2StepChooseBloc.Designer.cs">
+      <DependentUpon>WizM3Z2StepChooseBloc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\WizardConfigData.cs" />
+    <Compile Include="SmartConfig\Ihm\Wizards\Z2SLWizard\WizardSLFormZ2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Wizards\Z2SLWizard\WizardSLFormZ2.Designer.cs">
+      <DependentUpon>WizardSLFormZ2.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Res\UpDownBtn.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Res\BottomLeftBtn.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Res\BottomRightBtn.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Res\CheckBox.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Res\ColorTourComboUpDownNum.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Res\DownBtn.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Res\LeftBtn.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Res\RadioBtn.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Res\RightBtn.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Res\SliderBar.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Res\SliderCursor.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Res\TopBtn.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Res\TopLeftBtn.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Res\TopRightBtn.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Res\DropBtn.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Res\move.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Res\Toolbar\MakeSameHeight.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Res\Toolbar\AlignLeft.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Res\Toolbar\AlignTop.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Res\Toolbar\MakeSameWidth.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Res\Toolbar\MakeSameBoth.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ImgLib\Anti retour\AntiRetourE.png" />
+    <Content Include="ImgLib\Anti retour\AntiRetourN.png" />
+    <Content Include="ImgLib\Anti retour\AntiRetourS.png" />
+    <Content Include="ImgLib\Anti retour\AntiRetourW.png" />
+    <Content Include="ImgLib\PanneauSolaire.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 1 voie\Vanne1VoieH.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 1 voie\Vanne1VoieHA.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 1 voie\Vanne1VoieV.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 1 voie\Vanne1VoieVA.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 3 voies\Vanne3VoieBDA2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 3 voies\Vanne3VoiesB.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 3 voies\Vanne3VoiesBA1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 3 voies\Vanne3VoiesBA2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 3 voies\Vanne3VoiesBA3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 3 voies\Vanne3VoiesD.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 3 voies\Vanne3VoiesDA1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 3 voies\Vanne3VoiesDA2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 3 voies\Vanne3VoiesDA3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 3 voies\Vanne3VoiesG.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 3 voies\Vanne3VoiesGA1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 3 voies\Vanne3VoiesGA2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 3 voies\Vanne3VoiesGA3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 3 voies\Vanne3VoiesH.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 3 voies\Vanne3VoiesHA1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 3 voies\Vanne3VoiesHA2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 3 voies\Vanne3VoiesHA3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 4 voies\Vanne4Voies.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 4 voies\Vanne4VoiesA1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 4 voies\Vanne4VoiesA2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 4 voies\Vanne4VoiesA3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 4 voies\Vanne4VoiesA4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 4 voies\Vanne4VoiesA5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Vanne 4 voies\Vanne4VoiesA6.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Voyant\BaseVoyant.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Voyant\VoyantBleuOff.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Voyant\VoyantBleuOn.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Voyant\VoyantOrangeOff.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Voyant\VoyantOrangeOn.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Voyant\VoyantRougeOff.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Voyant\VoyantRougeOn.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Voyant\VoyantVertOff.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Voyant\VoyantVertOn.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Res\CxnOn.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Res\CxnOff.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Res\PresAssData.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Pompe.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\PompeAnim.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Res\EmptyImg.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="ImgLib\Anti retour\.svn\entries" />
+    <None Include="ImgLib\Anti retour\.svn\format" />
+    <None Include="ImgLib\Anti retour\.svn\prop-base\AntiRetourE.png.svn-base" />
+    <None Include="ImgLib\Anti retour\.svn\prop-base\AntiRetourN.png.svn-base" />
+    <None Include="ImgLib\Anti retour\.svn\prop-base\AntiRetourS.png.svn-base" />
+    <None Include="ImgLib\Anti retour\.svn\prop-base\AntiRetourW.png.svn-base" />
+    <None Include="ImgLib\Anti retour\.svn\text-base\AntiRetourE.png.svn-base" />
+    <None Include="ImgLib\Anti retour\.svn\text-base\AntiRetourN.png.svn-base" />
+    <None Include="ImgLib\Anti retour\.svn\text-base\AntiRetourS.png.svn-base" />
+    <None Include="ImgLib\Anti retour\.svn\text-base\AntiRetourW.png.svn-base" />
+    <Content Include="Lang\FR.SmartApp.po">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Lang\EN.SmartApp.po">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <BaseApplicationManifest Include="Properties\app.manifest" />
+    <None Include="SmartApp.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="app.config" />
+    <Content Include="Res\WizRes\EthType_Split16.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Res\WizRes\EthType_Split16O.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Res\WizRes\EthType_Split2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Res\WizRes\EthType_Split4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Res\WizRes\M3Eth_wiz.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Res\WizRes\M3SL_wiz.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Res\WizRes\M3SL_wiz.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Res\WizRes\SLO3.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Res\WizRes\SLI2.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Res\WizRes\SLI3.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Res\WizRes\SLO1.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Res\WizRes\SLO2.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Res\WizRes\SLI1.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Res\Toolbar\ArrangeDown.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Res\Toolbar\ArrangeAcross.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Res\WizRes\SLType_Split16.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Res\WizRes\SLType_Split16O.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Res\WizRes\SLType_Split2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Res\WizRes\SLType_Split4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ToDo.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CommonLib\CommonLib.csproj">
+      <Project>{3EFBC5AC-5842-4DE5-85C2-507E24AEC46F}</Project>
+      <Name>CommonLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

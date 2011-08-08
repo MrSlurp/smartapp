@@ -1,6 +1,6 @@
-namespace CtrlDemux
+﻿namespace PasswordControler
 {
-    partial class InteractiveCtrlDemuxDllControl
+    partial class InteractivePasswordControlerDllControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,18 +28,30 @@ namespace CtrlDemux
         /// </summary>
         private void InitializeComponent()
         {
+            this.panel1 = new PasswordControler.CmdPasswordControl();
             this.SuspendLayout();
             // 
-            // InteractiveCtrlDemuxDllControl
+            // panel1
+            // 
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(231, 89);
+            this.panel1.TabIndex = 0;
+            this.panel1.Enabled = false;
+            // 
+            // InteractivePasswordControlerDllControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Name = "InteractiveCtrlDemuxDllControl";
+            this.Controls.Add(this.panel1);
+            this.Name = "InteractivePasswordControlerDllControl";
+            this.Size = new System.Drawing.Size(231, 89);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
+        private PasswordControler.CmdPasswordControl panel1;
     }
 }
