@@ -338,7 +338,11 @@ namespace CommonLib
                     else
                     {
 #if LANG_USE_DEBUG
-                        if (!Decoders[FileName].ContainsValue(DevText))
+                        if (!Decoders.ContainsKey(FileName))
+                        {
+                            Traces.LogAddDebug(TraceCat.Lang, string.Format("Pas de fichier de langue pour {0}", Path.GetFileName(FileName)));
+                        }
+                        else if (!Decoders[FileName].ContainsValue(DevText))
                         {
                             Traces.LogAddDebug(TraceCat.Lang, string.Format("Fichier {0}, missing DevText {1}", Path.GetFileName(FileName), DevText));
                         }

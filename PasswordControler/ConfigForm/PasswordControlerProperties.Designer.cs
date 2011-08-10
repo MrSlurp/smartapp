@@ -28,31 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.edtPassword1 = new System.Windows.Forms.TextBox();
+            this.edtPassword2 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.lblPasswdExist = new System.Windows.Forms.Label();
+            this.btnValidate = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // textBox1
+            // edtPassword1
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.edtPassword1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(0, 20);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(182, 20);
-            this.textBox1.TabIndex = 0;
+            this.edtPassword1.Location = new System.Drawing.Point(0, 20);
+            this.edtPassword1.Name = "edtPassword1";
+            this.edtPassword1.PasswordChar = '*';
+            this.edtPassword1.Size = new System.Drawing.Size(182, 20);
+            this.edtPassword1.TabIndex = 0;
             // 
-            // textBox2
+            // edtPassword2
             // 
-            this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.edtPassword2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox2.Location = new System.Drawing.Point(0, 64);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(182, 20);
-            this.textBox2.TabIndex = 0;
+            this.edtPassword2.Location = new System.Drawing.Point(0, 64);
+            this.edtPassword2.Name = "edtPassword2";
+            this.edtPassword2.PasswordChar = '*';
+            this.edtPassword2.Size = new System.Drawing.Size(182, 20);
+            this.edtPassword2.TabIndex = 0;
             // 
             // label1
             // 
@@ -72,36 +74,37 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "Confirm Password";
             // 
-            // label3
+            // lblPasswdExist
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 116);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(86, 13);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "A password exist";
+            this.lblPasswdExist.AutoSize = true;
+            this.lblPasswdExist.Location = new System.Drawing.Point(3, 116);
+            this.lblPasswdExist.Name = "lblPasswdExist";
+            this.lblPasswdExist.Size = new System.Drawing.Size(86, 13);
+            this.lblPasswdExist.TabIndex = 2;
+            this.lblPasswdExist.Text = "A password exist";
             // 
-            // button1
+            // btnValidate
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.btnValidate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(0, 90);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(182, 23);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Validate password";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnValidate.Location = new System.Drawing.Point(0, 90);
+            this.btnValidate.Name = "btnValidate";
+            this.btnValidate.Size = new System.Drawing.Size(182, 23);
+            this.btnValidate.TabIndex = 3;
+            this.btnValidate.Text = "Validate password";
+            this.btnValidate.UseVisualStyleBackColor = true;
+            this.btnValidate.Click += new System.EventHandler(this.btnValidate_Click);
             // 
             // PasswordControlerProperties
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.btnValidate);
+            this.Controls.Add(this.lblPasswdExist);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.edtPassword2);
+            this.Controls.Add(this.edtPassword1);
             this.Name = "PasswordControlerProperties";
             this.Size = new System.Drawing.Size(185, 140);
             this.ResumeLayout(false);
@@ -111,12 +114,12 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox edtPassword1;
+        private System.Windows.Forms.TextBox edtPassword2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label lblPasswdExist;
+        private System.Windows.Forms.Button btnValidate;
 
     }
 }
