@@ -43,7 +43,7 @@
     <IntermediatePath>..\obj\Debug\</IntermediatePath>
     <IntermediateOuputPath>..\obj\Debug\</IntermediateOuputPath>
     <BaseIntermediateOutputPath>..\obj\Debug\</BaseIntermediateOutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -61,7 +61,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug Cmd|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>..\Prod\Debug\</OutputPath>
+    <OutputPath>%24%28SolutionDir%29\Prod\Debug\</OutputPath>
     <IntermediatePath>..\obj\Debug\</IntermediatePath>
     <IntermediateOuputPath>..\obj\Debug\</IntermediateOuputPath>
     <BaseIntermediateOutputPath>..\obj\Debug\</BaseIntermediateOutputPath>
@@ -706,6 +706,12 @@
     <Content Include="ImgLib\Anti retour\AntiRetourN.png" />
     <Content Include="ImgLib\Anti retour\AntiRetourS.png" />
     <Content Include="ImgLib\Anti retour\AntiRetourW.png" />
+    <Content Include="ImgLib\Divers\Cadenas_ferme.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ImgLib\Divers\Cadenas_ouvert.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="ImgLib\PanneauSolaire.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

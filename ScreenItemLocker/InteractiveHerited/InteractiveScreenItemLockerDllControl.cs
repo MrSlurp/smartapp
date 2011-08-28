@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -9,17 +9,26 @@ using System.Text;
 using System.Windows.Forms;
 using CommonLib;
 
-namespace CtrlDataTrigger
+namespace ScreenItemLocker
 {
-    public partial class InteractiveCtrlDataTriggerDllControl : InteractiveControl, ISpecificControl
+    /// <summary>
+    /// classe représentant l'objet affiché dans le designer de supervision
+    /// </summary>
+    public partial class InteractiveScreenItemLockerDllControl : InteractiveControl, ISpecificControl
     {
-        UserControl m_SpecificPropPanel = new CtrlDataTriggerProperties();
+        // panneau des propriété de l'objet
+        UserControl m_SpecificPropPanel = new ScreenItemLockerProperties();
+        // proriétés d'activation des paramètres standard des controls
         StandardPropEnabling m_stdPropEnabling = new StandardPropEnabling();
+        // propriété de comportement de l'objet dans le designer
         SpecificGraphicProp m_SpecGraphicProp = new SpecificGraphicProp();
 
-        public InteractiveCtrlDataTriggerDllControl()
+        /// <summary>
+        /// Constructeur de la classe
+        /// </summary>
+        public InteractiveScreenItemLockerDllControl()
         {
-            InitializeComponent();
+            // initialisation du panneau des propriété spécifiques
             m_SpecificPropPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             m_SpecificPropPanel.AutoSize = true;
@@ -40,7 +49,8 @@ namespace CtrlDataTrigger
             m_SpecGraphicProp.m_bcanResizeHeight = false;
             m_SpecGraphicProp.m_MinSize = new Size(70, 30);
             m_SpecGraphicProp.m_MaxSize = new Size(70, 30);
-
+            // Ne jamais supprimer cette ligne, provoque la prise en compte de tout ce qui est définit précédement
+            // dans cette fonction
             this.ControlType = InteractiveControlType.DllControl;
 
             InitializeComponent();
@@ -53,7 +63,7 @@ namespace CtrlDataTrigger
         /// <returns>un nouveau control du type courant</returns>
         public override InteractiveControl CreateNew()
         {
-            return new InteractiveCtrlDataTriggerDllControl();
+            return new InteractiveScreenItemLockerDllControl();
         }
 
         /// <summary>
@@ -100,20 +110,29 @@ namespace CtrlDataTrigger
             }
         }
 
+
         public void SelfPaint(Graphics gr, Control ctrl)
         {
-            SizeF SizeText = gr.MeasureString("DataTrigger", SystemFonts.DefaultFont);
+            SizeF SizeText = gr.MeasureString("ItemLocker", SystemFonts.DefaultFont);
             PointF PtText = new PointF(ctrl.ClientRectangle.Left + 2, (ctrl.Height - SizeText.Height) / 2);
-            gr.DrawString("DataTrigger", SystemFonts.DefaultFont, Brushes.Black, PtText);
+            gr.DrawString("ItemLocker", SystemFonts.DefaultFont, Brushes.Black, PtText);
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
             SelfPaint(e.Graphics, this);
+            // dessine l'étoile représentant la présence d'une donnée associée
             ControlPainter.DrawPresenceAssociateData(e.Graphics, this);
+            // existe une version ou il est possible de passer le paramètre indquant l'affichage de 
+            // l'étoile dont le prototype est le suivant
+            // à utiliser si la donnée associée standard n'est pas utilisée
+            //ControlPainter.DrawPresenceAssociateData(Graphics gr, Control ctrl, bool AssocOK)
             DrawSelRect(e.Graphics);
         }
 
+        /// <summary>
+        /// Surcharge de la classe de base, indique que c'est un plugin DLL
+        /// </summary>
         public override bool IsDllControl
         {
             get
@@ -122,11 +141,14 @@ namespace CtrlDataTrigger
             }
         }
 
+        /// <summary>
+        /// Renvoie l'ID de la DLL
+        /// </summary>
         public override uint DllControlID
         {
             get
             {
-                return CtrlDataTrigger.DllEntryClass.DLL_Control_ID;
+                return ScreenItemLocker.DllEntryClass.DLL_Control_ID;
             }
         }
 

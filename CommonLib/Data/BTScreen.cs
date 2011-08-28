@@ -348,6 +348,11 @@ namespace CommonLib
                         break;
                 }
             }
+            for (int i = 0; i < m_GestControl.Count; i++)
+            {
+                BTControl ctrl = m_GestControl[i] as BTControl;
+                ctrl.Parent = this;
+            }
             return true;
         }
 
@@ -534,7 +539,7 @@ namespace CommonLib
                 {
                     // dernières init du control
                     m_ListControls[i].FinalizeRead(Doc);
-                    m_ListControls[i].SetParent(this);
+                    m_ListControls[i].Parent = this;
                     // on crée l'objet
                     
                     m_ListControls[i].CreateControl();

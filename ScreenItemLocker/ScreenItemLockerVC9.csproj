@@ -4,16 +4,16 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{A6582518-3B26-47FC-9FAF-5F53AF2EC486}</ProjectGuid>
+    <ProjectGuid>{FF32D551-801D-4D14-AABB-F3FF50B94A87}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PasswordControler</RootNamespace>
-    <AssemblyName>PasswordControler</AssemblyName>
+    <RootNamespace>ScreenItemLocker</RootNamespace>
+    <AssemblyName>ScreenItemLocker</AssemblyName>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
+    <OldToolsVersion>2.0</OldToolsVersion>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
-    <OldToolsVersion>2.0</OldToolsVersion>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -72,44 +72,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BTControlHerited\BTDllPasswordControlerControl.cs" />
-    <Compile Include="BTControlHerited\DllPasswordControlerProp.cs" />
-    <Compile Include="ConfigForm\PasswordControlerProperties.cs">
+    <Compile Include="BTControlHerited\BTDllScreenItemLockerControl.cs" />
+    <Compile Include="BTControlHerited\DllScreenItemLockerProp.cs" />
+    <Compile Include="ConfigForm\ScreenItemLockerProperties.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ConfigForm\PasswordControlerProperties.Designer.cs">
-      <DependentUpon>PasswordControlerProperties.cs</DependentUpon>
+    <Compile Include="ConfigForm\ScreenItemLockerProperties.Designer.cs">
+      <DependentUpon>ScreenItemLockerProperties.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConfigForm\SelectControlsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfigForm\SelectControlsForm.Designer.cs">
+      <DependentUpon>SelectControlsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DllEntryClass.cs" />
-    <Compile Include="GraphicCommandControl\PasswordControlerCmdControl.cs">
-    </Compile>
-    <Compile Include="GraphicCommandControl\PasswordControlerDispCtrl.cs">
+    <Compile Include="GraphicCommandControl\ScreenItemLockerCmdControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GraphicCommandControl\PasswordControlerDispCtrl.Designer.cs">
-      <DependentUpon>PasswordControlerDispCtrl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="InteractiveHerited\InteractivePasswordControlerDllControl.cs">
+    <Compile Include="InteractiveHerited\InteractiveScreenItemLockerDllControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="InteractiveHerited\InteractivePasswordControlerDllControl.Designer.cs">
-      <DependentUpon>InteractivePasswordControlerDllControl.cs</DependentUpon>
+    <Compile Include="InteractiveHerited\InteractiveScreenItemLockerDllControl.Designer.cs">
+      <DependentUpon>InteractiveScreenItemLockerDllControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Res\PasswordControlerRes.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="ConfigForm\PasswordControlerProperties.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>PasswordControlerProperties.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GraphicCommandControl\PasswordControlerDispCtrl.resx">
-      <DependentUpon>PasswordControlerDispCtrl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="InteractiveHerited\InteractivePasswordControlerDllControl.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>InteractivePasswordControlerDllControl.cs</DependentUpon>
-    </EmbeddedResource>
+    <Compile Include="Res\ScreenItemLockerRes.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -137,6 +125,14 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ConfigForm\ScreenItemLockerProperties.resx">
+      <DependentUpon>ScreenItemLockerProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfigForm\SelectControlsForm.resx">
+      <DependentUpon>SelectControlsForm.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CommonLib\CommonLibVC9.csproj">

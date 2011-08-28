@@ -73,9 +73,10 @@ namespace CommonLib
         /// définit l'écran possédant le control
         /// </summary>
         /// <param name="btScreen">écran parent</param>
-        public void SetParent(BTScreen btScreen)
+        public BTScreen Parent
         {
-            m_Parent = btScreen;
+            get { return m_Parent; }
+            set { m_Parent = value; }
         }
 
         /// <summary>

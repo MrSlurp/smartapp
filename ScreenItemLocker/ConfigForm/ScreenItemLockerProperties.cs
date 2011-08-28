@@ -5,13 +5,12 @@ using System.Drawing;
 using System.Data;
 using System.Text;
 using System.IO;
-using System.Security.Cryptography;
 using System.Windows.Forms;
 using CommonLib;
 
-namespace PasswordControler
+namespace ScreenItemLocker
 {
-    internal partial class PasswordControlerProperties : UserControl, ISpecificPanel
+    internal partial class ScreenItemLockerProperties : UserControl, ISpecificPanel
     {
         // controle dont on édite les propriété
         BTControl m_Control = null;
@@ -25,7 +24,7 @@ namespace PasswordControler
         /// <summary>
         /// Constructeur de la classe
         /// </summary>
-        public PasswordControlerProperties()
+        public ScreenItemLockerProperties()
         {
             DllEntryClass.LangSys.Initialize(this);
             InitializeComponent();
@@ -42,19 +41,14 @@ namespace PasswordControler
             }
             set
             {
-                if (value != null && value.SpecificProp.GetType() == typeof(DllPasswordControlerProp))
+                if (value != null && value.SpecificProp.GetType() == typeof(DllScreenItemLockerProp))
                     m_Control = value;
                 else
                     m_Control = null;
-                edtPassword1.Text = string.Empty;
-                edtPassword2.Text = string.Empty;
                 if (m_Control != null)
                 {
                     this.Enabled = true;
-                    if (string.IsNullOrEmpty(((DllPasswordControlerProp)m_Control.SpecificProp).PasswordHash))
-                        lblPasswdExist.Visible = false;
-                    else
-                        lblPasswdExist.Visible = true;
+                    // assignez ici les valeur des propriété spécifiques du control
                 }
                 else
                 {
@@ -104,60 +98,35 @@ namespace PasswordControler
             if (this.BTControl == null)
                 return true;
 
-            return true;
-        }
-        #endregion
-
-        public static string HashWithMD5(string stringToHash)
-        {
-            MD5 md5HashAlgo = MD5.Create();
-            // Place le texte à hacher dans un tableau d'octets 
-            byte[] byteArrayToHash = Encoding.UTF8.GetBytes(stringToHash);
-
-            // Hash le texte et place le résulat dans un tableau d'octets 
-            byte[] hashResult = md5HashAlgo.ComputeHash(byteArrayToHash);
-
-            StringBuilder result = new StringBuilder();
-
-            for (int i = 0; i < hashResult.Length; i++)
-            {
-                // Affiche le Hash en hexadecimal 
-                result.Append(hashResult[i].ToString("X2"));
-            }
-            return result.ToString();
-        }
-
-        private void btnValidate_Click(object sender, EventArgs e)
-        {
             bool bDataPropChange = false;
 
             // testez ici si les paramètres ont changé en les comparant avec ceux contenu dans les propriété
             // spécifiques du BTControl
             // si c'est le cas, assignez bDataPropChange à true;
-            string md5 = string.Empty;
-            if ((!string.IsNullOrEmpty(edtPassword2.Text) && !string.IsNullOrEmpty(edtPassword1.Text)) &&
-                edtPassword1.Text == edtPassword2.Text)
-            {
-                md5 = HashWithMD5(edtPassword1.Text);
-                if (md5 != ((DllPasswordControlerProp)m_Control.SpecificProp).PasswordHash)
-                    bDataPropChange = true;
-            }
-            else if ((!string.IsNullOrEmpty(edtPassword2.Text) && !string.IsNullOrEmpty(edtPassword1.Text)) &&
-                edtPassword1.Text != edtPassword2.Text)
-            {
-                string strMessage = DllEntryClass.LangSys.C("The two password are different");
-                MessageBox.Show(strMessage, DllEntryClass.LangSys.C("Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
 
             if (bDataPropChange)
             {
                 Doc.Modified = true;
-                ((DllPasswordControlerProp)m_Control.SpecificProp).PasswordHash = md5;
                 m_Control.IControl.Refresh();
-                lblPasswdExist.Visible = true;
             }
             if (bDataPropChange && ControlPropertiesChanged != null)
                 ControlPropertiesChanged(m_Control);
+            return true;
+        }
+        #endregion
+
+        private void btncfg_Click(object sender, EventArgs e)
+        {
+            SelectControlsForm CfgForm = new SelectControlsForm();
+            CfgForm.Doc = this.Doc;
+            CfgForm.BTControl = this.BTControl;
+            CfgForm.Props = (DllScreenItemLockerProp)this.BTControl.SpecificProp;
+
+            if (CfgForm.ShowDialog() == DialogResult.OK)
+            {
+                // si OK on recopie les param
+                this.BTControl.SpecificProp.CopyParametersFrom(CfgForm.Props, false);
+            }
         }
     }
 }

@@ -1,22 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Text;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using CommonLib;
 
-namespace PasswordControler
+namespace ScreenItemLocker
 {
     /// <summary>
     /// Cette classe serta  définir le comportement du control lorsqu'il est executé dans SmartCommand
     /// </summary>
-    internal class PasswordControlerCmdControl : BTDllPasswordControlerControl
+    internal class ScreenItemLockerCmdControl : BTDllScreenItemLockerControl
     {
         /// <summary>
         /// Constructeur de la classe
         /// </summary>
-        public PasswordControlerCmdControl()
+        public ScreenItemLockerCmdControl()
         {
 
         }
@@ -30,7 +31,7 @@ namespace PasswordControler
             if (m_Ctrl == null)
             {
                 // on crée l'objet graphique qui sera affiché
-                m_Ctrl = new PasswordControlerDispCtrl();
+                m_Ctrl = new ScreenItemLockerDispCtrl();
                 // on définit sa position dans l'écran
                 m_Ctrl.Location = m_RectControl.Location;
                 // son nom est le symbol de l'objet courant
@@ -40,7 +41,10 @@ namespace PasswordControler
                 // on définit son fond comme étant transparent (peut être changé)
                 m_Ctrl.BackColor = Color.Transparent;
                 // faites ici les initialisation spécifiques du control affiché
-                ((PasswordControlerDispCtrl)m_Ctrl).SourceCtrl = this;
+                ScreenItemLockerDispCtrl dispCtrl = m_Ctrl as ScreenItemLockerDispCtrl;
+                
+                DllScreenItemLockerProp props = this.SpecificProp as DllScreenItemLockerProp;
+                dispCtrl.InitControledItemList(props.ListItemSymbol);
                 // par exemple la liaison du click souris à un handler d'event
                 //m_Ctrl.Click += new System.EventHandler(this.OnControlEvent);
             }
@@ -68,14 +72,18 @@ namespace PasswordControler
         {
             if (m_AssociateData != null && m_Ctrl != null)
             {
-                // effectuez ici le traitement à executer lorsque la valeur change
-            }
-        }
+                bool bEnableState = false;
+                if (m_AssociateData.Value == 0)
+                    bEnableState = false;
+                else
+                    bEnableState = true;
 
-        public void SetAssociateDataValue(int value)
-        {
-            if (m_AssociateData != null)
-                m_AssociateData.Value = value;
+                ScreenItemLockerDispCtrl dispCtrl = m_Ctrl as ScreenItemLockerDispCtrl;
+                if (dispCtrl != null)
+                {
+                    dispCtrl.ChangeEnableStatus(bEnableState);
+                }
+            }
         }
 
         /// <summary>
@@ -99,12 +107,55 @@ namespace PasswordControler
                         // traitez ici le passage en mode stop du control si nécessaire
                         break;
                     case MESSAGE.MESS_CMD_RUN:
+                        UpdateFromData();
                         // traitez ici le passage en mode run du control si nécessaire
                         break;
                     default:
                         break;
                 }
             }
+        }
+    }
+
+    /// <summary>
+    /// classe héritant de UserControl
+    /// représente l'objet graphique affiché dans la supervision
+    /// on peux en faire a peut près ce qu'on veux :
+    /// - du dessin
+    /// - une aggregation de plusieurs controls standards, 
+    /// - les deux, etc.
+    /// </summary>
+    public class ScreenItemLockerDispCtrl : UserControl
+    {
+        // ajouter ici les données membres du control affiché
+        StringCollection m_listControledItems = new StringCollection();
+
+        public ScreenItemLockerDispCtrl()
+        {
+        }
+
+        public void InitControledItemList(StringCollection listItemSymbol)
+        {
+            foreach (string st in listItemSymbol)
+                m_listControledItems.Add(st);
+
+        }
+
+        public void ChangeEnableStatus(bool bEnable)
+        {
+            for (int i = 0; i < m_listControledItems.Count; i++)
+            {
+                // attention ceci ne marche que parce que tout les controls sont au même niveau
+                Control ctrl = Parent.Controls[m_listControledItems[i]];
+                if (ctrl != null)
+                    ctrl.Enabled = bEnable;
+            }
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            // mettez ici le code de dessin du control
+            base.OnPaint(e);
         }
     }
 }

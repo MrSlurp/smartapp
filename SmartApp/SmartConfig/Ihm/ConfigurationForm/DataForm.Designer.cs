@@ -114,7 +114,7 @@ namespace SmartApp.Ihm
             this.m_listViewData.Location = new System.Drawing.Point(3, 69);
             this.m_listViewData.MultiSelect = false;
             this.m_listViewData.Name = "m_listViewData";
-            this.m_listViewData.Size = new System.Drawing.Size(385, 211);
+            this.m_listViewData.Size = new System.Drawing.Size(385, 358);
             this.m_listViewData.TabIndex = 7;
             this.m_listViewData.UseCompatibleStateImageBehavior = false;
             this.m_listViewData.View = System.Windows.Forms.View.Details;
