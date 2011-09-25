@@ -212,18 +212,24 @@ namespace CommonLib
                 while (m_PileScriptsToExecute.Count != 0 && !m_bStopRequested)
                 {
                     // on prend le script sans l'enlever afin de savoir qu'il n'est pas encore executé
-                    m_QueueMutex.WaitOne();
-                    int QuickId = m_PileScriptsToExecute.Peek();
+                    //m_QueueMutex.WaitOne();
+                    Object thisLock = new Object();
+                    int QuickId = 0;
+                    lock (thisLock)
+                    {
+                        QuickId = m_PileScriptsToExecute.Peek();
+                    }
                     //if (m_bIsWaiting)
                     //    System.Diagnostics.Debug.Assert(false, "appel en trop");
 
                     InternalExecuteScript(QuickId);
                     // il est éxécuté, on l'enlève de la liste.
                     m_PileScriptsToExecute.Dequeue();
-                    m_QueueMutex.ReleaseMutex();
+                    //m_QueueMutex.ReleaseMutex();
+                    Thread.Sleep(20);
                 }
                 theChrono.EndMeasure("ScriptExecuter");
-                Thread.Sleep(10);
+                Thread.Sleep(50);
             } while (!m_bStopRequested);
             m_bStopRequested = false;
         }
@@ -236,11 +242,13 @@ namespace CommonLib
         {
             if (m_DictioQuickScripts.ContainsKey(QuickID))
             {
-                m_QueueMutex.WaitOne();
-                m_PileScriptsToExecute.Enqueue(QuickID);
-                //if (m_PileScriptsToExecute.Count > 1)
-                //    return;
-                m_QueueMutex.ReleaseMutex();
+                Object thisLock = new Object();
+                lock (thisLock)
+                {
+                    // Critical code section
+                    m_PileScriptsToExecute.Enqueue(QuickID);
+                } 
+                //m_QueueMutex.ReleaseMutex();
                 //if (EvScriptToExecute != null)
                     //EvScriptToExecute();
             }

@@ -159,5 +159,10 @@ namespace PasswordControler
             if (bDataPropChange && ControlPropertiesChanged != null)
                 ControlPropertiesChanged(m_Control);
         }
+
+        private void btnValidate_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
