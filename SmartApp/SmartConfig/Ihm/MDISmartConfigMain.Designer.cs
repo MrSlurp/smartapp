@@ -92,14 +92,14 @@ namespace SmartApp.Ihm
             this.m_printToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.m_printPreviewToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsbtnConfigCom = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
             this.m_helpToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.tsbtn_gotoScreen = new System.Windows.Forms.ToolStripButton();
             this.tsbtn_gotoProgram = new System.Windows.Forms.ToolStripButton();
             this.tsbtn_gotoData = new System.Windows.Forms.ToolStripButton();
             this.tsbtn_gotoFrame = new System.Windows.Forms.ToolStripButton();
-            this.tsbtnConfigCom = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
             this.m_menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.m_toolStrip.SuspendLayout();
@@ -650,6 +650,22 @@ namespace SmartApp.Ihm
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             this.toolStripSeparator2.Visible = false;
             // 
+            // tsbtnConfigCom
+            // 
+            this.tsbtnConfigCom.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsbtnConfigCom.Image = ((System.Drawing.Image)(resources.GetObject("tsbtnConfigCom.Image")));
+            this.tsbtnConfigCom.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbtnConfigCom.Name = "tsbtnConfigCom";
+            this.tsbtnConfigCom.Size = new System.Drawing.Size(113, 22);
+            this.tsbtnConfigCom.Text = "Configure connection";
+            this.tsbtnConfigCom.Click += new System.EventHandler(this.tsbtnConfigCom_Click);
+            // 
+            // toolStripSeparator11
+            // 
+            this.toolStripSeparator11.Name = "toolStripSeparator11";
+            this.toolStripSeparator11.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator11.Visible = false;
+            // 
             // m_helpToolStripButton
             // 
             this.m_helpToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -707,21 +723,6 @@ namespace SmartApp.Ihm
             this.tsbtn_gotoFrame.Size = new System.Drawing.Size(41, 22);
             this.tsbtn_gotoFrame.Text = "Frame";
             this.tsbtn_gotoFrame.Click += new System.EventHandler(this.tsbtn_gotoFrame_Click);
-            // 
-            // tsbtnConfigCom
-            // 
-            this.tsbtnConfigCom.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.tsbtnConfigCom.Image = ((System.Drawing.Image)(resources.GetObject("tsbtnConfigCom.Image")));
-            this.tsbtnConfigCom.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbtnConfigCom.Name = "tsbtnConfigCom";
-            this.tsbtnConfigCom.Size = new System.Drawing.Size(113, 22);
-            this.tsbtnConfigCom.Text = "Configure connection";
-            this.tsbtnConfigCom.Click += new System.EventHandler(this.tsbtnConfigCom_Click);
-            // 
-            // toolStripSeparator11
-            // 
-            this.toolStripSeparator11.Name = "toolStripSeparator11";
-            this.toolStripSeparator11.Size = new System.Drawing.Size(6, 25);
             // 
             // MDISmartConfigMain
             // 

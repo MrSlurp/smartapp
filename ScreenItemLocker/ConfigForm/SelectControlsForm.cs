@@ -21,6 +21,7 @@ namespace ScreenItemLocker
 
         public SelectControlsForm()
         {
+            DllEntryClass.LangSys.Initialize(this);
             InitializeComponent();
             lstSelected_SelectedIndexChanged(null, null);
             lstScreen_SelectedIndexChanged(null, null);

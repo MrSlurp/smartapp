@@ -17,7 +17,7 @@ namespace PasswordControler
     /// - une aggregation de plusieurs controls standards, 
     /// - les deux, etc.
     /// </summary>
-    internal partial class PasswordControlerDispCtrl : UserControl
+    internal partial class PasswordControlerDispCtrl : UserControl, ILangReloadable
     {
         // ajouter ici les données membres du control affiché
         protected PasswordControlerCmdControl m_SourceCtrl = null;
@@ -33,9 +33,18 @@ namespace PasswordControler
         public PasswordControlerDispCtrl()
         {
             InitializeComponent();
+            LoadNonStandardLang();
             txtPasswd.Text = string.Empty;
             m_TimerPassInvalid.Tick += new EventHandler(m_TimerPassInvalid_Tick);
             m_TimerPassInvalid.Interval = 2000;
+        }
+
+        public void LoadNonStandardLang()
+        {
+            btnUnlock.Text = DllEntryClass.LangSys.C("Unlock");
+            btnLock.Text = DllEntryClass.LangSys.C("Lock");
+            label1.Text = DllEntryClass.LangSys.C("Invalid password");
+            this.Refresh();
         }
 
         void m_TimerPassInvalid_Tick(object sender, EventArgs e)

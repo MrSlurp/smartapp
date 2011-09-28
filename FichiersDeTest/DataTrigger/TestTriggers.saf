@@ -1,7 +1,7 @@
 <Root>
   <FileHeader>
     <FileVersion Indice="3" />
-    <SoftVersion Indice="2.5.1.0" />
+    <SoftVersion Indice="2.6.0.1" />
   </FileHeader>
   <DataSection>
     <Data strSymbol="TRANSACTION_ID" strNom="" Min="-32768" Max="32767" DefVal="1" size="16" Constant="True" />
@@ -25,7 +25,7 @@
     <Data strSymbol="DONNE_TEST_2" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
     <Data strSymbol="DONNE_TEST_3" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
     <GroupSection>
-      <Group strNom="Groupe par défaut" strSymbol="GROUP_0" bkColor="255, 255, 255">
+      <Group strNom="Default group" strSymbol="GROUP_0" bkColor="255, 255, 255">
         <Object strSymbol="DONNE_TEST_1" />
         <Object strSymbol="DONNE_TEST_2" />
         <Object strSymbol="DONNE_TEST_3" />

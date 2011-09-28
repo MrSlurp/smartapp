@@ -371,15 +371,19 @@ namespace SmartApp
                 TraiteCommStateVirtualDataForm();
             }
             m_Document = null;
+            AsyncUpdater();
 
             for (int i = 0; i < this.MdiChildren.Length; i++)
             {
                 this.MdiChildren[i].Hide();
             }
             m_EventLog.Hide();
+            m_tsBtnConnexion.Checked = false;
             m_tsBtnConnexion.Enabled = false;
             m_tsBtnStartStop.Enabled = false;
+            m_tsBtnStartStop.Checked = false;
             UpdateToolBarCxnItemState();
+            UpdateStartStopButtonState();
             m_FormList.Clear();
             if (m_VariableForm != null)
             {

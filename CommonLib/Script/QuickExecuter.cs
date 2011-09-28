@@ -31,7 +31,6 @@ namespace CommonLib
 
         #region données membres
         BTDoc m_Document = null;
-        static bool m_bIsWaiting = false;
         static int nbinstanceexecuter = 0;
         Queue<int> m_PileScriptsToExecute = new Queue<int>();
 
@@ -399,10 +398,8 @@ namespace CommonLib
             {
                 byte[] FrameHeader = TrameToRecieve.FrameHeader;
                 int ConvertedSize = TrameToRecieve.GetConvertedTrameSizeInByte();
-                m_bIsWaiting = true;
                 if (!m_Document.m_Comm.WaitTrameRecieved(ConvertedSize, FrameHeader))
                 {
-                    m_bIsWaiting = false;
                     //indiquer qu'une trame n'a pas été recu
                     // et demander a l'utilisateur si il souhaite continuer l'execution des actions
                     // si il ne veux pas, remonter au parent qu'il doit arrèter les actions
@@ -422,7 +419,6 @@ namespace CommonLib
                     AddLogEvent(log);
                     return;
                 }
-                m_bIsWaiting = false;
                 byte[] buffer = null;
                 if (m_Document.m_Comm.CommType == TYPE_COMM.VIRTUAL)
                     buffer = m_Document.m_Comm.GetRecievedData(ConvertedSize, TrameToRecieve);
