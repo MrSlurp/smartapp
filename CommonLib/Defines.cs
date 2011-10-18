@@ -133,7 +133,9 @@ namespace CommonLib
         SpecificControl,
         DllControl,
         FileList,
-        File
+        File,
+        PluginsGlobals,
+        Plugin
     }
     /// <summary>
     /// enum des attributs du ficher de config (Config File (CF))
@@ -173,6 +175,7 @@ namespace CommonLib
         CsvSeparator,
         FormatString,
         LogMode,
+        NKFO,
     }
 
     /// <summary>

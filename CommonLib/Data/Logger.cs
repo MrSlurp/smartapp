@@ -170,6 +170,18 @@ namespace CommonLib
                 m_DateFormatString = value;
             }
         }
+
+        public bool DoNotKeepFileOpen
+        {
+            get
+            {
+                return m_bDoNotKeepFileOpen;
+            }
+            set
+            {
+                m_bDoNotKeepFileOpen = value;
+            }
+        }
         #endregion
 
         #region constructeurs
@@ -248,6 +260,11 @@ namespace CommonLib
                 }
                 m_LoggerMode = lgMode;
             }
+
+            XmlNode AttribNKFO = Node.Attributes.GetNamedItem(XML_CF_ATTRIB.NKFO.ToString());
+            if (AttribNKFO != null)
+                m_bDoNotKeepFileOpen = bool.Parse(AttribNKFO.Value);
+
             return bRet;
         }
 
@@ -268,6 +285,7 @@ namespace CommonLib
             XmlAttribute SepAttrib = XmlDoc.CreateAttribute(XML_CF_ATTRIB.CsvSeparator.ToString());
             XmlAttribute FormatStringAttrib = XmlDoc.CreateAttribute(XML_CF_ATTRIB.FormatString.ToString());
             XmlAttribute LogModeAttrib = XmlDoc.CreateAttribute(XML_CF_ATTRIB.LogMode.ToString());
+            XmlAttribute AttribNKFO = XmlDoc.CreateAttribute(XML_CF_ATTRIB.NKFO.ToString());
 
             PeriodAttrib.Value = m_iPeriod.ToString();
             LoggerTypeAttrib.Value = m_LogType;
@@ -276,6 +294,7 @@ namespace CommonLib
             SepAttrib.Value = new string(m_CsvSeperator,1);
             FormatStringAttrib.Value = m_DateFormatString;
             LogModeAttrib.Value = m_LoggerMode.ToString();
+            AttribNKFO.Value = m_bDoNotKeepFileOpen.ToString();
 
             Node.Attributes.Append(PeriodAttrib);
             Node.Attributes.Append(LoggerTypeAttrib);
@@ -284,6 +303,7 @@ namespace CommonLib
             Node.Attributes.Append(SepAttrib);
             Node.Attributes.Append(FormatStringAttrib);
             Node.Attributes.Append(LogModeAttrib);
+            Node.Attributes.Append(AttribNKFO);
 
             XmlNode NodeDataList = XmlDoc.CreateElement(XML_CF_TAG.DataList.ToString());
             Node.AppendChild(NodeDataList);

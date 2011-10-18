@@ -4,11 +4,11 @@ using System.Text;
 using System.Windows.Forms;
 using System.Reflection;
 using System.Drawing;
+using System.Xml;
 using CommonLib;
 
 namespace CtrlTwoBitmap
 {
-    [Serializable]
     public class DllEntryClass : IDllControlInterface
     {
         public const uint TwoBitmap_Control_ID = 110;
@@ -86,6 +86,16 @@ namespace CtrlTwoBitmap
             {
                 return "TwoBitmap";
             }
+        }
+
+        public bool ReadInModuleGlobalInfo(XmlNode DllInfoNode)
+        {
+            return true;
+        }
+
+        public bool WriteOutModuleGlobalInfo(XmlDocument document, XmlNode XmlGlobalNode)
+        {
+            return true;
         }
 
     }

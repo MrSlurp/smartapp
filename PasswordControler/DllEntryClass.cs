@@ -4,6 +4,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Reflection;
 using System.Drawing;
+using System.Xml;
 using CommonLib;
 
 namespace PasswordControler
@@ -91,5 +92,16 @@ namespace PasswordControler
                 return "PasswordControler";
             }
         }
+
+        public bool ReadInModuleGlobalInfo(XmlNode DllInfoNode)
+        {
+            return true;
+        }
+
+        public bool WriteOutModuleGlobalInfo(XmlDocument document, XmlNode XmlGlobalNode)
+        {
+            return true;
+        }
+
     }
 }

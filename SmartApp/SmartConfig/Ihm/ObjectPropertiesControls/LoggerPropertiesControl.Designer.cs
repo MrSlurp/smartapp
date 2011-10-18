@@ -76,7 +76,7 @@ namespace SmartApp.Ihm
             // 
             this.m_cboSeparator.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.m_cboSeparator.FormattingEnabled = true;
-            this.m_cboSeparator.Location = new System.Drawing.Point(221, 147);
+            this.m_cboSeparator.Location = new System.Drawing.Point(221, 167);
             this.m_cboSeparator.Name = "m_cboSeparator";
             this.m_cboSeparator.Size = new System.Drawing.Size(108, 21);
             this.m_cboSeparator.TabIndex = 23;
@@ -122,7 +122,7 @@ namespace SmartApp.Ihm
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(218, 89);
+            this.label3.Location = new System.Drawing.Point(218, 112);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(84, 13);
             this.label3.TabIndex = 14;
@@ -166,7 +166,7 @@ namespace SmartApp.Ihm
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(360, 109);
+            this.label4.Location = new System.Drawing.Point(360, 133);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(27, 13);
             this.label4.TabIndex = 24;
@@ -187,26 +187,24 @@ namespace SmartApp.Ihm
             this.m_chkAutoStart.Location = new System.Drawing.Point(331, 67);
             this.m_chkAutoStart.Name = "m_chkAutoStart";
             this.m_chkAutoStart.Size = new System.Drawing.Size(73, 17);
-            this.m_chkAutoStart.TabIndex = 28;
+            this.m_chkAutoStart.TabIndex = 29;
             this.m_chkAutoStart.Text = "Auto Start";
             this.m_chkAutoStart.UseVisualStyleBackColor = true;
-            
             // 
             // m_chkNotKeepFileOpen
             // 
             this.m_chkNotKeepFileOpen.AutoSize = true;
-            this.m_chkNotKeepFileOpen.Location = new System.Drawing.Point(400, 67);
+            this.m_chkNotKeepFileOpen.Location = new System.Drawing.Point(221, 92);
             this.m_chkNotKeepFileOpen.Name = "m_chkNotKeepFileOpen";
-            this.m_chkNotKeepFileOpen.Size = new System.Drawing.Size(73, 17);
-            this.m_chkAutoStart.TabIndex = 29;
+            this.m_chkNotKeepFileOpen.Size = new System.Drawing.Size(128, 17);
+            this.m_chkNotKeepFileOpen.TabIndex = 0;
             this.m_chkNotKeepFileOpen.Text = "Do not keep file open";
             this.m_chkNotKeepFileOpen.UseVisualStyleBackColor = true;
-            
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(221, 128);
+            this.label6.Location = new System.Drawing.Point(218, 151);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(73, 13);
             this.label6.TabIndex = 17;
@@ -216,7 +214,7 @@ namespace SmartApp.Ihm
             // 
             this.m_cboNaming.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.m_cboNaming.FormattingEnabled = true;
-            this.m_cboNaming.Location = new System.Drawing.Point(221, 187);
+            this.m_cboNaming.Location = new System.Drawing.Point(221, 207);
             this.m_cboNaming.Name = "m_cboNaming";
             this.m_cboNaming.Size = new System.Drawing.Size(195, 21);
             this.m_cboNaming.TabIndex = 23;
@@ -225,7 +223,7 @@ namespace SmartApp.Ihm
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(218, 171);
+            this.label7.Location = new System.Drawing.Point(218, 191);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(78, 13);
             this.label7.TabIndex = 17;
@@ -234,7 +232,7 @@ namespace SmartApp.Ihm
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(221, 211);
+            this.label8.Location = new System.Drawing.Point(221, 231);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(62, 13);
             this.label8.TabIndex = 30;
@@ -242,7 +240,7 @@ namespace SmartApp.Ihm
             // 
             // edtDateFormat
             // 
-            this.edtDateFormat.Location = new System.Drawing.Point(221, 228);
+            this.edtDateFormat.Location = new System.Drawing.Point(221, 247);
             this.edtDateFormat.Name = "edtDateFormat";
             this.edtDateFormat.Size = new System.Drawing.Size(195, 20);
             this.edtDateFormat.TabIndex = 31;
@@ -260,18 +258,18 @@ namespace SmartApp.Ihm
             // edtFormatHelp
             // 
             this.edtFormatHelp.AcceptsReturn = true;
-            this.edtFormatHelp.Location = new System.Drawing.Point(221, 254);
+            this.edtFormatHelp.Location = new System.Drawing.Point(221, 273);
             this.edtFormatHelp.Multiline = true;
             this.edtFormatHelp.Name = "edtFormatHelp";
             this.edtFormatHelp.ReadOnly = true;
             this.edtFormatHelp.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.edtFormatHelp.Size = new System.Drawing.Size(195, 150);
+            this.edtFormatHelp.Size = new System.Drawing.Size(195, 131);
             this.edtFormatHelp.TabIndex = 33;
             // 
             // m_txtFileName
             // 
             this.m_txtFileName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.m_txtFileName.Location = new System.Drawing.Point(221, 105);
+            this.m_txtFileName.Location = new System.Drawing.Point(221, 128);
             this.m_txtFileName.Name = "m_txtFileName";
             this.m_txtFileName.Size = new System.Drawing.Size(137, 20);
             this.m_txtFileName.TabIndex = 18;
@@ -311,8 +309,9 @@ namespace SmartApp.Ihm
             this.Controls.Add(this.m_richTextDesc);
             this.Controls.Add(this.m_cboNaming);
             this.Controls.Add(this.m_cboSeparator);
+            this.Controls.Add(this.m_chkNotKeepFileOpen);
             this.Name = "LoggerPropertiesControl";
-            this.Size = new System.Drawing.Size(426, 416);
+            this.Size = new System.Drawing.Size(541, 416);
             this.Validating += new System.ComponentModel.CancelEventHandler(this.PropertiesControlValidating);
             ((System.ComponentModel.ISupportInitialize)(this.m_LoggerPeriod)).EndInit();
             this.ResumeLayout(false);

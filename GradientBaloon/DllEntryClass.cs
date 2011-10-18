@@ -4,11 +4,11 @@ using System.Text;
 using System.Windows.Forms;
 using System.Reflection;
 using System.Drawing;
+using System.Xml;
 using CommonLib;
 
 namespace GradientBaloon
 {
-    [Serializable]
     public class DllEntryClass : IDllControlInterface
     {
         // changes ici l'identifiant unique de la DLL
@@ -91,6 +91,16 @@ namespace GradientBaloon
                 // modifiez ici le nom par défaut de l'objet lors de sa création
                 return "GradientBaloon";
             }
+        }
+
+        public bool ReadInModuleGlobalInfo(XmlNode DllInfoNode)
+        {
+            return true;
+        }
+
+        public bool WriteOutModuleGlobalInfo(XmlDocument document, XmlNode XmlGlobalNode)
+        {
+            return true;
         }
 
     }

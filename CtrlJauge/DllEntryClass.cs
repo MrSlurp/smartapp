@@ -4,6 +4,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Reflection;
 using System.Drawing;
+using System.Xml;
 using CommonLib;
 
 namespace CtrlJauge
@@ -89,6 +90,16 @@ namespace CtrlJauge
                 // modifiez ici le nom par défaut de l'objet lors de sa création
                 return "Gauge";
             }
+        }
+
+        public bool ReadInModuleGlobalInfo(XmlNode DllInfoNode)
+        {
+            return true;
+        }
+
+        public bool WriteOutModuleGlobalInfo(XmlDocument document, XmlNode XmlGlobalNode)
+        {
+            return true;
         }
 
     }

@@ -18,10 +18,9 @@ namespace CommonLib
 {
     public delegate void NeedRefreshHMI(MessNeedUpdate Mess);
     public delegate void DocumentModifiedEvent();
-    //*****************************************************************************************************
-    // Description:
-    // Return: /
-    //*****************************************************************************************************
+    /// <summary>
+    /// 
+    /// </summary>
     public class BTDoc : Object
     {
         #region données membres
@@ -40,6 +39,8 @@ namespace CommonLib
         private GestLogger      m_GestLogger = new GestLogger();
         // C'est une image de la liste des données sans gestion des groupes (les groupes ne sont pas lu)
         private GestDataVirtual m_GestVirtualData = new GestDataVirtual();
+
+        private DllControlGest m_GestDLL;
 
         private TYPE_APP m_TypeApp = TYPE_APP.NONE;
         // indique si le document a été modifié
@@ -84,10 +85,9 @@ namespace CommonLib
         }
 #endif
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// accesseur du type d'application dans lequel le document est chargé
+        /// </summary>
         public TYPE_APP TypeApp
         {
             get
@@ -96,10 +96,9 @@ namespace CommonLib
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// renvoie le chemin du fichier de log
+        /// </summary>
         public string LogFilePath
         {
             get
@@ -118,6 +117,9 @@ namespace CommonLib
             }
         }
 
+        /// <summary>
+        /// renvoie le type de communication utilisé par le document
+        /// </summary>
         public TYPE_COMM TypeComm
         {
             get
@@ -127,10 +129,10 @@ namespace CommonLib
         }
 
         #region constructeur
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// Constructeur par défaut
+        /// </summary>
+        /// <param name="TypeApp">Type d'application courante</param>
         public BTDoc(TYPE_APP TypeApp)
         {
             m_GestData.DoSendMessage += new SendMessage(TraiteMessage);
@@ -159,11 +161,18 @@ namespace CommonLib
             m_TypeApp = TypeApp;
         }
 
+        /// <summary>
+        /// destructeur
+        /// </summary>
         ~BTDoc()
         {
             TraiteMessage(MESSAGE.MESS_CMD_STOP, null, TYPE_APP.SMART_COMMAND);
         }
 
+        /// <summary>
+        /// détache le handler d'event sur le status de la communication
+        /// </summary>
+        /// <param name="Handler">handler à détacher</param>
         public void DetachCommEventHandler(CommOpenedStateChange Handler)
         {
             if (OnCommStateChange != null)
@@ -174,10 +183,9 @@ namespace CommonLib
         #endregion
 
         #region attributs
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// accesseur du nom de fichier
+        /// </summary>
         public string FileName
         {
             get
@@ -186,6 +194,10 @@ namespace CommonLib
             }
         }
 
+        /// <summary>
+        /// indique si le document à été modifé depuis sa dernière sauvegarde
+        /// et le notifie si son état est changé
+        /// </summary>
         public bool Modified
         {
             get
@@ -203,10 +215,9 @@ namespace CommonLib
         #endregion
 
         #region attributs d'accès aux gestionnaires
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// accesseur du gestionnaire de donnée du document
+        /// </summary>
         public GestData GestData
         {   
             get
@@ -215,6 +226,9 @@ namespace CommonLib
             }
         }
 
+        /// <summary>
+        /// accesseur du gestionnaire de donnée virtuelles du document
+        /// </summary>
         public GestDataVirtual GestDataVirtual
         {
             get
@@ -223,10 +237,9 @@ namespace CommonLib
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// accesseur du gestionnaire de d'écran du document
+        /// </summary>
         public GestScreen GestScreen
         {
             get
@@ -235,10 +248,9 @@ namespace CommonLib
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// accesseur du gestionnaire de de trammes du document
+        /// </summary>
         public GestTrame GestTrame
         {
             get
@@ -247,10 +259,9 @@ namespace CommonLib
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// accesseur du gestionnaire de trames du document
+        /// </summary>
         public GestFunction GestFunction
         {
             get
@@ -259,10 +270,9 @@ namespace CommonLib
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// accesseur du gestionnaire de timer du document
+        /// </summary>
         public GestTimer GestTimer
         {
             get
@@ -271,10 +281,9 @@ namespace CommonLib
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// accesseur du gestionnaire de logger du document
+        /// </summary>
         public GestLogger GestLogger
         {
             get
@@ -285,10 +294,12 @@ namespace CommonLib
         #endregion
 
         #region Gestion des AppMessages
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// Traite les messages d'application 
+        /// </summary>
+        /// <param name="Mess">type du message</param>
+        /// <param name="Param">objet d'information étendu du message</param>
+        /// <param name="TypeApp">type d'application </param>
         public void TraiteMessage(MESSAGE Mess, object Param, TYPE_APP TypeApp)
         {
             switch (Mess)
@@ -343,12 +354,16 @@ namespace CommonLib
         #endregion
 
         #region lecture et sauvegarde du fichier;
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// lit le document XML de supervision
+        /// </summary>
+        /// <param name="strFullFileName">nom de chemin complet du fichier</param>
+        /// <param name="TypeApp">type d'application</param>
+        /// <param name="GestDll">gestionnaire de DLL à utiliser</param>
+        /// <returns>true si la lecture a réussi, sinon false</returns>
         public bool ReadConfigDocument(string strFullFileName, TYPE_APP TypeApp, DllControlGest GestDll)
         {
+            m_GestDLL = GestDll;
             m_strfileFullName = strFullFileName;
             XmlDocument XmlDoc = new XmlDocument();
             try
@@ -388,6 +403,9 @@ namespace CommonLib
                         m_Comm.ReadIn(RootNode, TypeApp);
                         break;
 #endif
+                    case XML_CF_TAG.PluginsGlobals:
+                        m_GestDLL.ReadInPluginsGlobals(Node);
+                        break;
                     case XML_CF_TAG.DataSection:
                         if (!this.GestData.ReadIn(Node, TypeApp))
                             return false;
@@ -424,10 +442,12 @@ namespace CommonLib
             return true;
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// Lit le header du fichier
+        /// </summary>
+        /// <param name="NodeHeader">Noeud xml du header</param>
+        /// <param name="TypeApp">type d'application</param>
+        /// <returns>true si la lecture a reussi</returns>
         protected bool ReadFileHeader(XmlNode NodeHeader, TYPE_APP TypeApp)
         {
             for (int i = 0; i < NodeHeader.ChildNodes.Count; i++)
@@ -493,21 +513,25 @@ namespace CommonLib
             return true;
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// sauvegarde le document si celui ci est issue de l'ouverture d'un fichier existant
+        /// </summary>
+        /// <param name="bShowError">affiche ou non les erreurs</param>
+        /// <returns>true si la sauvegarde a reussie</returns>
         public bool WriteConfigDocument(bool bShowError)
         {
-            return WriteConfigDocument(m_strfileFullName, bShowError);
+            return WriteConfigDocument(m_strfileFullName, bShowError, m_GestDLL);
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        public bool WriteConfigDocument(string strFullFileName, bool bShowError)
+        /// <summary>
+        /// sauvegarde le document sous le nom passé en paramètre
+        /// </summary>
+        /// <param name="strFullFileName">nom complet du fichier</param>
+        /// <param name="bShowError">affiche ou non les erreurs</param>
+        /// <returns>true si la sauvegarde a réussie</returns>
+        public bool WriteConfigDocument(string strFullFileName, bool bShowError, DllControlGest GestDll)
         {
+            m_GestDLL = GestDll;
             // on met a jour les données de control juste avant de sauver le document
             // elles n'étaient pas utiles avant, mais la le fichier peut être utilisé dans BTCommand
             // et donc ces données sont nécessaires
@@ -523,6 +547,10 @@ namespace CommonLib
 #if _SMARTAPP_MULTICO
             m_Comm.WriteOut(XmlDoc, XmlDoc.DocumentElement);
 #endif
+            XmlNode NodePluginsGlobals = XmlDoc.CreateElement(XML_CF_TAG.PluginsGlobals.ToString());
+            XmlDoc.DocumentElement.AppendChild(NodePluginsGlobals);
+            m_GestDLL.WriteOutPluginsGlobals(XmlDoc, NodePluginsGlobals);
+
             XmlNode NodeDataSection = XmlDoc.CreateElement(XML_CF_TAG.DataSection.ToString());
             XmlDoc.DocumentElement.AppendChild(NodeDataSection);
             GestData.WriteOut(XmlDoc, NodeDataSection);
@@ -553,10 +581,10 @@ namespace CommonLib
             return true;
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// écrit le header du fichier contenant les versions
+        /// </summary>
+        /// <param name="XmlDoc">Document XML dans lequel le header est écrit</param>
         private void WriteFileHeader(XmlDocument XmlDoc)
         {
             XmlNode NodeFileHeader = XmlDoc.CreateElement(XML_CF_TAG.FileHeader.ToString());
@@ -574,10 +602,13 @@ namespace CommonLib
             NodeFileHeader.AppendChild(NodeSoftVer);
         }
 
-        //*****************************************************************************************************
-        // Description: 
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// finalise la lecture du document
+        /// Cette étape est effectué à la fin de la lecture afin que les objet
+        /// puisse établir des références directes sur les autres objets qu'ils utilisent/appel
+        /// </summary>
+        /// <param name="ParentMdiForm"></param>
+        /// <returns></returns>
         public bool FinalizeRead(Form ParentMdiForm)
         {
             if (TypeApp == TYPE_APP.SMART_COMMAND)
@@ -598,33 +629,34 @@ namespace CommonLib
 
         #endregion
 
-        //*****************************************************************************************************
-        // Description: 
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// ouvre la connexion du document
+        /// </summary>
         public void OpenDocumentComm()
         {
             m_Comm.OpenComm();
         }
-        //*****************************************************************************************************
-        // Description: 
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// ferme la connexion du document
+        /// </summary>
         public void CloseDocumentComm()
         {
             m_Comm.CloseComm();
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// appelé lors du changement d'état de la connexion
+        /// </summary>
         private void CommeStateChangeEvent()
         {
             if (OnCommStateChange != null)
                 OnCommStateChange();
         }
 
+        /// <summary>
+        /// ajout un message à la fenêtre de log de l'application
+        /// </summary>
+        /// <param name="Event">Event à afficher</param>
         protected void AddLogEvent(LogEvent Event)
         {
             if (EventAddLogEvent != null)

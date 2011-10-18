@@ -375,7 +375,7 @@ namespace SmartApp.Ihm
 #endif
                 string DossierFichier = strFileFullName.Substring(0, strFileFullName.Length - (strFileFullName.Length - idxOfLastAntiSlash));
                 PathTranslator.BTDocPath = DossierFichier;
-                m_Document.WriteConfigDocument(strFileFullName, true);
+                m_Document.WriteConfigDocument(strFileFullName, true, Program.DllGest);
 #if LINUX
                 int lastindex = strFileFullName.LastIndexOf(@"/");
 #else

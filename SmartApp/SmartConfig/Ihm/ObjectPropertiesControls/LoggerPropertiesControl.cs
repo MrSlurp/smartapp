@@ -436,7 +436,7 @@ namespace SmartApp.Ihm
 
             if (m_Logger.DateFormatString != this.DateFormatString)
                 bDataPropChange |= true;
-                
+
             if (m_Logger.DoNotKeepFileOpen != this.DoNotKeepFileOpen)
                 bDataPropChange |= true;
 

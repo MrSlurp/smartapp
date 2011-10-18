@@ -25,6 +25,8 @@ namespace CommonLib
         public object m_objArguments = null;
     }
 
+    public delegate void FrameRecievedDelegate(Trame frame);
+
     public class QuickExecuter
     {
         //private delegate void ScriptAddedToExecute();
@@ -50,6 +52,7 @@ namespace CommonLib
         #region events
         //private event ScriptAddedToExecute EvScriptToExecute;
         public event AddLogEventDelegate EventAddLogEvent;
+        public event FrameRecievedDelegate EventFrameRecieved;
         #endregion
 
         #region cosntructeur / destructeur
@@ -437,7 +440,8 @@ namespace CommonLib
                     LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, strmess);
                     AddLogEvent(log);
                 }
-                #### Envoyer une notif de fin de reception de trame ###
+                if (EventFrameRecieved != null)
+                    EventFrameRecieved(TrameToRecieve);
             }
         }
         #endregion

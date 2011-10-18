@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace CommonLib
 {
@@ -17,5 +18,7 @@ namespace CommonLib
         string DefaultControlName { get;}
         //UserControl SpecificPropPanel { get;}
         Size ToolWindSize { get;}
+        bool ReadInModuleGlobalInfo(XmlNode DllInfoNode);
+        bool WriteOutModuleGlobalInfo(XmlDocument document, XmlNode XmlGlobalNode);
     }
 }

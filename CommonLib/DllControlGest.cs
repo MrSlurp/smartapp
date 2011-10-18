@@ -5,6 +5,7 @@ using System.Collections;
 using System.Text;
 using System.IO;
 using System.Reflection;
+using System.Xml;
 
 namespace CommonLib
 {
@@ -58,6 +59,7 @@ namespace CommonLib
                                 {
                                     oDll.CurrentLang = mCurrentLang;
                                     m_HashDllIDs.Add(oDll.DllID, oDll);
+                                    System.Console.WriteLine(string.Format("DLL ajouté id = {0}, nom = {1}", oDll.DllID, filenames[i]));
                                     m_ListDlls.Add(oDll);
                                 }
                             }
@@ -100,5 +102,29 @@ namespace CommonLib
             }
         }
 
+        public bool ReadInPluginsGlobals(XmlNode XmlGlobaslNode)
+        {
+            for (int iChilds = 0; iChilds < XmlGlobaslNode.ChildNodes.Count; iChilds++)
+            {
+                XmlNode dllNode = XmlGlobaslNode.ChildNodes[iChilds];
+                if (dllNode.Name == XML_CF_TAG.Plugin.ToString())
+                {
+                    XmlNode attrID = dllNode.Attributes.GetNamedItem(XML_CF_ATTRIB.DllID.ToString());
+                    uint id = uint.Parse(attrID.Value);
+                    IDllControlInterface dll = m_HashDllIDs[id] as IDllControlInterface;
+                    dll.ReadInModuleGlobalInfo(dllNode);
+                }
+            }
+            return true;
+        }
+
+        public bool WriteOutPluginsGlobals(XmlDocument XmlDoc, XmlNode XmlGlobalsNode )
+        {
+            for (int iDll = 0; iDll < m_ListDlls.Count; iDll++)
+            {
+                m_ListDlls[iDll].WriteOutModuleGlobalInfo(XmlDoc, XmlGlobalsNode);
+            }
+            return true;
+        }
     }
 }

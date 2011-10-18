@@ -113,15 +113,10 @@ namespace CtrlDemux
                 DemuxParemtersOK = false;
             }
             ValueData = Dat3;
-            ### on ne s'abonne pas au changement de valeur car cela ne fontionne pas lorsque deux valeur multiplexé consecutives
-            ### on la même valeur
-            ### à la place on va s'abonner à la notif de fin de lecture de trame généré par le moteur de script
-            //if (ValueData != null)
-            //{
-                // ici on a pas besoin de vérifier InvokeRequired, car on ne change pas l'aspect du control
-                ///ValueData.DataValueChanged += new EventDataValueChange(UpdateFromData);
-            //}
-            
+            // on ne s'abonne pas au changement de valeur car cela ne fontionne pas lorsque deux valeur multiplexé consecutives
+            // on la même valeur
+            // à la place on va s'abonner à la notif de fin de lecture de trame généré par le moteur de script
+            Doc.Executer.EventFrameRecieved += new FrameRecievedDelegate(Executer_EventFrameRecieved);
 
             if (!DemuxParemtersOK)
             {
@@ -132,6 +127,15 @@ namespace CtrlDemux
             }
 
             return true;
+        }
+
+        void  Executer_EventFrameRecieved(Trame frame)
+        {
+            if (frame.FrameDatas.Contains(ValueData.Symbol) &&
+                frame.FrameDatas.Contains(AdressData.Symbol))
+            {
+                UpdateFromData();
+            }
         }
 
         public override void TraiteMessage(MESSAGE Mess, object obj, TYPE_APP TypeApp)

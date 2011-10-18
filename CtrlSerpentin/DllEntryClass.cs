@@ -4,11 +4,11 @@ using System.Text;
 using System.Windows.Forms;
 using System.Reflection;
 using System.Drawing;
+using System.Xml;
 using CommonLib;
 
 namespace CtrlSerpentin
 {
-    [Serializable]
     public class DllEntryClass : IDllControlInterface
     {
         public const uint Serpentin_Control_ID = 100;
@@ -81,6 +81,15 @@ namespace CtrlSerpentin
             {
                 return "SertpentinControl";
             }
+        }
+        public bool ReadInModuleGlobalInfo(XmlNode DllInfoNode)
+        {
+            return true;
+        }
+
+        public bool WriteOutModuleGlobalInfo(XmlDocument document, XmlNode XmlGlobalNode)
+        {
+            return true;
         }
 
     }
