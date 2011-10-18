@@ -17,7 +17,7 @@ namespace CtrlDemux
         private ArrayList m_ListRefDatas = new ArrayList();
         private Data AdressData = null;
         private Data ValueData = null;
-
+        private Timer m_TimerUpdateData = new Timer();
         private bool DemuxParemtersOK = true;
 
         #endregion
@@ -113,11 +113,15 @@ namespace CtrlDemux
                 DemuxParemtersOK = false;
             }
             ValueData = Dat3;
-            if (ValueData != null)
-            {
+            ### on ne s'abonne pas au changement de valeur car cela ne fontionne pas lorsque deux valeur multiplexé consecutives
+            ### on la même valeur
+            ### à la place on va s'abonner à la notif de fin de lecture de trame généré par le moteur de script
+            //if (ValueData != null)
+            //{
                 // ici on a pas besoin de vérifier InvokeRequired, car on ne change pas l'aspect du control
-                ValueData.DataValueChanged += new EventDataValueChange(UpdateFromData);
-            }
+                ///ValueData.DataValueChanged += new EventDataValueChange(UpdateFromData);
+            //}
+            
 
             if (!DemuxParemtersOK)
             {

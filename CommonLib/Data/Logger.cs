@@ -38,6 +38,8 @@ namespace CommonLib
         LogMode m_LoggerMode = LogMode.none;
 
         string m_DateFormatString = "yyyy-MM-dd_HH-mm-ss";
+        
+        bool m_bDoNotKeepFileOpen = false;
         #endregion
 
         #region donnée spécifiques aux fonctionement en mode Command
@@ -454,6 +456,7 @@ namespace CommonLib
                 {
                     m_Timer.Stop();
                     m_bTimerActive = false;
+                    CleanFileStreamClose();
                 }
             }
             else
@@ -581,7 +584,7 @@ namespace CommonLib
             }
             m_FileWriter.WriteLine(lineToWrite);
             m_FileWriter.Flush();
-            if (m_LogType == LOGGER_TYPE.STANDARD.ToString())
+            if (m_LogType == LOGGER_TYPE.STANDARD.ToString() || m_bDoNotKeepFileOpen)
             {
                 CleanFileStreamClose();
             }

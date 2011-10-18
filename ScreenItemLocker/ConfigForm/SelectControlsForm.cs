@@ -77,9 +77,9 @@ namespace ScreenItemLocker
         private void InitScreenItemList()
         {
             lstScreen.Items.Clear();
-            if (m_Control == null)
+            if (m_Control == null || m_Control.Parent == null)
                 return;
-
+            
             for (int i = 0; i < BTControl.Parent.Controls.Count; i++)
             {
                 // on présente tout le monde sauf lui même & ce qui est déjà sélectionné

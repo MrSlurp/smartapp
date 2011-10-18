@@ -458,6 +458,7 @@ namespace SmartApp.Ihm
 
             NewCtrl.Symbol = m_Currentscreen.Controls.GetNextDefaultSymbol();
             m_Currentscreen.Controls.AddObj(NewCtrl);
+            NewCtrl.Parent = m_Currentscreen;
             m_Document.Modified = true;
         }
 

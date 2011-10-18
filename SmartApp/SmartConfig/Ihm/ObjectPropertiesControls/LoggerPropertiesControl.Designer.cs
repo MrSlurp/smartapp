@@ -42,6 +42,7 @@ namespace SmartApp.Ihm
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.m_chkAutoStart = new System.Windows.Forms.CheckBox();
+            this.m_chkNotKeepFileOpen = new System.Windows.Forms.CheckBox();
             this.label6 = new System.Windows.Forms.Label();
             this.m_cboNaming = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -189,6 +190,18 @@ namespace SmartApp.Ihm
             this.m_chkAutoStart.TabIndex = 28;
             this.m_chkAutoStart.Text = "Auto Start";
             this.m_chkAutoStart.UseVisualStyleBackColor = true;
+            
+            // 
+            // m_chkNotKeepFileOpen
+            // 
+            this.m_chkNotKeepFileOpen.AutoSize = true;
+            this.m_chkNotKeepFileOpen.Location = new System.Drawing.Point(400, 67);
+            this.m_chkNotKeepFileOpen.Name = "m_chkNotKeepFileOpen";
+            this.m_chkNotKeepFileOpen.Size = new System.Drawing.Size(73, 17);
+            this.m_chkAutoStart.TabIndex = 29;
+            this.m_chkNotKeepFileOpen.Text = "Do not keep file open";
+            this.m_chkNotKeepFileOpen.UseVisualStyleBackColor = true;
+            
             // 
             // label6
             // 
@@ -224,7 +237,7 @@ namespace SmartApp.Ihm
             this.label8.Location = new System.Drawing.Point(221, 211);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(62, 13);
-            this.label8.TabIndex = 29;
+            this.label8.TabIndex = 30;
             this.label8.Text = "Date format";
             // 
             // edtDateFormat
@@ -232,7 +245,7 @@ namespace SmartApp.Ihm
             this.edtDateFormat.Location = new System.Drawing.Point(221, 228);
             this.edtDateFormat.Name = "edtDateFormat";
             this.edtDateFormat.Size = new System.Drawing.Size(195, 20);
-            this.edtDateFormat.TabIndex = 30;
+            this.edtDateFormat.TabIndex = 31;
             // 
             // btnAddData
             // 
@@ -324,6 +337,7 @@ namespace SmartApp.Ihm
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.CheckBox m_chkAutoStart;
+        private System.Windows.Forms.CheckBox m_chkNotKeepFileOpen;
         private System.Windows.Forms.ComboBox m_cboSeparator;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox m_cboNaming;

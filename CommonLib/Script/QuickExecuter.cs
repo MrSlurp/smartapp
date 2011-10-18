@@ -437,6 +437,7 @@ namespace CommonLib
                     LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, strmess);
                     AddLogEvent(log);
                 }
+                #### Envoyer une notif de fin de reception de trame ###
             }
         }
         #endregion

@@ -295,6 +295,18 @@ namespace SmartApp.Ihm
                 edtDateFormat.Text = value;
             }
         }
+        
+        public bool DoNotKeepFileOpen
+        {
+            get
+            {
+                return m_chkNotKeepFileOpen.Checked;
+            }
+            set
+            {
+                m_chkNotKeepFileOpen.Checked = value;
+            }
+        }
         #endregion
 
         #region validation des données
@@ -424,6 +436,10 @@ namespace SmartApp.Ihm
 
             if (m_Logger.DateFormatString != this.DateFormatString)
                 bDataPropChange |= true;
+                
+            if (m_Logger.DoNotKeepFileOpen != this.DoNotKeepFileOpen)
+                bDataPropChange |= true;
+
 
             if (bDataPropChange)
             {
@@ -436,6 +452,7 @@ namespace SmartApp.Ihm
                 m_Logger.CsvSeperator = this.CsvSeperator;
                 m_Logger.LoggerMode = this.LoggerMode;
                 m_Logger.DateFormatString = this.DateFormatString;
+                m_Logger.DoNotKeepFileOpen = this.DoNotKeepFileOpen;
                 Doc.Modified = true;
             }
             
