@@ -584,12 +584,14 @@ namespace SmartApp.Ihm
             {
                 m_LoggerPeriod.Enabled = true;
                 m_chkAutoStart.Enabled = true;
+                m_chkNotKeepFileOpen.Enabled = true;
             }
             else
             {
                 m_LoggerPeriod.Enabled = false;
                 m_chkAutoStart.Enabled = false;
                 m_chkAutoStart.Checked = false;
+                m_chkNotKeepFileOpen.Enabled = false;
             }
         }
 

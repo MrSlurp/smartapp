@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Text;
 using System.Xml;
 using System.IO;
@@ -12,7 +13,10 @@ namespace CtrlMailer
     internal class DllCtrlMailerProp : SpecificControlProp
     {
         // ajouter ici les données membres des propriété
+        StringCollection m_ListToMail = new StringCollection();
 
+        string m_MailBody;
+        string m_MailSubject;
         // ajouter ici les accesseur vers les données membres des propriété
 
         /// <summary>
@@ -22,6 +26,7 @@ namespace CtrlMailer
         /// <returns>true en cas de succès de la lecture</returns>
         public override bool ReadIn(XmlNode Node)
         {
+
             return true;
         }
 
