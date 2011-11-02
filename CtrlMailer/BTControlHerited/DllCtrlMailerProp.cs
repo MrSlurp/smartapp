@@ -5,19 +5,43 @@ using System.Text;
 using System.Xml;
 using System.IO;
 using System.Windows.Forms;
+using System.Web;
 using CommonLib;
 
 
 namespace CtrlMailer
 {
-    internal class DllCtrlMailerProp : SpecificControlProp
+    public class DllCtrlMailerProp : SpecificControlProp
     {
-        // ajouter ici les données membres des propriété
-        StringCollection m_ListToMail = new StringCollection();
+        private const string Tag_Section = "MailerParam";
+        private const string Tag_MailTo = "MailTo";
+        private const string Tag_MailSubject = "Subject";
+        private const string Tag_MailBody = "Body";
 
-        string m_MailBody;
+        // ajouter ici les données membres des propriété
+        string m_ListToMail;
         string m_MailSubject;
+        string m_MailBody;
+
         // ajouter ici les accesseur vers les données membres des propriété
+        public string ListToMail
+        {
+            get { return m_ListToMail; }
+            set { m_ListToMail = value; }
+        }
+
+        public string MailSubject
+        {
+            get { return m_MailSubject; }
+            set { m_MailSubject = value; }
+        }
+
+        public string MailBody
+        {
+            get { return m_MailBody; }
+            set { m_MailBody = value; }
+        }
+
 
         /// <summary>
         /// Lecture des paramètres depuis le fichier XML
@@ -26,8 +50,39 @@ namespace CtrlMailer
         /// <returns>true en cas de succès de la lecture</returns>
         public override bool ReadIn(XmlNode Node)
         {
+            for (int iChild = 0; iChild < Node.ChildNodes.Count; iChild ++)
+            {
+                if (Node.ChildNodes[iChild].Name == Tag_Section)
+                {
+                    XmlNode SectionNode = Node.ChildNodes[iChild];
+                    for (int ch = 0; ch < SectionNode.ChildNodes.Count; ch++)
+                    {
+                        if (SectionNode.ChildNodes[ch].Name == Tag_MailTo)
+                        {
+                            m_ListToMail = getXmlTextNodeValue(SectionNode.ChildNodes[ch]);
+                        }
+                        if (SectionNode.ChildNodes[ch].Name == Tag_MailSubject)
+                        {
+                            m_MailSubject = HttpUtility.HtmlDecode(getXmlTextNodeValue(SectionNode.ChildNodes[ch]));
+                        }
+                        if (SectionNode.ChildNodes[ch].Name == Tag_MailBody)
+                        {
+                            m_MailBody = HttpUtility.HtmlDecode(getXmlTextNodeValue(SectionNode.ChildNodes[ch]));
+                        }
+                    }
+                }
+            }
 
             return true;
+        }
+
+        private string getXmlTextNodeValue(XmlNode node)
+        {
+            if (node.FirstChild is XmlText)
+            {
+                return node.FirstChild.Value;
+            }
+            return string.Empty;
         }
 
         /// <summary>
@@ -38,6 +93,17 @@ namespace CtrlMailer
         /// <returns>true en cas de succès de l'écriture</returns>
         public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
         {
+            XmlNode ParamNode = XmlDoc.CreateElement(Tag_Section);
+            XmlNode MailToNode = XmlDoc.CreateElement(Tag_MailTo);
+            XmlNode SubjectNode = XmlDoc.CreateElement(Tag_MailSubject);
+            XmlNode BodyNode = XmlDoc.CreateElement(Tag_MailBody);
+            Node.AppendChild(ParamNode);
+            ParamNode.AppendChild(MailToNode);
+            ParamNode.AppendChild(SubjectNode);
+            ParamNode.AppendChild(BodyNode);
+            MailToNode.AppendChild(XmlDoc.CreateTextNode(m_ListToMail));
+            SubjectNode.AppendChild(XmlDoc.CreateTextNode(HttpUtility.HtmlEncode(m_MailSubject)));
+            BodyNode.AppendChild(XmlDoc.CreateTextNode(HttpUtility.HtmlEncode(m_MailBody)));
             return true;
         }
 
@@ -48,6 +114,9 @@ namespace CtrlMailer
         public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance)
         {
             DllCtrlMailerProp SrcProp = (DllCtrlMailerProp)SrcSpecificProp;
+            m_ListToMail = SrcProp.m_ListToMail;
+            m_MailSubject = SrcProp.m_MailSubject;
+            m_MailBody = SrcProp.m_MailBody;
         }
 
         /// <summary>
@@ -69,45 +138,35 @@ namespace CtrlMailer
                 switch (Mess)
                 {
                     case MESSAGE.MESS_ASK_ITEM_DELETE:
-                        // exemple de traitement de la demande de supression d'une donnée
-                        // m_strDataOffToOn est le symbol d'une donnée
-                        /*
                         if (((MessAskDelete)obj).TypeOfItem == typeof(Data))
                         {
-                            if (MessParam.WantDeletetItemSymbol == m_strDataOffToOn)
+                            MessAskDelete MessParam = (MessAskDelete)obj;
+                            if (m_MailBody.Contains(MessParam.WantDeletetItemSymbol))
                             {
-                                strMess = string.Format("Data Trigger {0} : Data \"Off to On\" will be removed", PropOwner.Symbol);
+                                string strMess = string.Format("Mailer {0} : Data is present in mail body and will be removed", PropOwner.Symbol);
                                 MessParam.ListStrReturns.Add(strMess);
                             }
                         }
-                         * */
                         break;
                     case MESSAGE.MESS_ITEM_DELETED:
-                        // exemple de traitement de la supression d'une donnée
-                        // m_strDataOffToOn est le symbol d'une donnée
-                        /*
                         if (((MessDeleted)obj).TypeOfItem == typeof(Data))
                         {
                             MessDeleted MessParam = (MessDeleted)obj;
-                            if (MessParam.DeletetedItemSymbol == m_strDataOffToOn)
+                            if (m_MailBody.Contains(MessParam.DeletetedItemSymbol))
                             {
-                                m_strDataOffToOn = string.Empty;
+                                m_MailBody.Replace(MessParam.DeletetedItemSymbol, "");
                             }
                         }
-                         * */
                         break;
                     case MESSAGE.MESS_ITEM_RENAMED:
-                        // exemple de traitement du renommage d'une donnée
-                        // m_strDataOffToOn est le symbol d'une donnée
-                        /*
                         if (((MessItemRenamed)obj).TypeOfItem == typeof(Data))
                         {
                             MessItemRenamed MessParam = (MessItemRenamed)obj;
-                            if (MessParam.OldItemSymbol == m_strDataOffToOn)
+                            if (m_MailBody.Contains(MessParam.OldItemSymbol))
                             {
-                                m_strDataOffToOn = MessParam.NewItemSymbol;
+                                m_MailBody.Replace(MessParam.OldItemSymbol, MessParam.NewItemSymbol);
                             }
-                        }*/
+                        }
                         break;
                     default:
                         break;

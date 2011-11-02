@@ -1,4 +1,4 @@
-﻿namespace CtrlMailer.ConfigForm
+﻿namespace CtrlMailer
 {
     partial class MailEditionForm
     {
@@ -28,32 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.edtFrom = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.edtTo = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.btnCnfSMTP = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.edtSubject = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btnOK = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
+            this.lblHost = new System.Windows.Forms.Label();
+            this.lblSSL = new System.Windows.Forms.Label();
+            this.lblPort = new System.Windows.Forms.Label();
+            this.edtBody = new System.Windows.Forms.TextBox();
+            this.btnInsertData = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // textBox1
+            // edtFrom
             // 
-            this.textBox1.Enabled = false;
-            this.textBox1.Location = new System.Drawing.Point(12, 24);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(173, 20);
-            this.textBox1.TabIndex = 0;
+            this.edtFrom.Location = new System.Drawing.Point(12, 24);
+            this.edtFrom.Name = "edtFrom";
+            this.edtFrom.ReadOnly = true;
+            this.edtFrom.Size = new System.Drawing.Size(173, 20);
+            this.edtFrom.TabIndex = 0;
             // 
             // label1
             // 
@@ -61,15 +62,17 @@
             this.label1.Location = new System.Drawing.Point(12, 5);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(30, 13);
-            this.label1.TabIndex = 1;
+            this.label1.TabIndex = 7;
             this.label1.Text = "From";
             // 
-            // textBox2
+            // edtTo
             // 
-            this.textBox2.Location = new System.Drawing.Point(12, 63);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(561, 20);
-            this.textBox2.TabIndex = 2;
+            this.edtTo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.edtTo.Location = new System.Drawing.Point(12, 63);
+            this.edtTo.Name = "edtTo";
+            this.edtTo.Size = new System.Drawing.Size(561, 20);
+            this.edtTo.TabIndex = 1;
             // 
             // label2
             // 
@@ -77,25 +80,18 @@
             this.label2.Location = new System.Drawing.Point(12, 47);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(20, 13);
-            this.label2.TabIndex = 1;
+            this.label2.TabIndex = 8;
             this.label2.Text = "To";
             // 
-            // button1
+            // btnCnfSMTP
             // 
-            this.button1.Location = new System.Drawing.Point(191, 21);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(140, 23);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Configure SMTP";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // richTextBox1
-            // 
-            this.richTextBox1.Location = new System.Drawing.Point(12, 142);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(561, 167);
-            this.richTextBox1.TabIndex = 4;
-            this.richTextBox1.Text = "";
+            this.btnCnfSMTP.Location = new System.Drawing.Point(191, 21);
+            this.btnCnfSMTP.Name = "btnCnfSMTP";
+            this.btnCnfSMTP.Size = new System.Drawing.Size(140, 23);
+            this.btnCnfSMTP.TabIndex = 4;
+            this.btnCnfSMTP.Text = "Configure SMTP";
+            this.btnCnfSMTP.UseVisualStyleBackColor = true;
+            this.btnCnfSMTP.Click += new System.EventHandler(this.btnCnfSMTP_Click);
             // 
             // label3
             // 
@@ -103,15 +99,17 @@
             this.label3.Location = new System.Drawing.Point(12, 87);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(43, 13);
-            this.label3.TabIndex = 1;
+            this.label3.TabIndex = 9;
             this.label3.Text = "Subject";
             // 
-            // textBox3
+            // edtSubject
             // 
-            this.textBox3.Location = new System.Drawing.Point(12, 103);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(561, 20);
-            this.textBox3.TabIndex = 2;
+            this.edtSubject.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.edtSubject.Location = new System.Drawing.Point(12, 103);
+            this.edtSubject.Name = "edtSubject";
+            this.edtSubject.Size = new System.Drawing.Size(561, 20);
+            this.edtSubject.TabIndex = 2;
             // 
             // label4
             // 
@@ -119,26 +117,30 @@
             this.label4.Location = new System.Drawing.Point(12, 126);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(50, 13);
-            this.label4.TabIndex = 1;
+            this.label4.TabIndex = 10;
             this.label4.Text = "Message";
             // 
-            // button2
+            // btnOK
             // 
-            this.button2.Location = new System.Drawing.Point(417, 315);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "OK";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btnOK.Location = new System.Drawing.Point(417, 315);
+            this.btnOK.Name = "btnOK";
+            this.btnOK.Size = new System.Drawing.Size(75, 23);
+            this.btnOK.TabIndex = 5;
+            this.btnOK.Text = "OK";
+            this.btnOK.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // btnCancel
             // 
-            this.button3.Location = new System.Drawing.Point(498, 315);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 6;
-            this.button3.Text = "Cancel";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnCancel.Location = new System.Drawing.Point(498, 315);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 6;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
             // 
             // label5
             // 
@@ -146,7 +148,7 @@
             this.label5.Location = new System.Drawing.Point(338, 5);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(60, 13);
-            this.label5.TabIndex = 7;
+            this.label5.TabIndex = 11;
             this.label5.Text = "SMTP host";
             // 
             // label6
@@ -155,7 +157,7 @@
             this.label6.Location = new System.Drawing.Point(338, 34);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(49, 13);
-            this.label6.TabIndex = 7;
+            this.label6.TabIndex = 13;
             this.label6.Text = "Use SSL";
             // 
             // label7
@@ -164,59 +166,89 @@
             this.label7.Location = new System.Drawing.Point(338, 20);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(59, 13);
-            this.label7.TabIndex = 7;
+            this.label7.TabIndex = 12;
             this.label7.Text = "SMTP Port";
             // 
-            // label8
+            // lblHost
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(446, 5);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(27, 13);
-            this.label8.TabIndex = 7;
-            this.label8.Text = "host";
+            this.lblHost.AutoSize = true;
+            this.lblHost.Location = new System.Drawing.Point(446, 5);
+            this.lblHost.Name = "lblHost";
+            this.lblHost.Size = new System.Drawing.Size(27, 13);
+            this.lblHost.TabIndex = 14;
+            this.lblHost.Text = "host";
             // 
-            // label9
+            // lblSSL
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(446, 34);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(27, 13);
-            this.label9.TabIndex = 7;
-            this.label9.Text = "SSL";
+            this.lblSSL.AutoSize = true;
+            this.lblSSL.Location = new System.Drawing.Point(446, 34);
+            this.lblSSL.Name = "lblSSL";
+            this.lblSSL.Size = new System.Drawing.Size(27, 13);
+            this.lblSSL.TabIndex = 16;
+            this.lblSSL.Text = "SSL";
             // 
-            // label10
+            // lblPort
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(446, 20);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(25, 13);
-            this.label10.TabIndex = 7;
-            this.label10.Text = "port";
+            this.lblPort.AutoSize = true;
+            this.lblPort.Location = new System.Drawing.Point(446, 20);
+            this.lblPort.Name = "lblPort";
+            this.lblPort.Size = new System.Drawing.Size(25, 13);
+            this.lblPort.TabIndex = 15;
+            this.lblPort.Text = "port";
+            // 
+            // edtBody
+            // 
+            this.edtBody.AcceptsReturn = true;
+            this.edtBody.AcceptsTab = true;
+            this.edtBody.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.edtBody.Location = new System.Drawing.Point(12, 143);
+            this.edtBody.Multiline = true;
+            this.edtBody.Name = "edtBody";
+            this.edtBody.Size = new System.Drawing.Size(561, 166);
+            this.edtBody.TabIndex = 3;
+            // 
+            // btnInsertData
+            // 
+            this.btnInsertData.Location = new System.Drawing.Point(12, 315);
+            this.btnInsertData.Name = "btnInsertData";
+            this.btnInsertData.Size = new System.Drawing.Size(114, 23);
+            this.btnInsertData.TabIndex = 17;
+            this.btnInsertData.Text = "Insert data";
+            this.btnInsertData.UseVisualStyleBackColor = true;
+            this.btnInsertData.Click += new System.EventHandler(this.btnInsertData_Click);
             // 
             // MailEditionForm
             // 
+            this.AcceptButton = this.btnOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(585, 344);
-            this.Controls.Add(this.label10);
+            this.Controls.Add(this.btnInsertData);
+            this.Controls.Add(this.edtBody);
+            this.Controls.Add(this.lblPort);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.label9);
+            this.Controls.Add(this.lblSSL);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.label8);
+            this.Controls.Add(this.lblHost);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.richTextBox1);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.btnOK);
+            this.Controls.Add(this.btnCnfSMTP);
+            this.Controls.Add(this.edtSubject);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.edtTo);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.edtFrom);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "MailEditionForm";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.Text = "MailEditionForm";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -225,22 +257,23 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox edtFrom;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox edtTo;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.Button btnCnfSMTP;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox edtSubject;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btnOK;
+        private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label lblHost;
+        private System.Windows.Forms.Label lblSSL;
+        private System.Windows.Forms.Label lblPort;
+        private System.Windows.Forms.TextBox edtBody;
+        private System.Windows.Forms.Button btnInsertData;
     }
 }

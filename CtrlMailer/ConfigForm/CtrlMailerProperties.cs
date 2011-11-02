@@ -114,5 +114,23 @@ namespace CtrlMailer
             return true;
         }
         #endregion
+
+        private void btnCfgMail_Click(object sender, EventArgs e)
+        {
+            MailEditionForm form = new MailEditionForm();
+            form.Doc = this.Doc;
+            form.Props = (DllCtrlMailerProp)this.BTControl.SpecificProp;
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                Doc.Modified = true;
+                this.BTControl.SpecificProp.CopyParametersFrom(form.Props, false);
+            }
+        }
+
+        private void btnCfgSMTP_Click(object sender, EventArgs e)
+        {
+            ConfigSMTP form = new ConfigSMTP();
+            form.ShowDialog();
+        }
     }
 }

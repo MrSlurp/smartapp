@@ -150,7 +150,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(568, 346);
+            this.ClientSize = new System.Drawing.Size(576, 350);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.label2);
@@ -161,9 +161,13 @@
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.lstSelected);
             this.Controls.Add(this.lstScreen);
+            this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(584, 800);
+            this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(584, 384);
             this.Name = "SelectControlsForm";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.Text = "Select Controls";
             this.Shown += new System.EventHandler(this.SelectControlsForm_Shown);
             this.ResumeLayout(false);

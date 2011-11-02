@@ -125,6 +125,17 @@ namespace CommonLib
                     if (!Ctrl.DisabledOnStop)
                         m_ListNotDisabledControlOnStop.Add(Ctrl.DisplayedControl);
 
+                    // TODO, parcourir la liste, pour voir si certains controles sont compris dans d'autres, et si c'est le cas
+                    // les ajouter dans ceux qui les incluent
+                    // algo
+                    // Pour chaque controle
+                    // - si il n'a pas de parent, et qu'il n'es pas dans la liste des controles non eligibles à l'inclusion
+                    // - - pour tout les autres controles
+                    //     - verifier si le controle courant est eligible a son inclusion dans un autre
+                    //     - si oui
+                    //       - ajouter le controle parent eligible dans un liste
+                    //  - parourir la liste des controles parents eligibles
+                    //  - on verifie qui peut être inclus dans qui
                     this.Controls.Add(Ctrl.DisplayedControl);
                 }
             }

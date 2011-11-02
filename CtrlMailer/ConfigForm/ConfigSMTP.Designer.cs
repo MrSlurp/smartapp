@@ -1,4 +1,4 @@
-﻿namespace CtrlMailer.ConfigForm
+﻿namespace CtrlMailer
 {
     partial class ConfigSMTP
     {
@@ -28,61 +28,47 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnOK = new System.Windows.Forms.Button();
+            this.txtSMTPHost = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
+            this.txtEmail = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.txtPassword = new System.Windows.Forms.TextBox();
+            this.txtPort = new System.Windows.Forms.NumericUpDown();
+            this.chkUseSSL = new System.Windows.Forms.CheckBox();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPort)).BeginInit();
             this.SuspendLayout();
             // 
-            // button1
+            // btnCancel
             // 
-            this.button1.Location = new System.Drawing.Point(205, 219);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnCancel.Location = new System.Drawing.Point(205, 219);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 6;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // btnOK
             // 
-            this.button2.Location = new System.Drawing.Point(122, 219);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btnOK.Location = new System.Drawing.Point(122, 219);
+            this.btnOK.Name = "btnOK";
+            this.btnOK.Size = new System.Drawing.Size(75, 23);
+            this.btnOK.TabIndex = 5;
+            this.btnOK.Text = "OK";
+            this.btnOK.UseVisualStyleBackColor = true;
+            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
-            // comboBox1
+            // txtSMTPHost
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(12, 192);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 2;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 176);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(48, 13);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Use SLL";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(12, 29);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(214, 20);
-            this.textBox1.TabIndex = 4;
+            this.txtSMTPHost.Location = new System.Drawing.Point(12, 29);
+            this.txtSMTPHost.Name = "txtSMTPHost";
+            this.txtSMTPHost.Size = new System.Drawing.Size(214, 20);
+            this.txtSMTPHost.TabIndex = 0;
             // 
             // label2
             // 
@@ -102,19 +88,12 @@
             this.label3.TabIndex = 3;
             this.label3.Text = "email";
             // 
-            // textBox2
+            // txtEmail
             // 
-            this.textBox2.Location = new System.Drawing.Point(12, 72);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(214, 20);
-            this.textBox2.TabIndex = 4;
-            // 
-            // maskedTextBox1
-            // 
-            this.maskedTextBox1.Location = new System.Drawing.Point(12, 153);
-            this.maskedTextBox1.Name = "maskedTextBox1";
-            this.maskedTextBox1.Size = new System.Drawing.Size(100, 20);
-            this.maskedTextBox1.TabIndex = 5;
+            this.txtEmail.Location = new System.Drawing.Point(12, 72);
+            this.txtEmail.Name = "txtEmail";
+            this.txtEmail.Size = new System.Drawing.Size(214, 20);
+            this.txtEmail.TabIndex = 1;
             // 
             // label4
             // 
@@ -134,32 +113,57 @@
             this.label5.TabIndex = 3;
             this.label5.Text = "password";
             // 
-            // textBox3
+            // txtPassword
             // 
-            this.textBox3.Location = new System.Drawing.Point(12, 113);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(214, 20);
-            this.textBox3.TabIndex = 4;
+            this.txtPassword.Location = new System.Drawing.Point(12, 113);
+            this.txtPassword.Name = "txtPassword";
+            this.txtPassword.PasswordChar = '*';
+            this.txtPassword.Size = new System.Drawing.Size(214, 20);
+            this.txtPassword.TabIndex = 2;
+            // 
+            // txtPort
+            // 
+            this.txtPort.Location = new System.Drawing.Point(12, 153);
+            this.txtPort.Maximum = new decimal(new int[] {
+            65535,
+            0,
+            0,
+            0});
+            this.txtPort.Name = "txtPort";
+            this.txtPort.Size = new System.Drawing.Size(75, 20);
+            this.txtPort.TabIndex = 7;
+            // 
+            // chkUseSSL
+            // 
+            this.chkUseSSL.AutoSize = true;
+            this.chkUseSSL.Location = new System.Drawing.Point(15, 180);
+            this.chkUseSSL.Name = "chkUseSSL";
+            this.chkUseSSL.Size = new System.Drawing.Size(68, 17);
+            this.chkUseSSL.TabIndex = 8;
+            this.chkUseSSL.Text = "Use SSL";
+            this.chkUseSSL.UseVisualStyleBackColor = true;
             // 
             // ConfigSMTP
             // 
+            this.AcceptButton = this.btnOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(283, 249);
-            this.Controls.Add(this.maskedTextBox1);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.chkUseSSL);
+            this.Controls.Add(this.txtPort);
+            this.Controls.Add(this.txtPassword);
+            this.Controls.Add(this.txtEmail);
+            this.Controls.Add(this.txtSMTPHost);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnOK);
+            this.Controls.Add(this.btnCancel);
             this.Name = "ConfigSMTP";
             this.Text = "ConfigSMTP";
+            ((System.ComponentModel.ISupportInitialize)(this.txtPort)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -167,17 +171,16 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnOK;
+        private System.Windows.Forms.TextBox txtSMTPHost;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox1;
+        private System.Windows.Forms.TextBox txtEmail;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox txtPassword;
+        private System.Windows.Forms.NumericUpDown txtPort;
+        private System.Windows.Forms.CheckBox chkUseSSL;
     }
 }
