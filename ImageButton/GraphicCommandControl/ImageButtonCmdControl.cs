@@ -4,34 +4,21 @@ using System.Text;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
-using System.Net.Mail;
 using CommonLib;
 
-namespace CtrlMailer
+namespace ImageButton
 {
     /// <summary>
     /// Cette classe serta  définir le comportement du control lorsqu'il est executé dans SmartCommand
     /// </summary>
-    internal class CtrlMailerCmdControl : BTDllCtrlMailerControl
+    internal class ImageButtonCmdControl : BTDllImageButtonControl
     {
-        int m_iPreviousDataValue = 0;
-        GestData m_DocGestData;
-        SmtpClient SmtpServer = new SmtpClient();
         /// <summary>
         /// Constructeur de la classe
         /// </summary>
-        public CtrlMailerCmdControl()
+        public ImageButtonCmdControl()
         {
-            SmtpServer.SendCompleted += new SendCompletedEventHandler(SmtpServer_SendCompleted);
-        }
 
-        void SmtpServer_SendCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
-        {
-            if (!e.Cancelled && e.Error == null)
-            {
-                LogEvent log = new LogEvent(LOG_EVENT_TYPE.INFO, string.Format(DllEntryClass.LangSys.C("Mailer {0} : mail posted"), this.Symbol));
-                AddLogEvent(log);
-            }
         }
 
         /// <summary>
@@ -43,7 +30,7 @@ namespace CtrlMailer
             if (m_Ctrl == null)
             {
                 // on crée l'objet graphique qui sera affiché
-                m_Ctrl = new CtrlMailerDispCtrl();
+                m_Ctrl = new ImageButtonDispCtrl();
                 // on définit sa position dans l'écran
                 m_Ctrl.Location = m_RectControl.Location;
                 // son nom est le symbol de l'objet courant
@@ -82,12 +69,6 @@ namespace CtrlMailer
             if (m_AssociateData != null && m_Ctrl != null)
             {
                 // effectuez ici le traitement à executer lorsque la valeur change
-                if (m_iPreviousDataValue == 0 && m_AssociateData.Value != 0)
-                {
-                    // envoyer le mail
-                    DoSendMail();
-                }
-                m_iPreviousDataValue = m_AssociateData.Value;
             }
         }
 
@@ -112,77 +93,12 @@ namespace CtrlMailer
                         // traitez ici le passage en mode stop du control si nécessaire
                         break;
                     case MESSAGE.MESS_CMD_RUN:
-                        m_iPreviousDataValue = m_AssociateData.Value;
                         // traitez ici le passage en mode run du control si nécessaire
                         break;
                     default:
                         break;
                 }
             }
-        }
-
-        private void DoSendMail()
-        {
-            if (DllEntryClass.SMTP_Param.IsConfigured())
-            {
-                DllCtrlMailerProp props = this.SpecificProp as DllCtrlMailerProp;
-                MailMessage message = new MailMessage();
-                message.From = new MailAddress(DllEntryClass.SMTP_Param.userMail);
-                string[] listTo = props.ListToMail.Split(',', ';');
-                for (int dest = 0; dest < listTo.Length; dest++)
-                {
-                    message.To.Add(new MailAddress(listTo[dest]));
-                }
-                message.Subject = props.MailSubject;
-                string mailBody = props.MailBody;
-                int iPosDebutVar = 0;
-                while (iPosDebutVar != -1 && iPosDebutVar < mailBody.Length)
-                {
-                    iPosDebutVar = mailBody.IndexOf("<DATA.", iPosDebutVar);
-                    if (iPosDebutVar != -1)
-                    {
-                        int iPosFinVar = mailBody.IndexOf(">", iPosDebutVar);
-                        if (iPosFinVar == -1)
-                        {
-                            LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format(DllEntryClass.LangSys.C("Mailer {0} : Can't replace data, bad message format"), this.Symbol));
-                            AddLogEvent(log);
-                            continue;
-                        }
-                        string varSubString = mailBody.Substring(iPosDebutVar, (iPosFinVar+1) - iPosDebutVar);
-                        string dataSymbol = varSubString.Replace("<DATA.", "").Replace(">", "");
-                        Data dt = m_DocGestData.GetFromSymbol(dataSymbol) as Data;
-                        if (dt == null)
-                        {
-                            LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format(DllEntryClass.LangSys.C("Mailer {0} : Unknown data {1}"), this.Symbol, dataSymbol));
-                            AddLogEvent(log);
-                        }
-                        else
-                        {
-                            mailBody = mailBody.Replace(varSubString, dt.Value.ToString());
-                        }
-                        iPosDebutVar = iPosFinVar+1;
-                    }
-                }
-                message.Body = mailBody;
-                //message.Headers
-                SmtpServer.Host = DllEntryClass.SMTP_Param.SMTP_host;
-                SmtpServer.Port = DllEntryClass.SMTP_Param.SMTP_port;
-                SmtpServer.Credentials = new System.Net.NetworkCredential(DllEntryClass.SMTP_Param.userMail, DllEntryClass.SMTP_Param.userPassword);
-                SmtpServer.EnableSsl = DllEntryClass.SMTP_Param.useSSL;
-                SmtpServer.SendAsync(message, this);
-            }
-            else
-            {
-                LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, DllEntryClass.LangSys.C("There is no SMTP parameters, Sending mail is impossible"));
-                AddLogEvent(log);
-            }
-
-        }
-
-        public override bool FinalizeRead(BTDoc Doc)
-        {
-            m_DocGestData = Doc.GestData;
-            return base.FinalizeRead(Doc);
         }
     }
 
@@ -194,11 +110,11 @@ namespace CtrlMailer
     /// - une aggregation de plusieurs controls standards, 
     /// - les deux, etc.
     /// </summary>
-    public class CtrlMailerDispCtrl : UserControl
+    public class ImageButtonDispCtrl : UserControl
     {
         // ajouter ici les données membres du control affiché
 
-        public CtrlMailerDispCtrl()
+        public ImageButtonDispCtrl()
         {
         }
 
