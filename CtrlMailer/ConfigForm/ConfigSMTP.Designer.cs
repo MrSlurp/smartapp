@@ -162,7 +162,7 @@
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.btnCancel);
             this.Name = "ConfigSMTP";
-            this.Text = "ConfigSMTP";
+            this.Text = "SMTP configuration";
             ((System.ComponentModel.ISupportInitialize)(this.txtPort)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -12,6 +12,7 @@ namespace CtrlMailer
     {
         public ConfigSMTP()
         {
+            DllEntryClass.LangSys.Initialize(this);
             InitializeComponent();
             txtSMTPHost.Text = DllEntryClass.SMTP_Param.SMTP_host;
             txtPort.Value = DllEntryClass.SMTP_Param.SMTP_port;

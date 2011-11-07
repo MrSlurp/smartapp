@@ -40,6 +40,7 @@ namespace CtrlMailer
 
         public MailEditionForm()
         {
+            DllEntryClass.LangSys.Initialize(this);
             InitializeComponent();
             updateSMTPInfo();
         }

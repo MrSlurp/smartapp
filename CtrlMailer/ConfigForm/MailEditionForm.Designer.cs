@@ -249,7 +249,7 @@
             this.Name = "MailEditionForm";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.Text = "MailEditionForm";
+            this.Text = "e-Mail configuration";
             this.ResumeLayout(false);
             this.PerformLayout();
 

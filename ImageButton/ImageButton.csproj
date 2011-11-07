@@ -85,7 +85,6 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="InteractiveHerited\InteractiveImageButtonDllControl.cs">
-      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="InteractiveHerited\InteractiveImageButtonDllControl.Designer.cs">
       <DependentUpon>InteractiveImageButtonDllControl.cs</DependentUpon>

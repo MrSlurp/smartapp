@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using System.Reflection;
 using System.Drawing;
 using System.Xml;
+using System.Web;
 using CommonLib;
 
 namespace CtrlMailer
@@ -113,7 +114,7 @@ namespace CtrlMailer
                 gSMTP_Param.SMTP_port = int.Parse(attrPort.Value);
                 gSMTP_Param.userMail = attrMail.Value;
                 // TODO, decrypter le pass
-                gSMTP_Param.userPassword = attrPass.Value;
+                gSMTP_Param.userPassword = HttpUtility.HtmlDecode(gSMTP_Param.Decrypt(attrPass.Value));
                 gSMTP_Param.useSSL = bool.Parse(attrSSL.Value);
             }
             return true;
@@ -140,7 +141,7 @@ namespace CtrlMailer
                 attrPort.Value = gSMTP_Param.SMTP_port.ToString();
                 attrMail.Value = gSMTP_Param.userMail;
                 // TODO, crypter le pass
-                attrPass.Value = gSMTP_Param.userPassword;
+                attrPass.Value = HttpUtility.HtmlEncode(gSMTP_Param.Encrypt(gSMTP_Param.userPassword));
                 attrSSL.Value = gSMTP_Param.useSSL.ToString();
                 nodeSMTP.Attributes.Append(attrHost);
                 nodeSMTP.Attributes.Append(attrPort);
