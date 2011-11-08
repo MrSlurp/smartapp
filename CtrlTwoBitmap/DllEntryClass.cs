@@ -41,6 +41,11 @@ namespace CtrlTwoBitmap
             }
         }
 
+        public string PluginType
+        {
+            get { return LangSys.C("2 - Graphic"); }
+        }
+
         public DllEntryClass()
         {
             TwoImageRes.InitializeBitmap();

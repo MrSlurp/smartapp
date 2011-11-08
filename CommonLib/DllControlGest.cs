@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Windows.Forms;
 using System.Collections;
 using System.Text;
@@ -13,6 +14,9 @@ namespace CommonLib
     {
         private List<IDllControlInterface> m_ListDlls = new List<IDllControlInterface>();
         private Hashtable m_HashDllIDs = new Hashtable();
+
+        private SortedList<string, List<IDllControlInterface>> m_mapTypeToList = new SortedList<string, List<IDllControlInterface>>();
+
         private string mCurrentLang;
 
         public DllControlGest()
@@ -61,6 +65,17 @@ namespace CommonLib
                                     m_HashDllIDs.Add(oDll.DllID, oDll);
                                     System.Console.WriteLine(string.Format("DLL ajouté id = {0}, nom = {1}", oDll.DllID, filenames[i]));
                                     m_ListDlls.Add(oDll);
+                                    if (m_mapTypeToList.ContainsKey(oDll.PluginType) )
+                                    {
+                                        List<IDllControlInterface> list = m_mapTypeToList[oDll.PluginType] as List<IDllControlInterface>;
+                                        list.Add(oDll);
+                                    }
+                                    else
+                                    {
+                                        List<IDllControlInterface> list = new List<IDllControlInterface>();
+                                        list.Add(oDll);
+                                        m_mapTypeToList.Add(oDll.PluginType, list);
+                                    }
                                 }
                             }
                             catch (Exception)
@@ -76,6 +91,28 @@ namespace CommonLib
                         }
                     }
                 }
+            }
+        }
+
+        public List<IDllControlInterface> this[string type]
+        {
+            get
+            {
+                return m_mapTypeToList[type] as List<IDllControlInterface>;
+            }
+        }
+
+        public StringCollection TypeList
+        {
+            get
+            {
+                
+                StringCollection list = new StringCollection();
+                foreach(string item in m_mapTypeToList.Keys)
+                {
+                    list.Add(item);
+                }
+                return list;
             }
         }
 
@@ -99,6 +136,14 @@ namespace CommonLib
             get
             {
                 return m_ListDlls.Count;
+            }
+        }
+
+        public int TypeCount
+        {
+            get
+            {
+                return m_mapTypeToList.Count;
             }
         }
 

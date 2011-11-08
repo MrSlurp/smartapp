@@ -50,6 +50,12 @@ namespace CtrlMailer
             }
         }
 
+        public string PluginType
+        {
+            get { return LangSys.C("3 - Functional"); }
+        }
+
+
         public DllEntryClass()
         {
             CtrlMailerRes.InitializeBitmap();

@@ -42,6 +42,12 @@ namespace CtrlDataTrigger
             }
         }
 
+        public string PluginType
+        {
+            get { return LangSys.C("3 - Functional"); }
+        }
+
+
         public DllEntryClass()
         {
             CtrlDataTriggerRes.InitializeBitmap();

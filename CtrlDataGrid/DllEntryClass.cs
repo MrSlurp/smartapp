@@ -42,6 +42,12 @@ namespace CtrlDataGrid
                     LangSys.ChangeLangage(value);
             }
         }
+
+        public string PluginType
+        {
+            get { return LangSys.C("2 - Graphic"); }
+        }
+
         public DllEntryClass()
         {
             CtrlDataGridRes.InitializeBitmap();

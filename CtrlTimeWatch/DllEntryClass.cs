@@ -43,6 +43,12 @@ namespace CtrlTimeWatch
             }
         }
 
+        public string PluginType
+        {
+            get { return LangSys.C("3 - Functional"); }
+        }
+
+
         public DllEntryClass()
         {
             CtrlTimeWatchRes.InitializeBitmap();

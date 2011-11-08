@@ -43,6 +43,12 @@ namespace ScreenItemLocker
             }
         }
 
+        public string PluginType
+        {
+            get { return LangSys.C("3 - Functional"); }
+        }
+
+
         public DllEntryClass()
         {
             ScreenItemLockerRes.InitializeBitmap();

@@ -41,6 +41,11 @@ namespace CtrlSerpentin
             }
         }
 
+        public string PluginType
+        {
+            get { return LangSys.C("2 - Graphic"); }
+        }
+
         public uint DllID
         {
             get

@@ -43,6 +43,12 @@ namespace FourBitmap
             }
         }
 
+        public string PluginType
+        {
+            get { return LangSys.C("2 - Graphic"); }
+        }
+
+
         public DllEntryClass()
         {
             FourBitmapRes.InitializeBitmap();

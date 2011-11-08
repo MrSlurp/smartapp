@@ -28,18 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.SuspendLayout();
             // 
-            // Panel Properties
+            // ImageButtonProperties
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Name = "Properties Panel";
+            this.Name = "ImageButtonProperties";
             this.Size = new System.Drawing.Size(208, 84);
             this.ResumeLayout(false);
-            this.PerformLayout();
+
         }
 
         #endregion
+
 
     }
 }

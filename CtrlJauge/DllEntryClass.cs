@@ -42,6 +42,11 @@ namespace CtrlJauge
             }
         }
 
+        public string PluginType
+        {
+            get { return LangSys.C("2 - Graphic"); }
+        }
+
         public DllEntryClass()
         {
             CtrlJaugeRes.InitializeBitmap();

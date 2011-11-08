@@ -42,6 +42,12 @@ namespace DigitalDisplay
             }
         }
 
+        public string PluginType
+        {
+            get { return LangSys.C("2 - Graphic"); }
+        }
+
+
         public DllEntryClass()
         {
             DigitalDisplayRes.InitializeBitmap();

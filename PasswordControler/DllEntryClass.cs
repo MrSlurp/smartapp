@@ -43,6 +43,11 @@ namespace PasswordControler
             }
         }
 
+        public string PluginType
+        {
+            get { return LangSys.C("2 - Graphic"); }
+        }
+
         public DllEntryClass()
         {
             PasswordControlerRes.InitializeBitmap();

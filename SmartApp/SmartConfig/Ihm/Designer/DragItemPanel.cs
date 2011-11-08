@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Drawing;
 using System.Data;
@@ -50,20 +51,42 @@ namespace SmartApp.Ihm.Designer
             DownPos += ECART;
             if (Program.DllGest != null)
             {
-                for (int i = 0; i < Program.DllGest.Count; i++)
+                StringCollection category = Program.DllGest.TypeList;
+                for (int i = 0; i < category.Count; i++)
                 {
-                    IDllControlInterface Dll = Program.DllGest[i];
-                    Size sz = Dll.ToolWindSize;
-                    InteractiveControl newICtrl = Dll.CreateInteractiveControl();
-                    newICtrl.AllowDrop = true;
-                    newICtrl.Location = new System.Drawing.Point(3, DownPos);
-                    newICtrl.Name = Dll.DefaultControlName;
-                    newICtrl.Selected = false;
-                    newICtrl.Size = sz;
-                    newICtrl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.OnItemMouseDown);
-                    this.Controls.Add(newICtrl);
-                    DownPos += newICtrl.Size.Height;
+                    List<IDllControlInterface> list = Program.DllGest[category[i]];
+
+                    Label labelType = new Label();
+
+                    labelType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Left)
+                                | System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Top)));
+                    labelType.BackColor = System.Drawing.SystemColors.ActiveBorder;
+                    labelType.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+                    labelType.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                    labelType.Location = new System.Drawing.Point(0, DownPos);
+                    labelType.Name = "label" + category[i];
+                    labelType.Size = new System.Drawing.Size(this.Width, 21);
+                    labelType.TabIndex = 1;
+                    labelType.Text = category[i];
+                    DownPos += labelType.Size.Height;
                     DownPos += ECART;
+                    this.Controls.Add(labelType);
+
+                    for (int j = 0; j < list.Count; j++)
+                    {
+                        IDllControlInterface Dll = list[j];
+                        Size sz = Dll.ToolWindSize;
+                        InteractiveControl newICtrl = Dll.CreateInteractiveControl();
+                        newICtrl.AllowDrop = true;
+                        newICtrl.Location = new System.Drawing.Point(3, DownPos);
+                        newICtrl.Name = Dll.DefaultControlName;
+                        newICtrl.Selected = false;
+                        newICtrl.Size = sz;
+                        newICtrl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.OnItemMouseDown);
+                        this.Controls.Add(newICtrl);
+                        DownPos += newICtrl.Size.Height;
+                        DownPos += ECART;
+                    }
                 }
             }
             this.ResumeLayout(false);

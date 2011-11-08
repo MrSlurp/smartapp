@@ -18,6 +18,7 @@ namespace CommonLib
         string DefaultControlName { get;}
         //UserControl SpecificPropPanel { get;}
         Size ToolWindSize { get;}
+        string PluginType { get; }
         bool ReadInModuleGlobalInfo(XmlNode DllInfoNode);
         bool WriteOutModuleGlobalInfo(XmlDocument document, XmlNode XmlGlobalNode);
     }

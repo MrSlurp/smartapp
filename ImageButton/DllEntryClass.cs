@@ -43,6 +43,11 @@ namespace ImageButton
             }
         }
 
+        public string PluginType
+        {
+            get { return LangSys.C("2 - Graphic"); }
+        }
+
         public DllEntryClass()
         {
             ImageButtonRes.InitializeBitmap();
