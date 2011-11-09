@@ -114,5 +114,15 @@ namespace ImageButton
             return true;
         }
         #endregion
+
+        private void m_btnImg1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void m_btnImg2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

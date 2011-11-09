@@ -101,27 +101,4 @@ namespace ImageButton
             }
         }
     }
-
-    /// <summary>
-    /// classe héritant de UserControl
-    /// représente l'objet graphique affiché dans la supervision
-    /// on peux en faire a peut près ce qu'on veux :
-    /// - du dessin
-    /// - une aggregation de plusieurs controls standards, 
-    /// - les deux, etc.
-    /// </summary>
-    public class ImageButtonDispCtrl : UserControl
-    {
-        // ajouter ici les données membres du control affiché
-
-        public ImageButtonDispCtrl()
-        {
-        }
-
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            // mettez ici le code de dessin du control
-            base.OnPaint(e);
-        }
-    }
 }

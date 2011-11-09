@@ -82,7 +82,9 @@
     </Compile>
     <Compile Include="DllEntryClass.cs" />
     <Compile Include="GraphicCommandControl\ImageButtonCmdControl.cs">
-      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GraphicCommandControl\ImageButtonDispCtrl.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="InteractiveHerited\InteractiveImageButtonDllControl.cs">
       <SubType>UserControl</SubType>
@@ -121,6 +123,15 @@
       <DependentUpon>ImageButtonProperties.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="InteractiveHerited\InteractiveImageButtonDllControl.resx">
+      <DependentUpon>InteractiveImageButtonDllControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Res\DefaultBtnImage.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

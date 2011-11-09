@@ -12,8 +12,37 @@ namespace ImageButton
     internal class DllImageButtonProp : SpecificControlProp
     {
         // ajouter ici les données membres des propriété
+        private string m_NomFichierInactif;
+        private string m_NomFichierActif;
+        private bool m_bIsBistable;
+        private const string NOM_ATTIB_ACTIVE = "AciveBitmap";
+        private const string NOM_ATTIB_INACTIVE = "InactiveBitmap";
+        private const string NOM_NOEUD_PROP = "ImageButtonProp";
 
         // ajouter ici les accesseur vers les données membres des propriété
+        public string ReleasedImage
+        {
+            get
+            {
+                return m_NomFichierInactif;
+            }
+            set
+            {
+                m_NomFichierInactif = value;
+            }
+        }
+
+        public string PressedImage
+        {
+            get
+            {
+                return m_NomFichierActif;
+            }
+            set
+            {
+                m_NomFichierActif = value;
+            }
+        }
 
         /// <summary>
         /// Lecture des paramètres depuis le fichier XML

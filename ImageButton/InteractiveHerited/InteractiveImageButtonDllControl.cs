@@ -23,6 +23,7 @@ namespace ImageButton
         // propriété de comportement de l'objet dans le designer
         SpecificGraphicProp m_SpecGraphicProp = new SpecificGraphicProp();
 
+        string m_strReleasedImage;
         /// <summary>
         /// Constructeur de la classe
         /// </summary>
@@ -54,6 +55,7 @@ namespace ImageButton
             this.ControlType = InteractiveControlType.DllControl;
 
             InitializeComponent();
+            this.imageButtonDispCtrl1.Enabled = false;
         }
 
         /// <summary>
@@ -116,10 +118,27 @@ namespace ImageButton
             if (this.SourceBTControl != null)
             {
                 // mettez ici le code de dessin du control lorsqu'il est posé dans la surface de dessin
+                try
+                {
+                    if (((DllImageButtonProp)this.SourceBTControl.SpecificProp).ReleasedImage != m_strReleasedImage)
+                    {
+                        m_strReleasedImage = PathTranslator.RelativePathToAbsolute(((DllImageButtonProp)this.SourceBTControl.SpecificProp).ReleasedImage);
+                        m_strReleasedImage = PathTranslator.LinuxVsWindowsPathUse(m_strReleasedImage);
+                        //this.imageButtonDispCtrl1.Image =
+                        this.imageButtonDispCtrl1.BackgroundImage = new Bitmap(m_strReleasedImage);
+                    }
+                    else if (string.IsNullOrEmpty(((DllImageButtonProp)this.SourceBTControl.SpecificProp).ReleasedImage))
+                    {
+                        this.imageButtonDispCtrl1.BackgroundImage = ImageButtonRes.DefaultImg;
+                    }
+                }
+                catch (Exception)
+                {
+                }
             }
             else
             {
-                // mettez ici le code de dessin du control lorsqu'il est dans la barre d'outil
+                this.imageButtonDispCtrl1.BackgroundImage = ImageButtonRes.DefaultImg;
             }
         }
 
