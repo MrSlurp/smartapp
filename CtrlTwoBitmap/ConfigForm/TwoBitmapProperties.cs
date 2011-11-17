@@ -36,6 +36,7 @@ namespace CtrlTwoBitmap
 
         }
 
+
         public BTControl BTControl
         {
             get

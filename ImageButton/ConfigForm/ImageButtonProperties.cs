@@ -28,6 +28,14 @@ namespace ImageButton
         {
             DllEntryClass.LangSys.Initialize(this);
             InitializeComponent();
+
+            if (!string.IsNullOrEmpty(PathTranslator.BTDocPath))
+                m_openFileDialog.InitialDirectory = PathTranslator.BTDocPath;
+            else
+                m_openFileDialog.InitialDirectory = Application.StartupPath;
+
+            m_openFileDialog.Filter = DllEntryClass.LangSys.C("Image Files (jpeg, gif, bmp, png)|*.jpg;*.jpeg;*.gif;*.bmp;*.png|JPEG Files(*.jpg;*.jpeg)|*.jpg;*.jpeg|GIF Files(*.gif)|*.gif|BMP Files(*.bmp)|*.bmp|PNG Files(*.png)|*.png");
+
         }
 
         /// <summary>
@@ -48,12 +56,16 @@ namespace ImageButton
                 if (m_Control != null)
                 {
                     this.Enabled = true;
-                    // assignez ici les valeur des propriété spécifiques du control
+                    m_txtBoxImg1.Text = ((DllImageButtonProp)m_Control.SpecificProp).ReleasedImage;
+                    m_txtBoxImg2.Text = ((DllImageButtonProp)m_Control.SpecificProp).PressedImage;
+                    chkBistable.Checked = ((DllImageButtonProp)m_Control.SpecificProp).IsBistable;
                 }
                 else
                 {
                     this.Enabled = false;
-                    // mettez ici les valeur par défaut pour le panel de propriété spécifiques
+                    m_txtBoxImg1.Text = "";
+                    m_txtBoxImg2.Text = "";
+                    chkBistable.Checked = false;
                 }
             }
         }
@@ -95,17 +107,21 @@ namespace ImageButton
         /// <returns>true si les propriété sont valides, sinon false</returns>
         public bool ValidateValues()
         {
-            if (this.BTControl == null)
-                return true;
-
             bool bDataPropChange = false;
+            if (m_txtBoxImg1.Text != ((DllImageButtonProp)m_Control.SpecificProp).ReleasedImage)
+                bDataPropChange = true;
 
-            // testez ici si les paramètres ont changé en les comparant avec ceux contenu dans les propriété
-            // spécifiques du BTControl
-            // si c'est le cas, assignez bDataPropChange à true;
+            if (m_txtBoxImg2.Text != ((DllImageButtonProp)m_Control.SpecificProp).PressedImage)
+                bDataPropChange = true;
+
+            if (chkBistable.Checked != ((DllImageButtonProp)m_Control.SpecificProp).IsBistable)
+                bDataPropChange = true;
 
             if (bDataPropChange)
             {
+                ((DllImageButtonProp)m_Control.SpecificProp).ReleasedImage = m_txtBoxImg1.Text;
+                ((DllImageButtonProp)m_Control.SpecificProp).PressedImage = m_txtBoxImg2.Text;
+                ((DllImageButtonProp)m_Control.SpecificProp).IsBistable = chkBistable.Checked;
                 Doc.Modified = true;
                 m_Control.IControl.Refresh();
             }
@@ -117,12 +133,23 @@ namespace ImageButton
 
         private void m_btnImg1_Click(object sender, EventArgs e)
         {
+            DialogResult dlgRes = m_openFileDialog.ShowDialog();
+            if (dlgRes == DialogResult.OK)
+            {
 
+                m_txtBoxImg1.Text = PathTranslator.LinuxVsWindowsPathStore(
+                                    PathTranslator.AbsolutePathToRelative(m_openFileDialog.FileName));
+            }
         }
 
         private void m_btnImg2_Click(object sender, EventArgs e)
         {
-
+            DialogResult dlgRes = m_openFileDialog.ShowDialog();
+            if (dlgRes == DialogResult.OK)
+            {
+                m_txtBoxImg2.Text = PathTranslator.LinuxVsWindowsPathStore(
+                                    PathTranslator.AbsolutePathToRelative(m_openFileDialog.FileName));
+            }
         }
     }
 }

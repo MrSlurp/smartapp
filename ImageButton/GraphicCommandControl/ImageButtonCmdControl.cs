@@ -29,8 +29,16 @@ namespace ImageButton
             // on vérifie qu'il n'y a pas déja un control graphique (cette méthode ne doit être appelé qu'une seul fois)
             if (m_Ctrl == null)
             {
-                // on crée l'objet graphique qui sera affiché
-                m_Ctrl = new ImageButtonDispCtrl();
+                DllImageButtonProp SpecProp = this.SpecificProp as DllImageButtonProp;
+                if (!SpecProp.IsBistable)
+                {
+                    // on crée l'objet graphique qui sera affiché
+                    m_Ctrl = new ImageButtonDispCtrl();
+                }
+                else
+                {
+                    m_Ctrl = new ImageButtonBstDispCtrl();
+                }
                 // on définit sa position dans l'écran
                 m_Ctrl.Location = m_RectControl.Location;
                 // son nom est le symbol de l'objet courant
@@ -38,11 +46,24 @@ namespace ImageButton
                 // on définit sa taille
                 m_Ctrl.Size = m_RectControl.Size;
                 // on définit son fond comme étant transparent (peut être changé)
-                m_Ctrl.BackColor = Color.Transparent;
-                // faites ici les initialisation spécifiques du control affiché
+                //m_Ctrl.BackColor = Color.Transparent;
 
+                // faites ici les initialisation spécifiques du control affiché
                 // par exemple la liaison du click souris à un handler d'event
-                //m_Ctrl.Click += new System.EventHandler(this.OnControlEvent);
+                m_Ctrl.Click += new System.EventHandler(this.OnControlEvent);
+
+                string strImageFullPath = PathTranslator.RelativePathToAbsolute(SpecProp.ReleasedImage);
+                strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
+                try
+                {
+                    m_Ctrl.BackgroundImage = new Bitmap(strImageFullPath);
+                }
+                catch (Exception)
+                {
+                    LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format(DllEntryClass.LangSys.C("Control {0} Failed to load file {1}"), Symbol, strImageFullPath));
+                    AddLogEvent(log);
+                }
+                
             }
         }
 
@@ -55,6 +76,44 @@ namespace ImageButton
         public override void OnControlEvent(object Sender, EventArgs Args)
         {
             // traitez ici les évènement déclenché par le control (click souris par exemple)
+            if (m_Ctrl is CheckBox)
+            {
+                DllImageButtonProp SpecProp = this.SpecificProp as DllImageButtonProp;
+                CheckBox chk = m_Ctrl as CheckBox;
+                string strImageFullPath;
+                if (!chk.Checked)
+                {
+                    strImageFullPath = PathTranslator.RelativePathToAbsolute(SpecProp.ReleasedImage);
+                    strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
+                    if (m_AssociateData != null)
+                        m_AssociateData.Value = 0;
+                }
+                else
+                {
+                    strImageFullPath = PathTranslator.RelativePathToAbsolute(SpecProp.PressedImage);
+                    strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
+                    if (m_AssociateData != null)
+                        m_AssociateData.Value = 1;
+                }
+                try
+                {
+                    Bitmap bmp = new Bitmap(strImageFullPath);
+                    bmp.MakeTransparent(Color.Magenta);
+                    m_Ctrl.BackgroundImage = bmp;
+                }
+                catch (Exception)
+                {
+                    LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format(DllEntryClass.LangSys.C("Control {0} Failed to load file {1}"), Symbol, strImageFullPath));
+                    AddLogEvent(log);
+                }
+            }
+            else if (m_Ctrl is Button)
+            {
+                if (m_AssociateData != null)
+                {
+                    m_AssociateData.Value = m_AssociateData.Value == 0 ?  1 : 0;
+                }
+            }
             return;
         }
 

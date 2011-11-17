@@ -15,8 +15,9 @@ namespace ImageButton
         private string m_NomFichierInactif;
         private string m_NomFichierActif;
         private bool m_bIsBistable;
-        private const string NOM_ATTIB_ACTIVE = "AciveBitmap";
-        private const string NOM_ATTIB_INACTIVE = "InactiveBitmap";
+        private const string NOM_ATTIB_REL = "RelImage";
+        private const string NOM_ATTIB_PRE = "PreImage";
+        private const string NOM_ATTRIB_BISTABLE = "Bistable";
         private const string NOM_NOEUD_PROP = "ImageButtonProp";
 
         // ajouter ici les accesseur vers les données membres des propriété
@@ -44,6 +45,12 @@ namespace ImageButton
             }
         }
 
+        public bool IsBistable
+        {
+            get { return m_bIsBistable; }
+            set { m_bIsBistable = value; }
+        }
+
         /// <summary>
         /// Lecture des paramètres depuis le fichier XML
         /// </summary>
@@ -51,6 +58,26 @@ namespace ImageButton
         /// <returns>true en cas de succès de la lecture</returns>
         public override bool ReadIn(XmlNode Node)
         {
+            if (Node.FirstChild != null)
+            {
+                for (int i = 0; i < Node.ChildNodes.Count; i++)
+                {
+                    if (Node.ChildNodes[i].Name == NOM_NOEUD_PROP)
+                    {
+                        XmlNode AttrRel = Node.ChildNodes[i].Attributes.GetNamedItem(NOM_ATTIB_REL);
+                        XmlNode AttrPre = Node.ChildNodes[i].Attributes.GetNamedItem(NOM_ATTIB_PRE);
+                        XmlNode AttrBistable = Node.ChildNodes[i].Attributes.GetNamedItem(NOM_ATTRIB_BISTABLE);
+
+                        if (AttrRel == null
+                            || AttrPre == null)
+                            return false;
+                        ReleasedImage = AttrRel.Value;
+                        PressedImage = AttrPre.Value;
+                        if (AttrBistable != null)
+                            m_bIsBistable = bool.Parse(AttrBistable.Value);
+                    }
+                }
+            }
             return true;
         }
 
@@ -62,6 +89,17 @@ namespace ImageButton
         /// <returns>true en cas de succès de l'écriture</returns>
         public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
         {
+            XmlNode ItemProp = XmlDoc.CreateElement(NOM_NOEUD_PROP);
+            XmlAttribute AttrRel = XmlDoc.CreateAttribute(NOM_ATTIB_REL);
+            XmlAttribute AttrPre = XmlDoc.CreateAttribute(NOM_ATTIB_PRE);
+            XmlAttribute Attrbistable = XmlDoc.CreateAttribute(NOM_ATTRIB_BISTABLE);
+            AttrRel.Value = PathTranslator.AbsolutePathToRelative(m_NomFichierActif);
+            AttrPre.Value = PathTranslator.AbsolutePathToRelative(m_NomFichierInactif);
+            Attrbistable.Value = m_bIsBistable.ToString();
+            ItemProp.Attributes.Append(AttrRel);
+            ItemProp.Attributes.Append(AttrPre);
+            ItemProp.Attributes.Append(Attrbistable);
+            Node.AppendChild(ItemProp);
             return true;
         }
 
@@ -72,6 +110,26 @@ namespace ImageButton
         public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance)
         {
             DllImageButtonProp SrcProp = (DllImageButtonProp)SrcSpecificProp;
+            if (bFromOtherInstance)
+            {
+                if (File.Exists(PathTranslator.LinuxVsWindowsPathUse(
+                                PathTranslator.RelativePathToAbsolute(
+                                SrcProp.ReleasedImage))))
+                {
+                    ReleasedImage = SrcProp.ReleasedImage;
+                }
+                if (File.Exists(PathTranslator.LinuxVsWindowsPathUse(
+                                PathTranslator.RelativePathToAbsolute(
+                                SrcProp.PressedImage))))
+                {
+                    PressedImage = SrcProp.PressedImage;
+                }
+            }
+            else
+            {
+                ReleasedImage = SrcProp.ReleasedImage;
+                PressedImage = SrcProp.PressedImage;
+            }
         }
 
         /// <summary>

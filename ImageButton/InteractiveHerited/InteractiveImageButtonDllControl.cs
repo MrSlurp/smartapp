@@ -125,7 +125,9 @@ namespace ImageButton
                         m_strReleasedImage = PathTranslator.RelativePathToAbsolute(((DllImageButtonProp)this.SourceBTControl.SpecificProp).ReleasedImage);
                         m_strReleasedImage = PathTranslator.LinuxVsWindowsPathUse(m_strReleasedImage);
                         //this.imageButtonDispCtrl1.Image =
-                        this.imageButtonDispCtrl1.BackgroundImage = new Bitmap(m_strReleasedImage);
+                        Bitmap bmp = new Bitmap(m_strReleasedImage);
+                        bmp.MakeTransparent(Color.Magenta);
+                        this.imageButtonDispCtrl1.BackgroundImage = bmp;
                     }
                     else if (string.IsNullOrEmpty(((DllImageButtonProp)this.SourceBTControl.SpecificProp).ReleasedImage))
                     {

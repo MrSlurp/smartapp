@@ -94,10 +94,11 @@
             // 
             // chkBistable
             // 
+            this.chkBistable.Appearance = System.Windows.Forms.Appearance.Button;
             this.chkBistable.AutoSize = true;
             this.chkBistable.Location = new System.Drawing.Point(4, 88);
             this.chkBistable.Name = "chkBistable";
-            this.chkBistable.Size = new System.Drawing.Size(63, 17);
+            this.chkBistable.Size = new System.Drawing.Size(54, 23);
             this.chkBistable.TabIndex = 9;
             this.chkBistable.Text = "Bistable";
             this.chkBistable.UseVisualStyleBackColor = true;
