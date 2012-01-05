@@ -78,6 +78,7 @@ namespace SmartApp.Ihm
                     this.CsvSeperator = m_Logger.CsvSeperator;
                     this.LoggerMode = m_Logger.LoggerMode;
                     this.DateFormatString = m_Logger.DateFormatString;
+                    this.DoNotKeepFileOpen = m_Logger.DoNotKeepFileOpen;
                 }
                 else
                 {
@@ -91,6 +92,7 @@ namespace SmartApp.Ihm
                     this.CsvSeperator = '\t';
                     this.LoggerMode = Logger.LogMode.none;
                     this.DateFormatString = "";
+                    this.DoNotKeepFileOpen = false;
                 }
                 this.InitListViewData();
                 this.UpdateFromLogType();
@@ -141,7 +143,7 @@ namespace SmartApp.Ihm
             InitializeComponent();
             LoadNonStandardLang();
             m_LoggerPeriod.Minimum = 200;
-            m_LoggerPeriod.Maximum = 3600000;
+            m_LoggerPeriod.Maximum = decimal.MaxValue;
 
             m_txtFileName.CharacterCasing = CharacterCasing.Normal;
         }
@@ -841,3 +843,4 @@ namespace SmartApp.Ihm
         }
     }
 }
+

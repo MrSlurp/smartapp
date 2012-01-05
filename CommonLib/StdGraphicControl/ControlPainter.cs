@@ -32,9 +32,10 @@ namespace CommonLib
                     BtnImage.Width, DrawRect.Height - 1);
                 gr.DrawImage(BtnImage, rect);
 
-                SizeF SizeText = gr.MeasureString(ctrl.Text, SystemFonts.DefaultFont);
+                SizeF SizeText = gr.MeasureString(ctrl.Text, ctrl.Font);
                 PointF PtText = new PointF(ctrl.ClientRectangle.Left + 2, (ctrl.Height - SizeText.Height) / 2);
-                gr.DrawString(ctrl.Text, SystemFonts.DefaultFont, Brushes.Black, PtText);
+                Brush br = new SolidBrush(ctrl.ForeColor);
+                gr.DrawString(ctrl.Text, ctrl.Font, br, PtText);
                 DrawPresenceAssociateData(gr, ctrl);
             }
         }
@@ -52,13 +53,14 @@ namespace CommonLib
             if (CheckImage != null)
             {
                 CheckImage.MakeTransparent(TransparencyColor);
-                Rectangle rect = new Rectangle(DrawRect.Left, DrawRect.Top + 2,
+                Rectangle rect = new Rectangle(DrawRect.Left, (DrawRect.Height - CheckImage.Height)/2,
                                                CheckImage.Width, CheckImage.Height);
                 gr.DrawImage(CheckImage, rect);
 
-                SizeF SizeText = gr.MeasureString(ctrl.Text, SystemFonts.DefaultFont);
+                SizeF SizeText = gr.MeasureString(ctrl.Text, ctrl.Font);
                 PointF PtText = new PointF(ctrl.ClientRectangle.Left + CheckImage.Width + 2, (ctrl.Height - SizeText.Height) / 2);
-                gr.DrawString(ctrl.Text, SystemFonts.DefaultFont, Brushes.Black, PtText);
+                Brush br = new SolidBrush(ctrl.ForeColor);
+                gr.DrawString(ctrl.Text, ctrl.Font, br, PtText);
                 DrawPresenceAssociateData(gr, ctrl);
             }
         }
@@ -130,9 +132,10 @@ namespace CommonLib
                 gr.DrawImage(BtnTopRight, BtnTopRightRect);
                 gr.DrawImage(BtnBottomRight, BtnBottomRightRect);
                 gr.DrawImage(BtnBottomLeft, BtnBottomLeftRect);
-                SizeF SizeText = gr.MeasureString(ctrl.Text, SystemFonts.DefaultFont);
+                SizeF SizeText = gr.MeasureString(ctrl.Text, ctrl.Font);
                 PointF PtText = new PointF((ctrl.Width - SizeText.Width) / 2, (ctrl.Height - SizeText.Height) / 2);
-                gr.DrawString(ctrl.Text, SystemFonts.DefaultFont, Brushes.Black, PtText);
+                Brush br = new SolidBrush(ctrl.ForeColor);
+                gr.DrawString(ctrl.Text, ctrl.Font, br, PtText);
                 DrawPresenceAssociateData(gr, ctrl);
             }
         }
@@ -143,9 +146,10 @@ namespace CommonLib
         //*****************************************************************************************************
         public static void DrawText(Graphics gr, Control ctrl)
         {
-            SizeF SizeText = gr.MeasureString(ctrl.Text, SystemFonts.DefaultFont);
+            SizeF SizeText = gr.MeasureString(ctrl.Text, ctrl.Font);
             PointF PtText = new PointF(ctrl.ClientRectangle.Left, (ctrl.Height - SizeText.Height) / 2);
-            gr.DrawString(ctrl.Text, SystemFonts.DefaultFont, Brushes.Black, PtText);
+            Brush br = new SolidBrush(ctrl.ForeColor);
+            gr.DrawString(ctrl.Text, ctrl.Font, br, PtText);
             DrawPresenceAssociateData(gr, ctrl);
         }
 
@@ -167,9 +171,10 @@ namespace CommonLib
                     BtnImage.Width, DrawRect.Height - 1);
                 gr.DrawImage(BtnImage, rect);
 
-                SizeF SizeText = gr.MeasureString("0", SystemFonts.DefaultFont);
+                SizeF SizeText = gr.MeasureString("1234", ctrl.Font);
                 PointF PtText = new PointF(ctrl.ClientRectangle.Left + 2, (ctrl.Height - SizeText.Height) / 2);
-                gr.DrawString("1234", SystemFonts.DefaultFont, Brushes.Black, PtText);
+                Brush br = new SolidBrush(ctrl.ForeColor);
+                gr.DrawString("1234", ctrl.Font, br, PtText);
                 DrawPresenceAssociateData(gr, ctrl);
             }
         }

@@ -37,6 +37,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CtrlMailerVC9", "CtrlMailer
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageButton", "ImageButton\ImageButton.csproj", "{46A6DEB4-8699-49D5-B9F0-08F41AAFFCF1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CtrlSoundPlayer", "SoundPlayer\CtrlSoundPlayer.csproj", "{DC401350-D898-49AF-B0B4-0BD5281433E1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		BuildLang|Any CPU = BuildLang|Any CPU
@@ -505,6 +507,31 @@ Global
 		{46A6DEB4-8699-49D5-B9F0-08F41AAFFCF1}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{46A6DEB4-8699-49D5-B9F0-08F41AAFFCF1}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{46A6DEB4-8699-49D5-B9F0-08F41AAFFCF1}.Release|Win32.ActiveCfg = Release|Any CPU
+		{DC401350-D898-49AF-B0B4-0BD5281433E1}.BuildLang|Any CPU.ActiveCfg = BuildLang|Any CPU
+		{DC401350-D898-49AF-B0B4-0BD5281433E1}.BuildLang|Any CPU.Build.0 = BuildLang|Any CPU
+		{DC401350-D898-49AF-B0B4-0BD5281433E1}.BuildLang|Mixed Platforms.ActiveCfg = BuildLang|Any CPU
+		{DC401350-D898-49AF-B0B4-0BD5281433E1}.BuildLang|Mixed Platforms.Build.0 = BuildLang|Any CPU
+		{DC401350-D898-49AF-B0B4-0BD5281433E1}.BuildLang|Win32.ActiveCfg = BuildLang|Any CPU
+		{DC401350-D898-49AF-B0B4-0BD5281433E1}.Debug Cmd|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC401350-D898-49AF-B0B4-0BD5281433E1}.Debug Cmd|Any CPU.Build.0 = Debug|Any CPU
+		{DC401350-D898-49AF-B0B4-0BD5281433E1}.Debug Cmd|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{DC401350-D898-49AF-B0B4-0BD5281433E1}.Debug Cmd|Mixed Platforms.Build.0 = Debug|Any CPU
+		{DC401350-D898-49AF-B0B4-0BD5281433E1}.Debug Cmd|Win32.ActiveCfg = Debug|Any CPU
+		{DC401350-D898-49AF-B0B4-0BD5281433E1}.Debug Test|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC401350-D898-49AF-B0B4-0BD5281433E1}.Debug Test|Any CPU.Build.0 = Debug|Any CPU
+		{DC401350-D898-49AF-B0B4-0BD5281433E1}.Debug Test|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{DC401350-D898-49AF-B0B4-0BD5281433E1}.Debug Test|Mixed Platforms.Build.0 = Debug|Any CPU
+		{DC401350-D898-49AF-B0B4-0BD5281433E1}.Debug Test|Win32.ActiveCfg = Debug|Any CPU
+		{DC401350-D898-49AF-B0B4-0BD5281433E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC401350-D898-49AF-B0B4-0BD5281433E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC401350-D898-49AF-B0B4-0BD5281433E1}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{DC401350-D898-49AF-B0B4-0BD5281433E1}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{DC401350-D898-49AF-B0B4-0BD5281433E1}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{DC401350-D898-49AF-B0B4-0BD5281433E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC401350-D898-49AF-B0B4-0BD5281433E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC401350-D898-49AF-B0B4-0BD5281433E1}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{DC401350-D898-49AF-B0B4-0BD5281433E1}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{DC401350-D898-49AF-B0B4-0BD5281433E1}.Release|Win32.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

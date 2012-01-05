@@ -16,6 +16,7 @@ namespace ImageButton
         BTControl m_Control = null;
         // document courant
         private BTDoc m_Document = null;
+        private CComboData[] m_ListCboStyles;
 
         #region events
         public event ControlPropertiesChange ControlPropertiesChanged;
@@ -35,6 +36,15 @@ namespace ImageButton
                 m_openFileDialog.InitialDirectory = Application.StartupPath;
 
             m_openFileDialog.Filter = DllEntryClass.LangSys.C("Image Files (jpeg, gif, bmp, png)|*.jpg;*.jpeg;*.gif;*.bmp;*.png|JPEG Files(*.jpg;*.jpeg)|*.jpg;*.jpeg|GIF Files(*.gif)|*.gif|BMP Files(*.bmp)|*.bmp|PNG Files(*.png)|*.png");
+            m_ListCboStyles = new CComboData[3];
+            m_ListCboStyles[0] = new CComboData(DllEntryClass.LangSys.C("Standard"), 0);
+            m_ListCboStyles[1] = new CComboData(DllEntryClass.LangSys.C("Flat"), 1);
+            m_ListCboStyles[2] = new CComboData(DllEntryClass.LangSys.C("Borderless flat"), 2);
+
+            cboStyle.ValueMember = "Object";
+            cboStyle.DisplayMember = "DisplayedString";
+            cboStyle.DataSource = m_ListCboStyles;
+            cboStyle.SelectedIndex = 0;
 
         }
 
@@ -56,9 +66,17 @@ namespace ImageButton
                 if (m_Control != null)
                 {
                     this.Enabled = true;
-                    m_txtBoxImg1.Text = ((DllImageButtonProp)m_Control.SpecificProp).ReleasedImage;
-                    m_txtBoxImg2.Text = ((DllImageButtonProp)m_Control.SpecificProp).PressedImage;
-                    chkBistable.Checked = ((DllImageButtonProp)m_Control.SpecificProp).IsBistable;
+                    DllImageButtonProp SpecProp = (DllImageButtonProp)m_Control.SpecificProp;
+                    m_txtBoxImg1.Text = SpecProp.ReleasedImage;
+                    m_txtBoxImg2.Text = SpecProp.PressedImage;
+                    chkBistable.Checked = SpecProp.IsBistable;
+                    if (SpecProp.Style == FlatStyle.Flat && SpecProp.BorderSize == 1)
+                        cboStyle.SelectedValue = 1;
+                    else if (SpecProp.Style == FlatStyle.Standard)
+                        cboStyle.SelectedValue = 0;
+                    else
+                        cboStyle.SelectedValue = 2;
+
                 }
                 else
                 {
@@ -66,6 +84,7 @@ namespace ImageButton
                     m_txtBoxImg1.Text = "";
                     m_txtBoxImg2.Text = "";
                     chkBistable.Checked = false;
+                    cboStyle.SelectedValue = 0;
                 }
             }
         }
@@ -108,20 +127,45 @@ namespace ImageButton
         public bool ValidateValues()
         {
             bool bDataPropChange = false;
-            if (m_txtBoxImg1.Text != ((DllImageButtonProp)m_Control.SpecificProp).ReleasedImage)
+            DllImageButtonProp SpecProps = (DllImageButtonProp)m_Control.SpecificProp;
+            if (m_txtBoxImg1.Text != SpecProps.ReleasedImage)
                 bDataPropChange = true;
 
-            if (m_txtBoxImg2.Text != ((DllImageButtonProp)m_Control.SpecificProp).PressedImage)
+            if (m_txtBoxImg2.Text != SpecProps.PressedImage)
                 bDataPropChange = true;
 
-            if (chkBistable.Checked != ((DllImageButtonProp)m_Control.SpecificProp).IsBistable)
+            if (chkBistable.Checked != SpecProps.IsBistable)
                 bDataPropChange = true;
+
+            int curStyle = (int)cboStyle.SelectedValue;
+            FlatStyle finalStyle = FlatStyle.Standard;
+            int finalBorderSize = 1;
+            if (curStyle == 0 && SpecProps.Style != FlatStyle.Standard)
+            {
+                bDataPropChange = true;
+                finalStyle = FlatStyle.Standard;
+                finalBorderSize = 1;
+            }
+            else if (curStyle == 1 && (SpecProps.Style != FlatStyle.Flat || SpecProps.BorderSize != 1))
+            {
+                bDataPropChange = true;
+                finalStyle = FlatStyle.Flat;
+                finalBorderSize = 1;
+            }
+            else if (curStyle == 2 && (SpecProps.Style != FlatStyle.Flat || SpecProps.BorderSize != 0))
+            {
+                bDataPropChange = true;
+                finalStyle = FlatStyle.Flat;
+                finalBorderSize = 0;
+            }
 
             if (bDataPropChange)
             {
                 ((DllImageButtonProp)m_Control.SpecificProp).ReleasedImage = m_txtBoxImg1.Text;
                 ((DllImageButtonProp)m_Control.SpecificProp).PressedImage = m_txtBoxImg2.Text;
                 ((DllImageButtonProp)m_Control.SpecificProp).IsBistable = chkBistable.Checked;
+                ((DllImageButtonProp)m_Control.SpecificProp).Style = finalStyle;
+                ((DllImageButtonProp)m_Control.SpecificProp).BorderSize = finalBorderSize;
                 Doc.Modified = true;
                 m_Control.IControl.Refresh();
             }
@@ -151,5 +195,6 @@ namespace ImageButton
                                     PathTranslator.AbsolutePathToRelative(m_openFileDialog.FileName));
             }
         }
+
     }
 }

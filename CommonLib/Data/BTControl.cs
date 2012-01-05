@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Text;
+using System.Drawing;
 using System.Xml;
 
 namespace CommonLib
@@ -32,6 +33,9 @@ namespace CommonLib
         protected bool m_bIsReadOnly = false;
         // collection de string qui contiennent le script a executer
         protected StringCollection m_ScriptLines = new StringCollection();
+
+        protected Font m_TextFont = new Font(SystemFonts.DefaultFont, FontStyle.Regular);
+        protected Color m_TextColor = Color.Black;
 
         #endregion
 
@@ -223,7 +227,36 @@ namespace CommonLib
                 }
 
             }
-        }        
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Font TextFont
+        {
+            get { return m_TextFont; }
+            set
+            {
+                m_TextFont = value;
+                if (m_IControl != null)
+                    m_IControl.Font = value;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Color TextColor
+        {
+            get { return m_TextColor; }
+            set
+            {
+                m_TextColor = value;
+                if (m_IControl != null)
+                    m_IControl.ForeColor = value;
+            }
+        }
+
         #endregion
 
         #region ReadIn / WriteOut
@@ -333,6 +366,57 @@ namespace CommonLib
             m_IControl.Location = new System.Drawing.Point(int.Parse(TabStrPos[0]), int.Parse(TabStrPos[1]));
             m_IControl.Size = new System.Drawing.Size(int.Parse(TabStrSize[0]), int.Parse(TabStrSize[1]));
             SetControlRect();
+            ReadInControlFont(Node);
+            return true;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Node"></param>
+        /// <returns></returns>
+        protected bool ReadInControlFont(XmlNode Node)
+        {
+            for (int i = 0; i < Node.ChildNodes.Count; i++)
+            {
+                if (Node.ChildNodes[i].Name == XML_CF_TAG.Font.ToString())
+                {
+                    XmlNode fontNode = Node.ChildNodes[i];
+                    XmlNode fontName = fontNode.Attributes.GetNamedItem(XML_CF_ATTRIB.FontName.ToString());
+                    XmlNode fontAttrib = fontNode.Attributes.GetNamedItem(XML_CF_ATTRIB.FontAttrib.ToString());
+                    XmlNode fontSize = fontNode.Attributes.GetNamedItem(XML_CF_ATTRIB.FontSize.ToString());
+                    XmlNode fontColor = fontNode.Attributes.GetNamedItem(XML_CF_ATTRIB.Color.ToString());
+                    this.TextFont = new Font(fontName.Value, float.Parse(fontSize.Value), (FontStyle)Enum.Parse(typeof(FontStyle), fontAttrib.Value));
+                    if (fontColor != null)
+                        this.TextColor = ColorTranslate.StringToColor(fontColor.Value);
+                }
+            }
+            
+            return true;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="XmlDoc"></param>
+        /// <param name="Node"></param>
+        /// <returns></returns>
+        protected bool WriteOutControlFont(XmlDocument XmlDoc, XmlNode Node)
+        {
+            XmlNode fontNode = XmlDoc.CreateElement(XML_CF_TAG.Font.ToString());
+            XmlAttribute fontName = XmlDoc.CreateAttribute(XML_CF_ATTRIB.FontName.ToString());
+            XmlAttribute fontAttrib = XmlDoc.CreateAttribute(XML_CF_ATTRIB.FontAttrib.ToString());
+            XmlAttribute fontSize = XmlDoc.CreateAttribute(XML_CF_ATTRIB.FontSize.ToString());
+            XmlAttribute fontColor = XmlDoc.CreateAttribute(XML_CF_ATTRIB.Color.ToString());
+            fontName.Value = this.TextFont.Name;
+            fontAttrib.Value = this.TextFont.Style.ToString();
+            fontSize.Value = this.TextFont.Size.ToString();
+            fontColor.Value = ColorTranslate.ColorToString(this.TextColor);
+            Node.AppendChild(fontNode);
+            fontNode.Attributes.Append(fontName);
+            fontNode.Attributes.Append(fontAttrib);
+            fontNode.Attributes.Append(fontSize);
+            fontNode.Attributes.Append(fontColor);
             return true;
         }
 
@@ -411,7 +495,7 @@ namespace CommonLib
             Node.Attributes.Append(AttrSize);
             Node.Attributes.Append(AttrText);
             Node.Attributes.Append(AttrReadOnly);
-
+            WriteOutControlFont(XmlDoc, Node);
             return true;
         }
 
@@ -477,7 +561,7 @@ namespace CommonLib
                 m_AssociateData = (Data)Doc.GestData.GetFromSymbol(m_strAssociateData);
                 if (m_AssociateData == null)
                 {
-                    // pas d'assert ici, car par exemple un bouton ou un static peuvent ne pas avoir de donnée
+                    // pas d'assert ici, car par exemple un bouton ou un label peuvent ne pas avoir de donnée
                     return true;
                 }
                 else
@@ -554,6 +638,11 @@ namespace CommonLib
         #endregion
 
         #region Méthodes diverses
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="SrcBtControl"></param>
+        /// <param name="bFromOtherInstance"></param>
         public void CopyParametersFrom(BTControl SrcBtControl, bool bFromOtherInstance)
         {
             if (!bFromOtherInstance)

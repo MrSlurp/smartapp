@@ -81,6 +81,7 @@ namespace SmartApp.Ihm.Wizards
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Project Wizard";
             this.ResumeLayout(false);
 

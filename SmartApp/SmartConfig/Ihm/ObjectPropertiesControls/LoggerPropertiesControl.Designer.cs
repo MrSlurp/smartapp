@@ -311,7 +311,7 @@ namespace SmartApp.Ihm
             this.Controls.Add(this.m_cboSeparator);
             this.Controls.Add(this.m_chkNotKeepFileOpen);
             this.Name = "LoggerPropertiesControl";
-            this.Size = new System.Drawing.Size(541, 416);
+            this.Size = new System.Drawing.Size(426, 416);
             this.Validating += new System.ComponentModel.CancelEventHandler(this.PropertiesControlValidating);
             ((System.ComponentModel.ISupportInitialize)(this.m_LoggerPeriod)).EndInit();
             this.ResumeLayout(false);

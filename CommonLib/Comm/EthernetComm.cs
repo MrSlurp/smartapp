@@ -64,7 +64,17 @@ namespace CommonLib
             }
             set
             {
-                m_TcpClient.Ip = value;
+                IPAddress IpAddr = new IPAddress(0);
+                // si le parsing d'adresse IP echoue, on tente une resolution DNS
+                if (!IPAddress.TryParse(value, out IpAddr))
+                {
+                    IPHostEntry hostEntry = Dns.GetHostEntry(value);
+                    if (hostEntry.AddressList.Length == 1)
+                    {
+                        IpAddr = hostEntry.AddressList[0];
+                    }
+                }
+                m_TcpClient.Ip = IpAddr.ToString();
             }
         }
 

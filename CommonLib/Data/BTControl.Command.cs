@@ -93,12 +93,27 @@ namespace CommonLib
         public virtual void CreateControl() { }
 
         /// <summary>
+        /// 
+        /// </summary>
+        public virtual void ApplyControlFont() 
+        {
+            if (m_Ctrl != null)
+            {
+                m_Ctrl.Font = this.TextFont;
+                m_Ctrl.ForeColor = this.TextColor;
+            }
+        }
+
+        /// <summary>
         /// callback appelé lors que le control affiché déclenche un évènement
         /// </summary>
         /// <param name="Sender"></param>
         /// <param name="Args"></param>
         public virtual void OnControlEvent(Object Sender, EventArgs Args) { }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public virtual void UpdateFromDataDelegate()
         {
             if (m_Ctrl.InvokeRequired)

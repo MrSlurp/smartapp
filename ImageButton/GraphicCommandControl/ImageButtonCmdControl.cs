@@ -46,24 +46,56 @@ namespace ImageButton
                 // on définit sa taille
                 m_Ctrl.Size = m_RectControl.Size;
                 // on définit son fond comme étant transparent (peut être changé)
-                //m_Ctrl.BackColor = Color.Transparent;
+                m_Ctrl.BackColor = Color.Transparent;
+
+                m_Ctrl.Text = this.m_IControl.Text;
 
                 // faites ici les initialisation spécifiques du control affiché
                 // par exemple la liaison du click souris à un handler d'event
                 m_Ctrl.Click += new System.EventHandler(this.OnControlEvent);
 
-                string strImageFullPath = PathTranslator.RelativePathToAbsolute(SpecProp.ReleasedImage);
-                strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
-                try
+                if (!string.IsNullOrEmpty(SpecProp.ReleasedImage))
                 {
-                    m_Ctrl.BackgroundImage = new Bitmap(strImageFullPath);
+                    string strImageFullPath = PathTranslator.RelativePathToAbsolute(SpecProp.ReleasedImage);
+                    strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
+                    try
+                    {
+                        Bitmap bmp = new Bitmap(strImageFullPath);
+                        bmp.MakeTransparent(Color.Magenta);
+                        m_Ctrl.BackgroundImage = bmp;
+
+                    }
+                    catch (Exception)
+                    {
+                        LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format(DllEntryClass.LangSys.C("Control {0} Failed to load file {1}"), Symbol, strImageFullPath));
+                        AddLogEvent(log);
+                    }
                 }
-                catch (Exception)
+                else
                 {
-                    LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format(DllEntryClass.LangSys.C("Control {0} Failed to load file {1}"), Symbol, strImageFullPath));
-                    AddLogEvent(log);
+                    m_Ctrl.BackgroundImage = ImageButtonRes.DefaultImg;
                 }
-                
+
+                if (m_Ctrl is Button)
+                {
+                    ((Button)m_Ctrl).MouseDown += new MouseEventHandler(ImageButtonCmdControl_MouseDown);
+                    ((Button)m_Ctrl).MouseUp += new MouseEventHandler(ImageButtonCmdControl_MouseUp);
+                    ((Button)m_Ctrl).FlatAppearance.BorderSize = SpecProp.BorderSize;
+                    ((Button)m_Ctrl).FlatAppearance.CheckedBackColor = Color.Transparent;
+                    ((Button)m_Ctrl).FlatAppearance.MouseDownBackColor = Color.Transparent;
+                    ((Button)m_Ctrl).FlatAppearance.MouseOverBackColor = Color.Transparent;
+                    ((Button)m_Ctrl).FlatStyle = SpecProp.Style;
+                    ((Button)m_Ctrl).TabStop = false;
+                }
+                else if (m_Ctrl is CheckBox)
+                {
+                    ((CheckBox)m_Ctrl).FlatStyle = SpecProp.Style;
+                    ((CheckBox)m_Ctrl).FlatAppearance.BorderSize = SpecProp.BorderSize;
+                    ((CheckBox)m_Ctrl).FlatAppearance.CheckedBackColor = Color.Transparent;
+                    ((CheckBox)m_Ctrl).FlatAppearance.MouseDownBackColor = Color.Transparent;
+                    ((CheckBox)m_Ctrl).FlatAppearance.MouseOverBackColor = Color.Transparent;
+                    ((CheckBox)m_Ctrl).TabStop = false;
+                }
             }
         }
 
@@ -118,6 +150,59 @@ namespace ImageButton
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void ImageButtonCmdControl_MouseUp(object sender, MouseEventArgs e)
+        {
+            DllImageButtonProp SpecProp = this.SpecificProp as DllImageButtonProp;
+            if (m_Ctrl is Button && !string.IsNullOrEmpty(SpecProp.ReleasedImage))
+            {
+                string strImageFullPath = PathTranslator.RelativePathToAbsolute(SpecProp.ReleasedImage);
+                strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
+                try
+                {
+                    Bitmap bmp = new Bitmap(strImageFullPath);
+                    bmp.MakeTransparent(Color.Magenta);
+                    m_Ctrl.BackgroundImage = bmp;
+                }
+                catch (Exception)
+                {
+                    LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format(DllEntryClass.LangSys.C("Control {0} Failed to load file {1}"), Symbol, strImageFullPath));
+                    AddLogEvent(log);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void ImageButtonCmdControl_MouseDown(object sender, MouseEventArgs e)
+        {
+            DllImageButtonProp SpecProp = this.SpecificProp as DllImageButtonProp;
+            if (m_Ctrl is Button && !string.IsNullOrEmpty(SpecProp.PressedImage))
+            {
+                string strImageFullPath = PathTranslator.RelativePathToAbsolute(SpecProp.PressedImage);
+                strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
+                try
+                {
+                    Bitmap bmp = new Bitmap(strImageFullPath);
+                    bmp.MakeTransparent(Color.Magenta);
+                    m_Ctrl.BackgroundImage = bmp;
+                }
+                catch (Exception)
+                {
+                    LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format(DllEntryClass.LangSys.C("Control {0} Failed to load file {1}"), Symbol, strImageFullPath));
+                    AddLogEvent(log);
+                }
+            }
+        }
+
+
+        /// <summary>
         /// Handler de l'évènement "DataValueChanged" déclenché par la donnée associée par défaut
         /// permet de mettre a jour l'état du control associé en fonction de celle ci.
         /// Pour chaque donnée qui serait utilisé dans les propriété, il est possible de réutiliser cet handler
@@ -161,3 +246,4 @@ namespace ImageButton
         }
     }
 }
+

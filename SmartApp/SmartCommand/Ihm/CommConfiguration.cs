@@ -166,19 +166,29 @@ namespace SmartApp
                         return false;
 					}
 
-
                     if (Param.IndexOf(':') == -1)
                     {
-                        strErr = Program.LangSys.C("Invalid IP Address");
+                        strErr = Program.LangSys.C("Invalid host address or host (no port specified)");
                         return false;
                     }
 
                     string[] TabIpAndPort = Param.Split(':');
                     IPAddress IpAddr = new IPAddress(0);
+                    // si le parsing d'adresse IP echoue, on tente une resolution DNS
                     if (!IPAddress.TryParse(TabIpAndPort[0], out IpAddr))
                     {
-                        strErr = Program.LangSys.C("Invalid IP Address");
-                        return false;
+                        // on place le message d'avance
+                        IPHostEntry hostEntry = Dns.GetHostEntry(TabIpAndPort[0]);
+                        if (hostEntry.AddressList.Length == 0)
+                        {
+                            strErr = string.Format(Program.LangSys.C("Can't resolve hostname {0} or invalide IP address"), TabIpAndPort[0]);
+                            return false;
+                        }
+                        else if (hostEntry.AddressList.Length > 1)
+                        {
+                            strErr = string.Format(Program.LangSys.C("More than one IP is associated to hostname {0}"), TabIpAndPort[0]);
+                            return false;
+                        }
                     }
                 }
                 else if (TYPE_COMM.SERIAL.ToString() == Type)

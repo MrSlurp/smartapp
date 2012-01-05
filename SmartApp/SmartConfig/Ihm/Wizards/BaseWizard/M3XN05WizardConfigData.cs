@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
+using System.Windows.Forms;
 using CommonLib;
 
 namespace SmartApp.Wizards
@@ -16,6 +17,18 @@ namespace SmartApp.Wizards
         /// </summary>
         protected const int NB_XN05_IO_BLOC = 8;
 
+        protected const int NB_HOUR_IO_BLOC = 4;
+
+        /// <summary>
+        /// liste des blocs d'entrée de données (blocs qui ont des sorties)
+        /// </summary>
+        protected BlocConfig[] m_INHourBlocList;
+
+        /// <summary>
+        /// liste des blocs de sortie de données (blocs qui ont des entrée)
+        /// </summary>
+        protected BlocConfig[] m_OUTHourBlocList;
+
         /// <summary>
         /// constructeur par défaut initialisant les tables de la classe
         /// </summary>
@@ -27,6 +40,17 @@ namespace SmartApp.Wizards
             {
                 m_INBlocList[i - 1] = new M3XN05BlocConfig(BlocsType.IN, i);
                 m_OUTBlocList[i - 1] = new M3XN05BlocConfig(BlocsType.OUT, i);
+            }
+
+
+            m_INHourBlocList = new M3XN05BlocConfig[NB_HOUR_IO_BLOC];
+            m_OUTHourBlocList = new M3XN05BlocConfig[NB_HOUR_IO_BLOC];
+            for (int i = 10; i <= NB_HOUR_IO_BLOC; i++)
+            {
+                m_INHourBlocList[i - 1] = new M3XN05BlocConfig(BlocsType.IN, i);
+                m_INHourBlocList[i - 1].ListIO[0].SplitFormat = IOSplitFormat.SplitBy2;
+                m_OUTHourBlocList[i - 1] = new M3XN05BlocConfig(BlocsType.OUT, i);
+                m_OUTHourBlocList[i - 1].ListIO[0].SplitFormat = IOSplitFormat.SplitBy2;
             }
 
             m_SplitInTabImages = new Image[3];
@@ -108,6 +132,11 @@ namespace SmartApp.Wizards
             resume += "\r\n" + Program.LangSys.C("A default screen with needed initialisations");
 
             return resume;
+        }
+
+        public Control GetAdditonalsOptionsPanel()
+        {
+            return null;
         }
     }
 }

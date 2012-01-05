@@ -9,25 +9,24 @@ using System.Text;
 using System.Windows.Forms;
 using CommonLib;
 
-namespace ImageButton
+namespace SoundPlayer
 {
     /// <summary>
     /// classe représentant l'objet affiché dans le designer de supervision
     /// </summary>
-    public partial class InteractiveImageButtonDllControl : InteractiveControl, ISpecificControl
+    public partial class InteractiveSoundPlayerDllControl : InteractiveControl, ISpecificControl
     {
         // panneau des propriété de l'objet
-        UserControl m_SpecificPropPanel = new ImageButtonProperties();
+        UserControl m_SpecificPropPanel = new SoundPlayerProperties();
         // proriétés d'activation des paramètres standard des controls
         StandardPropEnabling m_stdPropEnabling = new StandardPropEnabling();
         // propriété de comportement de l'objet dans le designer
         SpecificGraphicProp m_SpecGraphicProp = new SpecificGraphicProp();
 
-        string m_strReleasedImage;
         /// <summary>
         /// Constructeur de la classe
         /// </summary>
-        public InteractiveImageButtonDllControl()
+        public InteractiveSoundPlayerDllControl()
         {
             // initialisation du panneau des propriété spécifiques
             m_SpecificPropPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
@@ -42,21 +41,19 @@ namespace ImageButton
             m_stdPropEnabling.m_bcheckScreenEventEnabled = false;
             m_stdPropEnabling.m_bcheckScreenEventChecked = false;
             m_stdPropEnabling.m_bEditAssociateDataEnabled = true;
-            m_stdPropEnabling.m_bEditTextEnabled = true;
+            m_stdPropEnabling.m_bEditTextEnabled = false;
             m_stdPropEnabling.m_bCtrlEventScriptEnabled = false;
-            m_stdPropEnabling.m_bSelectFontEnabled = true;
 
             // modifiez ici les valeur afin que le control ai la taille min souhaité et ses possibilité de redimensionnement
             m_SpecGraphicProp.m_bcanResizeWidth = true;
             m_SpecGraphicProp.m_bcanResizeHeight = true;
-            m_SpecGraphicProp.m_MinSize = new Size(15, 15);
+            m_SpecGraphicProp.m_MinSize = new Size(250, 200);
             m_SpecGraphicProp.m_MaxSize = new Size(1680, 1050);
             // Ne jamais supprimer cette ligne, provoque la prise en compte de tout ce qui est définit précédement
             // dans cette fonction
             this.ControlType = InteractiveControlType.DllControl;
 
             InitializeComponent();
-            this.imageButtonDispCtrl1.Enabled = false;
         }
 
         /// <summary>
@@ -66,7 +63,7 @@ namespace ImageButton
         /// <returns>un nouveau control du type courant</returns>
         public override InteractiveControl CreateNew()
         {
-            return new InteractiveImageButtonDllControl();
+            return new InteractiveSoundPlayerDllControl();
         }
 
         /// <summary>
@@ -119,44 +116,10 @@ namespace ImageButton
             if (this.SourceBTControl != null)
             {
                 // mettez ici le code de dessin du control lorsqu'il est posé dans la surface de dessin
-                try
-                {
-                    DllImageButtonProp SpecProps = (DllImageButtonProp)this.SourceBTControl.SpecificProp;
-                    if (SpecProps.ReleasedImage != m_strReleasedImage)
-                    {
-                        m_strReleasedImage = SpecProps.ReleasedImage;
-                        string sReleasedImage = PathTranslator.RelativePathToAbsolute(m_strReleasedImage);
-                        sReleasedImage = PathTranslator.LinuxVsWindowsPathUse(sReleasedImage);
-                        Bitmap bmp = new Bitmap(sReleasedImage);
-                        bmp.MakeTransparent(Color.Magenta);
-                        this.imageButtonDispCtrl1.BackgroundImage = bmp;
-                    }
-                    else if (string.IsNullOrEmpty(SpecProps.ReleasedImage)
-                        && this.imageButtonDispCtrl1.BackgroundImage != ImageButtonRes.DefaultImg)
-                    {
-                        this.imageButtonDispCtrl1.BackgroundImage = ImageButtonRes.DefaultImg;
-                    }
-                    if (SpecProps.BorderSize != this.imageButtonDispCtrl1.FlatAppearance.BorderSize)
-                    {
-                        this.imageButtonDispCtrl1.FlatAppearance.BorderSize = SpecProps.BorderSize;
-                    }
-                    if (SpecProps.Style != this.imageButtonDispCtrl1.FlatStyle)
-                    {
-                        this.imageButtonDispCtrl1.FlatStyle = SpecProps.Style;
-                    }
-                }
-                catch (Exception )
-                {
-                }
-                if (this.imageButtonDispCtrl1.Text != this.Text)
-                {
-                    this.imageButtonDispCtrl1.Text = this.Text;
-                }
             }
             else
             {
-                if (this.imageButtonDispCtrl1.BackgroundImage != ImageButtonRes.DefaultImg)
-                    this.imageButtonDispCtrl1.BackgroundImage = ImageButtonRes.DefaultImg;
+                // mettez ici le code de dessin du control lorsqu'il est dans la barre d'outil
             }
         }
 
@@ -190,7 +153,7 @@ namespace ImageButton
         {
             get
             {
-                return ImageButton.DllEntryClass.DLL_Control_ID;
+                return SoundPlayer.DllEntryClass.DLL_Control_ID;
             }
         }
 

@@ -106,7 +106,12 @@ namespace SmartApp.Ihm.Wizards
                 IOConfig[] listIO = BlocConfig[BlocIdx].ListIO;
                 int IOIdx = (int)m_dataGrid.Rows[iRow].Cells[1].Tag;
                 DataGridViewComboBoxCell Cell = m_dataGrid.Rows[iRow].Cells[2] as DataGridViewComboBoxCell;
-                listIO[IOIdx].SplitFormat = (IOSplitFormat)Cell.Value;
+                if (listIO[IOIdx].SplitFormat != (IOSplitFormat)Cell.Value)
+                {
+                    listIO[IOIdx].SplitFormat = (IOSplitFormat)Cell.Value;
+                    listIO[IOIdx].ListSymbol.Clear();
+                }
+                
             }
         }
 

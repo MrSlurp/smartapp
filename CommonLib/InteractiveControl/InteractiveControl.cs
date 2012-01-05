@@ -237,7 +237,7 @@ namespace CommonLib
             resizeButton[2] = new ResizeButton(ResizeButtonPosition.BottomCenter, this);
             resizeButton[3] = new ResizeButton(ResizeButtonPosition.MiddleLeft, this);
             resizeButton[4] = new ResizeButton(ResizeButtonPosition.TopCenter, this);
-            this.Text = "Item";
+            this.Text = "";
             BackColor = Color.Transparent;
         }
 
@@ -427,34 +427,18 @@ namespace CommonLib
         {
             switch (m_TypeControl)
             {
+                case InteractiveControlType.Text:
                 case InteractiveControlType.Button:
-                    canResizeWidth = true;
-                    canResizeHeight = true;
-                    break;
                 case InteractiveControlType.CheckBox:
-                    canResizeWidth = true;
-                    canResizeHeight = false;
-                    this.Height = this.minSize.Height;
-                    break;
                 case InteractiveControlType.Combo:
-                    canResizeWidth = true;
-                    canResizeHeight = false;
-                    this.Height = this.minSize.Height;
-                    break;
                 case InteractiveControlType.NumericUpDown:
                     canResizeWidth = true;
-                    canResizeHeight = false;
-                    this.Height = this.minSize.Height;
+                    canResizeHeight = true;
                     break;
                 case InteractiveControlType.Slider:
                     canResizeWidth = true;
                     canResizeHeight = false;
                     this.Height = this.minSize.Height * 2 +5;// la taille min d'un slider en hauteur est de 45
-                    break;
-                case InteractiveControlType.Text:
-                    canResizeWidth = true;
-                    canResizeHeight = false;
-                    this.Height = this.minSize.Height;
                     break;
                 case InteractiveControlType.SpecificControl:
                 case InteractiveControlType.DllControl:
@@ -652,6 +636,30 @@ namespace CommonLib
                     if (AsscociateDataDroped != null)
                         AsscociateDataDroped(this);
                 }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnFontChanged(EventArgs e)
+        {
+            for (int i = 0; i < this.Controls.Count; i++ )
+            {
+                this.Controls[i].Font = this.Font;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnForeColorChanged(EventArgs e)
+        {
+            for (int i = 0; i < this.Controls.Count; i++)
+            {
+                this.Controls[i].ForeColor = this.ForeColor;
             }
         }
     }

@@ -36,6 +36,8 @@
             this.m_txtBoxImg1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.chkBistable = new System.Windows.Forms.CheckBox();
+            this.cboStyle = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label2
@@ -94,19 +96,38 @@
             // 
             // chkBistable
             // 
-            this.chkBistable.Appearance = System.Windows.Forms.Appearance.Button;
             this.chkBistable.AutoSize = true;
             this.chkBistable.Location = new System.Drawing.Point(4, 88);
             this.chkBistable.Name = "chkBistable";
-            this.chkBistable.Size = new System.Drawing.Size(54, 23);
+            this.chkBistable.Size = new System.Drawing.Size(63, 17);
             this.chkBistable.TabIndex = 9;
             this.chkBistable.Text = "Bistable";
             this.chkBistable.UseVisualStyleBackColor = true;
+            // 
+            // cboStyle
+            // 
+            this.cboStyle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboStyle.FormattingEnabled = true;
+            this.cboStyle.Location = new System.Drawing.Point(4, 131);
+            this.cboStyle.Name = "cboStyle";
+            this.cboStyle.Size = new System.Drawing.Size(121, 21);
+            this.cboStyle.TabIndex = 10;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(4, 112);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(65, 13);
+            this.label3.TabIndex = 11;
+            this.label3.Text = "Appearence";
             // 
             // ImageButtonProperties
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.cboStyle);
             this.Controls.Add(this.chkBistable);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.m_btnImg2);
@@ -115,7 +136,7 @@
             this.Controls.Add(this.m_txtBoxImg1);
             this.Controls.Add(this.label1);
             this.Name = "ImageButtonProperties";
-            this.Size = new System.Drawing.Size(208, 116);
+            this.Size = new System.Drawing.Size(208, 155);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -131,6 +152,8 @@
         private System.Windows.Forms.TextBox m_txtBoxImg1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox chkBistable;
+        private System.Windows.Forms.ComboBox cboStyle;
+        private System.Windows.Forms.Label label3;
 
 
     }

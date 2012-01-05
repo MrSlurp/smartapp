@@ -543,6 +543,7 @@ namespace CommonLib
                     // on crée l'objet
                     
                     m_ListControls[i].CreateControl();
+                    m_ListControls[i].ApplyControlFont();
                     // a partir de ce moment on connais leur taille définitive
                     if (pt.X < m_ListControls[i].DisplayedControl.Right)
                         pt.X = m_ListControls[i].DisplayedControl.Right;

@@ -28,7 +28,6 @@ namespace SmartApp.Ihm
         /// </summary>
         private void InitializeComponent()
         {
-            this.m_textSymbol = new SmartApp.Ihm.SymbolTextBox();
             this.m_labelSymbol = new System.Windows.Forms.Label();
             this.m_labelDesc = new System.Windows.Forms.Label();
             this.m_richTextBoxDesc = new System.Windows.Forms.RichTextBox();
@@ -37,21 +36,16 @@ namespace SmartApp.Ihm
             this.m_checkReadOnly = new System.Windows.Forms.CheckBox();
             this.m_EditText = new System.Windows.Forms.TextBox();
             this.labelText = new System.Windows.Forms.Label();
-            this.m_EditAssociateData = new SmartApp.Ihm.SymbolTextBox();
             this.m_LabelCurControl = new System.Windows.Forms.Label();
             this.m_panelPlaceSpec = new System.Windows.Forms.Panel();
             this.btn_pickdata = new System.Windows.Forms.Button();
+            this.btn_SelFont = new System.Windows.Forms.Button();
+            this.lbl_Font = new System.Windows.Forms.Label();
+            this.btn_FontColor = new System.Windows.Forms.Button();
+            this.panel_fontColor = new System.Windows.Forms.Panel();
+            this.m_EditAssociateData = new SmartApp.Ihm.SymbolTextBox();
+            this.m_textSymbol = new SmartApp.Ihm.SymbolTextBox();
             this.SuspendLayout();
-            // 
-            // m_textSymbol
-            // 
-            this.m_textSymbol.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_textSymbol.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.m_textSymbol.Location = new System.Drawing.Point(3, 147);
-            this.m_textSymbol.Name = "m_textSymbol";
-            this.m_textSymbol.Size = new System.Drawing.Size(218, 20);
-            this.m_textSymbol.TabIndex = 6;
             // 
             // m_labelSymbol
             // 
@@ -101,7 +95,7 @@ namespace SmartApp.Ihm
             this.m_checkScreenEvent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.m_checkScreenEvent.AutoSize = true;
-            this.m_checkScreenEvent.Location = new System.Drawing.Point(7, 281);
+            this.m_checkScreenEvent.Location = new System.Drawing.Point(7, 335);
             this.m_checkScreenEvent.Name = "m_checkScreenEvent";
             this.m_checkScreenEvent.Size = new System.Drawing.Size(113, 17);
             this.m_checkScreenEvent.TabIndex = 9;
@@ -113,7 +107,7 @@ namespace SmartApp.Ihm
             this.m_checkReadOnly.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.m_checkReadOnly.AutoSize = true;
-            this.m_checkReadOnly.Location = new System.Drawing.Point(7, 304);
+            this.m_checkReadOnly.Location = new System.Drawing.Point(145, 334);
             this.m_checkReadOnly.Name = "m_checkReadOnly";
             this.m_checkReadOnly.Size = new System.Drawing.Size(76, 17);
             this.m_checkReadOnly.TabIndex = 10;
@@ -141,22 +135,6 @@ namespace SmartApp.Ihm
             this.labelText.TabIndex = 11;
             this.labelText.Text = "Text";
             // 
-            // m_EditAssociateData
-            // 
-            this.m_EditAssociateData.AllowDrop = true;
-            this.m_EditAssociateData.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_EditAssociateData.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.m_EditAssociateData.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.m_EditAssociateData.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.m_EditAssociateData.Location = new System.Drawing.Point(4, 187);
-            this.m_EditAssociateData.Name = "m_EditAssociateData";
-            this.m_EditAssociateData.Size = new System.Drawing.Size(217, 20);
-            this.m_EditAssociateData.TabIndex = 13;
-            this.m_EditAssociateData.TextChanged += new System.EventHandler(this.OnEditAssocDataEdited);
-            this.m_EditAssociateData.DragDrop += new System.Windows.Forms.DragEventHandler(this.OnEditAssociateDataDragDrop);
-            this.m_EditAssociateData.DragEnter += new System.Windows.Forms.DragEventHandler(this.OnEditAssociateDataDragEnter);
-            // 
             // m_LabelCurControl
             // 
             this.m_LabelCurControl.AutoSize = true;
@@ -168,7 +146,7 @@ namespace SmartApp.Ihm
             // 
             // m_panelPlaceSpec
             // 
-            this.m_panelPlaceSpec.Location = new System.Drawing.Point(7, 330);
+            this.m_panelPlaceSpec.Location = new System.Drawing.Point(7, 358);
             this.m_panelPlaceSpec.Name = "m_panelPlaceSpec";
             this.m_panelPlaceSpec.Size = new System.Drawing.Size(37, 20);
             this.m_panelPlaceSpec.TabIndex = 15;
@@ -184,12 +162,78 @@ namespace SmartApp.Ihm
             this.btn_pickdata.UseVisualStyleBackColor = true;
             this.btn_pickdata.Click += new System.EventHandler(this.btn_pickdata_Click);
             // 
+            // btn_SelFont
+            // 
+            this.btn_SelFont.Location = new System.Drawing.Point(4, 282);
+            this.btn_SelFont.Name = "btn_SelFont";
+            this.btn_SelFont.Size = new System.Drawing.Size(66, 23);
+            this.btn_SelFont.TabIndex = 17;
+            this.btn_SelFont.Text = "Font";
+            this.btn_SelFont.UseVisualStyleBackColor = true;
+            this.btn_SelFont.Click += new System.EventHandler(this.btn_SelFont_Click);
+            // 
+            // lbl_Font
+            // 
+            this.lbl_Font.AutoSize = true;
+            this.lbl_Font.Location = new System.Drawing.Point(76, 287);
+            this.lbl_Font.Name = "lbl_Font";
+            this.lbl_Font.Size = new System.Drawing.Size(28, 13);
+            this.lbl_Font.TabIndex = 18;
+            this.lbl_Font.Text = "Font";
+            // 
+            // btn_FontColor
+            // 
+            this.btn_FontColor.Location = new System.Drawing.Point(4, 307);
+            this.btn_FontColor.Name = "btn_FontColor";
+            this.btn_FontColor.Size = new System.Drawing.Size(100, 23);
+            this.btn_FontColor.TabIndex = 17;
+            this.btn_FontColor.Text = "Font color";
+            this.btn_FontColor.UseVisualStyleBackColor = true;
+            this.btn_FontColor.Click += new System.EventHandler(this.btn_FontColor_Click);
+            // 
+            // panel_fontColor
+            // 
+            this.panel_fontColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel_fontColor.Location = new System.Drawing.Point(110, 310);
+            this.panel_fontColor.Name = "panel_fontColor";
+            this.panel_fontColor.Size = new System.Drawing.Size(19, 17);
+            this.panel_fontColor.TabIndex = 19;
+            // 
+            // m_EditAssociateData
+            // 
+            this.m_EditAssociateData.AllowDrop = true;
+            this.m_EditAssociateData.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_EditAssociateData.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.m_EditAssociateData.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.m_EditAssociateData.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.m_EditAssociateData.Location = new System.Drawing.Point(4, 187);
+            this.m_EditAssociateData.Name = "m_EditAssociateData";
+            this.m_EditAssociateData.Size = new System.Drawing.Size(217, 20);
+            this.m_EditAssociateData.TabIndex = 13;
+            this.m_EditAssociateData.DragDrop += new System.Windows.Forms.DragEventHandler(this.OnEditAssociateDataDragDrop);
+            this.m_EditAssociateData.DragEnter += new System.Windows.Forms.DragEventHandler(this.OnEditAssociateDataDragEnter);
+            // 
+            // m_textSymbol
+            // 
+            this.m_textSymbol.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_textSymbol.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.m_textSymbol.Location = new System.Drawing.Point(3, 147);
+            this.m_textSymbol.Name = "m_textSymbol";
+            this.m_textSymbol.Size = new System.Drawing.Size(218, 20);
+            this.m_textSymbol.TabIndex = 6;
+            // 
             // ScreenItemPropertiesControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(this.panel_fontColor);
+            this.Controls.Add(this.lbl_Font);
+            this.Controls.Add(this.btn_FontColor);
+            this.Controls.Add(this.btn_SelFont);
             this.Controls.Add(this.btn_pickdata);
             this.Controls.Add(this.m_panelPlaceSpec);
             this.Controls.Add(this.m_LabelCurControl);
@@ -226,5 +270,9 @@ namespace SmartApp.Ihm
         private System.Windows.Forms.Label m_LabelCurControl;
         private System.Windows.Forms.Panel m_panelPlaceSpec;
         private System.Windows.Forms.Button btn_pickdata;
+        private System.Windows.Forms.Button btn_SelFont;
+        private System.Windows.Forms.Label lbl_Font;
+        private System.Windows.Forms.Button btn_FontColor;
+        private System.Windows.Forms.Panel panel_fontColor;
     }
 }

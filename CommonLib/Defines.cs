@@ -135,7 +135,8 @@ namespace CommonLib
         FileList,
         File,
         PluginsGlobals,
-        Plugin
+        Plugin,
+        Font
     }
     /// <summary>
     /// enum des attributs du ficher de config (Config File (CF))
@@ -176,6 +177,10 @@ namespace CommonLib
         FormatString,
         LogMode,
         NKFO,
+        FontName,
+        FontAttrib,
+        FontSize,
+        Color,
     }
 
     /// <summary>

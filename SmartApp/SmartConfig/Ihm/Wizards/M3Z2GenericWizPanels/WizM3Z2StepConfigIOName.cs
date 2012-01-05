@@ -121,19 +121,30 @@ namespace SmartApp.Ihm.Wizards
                 IOConfig[] listIO = BlocConfig[BlocIdx].ListIO;
                 int IOIdx = (int)m_dataGrid.Rows[iRow].Cells[1].Tag;
                 int subIdx = (int)m_dataGrid.Rows[iRow].Cells[2].Tag;
-                if (subIdx >= listIO[IOIdx].ListSymbol.Count)
+                Traces.LogAddDebug(TraceCat.SmartConfig, string.Format("Wizard : parcours de la ligne {0} de la grille de saisir des symboles utilisateurs\n" +
+                                                                       "BlocIdx = {1}\n " +
+                                                                       "IOIdx = {2}\n " +
+                                                                       "subIdx = {3}\n"
+                                                                        , iRow,BlocIdx,IOIdx,subIdx));
+                if (subIdx > listIO[IOIdx].ListSymbol.Count)
                 {
                     if (!string.IsNullOrEmpty((string)m_dataGrid.Rows[iRow].Cells[4].Value))
+                    {
+                        System.Diagnostics.Debug.Assert((string)m_dataGrid.Rows[iRow].Cells[4].Value != null);
                         listIO[IOIdx].ListSymbol.Add((string)m_dataGrid.Rows[iRow].Cells[4].Value);
+                    }
                     else
+                    {
+                        System.Diagnostics.Debug.Assert((string)m_dataGrid.Rows[iRow].Cells[3].Value != null);
                         listIO[IOIdx].ListSymbol.Add((string)m_dataGrid.Rows[iRow].Cells[3].Value);
+                    }
                 }
                 else
                 {
                     if (!string.IsNullOrEmpty((string)m_dataGrid.Rows[iRow].Cells[4].Value))
-                        listIO[IOIdx].ListSymbol[subIdx-1] = (string)m_dataGrid.Rows[iRow].Cells[3].Value;
-                    else
                         listIO[IOIdx].ListSymbol[subIdx-1] = (string)m_dataGrid.Rows[iRow].Cells[4].Value;
+                    else
+                        listIO[IOIdx].ListSymbol[subIdx-1] = (string)m_dataGrid.Rows[iRow].Cells[3].Value;
                  }
             }
         }

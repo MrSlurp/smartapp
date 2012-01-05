@@ -15,10 +15,15 @@ namespace ImageButton
         private string m_NomFichierInactif;
         private string m_NomFichierActif;
         private bool m_bIsBistable;
-        private const string NOM_ATTIB_REL = "RelImage";
-        private const string NOM_ATTIB_PRE = "PreImage";
+        private FlatStyle m_Style = FlatStyle.Standard;
+        private int m_BorderSize = 1;
+
+        private const string NOM_ATTRIB_REL = "RelImage";
+        private const string NOM_ATTRIB_PRE = "PreImage";
         private const string NOM_ATTRIB_BISTABLE = "Bistable";
         private const string NOM_NOEUD_PROP = "ImageButtonProp";
+        private const string NOM_ATTRIB_STYLE = "Style";
+        private const string NOM_ATTRIB_BORDER_SIZE = "BorderSize";
 
         // ajouter ici les accesseur vers les données membres des propriété
         public string ReleasedImage
@@ -51,6 +56,18 @@ namespace ImageButton
             set { m_bIsBistable = value; }
         }
 
+        public FlatStyle Style
+        {
+            get { return m_Style; }
+            set { m_Style = value; }
+        }
+
+        public int BorderSize
+        {
+            get { return m_BorderSize; }
+            set { m_BorderSize = value; }
+        }
+
         /// <summary>
         /// Lecture des paramètres depuis le fichier XML
         /// </summary>
@@ -64,9 +81,11 @@ namespace ImageButton
                 {
                     if (Node.ChildNodes[i].Name == NOM_NOEUD_PROP)
                     {
-                        XmlNode AttrRel = Node.ChildNodes[i].Attributes.GetNamedItem(NOM_ATTIB_REL);
-                        XmlNode AttrPre = Node.ChildNodes[i].Attributes.GetNamedItem(NOM_ATTIB_PRE);
+                        XmlNode AttrRel = Node.ChildNodes[i].Attributes.GetNamedItem(NOM_ATTRIB_REL);
+                        XmlNode AttrPre = Node.ChildNodes[i].Attributes.GetNamedItem(NOM_ATTRIB_PRE);
                         XmlNode AttrBistable = Node.ChildNodes[i].Attributes.GetNamedItem(NOM_ATTRIB_BISTABLE);
+                        XmlNode AttrStyle = Node.ChildNodes[i].Attributes.GetNamedItem(NOM_ATTRIB_STYLE);
+                        XmlNode AttrBorder= Node.ChildNodes[i].Attributes.GetNamedItem(NOM_ATTRIB_BORDER_SIZE);
 
                         if (AttrRel == null
                             || AttrPre == null)
@@ -75,6 +94,12 @@ namespace ImageButton
                         PressedImage = AttrPre.Value;
                         if (AttrBistable != null)
                             m_bIsBistable = bool.Parse(AttrBistable.Value);
+
+                        if (AttrStyle != null)
+                            m_Style = (FlatStyle)Enum.Parse(typeof(FlatStyle), AttrStyle.Value);
+
+                        if (AttrBorder != null)
+                            m_BorderSize = int.Parse(AttrBorder.Value);
                     }
                 }
             }
@@ -90,15 +115,21 @@ namespace ImageButton
         public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
         {
             XmlNode ItemProp = XmlDoc.CreateElement(NOM_NOEUD_PROP);
-            XmlAttribute AttrRel = XmlDoc.CreateAttribute(NOM_ATTIB_REL);
-            XmlAttribute AttrPre = XmlDoc.CreateAttribute(NOM_ATTIB_PRE);
+            XmlAttribute AttrRel = XmlDoc.CreateAttribute(NOM_ATTRIB_REL);
+            XmlAttribute AttrPre = XmlDoc.CreateAttribute(NOM_ATTRIB_PRE);
             XmlAttribute Attrbistable = XmlDoc.CreateAttribute(NOM_ATTRIB_BISTABLE);
-            AttrRel.Value = PathTranslator.AbsolutePathToRelative(m_NomFichierActif);
-            AttrPre.Value = PathTranslator.AbsolutePathToRelative(m_NomFichierInactif);
+            XmlAttribute AttrStyle = XmlDoc.CreateAttribute(NOM_ATTRIB_STYLE);
+            XmlAttribute AttrBorderSize = XmlDoc.CreateAttribute(NOM_ATTRIB_BORDER_SIZE);
+            AttrRel.Value = PathTranslator.AbsolutePathToRelative(ReleasedImage);
+            AttrPre.Value = PathTranslator.AbsolutePathToRelative(PressedImage);
             Attrbistable.Value = m_bIsBistable.ToString();
+            AttrStyle.Value = m_Style.ToString();
+            AttrBorderSize.Value = m_BorderSize.ToString();
             ItemProp.Attributes.Append(AttrRel);
             ItemProp.Attributes.Append(AttrPre);
             ItemProp.Attributes.Append(Attrbistable);
+            ItemProp.Attributes.Append(AttrStyle);
+            ItemProp.Attributes.Append(AttrBorderSize);
             Node.AppendChild(ItemProp);
             return true;
         }
@@ -124,11 +155,17 @@ namespace ImageButton
                 {
                     PressedImage = SrcProp.PressedImage;
                 }
+                m_bIsBistable = SrcProp.m_bIsBistable;
+                m_Style = SrcProp.m_Style;
+                m_BorderSize = SrcProp.m_BorderSize;
             }
             else
             {
                 ReleasedImage = SrcProp.ReleasedImage;
                 PressedImage = SrcProp.PressedImage;
+                m_bIsBistable = SrcProp.m_bIsBistable;
+                m_Style = SrcProp.m_Style;
+                m_BorderSize = SrcProp.m_BorderSize;
             }
         }
 

@@ -41,6 +41,10 @@ namespace CommonLib
         /// </summary>
         public bool m_bEditTextEnabled;
         /// <summary>
+        /// autorise ou non la saisie d'un texte pour le control
+        /// </summary>
+        public bool m_bSelectFontEnabled;
+        /// <summary>
         /// autorise ou non l'association d'une donnée
         /// </summary>
         public bool m_bEditAssociateDataEnabled;

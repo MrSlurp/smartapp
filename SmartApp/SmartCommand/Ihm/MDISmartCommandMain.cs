@@ -180,7 +180,7 @@ namespace SmartApp
                     m_Document.TraiteMessage(MESSAGE.MESS_CMD_STOP, null, Program.TypeApp);
                     for (int i = 0; i < m_FormList.Count; i++)
                     {
-                        m_FormList[i].DynamicPanelEnabled = false;
+                        //m_FormList[i].DynamicPanelEnabled = false;
                     }
 
                     m_tsBtnStartStop.Checked = false;
@@ -384,6 +384,10 @@ namespace SmartApp
             m_tsBtnStartStop.Checked = false;
             UpdateToolBarCxnItemState();
             UpdateStartStopButtonState();
+            for (int i = 0;  i < m_FormList.Count; i++)
+            {
+                m_FormList[i].Dispose();
+            }
             m_FormList.Clear();
             if (m_VariableForm != null)
             {
@@ -505,7 +509,7 @@ namespace SmartApp
                     m_FormList[i].DynamicPanelEnabled = false;
                 }
                 UpdateStartStopButtonState();
-                m_tsBtnStartStop.Image = Resources.CxnOff;
+                UpdateToolBarCxnItemState();
             }
 
         }
@@ -777,7 +781,11 @@ namespace SmartApp
         }
         #endregion
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void m_tsBtnFullScreen_Click(object sender, EventArgs e)
         {
             if (!m_bFullScreenMode)
@@ -823,6 +831,10 @@ namespace SmartApp
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ClientForm"></param>
         private void SetClientFormToTop(Form ClientForm)
         {
 #if LINUX
@@ -832,12 +844,22 @@ namespace SmartApp
 #endif
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void pluginsVersionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             PluginsVersionsForm plVer = new PluginsVersionsForm();
             plVer.ShowDialog();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void m_tsMenuLogConfig_Click(object sender, EventArgs e)
         {
             LogCatForm LogForm = new LogCatForm();
@@ -856,6 +878,11 @@ namespace SmartApp
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void m_tsMenuOpenDebugConsole_Click(object sender, EventArgs e)
         {
             if (m_TraceConsole == null)

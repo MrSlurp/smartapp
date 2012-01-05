@@ -111,7 +111,6 @@ namespace CommonLib
             {
                 BTControl Ctrl = null;
                 Ctrl = ControlsList[i];
-                //Ctrl.CreateControl();
                 if (Ctrl.DisplayedControl != null)
                 {
                     Type tpCtrl = Ctrl.DisplayedControl.GetType();
