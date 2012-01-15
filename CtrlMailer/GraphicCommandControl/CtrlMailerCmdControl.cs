@@ -32,6 +32,11 @@ namespace CtrlMailer
                 LogEvent log = new LogEvent(LOG_EVENT_TYPE.INFO, string.Format(DllEntryClass.LangSys.C("Mailer {0} : mail posted"), this.Symbol));
                 AddLogEvent(log);
             }
+            else if (e.Error != null)
+            {
+                LogEvent log = new LogEvent(LOG_EVENT_TYPE.INFO, string.Format(DllEntryClass.LangSys.C("Mailer {0} : error sending mail. {1}"), this.Symbol, e.Error.Message));
+                AddLogEvent(log);
+            }
         }
 
         /// <summary>
@@ -160,7 +165,7 @@ namespace CtrlMailer
                         {
                             mailBody = mailBody.Replace(varSubString, dt.Value.ToString());
                         }
-                        iPosDebutVar = iPosFinVar+1;
+                        iPosDebutVar = 0;
                     }
                 }
                 message.Body = mailBody;
