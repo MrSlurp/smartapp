@@ -117,7 +117,8 @@ namespace CtrlMailer
                         // traitez ici le passage en mode stop du control si nécessaire
                         break;
                     case MESSAGE.MESS_CMD_RUN:
-                        m_iPreviousDataValue = m_AssociateData.Value;
+                        if (m_AssociateData != null)
+                            m_iPreviousDataValue = m_AssociateData.Value;
                         // traitez ici le passage en mode run du control si nécessaire
                         break;
                     default:
@@ -130,51 +131,59 @@ namespace CtrlMailer
         {
             if (DllEntryClass.SMTP_Param.IsConfigured())
             {
-                DllCtrlMailerProp props = this.SpecificProp as DllCtrlMailerProp;
-                MailMessage message = new MailMessage();
-                message.From = new MailAddress(DllEntryClass.SMTP_Param.userMail);
-                string[] listTo = props.ListToMail.Split(',', ';');
-                for (int dest = 0; dest < listTo.Length; dest++)
+                try
                 {
-                    message.To.Add(new MailAddress(listTo[dest]));
-                }
-                message.Subject = props.MailSubject;
-                string mailBody = props.MailBody;
-                int iPosDebutVar = 0;
-                while (iPosDebutVar != -1 && iPosDebutVar < mailBody.Length)
-                {
-                    iPosDebutVar = mailBody.IndexOf("<DATA.", iPosDebutVar);
-                    if (iPosDebutVar != -1)
+                    DllCtrlMailerProp props = this.SpecificProp as DllCtrlMailerProp;
+                    MailMessage message = new MailMessage();
+                    message.From = new MailAddress(DllEntryClass.SMTP_Param.userMail);
+                    string[] listTo = props.ListToMail.Split(',', ';');
+                    for (int dest = 0; dest < listTo.Length; dest++)
                     {
-                        int iPosFinVar = mailBody.IndexOf(">", iPosDebutVar);
-                        if (iPosFinVar == -1)
-                        {
-                            LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format(DllEntryClass.LangSys.C("Mailer {0} : Can't replace data, bad message format"), this.Symbol));
-                            AddLogEvent(log);
-                            continue;
-                        }
-                        string varSubString = mailBody.Substring(iPosDebutVar, (iPosFinVar+1) - iPosDebutVar);
-                        string dataSymbol = varSubString.Replace("<DATA.", "").Replace(">", "");
-                        Data dt = m_DocGestData.GetFromSymbol(dataSymbol) as Data;
-                        if (dt == null)
-                        {
-                            LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format(DllEntryClass.LangSys.C("Mailer {0} : Unknown data {1}"), this.Symbol, dataSymbol));
-                            AddLogEvent(log);
-                        }
-                        else
-                        {
-                            mailBody = mailBody.Replace(varSubString, dt.Value.ToString());
-                        }
-                        iPosDebutVar = 0;
+                        message.To.Add(new MailAddress(listTo[dest]));
                     }
+                    message.Subject = props.MailSubject;
+                    string mailBody = props.MailBody;
+                    int iPosDebutVar = 0;
+                    while (iPosDebutVar != -1 && iPosDebutVar < mailBody.Length)
+                    {
+                        iPosDebutVar = mailBody.IndexOf("<DATA.", iPosDebutVar);
+                        if (iPosDebutVar != -1)
+                        {
+                            int iPosFinVar = mailBody.IndexOf(">", iPosDebutVar);
+                            if (iPosFinVar == -1)
+                            {
+                                LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format(DllEntryClass.LangSys.C("Mailer {0} : Can't replace data, bad message format"), this.Symbol));
+                                AddLogEvent(log);
+                                continue;
+                            }
+                            string varSubString = mailBody.Substring(iPosDebutVar, (iPosFinVar + 1) - iPosDebutVar);
+                            string dataSymbol = varSubString.Replace("<DATA.", "").Replace(">", "");
+                            Data dt = m_DocGestData.GetFromSymbol(dataSymbol) as Data;
+                            if (dt == null)
+                            {
+                                LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format(DllEntryClass.LangSys.C("Mailer {0} : Unknown data {1}"), this.Symbol, dataSymbol));
+                                AddLogEvent(log);
+                            }
+                            else
+                            {
+                                mailBody = mailBody.Replace(varSubString, dt.Value.ToString());
+                            }
+                            iPosDebutVar = 0;
+                        }
+                    }
+                    message.Body = mailBody;
+                    //message.Headers
+                    SmtpServer.Host = DllEntryClass.SMTP_Param.SMTP_host;
+                    SmtpServer.Port = DllEntryClass.SMTP_Param.SMTP_port;
+                    SmtpServer.Credentials = new System.Net.NetworkCredential(DllEntryClass.SMTP_Param.userMail, DllEntryClass.SMTP_Param.userPassword);
+                    SmtpServer.EnableSsl = DllEntryClass.SMTP_Param.useSSL;
+                    SmtpServer.SendAsync(message, this);
                 }
-                message.Body = mailBody;
-                //message.Headers
-                SmtpServer.Host = DllEntryClass.SMTP_Param.SMTP_host;
-                SmtpServer.Port = DllEntryClass.SMTP_Param.SMTP_port;
-                SmtpServer.Credentials = new System.Net.NetworkCredential(DllEntryClass.SMTP_Param.userMail, DllEntryClass.SMTP_Param.userPassword);
-                SmtpServer.EnableSsl = DllEntryClass.SMTP_Param.useSSL;
-                SmtpServer.SendAsync(message, this);
+                catch (Exception e)
+                {
+                    LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format(DllEntryClass.LangSys.C("An error occure while sending email"), e.Message));
+                    AddLogEvent(log);
+                }
             }
             else
             {
