@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.50727</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{3EFBC5AC-5842-4DE5-85C2-507E24AEC46F}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -235,6 +235,7 @@
     <Compile Include="StdGraphicControl\SliderControl.cs" />
     <Compile Include="StdGraphicControl\StaticControl.cs" />
     <Compile Include="StdGraphicControl\UpDownControl.cs" />
+    <Compile Include="Utils\CentralizedFileDlg.cs" />
     <Compile Include="Utils\ColorTranslate.cs" />
     <Compile Include="Utils\IniFileParser.cs" />
     <Compile Include="Utils\PathTranslator.cs" />

@@ -244,23 +244,17 @@ namespace SmartApp.Ihm
 
         private void m_btnBrowseBkFile_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = Program.LangSys.C("Image Files (jpeg, gif, bmp, png)|*.jpg;*.jpeg;*.gif;*.bmp;*.png|JPEG Files(*.jpg;*.jpeg)|*.jpg;*.jpeg|GIF Files(*.gif)|*.gif|BMP Files(*.bmp)|*.bmp|PNG Files(*.png)|*.png");
-            if (!string.IsNullOrEmpty(PathTranslator.BTDocPath))
-                openFileDialog.InitialDirectory = PathTranslator.BTDocPath;
-            else
-                openFileDialog.InitialDirectory = Application.StartupPath;
-            DialogResult dlgRes = openFileDialog.ShowDialog();
+            DialogResult dlgRes = CentralizedFileDlg.ShowImageFileDilaog();
             if (dlgRes == DialogResult.OK)
             {
-                BackPictureFile = PathTranslator.AbsolutePathToRelative(openFileDialog.FileName);
+                BackPictureFile = PathTranslator.AbsolutePathToRelative(CentralizedFileDlg.ImgFileName);
                 BackPictureFile = PathTranslator.LinuxVsWindowsPathStore(BackPictureFile);
             }
         }
 
         private void m_btnRemoveFile_Click(object sender, EventArgs e)
         {
-            BackPictureFile = "";
+            BackPictureFile = string.Empty;
         }
 
     }

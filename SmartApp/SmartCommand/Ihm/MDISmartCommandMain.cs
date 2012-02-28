@@ -279,6 +279,7 @@ namespace SmartApp
 #endif
             string DossierFichier = strFullFileName.Substring(0, strFullFileName.Length - (strFullFileName.Length - lastindex));
             PathTranslator.BTDocPath = DossierFichier;
+            CentralizedFileDlg.InitImgFileDialog(DossierFichier);
             if (m_Document.ReadConfigDocument(strFullFileName, Program.TypeApp, Program.DllGest))
             {
                 if (OpenDocument(m_Document))

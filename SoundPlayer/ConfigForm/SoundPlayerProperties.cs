@@ -14,6 +14,8 @@ namespace SoundPlayer
     {
         // controle dont on édite les propriété
         BTControl m_Control = null;
+        private static OpenFileDialog m_FileDialog = new OpenFileDialog();
+
         // document courant
         private BTDoc m_Document = null;
 
@@ -28,6 +30,12 @@ namespace SoundPlayer
         {
             DllEntryClass.LangSys.Initialize(this);
             InitializeComponent();
+            m_FileDialog.Filter = Lang.LangSys.C("WAVE Files (*.wav)|*.wav");
+            if (!string.IsNullOrEmpty(PathTranslator.BTDocPath))
+                m_FileDialog.InitialDirectory = PathTranslator.BTDocPath;
+            else
+                m_FileDialog.InitialDirectory = Application.StartupPath;
+
         }
 
         /// <summary>
@@ -73,6 +81,17 @@ namespace SoundPlayer
             }
         }
 
+        public string FilePath
+        {
+            get
+            {
+                return m_txtBoxFile.Text;
+            }
+            set
+            {
+                m_txtBoxFile.Text = value;
+            }
+        }
         #region validation des données
         /// <summary>
         /// Accesseur de validité des propriétés
@@ -103,10 +122,14 @@ namespace SoundPlayer
             // testez ici si les paramètres ont changé en les comparant avec ceux contenu dans les propriété
             // spécifiques du BTControl
             // si c'est le cas, assignez bDataPropChange à true;
+            DllSoundPlayerProp props = m_Control.SpecificProp as DllSoundPlayerProp;
+            if (props.SoundFile != this.FilePath)
+                bDataPropChange = true;
 
             if (bDataPropChange)
             {
                 Doc.Modified = true;
+                props.SoundFile = this.FilePath;
                 m_Control.IControl.Refresh();
             }
             if (bDataPropChange && ControlPropertiesChanged != null)
@@ -114,5 +137,16 @@ namespace SoundPlayer
             return true;
         }
         #endregion
+
+        private void m_btnBrowse_Click(object sender, EventArgs e)
+        {
+            DialogResult dlgRes = m_FileDialog.ShowDialog();
+            if (dlgRes == DialogResult.OK)
+            {
+                string path = Path.GetDirectoryName(m_FileDialog.FileName);
+                m_FileDialog.InitialDirectory = path;
+                this.FilePath = m_FileDialog.FileName;
+            }
+        }
     }
 }

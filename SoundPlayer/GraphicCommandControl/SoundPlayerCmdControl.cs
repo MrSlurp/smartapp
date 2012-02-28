@@ -4,6 +4,7 @@ using System.Text;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
+using System.Media;
 using CommonLib;
 
 namespace SoundPlayer
@@ -13,6 +14,8 @@ namespace SoundPlayer
     /// </summary>
     internal class SoundPlayerCmdControl : BTDllSoundPlayerControl
     {
+        int m_iPreviousDataValue = 0;
+        System.Media.SoundPlayer m_soundPlayer = new System.Media.SoundPlayer();
         /// <summary>
         /// Constructeur de la classe
         /// </summary>
@@ -43,6 +46,9 @@ namespace SoundPlayer
 
                 // par exemple la liaison du click souris à un handler d'event
                 //m_Ctrl.Click += new System.EventHandler(this.OnControlEvent);
+                DllSoundPlayerProp props = this.SpecificProp as DllSoundPlayerProp;
+                m_soundPlayer.SoundLocation = props.SoundFile;
+                m_soundPlayer.Load();
             }
         }
 
@@ -69,6 +75,12 @@ namespace SoundPlayer
             if (m_AssociateData != null && m_Ctrl != null)
             {
                 // effectuez ici le traitement à executer lorsque la valeur change
+                if (m_iPreviousDataValue == 0 && m_AssociateData.Value != 0)
+                {
+                    // envoyer le mail
+                    DoPlaySound();
+                }
+                m_iPreviousDataValue = m_AssociateData.Value;
             }
         }
 
@@ -93,6 +105,7 @@ namespace SoundPlayer
                         // traitez ici le passage en mode stop du control si nécessaire
                         break;
                     case MESSAGE.MESS_CMD_RUN:
+                        m_iPreviousDataValue = m_AssociateData.Value;
                         // traitez ici le passage en mode run du control si nécessaire
                         break;
                     default:
@@ -100,7 +113,14 @@ namespace SoundPlayer
                 }
             }
         }
+
+        private void DoPlaySound()
+        {
+            m_soundPlayer.Play();
+        }
     }
+
+
 
     /// <summary>
     /// classe héritant de UserControl

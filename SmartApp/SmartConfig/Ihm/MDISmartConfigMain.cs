@@ -375,6 +375,7 @@ namespace SmartApp.Ihm
 #endif
                 string DossierFichier = strFileFullName.Substring(0, strFileFullName.Length - (strFileFullName.Length - idxOfLastAntiSlash));
                 PathTranslator.BTDocPath = DossierFichier;
+                CentralizedFileDlg.InitImgFileDialog(DossierFichier);
                 m_Document.WriteConfigDocument(strFileFullName, true, Program.DllGest);
 #if LINUX
                 int lastindex = strFileFullName.LastIndexOf(@"/");
@@ -517,6 +518,7 @@ namespace SmartApp.Ihm
 #endif
                     string DossierFichier = strFullFileName.Substring(0, strFullFileName.Length - (strFullFileName.Length - idxOfLastAntiSlash));
                     PathTranslator.BTDocPath = DossierFichier;
+                    CentralizedFileDlg.InitImgFileDialog(DossierFichier);
 #if LINUX
                     int lastindex = strFullFileName.LastIndexOf(@"/");
 #else

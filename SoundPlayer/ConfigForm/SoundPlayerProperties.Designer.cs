@@ -28,18 +28,57 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.m_txtBoxFile = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.m_btnBrowse = new System.Windows.Forms.Button();
+            this.SuspendLayout();
             // 
-            // Panel Properties
+            // m_txtBoxFile
+            // 
+            this.m_txtBoxFile.Location = new System.Drawing.Point(4, 21);
+            this.m_txtBoxFile.Name = "m_txtBoxFile";
+            this.m_txtBoxFile.ReadOnly = true;
+            this.m_txtBoxFile.Size = new System.Drawing.Size(163, 20);
+            this.m_txtBoxFile.TabIndex = 5;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(1, 5);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(57, 13);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Sound File";
+            // 
+            // m_btnBrowse
+            // 
+            this.m_btnBrowse.Location = new System.Drawing.Point(173, 21);
+            this.m_btnBrowse.Name = "m_btnBrowse";
+            this.m_btnBrowse.Size = new System.Drawing.Size(34, 20);
+            this.m_btnBrowse.TabIndex = 3;
+            this.m_btnBrowse.Text = "...";
+            this.m_btnBrowse.UseVisualStyleBackColor = true;
+            this.m_btnBrowse.Click += new System.EventHandler(this.m_btnBrowse_Click);
+            // 
+            // SoundPlayerProperties
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Name = "Properties Panel";
-            this.Size = new System.Drawing.Size(208, 84);
+            this.Controls.Add(this.m_txtBoxFile);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.m_btnBrowse);
+            this.Name = "SoundPlayerProperties";
+            this.Size = new System.Drawing.Size(208, 64);
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         #endregion
+
+        private System.Windows.Forms.TextBox m_txtBoxFile;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button m_btnBrowse;
 
     }
 }

@@ -31,7 +31,6 @@ namespace CtrlTwoBitmap
             this.m_btnImg1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.m_txtBoxImg1 = new System.Windows.Forms.TextBox();
-            this.m_openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.m_btnImg2 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.m_txtBoxImg2 = new System.Windows.Forms.TextBox();
@@ -63,10 +62,6 @@ namespace CtrlTwoBitmap
             this.m_txtBoxImg1.ReadOnly = true;
             this.m_txtBoxImg1.Size = new System.Drawing.Size(163, 20);
             this.m_txtBoxImg1.TabIndex = 2;
-            // 
-            // m_openFileDialog
-            // 
-            this.m_openFileDialog.FileName = "";
             // 
             // m_btnImg2
             // 

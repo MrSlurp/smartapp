@@ -31,7 +31,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.m_btnImg2 = new System.Windows.Forms.Button();
             this.m_btnImg1 = new System.Windows.Forms.Button();
-            this.m_openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.m_txtBoxImg2 = new System.Windows.Forms.TextBox();
             this.m_txtBoxImg1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -147,7 +146,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button m_btnImg2;
         private System.Windows.Forms.Button m_btnImg1;
-        private System.Windows.Forms.OpenFileDialog m_openFileDialog;
         private System.Windows.Forms.TextBox m_txtBoxImg2;
         private System.Windows.Forms.TextBox m_txtBoxImg1;
         private System.Windows.Forms.Label label1;

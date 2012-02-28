@@ -11,9 +11,18 @@ namespace SoundPlayer
 {
     internal class DllSoundPlayerProp : SpecificControlProp
     {
+        private const string Tag_Section = "SoundPlayer";
+        private const string Attr_File = "File";
+
         // ajouter ici les données membres des propriété
+        private string m_SoundFile;
 
         // ajouter ici les accesseur vers les données membres des propriété
+        public string SoundFile
+        {
+            get { return m_SoundFile; }
+            set { m_SoundFile = value; }
+        }
 
         /// <summary>
         /// Lecture des paramètres depuis le fichier XML
@@ -22,6 +31,15 @@ namespace SoundPlayer
         /// <returns>true en cas de succès de la lecture</returns>
         public override bool ReadIn(XmlNode Node)
         {
+            for (int iChild = 0; iChild < Node.ChildNodes.Count; iChild++)
+            {
+                if (Node.ChildNodes[iChild].Name == Tag_Section)
+                {
+                    XmlNode SectionNode = Node.ChildNodes[iChild];
+                    XmlNode attrFile = SectionNode.Attributes.GetNamedItem(Attr_File);
+                    this.m_SoundFile = attrFile.Value;
+                }
+            }
             return true;
         }
 
@@ -33,6 +51,11 @@ namespace SoundPlayer
         /// <returns>true en cas de succès de l'écriture</returns>
         public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
         {
+            XmlNode ParamNode = XmlDoc.CreateElement(Tag_Section);
+            Node.AppendChild(ParamNode);
+            XmlAttribute attrFile = XmlDoc.CreateAttribute(Attr_File);
+            attrFile.Value = this.m_SoundFile;
+            ParamNode.Attributes.Append(attrFile);
             return true;
         }
 
@@ -43,6 +66,8 @@ namespace SoundPlayer
         public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance)
         {
             DllSoundPlayerProp SrcProp = (DllSoundPlayerProp)SrcSpecificProp;
+            if (!bFromOtherInstance)
+                m_SoundFile = SrcProp.m_SoundFile; 
         }
 
         /// <summary>
