@@ -39,11 +39,11 @@ namespace ImageButton
             // modifiez ici les valeur afin que le control rende disponibles les champs standard souhaités
             m_stdPropEnabling.m_bcheckReadOnlyChecked = false;
             m_stdPropEnabling.m_bcheckReadOnlyEnabled = false;
-            m_stdPropEnabling.m_bcheckScreenEventEnabled = false;
+            m_stdPropEnabling.m_bcheckScreenEventEnabled = true;
             m_stdPropEnabling.m_bcheckScreenEventChecked = false;
             m_stdPropEnabling.m_bEditAssociateDataEnabled = true;
             m_stdPropEnabling.m_bEditTextEnabled = true;
-            m_stdPropEnabling.m_bCtrlEventScriptEnabled = false;
+            m_stdPropEnabling.m_bCtrlEventScriptEnabled = true;
             m_stdPropEnabling.m_bSelectFontEnabled = true;
 
             // modifiez ici les valeur afin que le control ai la taille min souhaité et ses possibilité de redimensionnement

@@ -149,7 +149,24 @@ namespace CtrlMailer
                         iPosDebutVar = mailBody.IndexOf("<DATA.", iPosDebutVar);
                         if (iPosDebutVar != -1)
                         {
-                            int iPosFinVar = mailBody.IndexOf(">", iPosDebutVar);
+                            int iPosFinDescVar = mailBody.IndexOf(">", iPosDebutVar);
+                            int iPosOptionSpliter = mailBody.IndexOf("|", iPosDebutVar);
+
+                            int iPosFinVar = 0;
+                            //bool bPosSplitterValid = false;
+                            if (iPosOptionSpliter < iPosFinDescVar && iPosOptionSpliter > iPosDebutVar)
+                            {
+                                iPosFinVar = iPosOptionSpliter;
+                                if (iPosOptionSpliter != -1)
+                                {
+                                    string optSubString = mailBody.Substring(iPosOptionSpliter, (iPosFinVar + 1) - iPosOptionSpliter);
+                                    optSubString = optSubString.Replace("|", "").Replace(">", "");
+                                    string[] optionList = optSubString.Split(':');
+                                }
+                            }
+                            else
+                                iPosFinVar = iPosFinDescVar;
+
                             if (iPosFinVar == -1)
                             {
                                 LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format(DllEntryClass.LangSys.C("Mailer {0} : Can't replace data, bad message format"), this.Symbol));
@@ -157,18 +174,52 @@ namespace CtrlMailer
                                 continue;
                             }
                             string varSubString = mailBody.Substring(iPosDebutVar, (iPosFinVar + 1) - iPosDebutVar);
-                            string dataSymbol = varSubString.Replace("<DATA.", "").Replace(">", "");
+                            string fullVarString = mailBody.Substring(iPosDebutVar, (iPosFinDescVar + 1) - iPosDebutVar);
+                            string dataSymbol = varSubString.Replace("<DATA.", "").Replace(">", "").Replace("|", "");
                             Data dt = m_DocGestData.GetFromSymbol(dataSymbol) as Data;
                             if (dt == null)
                             {
                                 LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format(DllEntryClass.LangSys.C("Mailer {0} : Unknown data {1}"), this.Symbol, dataSymbol));
                                 AddLogEvent(log);
+                                iPosDebutVar = iPosDebutVar + 1;
+                                continue;
                             }
                             else
                             {
-                                mailBody = mailBody.Replace(varSubString, dt.Value.ToString());
+                                string valueString = dt.Value.ToString();
+                                if (iPosOptionSpliter < iPosFinDescVar && iPosOptionSpliter > iPosDebutVar)
+                                {
+                                    if (iPosOptionSpliter != -1)
+                                    {
+                                        string optSubString = mailBody.Substring(iPosOptionSpliter, (iPosFinDescVar + 1) - iPosOptionSpliter);
+                                        optSubString = optSubString.Replace("|", "").Replace(">", "");
+                                        string[] optionList = optSubString.Split(':');
+                                        float finalValue = dt.Value;
+                                        string formatString = "{0}";
+                                        for (int i = 0; i < optionList.Length; i++)
+                                        {
+                                            string curOption = optionList[i];
+                                            char optionName = curOption[0];
+                                            string strVal = curOption.Substring(1);
+                                            switch (optionName)
+                                            {
+                                                case 'D' :
+                                                    finalValue = finalValue / int.Parse(strVal);
+                                                    break;
+                                                case 'P' :
+                                                    formatString = "{0:F" + int.Parse(strVal).ToString() + "}";
+                                                    break;
+                                                default:
+                                                    break;
+                                            }
+                                        }
+                                        valueString = string.Format(formatString, finalValue);
+                                    }
+                                }
+
+                                mailBody = mailBody.Replace(fullVarString, valueString);
                             }
-                            iPosDebutVar = 0;
+                            iPosDebutVar = iPosDebutVar +1;
                         }
                     }
                     message.Body = mailBody;
