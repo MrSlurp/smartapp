@@ -242,9 +242,10 @@ namespace SmartApp.Ihm
 
         #endregion
 
-        private void m_btnBrowseBkFile_Click(object sender, EventArgs e)
+        private void m_btnBrowseBkFile_Click(object sender, EventArgs e, BrowseFileBtn.BrowseFrom bf)
         {
-            DialogResult dlgRes = CentralizedFileDlg.ShowImageFileDilaog();
+            
+            DialogResult dlgRes = CentralizedFileDlg.ShowImageFileDilaog(bf);
             if (dlgRes == DialogResult.OK)
             {
                 BackPictureFile = PathTranslator.AbsolutePathToRelative(CentralizedFileDlg.ImgFileName);

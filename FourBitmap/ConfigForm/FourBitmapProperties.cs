@@ -123,9 +123,9 @@ namespace FourBitmap
         }
         #endregion
 
-        private void m_btnImg0_Click(object sender, EventArgs e)
+        private void m_btnImg0_Click(object sender, EventArgs e, BrowseFileBtn.BrowseFrom bf)
         {
-            DialogResult dlgRes = CentralizedFileDlg.ShowImageFileDilaog();
+            DialogResult dlgRes = CentralizedFileDlg.ShowImageFileDilaog(bf);
             if (dlgRes == DialogResult.OK)
             {
                 m_txtBoxImg0.Text = PathTranslator.LinuxVsWindowsPathStore(
@@ -133,9 +133,9 @@ namespace FourBitmap
             }
         }
 
-        private void m_btnImg1_Click(object sender, EventArgs e)
+        private void m_btnImg1_Click(object sender, EventArgs e, BrowseFileBtn.BrowseFrom bf)
         {
-            DialogResult dlgRes = CentralizedFileDlg.ShowImageFileDilaog();
+            DialogResult dlgRes = CentralizedFileDlg.ShowImageFileDilaog(bf);
             if (dlgRes == DialogResult.OK)
             {
                 m_txtBoxImg1.Text = PathTranslator.LinuxVsWindowsPathStore(
@@ -143,9 +143,9 @@ namespace FourBitmap
             }
         }
 
-        private void m_btnImg2_Click(object sender, EventArgs e)
+        private void m_btnImg2_Click(object sender, EventArgs e, BrowseFileBtn.BrowseFrom bf)
         {
-            DialogResult dlgRes = CentralizedFileDlg.ShowImageFileDilaog();
+            DialogResult dlgRes = CentralizedFileDlg.ShowImageFileDilaog(bf);
             if (dlgRes == DialogResult.OK)
             {
                 m_txtBoxImg2.Text = PathTranslator.LinuxVsWindowsPathStore(
@@ -153,9 +153,9 @@ namespace FourBitmap
             }
         }
 
-        private void m_btnImg3_Click(object sender, EventArgs e)
+        private void m_btnImg3_Click(object sender, EventArgs e, BrowseFileBtn.BrowseFrom bf)
         {
-            DialogResult dlgRes = CentralizedFileDlg.ShowImageFileDilaog();
+            DialogResult dlgRes = CentralizedFileDlg.ShowImageFileDilaog(bf);
             if (dlgRes == DialogResult.OK)
             {
                 m_txtBoxImg3.Text = PathTranslator.LinuxVsWindowsPathStore(

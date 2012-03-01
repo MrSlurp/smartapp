@@ -14,7 +14,6 @@ namespace SoundPlayer
     {
         // controle dont on édite les propriété
         BTControl m_Control = null;
-        private static OpenFileDialog m_FileDialog = new OpenFileDialog();
 
         // document courant
         private BTDoc m_Document = null;
@@ -30,12 +29,6 @@ namespace SoundPlayer
         {
             DllEntryClass.LangSys.Initialize(this);
             InitializeComponent();
-            m_FileDialog.Filter = Lang.LangSys.C("WAVE Files (*.wav)|*.wav");
-            if (!string.IsNullOrEmpty(PathTranslator.BTDocPath))
-                m_FileDialog.InitialDirectory = PathTranslator.BTDocPath;
-            else
-                m_FileDialog.InitialDirectory = Application.StartupPath;
-
         }
 
         /// <summary>
@@ -56,11 +49,14 @@ namespace SoundPlayer
                 if (m_Control != null)
                 {
                     this.Enabled = true;
+                    DllSoundPlayerProp props = m_Control.SpecificProp as DllSoundPlayerProp;
+                    this.FilePath = props.SoundFile;
                     // assignez ici les valeur des propriété spécifiques du control
                 }
                 else
                 {
                     this.Enabled = false;
+                    this.FilePath = string.Empty;
                     // mettez ici les valeur par défaut pour le panel de propriété spécifiques
                 }
             }
@@ -138,14 +134,18 @@ namespace SoundPlayer
         }
         #endregion
 
-        private void m_btnBrowse_Click(object sender, EventArgs e)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void m_btnBrowse_Click(object sender, EventArgs e, BrowseFileBtn.BrowseFrom bf)
         {
-            DialogResult dlgRes = m_FileDialog.ShowDialog();
+            DialogResult dlgRes = CentralizedFileDlg.ShowSndFileDilaog(bf);
             if (dlgRes == DialogResult.OK)
             {
-                string path = Path.GetDirectoryName(m_FileDialog.FileName);
-                m_FileDialog.InitialDirectory = path;
-                this.FilePath = m_FileDialog.FileName;
+                string path = Path.GetDirectoryName(CentralizedFileDlg.SndFileName);
+                this.FilePath = CentralizedFileDlg.SndFileName;
             }
         }
     }

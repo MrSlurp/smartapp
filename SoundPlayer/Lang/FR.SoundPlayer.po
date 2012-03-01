@@ -1,0 +1,3 @@
+
+msgid "Sound File"
+msgstr "Fichier son"

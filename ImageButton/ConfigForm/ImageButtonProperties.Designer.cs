@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.label2 = new System.Windows.Forms.Label();
-            this.m_btnImg2 = new System.Windows.Forms.Button();
-            this.m_btnImg1 = new System.Windows.Forms.Button();
+            this.m_btnImg2 = new CommonLib.BrowseFileBtn();
+            this.m_btnImg1 = new CommonLib.BrowseFileBtn();
             this.m_txtBoxImg2 = new System.Windows.Forms.TextBox();
             this.m_txtBoxImg1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -56,7 +56,7 @@
             this.m_btnImg2.TabIndex = 4;
             this.m_btnImg2.Text = "...";
             this.m_btnImg2.UseVisualStyleBackColor = true;
-            this.m_btnImg2.Click += new System.EventHandler(this.m_btnImg2_Click);
+            this.m_btnImg2.OnBrowseFrom += new CommonLib.BrowseFileBtn.BrowseFromEvent(this.m_btnImg2_Click);
             // 
             // m_btnImg1
             // 
@@ -66,7 +66,7 @@
             this.m_btnImg1.TabIndex = 3;
             this.m_btnImg1.Text = "...";
             this.m_btnImg1.UseVisualStyleBackColor = true;
-            this.m_btnImg1.Click += new System.EventHandler(this.m_btnImg1_Click);
+            this.m_btnImg1.OnBrowseFrom += new CommonLib.BrowseFileBtn.BrowseFromEvent(this.m_btnImg1_Click);
             // 
             // m_txtBoxImg2
             // 
@@ -144,8 +144,8 @@
         #endregion
 
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button m_btnImg2;
-        private System.Windows.Forms.Button m_btnImg1;
+        private CommonLib.BrowseFileBtn m_btnImg2;
+        private CommonLib.BrowseFileBtn m_btnImg1;
         private System.Windows.Forms.TextBox m_txtBoxImg2;
         private System.Windows.Forms.TextBox m_txtBoxImg1;
         private System.Windows.Forms.Label label1;

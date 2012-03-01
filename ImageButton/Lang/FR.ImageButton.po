@@ -1,0 +1,12 @@
+
+msgid "Control {0} Failed to load file {1}"
+msgstr "Control {0} Echec d'ouverture du fichier {1}"
+
+msgid "Standard"
+msgstr "Standard"
+
+msgid "Flat"
+msgstr "Plat"
+
+msgid "Borderless flat"
+msgstr "Plat sans bordures"

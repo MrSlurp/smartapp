@@ -30,16 +30,16 @@ namespace FourBitmap
         {
             this.m_txtBoxImg1 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.m_btnImg1 = new System.Windows.Forms.Button();
+            this.m_btnImg1 = new CommonLib.BrowseFileBtn();
             this.m_txtBoxImg0 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.m_btnImg0 = new System.Windows.Forms.Button();
+            this.m_btnImg0 = new CommonLib.BrowseFileBtn();
             this.m_txtBoxImg3 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.m_btnImg3 = new System.Windows.Forms.Button();
+            this.m_btnImg3 = new CommonLib.BrowseFileBtn();
             this.m_txtBoxImg2 = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.m_btnImg2 = new System.Windows.Forms.Button();
+            this.m_btnImg2 = new CommonLib.BrowseFileBtn();
             this.SuspendLayout();
             // 
             // m_txtBoxImg1
@@ -67,7 +67,7 @@ namespace FourBitmap
             this.m_btnImg1.TabIndex = 4;
             this.m_btnImg1.Text = "...";
             this.m_btnImg1.UseVisualStyleBackColor = true;
-            this.m_btnImg1.Click += new System.EventHandler(this.m_btnImg1_Click);
+            this.m_btnImg1.OnBrowseFrom += new CommonLib.BrowseFileBtn.BrowseFromEvent(this.m_btnImg1_Click);
             // 
             // m_txtBoxImg0
             // 
@@ -94,7 +94,7 @@ namespace FourBitmap
             this.m_btnImg0.TabIndex = 3;
             this.m_btnImg0.Text = "...";
             this.m_btnImg0.UseVisualStyleBackColor = true;
-            this.m_btnImg0.Click += new System.EventHandler(this.m_btnImg0_Click);
+            this.m_btnImg0.OnBrowseFrom += new CommonLib.BrowseFileBtn.BrowseFromEvent(this.m_btnImg0_Click);
             // 
             // m_txtBoxImg3
             // 
@@ -121,7 +121,7 @@ namespace FourBitmap
             this.m_btnImg3.TabIndex = 9;
             this.m_btnImg3.Text = "...";
             this.m_btnImg3.UseVisualStyleBackColor = true;
-            this.m_btnImg3.Click += new System.EventHandler(this.m_btnImg3_Click);
+            this.m_btnImg3.OnBrowseFrom += new CommonLib.BrowseFileBtn.BrowseFromEvent(this.m_btnImg3_Click);
             // 
             // m_txtBoxImg2
             // 
@@ -148,7 +148,7 @@ namespace FourBitmap
             this.m_btnImg2.TabIndex = 10;
             this.m_btnImg2.Text = "...";
             this.m_btnImg2.UseVisualStyleBackColor = true;
-            this.m_btnImg2.Click += new System.EventHandler(this.m_btnImg2_Click);
+            this.m_btnImg2.OnBrowseFrom += new CommonLib.BrowseFileBtn.BrowseFromEvent(this.m_btnImg2_Click);
             // 
             // FourBitmapProperties
             // 
@@ -178,16 +178,16 @@ namespace FourBitmap
 
         private System.Windows.Forms.TextBox m_txtBoxImg1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button m_btnImg1;
+        private CommonLib.BrowseFileBtn m_btnImg1;
         private System.Windows.Forms.TextBox m_txtBoxImg0;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button m_btnImg0;
+        private CommonLib.BrowseFileBtn m_btnImg0;
         private System.Windows.Forms.TextBox m_txtBoxImg3;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button m_btnImg3;
+        private CommonLib.BrowseFileBtn m_btnImg3;
         private System.Windows.Forms.TextBox m_txtBoxImg2;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button m_btnImg2;
+        private CommonLib.BrowseFileBtn m_btnImg2;
 
     }
 }

@@ -35,7 +35,7 @@ namespace SmartApp.Ihm
             this.m_textBoxTitle = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.m_textBkgndFile = new System.Windows.Forms.TextBox();
-            this.m_btnBrowseBkFile = new System.Windows.Forms.Button();
+            this.m_btnBrowseBkFile = new CommonLib.BrowseFileBtn();
             this.m_btnRemoveFile = new System.Windows.Forms.Button();
             this.m_textBoxSymbol = new SmartApp.Ihm.SymbolTextBox();
             this.SuspendLayout();
@@ -122,7 +122,7 @@ namespace SmartApp.Ihm
             this.m_btnBrowseBkFile.TabIndex = 11;
             this.m_btnBrowseBkFile.Text = "...";
             this.m_btnBrowseBkFile.UseVisualStyleBackColor = true;
-            this.m_btnBrowseBkFile.Click += new System.EventHandler(this.m_btnBrowseBkFile_Click);
+            this.m_btnBrowseBkFile.OnBrowseFrom += new CommonLib.BrowseFileBtn.BrowseFromEvent(this.m_btnBrowseBkFile_Click);
             // 
             // m_btnRemoveFile
             // 
@@ -180,7 +180,7 @@ namespace SmartApp.Ihm
         private System.Windows.Forms.TextBox m_textBoxTitle;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox m_textBkgndFile;
-        private System.Windows.Forms.Button m_btnBrowseBkFile;
+        private CommonLib.BrowseFileBtn m_btnBrowseBkFile;
         private System.Windows.Forms.Button m_btnRemoveFile;
     }
 }

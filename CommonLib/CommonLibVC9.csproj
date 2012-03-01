@@ -213,6 +213,9 @@
     <Compile Include="StdForms\PickDataForm.Designer.cs">
       <DependentUpon>PickDataForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="StdForms\BrowseFileBtn.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="StdForms\WaitOpenCommForm.cs">
       <SubType>Form</SubType>
     </Compile>

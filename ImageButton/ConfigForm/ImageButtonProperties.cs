@@ -169,9 +169,9 @@ namespace ImageButton
         }
         #endregion
 
-        private void m_btnImg1_Click(object sender, EventArgs e)
+        private void m_btnImg1_Click(object sender, EventArgs e, BrowseFileBtn.BrowseFrom bf)
         {
-            DialogResult dlgRes = CentralizedFileDlg.ShowImageFileDilaog();
+            DialogResult dlgRes = CentralizedFileDlg.ShowImageFileDilaog(bf);
             if (dlgRes == DialogResult.OK)
             {
 
@@ -180,9 +180,9 @@ namespace ImageButton
             }
         }
 
-        private void m_btnImg2_Click(object sender, EventArgs e)
+        private void m_btnImg2_Click(object sender, EventArgs e, BrowseFileBtn.BrowseFrom bf)
         {
-            DialogResult dlgRes = CentralizedFileDlg.ShowImageFileDilaog();
+            DialogResult dlgRes = CentralizedFileDlg.ShowImageFileDilaog(bf);
             if (dlgRes == DialogResult.OK)
             {
                 m_txtBoxImg2.Text = PathTranslator.LinuxVsWindowsPathStore(

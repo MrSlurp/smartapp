@@ -32,8 +32,6 @@ namespace SmartApp.Ihm
         protected FormsOptions m_FrmOpt = new FormsOptions(); 
         protected string m_strDocumentName = "";
         
-        private OpenFileDialog m_openFileDiag = new OpenFileDialog(); 
-
         protected MruStripMenuInline m_mruStripMenu;
         #endregion
 
@@ -88,9 +86,7 @@ namespace SmartApp.Ihm
                 m_tsMenuLogConfig.Visible = true;
                 m_tsMenuOpenDebugConsole.Visible = true;
             }
-            m_openFileDiag.Filter = Program.LangSys.C("SmartApp File (*.saf)|*.saf");
-            m_openFileDiag.InitialDirectory = Application.StartupPath;
-        
+            CentralizedFileDlg.InitPrjFileDialog(Application.StartupPath);        
 
             UpdateFileCommand(null, null);
         }
@@ -279,11 +275,11 @@ namespace SmartApp.Ihm
                     return;
                 }
                 this.CloseDoc();
-            } 
-            DialogResult dlgRes = m_openFileDiag.ShowDialog();
+            }
+            DialogResult dlgRes = CentralizedFileDlg.ShowOpenPrjFileDilaog();
             if (dlgRes == DialogResult.OK)
             {
-                string strFileFullName = m_openFileDiag.FileName;
+                string strFileFullName = CentralizedFileDlg.PrjOpenFileName;
                 if (!OpenDoc(strFileFullName))
                 {
                     MessageBox.Show(Program.LangSys.C("Error while reading file. File is corrupted"), Program.LangSys.C("Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -361,13 +357,10 @@ namespace SmartApp.Ihm
         /// </summary>
         private void OnSaveAsClick()
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = Program.LangSys.C("SmartApp File (*.saf)|*.saf");
-            saveFileDialog.InitialDirectory = Application.StartupPath;
-            DialogResult dlgRes = saveFileDialog.ShowDialog();
+            DialogResult dlgRes = CentralizedFileDlg.ShowSavePrjFileDilaog();
             if (dlgRes == DialogResult.OK)
             {
-                string strFileFullName = saveFileDialog.FileName;
+                string strFileFullName = CentralizedFileDlg.PrjSaveFileName;
 #if LINUX
                 int idxOfLastAntiSlash = strFileFullName.LastIndexOf(@"/");
 #else
@@ -376,6 +369,7 @@ namespace SmartApp.Ihm
                 string DossierFichier = strFileFullName.Substring(0, strFileFullName.Length - (strFileFullName.Length - idxOfLastAntiSlash));
                 PathTranslator.BTDocPath = DossierFichier;
                 CentralizedFileDlg.InitImgFileDialog(DossierFichier);
+                CentralizedFileDlg.InitPrjFileDialog(DossierFichier);
                 m_Document.WriteConfigDocument(strFileFullName, true, Program.DllGest);
 #if LINUX
                 int lastindex = strFileFullName.LastIndexOf(@"/");
@@ -519,6 +513,7 @@ namespace SmartApp.Ihm
                     string DossierFichier = strFullFileName.Substring(0, strFullFileName.Length - (strFullFileName.Length - idxOfLastAntiSlash));
                     PathTranslator.BTDocPath = DossierFichier;
                     CentralizedFileDlg.InitImgFileDialog(DossierFichier);
+                    CentralizedFileDlg.InitPrjFileDialog(DossierFichier);
 #if LINUX
                     int lastindex = strFullFileName.LastIndexOf(@"/");
 #else

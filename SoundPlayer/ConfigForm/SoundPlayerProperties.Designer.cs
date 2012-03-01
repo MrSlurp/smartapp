@@ -30,7 +30,7 @@
         {
             this.m_txtBoxFile = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.m_btnBrowse = new System.Windows.Forms.Button();
+            this.m_btnBrowse = new CommonLib.BrowseFileBtn();
             this.SuspendLayout();
             // 
             // m_txtBoxFile
@@ -58,7 +58,7 @@
             this.m_btnBrowse.TabIndex = 3;
             this.m_btnBrowse.Text = "...";
             this.m_btnBrowse.UseVisualStyleBackColor = true;
-            this.m_btnBrowse.Click += new System.EventHandler(this.m_btnBrowse_Click);
+            this.m_btnBrowse.OnBrowseFrom += new CommonLib.BrowseFileBtn.BrowseFromEvent(this.m_btnBrowse_Click);
             // 
             // SoundPlayerProperties
             // 
@@ -78,7 +78,7 @@
 
         private System.Windows.Forms.TextBox m_txtBoxFile;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button m_btnBrowse;
+        private CommonLib.BrowseFileBtn m_btnBrowse;
 
     }
 }
