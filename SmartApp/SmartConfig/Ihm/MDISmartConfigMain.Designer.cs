@@ -657,7 +657,7 @@ namespace SmartApp.Ihm
             this.tsbtnConfigCom.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtnConfigCom.Name = "tsbtnConfigCom";
             this.tsbtnConfigCom.Size = new System.Drawing.Size(113, 22);
-            this.tsbtnConfigCom.Text = "Configure connection";
+            this.tsbtnConfigCom.Text = "Configure connections";
             this.tsbtnConfigCom.Click += new System.EventHandler(this.tsbtnConfigCom_Click);
             // 
             // toolStripSeparator11
