@@ -42,11 +42,11 @@ namespace SmartApp.Wizards
         /// <returns>speech d'intro</returns>
         public override string GetWelcomeSpeech()
         {
-            string speech = Program.LangSys.C("Welcome to the Millenium 3 project wizard") +
+            string speech = Program.LangSys.C("Welcome to the Zélio 2 project wizard") +
                               "\n" +
                               Program.LangSys.C("This wizard will help you to create a new project for") +
                               "\n" +
-                              Program.LangSys.C("Millenium 3 supervision through Serial (or USB) link");
+                              Program.LangSys.C("Zélio 2 supervision through Serial (or USB) link");
             return speech;
         }
 

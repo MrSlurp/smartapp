@@ -564,8 +564,10 @@ namespace SmartApp.Ihm
             m_MenuItemM3SLWiz.Enabled = true;
             m_MenuItemTCPMBWiz.Enabled = true;
             m_MenuItemZ2SLWiz.Enabled = true;
-            tsmi3SLProjectWizard.Enabled = false;
-            tsmi3XN05ProjectWizard.Enabled = false;
+            tsmiM3SLProjectWizard.Enabled = false;
+            tsmiM3XN05ProjectWizard.Enabled = false;
+            tsmiZ2SR3NETProjectWizard.Enabled = false;
+            tsmiZ2SLProjectWizard.Enabled = false;
             m_Document.UpdateDocumentFrame += new NeedRefreshHMI(OnNeedUpdateHMI);
             m_Document.OnDocumentModified += new DocumentModifiedEvent(UpdateModifiedFlag);
             UpdateFileCommand(null, null);
@@ -589,8 +591,10 @@ namespace SmartApp.Ihm
             m_MenuItemM3SLWiz.Enabled = false;
             m_MenuItemZ2SLWiz.Enabled = false;
             m_MenuItemTCPMBWiz.Enabled = false;
-            tsmi3SLProjectWizard.Enabled = true;
-            tsmi3XN05ProjectWizard.Enabled = true;
+            tsmiM3SLProjectWizard.Enabled = true;
+            tsmiM3XN05ProjectWizard.Enabled = true;
+            tsmiZ2SR3NETProjectWizard.Enabled = true;
+            tsmiZ2SLProjectWizard.Enabled = true;
             m_Document = null;
             SaveFormsPos();
             UpdateFileCommand(null, null);
@@ -966,7 +970,7 @@ namespace SmartApp.Ihm
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void tsmi3SLProjectWizard_Click(object sender, EventArgs e)
+        private void tsmiM3SLProjectWizard_Click(object sender, EventArgs e)
         {
             if (m_Document == null)
             {
@@ -982,11 +986,31 @@ namespace SmartApp.Ihm
         }
 
         /// <summary>
+        /// lance le wizard de projet SL Z2
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tsmiZ2SLProjectWizard_Click(object sender, EventArgs e)
+        {
+            if (m_Document == null)
+            {
+                WizardM3Z2ProjectForm wiz = new WizardM3Z2ProjectForm(new SLZ2WizardConfigData());
+                if (wiz.ShowDialog() == DialogResult.OK)
+                {
+                    OnNewMenuItemClick(null, null);
+                    wiz.CreateAllFromWizardData(new SLZ2ProjectCreator(m_Document));
+                    this.OnNeedUpdateHMI(null);
+                    m_Document.Modified = true;
+                }
+            }
+        }
+
+        /// <summary>
         /// lance le wizard de projet ETH M3
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void tsmi3XN05ProjectWizard_Click(object sender, EventArgs e)
+        private void tsmiM3XN05ProjectWizard_Click(object sender, EventArgs e)
         {
             if (m_Document == null)
             {
@@ -1001,6 +1025,28 @@ namespace SmartApp.Ihm
             }
 
         }
+
+        /// <summary>
+        /// lance le wizard de projet ETH Z2
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tsmiZ2SR3NETProjectWizard_Click(object sender, EventArgs e)
+        {
+            if (m_Document == null)
+            {
+                WizardM3Z2ProjectForm wiz = new WizardM3Z2ProjectForm(new Z2SR3NETWizardConfigData());
+                if (wiz.ShowDialog() == DialogResult.OK)
+                {
+                    OnNewMenuItemClick(null, null);
+                    wiz.CreateAllFromWizardData(new ETHZ2ProjectCreator(m_Document));
+                    this.OnNeedUpdateHMI(null);
+                    m_Document.Modified = true;
+                }
+            }
+
+        }
+
         #endregion
 
         private void tsbtnConfigCom_Click(object sender, EventArgs e)

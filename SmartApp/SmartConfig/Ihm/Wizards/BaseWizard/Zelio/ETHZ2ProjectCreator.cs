@@ -77,8 +77,8 @@ namespace SmartApp.Wizards
                 List<BlocConfig> CurList = TabConsecBloc[iConsecBloc];
                 if (CurList.Count == 0)
                     continue;
-                M3XN05BlocConfig FirstBloc = CurList[0] as M3XN05BlocConfig;
-                M3XN05BlocConfig LasttBloc = CurList[CurList.Count - 1] as M3XN05BlocConfig;
+                Z2SR3NETBlocConfig FirstBloc = CurList[0] as Z2SR3NETBlocConfig;
+                Z2SR3NETBlocConfig LasttBloc = CurList[CurList.Count - 1] as Z2SR3NETBlocConfig;
                 string FrameBaseName = "SR3_NET";
                 string FrameName = FrameBaseName + (bWrite? "_WRITE" : "_READ");
                 FrameName += string.Format("{0}REG_FROM_{1}", CurList.Count, FirstBloc.Name.Replace(' ', '_').ToUpper());

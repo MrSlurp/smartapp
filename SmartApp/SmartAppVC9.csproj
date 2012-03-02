@@ -529,18 +529,23 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\BaseM3Z2ProjectCreator.cs" />
-    <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\ETHM3ProjectCreator.cs" />
+    <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\Zelio\Z2SR3NETBlocConfig.cs" />
+    <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\Zelio\SLZ2WizardConfigData.cs" />
+    <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\Zelio\SLZ2ProjectCreator.cs" />
+    <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\Zelio\ETHZ2ProjectCreator.cs" />
+    <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\Millenium\ETHM3ProjectCreator.cs" />
     <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\IOConfig.cs" />
     <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\IWizConfigForm.cs" />
-    <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\M3XN05BlocConfig.cs" />
-    <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\M3XN05WizardConfigData.cs" />
+    <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\Millenium\M3XN05BlocConfig.cs" />
+    <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\Millenium\M3XN05WizardConfigData.cs" />
     <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\WizardFrameGenerator.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\WizardFrameGenerator.SL.cs" />
     <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\WizardFrameGenerator.TCPMB.cs" />
-    <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\SLWizardConfigData.cs" />
+    <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\Millenium\SLWizardConfigData.cs" />
     <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\BlocConfig.cs" />
+    <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\Zelio\Z2SR3NETWizardConfigData.cs" />
     <Compile Include="SmartConfig\Ihm\Wizards\M3Z2GenericWizPanels\M3XN05AdditionalOptions.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -585,7 +590,7 @@
     </Compile>
     <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\ProjectWizardDefines.cs" />
     <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\SLBlocConfig.cs" />
-    <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\SLM3ProjectCreator.cs" />
+    <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\Millenium\SLM3ProjectCreator.cs" />
     <Compile Include="SmartConfig\Ihm\Wizards\TCPModbusWizard\WizardTcpModbusForm.cs">
       <SubType>Form</SubType>
     </Compile>
