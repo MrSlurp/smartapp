@@ -56,7 +56,7 @@ namespace SmartApp.Wizards
         /// <returns>Image d'intro</returns>
         public override Image GetWelcomeImage()
         {
-            return Resources.WizardSLProject;
+            return Resources.WizardZ2SLProject;
         }
 
         /// <summary>

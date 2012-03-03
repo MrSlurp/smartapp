@@ -57,6 +57,7 @@ namespace CommonLib
 
         public static Bitmap WizardSLProject;
         public static Bitmap WizardEthProject;
+        public static Bitmap WizardZ2SLProject;
 
         public static Bitmap TypeSplit16_SL_IN;
         public static Bitmap TypeSplit4_SL_IN;
@@ -116,6 +117,7 @@ namespace CommonLib
 
             WizardSLProject = NewBmpTrPath(strAppDir + "\\Res\\WizRes\\M3SL_wiz.png");
             WizardEthProject = NewBmpTrPath(strAppDir + "\\Res\\WizRes\\M3Eth_wiz.png");
+            WizardZ2SLProject = NewBmpTrPath(strAppDir + "\\Res\\WizRes\\Z2SL_wiz.png");
 
             TypeSplit16_SL_IN = NewBmpTrPath(strAppDir + "\\Res\\WizRes\\SLType_Split16.png");
             TypeSplit4_SL_IN = NewBmpTrPath(strAppDir + "\\Res\\WizRes\\SLType_Split4.png");
