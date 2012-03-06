@@ -76,7 +76,11 @@ namespace CommonLib
         private List<UserControlInfo> mUserControlList = new List<UserControlInfo>();
         
         // contient les dictionnaires de chaque assembly
-        private Dictionary<string, Dictionary<string, string>> Decoders = new Dictionary<string, Dictionary<string, string>>();
+        private Dictionary<string, Dictionary<string, string>> m_Decoders = new Dictionary<string, Dictionary<string, string>>();
+
+        // ressource commune à toutes les DLL, ils sont en static et ne sont chargés qu'une seule fois
+        private static Dictionary<string, string> m_defDecoders = new Dictionary<string, string>();
+        private static string m_DefaultFileName;
         
         // variable contenant true si on veut que l'item soit créé s'il manque
         private bool mCreateOnMissingItem = false;
@@ -163,14 +167,15 @@ namespace CommonLib
         /// <param name="Assembly">Module utilisant la langue</param>
         public void Initialize(string DevLang, string CurLang, string Assembly)
         {
-            m_bInitDone = true;
             System.Diagnostics.Debug.Assert(!string.IsNullOrEmpty(CurLang));
             mFormList.Clear();
-            Decoders.Clear();
+            m_Decoders.Clear();
             m_CurrentAssembly = Assembly;
             mCurrentLangage = CurLang.ToUpper();
             mDevLangage = DevLang.ToUpper();
             LoadDefaultLangFile();
+            m_bInitDone = true;
+            LoadLangage(CreateFilePath());
         }
         #endregion
 
@@ -260,43 +265,42 @@ namespace CommonLib
         /// <returns>Texte localisé</returns>
         public string C(string FilePath,string DevText)
         {
-            string DefaultFileName = Path.Combine(FilePath, mCurrentLangage + ".default.po");
-
             string FileName;
             if (string.IsNullOrEmpty(m_CurrentAssembly))
                 FileName = Path.Combine(FilePath, mCurrentLangage + ".po");
             else
                 FileName = Path.Combine(FilePath, mCurrentLangage + "." + m_CurrentAssembly + ".po");
 
-            if (Decoders.ContainsKey(FileName) != true)
+            if (!m_Decoders.ContainsKey(FileName) && !m_defDecoders.ContainsKey(DevText))
             {
-                LoadLangage(FilePath);
+                System.Console.WriteLine(string.Format("missing DevText or file {1}, {0}", Path.GetFileName(FileName), DevText));
+                // les langues doivent être déjà chargées ici
+                //LoadLangage(FilePath);
             }
 
-            if (Decoders.ContainsKey(FileName) == true
-                || Decoders.ContainsKey(DefaultFileName) == true)
+            if (m_Decoders.ContainsKey(FileName) == true
+                || m_defDecoders.ContainsKey(DevText) == true)
             {
                 if (m_bRevertLocalisation)
                 {
-                    if (Decoders.ContainsKey(FileName) && 
-                        Decoders[FileName].ContainsValue(DevText) == true)
+                    if (m_Decoders.ContainsKey(FileName) && 
+                        m_Decoders[FileName].ContainsValue(DevText) == true)
                     {
-                        return KeyFromValue(Decoders[FileName], DevText);
+                        return KeyFromValue(m_Decoders[FileName], DevText);
                     }
-                    else if (Decoders.ContainsKey(DefaultFileName) && 
-                        Decoders[DefaultFileName].ContainsKey(DevText) == true)
+                    else if (m_defDecoders.ContainsKey(DevText) == true)
                     {
-                        return KeyFromValue(Decoders[DefaultFileName], DevText);
+                        return m_defDecoders[DevText];
                     }
                 }
                 else
                 {
                     // on test d'abord le fichier spécifique
-                    if (Decoders.ContainsKey(FileName) && 
-                        Decoders[FileName].ContainsKey(DevText) == true)
+                    if (m_Decoders.ContainsKey(FileName) && 
+                        m_Decoders[FileName].ContainsKey(DevText) == true)
                     {
-                        if (Decoders[FileName][DevText] != "")
-                            return Decoders[FileName][DevText];
+                        if (m_Decoders[FileName][DevText] != "")
+                            return m_Decoders[FileName][DevText];
                         else
                         {
                             if (mInformOfMissingItem)
@@ -306,11 +310,10 @@ namespace CommonLib
                         }
                     }
                     // ensuite on test si a la chaine dans le fichier par défaut
-                    else if (Decoders.ContainsKey(DefaultFileName) && 
-                             Decoders[DefaultFileName].ContainsKey(DevText) == true)
+                    else if (m_defDecoders.ContainsKey(DevText) == true)
                     {
-                        if (Decoders[DefaultFileName][DevText] != "")
-                            return Decoders[DefaultFileName][DevText];
+                        if (m_defDecoders[DevText] != "")
+                            return m_defDecoders[DevText];
                         else
                         {
                             if (mInformOfMissingItem)
@@ -322,10 +325,10 @@ namespace CommonLib
                     else if (DevText.EndsWith(MSG_MISSING))
                     {
                         string mDevText = DevText.TrimEnd(MSG_MISSING.ToCharArray());
-                        if (Decoders[FileName].ContainsKey(mDevText) == true)
+                        if (m_Decoders[FileName].ContainsKey(mDevText) == true)
                         {
-                            if (Decoders[FileName][mDevText] != "")
-                                return Decoders[FileName][mDevText];
+                            if (m_Decoders[FileName][mDevText] != "")
+                                return m_Decoders[FileName][mDevText];
                             else
                             {
                                 if (mInformOfMissingItem)
@@ -338,11 +341,11 @@ namespace CommonLib
                     else
                     {
 #if LANG_USE_DEBUG
-                        if (!Decoders.ContainsKey(FileName))
+                        if (!m_Decoders.ContainsKey(FileName))
                         {
                             Traces.LogAddDebug(TraceCat.Lang, string.Format("Pas de fichier de langue pour {0}", Path.GetFileName(FileName)));
                         }
-                        else if (!Decoders[FileName].ContainsValue(DevText))
+                        else if (!m_Decoders[FileName].ContainsValue(DevText))
                         {
                             Traces.LogAddDebug(TraceCat.Lang, string.Format("Fichier {0}, missing DevText {1}", Path.GetFileName(FileName), DevText));
                         }
@@ -398,8 +401,11 @@ namespace CommonLib
         {
             string FilePath = CreateFilePath();
             string FileName = Path.Combine(FilePath, mCurrentLangage + ".default.po");
-
-            LoadLangFile(FileName);
+            if (m_DefaultFileName != FileName)
+            {
+                m_DefaultFileName = FileName;
+                LoadLangFile(m_DefaultFileName);
+            }
         }
 
         /// <summary>
@@ -423,7 +429,8 @@ namespace CommonLib
         /// <param name="fileFullPath"></param>
         public void LoadLangFile(string FileName)
         {
-            if (Decoders.ContainsKey(FileName) == false)
+            //Traces.LogAddDebug(TraceCat.Lang, string.Format("(module = {1}) demande de chargement du fichier {0}", FileName, m_CurrentAssembly));
+            if (m_Decoders.ContainsKey(FileName) == false)
             {
                 if (File.Exists(FileName))
                 {
@@ -452,7 +459,7 @@ namespace CommonLib
                             else if (Line.ToLower().StartsWith("msgstr"))
                             {
                                 string[] txt = Line.Split('"');
-                                if (txt.GetLength(0) == 3)
+                                if (txt.Length == 3)
                                 {
                                     AddLineToDictionnary(FileName, Cur_msgid, txt[1]);
                                 }
@@ -482,21 +489,33 @@ namespace CommonLib
         /// <param name="Value">Texte dans la langue de sortie</param>
         private void AddLineToDictionnary(string FileName,string ID, string Value)
         {
-            if (Decoders.ContainsKey(FileName) == false)
+            if (FileName == m_DefaultFileName)
             {
-                //Traces.LogAddDebug(TraceCat.Lang, string.Format("(module = {1}) Ajout du fichier {0}", FileName, m_CurrentAssembly));
-                Decoders.Add(FileName, new Dictionary<string, string>());
+                if (!m_defDecoders.ContainsKey(ID))
+                {
+                    m_defDecoders.Add(ID, Value);
+                }
+                else
+                {
+                    Traces.LogAddDebug(TraceCat.Lang, string.Format("(module = {1}) Texte en double dans le fichier {0}", FileName, m_CurrentAssembly));
+                    m_defDecoders[ID] = Value;
+                }
             }
+            else 
+            {
+                //Traces.LogAddDebug(TraceCat.Lang, string.Format("(module = {1}) Ajout du fichier {0} dans le catalogue", FileName, m_CurrentAssembly));
+                if (m_Decoders.ContainsKey(FileName) == false)
+                    m_Decoders.Add(FileName, new Dictionary<string, string>());
 
-            if (Decoders[FileName].ContainsKey(ID) == false)
-            {
-                Decoders[FileName].Add(ID, Value);
+                if (m_Decoders[FileName].ContainsKey(ID) == false)
+                {
+                    m_Decoders[FileName].Add(ID, Value);
+                }
+                else
+                {
+                    m_Decoders[FileName][ID] = Value;
+                }
             }
-            else
-            {
-                Decoders[FileName][ID] = Value;
-            }
-
         }
     
         /// <summary>
@@ -507,17 +526,17 @@ namespace CommonLib
         /// <returns></returns>
         private bool CheckExistInDictionnary(string FileName,string ID)
         {
-            if (Decoders.ContainsKey(FileName) == false)
+            if (m_Decoders.ContainsKey(FileName) == false)
             {
                 return false;
             }
-            if (Decoders[FileName].ContainsKey(ID) == false)
+            if (m_Decoders[FileName].ContainsKey(ID) == false)
             {
                 return false;
             }
             // on test aussi le cas ou en fait on aurai re parcouru une IHM déja traduite
             // donc on vérifie que l'ID qu'on a passé n'est pas une chaine tarduite
-            if (Decoders[FileName].ContainsValue(ID) == false)
+            if (m_Decoders[FileName].ContainsValue(ID) == false)
             {
                 return false;
             }

@@ -53,7 +53,7 @@ namespace SmartApp.Ihm.Wizards
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(521, 34);
             this.label1.TabIndex = 1;
-            this.label1.Text = "In this first step, you msut select wich blocs are used in your M3 program";
+            this.label1.Text = "In this first step, you msut select wich blocs are used in your program";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnAll

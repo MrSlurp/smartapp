@@ -34,21 +34,21 @@ namespace SmartApp.Wizards
         /// </summary>
         public Z2SR3NETWizardConfigData()
         {
-            m_INBlocList = new M3XN05BlocConfig[NB_SR3NET_IO_BLOC];
-            m_OUTBlocList = new M3XN05BlocConfig[NB_SR3NET_IO_BLOC];
+            m_INBlocList = new Z2SR3NETBlocConfig[NB_SR3NET_IO_BLOC];
+            m_OUTBlocList = new Z2SR3NETBlocConfig[NB_SR3NET_IO_BLOC];
             for (int i = 1; i <= NB_SR3NET_IO_BLOC; i++)
             {
-                m_INBlocList[i - 1] = new M3XN05BlocConfig(BlocsType.IN, i);
-                m_OUTBlocList[i - 1] = new M3XN05BlocConfig(BlocsType.OUT, i);
+                m_INBlocList[i - 1] = new Z2SR3NETBlocConfig(BlocsType.IN, i);
+                m_OUTBlocList[i - 1] = new Z2SR3NETBlocConfig(BlocsType.OUT, i);
             }
 
-            m_INHourBlocList = new M3XN05BlocConfig[NB_HOUR_IO_BLOC];
-            m_OUTHourBlocList = new M3XN05BlocConfig[NB_HOUR_IO_BLOC];
+            m_INHourBlocList = new Z2SR3NETBlocConfig[NB_HOUR_IO_BLOC];
+            m_OUTHourBlocList = new Z2SR3NETBlocConfig[NB_HOUR_IO_BLOC];
             for (int i = 1; i <= NB_HOUR_IO_BLOC; i++)
             {
-                m_INHourBlocList[i - 1] = new M3XN05BlocConfig(BlocsType.IN, i);
+                m_INHourBlocList[i - 1] = new Z2SR3NETBlocConfig(BlocsType.IN, i);
                 m_INHourBlocList[i - 1].ListIO[0].SplitFormat = IOSplitFormat.SplitBy2;
-                m_OUTHourBlocList[i - 1] = new M3XN05BlocConfig(BlocsType.OUT, i);
+                m_OUTHourBlocList[i - 1] = new Z2SR3NETBlocConfig(BlocsType.OUT, i);
                 m_OUTHourBlocList[i - 1].ListIO[0].SplitFormat = IOSplitFormat.SplitBy2;
             }
 
@@ -71,7 +71,7 @@ namespace SmartApp.Wizards
                               "\n" +
                               Program.LangSys.C("This wizard will help you to create a new project for") +
                               "\n" +
-                              Program.LangSys.C("Zélio 2 supervision through TCP Modbus link using XN05 expansion module");
+                              Program.LangSys.C("Zélio 2 supervision through TCP Modbus link using SR3NET expansion module");
             return speech;
         }
 
