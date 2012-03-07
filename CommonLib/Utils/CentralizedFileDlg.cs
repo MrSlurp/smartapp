@@ -179,6 +179,7 @@ namespace CommonLib
             {
                 string path = Path.GetDirectoryName(m_prjoFileDialog.FileName);
                 m_prjoFileDialog.InitialDirectory = path;
+                m_prjsFileDialog.InitialDirectory = path;
             }
             return dlgRes;
         }

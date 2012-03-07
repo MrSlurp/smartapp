@@ -26,9 +26,12 @@ namespace CommonLib
         public BrowseFileBtn()
         {
             this.ContextMenu = new ContextMenu();
-            this.ContextMenu.MenuItems.Add(new MenuItem(Lang.LangSys.C("Browse from project directory"), InternalBrowseFromProjectClick));
-            this.ContextMenu.MenuItems.Add(new MenuItem(Lang.LangSys.C("Browse from application directory"), InternalBrowseFromAppClick));
-            this.ContextMenu.MenuItems.Add(new MenuItem(Lang.LangSys.C("Browse from last used directory"), InternalBrowseFromLastClick));
+            if (Lang.LangSys != null)
+            {
+                this.ContextMenu.MenuItems.Add(new MenuItem(Lang.LangSys.C("Browse from project directory"), InternalBrowseFromProjectClick));
+                this.ContextMenu.MenuItems.Add(new MenuItem(Lang.LangSys.C("Browse from application directory"), InternalBrowseFromAppClick));
+                this.ContextMenu.MenuItems.Add(new MenuItem(Lang.LangSys.C("Browse from last used directory"), InternalBrowseFromLastClick));
+            }
         }
         protected override void OnClick(EventArgs e)
         {
