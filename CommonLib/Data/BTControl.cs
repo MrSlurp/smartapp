@@ -653,6 +653,8 @@ namespace CommonLib
             }
 
             m_bUseScreenEvent = SrcBtControl.m_bUseScreenEvent;
+            this.TextFont = SrcBtControl.TextFont;
+            this.TextColor = SrcBtControl.TextColor;
             if (SpecificProp != null && SrcBtControl.SpecificProp != null)
             {
                 SpecificProp.CopyParametersFrom(SrcBtControl.SpecificProp, bFromOtherInstance);
