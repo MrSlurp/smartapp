@@ -50,6 +50,7 @@ namespace SmartApp.Ihm
             set
             {
                 m_Control = value;
+                UpdateStateFromControlType();
                 if (m_Control != null)
                 {
                     this.Enabled = true;
@@ -76,7 +77,6 @@ namespace SmartApp.Ihm
                     this.m_CtrlFont = null;
                     this.CtrlFontColor = Color.Black;
                 }
-                UpdateStateFromControlType();
             }
         }
 

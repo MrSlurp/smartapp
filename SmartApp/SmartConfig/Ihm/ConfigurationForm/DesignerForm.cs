@@ -244,12 +244,14 @@ namespace SmartApp.Ihm
             if (m_InteractiveControlContainer.SelectionCount == 0)
             {
                 m_PanelControlProperties.Enabled = false;
-                m_PanelControlProperties.BTControl = null;
+                if (m_PanelControlProperties.BTControl != null)
+                    m_PanelControlProperties.BTControl = null;
             }
             else if (m_InteractiveControlContainer.SelectionCount ==1)
             {
                 m_PanelControlProperties.Enabled = true;
-                m_PanelControlProperties.BTControl = m_InteractiveControlContainer.FirstSelected.SourceBTControl;
+                if (m_PanelControlProperties.BTControl != m_InteractiveControlContainer.FirstSelected.SourceBTControl)
+                    m_PanelControlProperties.BTControl = m_InteractiveControlContainer.FirstSelected.SourceBTControl;
             }
             else
             {

@@ -166,6 +166,12 @@ namespace ImageButton
                     m_AssociateData.Value = m_AssociateData.Value == 0 ?  1 : 0;
                 }
             }
+
+            if (m_bUseScreenEvent)
+            {
+                m_Parent.ControlEvent();
+            }
+
             return;
         }
 
