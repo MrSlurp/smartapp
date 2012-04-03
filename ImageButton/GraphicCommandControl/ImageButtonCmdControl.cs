@@ -13,6 +13,7 @@ namespace ImageButton
     /// </summary>
     internal class ImageButtonCmdControl : BTDllImageButtonControl
     {
+        protected Data m_AssocInputData = null;
         /// <summary>
         /// Constructeur de la classe
         /// </summary>
@@ -113,30 +114,49 @@ namespace ImageButton
                 DllImageButtonProp SpecProp = this.SpecificProp as DllImageButtonProp;
                 CheckBox chk = m_Ctrl as CheckBox;
                 string strImageFullPath;
-                if (!chk.Checked)
+                if (!SpecProp.ImgFromInput)
                 {
-                    strImageFullPath = PathTranslator.RelativePathToAbsolute(SpecProp.ReleasedImage);
-                    strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
-                    if (m_AssociateData != null)
-                        m_AssociateData.Value = 0;
+                    if (!chk.Checked)
+                    {
+                        strImageFullPath = PathTranslator.RelativePathToAbsolute(SpecProp.ReleasedImage);
+                        strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
+                        if (m_AssociateData != null)
+                            m_AssociateData.Value = 0;
+                    }
+                    else
+                    {
+                        strImageFullPath = PathTranslator.RelativePathToAbsolute(SpecProp.PressedImage);
+                        strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
+                        if (m_AssociateData != null)
+                            m_AssociateData.Value = 1;
+                    }
+                    try
+                    {
+                        if (!SpecProp.ImgFromInput)
+                        {
+                            Bitmap bmp = new Bitmap(strImageFullPath);
+                            bmp.MakeTransparent(Color.Magenta);
+                            m_Ctrl.BackgroundImage = bmp;
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format(DllEntryClass.LangSys.C("Control {0} Failed to load file {1}"), Symbol, strImageFullPath));
+                        AddLogEvent(log);
+                    }
                 }
                 else
                 {
-                    strImageFullPath = PathTranslator.RelativePathToAbsolute(SpecProp.PressedImage);
-                    strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
-                    if (m_AssociateData != null)
-                        m_AssociateData.Value = 1;
-                }
-                try
-                {
-                    Bitmap bmp = new Bitmap(strImageFullPath);
-                    bmp.MakeTransparent(Color.Magenta);
-                    m_Ctrl.BackgroundImage = bmp;
-                }
-                catch (Exception)
-                {
-                    LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format(DllEntryClass.LangSys.C("Control {0} Failed to load file {1}"), Symbol, strImageFullPath));
-                    AddLogEvent(log);
+                    if (m_AssocInputData != null && m_AssocInputData.Value == 0)
+                    {
+                        if (m_AssociateData != null)
+                            m_AssociateData.Value = 1;
+                    }
+                    else if (m_AssocInputData != null && m_AssocInputData.Value != 0)
+                    {
+                        if (m_AssociateData != null)
+                            m_AssociateData.Value = 0;
+                    }
                 }
             }
             else if (m_Ctrl is Button)
@@ -157,7 +177,7 @@ namespace ImageButton
         void ImageButtonCmdControl_MouseUp(object sender, MouseEventArgs e)
         {
             DllImageButtonProp SpecProp = this.SpecificProp as DllImageButtonProp;
-            if (m_Ctrl is Button && !string.IsNullOrEmpty(SpecProp.ReleasedImage))
+            if (m_Ctrl is Button && !string.IsNullOrEmpty(SpecProp.ReleasedImage) && !SpecProp.ImgFromInput)
             {
                 string strImageFullPath = PathTranslator.RelativePathToAbsolute(SpecProp.ReleasedImage);
                 strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
@@ -183,7 +203,7 @@ namespace ImageButton
         void ImageButtonCmdControl_MouseDown(object sender, MouseEventArgs e)
         {
             DllImageButtonProp SpecProp = this.SpecificProp as DllImageButtonProp;
-            if (m_Ctrl is Button && !string.IsNullOrEmpty(SpecProp.PressedImage))
+            if (m_Ctrl is Button && !string.IsNullOrEmpty(SpecProp.PressedImage) && !SpecProp.ImgFromInput)
             {
                 string strImageFullPath = PathTranslator.RelativePathToAbsolute(SpecProp.PressedImage);
                 strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
@@ -210,10 +230,60 @@ namespace ImageButton
         /// </summary>
         public override void UpdateFromData()
         {
-            if (m_AssociateData != null && m_Ctrl != null)
+            DllImageButtonProp prop = (DllImageButtonProp)m_SpecificProp;
+            if (m_AssocInputData != null && m_Ctrl != null && prop.ImgFromInput)
             {
-                // effectuez ici le traitement à executer lorsque la valeur change
+                if (prop.ImgFromInput)
+                {
+                    string strImageFullPath;
+                    if (m_AssocInputData.Value == 0)
+                    {
+                        strImageFullPath = PathTranslator.RelativePathToAbsolute(prop.ReleasedImage);
+                        strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
+                        if (m_Ctrl is CheckBox)
+                        {
+                            CheckBox chk = m_Ctrl as CheckBox;
+                            chk.Checked = false;
+                        }
+                    }
+                    else
+                    {
+                        strImageFullPath = PathTranslator.RelativePathToAbsolute(prop.PressedImage);
+                        strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
+                        if (m_Ctrl is CheckBox)
+                        {
+                            CheckBox chk = m_Ctrl as CheckBox;
+                            chk.Checked = true;
+                        }
+                    }
+                    try
+                    {
+                        Bitmap bmp = new Bitmap(strImageFullPath);
+                        bmp.MakeTransparent(Color.Magenta);
+                        m_Ctrl.BackgroundImage = bmp;
+                    }
+                    catch (Exception)
+                    {
+                        LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format(DllEntryClass.LangSys.C("Control {0} Failed to load file {1}"), Symbol, strImageFullPath));
+                        AddLogEvent(log);
+                    }
+                }
             }
+        }
+
+        public override bool FinalizeRead(BTDoc Doc)
+        {
+            bool bret = base.FinalizeRead(Doc);
+
+            DllImageButtonProp prop = (DllImageButtonProp)m_SpecificProp;
+            if (!string.IsNullOrEmpty(prop.InputData))
+            {
+                m_AssocInputData = (Data)Doc.GestData.GetFromSymbol(prop.InputData);
+                if (m_AssocInputData != null)
+                    m_AssocInputData.DataValueChanged += new EventDataValueChange(UpdateFromData);
+
+            }
+            return bret;
         }
 
         /// <summary>

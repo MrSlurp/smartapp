@@ -134,6 +134,9 @@ namespace CtrlDataTrigger
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void UpdateTriggerInputValues()
         {
             //on update que si on a une donnée associée (sinon c'est une constante
@@ -144,6 +147,11 @@ namespace CtrlDataTrigger
                 m_iValueOffToOn = m_AssocDataOffToOn.Value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Doc"></param>
+        /// <returns></returns>
         public override bool FinalizeRead(BTDoc Doc)
         {
             bool bret = base.FinalizeRead(Doc);

@@ -56,8 +56,10 @@ namespace SmartApp.Wizards
             m_SplitInTabImages[0] = Resources.TypeSplit16_ETH_IN;
             m_SplitInTabImages[1] = Resources.TypeSplit4_ETH_IN;
             m_SplitInTabImages[2] = Resources.TypeSplit2_ETH_IN;
-            m_SplitOutTabImages = new Image[1];
+            m_SplitOutTabImages = new Image[3];
             m_SplitOutTabImages[0] = Resources.TypeSplit16_ETH_OUT;
+            m_SplitOutTabImages[1] = Resources.TypeSplit4_ETH_OUT;
+            m_SplitOutTabImages[2] = Resources.TypeSplit2_ETH_OUT;
 
         }
 

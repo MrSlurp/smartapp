@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{5A8BD31D-5E4E-4891-9351-DD3119CB6BC9}</ProjectGuid>
     <OutputType>WinExe</OutputType>
@@ -502,6 +502,24 @@
       <SubType>Designer</SubType>
       <DependentUpon>WizM3Z2StepWelcome.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\Wizards\SplitJoinDataWizard\SJWizNewDataName.resx">
+      <DependentUpon>SJWizNewDataName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\Wizards\SplitJoinDataWizard\SJWizPreviewChange.resx">
+      <DependentUpon>SJWizPreviewChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\Wizards\SplitJoinDataWizard\SJWizSelectOperation.resx">
+      <DependentUpon>SJWizSelectOperation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\Wizards\SplitJoinDataWizard\SJWizWelcomeStep.resx">
+      <DependentUpon>SJWizWelcomeStep.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\Wizards\SplitJoinDataWizard\SplitJoinWizardForm.resx">
+      <DependentUpon>SplitJoinWizardForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\Wizards\SplitJoinDataWizard\SJWizSelectDataStep.resx">
+      <DependentUpon>SJWizSelectDataStep.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SmartConfig\Ihm\Wizards\TCPModbusWizard\WizardTcpModbusForm.resx">
       <DependentUpon>WizardTcpModbusForm.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -591,6 +609,42 @@
     <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\ProjectWizardDefines.cs" />
     <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\SLBlocConfig.cs" />
     <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\Millenium\SLM3ProjectCreator.cs" />
+    <Compile Include="SmartConfig\Ihm\Wizards\SplitJoinDataWizard\SJWizNewDataName.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Wizards\SplitJoinDataWizard\SJWizNewDataName.Designer.cs">
+      <DependentUpon>SJWizNewDataName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Wizards\SplitJoinDataWizard\SJWizPreviewChange.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Wizards\SplitJoinDataWizard\SJWizPreviewChange.Designer.cs">
+      <DependentUpon>SJWizPreviewChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Wizards\SplitJoinDataWizard\SJWizSelectOperation.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Wizards\SplitJoinDataWizard\SJWizSelectOperation.Designer.cs">
+      <DependentUpon>SJWizSelectOperation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Wizards\SplitJoinDataWizard\SJWizWelcomeStep.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Wizards\SplitJoinDataWizard\SJWizWelcomeStep.Designer.cs">
+      <DependentUpon>SJWizWelcomeStep.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Wizards\SplitJoinDataWizard\SplitJoinWizardForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Wizards\SplitJoinDataWizard\SplitJoinWizardForm.Designer.cs">
+      <DependentUpon>SplitJoinWizardForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Wizards\SplitJoinDataWizard\SJWizSelectDataStep.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\Wizards\SplitJoinDataWizard\SJWizSelectDataStep.Designer.cs">
+      <DependentUpon>SJWizSelectDataStep.cs</DependentUpon>
+    </Compile>
     <Compile Include="SmartConfig\Ihm\Wizards\TCPModbusWizard\WizardTcpModbusForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1111,7 +1165,13 @@
     <Content Include="Res\WizRes\EthType_Split2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Res\WizRes\EthType_Split2O.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Res\WizRes\EthType_Split4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Res\WizRes\EthType_Split4O.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Res\WizRes\M3Eth_wiz.png">
@@ -1156,7 +1216,13 @@
     <Content Include="Res\WizRes\SLType_Split2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Res\WizRes\SLType_Split2O.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Res\WizRes\SLType_Split4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Res\WizRes\SLType_Split4O.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Res\WizRes\Z2SL_wiz.png">

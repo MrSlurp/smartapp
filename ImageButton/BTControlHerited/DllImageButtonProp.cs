@@ -17,6 +17,8 @@ namespace ImageButton
         private bool m_bIsBistable;
         private FlatStyle m_Style = FlatStyle.Standard;
         private int m_BorderSize = 1;
+        private bool m_bImgFromInput = false;
+        private string m_strInputData = string.Empty;
 
         private const string NOM_ATTRIB_REL = "RelImage";
         private const string NOM_ATTRIB_PRE = "PreImage";
@@ -24,6 +26,7 @@ namespace ImageButton
         private const string NOM_NOEUD_PROP = "ImageButtonProp";
         private const string NOM_ATTRIB_STYLE = "Style";
         private const string NOM_ATTRIB_BORDER_SIZE = "BorderSize";
+        private const string NOM_ATTRIB_INTPUT_DATA = "InputData";
 
         // ajouter ici les accesseur vers les données membres des propriété
         public string ReleasedImage
@@ -68,6 +71,17 @@ namespace ImageButton
             set { m_BorderSize = value; }
         }
 
+        public bool ImgFromInput
+        {
+            get { return !string.IsNullOrEmpty(m_strInputData); }
+        }
+
+        public string InputData
+        {
+            get { return m_strInputData; }
+            set { m_strInputData = value; }
+        }
+
         /// <summary>
         /// Lecture des paramètres depuis le fichier XML
         /// </summary>
@@ -86,6 +100,7 @@ namespace ImageButton
                         XmlNode AttrBistable = Node.ChildNodes[i].Attributes.GetNamedItem(NOM_ATTRIB_BISTABLE);
                         XmlNode AttrStyle = Node.ChildNodes[i].Attributes.GetNamedItem(NOM_ATTRIB_STYLE);
                         XmlNode AttrBorder= Node.ChildNodes[i].Attributes.GetNamedItem(NOM_ATTRIB_BORDER_SIZE);
+                        XmlNode AttrInputData = Node.ChildNodes[i].Attributes.GetNamedItem(NOM_ATTRIB_INTPUT_DATA);
 
                         if (AttrRel == null
                             || AttrPre == null)
@@ -100,6 +115,9 @@ namespace ImageButton
 
                         if (AttrBorder != null)
                             m_BorderSize = int.Parse(AttrBorder.Value);
+
+                        if (AttrInputData != null)
+                            m_strInputData = AttrInputData.Value;
                     }
                 }
             }
@@ -120,16 +138,19 @@ namespace ImageButton
             XmlAttribute Attrbistable = XmlDoc.CreateAttribute(NOM_ATTRIB_BISTABLE);
             XmlAttribute AttrStyle = XmlDoc.CreateAttribute(NOM_ATTRIB_STYLE);
             XmlAttribute AttrBorderSize = XmlDoc.CreateAttribute(NOM_ATTRIB_BORDER_SIZE);
+            XmlAttribute AttrInputData = XmlDoc.CreateAttribute(NOM_ATTRIB_INTPUT_DATA);
             AttrRel.Value = PathTranslator.AbsolutePathToRelative(ReleasedImage);
             AttrPre.Value = PathTranslator.AbsolutePathToRelative(PressedImage);
             Attrbistable.Value = m_bIsBistable.ToString();
             AttrStyle.Value = m_Style.ToString();
             AttrBorderSize.Value = m_BorderSize.ToString();
+            AttrInputData.Value = m_strInputData;
             ItemProp.Attributes.Append(AttrRel);
             ItemProp.Attributes.Append(AttrPre);
             ItemProp.Attributes.Append(Attrbistable);
             ItemProp.Attributes.Append(AttrStyle);
             ItemProp.Attributes.Append(AttrBorderSize);
+            ItemProp.Attributes.Append(AttrInputData);
             Node.AppendChild(ItemProp);
             return true;
         }
@@ -188,45 +209,36 @@ namespace ImageButton
                 switch (Mess)
                 {
                     case MESSAGE.MESS_ASK_ITEM_DELETE:
-                        // exemple de traitement de la demande de supression d'une donnée
-                        // m_strDataOffToOn est le symbol d'une donnée
-                        /*
                         if (((MessAskDelete)obj).TypeOfItem == typeof(Data))
                         {
-                            if (MessParam.WantDeletetItemSymbol == m_strDataOffToOn)
+                            MessAskDelete MessParam = (MessAskDelete)obj;
+                            string strMess = string.Empty;
+                            if (MessParam.WantDeletetItemSymbol == m_strInputData)
                             {
-                                strMess = string.Format("Data Trigger {0} : Data \"Off to On\" will be removed", PropOwner.Symbol);
+                                strMess = string.Format(DllEntryClass.LangSys.C("Image Button {0} : Input Data will be removed"), PropOwner.Symbol);
                                 MessParam.ListStrReturns.Add(strMess);
                             }
                         }
-                         * */
                         break;
                     case MESSAGE.MESS_ITEM_DELETED:
-                        // exemple de traitement de la supression d'une donnée
-                        // m_strDataOffToOn est le symbol d'une donnée
-                        /*
                         if (((MessDeleted)obj).TypeOfItem == typeof(Data))
                         {
                             MessDeleted MessParam = (MessDeleted)obj;
-                            if (MessParam.DeletetedItemSymbol == m_strDataOffToOn)
+                            if (MessParam.DeletetedItemSymbol == m_strInputData)
                             {
-                                m_strDataOffToOn = string.Empty;
+                                m_strInputData = string.Empty;
                             }
                         }
-                         * */
                         break;
                     case MESSAGE.MESS_ITEM_RENAMED:
-                        // exemple de traitement du renommage d'une donnée
-                        // m_strDataOffToOn est le symbol d'une donnée
-                        /*
                         if (((MessItemRenamed)obj).TypeOfItem == typeof(Data))
                         {
                             MessItemRenamed MessParam = (MessItemRenamed)obj;
-                            if (MessParam.OldItemSymbol == m_strDataOffToOn)
+                            if (MessParam.OldItemSymbol == m_strInputData)
                             {
-                                m_strDataOffToOn = MessParam.NewItemSymbol;
+                                m_strInputData = MessParam.NewItemSymbol;
                             }
-                        }*/
+                        }
                         break;
                     default:
                         break;

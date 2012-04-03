@@ -99,8 +99,10 @@ namespace SmartApp.Ihm.Wizards
             this.Controls.Add(m_UCStepConfigOUTSplit);
             m_UCStepConfigOUTSplit.TypeSplitImage1 = WizCfgData.TabOutSplitImage.Length > 0 ? WizCfgData.TabOutSplitImage[0] : null;
             m_UCStepConfigOUTSplit.TypeSplitLabel1 = Program.LangSys.C("Split to 16");
-            m_UCStepConfigOUTSplit.TypeSplitLabel2 = string.Empty;
-            m_UCStepConfigOUTSplit.TypeSplitLabel3 = string.Empty;
+            m_UCStepConfigOUTSplit.TypeSplitImage2 = WizCfgData.TabOutSplitImage.Length > 1 ? WizCfgData.TabOutSplitImage[1] : null;
+            m_UCStepConfigOUTSplit.TypeSplitLabel2 = Program.LangSys.C("Split to 4");
+            m_UCStepConfigOUTSplit.TypeSplitImage3 = WizCfgData.TabOutSplitImage.Length > 2 ? WizCfgData.TabOutSplitImage[2] : null;
+            m_UCStepConfigOUTSplit.TypeSplitLabel3 = Program.LangSys.C("Split to 2");
 
             m_listWizPanel.Add(m_UCStepConfigInName);
             this.Controls.Add(m_UCStepConfigInName);

@@ -63,6 +63,7 @@ namespace ImageButton
                     DllImageButtonProp SpecProp = (DllImageButtonProp)m_Control.SpecificProp;
                     m_txtBoxImg1.Text = SpecProp.ReleasedImage;
                     m_txtBoxImg2.Text = SpecProp.PressedImage;
+                    edtInputData.Text = SpecProp.InputData;
                     chkBistable.Checked = SpecProp.IsBistable;
                     if (SpecProp.Style == FlatStyle.Flat && SpecProp.BorderSize == 1)
                         cboStyle.SelectedValue = 1;
@@ -79,6 +80,7 @@ namespace ImageButton
                     m_txtBoxImg2.Text = "";
                     chkBistable.Checked = false;
                     cboStyle.SelectedValue = 0;
+                    edtInputData.Text = string.Empty;
                 }
             }
         }
@@ -110,7 +112,17 @@ namespace ImageButton
                 if (this.BTControl == null)
                     return true;
 
-                return true;
+                bool bRet = true;
+                Data dt = null;
+                if (!string.IsNullOrEmpty(this.edtInputData.Text))
+                {
+                    dt = (Data)this.Doc.GestData.GetFromSymbol(this.edtInputData.Text);
+                    if (dt == null)
+                    {
+                        bRet = false;
+                    }
+                }
+                return bRet;
             }
         }
 
@@ -120,6 +132,29 @@ namespace ImageButton
         /// <returns>true si les propriété sont valides, sinon false</returns>
         public bool ValidateValues()
         {
+
+            if (this.BTControl == null)
+                return true;
+
+            bool bRet = true;
+            string strMessage = "";
+
+            if (!string.IsNullOrEmpty(this.edtInputData.Text))
+            {
+                Data dt = null;
+                dt = (Data)this.Doc.GestData.GetFromSymbol(this.edtInputData.Text);
+                if (dt == null)
+                {
+                    bRet = false;
+                    strMessage = string.Format(DllEntryClass.LangSys.C("Associate Input data {0} is not valid"), this.edtInputData.Text);
+                }
+            }
+            if (!bRet)
+            {
+                MessageBox.Show(strMessage, DllEntryClass.LangSys.C("Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return bRet;
+            }
+
             bool bDataPropChange = false;
             DllImageButtonProp SpecProps = (DllImageButtonProp)m_Control.SpecificProp;
             if (m_txtBoxImg1.Text != SpecProps.ReleasedImage)
@@ -129,6 +164,9 @@ namespace ImageButton
                 bDataPropChange = true;
 
             if (chkBistable.Checked != SpecProps.IsBistable)
+                bDataPropChange = true;
+
+            if (this.edtInputData.Text != SpecProps.InputData)
                 bDataPropChange = true;
 
             int curStyle = (int)cboStyle.SelectedValue;
@@ -160,6 +198,7 @@ namespace ImageButton
                 ((DllImageButtonProp)m_Control.SpecificProp).IsBistable = chkBistable.Checked;
                 ((DllImageButtonProp)m_Control.SpecificProp).Style = finalStyle;
                 ((DllImageButtonProp)m_Control.SpecificProp).BorderSize = finalBorderSize;
+                ((DllImageButtonProp)m_Control.SpecificProp).InputData = this.edtInputData.Text;
                 Doc.Modified = true;
                 m_Control.IControl.Refresh();
             }
@@ -169,6 +208,12 @@ namespace ImageButton
         }
         #endregion
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <param name="bf"></param>
         private void m_btnImg1_Click(object sender, EventArgs e, BrowseFileBtn.BrowseFrom bf)
         {
             DialogResult dlgRes = CentralizedFileDlg.ShowImageFileDilaog(bf);
@@ -180,6 +225,12 @@ namespace ImageButton
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <param name="bf"></param>
         private void m_btnImg2_Click(object sender, EventArgs e, BrowseFileBtn.BrowseFrom bf)
         {
             DialogResult dlgRes = CentralizedFileDlg.ShowImageFileDilaog(bf);
@@ -190,5 +241,22 @@ namespace ImageButton
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnPickInput_Click(object sender, EventArgs e)
+        {
+            PickDataForm PickData = new PickDataForm();
+            PickData.Document = this.Doc;
+            if (PickData.ShowDialog() == DialogResult.OK)
+            {
+                if (PickData.SelectedData != null)
+                    edtInputData.Text = PickData.SelectedData.Symbol;
+                else
+                    edtInputData.Text = string.Empty;
+            }
+        }
     }
 }

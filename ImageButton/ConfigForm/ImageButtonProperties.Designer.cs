@@ -37,12 +37,15 @@
             this.chkBistable = new System.Windows.Forms.CheckBox();
             this.cboStyle = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.btnPickInput = new System.Windows.Forms.Button();
+            this.edtInputData = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(1, 45);
+            this.label2.Location = new System.Drawing.Point(4, 45);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(76, 13);
             this.label2.TabIndex = 6;
@@ -50,7 +53,8 @@
             // 
             // m_btnImg2
             // 
-            this.m_btnImg2.Location = new System.Drawing.Point(173, 61);
+            this.m_btnImg2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_btnImg2.Location = new System.Drawing.Point(224, 61);
             this.m_btnImg2.Name = "m_btnImg2";
             this.m_btnImg2.Size = new System.Drawing.Size(34, 20);
             this.m_btnImg2.TabIndex = 4;
@@ -60,7 +64,8 @@
             // 
             // m_btnImg1
             // 
-            this.m_btnImg1.Location = new System.Drawing.Point(173, 20);
+            this.m_btnImg1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_btnImg1.Location = new System.Drawing.Point(224, 20);
             this.m_btnImg1.Name = "m_btnImg1";
             this.m_btnImg1.Size = new System.Drawing.Size(34, 20);
             this.m_btnImg1.TabIndex = 3;
@@ -70,24 +75,28 @@
             // 
             // m_txtBoxImg2
             // 
-            this.m_txtBoxImg2.Location = new System.Drawing.Point(4, 61);
+            this.m_txtBoxImg2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_txtBoxImg2.Location = new System.Drawing.Point(10, 61);
             this.m_txtBoxImg2.Name = "m_txtBoxImg2";
             this.m_txtBoxImg2.ReadOnly = true;
-            this.m_txtBoxImg2.Size = new System.Drawing.Size(163, 20);
+            this.m_txtBoxImg2.Size = new System.Drawing.Size(208, 20);
             this.m_txtBoxImg2.TabIndex = 7;
             // 
             // m_txtBoxImg1
             // 
-            this.m_txtBoxImg1.Location = new System.Drawing.Point(4, 20);
+            this.m_txtBoxImg1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_txtBoxImg1.Location = new System.Drawing.Point(10, 20);
             this.m_txtBoxImg1.Name = "m_txtBoxImg1";
             this.m_txtBoxImg1.ReadOnly = true;
-            this.m_txtBoxImg1.Size = new System.Drawing.Size(163, 20);
+            this.m_txtBoxImg1.Size = new System.Drawing.Size(208, 20);
             this.m_txtBoxImg1.TabIndex = 8;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(1, 4);
+            this.label1.Location = new System.Drawing.Point(4, 4);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(83, 13);
             this.label1.TabIndex = 5;
@@ -121,10 +130,43 @@
             this.label3.TabIndex = 11;
             this.label3.Text = "Appearence";
             // 
+            // btnPickInput
+            // 
+            this.btnPickInput.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPickInput.Location = new System.Drawing.Point(202, 180);
+            this.btnPickInput.Name = "btnPickInput";
+            this.btnPickInput.Size = new System.Drawing.Size(58, 23);
+            this.btnPickInput.TabIndex = 13;
+            this.btnPickInput.Text = "Pick";
+            this.btnPickInput.UseVisualStyleBackColor = true;
+            this.btnPickInput.Click += new System.EventHandler(this.btnPickInput_Click);
+            // 
+            // edtInputData
+            // 
+            this.edtInputData.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.edtInputData.Location = new System.Drawing.Point(4, 182);
+            this.edtInputData.Name = "edtInputData";
+            this.edtInputData.ReadOnly = true;
+            this.edtInputData.Size = new System.Drawing.Size(192, 20);
+            this.edtInputData.TabIndex = 12;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(7, 162);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(157, 13);
+            this.label4.TabIndex = 14;
+            this.label4.Text = "Input state data (not mandatory)";
+            // 
             // ImageButtonProperties
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.btnPickInput);
+            this.Controls.Add(this.edtInputData);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.cboStyle);
             this.Controls.Add(this.chkBistable);
@@ -135,7 +177,7 @@
             this.Controls.Add(this.m_txtBoxImg1);
             this.Controls.Add(this.label1);
             this.Name = "ImageButtonProperties";
-            this.Size = new System.Drawing.Size(208, 155);
+            this.Size = new System.Drawing.Size(263, 210);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -152,6 +194,9 @@
         private System.Windows.Forms.CheckBox chkBistable;
         private System.Windows.Forms.ComboBox cboStyle;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btnPickInput;
+        private System.Windows.Forms.TextBox edtInputData;
+        private System.Windows.Forms.Label label4;
 
 
     }

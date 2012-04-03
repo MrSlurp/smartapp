@@ -38,6 +38,10 @@ namespace CommonLib
         // message envoyé avant la commande RUN pour demander aux objet scriptables de 
         // pré parser leur script
         MESS_PRE_PARSE,
+
+        MESS_SPLIT,
+
+        MESS_JOIN,
     }
 
     //*****************************************************************************************************
@@ -49,6 +53,7 @@ namespace CommonLib
         public Type TypeOfItem;
 
     }
+
     //*****************************************************************************************************
     // Description: message envoyé lorsque l'utilisateur supprime un objet
     // Return: /
@@ -90,6 +95,26 @@ namespace CommonLib
     {
         public string OldItemSymbol;
         public string NewItemSymbol;
+    }
+
+    //*****************************************************************************************************
+    // Description: message envoyé lorsqu'un objet change de nom
+    // Return: /
+    //*****************************************************************************************************
+    public class MessDataSplited : BaseMessage
+    {
+        public string DataSplittedSymbol;
+        public StringCollection NewReplacingDatas;
+    }
+
+    //*****************************************************************************************************
+    // Description: message envoyé lorsqu'un objet change de nom
+    // Return: /
+    //*****************************************************************************************************
+    public class MessDataJoined : BaseMessage
+    {
+        public StringCollection DataJoinedSymbols;
+        public string NewReplacingData;
     }
 
     //*****************************************************************************************************

@@ -34,9 +34,11 @@ namespace SmartApp.Ihm.Wizards
             m_ListCboChoicesIN[2] = new CComboData(Program.LangSys.C("Split to 2"), IOSplitFormat.SplitBy2);
             m_ListCboChoicesIN[3] = new CComboData(Program.LangSys.C("Split to 4"), IOSplitFormat.SplitBy4);
 
-            m_ListCboChoicesOUT = new CComboData[2];
+            m_ListCboChoicesOUT = new CComboData[4];
             m_ListCboChoicesOUT[0] = new CComboData(Program.LangSys.C("None"), IOSplitFormat.SplitNone);
             m_ListCboChoicesOUT[1] = new CComboData(Program.LangSys.C("Split to 16"), IOSplitFormat.SplitBy16);
+            m_ListCboChoicesOUT[2] = new CComboData(Program.LangSys.C("Split to 2"), IOSplitFormat.SplitBy2);
+            m_ListCboChoicesOUT[3] = new CComboData(Program.LangSys.C("Split to 4"), IOSplitFormat.SplitBy4);
         }
 
         protected override void OnVisibleChanged(EventArgs e)

@@ -63,11 +63,15 @@ namespace CommonLib
         public static Bitmap TypeSplit4_SL_IN;
         public static Bitmap TypeSplit2_SL_IN;
         public static Bitmap TypeSplit16_SL_OUT;
+        public static Bitmap TypeSplit4_SL_OUT;
+        public static Bitmap TypeSplit2_SL_OUT;
 
         public static Bitmap TypeSplit16_ETH_IN;
         public static Bitmap TypeSplit4_ETH_IN;
         public static Bitmap TypeSplit2_ETH_IN;
         public static Bitmap TypeSplit16_ETH_OUT;
+        public static Bitmap TypeSplit4_ETH_OUT;
+        public static Bitmap TypeSplit2_ETH_OUT;
 		
 		public static Bitmap move;
 		
@@ -123,11 +127,15 @@ namespace CommonLib
             TypeSplit4_SL_IN = NewBmpTrPath(strAppDir + "\\Res\\WizRes\\SLType_Split4.png");
             TypeSplit2_SL_IN = NewBmpTrPath(strAppDir + "\\Res\\WizRes\\SLType_Split2.png");
             TypeSplit16_SL_OUT = NewBmpTrPath(strAppDir + "\\Res\\WizRes\\SLType_Split16O.png");
+            TypeSplit4_SL_OUT = NewBmpTrPath(strAppDir + "\\Res\\WizRes\\SLType_Split4O.png");
+            TypeSplit2_SL_OUT = NewBmpTrPath(strAppDir + "\\Res\\WizRes\\SLType_Split2O.png");
 
             TypeSplit16_ETH_IN = NewBmpTrPath(strAppDir + "\\Res\\WizRes\\EthType_Split16.png");
             TypeSplit4_ETH_IN = NewBmpTrPath(strAppDir + "\\Res\\WizRes\\EthType_Split4.png");
             TypeSplit2_ETH_IN = NewBmpTrPath(strAppDir + "\\Res\\WizRes\\EthType_Split2.png");
             TypeSplit16_ETH_OUT = NewBmpTrPath(strAppDir + "\\Res\\WizRes\\EthType_Split16O.png");
+            TypeSplit4_ETH_OUT = NewBmpTrPath(strAppDir + "\\Res\\WizRes\\EthType_Split4O.png");
+            TypeSplit2_ETH_OUT = NewBmpTrPath(strAppDir + "\\Res\\WizRes\\EthType_Split2O.png");
         }
 
         public static Bitmap NewBmpTrPath(string path)
