@@ -17,7 +17,6 @@ namespace ImageButton
         private bool m_bIsBistable;
         private FlatStyle m_Style = FlatStyle.Standard;
         private int m_BorderSize = 1;
-        private bool m_bImgFromInput = false;
         private string m_strInputData = string.Empty;
 
         private const string NOM_ATTRIB_REL = "RelImage";
@@ -187,6 +186,7 @@ namespace ImageButton
                 m_bIsBistable = SrcProp.m_bIsBistable;
                 m_Style = SrcProp.m_Style;
                 m_BorderSize = SrcProp.m_BorderSize;
+                m_strInputData = SrcProp.m_strInputData;
             }
         }
 
