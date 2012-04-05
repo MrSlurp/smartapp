@@ -88,6 +88,7 @@ namespace CommonLib
             {
                 // lors du RUN on démarre le thread de traitement de la pile des scripts
                 case MESSAGE.MESS_CMD_RUN:
+                    m_bStopRequested = false;
                     if (m_ExecutionThread != null && m_ExecutionThread.IsAlive)
                     {
                         if (Traces.IsDebugAndCatOK(TraceCat.Executer))

@@ -286,7 +286,7 @@ namespace ImageButton
             {
                 m_AssocInputData = (Data)Doc.GestData.GetFromSymbol(prop.InputData);
                 if (m_AssocInputData != null)
-                    m_AssocInputData.DataValueChanged += new EventDataValueChange(UpdateFromData);
+                    m_AssocInputData.DataValueChanged += new EventDataValueChange(UpdateFromDataDelegate);
 
             }
             return bret;
