@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Bigot Pascal")]
 [assembly: AssemblyProduct("ImageButton")]
-[assembly: AssemblyCopyright("Copyright © Bigot Pascal 2008-2010")]
+[assembly: AssemblyCopyright("Copyright © Bigot Pascal 2008-2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

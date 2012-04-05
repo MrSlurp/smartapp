@@ -18,6 +18,7 @@ namespace CommonLib
 {
     public delegate void NeedRefreshHMI(MessNeedUpdate Mess);
     public delegate void DocumentModifiedEvent();
+    public delegate void RunStateChangeEvent();
     /// <summary>
     /// 
     /// </summary>
@@ -58,6 +59,7 @@ namespace CommonLib
         public event NeedRefreshHMI UpdateDocumentFrame;
         public event DocumentModifiedEvent OnDocumentModified;
         public event CommOpenedStateChange OnCommStateChange;
+        public event RunStateChangeEvent OnRunStateChange;
         public event AddLogEventDelegate EventAddLogEvent;
         #endregion
 
@@ -86,7 +88,20 @@ namespace CommonLib
             }
         }
 #endif
-
+        private bool RunningState
+        {
+            get
+            {
+                return m_bModeRun;
+            }
+            set
+            {
+                bool prevValue = m_bModeRun;
+                m_bModeRun = value;
+                if (value != prevValue && OnRunStateChange != null)
+                    OnRunStateChange();
+            }
+        }
         /// <summary>
         /// accesseur du type d'application dans lequel le document est chargé
         /// </summary>
@@ -312,6 +327,11 @@ namespace CommonLib
                 case MESSAGE.MESS_ITEM_RENAMED:
                 case MESSAGE.MESS_CMD_RUN:
                 case MESSAGE.MESS_CMD_STOP:
+                    if (MESSAGE.MESS_CMD_RUN == Mess)
+                    {
+                        TraiteMessage(MESSAGE.MESS_PRE_PARSE, null, TypeApp);
+                        RunningState = true;
+                    }
                     m_Executer.TraiteMessage(Mess, Param, TypeApp);
                     GestData.TraiteMessage(Mess, Param, TypeApp);
                     GestDataVirtual.TraiteMessage(Mess, Param, TypeApp);
@@ -321,10 +341,8 @@ namespace CommonLib
                     GestLogger.TraiteMessage(Mess, Param, TypeApp);
                     GestFunction.TraiteMessage(Mess, Param, TypeApp);
 
-                    if (MESSAGE.MESS_CMD_RUN == Mess)
-                        m_bModeRun = true;
                     if (MESSAGE.MESS_CMD_STOP == Mess)
-                        m_bModeRun = false;
+                        RunningState = false;
                     if (UpdateDocumentFrame != null
                         && (Mess == MESSAGE.MESS_ITEM_DELETED || Mess == MESSAGE.MESS_ITEM_RENAMED)
                         )

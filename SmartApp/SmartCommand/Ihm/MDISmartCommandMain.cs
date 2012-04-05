@@ -106,7 +106,7 @@ namespace SmartApp
             }
             UpdateStartStopButtonState();
             UpdateToolBarCxnItemState();
-            AsyncUpdater();
+            AsyncComStateUpdater();
             InitCboComms();
             CentralizedFileDlg.InitPrjFileDialog(Application.StartupPath);
             
@@ -141,21 +141,41 @@ namespace SmartApp
             {
                 if (this.InvokeRequired)
                 {
-                    CommOpenedStateChange AsyncCall = new CommOpenedStateChange(AsyncUpdater);
+                    CommOpenedStateChange AsyncCall = new CommOpenedStateChange(AsyncComStateUpdater);
                     this.Invoke(AsyncCall);
                 }
                 else
                 {
-                    AsyncUpdater();
+                    AsyncComStateUpdater();
                 }
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        void OnRunStateChange()
+        {
+            if (m_Document != null)
+            {
+                if (this.InvokeRequired)
+                {
+                    CommOpenedStateChange AsyncCall = new CommOpenedStateChange(UpdateStartStopButtonState);
+                    this.Invoke(AsyncCall);
+                }
+                else
+                {
+                    UpdateStartStopButtonState();
+                }
+            }
+        }
+
 
         //*****************************************************************************************************
         // Description:
         // Return: /
         //*****************************************************************************************************      
-        protected void AsyncUpdater()
+        protected void AsyncComStateUpdater()
         {
             if (m_Document != null && m_Document.m_Comm != null)
             {
@@ -260,6 +280,7 @@ namespace SmartApp
             m_Document = new BTDoc(Program.TypeApp);
             m_Document.OnCommStateChange += new CommOpenedStateChange(OnCommStateChange);
             m_Document.EventAddLogEvent += new AddLogEventDelegate(AddLogEvent);
+            m_Document.OnRunStateChange += new RunStateChangeEvent(OnRunStateChange);
 #if LINUX
             int lastindex = strFullFileName.LastIndexOf(@"/");
 #else
@@ -361,7 +382,7 @@ namespace SmartApp
                 TraiteCommStateVirtualDataForm();
             }
             m_Document = null;
-            AsyncUpdater();
+            AsyncComStateUpdater();
 
             for (int i = 0; i < this.MdiChildren.Length; i++)
             {
@@ -468,32 +489,15 @@ namespace SmartApp
             {
                 if (m_tsBtnStartStop.Checked == false)
                 {
-                    for (int i = 0; i < m_FormList.Count; i++)
-                    {
-                        m_FormList[i].DynamicPanelEnabled = true;
-                    }
-                    m_Document.TraiteMessage(MESSAGE.MESS_PRE_PARSE, null, Program.TypeApp);
                     m_Document.TraiteMessage(MESSAGE.MESS_CMD_RUN, null, Program.TypeApp);
-                    UpdateStartStopButtonState();
-                    UpdateToolBarCxnItemState();
                 }
                 else
                 {
-                    for (int i = 0; i < m_FormList.Count; i++)
-                    {
-                        m_FormList[i].DynamicPanelEnabled = false;
-                    }
                     m_Document.TraiteMessage(MESSAGE.MESS_CMD_STOP, null, Program.TypeApp);
-                    UpdateToolBarCxnItemState();
-                    UpdateStartStopButtonState();
                 }
             }
             else
             {
-                for (int i = 0; i < m_FormList.Count; i++)
-                {
-                    m_FormList[i].DynamicPanelEnabled = false;
-                }
                 UpdateStartStopButtonState();
                 UpdateToolBarCxnItemState();
             }
@@ -518,11 +522,20 @@ namespace SmartApp
                 {
                     m_tsBtnStartStop.Text = Program.LangSys.C("Running");
                     m_tsBtnStartStop.Image = Resources.CxnOn;
+                    for (int i = 0; i < m_FormList.Count; i++)
+                    {
+                        m_FormList[i].DynamicPanelEnabled = true;
+                    }
+
                 }
                 else
                 {
                     m_tsBtnStartStop.Text = Program.LangSys.C("Stoppped");
                     m_tsBtnStartStop.Image = Resources.CxnOff;
+                    for (int i = 0; i < m_FormList.Count; i++)
+                    {
+                        m_FormList[i].DynamicPanelEnabled = false;
+                    }
                 }
             }
             else
