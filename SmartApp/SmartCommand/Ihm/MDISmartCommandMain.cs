@@ -96,8 +96,6 @@ namespace SmartApp
             this.Text = APP_TITLE;
             this.Icon = CommonLib.Resources.AppIcon;
             m_EventLog.MdiParent = this;
-            m_tsBtnStartStop.Enabled = false;
-            m_tsBtnConnexion.Enabled = false;
             string strAppDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName);
             string strIniFilePath = PathTranslator.LinuxVsWindowsPathUse(strAppDir + @"\" + Cste.STR_FORMPOSINI_FILENAME);
             m_mruStripMenu = new MruStripMenuInline(this.fileMenu, this.m_MruFiles, new MruStripMenu.ClickedHandler(OnMruFile), strIniFilePath);
@@ -106,6 +104,7 @@ namespace SmartApp
                 m_tsMenuLogConfig.Visible = true;
                 m_tsMenuOpenDebugConsole.Visible = true;
             }
+            UpdateStartStopButtonState();
             UpdateToolBarCxnItemState();
             AsyncUpdater();
             InitCboComms();
@@ -165,7 +164,7 @@ namespace SmartApp
                     m_tsBtnConnexion.Checked = true;
                     m_tsBtnConnexion.Text = Program.LangSys.C("Connected");
                     m_tsBtnConnexion.Image = Resources.CxnOn;
-                    m_tsBtnStartStop.Enabled = true;
+                    UpdateStartStopButtonState();
                     UpdateToolBarCxnItemState();
                 }
                 else
@@ -173,14 +172,7 @@ namespace SmartApp
                     m_tsBtnConnexion.Checked = false;
                     m_tsBtnConnexion.Text = Program.LangSys.C("Disconnected");
                     m_tsBtnConnexion.Image = Resources.CxnOff;
-                    m_tsBtnStartStop.Enabled = false;
                     m_Document.TraiteMessage(MESSAGE.MESS_CMD_STOP, null, Program.TypeApp);
-                    for (int i = 0; i < m_FormList.Count; i++)
-                    {
-                        //m_FormList[i].DynamicPanelEnabled = false;
-                    }
-
-                    m_tsBtnStartStop.Checked = false;
                     UpdateStartStopButtonState();
                     UpdateToolBarCxnItemState();
                 }
@@ -190,7 +182,6 @@ namespace SmartApp
                 m_tsBtnConnexion.Checked = false;
                 m_tsBtnConnexion.Text = Program.LangSys.C("Disconnected");
                 m_tsBtnConnexion.Image = Resources.CxnOff;
-                m_tsBtnStartStop.Enabled = false;
                 UpdateStartStopButtonState();
             }
         }
@@ -379,8 +370,6 @@ namespace SmartApp
             m_EventLog.Hide();
             m_tsBtnConnexion.Checked = false;
             m_tsBtnConnexion.Enabled = false;
-            m_tsBtnStartStop.Enabled = false;
-            m_tsBtnStartStop.Checked = false;
             UpdateToolBarCxnItemState();
             UpdateStartStopButtonState();
             for (int i = 0;  i < m_FormList.Count; i++)
@@ -483,10 +472,9 @@ namespace SmartApp
                     {
                         m_FormList[i].DynamicPanelEnabled = true;
                     }
-                    m_tsBtnStartStop.Checked = true;
-                    UpdateStartStopButtonState();
                     m_Document.TraiteMessage(MESSAGE.MESS_PRE_PARSE, null, Program.TypeApp);
                     m_Document.TraiteMessage(MESSAGE.MESS_CMD_RUN, null, Program.TypeApp);
+                    UpdateStartStopButtonState();
                     UpdateToolBarCxnItemState();
                 }
                 else
@@ -495,10 +483,9 @@ namespace SmartApp
                     {
                         m_FormList[i].DynamicPanelEnabled = false;
                     }
-                    m_tsBtnStartStop.Checked = false;
-                    UpdateStartStopButtonState();
                     m_Document.TraiteMessage(MESSAGE.MESS_CMD_STOP, null, Program.TypeApp);
                     UpdateToolBarCxnItemState();
+                    UpdateStartStopButtonState();
                 }
             }
             else
@@ -519,13 +506,29 @@ namespace SmartApp
         //*****************************************************************************************************      
         private void UpdateStartStopButtonState()
         {
-            if (m_tsBtnStartStop.Checked == true)
+            if (m_Document != null)
             {
-                m_tsBtnStartStop.Text = Program.LangSys.C("Running");
-                m_tsBtnStartStop.Image = Resources.CxnOn;
+                if (m_Document.m_Comm.IsOpen)
+                    m_tsBtnStartStop.Enabled = true;
+                else
+                    m_tsBtnStartStop.Enabled = false;
+
+                m_tsBtnStartStop.Checked = m_Document.IsRunning;
+                if (m_tsBtnStartStop.Checked == true)
+                {
+                    m_tsBtnStartStop.Text = Program.LangSys.C("Running");
+                    m_tsBtnStartStop.Image = Resources.CxnOn;
+                }
+                else
+                {
+                    m_tsBtnStartStop.Text = Program.LangSys.C("Stoppped");
+                    m_tsBtnStartStop.Image = Resources.CxnOff;
+                }
             }
             else
             {
+                m_tsBtnStartStop.Enabled = false;
+                m_tsBtnStartStop.Checked = false;
                 m_tsBtnStartStop.Text = Program.LangSys.C("Stoppped");
                 m_tsBtnStartStop.Image = Resources.CxnOff;
             }

@@ -156,6 +156,7 @@ namespace CommonLib
         public override bool CloseComm()
         {
             m_PortSerie.Close();
+            System.Threading.Thread.Sleep(50);
             if (OnCommStateChange != null)
                 OnCommStateChange();
 
@@ -223,6 +224,10 @@ namespace CommonLib
                 // on vide les buffers
                 m_PortSerie.DiscardInBuffer();
                 m_PortSerie.DiscardOutBuffer();
+                if (!m_PortSerie.IsOpen)
+                {
+                    ErrorReceived(m_PortSerie, null);
+                }
             }
             return bReturnValue;
         }
@@ -407,6 +412,10 @@ namespace CommonLib
                     m_PortSerie.DiscardInBuffer();
                     m_PortSerie.DiscardOutBuffer();
                 }
+                else
+                {
+                    ErrorReceived(m_PortSerie, null);
+                }
             }
         }
 
@@ -417,26 +426,36 @@ namespace CommonLib
         /// <param name="e">Paramètres de l'erreur</param>
         private void ErrorReceived(object sender, SerialErrorReceivedEventArgs e)
         {
-            switch (e.EventType)
+            if (e != null)
             {
-                case SerialError.RXOver:
-                    m_CommErrorCode = COMM_ERROR.ERROR_RECIEVED_DATA;
-                    break;
-                case SerialError.RXParity:
-                    m_CommErrorCode = COMM_ERROR.ERROR_PARITY;
-                    break;
-                case SerialError.TXFull:
-                    m_CommErrorCode = COMM_ERROR.ERROR_SEND_DATA;
-                    break;
-                default:
-                case SerialError.Frame:
-                case SerialError.Overrun:
-                    m_CommErrorCode = COMM_ERROR.ERROR_UNKNOWN;
-                    break;
+                switch (e.EventType)
+                {
+                    case SerialError.RXOver:
+                        m_CommErrorCode = COMM_ERROR.ERROR_RECIEVED_DATA;
+                        break;
+                    case SerialError.RXParity:
+                        m_CommErrorCode = COMM_ERROR.ERROR_PARITY;
+                        break;
+                    case SerialError.TXFull:
+                        m_CommErrorCode = COMM_ERROR.ERROR_SEND_DATA;
+                        break;
+                    default:
+                    case SerialError.Frame:
+                    case SerialError.Overrun:
+                        m_CommErrorCode = COMM_ERROR.ERROR_UNKNOWN;
+                        break;
+                }
+            }
+            else
+            {
+                m_CommErrorCode = COMM_ERROR.ERROR_UNKNOWN;
             }
             // on vide les buffers du port
-            m_PortSerie.DiscardInBuffer();
-            m_PortSerie.DiscardOutBuffer();
+            if (m_PortSerie.IsOpen)
+            {
+                m_PortSerie.DiscardInBuffer();
+                m_PortSerie.DiscardOutBuffer();
+            }
 
             if (m_PortSerie.IsOpen == false && OnCommStateChange != null)
                 OnCommStateChange();

@@ -45,6 +45,8 @@ namespace CommonLib
         private TYPE_APP m_TypeApp = TYPE_APP.NONE;
         // indique si le document a été modifié
         bool m_bModified = false;
+
+        bool m_bModeRun = false;
         #endregion
 
         #region données membres en mode SmartCommand
@@ -318,6 +320,11 @@ namespace CommonLib
                     GestTimer.TraiteMessage(Mess, Param, TypeApp);
                     GestLogger.TraiteMessage(Mess, Param, TypeApp);
                     GestFunction.TraiteMessage(Mess, Param, TypeApp);
+
+                    if (MESSAGE.MESS_CMD_RUN == Mess)
+                        m_bModeRun = true;
+                    if (MESSAGE.MESS_CMD_STOP == Mess)
+                        m_bModeRun = false;
                     if (UpdateDocumentFrame != null
                         && (Mess == MESSAGE.MESS_ITEM_DELETED || Mess == MESSAGE.MESS_ITEM_RENAMED)
                         )
@@ -629,6 +636,10 @@ namespace CommonLib
 
         #endregion
 
+        public bool IsRunning
+        {
+            get { return m_bModeRun; }
+        }
         /// <summary>
         /// ouvre la connexion du document
         /// </summary>
