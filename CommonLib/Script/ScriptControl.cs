@@ -11,9 +11,16 @@ namespace CommonLib
     public partial class ScriptControl : UserControl
     {
         IScriptable m_ScriptableItem;
-        IInitScriptable m_InitScriptableItem;
 
         private BTDoc m_Document = null;
+
+        string m_strScriptType;
+
+        public string ScriptType
+        {
+            get { return m_strScriptType; }
+            set { m_strScriptType = value; }
+        }
 
         //*****************************************************************************************************
         // Description:
@@ -53,10 +60,9 @@ namespace CommonLib
             set
             {
                 m_ScriptableItem = value;
-                m_InitScriptableItem = null;
                 if (m_ScriptableItem != null)
                 {
-                    this.ScriptLines = m_ScriptableItem.ScriptLines;
+                    this.ScriptLines = m_ScriptableItem.ItemScripts[m_strScriptType];
                     this.Enabled = true;
                     m_BtnEditScript.Enabled = true;
                 }
@@ -73,6 +79,7 @@ namespace CommonLib
         // Description:
         // Return: /
         //*****************************************************************************************************
+        /*
         public IInitScriptable InitScriptableItem
         {
             get
@@ -97,7 +104,7 @@ namespace CommonLib
                 }
 
             }
-        }
+        }*/
 
         //*****************************************************************************************************
         // Description:
@@ -147,11 +154,7 @@ namespace CommonLib
             string[] script;
             if (m_ScriptableItem != null)
             {
-                script = m_ScriptableItem.ScriptLines;
-            }
-            else if (m_InitScriptableItem != null)
-            {
-                script = m_InitScriptableItem.InitScriptLines;
+                script = m_ScriptableItem.ItemScripts[m_strScriptType];
             }
             else 
                 return;
@@ -166,11 +169,7 @@ namespace CommonLib
                 script = DlgScript.ScriptLines;
                 if (m_ScriptableItem != null)
                 {
-                    m_ScriptableItem.ScriptLines = script;
-                }
-                else if (m_InitScriptableItem != null)
-                {
-                    m_InitScriptableItem.InitScriptLines = script;
+                    m_ScriptableItem.ItemScripts[m_strScriptType] = script;
                 }
                 else
                     return;

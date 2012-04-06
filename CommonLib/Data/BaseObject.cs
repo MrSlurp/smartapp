@@ -10,29 +10,53 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Collections;
 using System.Text;
 using System.Xml;
+using System.Windows.Forms;
 using System.Diagnostics;
 
 namespace CommonLib
 {
     #region interface pour les objets utilisants du script
     // objet qui possède du script
+    public class ItemScriptsConainter
+    {
+        Hashtable m_mapScripts = new Hashtable();
+        public string[] this[string str]
+        {
+            get
+            {
+                return m_mapScripts[str] as string[];
+            }
+            set
+            {
+                if (m_mapScripts.Contains(str))
+                    m_mapScripts[str] = value;
+                else
+                    m_mapScripts.Add(str, value);
+            }
+        }
+
+        public int Count
+        {
+            get { return m_mapScripts.Count; }
+        }
+
+        public ICollection ScriptKeys
+        {
+            get { return m_mapScripts.Keys; }
+        }
+    }
+
     public interface IScriptable
     {
-        string[] ScriptLines { get; set; }
-        string Symbol {get;}
-    }
-    // objet qui possède du script a l'init
-    public interface IInitScriptable
-    {
-        string[] InitScriptLines { get; set; }
-        string Symbol {get;}
+        ItemScriptsConainter ItemScripts { get; }
     }
 
     #endregion
 
-    public abstract class BaseObject: Object
+    public abstract class BaseObject : Object
     {
         #region Déclaration des données de la classe
         // symbol de l'objet
@@ -110,6 +134,12 @@ namespace CommonLib
                 return m_iQuickScriptID;
             }
         }
+
+        public virtual Control StdConfigPanel
+        {
+            get { return null; }
+        }
+
         #endregion
 
         #region ReadIn / WriteOut
@@ -224,122 +254,126 @@ namespace CommonLib
         /// <param name="Mess">Type de message</param>
         /// <param name="Script">script à traiter</param>
         /// <param name="obj">objet contenant les paramètres du messages</param>
-        protected void ScriptTraiteMessage(BaseObject Sender, MESSAGE Mess, StringCollection Script, object obj)
+        protected void ScriptTraiteMessage(BaseObject Sender, MESSAGE Mess, ItemScriptsConainter Scripts, object obj)
         {
-            switch (Mess)
+            foreach (string ScriptType in Scripts.ScriptKeys)
             {
-                case MESSAGE.MESS_ASK_ITEM_DELETE:
-                    if (
-                           ((MessAskDelete)obj).TypeOfItem == typeof(Trame)
-                        || ((MessAskDelete)obj).TypeOfItem == typeof(Function)
-                        || ((MessAskDelete)obj).TypeOfItem == typeof(Logger)
-                        || ((MessAskDelete)obj).TypeOfItem == typeof(BTTimer)
-                        || ((MessAskDelete)obj).TypeOfItem == typeof(Data)
-                        || ((MessAskDelete)obj).TypeOfItem == typeof(BTScreen)
-                        )
-                    {
-                        MessAskDelete MessParam = (MessAskDelete)obj;
-                        for (int i = 0; i < Script.Count; i++)
-                        {
-                            string stritem = "";
-                            stritem = ScriptParser.GetLineToken(Script[i], ScriptParser.INDEX_TOKEN_SYMBOL);
 
-                            if (stritem == MessParam.WantDeletetItemSymbol 
-                                || (((MessAskDelete)obj).TypeOfItem == typeof(Data) && Script[i].Contains(MessParam.WantDeletetItemSymbol))
-                                )
+                switch (Mess)
+                {
+                    case MESSAGE.MESS_ASK_ITEM_DELETE:
+                        if (
+                               ((MessAskDelete)obj).TypeOfItem == typeof(Trame)
+                            || ((MessAskDelete)obj).TypeOfItem == typeof(Function)
+                            || ((MessAskDelete)obj).TypeOfItem == typeof(Logger)
+                            || ((MessAskDelete)obj).TypeOfItem == typeof(BTTimer)
+                            || ((MessAskDelete)obj).TypeOfItem == typeof(Data)
+                            || ((MessAskDelete)obj).TypeOfItem == typeof(BTScreen)
+                            )
+                        {
+                            MessAskDelete MessParam = (MessAskDelete)obj;
+                            for (int i = 0; i < Scripts[ScriptType].Length; i++)
                             {
-                                Type tp = Sender.GetType();
-                                string strMess = "";
-                                if (tp == typeof(BTTimer))
-                                {
-                                    strMess = string.Format(Lang.LangSys.C("Timer {0} Script: Line {1} will be removed"), Symbol, i + 1);
-                                }
-                                else if (tp == typeof(BTScreen))
-                                {
-                                    strMess = string.Format(Lang.LangSys.C("Screen {0} Script: Line {1} will be removed"), Symbol, i + 1);
-                                }
-                                else if (tp == typeof(Function))
-                                {
-                                    strMess = string.Format(Lang.LangSys.C("Function {0} Script: Line {1} will be removed"), Symbol, i + 1);
-                                }
-                                else if (tp == typeof(BTControl))
-                                {
-                                    strMess = string.Format(Lang.LangSys.C("Control {0} Script: Line {1} will be removed"), Symbol, i + 1);
-                                }
-                                else
-                                    System.Diagnostics.Debug.Assert(false);
+                                string stritem = "";
+                                stritem = ScriptParser.GetLineToken(Scripts[ScriptType][i], ScriptParser.INDEX_TOKEN_SYMBOL);
 
-                                MessParam.ListStrReturns.Add(strMess);
+                                if (stritem == MessParam.WantDeletetItemSymbol
+                                    || (((MessAskDelete)obj).TypeOfItem == typeof(Data) && Scripts[ScriptType][i].Contains(MessParam.WantDeletetItemSymbol))
+                                    )
+                                {
+                                    Type tp = Sender.GetType();
+                                    string strMess = "";
+                                    if (tp == typeof(BTTimer))
+                                    {
+                                        strMess = string.Format(Lang.LangSys.C("Timer {0} Script: Line {1} will be removed"), Symbol, i + 1);
+                                    }
+                                    else if (tp == typeof(BTScreen))
+                                    {
+                                        strMess = string.Format(Lang.LangSys.C("Screen {0} Script: Line {1} will be removed"), Symbol, i + 1);
+                                    }
+                                    else if (tp == typeof(Function))
+                                    {
+                                        strMess = string.Format(Lang.LangSys.C("Function {0} Script: Line {1} will be removed"), Symbol, i + 1);
+                                    }
+                                    else if (tp == typeof(BTControl))
+                                    {
+                                        strMess = string.Format(Lang.LangSys.C("Control {0} Script: Line {1} will be removed"), Symbol, i + 1);
+                                    }
+                                    else
+                                        System.Diagnostics.Debug.Assert(false);
+
+                                    MessParam.ListStrReturns.Add(strMess);
+                                }
                             }
                         }
-                    }
-                    break;
-                case MESSAGE.MESS_ITEM_DELETED:
-                    if (
-                           ((MessDeleted)obj).TypeOfItem == typeof(Trame)
-                        || ((MessDeleted)obj).TypeOfItem == typeof(Function)
-                        || ((MessDeleted)obj).TypeOfItem == typeof(Logger)
-                        || ((MessDeleted)obj).TypeOfItem == typeof(BTTimer)
-                        //|| ((MessDeleted)obj).TypeOfItem == typeof(Data) voir le else if
-                        || ((MessDeleted)obj).TypeOfItem == typeof(BTScreen)
-                        )
-                    {
-                        MessDeleted MessParam = (MessDeleted)obj;
-                        for (int i = Script.Count-1; i >=0 ; i--)
+                        break;
+                    case MESSAGE.MESS_ITEM_DELETED:
+                        if (
+                               ((MessDeleted)obj).TypeOfItem == typeof(Trame)
+                            || ((MessDeleted)obj).TypeOfItem == typeof(Function)
+                            || ((MessDeleted)obj).TypeOfItem == typeof(Logger)
+                            || ((MessDeleted)obj).TypeOfItem == typeof(BTTimer)
+                            //|| ((MessDeleted)obj).TypeOfItem == typeof(Data) voir le else if
+                            || ((MessDeleted)obj).TypeOfItem == typeof(BTScreen)
+                            )
                         {
-                            string stritem = ScriptParser.GetLineToken(Script[i], ScriptParser.INDEX_TOKEN_SYMBOL);
-                            if (stritem == MessParam.DeletetedItemSymbol)
+                            MessDeleted MessParam = (MessDeleted)obj;
+                            for (int i = Scripts[ScriptType].Length - 1; i >= 0; i--)
                             {
-                                Script.RemoveAt(i);
+                                string stritem = ScriptParser.GetLineToken(Scripts[ScriptType][i], ScriptParser.INDEX_TOKEN_SYMBOL);
+                                if (stritem == MessParam.DeletetedItemSymbol)
+                                {
+                                    Scripts[ScriptType][i] = string.Empty;
+                                }
                             }
                         }
-                    }
-                    else if (((MessDeleted)obj).TypeOfItem == typeof(Data))
-                    {
-                        MessDeleted MessParam = (MessDeleted)obj;
-                        for (int i = Script.Count - 1; i >= 0; i--)
+                        else if (((MessDeleted)obj).TypeOfItem == typeof(Data))
                         {
-                            if (Script[i].Contains(MessParam.DeletetedItemSymbol))
+                            MessDeleted MessParam = (MessDeleted)obj;
+                            for (int i = Scripts[ScriptType].Length - 1; i >= 0; i--)
                             {
-                                Script.RemoveAt(i);
+                                if (Scripts[ScriptType][i].Contains(MessParam.DeletetedItemSymbol))
+                                {
+                                    Scripts[ScriptType][i] = string.Empty;
+                                }
                             }
                         }
-                    }
-                    break;
-                case MESSAGE.MESS_ITEM_RENAMED:
-                    if (
-                           ((MessItemRenamed)obj).TypeOfItem == typeof(Trame)
-                        || ((MessItemRenamed)obj).TypeOfItem == typeof(Function)
-                        || ((MessItemRenamed)obj).TypeOfItem == typeof(Logger)
-                        || ((MessItemRenamed)obj).TypeOfItem == typeof(BTTimer)
-                        //|| ((MessItemRenamed)obj).TypeOfItem == typeof(Data) voir le else if 
-                        || ((MessItemRenamed)obj).TypeOfItem == typeof(BTScreen)
-                        )
-                    {
-                        MessItemRenamed MessParam = (MessItemRenamed)obj;
-                        for (int i = 0; i < Script.Count; i++)
+                        break;
+                    case MESSAGE.MESS_ITEM_RENAMED:
+                        if (
+                               ((MessItemRenamed)obj).TypeOfItem == typeof(Trame)
+                            || ((MessItemRenamed)obj).TypeOfItem == typeof(Function)
+                            || ((MessItemRenamed)obj).TypeOfItem == typeof(Logger)
+                            || ((MessItemRenamed)obj).TypeOfItem == typeof(BTTimer)
+                            //|| ((MessItemRenamed)obj).TypeOfItem == typeof(Data) voir le else if 
+                            || ((MessItemRenamed)obj).TypeOfItem == typeof(BTScreen)
+                            )
                         {
-                            string stritem = ScriptParser.GetLineToken(Script[i], ScriptParser.INDEX_TOKEN_SYMBOL);
-                            if (stritem == MessParam.OldItemSymbol)
+                            MessItemRenamed MessParam = (MessItemRenamed)obj;
+                            for (int i = 0; i < Scripts[ScriptType].Length; i++)
                             {
-                                Script[i] = Script[i].Replace(MessParam.OldItemSymbol, MessParam.NewItemSymbol);
+                                string stritem = ScriptParser.GetLineToken(Scripts[ScriptType][i], ScriptParser.INDEX_TOKEN_SYMBOL);
+                                if (stritem == MessParam.OldItemSymbol)
+                                {
+                                    Scripts[ScriptType][i] = Scripts[ScriptType][i].Replace(MessParam.OldItemSymbol, MessParam.NewItemSymbol);
+                                }
                             }
                         }
-                    }
-                    else if (((MessItemRenamed)obj).TypeOfItem == typeof(Data))
-                    {
-                        MessItemRenamed MessParam = (MessItemRenamed)obj;
-                        for (int i = 0; i < Script.Count; i++)
+                        else if (((MessItemRenamed)obj).TypeOfItem == typeof(Data))
                         {
-                            if (Script[i].Contains(MessParam.OldItemSymbol))
+                            MessItemRenamed MessParam = (MessItemRenamed)obj;
+                            for (int i = 0; i < Scripts[ScriptType].Length; i++)
                             {
-                                Script[i] = Script[i].Replace(MessParam.OldItemSymbol, MessParam.NewItemSymbol);
+                                if (Scripts[ScriptType][i].Contains(MessParam.OldItemSymbol))
+                                {
+                                    Scripts[ScriptType][i] = Scripts[ScriptType][i].Replace(MessParam.OldItemSymbol, MessParam.NewItemSymbol);
+                                }
                             }
                         }
-                    }
-                    break;
-                default:
-                    break;
+                        break;
+                    default:
+                        break;
+                }
             }
         }
         #endregion

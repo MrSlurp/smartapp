@@ -8,13 +8,20 @@ using System.Windows.Forms;
 using CommonLib;
 
 
-namespace SmartApp.Ihm
+namespace CommonLib
 {
-    public partial class ScreenPropertiesControl : UserControl
+    public partial class ScreenPropertiesPanel : UserControl, IObjectPropertyPanel
     {
         #region données membres
         private BTDoc m_Document = null;
         private BTScreen m_Screen = null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private GestScreen m_GestScreen = null;
+
+
         #endregion
 
         #region Events
@@ -26,7 +33,7 @@ namespace SmartApp.Ihm
         // Description:
         // Return: /
         //*****************************************************************************************************
-        public ScreenPropertiesControl()
+        public ScreenPropertiesPanel()
         {
             InitializeComponent();
         }
@@ -37,7 +44,7 @@ namespace SmartApp.Ihm
         // Description:
         // Return: /
         //*****************************************************************************************************
-        public BTDoc Doc
+        public BTDoc Document
         {
             get
             {
@@ -49,23 +56,29 @@ namespace SmartApp.Ihm
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        public GestScreen GestScreen
+        /// <summary>
+        /// 
+        /// </summary>
+        public BaseGest ConfiguredItemGest
         {
-            get
-            {
-                return m_Document.GestScreen;
-            }
+            get { return m_GestScreen; }
+            set { m_GestScreen = value as GestScreen; }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Control Panel
+        {
+            get { return this; }
+        }
+
 
         //*****************************************************************************************************
         // Description:
         // Return: /
         //*****************************************************************************************************
-        public BTScreen BTScreen
+        public BaseObject ConfiguredItem
         {
             get
             {
@@ -73,21 +86,15 @@ namespace SmartApp.Ihm
             }
             set
             {
-                m_Screen = value;
+                m_Screen = value as BTScreen;
                 if (m_Screen != null)
                 {
                     this.Enabled = true;
-                    this.Description = m_Screen.Description;
-                    this.Symbol = m_Screen.Symbol;
-                    this.Title = m_Screen.Title;
-                    this.BackPictureFile = m_Screen.BackPictureFile;
                 }
                 else
                 {
-                    this.Description = "";
-                    this.Symbol = "";
-                    this.Title = "";
-                    this.BackPictureFile = "";
+                    this.Title = string.Empty;
+                    this.BackPictureFile = string.Empty;
                     this.Enabled = false;
                 }
             }
@@ -95,37 +102,6 @@ namespace SmartApp.Ihm
         #endregion
 
         #region attribut d'accès aux valeurs de la page de propriété
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        public string Description
-        {
-            get
-            {
-                return m_richTextDesc.Text;
-            }
-            set
-            {
-                m_richTextDesc.Text = value;
-            }
-        }
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        public string Symbol
-        {
-            get
-            {
-                return m_textBoxSymbol.Text;
-            }
-            set
-            {
-                m_textBoxSymbol.Text = value;
-            }
-        }
 
         //*****************************************************************************************************
         // Description:
@@ -161,19 +137,14 @@ namespace SmartApp.Ihm
         // Description:
         // Return: /
         //*****************************************************************************************************
-        public bool IsDataValuesValid
+        public bool IsObjectPropertiesValid
         {
             get
             {
-                if (this.BTScreen == null)
+                if (this.ConfiguredItem == null)
                     return true;
 
-                if (string.IsNullOrEmpty(this.Symbol))
-                    return false;
                 bool bRet = true;
-                BTScreen dt = (BTScreen)this.GestScreen.GetFromSymbol(this.Symbol);
-                if (dt != null && dt != this.BTScreen)
-                    bRet = false;
 
                 return bRet;
             }
@@ -184,34 +155,27 @@ namespace SmartApp.Ihm
         // Description:
         // Return: /
         //*****************************************************************************************************
-        public bool ValidateValues()
+        public bool ValidateProperties()
         {
-            if (this.BTScreen == null)
+            if (this.ConfiguredItem == null)
                 return true;
 
             bool bRet = true;
             string strMessage = "";
-            if (string.IsNullOrEmpty(this.Symbol))
-            {
-                strMessage = "Symbol must not be empty";
-                bRet = false;
-            }
-            BTScreen Sc = (BTScreen)GestScreen.GetFromSymbol(this.Symbol);
-            if (bRet && Sc != null && Sc != this.BTScreen)
-            {
-                strMessage = string.Format("A Screen with symbol {0} already exist", Symbol);
-                bRet = false;
-            }
-            if (!bRet)
-            {
-                MessageBox.Show(strMessage, Program.LangSys.C("Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return bRet;
-            }
+
+            return true;
+        }
+
+        public void ObjectToPanel()
+        {
+            this.Title = m_Screen.Title;
+            this.BackPictureFile = m_Screen.BackPictureFile;
+        }
+
+        public void PanelToObject()
+        {
             bool bDataPropChange = false;
-            if (m_Screen.Description != this.Description)
-                bDataPropChange |= true;
-            if (m_Screen.Symbol != this.Symbol)
-                bDataPropChange |= true;
+            bDataPropChange |= true;
             if (m_Screen.Title != this.Title)
                 bDataPropChange |= true;
             if (m_Screen.BackPictureFile != this.BackPictureFile)
@@ -219,25 +183,13 @@ namespace SmartApp.Ihm
 
             if (bDataPropChange)
             {
-                m_Screen.Description = this.Description;
-                m_Screen.Symbol = this.Symbol;
                 m_Screen.Title = this.Title;
                 m_Screen.BackPictureFile = this.BackPictureFile;
-                Doc.Modified = true;
+                Document.Modified = true;
             }
             if (bDataPropChange && ScreenPropertiesChanged != null)
                 ScreenPropertiesChanged(m_Screen);
-            return true;
-        }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        private void PropertiesControlValidating(object sender, CancelEventArgs e)
-        {
-            if (!ValidateValues())
-                e.Cancel = true;
         }
 
         #endregion

@@ -67,7 +67,7 @@ namespace SmartApp.Ihm
                     this.Enabled = true;
                     this.Description = m_Timer.Description;
                     this.Symbol = m_Timer.Symbol;
-                    this.ScriptLines = m_Timer.ScriptLines;
+                    this.ScriptLines = m_Timer.ItemScripts["TimerScript"];
                     this.Period = m_Timer.Period;
                     this.AutoStart = m_Timer.AutoStart;
                 }
@@ -286,11 +286,11 @@ namespace SmartApp.Ihm
         {
             ScriptEditordialog DlgScript = new ScriptEditordialog();
             DlgScript.Doc = this.m_Document;
-            DlgScript.ScriptLines = m_Timer.ScriptLines;
+            DlgScript.ScriptLines = m_Timer.ItemScripts["TimerScript"];
             DialogResult dlgRes = DlgScript.ShowDialog();
             if (dlgRes == DialogResult.OK)
             {
-                m_Timer.ScriptLines = DlgScript.ScriptLines;
+                m_Timer.ItemScripts["TimerScript"] = DlgScript.ScriptLines;
                 this.ScriptLines = DlgScript.ScriptLines;
             }
         }

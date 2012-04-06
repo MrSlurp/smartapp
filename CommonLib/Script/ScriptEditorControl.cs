@@ -9,20 +9,45 @@ using System.Windows.Forms;
 
 namespace CommonLib
 {
-    public partial class ScriptEditorControl : UserControl
+    public partial class ScriptEditorControl : UserControl, IObjectPropertyPanel
     {
+        /// <summary>
+        /// 
+        /// </summary>
         private ScriptParser m_Parser = new ScriptParser();
+        /// <summary>
+        /// 
+        /// </summary>
         private BTDoc m_Document = null;
+        /// <summary>
+        /// 
+        /// </summary>
         bool m_bIsParameter = false;
+        /// <summary>
+        /// 
+        /// </summary>
         bool m_bIsScriptChecked = true;
+        /// <summary>
+        /// 
+        /// </summary>
         bool m_AutoBoxWillGetFocus = false;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        BaseObject m_baseObjectItem = null;
+        /// <summary>
+        /// 
+        /// </summary>
+        BaseGest m_baseGestItem = null;
+
+        string m_strScriptType;
+
         #region attributs
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        public BTDoc Doc
+        /// <summary>
+        /// 
+        /// </summary>
+        public BTDoc Document
         {
             get
             {
@@ -35,11 +60,18 @@ namespace CommonLib
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        public string[] ScriptLines
+        /// <summary>
+        /// 
+        /// </summary>
+        public Control Panel
+        {
+            get { return this; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected string[] ScriptLines
         {
             get
             {
@@ -55,6 +87,48 @@ namespace CommonLib
                 m_AutoComplListBox.Hide();
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string ScriptType
+        {
+            get { return m_strScriptType; }
+            set { m_strScriptType = value; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public BaseObject ConfiguredItem
+        {
+            get { return m_baseObjectItem; }
+            set { m_baseObjectItem = value; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool IsObjectPropertiesValid
+        {
+            get { return m_bIsScriptChecked; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public BaseGest ConfiguredItemGest
+        {
+            get { return m_baseGestItem; }
+            set { m_baseGestItem = value; }
+        }
+
+        public bool ValidateProperties()
+        {
+            this.OnScriptCheck(null, null);
+            return true;
+        }
+
         #endregion
 
         #region constructeur
@@ -472,6 +546,30 @@ namespace CommonLib
                 }
                 if (m_AutoBoxWillGetFocus)
                     m_AutoBoxWillGetFocus = false;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void ObjectToPanel()
+        {
+            IScriptable iItem = m_baseObjectItem as IScriptable;
+            if (iItem != null)
+            {
+                this.ScriptLines = iItem.ItemScripts[m_strScriptType];
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void PanelToObject()
+        {
+            IScriptable iItem = m_baseObjectItem as IScriptable;
+            if (iItem != null)
+            {
+                iItem.ItemScripts[m_strScriptType] = this.ScriptLines;
             }
         }
 

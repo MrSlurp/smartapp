@@ -17,21 +17,22 @@ using System.Drawing;
 
 namespace CommonLib
 {
-    public class BTScreen : BaseObject, IInitScriptable, IScriptable
+    public class BTScreen : BaseObject, IScriptable
     {
         #region Données de la classe
+        private static Control m_singStdConfigPanel;
+
         // gestionnaire des control appartenant a l'écran
         private GestControl m_GestControl;
         // titre de l'écran
         private string m_strTitle;
-        // script de l'event de l'ecran
-        private StringCollection m_ScriptLines = new StringCollection();
-        // script d'init de l'écran
-        private StringCollection m_InitScriptLines = new StringCollection();
 
         private int m_iQuickScriptIDIni;
         // fichier image de "background de l'écran"
-        private string m_strBackPictureFile="";
+        private string m_strBackPictureFile= string.Empty;
+
+        protected ItemScriptsConainter m_ScriptContainer = new ItemScriptsConainter();
+
         #endregion
 
         #region données sépcifiques au fonctionement en mode "Command"
@@ -55,6 +56,8 @@ namespace CommonLib
         {
             m_GestControl = new GestControl();
             m_GestControl.DoSendMessage += new SendMessage(this.ObjectSendMessage);
+            m_ScriptContainer["EvtScreen"] = new string[1];
+            m_ScriptContainer["InitScreen"] = new string[1];
         }
         #endregion
 
@@ -86,52 +89,25 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// obtient ou assigne le script de l'évènement écran
+        /// obtient ou assigne le script du controle
         /// </summary>
-        public string[] ScriptLines
+        public ItemScriptsConainter ItemScripts
         {
             get
             {
-                string[] TabLines = new string[m_ScriptLines.Count];
-                for (int i = 0; i < m_ScriptLines.Count; i++)
-                {
-                    TabLines[i] = m_ScriptLines[i];
-                }
-                return TabLines;
-            }
-            set
-            {
-                m_ScriptLines.Clear();
-                for (int i = 0; i < value.Length; i++)
-                {
-                    m_ScriptLines.Add(value[i]);
-                }
-
+                return m_ScriptContainer;
             }
         }
 
-        /// <summary>
-        /// obtient ou assigne le script d'init de l'écran
-        /// </summary>
-        public string[] InitScriptLines
+        public override Control StdConfigPanel
         {
             get
             {
-                string[] TabLines = new string[m_InitScriptLines.Count];
-                for (int i = 0; i < m_InitScriptLines.Count; i++)
+                if (m_singStdConfigPanel == null)
                 {
-                    TabLines[i] = m_InitScriptLines[i];
+                    m_singStdConfigPanel = new ScreenPropertiesPanel();
                 }
-                return TabLines;
-            }
-            set
-            {
-                m_InitScriptLines.Clear();
-                for (int i = 0; i < value.Length; i++)
-                {
-                    m_InitScriptLines.Add(value[i]);
-                }
-
+                return m_singStdConfigPanel;
             }
         }
 
@@ -316,27 +292,31 @@ namespace CommonLib
                     //on lit le script d'event
                     case XML_CF_TAG.EventScript:
                         {
+                            List<string> listLines = new List<string>();
                             for (int j = 0; j < ChildNode.ChildNodes.Count; j++)
                             {
                                 if (ChildNode.ChildNodes[j].Name == XML_CF_TAG.Line.ToString()
                                     && ChildNode.ChildNodes[j].FirstChild != null)
                                 {
-                                    m_ScriptLines.Add(ChildNode.ChildNodes[j].FirstChild.Value);
+                                    listLines.Add(ChildNode.ChildNodes[j].FirstChild.Value);
                                 }
                             }
+                            m_ScriptContainer["EvtScreen"] = listLines.ToArray();
                         }
                         break;
                     // on lit le script d'init
                     case XML_CF_TAG.InitScript:
                         {
+                            List<string> listLines = new List<string>();
                             for (int j = 0; j < ChildNode.ChildNodes.Count; j++)
                             {
                                 if (ChildNode.ChildNodes[j].Name == XML_CF_TAG.Line.ToString()
                                     && ChildNode.ChildNodes[j].FirstChild != null)
                                 {
-                                    m_InitScriptLines.Add(ChildNode.ChildNodes[j].FirstChild.Value);
+                                    listLines.Add(ChildNode.ChildNodes[j].FirstChild.Value);
                                 }
                             }
+                            m_ScriptContainer["InitScreen"] = listLines.ToArray();
                         }
                         break;
                     // on lit le chemin de l'image de background
@@ -499,17 +479,17 @@ namespace CommonLib
                 dt.WriteOut(XmlDoc, XmlControlList);
             }
             // on écrit les scripts
-            for (int i = 0; i < m_InitScriptLines.Count; i++)
+            for (int i = 0; i < m_ScriptContainer["EvtScreen"].Length; i++)
             {
                 XmlNode NodeLine = XmlDoc.CreateElement(XML_CF_TAG.Line.ToString());
-                XmlNode NodeText = XmlDoc.CreateTextNode(m_InitScriptLines[i]);
+                XmlNode NodeText = XmlDoc.CreateTextNode(m_ScriptContainer["EvtScreen"][i]);
                 NodeLine.AppendChild(NodeText);
                 XmlInitScript.AppendChild(NodeLine);
             }
-            for (int i = 0; i < m_ScriptLines.Count; i++)
+            for (int i = 0; i < m_ScriptContainer["InitScreen"].Length ; i++)
             {
                 XmlNode NodeLine = XmlDoc.CreateElement(XML_CF_TAG.Line.ToString());
-                XmlNode NodeText = XmlDoc.CreateTextNode(m_ScriptLines[i]);
+                XmlNode NodeText = XmlDoc.CreateTextNode(m_ScriptContainer["EvtScreen"][i]);
                 NodeLine.AppendChild(NodeText);
                 XmlEventScript.AppendChild(NodeLine);
             }
@@ -602,8 +582,7 @@ namespace CommonLib
             if (TypeApp == TYPE_APP.SMART_CONFIG)
             {
                 m_GestControl.TraiteMessage(Mess, obj, TypeApp);
-                ScriptTraiteMessage(this, Mess, m_InitScriptLines, obj);
-                ScriptTraiteMessage(this, Mess, m_ScriptLines, obj);
+                ScriptTraiteMessage(this, Mess, this.m_ScriptContainer, obj);
             }
             else
             {
@@ -615,8 +594,8 @@ namespace CommonLib
 #if QUICK_MOTOR
                 else if (Mess==MESSAGE.MESS_PRE_PARSE)
                 {
-                    this.m_iQuickScriptID = m_Executer.PreParseScript((IScriptable)this);
-                    this.m_iQuickScriptIDIni = m_Executer.PreParseScript((IInitScriptable)this);
+                    this.m_iQuickScriptID = m_Executer.PreParseScript(this.m_ScriptContainer["EvtScreen"]);
+                    this.m_iQuickScriptIDIni = m_Executer.PreParseScript(this.m_ScriptContainer["InitScreen"]);
                 }
 #endif
                 for (int i = 0; i < m_ListControls.Count; i++)
@@ -632,7 +611,7 @@ namespace CommonLib
         /// </summary>
         public void ControlEvent()
         {
-            if (m_ScriptLines.Count != 0)
+            if (m_ScriptContainer["EvtScreen"].Length != 0)
             {
 #if !QUICK_MOTOR
                 m_Executer.ExecuteScript(this.ScriptLines);
@@ -647,7 +626,7 @@ namespace CommonLib
         /// </summary>
         protected void ExecuteInitScript()
         {
-            if (m_InitScriptLines.Count != 0)
+            if (m_ScriptContainer["InitScreen"].Length != 0)
             {
 #if !QUICK_MOTOR
                 m_Executer.ExecuteScript(this.InitScriptLines);

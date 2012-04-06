@@ -31,6 +31,9 @@ namespace CommonLib
             InitializeComponent();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public Control Panel 
         {
             get { return this; }  

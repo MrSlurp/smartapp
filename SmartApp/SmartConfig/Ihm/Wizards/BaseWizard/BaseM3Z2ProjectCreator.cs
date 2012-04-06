@@ -68,7 +68,7 @@ namespace SmartApp.Wizards
                                         FrameFuncToUse + "()";
 
             }
-            func.ScriptLines = functionScripLines;
+            func.ItemScripts["FuncScript"] = functionScripLines;
             BaseObject obj = m_Document.GestFunction.GetFromSymbol(func.Symbol);
             if (obj == null)
             {
@@ -77,7 +77,7 @@ namespace SmartApp.Wizards
             else
             {
                 Function existingFunc = obj as Function;
-                if (existingFunc.ScriptLines != func.ScriptLines)
+                if (existingFunc.ItemScripts["FuncScript"] != func.ItemScripts["FuncScript"])
                 {
                     for (int indexFormat = 0; indexFormat < BaseGest.MAX_DEFAULT_ITEM_SYMBOL; indexFormat++)
                     {
@@ -114,7 +114,7 @@ namespace SmartApp.Wizards
             string[] TimerScripLines = new string[1];
             TimerScripLines[0] = SCR_OBJECT.FUNCTIONS.ToString() + "." + functionName + "()";
 
-            timer.ScriptLines = TimerScripLines;
+            timer.ItemScripts["TimerScript"] = TimerScripLines;
             BaseObject obj = m_Document.GestTimer.GetFromSymbol(timer.Symbol);
             if (obj == null)
             {
@@ -123,7 +123,7 @@ namespace SmartApp.Wizards
             else
             {
                 BTTimer existingFunc = obj as BTTimer;
-                if (existingFunc.ScriptLines != timer.ScriptLines)
+                if (existingFunc.ItemScripts["TimerScript"] != timer.ItemScripts["TimerScript"])
                 {
                     for (int indexFormat = 0; indexFormat < BaseGest.MAX_DEFAULT_ITEM_SYMBOL; indexFormat++)
                     {
@@ -158,7 +158,7 @@ namespace SmartApp.Wizards
             string[] screenInitScriptLines = new string[1];
             screenInitScriptLines[0] = SCR_OBJECT.FUNCTIONS.ToString() + "." + InitFunction + "()";
 
-            screen.InitScriptLines = screenInitScriptLines;
+            screen.ItemScripts["InitScreen"] = screenInitScriptLines;
             BaseObject obj = m_Document.GestScreen.GetFromSymbol(screen.Symbol);
             if (obj == null)
             {
@@ -167,7 +167,7 @@ namespace SmartApp.Wizards
             else
             {
                 BTScreen existingScreen = obj as BTScreen;
-                if (existingScreen.InitScriptLines != screen.InitScriptLines)
+                if (existingScreen.ItemScripts["InitScreen"] != screen.ItemScripts["InitScreen"])
                 {
                     for (int indexFormat = 0; indexFormat < BaseGest.MAX_DEFAULT_ITEM_SYMBOL; indexFormat++)
                     {

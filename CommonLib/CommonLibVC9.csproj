@@ -229,6 +229,18 @@
     <Compile Include="StdForms\BrowseFileBtn.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="StdForms\ScreenItemStdPropertiesPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="StdForms\ScreenItemStdPropertiesPanel.Designer.cs">
+      <DependentUpon>ScreenItemStdPropertiesPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StdForms\ScreenPropertiesPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="StdForms\ScreenPropertiesPanel.Designer.cs">
+      <DependentUpon>ScreenPropertiesPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="StdForms\StandardObjectPropPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -305,6 +317,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Script\ScriptEditorControl.resx">
       <DependentUpon>ScriptEditorControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Script\ScriptEditordialog.resx">
       <DependentUpon>ScriptEditordialog.cs</DependentUpon>
@@ -312,6 +325,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="StdForms\BasePropertiesDialog.resx">
       <DependentUpon>BasePropertiesDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="StdForms\ChangeListForm.resx">
       <DependentUpon>ChangeListForm.cs</DependentUpon>
@@ -321,8 +335,17 @@
       <SubType>Designer</SubType>
       <DependentUpon>PickDataForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="StdForms\ScreenItemStdPropertiesPanel.resx">
+      <DependentUpon>ScreenItemStdPropertiesPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StdForms\ScreenPropertiesPanel.resx">
+      <DependentUpon>ScreenPropertiesPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="StdForms\StandardObjectPropPanel.resx">
       <DependentUpon>StandardObjectPropPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="StdForms\WaitOpenCommForm.resx">
       <DependentUpon>WaitOpenCommForm.cs</DependentUpon>

@@ -68,7 +68,7 @@ namespace SmartApp.Ihm
                     this.Enabled = true;
                     this.Description = m_Function.Description;
                     this.Symbol = m_Function.Symbol;
-                    this.ScriptLines = m_Function.ScriptLines;
+                    this.ScriptLines = m_Function.ItemScripts["FuncScript"];
                 }
                 else
                 {
@@ -237,11 +237,11 @@ namespace SmartApp.Ihm
         {
             ScriptEditordialog DlgScript = new ScriptEditordialog();
             DlgScript.Doc = this.m_Document;
-            DlgScript.ScriptLines = m_Function.ScriptLines;
+            DlgScript.ScriptLines = m_Function.ItemScripts["FuncScript"];
             DialogResult dlgRes = DlgScript.ShowDialog();
             if (dlgRes == DialogResult.OK)
             {
-                m_Function.ScriptLines = DlgScript.ScriptLines;
+                m_Function.ItemScripts["FuncScript"] = DlgScript.ScriptLines;
                 this.ScriptLines = DlgScript.ScriptLines;
             }
         }

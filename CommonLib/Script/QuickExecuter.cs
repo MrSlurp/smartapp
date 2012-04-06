@@ -139,26 +139,9 @@ namespace CommonLib
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="scriptable"></param>
-        /// <returns></returns>
-        public int PreParseScript(IScriptable scriptable)
-        {
-            int Id = 0;
-            List<PreParsedLine> preParsedScript = m_PreParser.PreParseScript(scriptable.ScriptLines);
-            if (preParsedScript != null)
-            {
-                Id = ++m_iQuickIdCounter;
-                m_DictioQuickScripts.Add(Id, preParsedScript);
-            }
-            return Id;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="script"></param>
         /// <returns></returns>
-        public int PreParseScript(String[] script)
+        public int PreParseScript(string[] script)
         {
             int Id = 0;
             List<PreParsedLine> preParsedScript = m_PreParser.PreParseScript(script);
@@ -170,22 +153,6 @@ namespace CommonLib
             return Id;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="scriptable"></param>
-        /// <returns></returns>
-        public int PreParseScript(IInitScriptable scriptable)
-        {
-            int Id = 0;
-            List<PreParsedLine> preParsedScript = m_PreParser.PreParseScript(scriptable.InitScriptLines);
-            if (preParsedScript != null)
-            {
-                Id = ++m_iQuickIdCounter;
-                m_DictioQuickScripts.Add(Id, preParsedScript);
-            }
-            return Id;
-        }
         #endregion
 
         #region attributs

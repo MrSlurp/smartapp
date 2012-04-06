@@ -10,11 +10,16 @@ namespace CommonLib
     {
         #region Déclaration des données de la classe
         // script de la fonction
-        private StringCollection m_ScriptLines = new StringCollection();
+        protected ItemScriptsConainter m_ScriptContainer = new ItemScriptsConainter();
 
 #if QUICK_MOTOR
         protected QuickExecuter m_Executer = null;
 #endif
+
+        public Function()
+        {
+            m_ScriptContainer["FuncScript"] = new string[1];
+        }
 
         #endregion
 
@@ -22,24 +27,11 @@ namespace CommonLib
         /// <summary>
         /// obtient ou assigne le script du controle
         /// </summary>
-        public string[] ScriptLines
+        public ItemScriptsConainter ItemScripts
         {
-            get 
+            get
             {
-                string[] TabLines = new string[m_ScriptLines.Count];
-                for (int i = 0; i < m_ScriptLines.Count; i++)
-                {
-                    TabLines[i] = m_ScriptLines[i];
-                }
-                return TabLines;
-            }
-            set
-            {
-                m_ScriptLines.Clear();
-                for (int i = 0; i < value.Length; i++)
-                {
-                    m_ScriptLines.Add(value[i]);
-                }
+                return m_ScriptContainer;
             }
         }
         #endregion
@@ -54,14 +46,16 @@ namespace CommonLib
         public override bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
         {
             bool bRet = base.ReadIn(Node, TypeApp);
+            List<string> listScriptLines = new List<string>();
             for (int i = 0; i < Node.ChildNodes.Count; i++)
             {
                 if (Node.ChildNodes[i].Name == XML_CF_TAG.Line.ToString()
                         && Node.ChildNodes[i].FirstChild != null)
                 {
-                    m_ScriptLines.Add(Node.ChildNodes[i].FirstChild.Value);
+                    listScriptLines.Add(Node.ChildNodes[i].FirstChild.Value);
                 }
             }
+            m_ScriptContainer["FuncScript"] = listScriptLines.ToArray();
             return bRet;
         }
 
@@ -74,10 +68,10 @@ namespace CommonLib
         public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
         {
             base.WriteOut(XmlDoc, Node);
-            for (int i = 0; i < m_ScriptLines.Count; i++)
+            for (int i = 0; i < m_ScriptContainer["FuncScript"].Length; i++)
             {
                 XmlNode NodeLine = XmlDoc.CreateElement(XML_CF_TAG.Line.ToString());
-                XmlNode NodeText = XmlDoc.CreateTextNode(m_ScriptLines[i]);
+                XmlNode NodeText = XmlDoc.CreateTextNode(m_ScriptContainer["FuncScript"][i]);
                 NodeLine.AppendChild(NodeText);
                 Node.AppendChild(NodeLine);
             }
@@ -109,12 +103,12 @@ namespace CommonLib
         /// <param name="TypeApp">Type d'application courante</param>
         public override void TraiteMessage(MESSAGE Mess, object obj, TYPE_APP TypeApp)
         {
-            ScriptTraiteMessage(this, Mess, m_ScriptLines, obj);
+            ScriptTraiteMessage(this, Mess, m_ScriptContainer, obj);
 #if QUICK_MOTOR
             if (Mess == MESSAGE.MESS_PRE_PARSE)
             {
-                if (this.ScriptLines.Length != 0)
-                    this.m_iQuickScriptID = m_Executer.PreParseScript((IScriptable)this);    
+                if (this.m_ScriptContainer["FuncScript"].Length != 0)
+                    this.m_iQuickScriptID = m_Executer.PreParseScript(m_ScriptContainer["FuncScript"]);    
             }
 #endif
         }

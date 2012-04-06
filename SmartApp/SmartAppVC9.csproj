@@ -253,12 +253,6 @@
     <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\LoggerPropertiesControl.Designer.cs">
       <DependentUpon>LoggerPropertiesControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\ScreenItemPropertiesControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\ScreenItemPropertiesControl.Designer.cs">
-      <DependentUpon>ScreenItemPropertiesControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="SmartConfig\Ihm\ConfigurationForm\ProgramForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -270,12 +264,6 @@
     </Compile>
     <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\DataPropertiesControl.Designer.cs">
       <DependentUpon>DataPropertiesControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\ScreenPropertiesControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\ScreenPropertiesControl.Designer.cs">
-      <DependentUpon>ScreenPropertiesControl.cs</DependentUpon>
     </Compile>
     <Compile Include="SmartConfig\Ihm\Designer\ScreenPropPanel.cs">
       <SubType>UserControl</SubType>
@@ -427,17 +415,9 @@
       <SubType>Designer</SubType>
       <DependentUpon>LoggerPropertiesControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SmartConfig\Ihm\ObjectPropertiesControls\ScreenItemPropertiesControl.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>ScreenItemPropertiesControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="SmartConfig\Ihm\ObjectPropertiesControls\DataPropertiesControl.resx">
       <SubType>Designer</SubType>
       <DependentUpon>DataPropertiesControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SmartConfig\Ihm\ObjectPropertiesControls\ScreenPropertiesControl.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>ScreenPropertiesControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SmartConfig\Ihm\Designer\ScreenPropPanel.resx">
       <SubType>Designer</SubType>
@@ -498,21 +478,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SmartConfig\Ihm\Wizards\SplitJoinDataWizard\SJWizNewDataName.resx">
       <DependentUpon>SJWizNewDataName.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SmartConfig\Ihm\Wizards\SplitJoinDataWizard\SJWizPreviewChange.resx">
       <DependentUpon>SJWizPreviewChange.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SmartConfig\Ihm\Wizards\SplitJoinDataWizard\SJWizSelectOperation.resx">
       <DependentUpon>SJWizSelectOperation.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SmartConfig\Ihm\Wizards\SplitJoinDataWizard\SJWizWelcomeStep.resx">
       <DependentUpon>SJWizWelcomeStep.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SmartConfig\Ihm\Wizards\SplitJoinDataWizard\SplitJoinWizardForm.resx">
       <DependentUpon>SplitJoinWizardForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SmartConfig\Ihm\Wizards\SplitJoinDataWizard\SJWizSelectDataStep.resx">
       <DependentUpon>SJWizSelectDataStep.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SmartConfig\Ihm\Wizards\TCPModbusWizard\WizardTcpModbusForm.resx">
       <DependentUpon>WizardTcpModbusForm.cs</DependentUpon>

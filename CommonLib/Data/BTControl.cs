@@ -13,6 +13,7 @@ using System.Collections.Specialized;
 using System.Text;
 using System.Drawing;
 using System.Xml;
+using System.Windows.Forms;
 
 namespace CommonLib
 {
@@ -22,6 +23,8 @@ namespace CommonLib
     /// </summary>
     public partial class BTControl : BaseObject, IScriptable
     {
+        private static Control m_singStdConfigPanel;
+
         #region Déclaration des données de la classe
         // control affiché dans le designer d'ecrans
         protected InteractiveControl m_IControl = new InteractiveControl();
@@ -32,7 +35,8 @@ namespace CommonLib
         // indique si le control est read only
         protected bool m_bIsReadOnly = false;
         // collection de string qui contiennent le script a executer
-        protected StringCollection m_ScriptLines = new StringCollection();
+        //protected StringCollection m_ScriptLines = new StringCollection();
+        protected ItemScriptsConainter m_ScriptContainer = new ItemScriptsConainter();
 
         protected Font m_TextFont = new Font(SystemFonts.DefaultFont, FontStyle.Regular);
         protected Color m_TextColor = Color.Black;
@@ -47,6 +51,7 @@ namespace CommonLib
         {
             m_IControl = new InteractiveControl();
             m_IControl.SourceBTControl = this;
+            m_ScriptContainer["EvtScript"] = new string[1];
         }
 
         /// <summary>
@@ -59,6 +64,7 @@ namespace CommonLib
             m_IControl = Ctrl;
             if (m_IControl != null)
                 m_IControl.SourceBTControl = this;
+            m_ScriptContainer["EvtScript"] = new string[1];
         }
 
         /// <summary>
@@ -207,25 +213,11 @@ namespace CommonLib
         /// <summary>
         /// obtient ou assigne le script du controle
         /// </summary>
-        public string[] ScriptLines
+        public ItemScriptsConainter ItemScripts
         {
             get
             {
-                string[] TabLines = new string[m_ScriptLines.Count];
-                for (int i = 0; i < m_ScriptLines.Count; i++)
-                {
-                    TabLines[i] = m_ScriptLines[i];
-                }
-                return TabLines;
-            }
-            set
-            {
-                m_ScriptLines.Clear();
-                for (int i = 0; i < value.Length; i++)
-                {
-                    m_ScriptLines.Add(value[i]);
-                }
-
+                return m_ScriptContainer;
             }
         }
 
@@ -256,6 +248,19 @@ namespace CommonLib
                     m_IControl.ForeColor = value;
             }
         }
+
+        public override Control StdConfigPanel
+        {
+            get 
+            {
+                if (m_singStdConfigPanel == null)
+                {
+                    m_singStdConfigPanel = new ScreenItemStdPropertiesPanel();
+                }
+                return m_singStdConfigPanel; 
+            }
+        }
+
 
         #endregion
 
@@ -512,15 +517,17 @@ namespace CommonLib
                 {
                     if (Node.ChildNodes[ch].Name == XML_CF_TAG.EventScript.ToString())
                     {
+                        List<string> listScriptLines = new List<string>();
                         for (int i = 0; i < Node.ChildNodes[ch].ChildNodes.Count; i++)
                         {
                             if (Node.ChildNodes[ch].ChildNodes[i].Name == XML_CF_TAG.Line.ToString()
                                 && Node.ChildNodes[ch].ChildNodes[i].FirstChild != null)
                             {
-
-                                m_ScriptLines.Add(Node.ChildNodes[ch].ChildNodes[i].FirstChild.Value);
+                                listScriptLines.Add(Node.ChildNodes[ch].ChildNodes[i].FirstChild.Value);
+                                
                             }
                         }
+                        m_ScriptContainer["EvtScript"] = listScriptLines.ToArray();
                         break;
                     }
                 }
@@ -535,10 +542,10 @@ namespace CommonLib
         protected void WriteScript(XmlDocument XmlDoc, XmlNode NodeControl)
         {
             XmlNode XmlEventScript = XmlDoc.CreateElement(XML_CF_TAG.EventScript.ToString());
-            for (int i = 0; i < m_ScriptLines.Count; i++)
+            for (int i = 0; i < m_ScriptContainer["EvtScript"].Length; i++)
             {
                 XmlNode NodeLine = XmlDoc.CreateElement(XML_CF_TAG.Line.ToString());
-                XmlNode NodeText = XmlDoc.CreateTextNode(m_ScriptLines[i]);
+                XmlNode NodeText = XmlDoc.CreateTextNode(m_ScriptContainer["EvtScript"][i]);
                 NodeLine.AppendChild(NodeText);
                 XmlEventScript.AppendChild(NodeLine);
             }
@@ -623,15 +630,15 @@ namespace CommonLib
                     break;
 #if QUICK_MOTOR
                 case MESSAGE.MESS_PRE_PARSE:
-                    if (this.ScriptLines.Length != 0)
-                        this.m_iQuickScriptID = m_Executer.PreParseScript((IScriptable) this);    
+                    if (this.m_ScriptContainer["EvtScript"].Length != 0)
+                        this.m_iQuickScriptID = m_Executer.PreParseScript(this.m_ScriptContainer["StdScript"]);    
                     break;
 #endif
                 default:
                     break;
             }
             // mais l'objet peux aussi être utilisé dans le script
-            ScriptTraiteMessage(this, Mess, m_ScriptLines, obj);
+            ScriptTraiteMessage(this, Mess, this.m_ScriptContainer, obj);
         }
 
 
@@ -648,8 +655,8 @@ namespace CommonLib
             if (!bFromOtherInstance)
             {
                 m_strAssociateData = SrcBtControl.m_strAssociateData;
-                
-                this.ScriptLines = SrcBtControl.ScriptLines;
+
+                this.m_ScriptContainer["EvtScript"] = SrcBtControl.m_ScriptContainer["EvtScript"];
             }
 
             m_bUseScreenEvent = SrcBtControl.m_bUseScreenEvent;

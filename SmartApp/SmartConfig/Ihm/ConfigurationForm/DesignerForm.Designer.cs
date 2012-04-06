@@ -38,12 +38,6 @@ namespace SmartApp.Ihm
             this.m_TabScreen = new System.Windows.Forms.TabPage();
             this.m_PanelScreenListAndProp = new SmartApp.Ihm.ScreenPropPanel();
             this.m_TabTools = new System.Windows.Forms.TabPage();
-            this.m_TabItemOption = new System.Windows.Forms.TabPage();
-            this.m_PanelControlProperties = new SmartApp.Ihm.ScreenItemPropertiesControl();
-            this.m_TabScript = new System.Windows.Forms.TabPage();
-            this.m_PanelScreenInitScript = new CommonLib.ScriptControl();
-            this.m_PanelScreenEventScript = new CommonLib.ScriptControl();
-            this.m_PanelCtrlEventScript = new CommonLib.ScriptControl();
             this.m_splitterDesigner_Tool = new System.Windows.Forms.SplitContainer();
             this.m_LabelSelectedScreen = new System.Windows.Forms.Label();
             this.m_toolStripDesignLayout = new System.Windows.Forms.ToolStrip();
@@ -78,8 +72,6 @@ namespace SmartApp.Ihm
             this.m_MainSplitterContainer.SuspendLayout();
             this.m_tabCTrlConfig.SuspendLayout();
             this.m_TabScreen.SuspendLayout();
-            this.m_TabItemOption.SuspendLayout();
-            this.m_TabScript.SuspendLayout();
             this.m_splitterDesigner_Tool.Panel1.SuspendLayout();
             this.m_splitterDesigner_Tool.Panel2.SuspendLayout();
             this.m_splitterDesigner_Tool.SuspendLayout();
@@ -125,8 +117,6 @@ namespace SmartApp.Ihm
             // 
             this.m_tabCTrlConfig.Controls.Add(this.m_TabScreen);
             this.m_tabCTrlConfig.Controls.Add(this.m_TabTools);
-            this.m_tabCTrlConfig.Controls.Add(this.m_TabItemOption);
-            this.m_tabCTrlConfig.Controls.Add(this.m_TabScript);
             this.m_tabCTrlConfig.Dock = System.Windows.Forms.DockStyle.Fill;
             this.m_tabCTrlConfig.Location = new System.Drawing.Point(0, 0);
             this.m_tabCTrlConfig.Margin = new System.Windows.Forms.Padding(0);
@@ -163,103 +153,10 @@ namespace SmartApp.Ihm
             this.m_TabTools.Location = new System.Drawing.Point(4, 22);
             this.m_TabTools.Name = "m_TabTools";
             this.m_TabTools.Padding = new System.Windows.Forms.Padding(3);
-            this.m_TabTools.Size = new System.Drawing.Size(298, 474);
+            this.m_TabTools.Size = new System.Drawing.Size(298, 537);
             this.m_TabTools.TabIndex = 1;
             this.m_TabTools.Text = "Tools";
             this.m_TabTools.UseVisualStyleBackColor = true;
-            // 
-            // m_TabItemOption
-            // 
-            this.m_TabItemOption.BackColor = System.Drawing.Color.Transparent;
-            this.m_TabItemOption.Controls.Add(this.m_PanelControlProperties);
-            this.m_TabItemOption.Location = new System.Drawing.Point(4, 22);
-            this.m_TabItemOption.Name = "m_TabItemOption";
-            this.m_TabItemOption.Padding = new System.Windows.Forms.Padding(3);
-            this.m_TabItemOption.Size = new System.Drawing.Size(298, 537);
-            this.m_TabItemOption.TabIndex = 0;
-            this.m_TabItemOption.Text = "Tool Options";
-            this.m_TabItemOption.UseVisualStyleBackColor = true;
-            // 
-            // m_PanelControlProperties
-            // 
-            this.m_PanelControlProperties.AssociateData = "";
-            this.m_PanelControlProperties.AutoScroll = true;
-            this.m_PanelControlProperties.BackColor = System.Drawing.Color.Transparent;
-            this.m_PanelControlProperties.BTControl = null;
-            this.m_PanelControlProperties.CtrlFont = null;
-            this.m_PanelControlProperties.CtrlFontColor = System.Drawing.Color.Black;
-            this.m_PanelControlProperties.Description = "";
-            this.m_PanelControlProperties.Doc = null;
-            this.m_PanelControlProperties.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.m_PanelControlProperties.GestControl = null;
-            this.m_PanelControlProperties.IsReadOnly = false;
-            this.m_PanelControlProperties.Location = new System.Drawing.Point(3, 3);
-            this.m_PanelControlProperties.Margin = new System.Windows.Forms.Padding(0);
-            this.m_PanelControlProperties.Name = "m_PanelControlProperties";
-            this.m_PanelControlProperties.Size = new System.Drawing.Size(292, 531);
-            this.m_PanelControlProperties.Symbol = "";
-            this.m_PanelControlProperties.TabIndex = 1;
-            this.m_PanelControlProperties.Txt = "";
-            this.m_PanelControlProperties.UseScreenEvent = false;
-            // 
-            // m_TabScript
-            // 
-            this.m_TabScript.BackColor = System.Drawing.Color.Transparent;
-            this.m_TabScript.Controls.Add(this.m_PanelScreenInitScript);
-            this.m_TabScript.Controls.Add(this.m_PanelScreenEventScript);
-            this.m_TabScript.Controls.Add(this.m_PanelCtrlEventScript);
-            this.m_TabScript.Location = new System.Drawing.Point(4, 22);
-            this.m_TabScript.Name = "m_TabScript";
-            this.m_TabScript.Padding = new System.Windows.Forms.Padding(3);
-            this.m_TabScript.Size = new System.Drawing.Size(298, 474);
-            this.m_TabScript.TabIndex = 1;
-            this.m_TabScript.Text = "Item Script";
-            this.m_TabScript.UseVisualStyleBackColor = true;
-            // 
-            // m_PanelScreenInitScript
-            // 
-            this.m_PanelScreenInitScript.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_PanelScreenInitScript.BackColor = System.Drawing.Color.Transparent;
-            this.m_PanelScreenInitScript.Doc = null;
-            this.m_PanelScreenInitScript.InitScriptableItem = null;
-            this.m_PanelScreenInitScript.Location = new System.Drawing.Point(7, 7);
-            this.m_PanelScreenInitScript.Name = "m_PanelScreenInitScript";
-            this.m_PanelScreenInitScript.ScriptableItem = null;
-            this.m_PanelScreenInitScript.ScriptLines = new string[0];
-            this.m_PanelScreenInitScript.Size = new System.Drawing.Size(285, 151);
-            this.m_PanelScreenInitScript.TabIndex = 0;
-            this.m_PanelScreenInitScript.Title = "Title";
-            // 
-            // m_PanelScreenEventScript
-            // 
-            this.m_PanelScreenEventScript.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_PanelScreenEventScript.BackColor = System.Drawing.Color.Transparent;
-            this.m_PanelScreenEventScript.Doc = null;
-            this.m_PanelScreenEventScript.InitScriptableItem = null;
-            this.m_PanelScreenEventScript.Location = new System.Drawing.Point(7, 164);
-            this.m_PanelScreenEventScript.Name = "m_PanelScreenEventScript";
-            this.m_PanelScreenEventScript.ScriptableItem = null;
-            this.m_PanelScreenEventScript.ScriptLines = new string[0];
-            this.m_PanelScreenEventScript.Size = new System.Drawing.Size(285, 151);
-            this.m_PanelScreenEventScript.TabIndex = 0;
-            this.m_PanelScreenEventScript.Title = "Title";
-            // 
-            // m_PanelCtrlEventScript
-            // 
-            this.m_PanelCtrlEventScript.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_PanelCtrlEventScript.BackColor = System.Drawing.Color.Transparent;
-            this.m_PanelCtrlEventScript.Doc = null;
-            this.m_PanelCtrlEventScript.InitScriptableItem = null;
-            this.m_PanelCtrlEventScript.Location = new System.Drawing.Point(7, 321);
-            this.m_PanelCtrlEventScript.Name = "m_PanelCtrlEventScript";
-            this.m_PanelCtrlEventScript.ScriptableItem = null;
-            this.m_PanelCtrlEventScript.ScriptLines = new string[0];
-            this.m_PanelCtrlEventScript.Size = new System.Drawing.Size(285, 151);
-            this.m_PanelCtrlEventScript.TabIndex = 0;
-            this.m_PanelCtrlEventScript.Title = "Title";
             // 
             // m_splitterDesigner_Tool
             // 
@@ -290,7 +187,7 @@ namespace SmartApp.Ihm
             this.m_LabelSelectedScreen.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.m_LabelSelectedScreen.Location = new System.Drawing.Point(7, 29);
             this.m_LabelSelectedScreen.Name = "m_LabelSelectedScreen";
-            this.m_LabelSelectedScreen.Size = new System.Drawing.Size(81, 16);
+            this.m_LabelSelectedScreen.Size = new System.Drawing.Size(84, 16);
             this.m_LabelSelectedScreen.TabIndex = 1;
             this.m_LabelSelectedScreen.Text = "No Screen";
             // 
@@ -412,34 +309,34 @@ namespace SmartApp.Ihm
             this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
             this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-            this.toolStripDropDownButton1.Size = new System.Drawing.Size(44, 22);
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(45, 22);
             this.toolStripDropDownButton1.Text = "Sizes";
             // 
             // tsbtn_increaseWidth
             // 
             this.tsbtn_increaseWidth.Name = "tsbtn_increaseWidth";
-            this.tsbtn_increaseWidth.Size = new System.Drawing.Size(163, 22);
+            this.tsbtn_increaseWidth.Size = new System.Drawing.Size(158, 22);
             this.tsbtn_increaseWidth.Text = "Increase width";
             this.tsbtn_increaseWidth.Click += new System.EventHandler(this.tsbtn_increaseWidth_Click);
             // 
             // tsbtn_decreaseWidth
             // 
             this.tsbtn_decreaseWidth.Name = "tsbtn_decreaseWidth";
-            this.tsbtn_decreaseWidth.Size = new System.Drawing.Size(163, 22);
+            this.tsbtn_decreaseWidth.Size = new System.Drawing.Size(158, 22);
             this.tsbtn_decreaseWidth.Text = "Decrease width";
             this.tsbtn_decreaseWidth.Click += new System.EventHandler(this.tsbtn_decreaseWidth_Click);
             // 
             // tsbtn_increaseHeight
             // 
             this.tsbtn_increaseHeight.Name = "tsbtn_increaseHeight";
-            this.tsbtn_increaseHeight.Size = new System.Drawing.Size(163, 22);
+            this.tsbtn_increaseHeight.Size = new System.Drawing.Size(158, 22);
             this.tsbtn_increaseHeight.Text = "Increase height";
             this.tsbtn_increaseHeight.Click += new System.EventHandler(this.tsbtn_increaseHeight_Click);
             // 
             // tsbtn_decreaseHeight
             // 
             this.tsbtn_decreaseHeight.Name = "tsbtn_decreaseHeight";
-            this.tsbtn_decreaseHeight.Size = new System.Drawing.Size(163, 22);
+            this.tsbtn_decreaseHeight.Size = new System.Drawing.Size(158, 22);
             this.tsbtn_decreaseHeight.Text = "Decrease height";
             this.tsbtn_decreaseHeight.Click += new System.EventHandler(this.tsbtn_decreaseHeight_Click);
             // 
@@ -454,34 +351,34 @@ namespace SmartApp.Ihm
             this.toolStripDropDownButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton2.Image")));
             this.toolStripDropDownButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton2.Name = "toolStripDropDownButton2";
-            this.toolStripDropDownButton2.Size = new System.Drawing.Size(62, 22);
+            this.toolStripDropDownButton2.Size = new System.Drawing.Size(68, 22);
             this.toolStripDropDownButton2.Text = "Positions";
             // 
             // tsbtn_moveLeft
             // 
             this.tsbtn_moveLeft.Name = "tsbtn_moveLeft";
-            this.tsbtn_moveLeft.Size = new System.Drawing.Size(140, 22);
+            this.tsbtn_moveLeft.Size = new System.Drawing.Size(137, 22);
             this.tsbtn_moveLeft.Text = "Move left";
             this.tsbtn_moveLeft.Click += new System.EventHandler(this.tsbtn_moveLeft_Click);
             // 
             // tsbtn_moveRight
             // 
             this.tsbtn_moveRight.Name = "tsbtn_moveRight";
-            this.tsbtn_moveRight.Size = new System.Drawing.Size(140, 22);
+            this.tsbtn_moveRight.Size = new System.Drawing.Size(137, 22);
             this.tsbtn_moveRight.Text = "Move right";
             this.tsbtn_moveRight.Click += new System.EventHandler(this.tsbtn_moveRight_Click);
             // 
             // tsbtn_moveUp
             // 
             this.tsbtn_moveUp.Name = "tsbtn_moveUp";
-            this.tsbtn_moveUp.Size = new System.Drawing.Size(140, 22);
+            this.tsbtn_moveUp.Size = new System.Drawing.Size(137, 22);
             this.tsbtn_moveUp.Text = "Move up";
             this.tsbtn_moveUp.Click += new System.EventHandler(this.tsbtn_moveUp_Click);
             // 
             // tsbtn_moveDown
             // 
             this.tsbtn_moveDown.Name = "tsbtn_moveDown";
-            this.tsbtn_moveDown.Size = new System.Drawing.Size(140, 22);
+            this.tsbtn_moveDown.Size = new System.Drawing.Size(137, 22);
             this.tsbtn_moveDown.Text = "Move down";
             this.tsbtn_moveDown.Click += new System.EventHandler(this.tsbtn_moveDown_Click);
             // 
@@ -491,7 +388,7 @@ namespace SmartApp.Ihm
             this.m_toolBtnBringToFront.Image = ((System.Drawing.Image)(resources.GetObject("m_toolBtnBringToFront.Image")));
             this.m_toolBtnBringToFront.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.m_toolBtnBringToFront.Name = "m_toolBtnBringToFront";
-            this.m_toolBtnBringToFront.Size = new System.Drawing.Size(75, 22);
+            this.m_toolBtnBringToFront.Size = new System.Drawing.Size(82, 22);
             this.m_toolBtnBringToFront.Text = "Bring to front";
             this.m_toolBtnBringToFront.Click += new System.EventHandler(this.m_toolBtnBringToFront_Click);
             // 
@@ -499,7 +396,7 @@ namespace SmartApp.Ihm
             // 
             this.tsbtn_copy.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.tsbtn_copy.Name = "tsbtn_copy";
-            this.tsbtn_copy.Size = new System.Drawing.Size(36, 22);
+            this.tsbtn_copy.Size = new System.Drawing.Size(39, 22);
             this.tsbtn_copy.Text = "Copy";
             this.tsbtn_copy.Click += new System.EventHandler(this.tsbtn_copy_click);
             // 
@@ -507,7 +404,7 @@ namespace SmartApp.Ihm
             // 
             this.tsbtn_paste.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.tsbtn_paste.Name = "tsbtn_paste";
-            this.tsbtn_paste.Size = new System.Drawing.Size(38, 22);
+            this.tsbtn_paste.Size = new System.Drawing.Size(39, 19);
             this.tsbtn_paste.Text = "Paste";
             this.tsbtn_paste.Click += new System.EventHandler(this.tsbtn_paste_click);
             // 
@@ -517,7 +414,7 @@ namespace SmartApp.Ihm
             this.toolbtnScreenToBitmap.Image = ((System.Drawing.Image)(resources.GetObject("toolbtnScreenToBitmap.Image")));
             this.toolbtnScreenToBitmap.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolbtnScreenToBitmap.Name = "toolbtnScreenToBitmap";
-            this.toolbtnScreenToBitmap.Size = new System.Drawing.Size(83, 17);
+            this.toolbtnScreenToBitmap.Size = new System.Drawing.Size(90, 19);
             this.toolbtnScreenToBitmap.Text = "Save to bitmap";
             this.toolbtnScreenToBitmap.Click += new System.EventHandler(this.toolbtnScreenToBitmap_Click);
             // 
@@ -561,8 +458,6 @@ namespace SmartApp.Ihm
             this.m_MainSplitterContainer.ResumeLayout(false);
             this.m_tabCTrlConfig.ResumeLayout(false);
             this.m_TabScreen.ResumeLayout(false);
-            this.m_TabItemOption.ResumeLayout(false);
-            this.m_TabScript.ResumeLayout(false);
             this.m_splitterDesigner_Tool.Panel1.ResumeLayout(false);
             this.m_splitterDesigner_Tool.Panel1.PerformLayout();
             this.m_splitterDesigner_Tool.Panel2.ResumeLayout(false);
@@ -582,20 +477,14 @@ namespace SmartApp.Ihm
         private System.Windows.Forms.TabControl m_tabCTrlConfig;
         private System.Windows.Forms.TabPage m_TabScreen;
         private System.Windows.Forms.TabPage m_TabTools;
-        private System.Windows.Forms.TabPage m_TabItemOption;
-        private System.Windows.Forms.TabPage m_TabScript;
         private System.Windows.Forms.ToolStrip m_toolStripDesignLayout;
         private System.Windows.Forms.ToolStripButton m_toolBtnAlignLeft;
         private System.Windows.Forms.ToolStripButton m_toolBtnAlignTop;
         private System.Windows.Forms.ToolStripButton m_toolBtnMSWidth;
         private System.Windows.Forms.ToolStripButton m_toolBtnMSHeight;
         private System.Windows.Forms.ToolStripButton m_toolBtnMSSize;
-        private ScreenItemPropertiesControl m_PanelControlProperties;
         private ScreenPropPanel m_PanelScreenListAndProp;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private ScriptControl m_PanelScreenInitScript;
-        private ScriptControl m_PanelScreenEventScript;
-        private ScriptControl m_PanelCtrlEventScript;
         private System.Windows.Forms.Label m_LabelSelectedScreen;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton m_toolBtnArrangeAcross;

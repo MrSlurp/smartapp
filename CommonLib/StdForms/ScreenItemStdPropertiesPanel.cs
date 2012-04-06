@@ -7,21 +7,34 @@ using System.Text;
 using System.Windows.Forms;
 using CommonLib;
 
-using SmartApp.Ihm.Designer;
-
-namespace SmartApp.Ihm
+namespace CommonLib
 {
-    public partial class ScreenItemPropertiesControl : UserControl
+    public partial class ScreenItemStdPropertiesPanel : UserControl, IObjectPropertyPanel
     {
         #region données membres
+        /// <summary>
+        /// 
+        /// </summary>
         private BTControl m_Control = null;
 
+        /// <summary>
+        /// 
+        /// </summary>
         private GestControl m_GestControl = null;
 
+        /// <summary>
+        /// 
+        /// </summary>
         private BTDoc m_Document = null;
 
+        /// <summary>
+        /// 
+        /// </summary>
         private UserControl m_CurrentSpecificControlPropPanel = null;
 
+        /// <summary>
+        /// 
+        /// </summary>
         private Font m_CtrlFont = null;
 
         #endregion
@@ -34,7 +47,7 @@ namespace SmartApp.Ihm
         /// <summary>
         /// 
         /// </summary>
-        public ScreenItemPropertiesControl()
+        public ScreenItemStdPropertiesPanel()
         {
             InitializeComponent();
         }
@@ -44,58 +57,28 @@ namespace SmartApp.Ihm
         /// <summary>
         /// 
         /// </summary>
-        public BTControl BTControl
+        public BaseObject ConfiguredItem
         {
             get { return m_Control; }
             set
             {
-                m_Control = value;
+                m_Control = value as BTControl;
                 UpdateStateFromControlType();
                 if (m_Control != null)
                 {
                     this.Enabled = true;
-                    this.Description = m_Control.Description;
-                    this.Symbol = m_Control.Symbol;
-                    this.AssociateData = m_Control.AssociateData; ;
-                    this.IsReadOnly = m_Control.IsReadOnly;
-                    this.UseScreenEvent = m_Control.UseScreenEvent;
-                    this.Txt = m_Control.IControl.Text;
-                    this.m_LabelCurControl.Text = m_Control.Symbol;
-                    this.CtrlFont = m_Control.TextFont;
-                    this.CtrlFontColor = m_Control.TextColor;
                 }
                 else
                 {
-                    this.Description = "";
-                    this.Symbol = "";
                     this.AssociateData = "";
                     this.IsReadOnly = false;
                     this.UseScreenEvent = false;
                     this.Enabled = false;
                     this.Txt = "";
-                    this.m_LabelCurControl.Text = Program.LangSys.C("No selection");
                     this.m_CtrlFont = null;
                     this.CtrlFontColor = Color.Black;
                 }
             }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Description
-        {
-            get { return m_richTextBoxDesc.Text; }
-            set { m_richTextBoxDesc.Text = value; }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Symbol
-        {
-            get { return m_textSymbol.Text; }
-            set { m_textSymbol.Text = value; }
         }
 
         /// <summary>
@@ -149,7 +132,7 @@ namespace SmartApp.Ihm
         /// <summary>
         /// 
         /// </summary>
-        public BTDoc Doc
+        public BTDoc Document
         {
             get { return m_Document; }
             set { m_Document = value; }
@@ -158,18 +141,18 @@ namespace SmartApp.Ihm
         /// <summary>
         /// 
         /// </summary>
-        public GestData GestData
+        public Control Panel
         {
-            get { return m_Document.GestData; }
+            get { return this; }
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public GestControl GestControl
+        public BaseGest ConfiguredItemGest
         {
             get { return m_GestControl; }
-            set { m_GestControl = value; }
+            set { m_GestControl = value as GestControl; }
         }
         #endregion
 
@@ -177,22 +160,17 @@ namespace SmartApp.Ihm
         /// <summary>
         /// 
         /// </summary>
-        public bool IsDataValuesValid
+        public bool IsObjectPropertiesValid
         {
             get
             {
-                if (this.BTControl == null)
+                if (this.m_Control == null)
                     return true;
 
-                if (string.IsNullOrEmpty(this.Symbol))
-                    return false;
                 bool bRet = true;
-                BTControl dt = (BTControl)this.GestControl.GetFromSymbol(this.Symbol);
-                if (dt != null && dt != this.BTControl)
-                    bRet = false;
                 if (!string.IsNullOrEmpty(this.AssociateData))
                 {
-                    Data dat = (Data)this.GestData.GetFromSymbol(this.AssociateData);
+                    Data dat = (Data)this.m_Document.GestData.GetFromSymbol(this.AssociateData);
                     if (dat == null)
                         bRet = false;
                 }
@@ -209,47 +187,50 @@ namespace SmartApp.Ihm
         /// 
         /// </summary>
         /// <returns></returns>
-        public bool ValidateValues()
+        public bool ValidateProperties()
         {
-            if (this.BTControl == null)
+            if (this.m_Control == null)
                 return true;
 
             bool bRet = true;
             string strMessage = "";
-            if (string.IsNullOrEmpty(this.Symbol))
-            {
-                strMessage = Program.LangSys.C("Symbol must not be empty");
-                bRet = false;
-            }
-            if (GestControl != null)
-            {
-                BTControl Sc = (BTControl)GestControl.GetFromSymbol(this.Symbol);
-                if (bRet && Sc != null && Sc != this.BTControl)
-                {
-                    strMessage = string.Format(Program.LangSys.C("A control with symbol {0} already exist"), Symbol);
-                    bRet = false;
-                }
-            }
             if (!string.IsNullOrEmpty(this.AssociateData))
             {
-                Data dat = (Data)this.GestData.GetFromSymbol(this.AssociateData);
+                Data dat = (Data)this.m_Document.GestData.GetFromSymbol(this.AssociateData);
                 if (bRet && dat == null)
                 {
-                    strMessage = string.Format(Program.LangSys.C("Associate data {0} is not valid"), this.AssociateData);
+                    strMessage = string.Format(Lang.LangSys.C("Associate data {0} is not valid"), this.AssociateData);
                     bRet = false;
                 }
             }
             if (!bRet)
             {
-                MessageBox.Show(strMessage, Program.LangSys.C("Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(strMessage, Lang.LangSys.C("Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return bRet;
             }
-            bool bDataPropChange = false;
-            if (m_Control.Description != this.Description)
-                bDataPropChange |= true;
-            if (m_Control.Symbol != this.Symbol)
-                bDataPropChange |= true;
 
+            return true;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void ObjectToPanel()
+        {
+            this.AssociateData = m_Control.AssociateData; ;
+            this.IsReadOnly = m_Control.IsReadOnly;
+            this.UseScreenEvent = m_Control.UseScreenEvent;
+            this.Txt = m_Control.IControl.Text;
+            this.CtrlFont = m_Control.TextFont;
+            this.CtrlFontColor = m_Control.TextColor;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void PanelToObject()
+        {
+            bool bDataPropChange = false;
             if (m_Control.AssociateData != this.AssociateData)
                 bDataPropChange |= true;
             if (m_Control.IsReadOnly != this.IsReadOnly)
@@ -271,20 +252,18 @@ namespace SmartApp.Ihm
 
             if (bDataPropChange)
             {
-                m_Control.Description = this.Description;
-                m_Control.Symbol = this.Symbol;
                 m_Control.AssociateData = this.AssociateData;
                 m_Control.IsReadOnly = this.IsReadOnly;
                 m_Control.UseScreenEvent = this.UseScreenEvent;
                 m_Control.IControl.Text = this.Txt;
                 m_Control.TextFont = this.CtrlFont;
                 m_Control.TextColor = this.CtrlFontColor;
-                Doc.Modified = true;
+                Document.Modified = true;
             }
             if (bDataPropChange && ControlPropertiesChanged != null)
-                ControlPropertiesChanged(m_Control);
-            return true;
+                ControlPropertiesChanged(m_Control); 
         }
+
         #endregion
 
         #region handlers d'évènement
@@ -315,16 +294,6 @@ namespace SmartApp.Ihm
                 e.Effect = DragDropEffects.All;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void PropertiesControlValidating(object sender, CancelEventArgs e)
-        {
-            if (!ValidateValues())
-                e.Cancel = true;
-        }
         #endregion
 
         /// <summary>
@@ -505,7 +474,7 @@ namespace SmartApp.Ihm
         private void btn_pickdata_Click(object sender, EventArgs e)
         {
             PickDataForm PickData = new PickDataForm();
-            PickData.Document = this.Doc;
+            PickData.Document = this.Document;
             if (PickData.ShowDialog() == DialogResult.OK)
             {
                 if (PickData.SelectedData != null)

@@ -11,7 +11,7 @@ namespace CommonLib
     {
         #region Déclaration des données de la classe
         // script executé par le timer
-        private StringCollection m_ScriptLines = new StringCollection();
+        protected ItemScriptsConainter m_ScriptContainer = new ItemScriptsConainter();
         // période du timer
         int m_iPeriod = 1000;
 
@@ -47,27 +47,13 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// obtient ou assigne le script executé par le timer
+        /// obtient ou assigne le script du controle
         /// </summary>
-        public string[] ScriptLines
+        public ItemScriptsConainter ItemScripts
         {
             get
             {
-                string[] TabLines = new string[m_ScriptLines.Count];
-                for (int i = 0; i < m_ScriptLines.Count; i++)
-                {
-                    TabLines[i] = m_ScriptLines[i];
-                }
-                return TabLines;
-            }
-            set
-            {
-                m_ScriptLines.Clear();
-                for (int i = 0; i < value.Length; i++)
-                {
-                    m_ScriptLines.Add(value[i]);
-                }
-
+                return m_ScriptContainer;
             }
         }
 
@@ -106,6 +92,7 @@ namespace CommonLib
             }
         }
 #endif
+
         #endregion
 
         #region ReadIn / WriteOut
@@ -126,14 +113,16 @@ namespace CommonLib
             // et le script
             m_iPeriod = int.Parse(PeriodAttrib.Value);
 
+            List<string> listScriptLines = new List<string>();
             for (int i = 0; i < Node.ChildNodes.Count; i++)
             {
                 if (Node.ChildNodes[i].Name == XML_CF_TAG.Line.ToString()
                         && Node.ChildNodes[i].FirstChild != null)
                 {
-                    m_ScriptLines.Add(Node.ChildNodes[i].FirstChild.Value);
+                    listScriptLines.Add(Node.ChildNodes[i].FirstChild.Value);
                 }
             }
+            m_ScriptContainer["TimerScript"] = listScriptLines.ToArray();
             XmlNode AutoStartAttrib = Node.Attributes.GetNamedItem(XML_CF_ATTRIB.AutoStart.ToString());
             if (AutoStartAttrib != null)
                 m_bAutoStart = bool.Parse(AutoStartAttrib.Value);
@@ -158,10 +147,10 @@ namespace CommonLib
             Node.Attributes.Append(AttrPeriod);
             Node.Attributes.Append(AutoStartAttrib);
             // et le script
-            for (int i = 0; i < m_ScriptLines.Count; i++)
+            for (int i = 0; i < m_ScriptContainer["TimerScript"].Length; i++)
             {
                 XmlNode NodeLine = XmlDoc.CreateElement(XML_CF_TAG.Line.ToString());
-                XmlNode NodeText = XmlDoc.CreateTextNode(m_ScriptLines[i]);
+                XmlNode NodeText = XmlDoc.CreateTextNode(m_ScriptContainer["TimerScript"][i]);
                 NodeLine.AppendChild(NodeText);
                 Node.AppendChild(NodeLine);
             }
@@ -197,7 +186,7 @@ namespace CommonLib
             // en mode config, on execute les différents traitements sur les scripts
             if (TypeApp == TYPE_APP.SMART_CONFIG)
             {
-                ScriptTraiteMessage(this, Mess, m_ScriptLines, obj);
+                ScriptTraiteMessage(this, Mess, m_ScriptContainer, obj);
             }
             else
             {
@@ -213,8 +202,8 @@ namespace CommonLib
                         break;
 #if QUICK_MOTOR
                     case MESSAGE.MESS_PRE_PARSE:
-                        if (this.ScriptLines.Length != 0)
-                            this.m_iQuickScriptID = m_Executer.PreParseScript((IScriptable)this);    
+                        if (this.ItemScripts["TimerScript"].Length != 0)
+                            this.m_iQuickScriptID = m_Executer.PreParseScript(this.m_ScriptContainer["TimerScript"]);    
                         break;
 #endif
                     default:

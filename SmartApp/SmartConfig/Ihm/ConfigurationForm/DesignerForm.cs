@@ -18,6 +18,7 @@ namespace SmartApp.Ihm
         private BTDoc m_Document = null;
         private BTScreen m_Currentscreen = null;
         private DragItemPanel m_panelToolDragItem;
+        BasePropertiesDialog m_PropDialog = new BasePropertiesDialog();
         #endregion
 
         #region attributs de la classe
@@ -35,13 +36,7 @@ namespace SmartApp.Ihm
             {
                 m_Document = value;
                 m_PanelScreenListAndProp.Doc = m_Document;
-                m_PanelControlProperties.Doc = m_Document;
-                m_PanelScreenInitScript.Title = Program.LangSys.C("Screen Init Script");
-                m_PanelScreenInitScript.Doc = m_Document;
-                m_PanelScreenEventScript.Title = Program.LangSys.C("Screen Event Script");
-                m_PanelScreenEventScript.Doc = m_Document;
-                m_PanelCtrlEventScript.Title = Program.LangSys.C("Control Event Script");
-                m_PanelCtrlEventScript.Doc = m_Document;
+                m_PropDialog.Document = m_Document;
             }
         }
 
@@ -107,12 +102,19 @@ namespace SmartApp.Ihm
             m_InteractiveControlContainer.EventControlAdded += new IControlAddedEvent(this.OnDesignerControAdded);
             m_InteractiveControlContainer.EventControlRemoved += new IControlRemovedEvent(this.OnDesignerControRemoved);
             m_InteractiveControlContainer.EventControlBringToTop += new IControlBringToTop(this.OnDesignerControBringTop);
-            m_InteractiveControlContainer.EventCanChangeSelection += new CanChangeSelectionEvent(this.OnControlContainerAskChangeSelection);
             m_InteractiveControlContainer.EventControlDblClick += new ControlDoubleClicked(this.OnControlDblClick);
             m_InteractiveControlContainer.EventControlPosChanged += new ControlsPosChanged(ControlPosChanged);
             m_InteractiveControlContainer.AllowDrop = false;
+
+            m_PanelScreenListAndProp.ScreenDoubleClick += new EventHandler(PanelScreenListAndProp_ScreenDoubleClick);
+
             OnScreenDesignerSelectionChange();
             this.m_PanelScreenListAndProp.SelectedScreenChange += new ScreenPropertiesChange(this.OnSelectedScreenChange);
+        }
+
+        void PanelScreenListAndProp_ScreenDoubleClick(object sender, EventArgs e)
+        {
+            OnControlDblClick();
         }
 
         void SubInitComponent()
@@ -133,7 +135,6 @@ namespace SmartApp.Ihm
         {
             m_PanelScreenListAndProp.Initialize();
             OnSelectedScreenChange(null);
-            UpdateOptionPanel();
             m_InteractiveControlContainer.ClearSelection();
         }
         #endregion
@@ -146,7 +147,10 @@ namespace SmartApp.Ihm
         private void OnScreenDesignerSelectionChange()
         {
             UpdateLayoutToolBarButtons();
-            UpdateOptionPanel();
+            if (m_InteractiveControlContainer.SelectionCount >= 1)
+            {
+                m_PropDialog.ConfiguredItem = m_InteractiveControlContainer.FirstSelected.SourceBTControl;
+            }
         }
 
         //*****************************************************************************************************
@@ -157,16 +161,11 @@ namespace SmartApp.Ihm
         {
             if (e.CloseReason == CloseReason.UserClosing)
             {
-                if (m_PanelControlProperties.IsDataValuesValid)
-                {
-                    this.WindowState = FormWindowState.Minimized;
-                }
+                this.WindowState = FormWindowState.Minimized;
                 e.Cancel = true;
             }
             else if (e.CloseReason == CloseReason.MdiFormClosing)
             {
-                if (!m_PanelControlProperties.IsDataValuesValid)
-                    e.Cancel = true;
             }
         }
         #endregion
@@ -233,84 +232,6 @@ namespace SmartApp.Ihm
             }
         }
 
-        //*****************************************************************************************************
-        // Description: affiche le panel correspondant au premier objet selectionné si la selection ne contiens
-        // qu'un seul objet
-        // Return: /
-        //*****************************************************************************************************      
-        private void UpdateOptionPanel()
-        {
-            UpdateScriptFromControlType();
-            if (m_InteractiveControlContainer.SelectionCount == 0)
-            {
-                m_PanelControlProperties.Enabled = false;
-                if (m_PanelControlProperties.BTControl != null)
-                    m_PanelControlProperties.BTControl = null;
-            }
-            else if (m_InteractiveControlContainer.SelectionCount ==1)
-            {
-                m_PanelControlProperties.Enabled = true;
-                if (m_PanelControlProperties.BTControl != m_InteractiveControlContainer.FirstSelected.SourceBTControl)
-                    m_PanelControlProperties.BTControl = m_InteractiveControlContainer.FirstSelected.SourceBTControl;
-            }
-            else
-            {
-                m_PanelControlProperties.Enabled = false;
-            }
-            
-        }
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        protected void UpdateScriptFromControlType()
-        {
-
-            BTControl ctrl = null;
-            if (m_InteractiveControlContainer.FirstSelected != null)
-                ctrl = m_InteractiveControlContainer.FirstSelected.SourceBTControl;
-
-            if (ctrl == null)
-            {
-                m_PanelCtrlEventScript.ScriptableItem = null;
-                return;
-            }
-
-            switch (ctrl.IControl.ControlType)
-            {
-                case InteractiveControlType.Button:
-                case InteractiveControlType.CheckBox:
-                case InteractiveControlType.Combo:
-                    m_PanelCtrlEventScript.ScriptableItem = ctrl;
-                    break;
-                case InteractiveControlType.Text:
-                case InteractiveControlType.NumericUpDown:
-                case InteractiveControlType.Slider:
-                    m_PanelCtrlEventScript.ScriptableItem = null;
-                    break;
-                case InteractiveControlType.SpecificControl:
-                    if (((ISpecificControl)ctrl.IControl).StdPropEnabling.m_bCtrlEventScriptEnabled)
-                        m_PanelCtrlEventScript.ScriptableItem = ctrl;
-                    else
-                        m_PanelCtrlEventScript.ScriptableItem = null;
-                    break;
-                case InteractiveControlType.DllControl:
-                    if (((ISpecificControl)ctrl.IControl).StdPropEnabling.m_bCtrlEventScriptEnabled)
-                        m_PanelCtrlEventScript.ScriptableItem = ctrl;
-                    else
-                        m_PanelCtrlEventScript.ScriptableItem = null;
-                    break;
-                default:
-                    System.Diagnostics.Debug.Assert(false);
-                    break;
-            }
-            if (m_InteractiveControlContainer.SelectionCount > 1)
-            {
-                m_PanelCtrlEventScript.Enabled = false;
-            }
-
-        }
         #endregion
 
         #region Event de la tool bar de layout
@@ -368,16 +289,14 @@ namespace SmartApp.Ihm
         public void OnSelectedScreenChange(BTScreen Scr)
         {
             m_Currentscreen = Scr;
+            m_PropDialog.CurrentScreen = Scr;
+            m_PropDialog.ConfiguredItem = Scr;
             if (m_Currentscreen == null)
             {
                 // si il n'y a pas d'écran selectionné
                 // on ne peux pas droper dans le designer
-                this.m_PanelControlProperties.GestControl = null;
                 m_InteractiveControlContainer.AllowDrop = false;
                 m_InteractiveControlContainer.ScreenBckImage = null;
-                m_PanelScreenInitScript.InitScriptableItem = null;
-                m_PanelScreenEventScript.ScriptableItem = null;
-                m_PanelCtrlEventScript.ScriptableItem = null;
                 m_LabelSelectedScreen.Text = Program.LangSys.C("No selection");
                 toolbtnScreenToBitmap.Enabled = false;
                 tsbtn_copy.Enabled = false;
@@ -386,8 +305,6 @@ namespace SmartApp.Ihm
                 return;
             }
             m_LabelSelectedScreen.Text = Scr.Symbol;
-            m_PanelScreenInitScript.InitScriptableItem = m_Currentscreen;
-            m_PanelScreenEventScript.ScriptableItem = m_Currentscreen;
             m_InteractiveControlContainer.AllowDrop = true;
             toolbtnScreenToBitmap.Enabled = true;
             tsbtn_copy.Enabled = true;
@@ -416,8 +333,6 @@ namespace SmartApp.Ihm
             }
             // on met a jour le designer avec l'écran séléctionné
             UpdateDesignerFromScreen(m_Currentscreen);
-            this.m_PanelControlProperties.GestControl = m_Currentscreen.Controls;
-            UpdateOptionPanel();
         }
 
         //*****************************************************************************************************
@@ -481,14 +396,6 @@ namespace SmartApp.Ihm
             m_Document.Modified = true;
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
-        private bool OnControlContainerAskChangeSelection()
-        {
-            return m_PanelControlProperties.IsDataValuesValid;
-        }
 
         //*****************************************************************************************************
         // Description:
@@ -497,8 +404,11 @@ namespace SmartApp.Ihm
         private void OnControlDblClick()
         {
             m_tabCTrlConfig.SelectedIndex = 2; // TODO constante pour la page des controls
-            BasePropertiesDialog propPanel = new BasePropertiesDialog();
-            propPanel.ShowDialog();
+            if (m_PropDialog.ConfiguredItem != null)
+            {
+                m_PropDialog.Initialize();
+                m_PropDialog.ShowDialog();
+            }
         }
 
         #endregion

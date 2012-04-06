@@ -20,6 +20,7 @@ namespace SmartApp.Ihm
 
         #region Events
         public event ScreenPropertiesChange SelectedScreenChange;
+        public event EventHandler ScreenDoubleClick;
         #endregion
 
         #region attributs
@@ -36,7 +37,6 @@ namespace SmartApp.Ihm
             set
             {
                 m_Document = value;
-                m_PanelScreenProperties.Doc = m_Document;
             }
         }
 
@@ -76,7 +76,6 @@ namespace SmartApp.Ihm
                 return;
 
             InitListView();
-            m_PanelScreenProperties.ScreenPropertiesChanged += new ScreenPropertiesChange(this.OnScreenPropertiesChange);
         }
         #endregion
 
@@ -99,7 +98,6 @@ namespace SmartApp.Ihm
                     lviData.SubItems.Add(Sc.Title);
                     m_ListViewScreens.Items.Add(lviData);
                 }
-                m_PanelScreenProperties.BTScreen = null;
                 if (SelectedScreenChange != null)
                     SelectedScreenChange(null);
                 m_CurSelectedIndex = -1;
@@ -134,27 +132,14 @@ namespace SmartApp.Ihm
                 lviData = m_ListViewScreens.SelectedItems[0];
             if (lviData != null)
             {
-                //if (lviData.Index == m_CurSelectedIndex)
-                //    return;
-
-                if (m_PanelScreenProperties.IsDataValuesValid )
-                {
-                    m_CurSelectedIndex = lviData.Index;
-                    string strDataSymb = lviData.Text;
-                    BaseObject Scr = GestScreen.GetFromSymbol(strDataSymb);
-                    m_PanelScreenProperties.BTScreen = (BTScreen)Scr;
-                    if (SelectedScreenChange != null)
-                        SelectedScreenChange((BTScreen)Scr);
-                }
-                else
-                {
-                    lviData.Focused = false;
-                    m_ListViewScreens.Items[m_CurSelectedIndex].Selected = true;
-                }
+                m_CurSelectedIndex = lviData.Index;
+                string strDataSymb = lviData.Text;
+                BaseObject Scr = GestScreen.GetFromSymbol(strDataSymb);
+                if (SelectedScreenChange != null)
+                    SelectedScreenChange((BTScreen)Scr);
             }
             else
             {
-                m_PanelScreenProperties.BTScreen = null;
                 m_CurSelectedIndex = -1;
                 if (SelectedScreenChange != null)
                     SelectedScreenChange(null);
@@ -214,6 +199,12 @@ namespace SmartApp.Ihm
             this.GestScreen.AddObj(Scr);
             m_Document.Modified = true;
             InitListView();
+        }
+
+        private void m_ListViewScreens_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (ScreenDoubleClick != null)
+                ScreenDoubleClick(this, null);
         }
     }
 }
