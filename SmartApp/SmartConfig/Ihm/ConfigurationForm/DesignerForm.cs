@@ -497,6 +497,8 @@ namespace SmartApp.Ihm
         private void OnControlDblClick()
         {
             m_tabCTrlConfig.SelectedIndex = 2; // TODO constante pour la page des controls
+            BasePropertiesDialog propPanel = new BasePropertiesDialog();
+            propPanel.ShowDialog();
         }
 
         #endregion

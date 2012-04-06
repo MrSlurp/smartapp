@@ -43,8 +43,8 @@ namespace SmartApp.Ihm
             this.lbl_Font = new System.Windows.Forms.Label();
             this.btn_FontColor = new System.Windows.Forms.Button();
             this.panel_fontColor = new System.Windows.Forms.Panel();
-            this.m_EditAssociateData = new SmartApp.Ihm.SymbolTextBox();
-            this.m_textSymbol = new SmartApp.Ihm.SymbolTextBox();
+            this.m_EditAssociateData = new CommonLib.SymbolTextBox();
+            this.m_textSymbol = new CommonLib.SymbolTextBox();
             this.SuspendLayout();
             // 
             // m_labelSymbol
@@ -257,7 +257,7 @@ namespace SmartApp.Ihm
 
         #endregion
 
-        private SmartApp.Ihm.SymbolTextBox m_textSymbol;
+        private CommonLib.SymbolTextBox m_textSymbol;
         private System.Windows.Forms.Label m_labelSymbol;
         private System.Windows.Forms.Label m_labelDesc;
         private System.Windows.Forms.RichTextBox m_richTextBoxDesc;
@@ -266,7 +266,7 @@ namespace SmartApp.Ihm
         private System.Windows.Forms.CheckBox m_checkReadOnly;
         private System.Windows.Forms.TextBox m_EditText;
         private System.Windows.Forms.Label labelText;
-        private SmartApp.Ihm.SymbolTextBox m_EditAssociateData;
+        private CommonLib.SymbolTextBox m_EditAssociateData;
         private System.Windows.Forms.Label m_LabelCurControl;
         private System.Windows.Forms.Panel m_panelPlaceSpec;
         private System.Windows.Forms.Button btn_pickdata;

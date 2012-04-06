@@ -85,7 +85,6 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="InteractiveHerited\InteractiveCtrlCnxManagerDllControl.cs">
-      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="InteractiveHerited\InteractiveCtrlCnxManagerDllControl.Designer.cs">
       <DependentUpon>InteractiveCtrlCnxManagerDllControl.cs</DependentUpon>

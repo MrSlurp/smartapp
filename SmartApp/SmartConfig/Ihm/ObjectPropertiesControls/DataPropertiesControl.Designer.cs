@@ -31,7 +31,7 @@ namespace SmartApp.Ihm
             this.m_richTextDesc = new System.Windows.Forms.RichTextBox();
             this.m_labelDesc = new System.Windows.Forms.Label();
             this.m_labelSymbol = new System.Windows.Forms.Label();
-            this.m_textSymbol = new SmartApp.Ihm.SymbolTextBox();
+            this.m_textSymbol = new CommonLib.SymbolTextBox();
             this.m_cboSize = new System.Windows.Forms.ComboBox();
             this.m_labelSize = new System.Windows.Forms.Label();
             this.m_numUDMin = new System.Windows.Forms.NumericUpDown();
@@ -217,7 +217,7 @@ namespace SmartApp.Ihm
         private System.Windows.Forms.RichTextBox m_richTextDesc;
         private System.Windows.Forms.Label m_labelDesc;
         private System.Windows.Forms.Label m_labelSymbol;
-        private SmartApp.Ihm.SymbolTextBox m_textSymbol;
+        private CommonLib.SymbolTextBox m_textSymbol;
         private System.Windows.Forms.ComboBox m_cboSize;
         private System.Windows.Forms.Label m_labelSize;
         private System.Windows.Forms.NumericUpDown m_numUDMin;

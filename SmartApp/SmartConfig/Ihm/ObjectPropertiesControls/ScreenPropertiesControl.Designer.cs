@@ -37,7 +37,7 @@ namespace SmartApp.Ihm
             this.m_textBkgndFile = new System.Windows.Forms.TextBox();
             this.m_btnBrowseBkFile = new CommonLib.BrowseFileBtn();
             this.m_btnRemoveFile = new System.Windows.Forms.Button();
-            this.m_textBoxSymbol = new SmartApp.Ihm.SymbolTextBox();
+            this.m_textBoxSymbol = new CommonLib.SymbolTextBox();
             this.SuspendLayout();
             // 
             // label2
@@ -172,7 +172,7 @@ namespace SmartApp.Ihm
 
         #endregion
 
-        private SmartApp.Ihm.SymbolTextBox m_textBoxSymbol;
+        private CommonLib.SymbolTextBox m_textBoxSymbol;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.RichTextBox m_richTextDesc;

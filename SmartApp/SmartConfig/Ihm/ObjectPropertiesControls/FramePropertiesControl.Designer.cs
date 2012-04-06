@@ -44,7 +44,7 @@ namespace SmartApp.Ihm
             this.label6 = new System.Windows.Forms.Label();
             this.m_cboCtrlDataType = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.m_textSymbol = new SmartApp.Ihm.SymbolTextBox();
+            this.m_textSymbol = new CommonLib.SymbolTextBox();
             this.m_richTextDesc = new System.Windows.Forms.RichTextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -287,7 +287,7 @@ namespace SmartApp.Ihm
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox m_cboCtrlDataType;
         private System.Windows.Forms.Label label5;
-        private SmartApp.Ihm.SymbolTextBox m_textSymbol;
+        private CommonLib.SymbolTextBox m_textSymbol;
         private System.Windows.Forms.RichTextBox m_richTextDesc;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;

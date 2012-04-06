@@ -50,8 +50,8 @@ namespace SmartApp.Ihm
             this.edtDateFormat = new System.Windows.Forms.TextBox();
             this.btnAddData = new System.Windows.Forms.Button();
             this.edtFormatHelp = new System.Windows.Forms.TextBox();
-            this.m_txtFileName = new SmartApp.Ihm.SymbolTextBox();
-            this.m_textSymbol = new SmartApp.Ihm.SymbolTextBox();
+            this.m_txtFileName = new CommonLib.SymbolTextBox();
+            this.m_textSymbol = new CommonLib.SymbolTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.m_LoggerPeriod)).BeginInit();
             this.SuspendLayout();
             // 
@@ -324,8 +324,8 @@ namespace SmartApp.Ihm
         private System.Windows.Forms.NumericUpDown m_LoggerPeriod;
         private System.Windows.Forms.ComboBox m_cboLogType;
         private System.Windows.Forms.ListView m_ListViewData;
-        private SymbolTextBox m_txtFileName;
-        private SymbolTextBox m_textSymbol;
+        private CommonLib.SymbolTextBox m_txtFileName;
+        private CommonLib.SymbolTextBox m_textSymbol;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;

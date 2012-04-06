@@ -29,7 +29,7 @@ namespace SmartApp.Ihm
         private void InitializeComponent()
         {
             this.m_labelScript = new System.Windows.Forms.Label();
-            this.m_textSymbol = new SmartApp.Ihm.SymbolTextBox();
+            this.m_textSymbol = new CommonLib.SymbolTextBox();
             this.m_labelSymbol = new System.Windows.Forms.Label();
             this.m_labelDesc = new System.Windows.Forms.Label();
             this.m_richTextDesc = new System.Windows.Forms.RichTextBox();
@@ -126,7 +126,7 @@ namespace SmartApp.Ihm
         #endregion
 
         private System.Windows.Forms.Label m_labelScript;
-        private SmartApp.Ihm.SymbolTextBox m_textSymbol;
+        private CommonLib.SymbolTextBox m_textSymbol;
         private System.Windows.Forms.Label m_labelSymbol;
         private System.Windows.Forms.Label m_labelDesc;
         private System.Windows.Forms.RichTextBox m_richTextDesc;
