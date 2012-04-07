@@ -80,6 +80,15 @@ namespace CommonLib
                         IScriptable obj = m_baseObjectItem as IScriptable;
                         foreach (string scriptType in obj.ItemScripts.ScriptKeys)
                         {
+                            BTControl objCtrl = m_baseObjectItem as BTControl;
+                            if (objCtrl != null)
+                            {
+                                ISpecificControl ctrl = objCtrl.IControl as ISpecificControl;
+                                if (ctrl != null
+                                    && scriptType == "EvtScript"
+                                    && ctrl.StdPropEnabling.m_bCtrlEventScriptEnabled == false)
+                                    continue;
+                            }
                             ScriptEditorControl editor = new ScriptEditorControl();
                             editor.ScriptType = scriptType;
                             m_listPropsPanels.Add(editor as IObjectPropertyPanel);

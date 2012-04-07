@@ -29,6 +29,7 @@ namespace CtrlDataTrigger
 
         void UpdateScriptPresenceLabels()
         {
+            /*
             if (m_Control != null)
             {
                 DllCtrlDataTriggerProp Props = (DllCtrlDataTriggerProp)m_Control.SpecificProp;
@@ -47,15 +48,15 @@ namespace CtrlDataTrigger
                 m_lblScriptOffToOnComm.Text = DllEntryClass.LangSys.C("Empty");
                 m_lblScriptOnToOffComm.Text = DllEntryClass.LangSys.C("Empty");
             }
-            
+            */
         }
 
         void AdvPropEnable(bool bEnable)
         {
             this.edtOffToOn.Enabled = bEnable;
             this.edtOnToOff.Enabled = bEnable;
-            this.btnOffToOnScript.Enabled = bEnable;
-            this.btnOnToOffScript.Enabled = bEnable;
+            //this.btnOffToOnScript.Enabled = bEnable;
+            //this.btnOnToOffScript.Enabled = bEnable;
             this.btnPickOffToOn.Enabled = bEnable;
             this.btnPickOnToOff.Enabled = bEnable;
         }

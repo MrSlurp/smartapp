@@ -37,14 +37,12 @@
             // 
             // uscPanelCurveCfg
             // 
-            this.uscPanelCurveCfg.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)));
             this.uscPanelCurveCfg.AutoScroll = true;
             this.uscPanelCurveCfg.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.uscPanelCurveCfg.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.uscPanelCurveCfg.Location = new System.Drawing.Point(0, 56);
             this.uscPanelCurveCfg.Name = "uscPanelCurveCfg";
-            this.uscPanelCurveCfg.Size = new System.Drawing.Size(401, 173);
+            this.uscPanelCurveCfg.Size = new System.Drawing.Size(401, 288);
             this.uscPanelCurveCfg.TabIndex = 20;
             // 
             // cboLogPeriod
@@ -94,7 +92,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.uscPanelCurveCfg);
             this.Name = "CtrlDataGridProperties";
-            this.Size = new System.Drawing.Size(404, 232);
+            this.Size = new System.Drawing.Size(404, 347);
             this.ResumeLayout(false);
             this.PerformLayout();
 
