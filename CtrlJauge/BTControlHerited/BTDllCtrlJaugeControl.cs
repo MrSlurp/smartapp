@@ -16,7 +16,7 @@ namespace CtrlJauge
             if (m_IControl != null)
                 m_IControl.SourceBTControl = this;
 
-            m_SpecificProp = new DllCtrlJaugeProp();
+            m_SpecificProp = new DllCtrlJaugeProp(this.ItemScripts);
         }
 
         public BTDllCtrlJaugeControl(InteractiveControl Ctrl)
@@ -25,7 +25,7 @@ namespace CtrlJauge
             if (m_IControl != null)
                 m_IControl.SourceBTControl = this;
 
-            m_SpecificProp = new DllCtrlJaugeProp();
+            m_SpecificProp = new DllCtrlJaugeProp(this.ItemScripts);
         }
 
         public override SpecificControlProp SpecificProp

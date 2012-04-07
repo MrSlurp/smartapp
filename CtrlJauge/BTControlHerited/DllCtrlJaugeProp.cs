@@ -28,6 +28,8 @@ namespace CtrlJauge
         Color m_ColorMax = Color.White;
         Color m_ColorMin = Color.Blue;
 
+        public DllCtrlJaugeProp(ItemScriptsConainter scriptContainter) : base(scriptContainter) { }
+
         // ajouter ici les accesseur vers les données membres des propriété
         public eOrientationJauge Orientation
         {

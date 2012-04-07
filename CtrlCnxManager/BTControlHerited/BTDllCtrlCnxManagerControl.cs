@@ -19,7 +19,7 @@ namespace CtrlCnxManager
             if (m_IControl != null)
                 m_IControl.SourceBTControl = this;
 
-            m_SpecificProp = new DllCtrlCnxManagerProp();
+            m_SpecificProp = new DllCtrlCnxManagerProp(this.ItemScripts);
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace CtrlCnxManager
             if (m_IControl != null)
                 m_IControl.SourceBTControl = this;
 
-            m_SpecificProp = new DllCtrlCnxManagerProp();
+            m_SpecificProp = new DllCtrlCnxManagerProp(this.ItemScripts);
         }
 
         /// <summary>

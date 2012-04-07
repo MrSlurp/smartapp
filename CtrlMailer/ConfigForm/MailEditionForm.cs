@@ -12,7 +12,7 @@ namespace CtrlMailer
     public partial class MailEditionForm : Form
     {
         private BTDoc m_Document = null;
-        DllCtrlMailerProp m_Props = new DllCtrlMailerProp();
+        DllCtrlMailerProp m_Props = new DllCtrlMailerProp(null);
 
         public BTDoc Doc
         {

@@ -10,11 +10,8 @@ using CommonLib;
 
 namespace CtrlGraph
 {
-    public partial class CtrlGraphProperties : UserControl, ISpecificPanel
+    public partial class CtrlGraphProperties : BaseControlPropertiesPanel, ISpecificPanel
     {
-        BTControl m_Control = null;
-        private BTDoc m_Document = null;
-
         #region events
         public event ControlPropertiesChange ControlPropertiesChanged;
         #endregion
@@ -25,53 +22,16 @@ namespace CtrlGraph
             InitializeComponent();
         }
 
-        public BTControl BTControl
-        {
-            get
-            {
-                return m_Control;
-            }
-            set
-            {
-                if (value != null && value.SpecificProp.GetType() == typeof(DllCtrlGraphProp))
-                    m_Control = value;
-                else
-                    m_Control = null;
-                if (m_Control != null)
-                {
-                    this.Enabled = true;
-                    // assignez ici les valeur des propriété spécifiques du control
-                }
-                else
-                {
-                    this.Enabled = false;
-                    // mettez ici les valeur par défaut pour le panel de propriété spécifiques
-                }
-            }
-        }
-
-        public BTDoc Doc
-        {
-            get
-            {
-                return m_Document;
-            }
-            set
-            {
-                m_Document = value;
-            }
-        }
-
         #region validation des données
         //*****************************************************************************************************
         // Description:
         // Return: /
         //*****************************************************************************************************
-        public bool IsDataValuesValid
+        public override bool IsObjectPropertiesValid
         {
             get
             {
-                if (this.BTControl == null)
+                if (this.ConfiguredItem == null)
                     return true;
 
                 return true;
@@ -83,9 +43,9 @@ namespace CtrlGraph
         // Description:
         // Return: /
         //*****************************************************************************************************
-        public bool ValidateValues()
+        public override bool ValidateProperties()
         {
-            if (this.BTControl == null)
+            if (this.ConfiguredItem == null)
                 return true;
 
             bool bDataPropChange = false;
@@ -96,25 +56,36 @@ namespace CtrlGraph
 
             if (bDataPropChange)
             {
-                Doc.Modified = true;
+                Document.Modified = true;
                 m_Control.IControl.Refresh();
             }
             if (bDataPropChange && ControlPropertiesChanged != null)
                 ControlPropertiesChanged(m_Control);
             return true;
         }
+
+        public void PanelToObject()
+        {
+
+        }
+
+        public void ObjectToPanel()
+        {
+
+        }
+
         #endregion
 
         private void btnConfig_Click(object sender, EventArgs e)
         {
             GraphConfigForm CfgForm = new GraphConfigForm();
-            CfgForm.Doc = this.Doc;
-            CfgForm.Props = (DllCtrlGraphProp)this.BTControl.SpecificProp;
+            CfgForm.Doc = this.Document;
+            CfgForm.Props = (DllCtrlGraphProp)this.m_Control.SpecificProp;
 
             if (CfgForm.ShowDialog() == DialogResult.OK)
             {
                 // si OK on recopie les param
-                this.BTControl.SpecificProp.CopyParametersFrom(CfgForm.Props, false);
+                this.m_Control.SpecificProp.CopyParametersFrom(CfgForm.Props, false);
             }
         }
     }

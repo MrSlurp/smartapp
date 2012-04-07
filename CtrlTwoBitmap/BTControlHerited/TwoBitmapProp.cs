@@ -16,6 +16,8 @@ namespace CtrlTwoBitmap
         private const string NOM_ATTIB_ACTIVE = "AciveBitmap";
         private const string NOM_ATTIB_INACTIVE = "InactiveBitmap";
 
+        public TwoBitmapProp(ItemScriptsConainter scriptContainter) : base(scriptContainter) { }
+
         public string NomFichierInactif
         {
             get

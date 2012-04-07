@@ -20,6 +20,8 @@ namespace DigitalDisplay
         private const string NOM_ATTRIB_COLOR = "DigitColor";
         private const string NOM_ATTRIB_BACKCOLOR = "DigitBackColor";
 
+        public DllDigitalDisplayProp(ItemScriptsConainter scriptContainter) : base(scriptContainter) { }
+
         public Color DigitColor
         {
             get

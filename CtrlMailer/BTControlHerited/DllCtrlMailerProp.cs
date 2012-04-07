@@ -23,6 +23,8 @@ namespace CtrlMailer
         string m_MailSubject;
         string m_MailBody;
 
+        public DllCtrlMailerProp(ItemScriptsConainter scriptContainter) : base(scriptContainter) { }
+
         // ajouter ici les accesseur vers les données membres des propriété
         public string ListToMail
         {

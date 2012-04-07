@@ -22,6 +22,8 @@ namespace ScreenItemLocker
 
         // ajouter ici les accesseur vers les données membres des propriété
 
+        public DllScreenItemLockerProp(ItemScriptsConainter scriptContainter) : base(scriptContainter) { }
+
         public StringCollection ListItemSymbol
         {
             get { return m_ListItemSymbol; }

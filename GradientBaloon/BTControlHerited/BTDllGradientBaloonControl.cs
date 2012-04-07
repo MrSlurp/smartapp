@@ -16,7 +16,7 @@ namespace GradientBaloon
             if (m_IControl != null)
                 m_IControl.SourceBTControl = this;
 
-            m_SpecificProp = new DllGradientBaloonProp();
+            m_SpecificProp = new DllGradientBaloonProp(this.ItemScripts);
         }
 
         public BTDllGradientBaloonControl(InteractiveControl Ctrl)
@@ -25,7 +25,7 @@ namespace GradientBaloon
             if (m_IControl != null)
                 m_IControl.SourceBTControl = this;
 
-            m_SpecificProp = new DllGradientBaloonProp();
+            m_SpecificProp = new DllGradientBaloonProp(this.ItemScripts);
         }
 
         public override SpecificControlProp SpecificProp

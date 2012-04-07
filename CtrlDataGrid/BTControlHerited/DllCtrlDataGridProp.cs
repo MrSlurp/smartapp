@@ -46,6 +46,8 @@ namespace CtrlDataGrid
         string[] ListDataSymbol = new string[NB_DATA];
         string[] ListDataAlias = new string[NB_DATA];
 
+        public DllCtrlDataGridProp(ItemScriptsConainter scriptContainter) : base(scriptContainter) { }
+
         // ajouter ici les accesseur vers les données membres des propriété
         #region attributs
         public SAVE_PERIOD SavePeriod

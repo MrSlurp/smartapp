@@ -19,7 +19,7 @@ namespace CtrlDataTrigger
             if (m_IControl != null)
                 m_IControl.SourceBTControl = this;
 
-            m_SpecificProp = new DllCtrlDataTriggerProp();
+            m_SpecificProp = new DllCtrlDataTriggerProp(this.ItemScripts);
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace CtrlDataTrigger
             if (m_IControl != null)
                 m_IControl.SourceBTControl = this;
 
-            m_SpecificProp = new DllCtrlDataTriggerProp();
+            m_SpecificProp = new DllCtrlDataTriggerProp(this.ItemScripts);
         }
 
         /// <summary>

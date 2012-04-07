@@ -11,13 +11,8 @@ using SmartApp.Ihm.Designer;
 
 namespace SmartApp.Ihm
 {
-    public partial class TwoColorProperties : UserControl, ISpecificPanel
+    public partial class TwoColorProperties : BaseControlPropertiesPanel, ISpecificPanel
     {
-        #region données membres
-        private BTControl m_Control = null;
-        private BTDoc m_Document = null;
-        #endregion
-
         #region events
         public event ControlPropertiesChange ControlPropertiesChanged;
         #endregion
@@ -27,93 +22,33 @@ namespace SmartApp.Ihm
             InitializeComponent();
         }
 
-        #region attribut d'accès aux valeurs de la page de propriété
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        public BTControl BTControl
-        {
-            get
-            {
-                return m_Control;
-            }
-            set
-            {
-                if (value.IControl.GetType() == typeof(TwoColorFilledRect))
-                    m_Control = value;
-                else
-                    m_Control = null;
-                if (m_Control != null)
-                {
-                    this.Visible = true;
-                    this.Enabled = true;
-                    m_TextActiveColor.BackColor = ((TwoColorProp)m_Control.SpecificProp).ColorActive;
-                    m_TextInactiveColor.BackColor = ((TwoColorProp)m_Control.SpecificProp).ColorInactive;
-                }
-                else
-                {
-                    this.Visible = false;
-                    this.Enabled = false;
-                    m_TextActiveColor.BackColor = Color.White;
-                    m_TextInactiveColor.BackColor = Color.White;
-                }
-            }
-        }
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        public BTDoc Doc
-        {
-            get
-            {
-                return m_Document;
-            }
-            set
-            {
-                m_Document = value;
-            }
-        }
-        #endregion
-
         #region validation des données
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        public bool IsDataValuesValid
+
+        public void ObjectToPanel()
         {
-            get
-            {
-                if (this.BTControl == null)
-                    return true;
-                
-                return true;
-            }
+            m_TextActiveColor.BackColor = ((TwoColorProp)m_Control.SpecificProp).ColorActive;
+            m_TextInactiveColor.BackColor = ((TwoColorProp)m_Control.SpecificProp).ColorInactive;
         }
 
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        public bool ValidateValues()
+        public void PanelToObject()
         {
-            if (this.BTControl == null)
-                return true;
 
-            bool bDataPropChange = false;
-
-            if (bDataPropChange)
+            bool bPropChange = false;
+            if (((TwoColorProp)m_Control.SpecificProp).ColorActive != m_TextActiveColor.BackColor)
+                bPropChange = true;
+            if (((TwoColorProp)m_Control.SpecificProp).ColorInactive != m_TextInactiveColor.BackColor)
+                bPropChange = true;
+            if (bPropChange)
             {
-                Doc.Modified = true;
+                ((TwoColorProp)m_Control.SpecificProp).ColorActive = m_TextActiveColor.BackColor;
+                ((TwoColorProp)m_Control.SpecificProp).ColorInactive = m_TextInactiveColor.BackColor;
+
+                if (ControlPropertiesChanged != null)
+                    ControlPropertiesChanged(m_Control);
             }
-            if (bDataPropChange && ControlPropertiesChanged != null)
-                ControlPropertiesChanged(m_Control);
-            return true;
+
         }
+
         #endregion
 
 
@@ -123,7 +58,6 @@ namespace SmartApp.Ihm
             DialogResult DlgRes = m_clrDlg.ShowDialog();
             if (DlgRes == DialogResult.OK)
             {
-                ((TwoColorProp)m_Control.SpecificProp).ColorActive = m_clrDlg.Color;
                 m_TextActiveColor.BackColor = ((TwoColorProp)m_Control.SpecificProp).ColorActive;
             }
         }
@@ -134,7 +68,6 @@ namespace SmartApp.Ihm
             DialogResult DlgRes = m_clrDlg.ShowDialog();
             if (DlgRes == DialogResult.OK)
             {
-                ((TwoColorProp)m_Control.SpecificProp).ColorInactive = m_clrDlg.Color;
                 m_TextInactiveColor.BackColor = ((TwoColorProp)m_Control.SpecificProp).ColorInactive;
             }
         }

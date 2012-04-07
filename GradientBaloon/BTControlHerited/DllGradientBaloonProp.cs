@@ -14,6 +14,8 @@ namespace GradientBaloon
         // ajouter ici les données membres des propriété
 
         // ajouter ici les accesseur vers les données membres des propriété
+        public DllGradientBaloonProp(ItemScriptsConainter scriptContainter) : base(scriptContainter) { }
+
 
         public override bool ReadIn(System.Xml.XmlNode Node)
         {

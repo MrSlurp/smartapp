@@ -10,13 +10,8 @@ using CommonLib;
 
 namespace ScreenItemLocker
 {
-    internal partial class ScreenItemLockerProperties : UserControl, ISpecificPanel
+    internal partial class ScreenItemLockerProperties : BaseControlPropertiesPanel, ISpecificPanel
     {
-        // controle dont on édite les propriété
-        BTControl m_Control = null;
-        // document courant
-        private BTDoc m_Document = null;
-
         #region events
         public event ControlPropertiesChange ControlPropertiesChanged;
         #endregion
@@ -30,59 +25,16 @@ namespace ScreenItemLocker
             InitializeComponent();
         }
 
-        /// <summary>
-        /// Accesseur du control
-        /// </summary>
-        public BTControl BTControl
-        {
-            get
-            {
-                return m_Control;
-            }
-            set
-            {
-                if (value != null && value.SpecificProp.GetType() == typeof(DllScreenItemLockerProp))
-                    m_Control = value;
-                else
-                    m_Control = null;
-                if (m_Control != null)
-                {
-                    this.Enabled = true;
-                    // assignez ici les valeur des propriété spécifiques du control
-                }
-                else
-                {
-                    this.Enabled = false;
-                    // mettez ici les valeur par défaut pour le panel de propriété spécifiques
-                }
-            }
-        }
-
-        /// <summary>
-        /// Accesseur du document
-        /// </summary>
-        public BTDoc Doc
-        {
-            get
-            {
-                return m_Document;
-            }
-            set
-            {
-                m_Document = value;
-            }
-        }
-
         #region validation des données
         /// <summary>
         /// Accesseur de validité des propriétés
         /// renvoie true si les propriété sont valides, sinon false
         /// </summary>
-        public bool IsDataValuesValid
+        public override bool IsObjectPropertiesValid
         {
             get
             {
-                if (this.BTControl == null)
+                if (this.m_Control == null)
                     return true;
 
                 return true;
@@ -93,9 +45,9 @@ namespace ScreenItemLocker
         /// validitation des propriétés
         /// </summary>
         /// <returns>true si les propriété sont valides, sinon false</returns>
-        public bool ValidateValues()
+        public override bool ValidateProperties()
         {
-            if (this.BTControl == null)
+            if (this.m_Control == null)
                 return true;
 
             bool bDataPropChange = false;
@@ -106,26 +58,36 @@ namespace ScreenItemLocker
 
             if (bDataPropChange)
             {
-                Doc.Modified = true;
+                Document.Modified = true;
                 m_Control.IControl.Refresh();
             }
             if (bDataPropChange && ControlPropertiesChanged != null)
                 ControlPropertiesChanged(m_Control);
             return true;
         }
+
+        public void ObjectToPanel()
+        {
+
+        }
+
+        public void PanelToObject()
+        {
+
+        }
         #endregion
 
         private void btncfg_Click(object sender, EventArgs e)
         {
             SelectControlsForm CfgForm = new SelectControlsForm();
-            CfgForm.Doc = this.Doc;
-            CfgForm.BTControl = this.BTControl;
-            CfgForm.Props = (DllScreenItemLockerProp)this.BTControl.SpecificProp;
+            CfgForm.Doc = this.Document;
+            CfgForm.BTControl = this.m_Control;
+            CfgForm.Props = (DllScreenItemLockerProp)this.m_Control.SpecificProp;
 
             if (CfgForm.ShowDialog() == DialogResult.OK)
             {
                 // si OK on recopie les param
-                this.BTControl.SpecificProp.CopyParametersFrom(CfgForm.Props, false);
+                this.m_Control.SpecificProp.CopyParametersFrom(CfgForm.Props, false);
             }
         }
     }

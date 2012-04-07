@@ -22,6 +22,7 @@ namespace CtrlTimeWatch
 
         private string m_strDataSecond = string.Empty;
 
+        public DllCtrlTimeWatchProp(ItemScriptsConainter scriptContainter) : base(scriptContainter) { }
 
         public string DataHours
         {

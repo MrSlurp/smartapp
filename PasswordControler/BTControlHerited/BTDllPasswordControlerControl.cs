@@ -19,7 +19,7 @@ namespace PasswordControler
             if (m_IControl != null)
                 m_IControl.SourceBTControl = this;
 
-            m_SpecificProp = new DllPasswordControlerProp();
+            m_SpecificProp = new DllPasswordControlerProp(this.ItemScripts);
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace PasswordControler
             if (m_IControl != null)
                 m_IControl.SourceBTControl = this;
 
-            m_SpecificProp = new DllPasswordControlerProp();
+            m_SpecificProp = new DllPasswordControlerProp(this.ItemScripts);
         }
 
         /// <summary>

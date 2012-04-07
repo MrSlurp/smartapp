@@ -16,7 +16,7 @@ namespace FourBitmap
             if (m_IControl != null)
                 m_IControl.SourceBTControl = this;
 
-            m_SpecificProp = new DllFourBitmapProp();
+            m_SpecificProp = new DllFourBitmapProp(this.ItemScripts);
         }
 
         public BTDllFourBitmapControl(InteractiveControl Ctrl)
@@ -25,7 +25,7 @@ namespace FourBitmap
             if (m_IControl != null)
                 m_IControl.SourceBTControl = this;
 
-            m_SpecificProp = new DllFourBitmapProp();
+            m_SpecificProp = new DllFourBitmapProp(this.ItemScripts);
         }
 
         public override SpecificControlProp SpecificProp

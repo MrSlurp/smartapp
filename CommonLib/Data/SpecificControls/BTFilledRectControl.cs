@@ -22,7 +22,7 @@ namespace CommonLib
             if (m_IControl != null)
                 m_IControl.SourceBTControl = this;
 
-            m_SpecificProp = new TwoColorProp();
+            m_SpecificProp = new TwoColorProp(this.ItemScripts);
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace CommonLib
             if (m_IControl != null)
                 m_IControl.SourceBTControl = this;
 
-            m_SpecificProp = new TwoColorProp();
+            m_SpecificProp = new TwoColorProp(this.ItemScripts);
         }
         #endregion
 

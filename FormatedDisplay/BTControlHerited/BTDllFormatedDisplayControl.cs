@@ -16,7 +16,7 @@ namespace FormatedDisplay
             if (m_IControl != null)
                 m_IControl.SourceBTControl = this;
 
-            m_SpecificProp = new DllFormatedDisplayProp();
+            m_SpecificProp = new DllFormatedDisplayProp(this.ItemScripts);
         }
 
         public BTDllFormatedDisplayControl(InteractiveControl Ctrl)
@@ -25,7 +25,7 @@ namespace FormatedDisplay
             if (m_IControl != null)
                 m_IControl.SourceBTControl = this;
 
-            m_SpecificProp = new DllFormatedDisplayProp();
+            m_SpecificProp = new DllFormatedDisplayProp(this.ItemScripts);
         }
 
         public override SpecificControlProp SpecificProp

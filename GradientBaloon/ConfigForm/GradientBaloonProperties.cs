@@ -10,11 +10,8 @@ using CommonLib;
 
 namespace GradientBaloon
 {
-    public partial class GradientBaloonProperties : UserControl, ISpecificPanel
+    public partial class GradientBaloonProperties : BaseControlPropertiesPanel, ISpecificPanel
     {
-        BTControl m_Control = null;
-        private BTDoc m_Document = null;
-
         #region events
         public event ControlPropertiesChange ControlPropertiesChanged;
         #endregion
@@ -25,69 +22,9 @@ namespace GradientBaloon
             InitializeComponent();
         }
 
-        public BTControl BTControl
-        {
-            get
-            {
-                return m_Control;
-            }
-            set
-            {
-                if (value != null && value.SpecificProp.GetType() == typeof(DllGradientBaloonProp))
-                    m_Control = value;
-                else
-                    m_Control = null;
-                if (m_Control != null)
-                {
-                    this.Enabled = true;
-                    // assignez ici les valeur des propriété spécifiques du control
-                }
-                else
-                {
-                    this.Enabled = false;
-                    // mettez ici les valeur par défaut pour le panel de propriété spécifiques
-                }
-            }
-        }
-
-        public BTDoc Doc
-        {
-            get
-            {
-                return m_Document;
-            }
-            set
-            {
-                m_Document = value;
-            }
-        }
-
         #region validation des données
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        public bool IsDataValuesValid
+        public void PanelToObject()
         {
-            get
-            {
-                if (this.BTControl == null)
-                    return true;
-
-                return true;
-            }
-        }
-
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        public bool ValidateValues()
-        {
-            if (this.BTControl == null)
-                return true;
-
             bool bDataPropChange = false;
 
             // testez ici si les paramètres ont changé en les comparant avec ceux contenu dans les propriété
@@ -96,13 +33,19 @@ namespace GradientBaloon
 
             if (bDataPropChange)
             {
-                Doc.Modified = true;
+                Document.Modified = true;
                 m_Control.IControl.Refresh();
             }
             if (bDataPropChange && ControlPropertiesChanged != null)
                 ControlPropertiesChanged(m_Control);
-            return true;
         }
+
+        public void ObjectToPanel()
+        {
+
+        }
+
+
         #endregion
     }
 }

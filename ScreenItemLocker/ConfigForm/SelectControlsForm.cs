@@ -16,7 +16,7 @@ namespace ScreenItemLocker
         // document courant
         private BTDoc m_Document = null;
 
-        DllScreenItemLockerProp m_Props = new DllScreenItemLockerProp();
+        DllScreenItemLockerProp m_Props = new DllScreenItemLockerProp(null);
 
 
         public SelectControlsForm()

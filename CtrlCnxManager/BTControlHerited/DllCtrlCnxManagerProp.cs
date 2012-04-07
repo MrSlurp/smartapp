@@ -16,6 +16,8 @@ namespace CtrlCnxManager
         // ajouter ici les données membres des propriété
         int m_iRetryCnxPeriod = 1;
 
+        public DllCtrlCnxManagerProp(ItemScriptsConainter scriptContainter) : base(scriptContainter) { }
+
         // ajouter ici les accesseur vers les données membres des propriété
         public int RetryCnxPeriod
         {

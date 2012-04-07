@@ -284,7 +284,7 @@ namespace CommonLib
             for (int i = 0 ; i< Lines.Length; i++)
             {
                 m_iCurLine = i;
-                if (Lines[i].Length > 0)
+                if (Lines[i].Length > 0 && !string.IsNullOrEmpty(Lines[i]))
                 {
                     string Line = Lines[i];
                     string[] strTab = Line.Split(ParseExecGlobals.TOKEN_SEPARATOR);
@@ -349,18 +349,21 @@ namespace CommonLib
         /// <return>le jeton voulu ou une chaine vide</return>
         static public string GetLineToken(string line, int iTokenIndex)
         {
-            string[] strTab = line.Split(ParseExecGlobals.TOKEN_SEPARATOR);
-            if (iTokenIndex < strTab.Length)
+            if (!string.IsNullOrEmpty(line))
             {
-                // cas des fonction, il peux y avoir des parenthèses a la fin qu'il faut enlever
-                string strTemp = strTab[iTokenIndex];
-                strTemp = strTemp.Trim(')');
-                strTemp = strTemp.Trim('(');
+                string[] strTab = line.Split(ParseExecGlobals.TOKEN_SEPARATOR);
+                if (iTokenIndex < strTab.Length)
+                {
+                    // cas des fonction, il peux y avoir des parenthèses a la fin qu'il faut enlever
+                    string strTemp = strTab[iTokenIndex];
+                    strTemp = strTemp.Trim(')');
+                    strTemp = strTemp.Trim('(');
 
-                string strTok = strTemp;
-                strTok = strTok.Trim();
+                    string strTok = strTemp;
+                    strTok = strTok.Trim();
 
-                return strTok;
+                    return strTok;
+                }
             }
             return "";
 

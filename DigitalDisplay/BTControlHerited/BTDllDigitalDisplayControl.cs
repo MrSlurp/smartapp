@@ -16,7 +16,7 @@ namespace DigitalDisplay
             if (m_IControl != null)
                 m_IControl.SourceBTControl = this;
 
-            m_SpecificProp = new DllDigitalDisplayProp();
+            m_SpecificProp = new DllDigitalDisplayProp(this.ItemScripts);
         }
 
         public BTDllDigitalDisplayControl(InteractiveControl Ctrl)
@@ -25,7 +25,7 @@ namespace DigitalDisplay
             if (m_IControl != null)
                 m_IControl.SourceBTControl = this;
 
-            m_SpecificProp = new DllDigitalDisplayProp();
+            m_SpecificProp = new DllDigitalDisplayProp(this.ItemScripts);
         }
 
         public override SpecificControlProp SpecificProp

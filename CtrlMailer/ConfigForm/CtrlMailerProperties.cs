@@ -10,13 +10,8 @@ using CommonLib;
 
 namespace CtrlMailer
 {
-    internal partial class CtrlMailerProperties : UserControl, ISpecificPanel
+    internal partial class CtrlMailerProperties : BaseControlPropertiesPanel, ISpecificPanel
     {
-        // controle dont on édite les propriété
-        BTControl m_Control = null;
-        // document courant
-        private BTDoc m_Document = null;
-
         #region events
         public event ControlPropertiesChange ControlPropertiesChanged;
         #endregion
@@ -28,34 +23,6 @@ namespace CtrlMailer
         {
             DllEntryClass.LangSys.Initialize(this);
             InitializeComponent();
-        }
-
-        /// <summary>
-        /// Accesseur du control
-        /// </summary>
-        public BTControl BTControl
-        {
-            get
-            {
-                return m_Control;
-            }
-            set
-            {
-                if (value != null && value.SpecificProp.GetType() == typeof(DllCtrlMailerProp))
-                    m_Control = value;
-                else
-                    m_Control = null;
-                if (m_Control != null)
-                {
-                    this.Enabled = true;
-                    // assignez ici les valeur des propriété spécifiques du control
-                }
-                else
-                {
-                    this.Enabled = false;
-                    // mettez ici les valeur par défaut pour le panel de propriété spécifiques
-                }
-            }
         }
 
         /// <summary>
@@ -78,13 +45,10 @@ namespace CtrlMailer
         /// Accesseur de validité des propriétés
         /// renvoie true si les propriété sont valides, sinon false
         /// </summary>
-        public bool IsDataValuesValid
+        public override bool IsObjectPropertiesValid
         {
             get
             {
-                if (this.BTControl == null)
-                    return true;
-
                 return true;
             }
         }
@@ -93,9 +57,9 @@ namespace CtrlMailer
         /// validitation des propriétés
         /// </summary>
         /// <returns>true si les propriété sont valides, sinon false</returns>
-        public bool ValidateValues()
+        public override bool ValidateProperties()
         {
-            if (this.BTControl == null)
+            if (this.ConfiguredItem == null)
                 return true;
 
             bool bDataPropChange = false;
@@ -107,23 +71,33 @@ namespace CtrlMailer
             if (bDataPropChange)
             {
                 Doc.Modified = true;
-                m_Control.IControl.Refresh();
             }
             if (bDataPropChange && ControlPropertiesChanged != null)
                 ControlPropertiesChanged(m_Control);
             return true;
         }
+
+        public void ObjectToPanel()
+        {
+
+        }
+
+        public void PanelToObject()
+        {
+
+        }
+
         #endregion
 
         private void btnCfgMail_Click(object sender, EventArgs e)
         {
             MailEditionForm form = new MailEditionForm();
             form.Doc = this.Doc;
-            form.Props = (DllCtrlMailerProp)this.BTControl.SpecificProp;
+            form.Props = (DllCtrlMailerProp)this.m_Control.SpecificProp;
             if (form.ShowDialog() == DialogResult.OK)
             {
                 Doc.Modified = true;
-                this.BTControl.SpecificProp.CopyParametersFrom(form.Props, false);
+                this.m_Control.SpecificProp.CopyParametersFrom(form.Props, false);
             }
         }
 

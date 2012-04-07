@@ -19,7 +19,7 @@ namespace ScreenItemLocker
             if (m_IControl != null)
                 m_IControl.SourceBTControl = this;
 
-            m_SpecificProp = new DllScreenItemLockerProp();
+            m_SpecificProp = new DllScreenItemLockerProp(this.ItemScripts);
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace ScreenItemLocker
             if (m_IControl != null)
                 m_IControl.SourceBTControl = this;
 
-            m_SpecificProp = new DllScreenItemLockerProp();
+            m_SpecificProp = new DllScreenItemLockerProp(this.ItemScripts);
         }
 
         /// <summary>

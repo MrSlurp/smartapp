@@ -10,14 +10,9 @@ using CommonLib;
 
 namespace SoundPlayer
 {
-    internal partial class SoundPlayerProperties : UserControl, ISpecificPanel
+    internal partial class SoundPlayerProperties : BaseControlPropertiesPanel, ISpecificPanel
     {
         // controle dont on édite les propriété
-        BTControl m_Control = null;
-
-        // document courant
-        private BTDoc m_Document = null;
-
         #region events
         public event ControlPropertiesChange ControlPropertiesChanged;
         #endregion
@@ -29,52 +24,6 @@ namespace SoundPlayer
         {
             DllEntryClass.LangSys.Initialize(this);
             InitializeComponent();
-        }
-
-        /// <summary>
-        /// Accesseur du control
-        /// </summary>
-        public BTControl BTControl
-        {
-            get
-            {
-                return m_Control;
-            }
-            set
-            {
-                if (value != null && value.SpecificProp.GetType() == typeof(DllSoundPlayerProp))
-                    m_Control = value;
-                else
-                    m_Control = null;
-                if (m_Control != null)
-                {
-                    this.Enabled = true;
-                    DllSoundPlayerProp props = m_Control.SpecificProp as DllSoundPlayerProp;
-                    this.FilePath = props.SoundFile;
-                    // assignez ici les valeur des propriété spécifiques du control
-                }
-                else
-                {
-                    this.Enabled = false;
-                    this.FilePath = string.Empty;
-                    // mettez ici les valeur par défaut pour le panel de propriété spécifiques
-                }
-            }
-        }
-
-        /// <summary>
-        /// Accesseur du document
-        /// </summary>
-        public BTDoc Doc
-        {
-            get
-            {
-                return m_Document;
-            }
-            set
-            {
-                m_Document = value;
-            }
         }
 
         public string FilePath
@@ -89,48 +38,28 @@ namespace SoundPlayer
             }
         }
         #region validation des données
-        /// <summary>
-        /// Accesseur de validité des propriétés
-        /// renvoie true si les propriété sont valides, sinon false
-        /// </summary>
-        public bool IsDataValuesValid
-        {
-            get
-            {
-                if (this.BTControl == null)
-                    return true;
 
-                return true;
-            }
+        public void ObjectToPanel()
+        {
+            DllSoundPlayerProp props = m_Control.SpecificProp as DllSoundPlayerProp;
+            this.FilePath = props.SoundFile;
         }
 
-        /// <summary>
-        /// validitation des propriétés
-        /// </summary>
-        /// <returns>true si les propriété sont valides, sinon false</returns>
-        public bool ValidateValues()
+        public void PanelToObject()
         {
-            if (this.BTControl == null)
-                return true;
-
             bool bDataPropChange = false;
-
-            // testez ici si les paramètres ont changé en les comparant avec ceux contenu dans les propriété
-            // spécifiques du BTControl
-            // si c'est le cas, assignez bDataPropChange à true;
             DllSoundPlayerProp props = m_Control.SpecificProp as DllSoundPlayerProp;
             if (props.SoundFile != this.FilePath)
                 bDataPropChange = true;
 
             if (bDataPropChange)
             {
-                Doc.Modified = true;
+                Document.Modified = true;
                 props.SoundFile = this.FilePath;
                 m_Control.IControl.Refresh();
             }
             if (bDataPropChange && ControlPropertiesChanged != null)
                 ControlPropertiesChanged(m_Control);
-            return true;
         }
         #endregion
 
@@ -148,5 +77,6 @@ namespace SoundPlayer
                 this.FilePath = CentralizedFileDlg.SndFileName;
             }
         }
+
     }
 }

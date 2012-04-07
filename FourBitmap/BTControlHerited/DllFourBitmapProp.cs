@@ -20,6 +20,8 @@ namespace FourBitmap
         private const string NOM_ATTIB_2 = "Bitmap2";
         private const string NOM_ATTIB_3 = "Bitmap3";
 
+        public DllFourBitmapProp(ItemScriptsConainter scriptContainter) : base(scriptContainter) { }
+
         public string NomFichier0
         {
             get

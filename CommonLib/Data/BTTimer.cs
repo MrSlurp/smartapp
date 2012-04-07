@@ -149,10 +149,13 @@ namespace CommonLib
             // et le script
             for (int i = 0; i < m_ScriptContainer["TimerScript"].Length; i++)
             {
-                XmlNode NodeLine = XmlDoc.CreateElement(XML_CF_TAG.Line.ToString());
-                XmlNode NodeText = XmlDoc.CreateTextNode(m_ScriptContainer["TimerScript"][i]);
-                NodeLine.AppendChild(NodeText);
-                Node.AppendChild(NodeLine);
+                if (!string.IsNullOrEmpty(m_ScriptContainer["TimerScript"][i]))
+                {
+                    XmlNode NodeLine = XmlDoc.CreateElement(XML_CF_TAG.Line.ToString());
+                    XmlNode NodeText = XmlDoc.CreateTextNode(m_ScriptContainer["TimerScript"][i]);
+                    NodeLine.AppendChild(NodeText);
+                    Node.AppendChild(NodeLine);
+                }
             }
             return true;
         }

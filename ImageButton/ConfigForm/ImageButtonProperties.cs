@@ -10,12 +10,8 @@ using CommonLib;
 
 namespace ImageButton
 {
-    internal partial class ImageButtonProperties : UserControl, ISpecificPanel
+    internal partial class ImageButtonProperties : BaseControlPropertiesPanel, ISpecificPanel
     {
-        // controle dont on édite les propriété
-        BTControl m_Control = null;
-        // document courant
-        private BTDoc m_Document = null;
         private CComboData[] m_ListCboStyles;
 
         #region events
@@ -42,81 +38,23 @@ namespace ImageButton
 
         }
 
-        /// <summary>
-        /// Accesseur du control
-        /// </summary>
-        public BTControl BTControl
-        {
-            get
-            {
-                return m_Control;
-            }
-            set
-            {
-                if (value != null && value.SpecificProp.GetType() == typeof(DllImageButtonProp))
-                    m_Control = value;
-                else
-                    m_Control = null;
-                if (m_Control != null)
-                {
-                    this.Enabled = true;
-                    DllImageButtonProp SpecProp = (DllImageButtonProp)m_Control.SpecificProp;
-                    m_txtBoxImg1.Text = SpecProp.ReleasedImage;
-                    m_txtBoxImg2.Text = SpecProp.PressedImage;
-                    edtInputData.Text = SpecProp.InputData;
-                    chkBistable.Checked = SpecProp.IsBistable;
-                    if (SpecProp.Style == FlatStyle.Flat && SpecProp.BorderSize == 1)
-                        cboStyle.SelectedValue = 1;
-                    else if (SpecProp.Style == FlatStyle.Standard)
-                        cboStyle.SelectedValue = 0;
-                    else
-                        cboStyle.SelectedValue = 2;
-
-                }
-                else
-                {
-                    this.Enabled = false;
-                    m_txtBoxImg1.Text = "";
-                    m_txtBoxImg2.Text = "";
-                    chkBistable.Checked = false;
-                    cboStyle.SelectedValue = 0;
-                    edtInputData.Text = string.Empty;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Accesseur du document
-        /// </summary>
-        public BTDoc Doc
-        {
-            get
-            {
-                return m_Document;
-            }
-            set
-            {
-                m_Document = value;
-            }
-        }
-
         #region validation des données
         /// <summary>
         /// Accesseur de validité des propriétés
         /// renvoie true si les propriété sont valides, sinon false
         /// </summary>
-        public bool IsDataValuesValid
+        public override bool IsObjectPropertiesValid
         {
             get
             {
-                if (this.BTControl == null)
+                if (this.ConfiguredItem == null)
                     return true;
 
                 bool bRet = true;
                 Data dt = null;
                 if (!string.IsNullOrEmpty(this.edtInputData.Text))
                 {
-                    dt = (Data)this.Doc.GestData.GetFromSymbol(this.edtInputData.Text);
+                    dt = (Data)this.Document.GestData.GetFromSymbol(this.edtInputData.Text);
                     if (dt == null)
                     {
                         bRet = false;
@@ -130,10 +68,10 @@ namespace ImageButton
         /// validitation des propriétés
         /// </summary>
         /// <returns>true si les propriété sont valides, sinon false</returns>
-        public bool ValidateValues()
+        public override bool ValidateProperties()
         {
 
-            if (this.BTControl == null)
+            if (this.ConfiguredItem == null)
                 return true;
 
             bool bRet = true;
@@ -142,7 +80,7 @@ namespace ImageButton
             if (!string.IsNullOrEmpty(this.edtInputData.Text))
             {
                 Data dt = null;
-                dt = (Data)this.Doc.GestData.GetFromSymbol(this.edtInputData.Text);
+                dt = (Data)this.Document.GestData.GetFromSymbol(this.edtInputData.Text);
                 if (dt == null)
                 {
                     bRet = false;
@@ -154,7 +92,27 @@ namespace ImageButton
                 MessageBox.Show(strMessage, DllEntryClass.LangSys.C("Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return bRet;
             }
+            return bRet;
 
+        }
+
+        public void ObjectToPanel()
+        {
+            DllImageButtonProp SpecProp = (DllImageButtonProp)m_Control.SpecificProp;
+            m_txtBoxImg1.Text = SpecProp.ReleasedImage;
+            m_txtBoxImg2.Text = SpecProp.PressedImage;
+            edtInputData.Text = SpecProp.InputData;
+            chkBistable.Checked = SpecProp.IsBistable;
+            if (SpecProp.Style == FlatStyle.Flat && SpecProp.BorderSize == 1)
+                cboStyle.SelectedValue = 1;
+            else if (SpecProp.Style == FlatStyle.Standard)
+                cboStyle.SelectedValue = 0;
+            else
+                cboStyle.SelectedValue = 2;
+
+        }
+        public void PanelToObject()
+        {
             bool bDataPropChange = false;
             DllImageButtonProp SpecProps = (DllImageButtonProp)m_Control.SpecificProp;
             if (m_txtBoxImg1.Text != SpecProps.ReleasedImage)
@@ -199,13 +157,13 @@ namespace ImageButton
                 ((DllImageButtonProp)m_Control.SpecificProp).Style = finalStyle;
                 ((DllImageButtonProp)m_Control.SpecificProp).BorderSize = finalBorderSize;
                 ((DllImageButtonProp)m_Control.SpecificProp).InputData = this.edtInputData.Text;
-                Doc.Modified = true;
+                Document.Modified = true;
                 m_Control.IControl.Refresh();
             }
             if (bDataPropChange && ControlPropertiesChanged != null)
                 ControlPropertiesChanged(m_Control);
-            return true;
         }
+
         #endregion
 
         /// <summary>
@@ -249,7 +207,7 @@ namespace ImageButton
         private void btnPickInput_Click(object sender, EventArgs e)
         {
             PickDataForm PickData = new PickDataForm();
-            PickData.Document = this.Doc;
+            PickData.Document = this.Document;
             if (PickData.ShowDialog() == DialogResult.OK)
             {
                 if (PickData.SelectedData != null)

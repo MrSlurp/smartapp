@@ -117,11 +117,6 @@ namespace SmartApp.Ihm
             OnControlDblClick();
         }
 
-        void SubInitComponent()
-        {
-
-        }
-
         void ControlPosChanged()
         {
             m_Document.Modified = true;
@@ -407,7 +402,11 @@ namespace SmartApp.Ihm
             if (m_PropDialog.ConfiguredItem != null)
             {
                 m_PropDialog.Initialize();
-                m_PropDialog.ShowDialog();
+                DialogResult dlgRes = m_PropDialog.ShowDialog();
+                if (m_PropDialog.ConfiguredItem is BTScreen && dlgRes == DialogResult.OK)
+                {
+                    this.m_PanelScreenListAndProp.Initialize();
+                }
             }
         }
 

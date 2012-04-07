@@ -19,7 +19,7 @@ namespace CtrlDataGrid
             if (m_IControl != null)
                 m_IControl.SourceBTControl = this;
 
-            m_SpecificProp = new DllCtrlDataGridProp();
+            m_SpecificProp = new DllCtrlDataGridProp(this.ItemScripts);
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace CtrlDataGrid
             if (m_IControl != null)
                 m_IControl.SourceBTControl = this;
 
-            m_SpecificProp = new DllCtrlDataGridProp();
+            m_SpecificProp = new DllCtrlDataGridProp(this.ItemScripts);
         }
 
         /// <summary>

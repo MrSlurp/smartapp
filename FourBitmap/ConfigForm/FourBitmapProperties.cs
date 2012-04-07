@@ -10,11 +10,8 @@ using CommonLib;
 
 namespace FourBitmap
 {
-    public partial class FourBitmapProperties : UserControl, ISpecificPanel
+    public partial class FourBitmapProperties : BaseControlPropertiesPanel, ISpecificPanel
     {
-        BTControl m_Control = null;
-        private BTDoc m_Document = null;
-
         #region events
         public event ControlPropertiesChange ControlPropertiesChanged;
         #endregion
@@ -25,75 +22,17 @@ namespace FourBitmap
             InitializeComponent();
         }
 
-        public BTControl BTControl
-        {
-            get
-            {
-                return m_Control;
-            }
-            set
-            {
-                if (value != null && value.SpecificProp.GetType() == typeof(DllFourBitmapProp))
-                    m_Control = value;
-                else
-                    m_Control = null;
-                if (m_Control != null)
-                {
-                    this.Enabled = true;
-                    m_txtBoxImg0.Text = ((DllFourBitmapProp)m_Control.SpecificProp).NomFichier0;
-                    m_txtBoxImg1.Text = ((DllFourBitmapProp)m_Control.SpecificProp).NomFichier1;
-                    m_txtBoxImg2.Text = ((DllFourBitmapProp)m_Control.SpecificProp).NomFichier2;
-                    m_txtBoxImg3.Text = ((DllFourBitmapProp)m_Control.SpecificProp).NomFichier3;
-                }
-                else
-                {
-                    this.Enabled = false;
-                    m_txtBoxImg0.Text = "";
-                    m_txtBoxImg1.Text = "";
-                    m_txtBoxImg2.Text = "";
-                    m_txtBoxImg3.Text = "";
-                }
-            }
-        }
-
-        public BTDoc Doc
-        {
-            get
-            {
-                return m_Document;
-            }
-            set
-            {
-                m_Document = value;
-            }
-        }
-
         #region validation des données
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        public bool IsDataValuesValid
+        public void ObjectToPanel()
         {
-            get
-            {
-                if (this.BTControl == null)
-                    return true;
-
-                return true;
-            }
+            m_txtBoxImg0.Text = ((DllFourBitmapProp)m_Control.SpecificProp).NomFichier0;
+            m_txtBoxImg1.Text = ((DllFourBitmapProp)m_Control.SpecificProp).NomFichier1;
+            m_txtBoxImg2.Text = ((DllFourBitmapProp)m_Control.SpecificProp).NomFichier2;
+            m_txtBoxImg3.Text = ((DllFourBitmapProp)m_Control.SpecificProp).NomFichier3;
         }
 
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        public bool ValidateValues()
+        public void PanelToObject()
         {
-            if (this.BTControl == null)
-                return true;
-
             bool bDataPropChange = false;
 
             if (m_txtBoxImg0.Text != ((DllFourBitmapProp)m_Control.SpecificProp).NomFichier0)
@@ -114,12 +53,11 @@ namespace FourBitmap
                 ((DllFourBitmapProp)m_Control.SpecificProp).NomFichier1 = m_txtBoxImg1.Text;
                 ((DllFourBitmapProp)m_Control.SpecificProp).NomFichier2 = m_txtBoxImg2.Text;
                 ((DllFourBitmapProp)m_Control.SpecificProp).NomFichier3 = m_txtBoxImg3.Text;
-                Doc.Modified = true;
+                Document.Modified = true;
                 m_Control.IControl.Refresh();
             }
             if (bDataPropChange && ControlPropertiesChanged != null)
                 ControlPropertiesChanged(m_Control);
-            return true;
         }
         #endregion
 

@@ -10,10 +10,8 @@ using CommonLib;
 
 namespace DigitalDisplay
 {
-    public partial class DigitalDisplayProperties : UserControl, ISpecificPanel
+    public partial class DigitalDisplayProperties : BaseControlPropertiesPanel, ISpecificPanel
     {
-        BTControl m_Control = null;
-        private BTDoc m_Document = null;
         private string m_FormatString = ":F0";
 
         #region events
@@ -26,79 +24,6 @@ namespace DigitalDisplay
             InitializeComponent();
         }
 
-        public BTControl BTControl
-        {
-            get
-            {
-                return m_Control;
-            }
-            set
-            {
-                if (value != null && value.SpecificProp.GetType() == typeof(DllDigitalDisplayProp))
-                    m_Control = value;
-                else
-                    m_Control = null;
-                if (m_Control != null)
-                {
-                    this.Enabled = true;
-                    m_FormatString = ((DllDigitalDisplayProp)m_Control.SpecificProp).FormatString;
-                    switch (m_FormatString)
-                    {
-                        case ":F0":
-                            m_rdBtn0.Checked = true;
-                            m_rdBtn1.Checked = false;
-                            m_rdBtn2.Checked = false;
-                            m_rdBtn3.Checked = false;
-                            break;
-                        case ":F1":
-                            m_rdBtn0.Checked = false;
-                            m_rdBtn1.Checked = true;
-                            m_rdBtn2.Checked = false;
-                            m_rdBtn3.Checked = false;
-                            break;
-                        case ":F2":
-                            m_rdBtn0.Checked = false;
-                            m_rdBtn1.Checked = false;
-                            m_rdBtn2.Checked = true;
-                            m_rdBtn3.Checked = false;
-                            break;
-                        case ":F3":
-                            m_rdBtn0.Checked = false;
-                            m_rdBtn1.Checked = false;
-                            m_rdBtn2.Checked = true;
-                            m_rdBtn3.Checked = false;
-                            break;
-                        default:
-                            break;
-                    }
-                    m_TextColor.BackColor = CtrlProp.DigitColor;
-                    m_TextBackColor.BackColor = CtrlProp.BackColor;
-                }
-                else
-                {
-                    this.Enabled = false;
-                    m_rdBtn0.Checked = true;
-                    m_rdBtn1.Checked = false;
-                    m_rdBtn2.Checked = false;
-                    m_rdBtn3.Checked = false;
-                    m_TextColor.BackColor = Color.GreenYellow;
-                    m_TextBackColor.BackColor = Color.Black;
-                }
-            }
-        }
-
-        public BTDoc Doc
-        {
-            get
-            {
-                return m_Document;
-            }
-            set
-            {
-                m_Document = value;
-            }
-        }
-
         private DllDigitalDisplayProp CtrlProp
         {
             get
@@ -107,31 +32,10 @@ namespace DigitalDisplay
 
 
         #region validation des données
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        public bool IsDataValuesValid
+
+
+        public void PanelToObject()
         {
-            get
-            {
-                if (this.BTControl == null)
-                    return true;
-
-                return true;
-            }
-        }
-
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        public bool ValidateValues()
-        {
-            if (this.BTControl == null)
-                return true;
-
             bool bDataPropChange = false;
 
             // testez ici si les paramètres ont changé en les comparant avec ceux contenu dans les propriété
@@ -149,13 +53,50 @@ namespace DigitalDisplay
                 ((DllDigitalDisplayProp)m_Control.SpecificProp).FormatString = m_FormatString;
                 ((DllDigitalDisplayProp)m_Control.SpecificProp).DigitColor = m_TextColor.BackColor;
                 ((DllDigitalDisplayProp)m_Control.SpecificProp).BackColor = m_TextBackColor.BackColor;
-                Doc.Modified = true;
+                Document.Modified = true;
                 m_Control.IControl.Refresh();
             }
             if (bDataPropChange && ControlPropertiesChanged != null)
                 ControlPropertiesChanged(m_Control);
-            return true;
+
         }
+
+        public void ObjectToPanel()
+        {
+            m_FormatString = ((DllDigitalDisplayProp)m_Control.SpecificProp).FormatString;
+            switch (m_FormatString)
+            {
+                case ":F0":
+                    m_rdBtn0.Checked = true;
+                    m_rdBtn1.Checked = false;
+                    m_rdBtn2.Checked = false;
+                    m_rdBtn3.Checked = false;
+                    break;
+                case ":F1":
+                    m_rdBtn0.Checked = false;
+                    m_rdBtn1.Checked = true;
+                    m_rdBtn2.Checked = false;
+                    m_rdBtn3.Checked = false;
+                    break;
+                case ":F2":
+                    m_rdBtn0.Checked = false;
+                    m_rdBtn1.Checked = false;
+                    m_rdBtn2.Checked = true;
+                    m_rdBtn3.Checked = false;
+                    break;
+                case ":F3":
+                    m_rdBtn0.Checked = false;
+                    m_rdBtn1.Checked = false;
+                    m_rdBtn2.Checked = true;
+                    m_rdBtn3.Checked = false;
+                    break;
+                default:
+                    break;
+            }
+            m_TextColor.BackColor = CtrlProp.DigitColor;
+            m_TextBackColor.BackColor = CtrlProp.BackColor;
+        }
+
         #endregion
 
         private void m_BtnSelectColor_Click(object sender, EventArgs e)

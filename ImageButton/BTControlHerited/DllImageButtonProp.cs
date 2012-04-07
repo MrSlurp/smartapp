@@ -27,6 +27,9 @@ namespace ImageButton
         private const string NOM_ATTRIB_BORDER_SIZE = "BorderSize";
         private const string NOM_ATTRIB_INTPUT_DATA = "InputData";
 
+
+        public DllImageButtonProp(ItemScriptsConainter scriptContainter) : base(scriptContainter) { }
+
         // ajouter ici les accesseur vers les données membres des propriété
         public string ReleasedImage
         {

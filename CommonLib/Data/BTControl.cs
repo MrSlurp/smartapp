@@ -35,7 +35,6 @@ namespace CommonLib
         // indique si le control est read only
         protected bool m_bIsReadOnly = false;
         // collection de string qui contiennent le script a executer
-        //protected StringCollection m_ScriptLines = new StringCollection();
         protected ItemScriptsConainter m_ScriptContainer = new ItemScriptsConainter();
 
         protected Font m_TextFont = new Font(SystemFonts.DefaultFont, FontStyle.Regular);
@@ -544,10 +543,13 @@ namespace CommonLib
             XmlNode XmlEventScript = XmlDoc.CreateElement(XML_CF_TAG.EventScript.ToString());
             for (int i = 0; i < m_ScriptContainer["EvtScript"].Length; i++)
             {
-                XmlNode NodeLine = XmlDoc.CreateElement(XML_CF_TAG.Line.ToString());
-                XmlNode NodeText = XmlDoc.CreateTextNode(m_ScriptContainer["EvtScript"][i]);
-                NodeLine.AppendChild(NodeText);
-                XmlEventScript.AppendChild(NodeLine);
+                if (!string.IsNullOrEmpty(m_ScriptContainer["EvtScript"][i]))
+                {
+                    XmlNode NodeLine = XmlDoc.CreateElement(XML_CF_TAG.Line.ToString());
+                    XmlNode NodeText = XmlDoc.CreateTextNode(m_ScriptContainer["EvtScript"][i]);
+                    NodeLine.AppendChild(NodeText);
+                    XmlEventScript.AppendChild(NodeLine);
+                }
             }
             NodeControl.AppendChild(XmlEventScript);
         }

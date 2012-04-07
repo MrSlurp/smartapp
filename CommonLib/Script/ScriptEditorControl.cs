@@ -548,7 +548,6 @@ namespace CommonLib
                     m_AutoBoxWillGetFocus = false;
             }
         }
-
         /// <summary>
         /// 
         /// </summary>

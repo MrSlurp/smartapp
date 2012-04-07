@@ -11,13 +11,8 @@ using CommonLib;
 
 namespace PasswordControler
 {
-    internal partial class PasswordControlerProperties : UserControl, ISpecificPanel
+    internal partial class PasswordControlerProperties : BaseControlPropertiesPanel, ISpecificPanel
     {
-        // controle dont on édite les propriété
-        BTControl m_Control = null;
-        // document courant
-        private BTDoc m_Document = null;
-
         #region events
         public event ControlPropertiesChange ControlPropertiesChanged;
         #endregion
@@ -31,81 +26,26 @@ namespace PasswordControler
             InitializeComponent();
         }
 
-        /// <summary>
-        /// Accesseur du control
-        /// </summary>
-        public BTControl BTControl
-        {
-            get
-            {
-                return m_Control;
-            }
-            set
-            {
-                if (value != null && value.SpecificProp.GetType() == typeof(DllPasswordControlerProp))
-                    m_Control = value;
-                else
-                    m_Control = null;
-                edtPassword1.Text = string.Empty;
-                edtPassword2.Text = string.Empty;
-                if (m_Control != null)
-                {
-                    this.Enabled = true;
-                    if (string.IsNullOrEmpty(((DllPasswordControlerProp)m_Control.SpecificProp).PasswordHash))
-                        lblPasswdExist.Visible = false;
-                    else
-                        lblPasswdExist.Visible = true;
-                }
-                else
-                {
-                    this.Enabled = false;
-                    // mettez ici les valeur par défaut pour le panel de propriété spécifiques
-                }
-            }
-        }
-
-        /// <summary>
-        /// Accesseur du document
-        /// </summary>
-        public BTDoc Doc
-        {
-            get
-            {
-                return m_Document;
-            }
-            set
-            {
-                m_Document = value;
-            }
-        }
-
         #region validation des données
-        /// <summary>
-        /// Accesseur de validité des propriétés
-        /// renvoie true si les propriété sont valides, sinon false
-        /// </summary>
-        public bool IsDataValuesValid
+        public void ObjectToPanel()
         {
-            get
+            edtPassword1.Text = string.Empty;
+            edtPassword2.Text = string.Empty;
+            if (m_Control != null)
             {
-                if (this.BTControl == null)
-                    return true;
-
-                return true;
+                this.Enabled = true;
+                if (string.IsNullOrEmpty(((DllPasswordControlerProp)m_Control.SpecificProp).PasswordHash))
+                    lblPasswdExist.Visible = false;
+                else
+                    lblPasswdExist.Visible = true;
             }
         }
 
-        /// <summary>
-        /// validitation des propriétés
-        /// </summary>
-        /// <returns>true si les propriété sont valides, sinon false</returns>
-        public bool ValidateValues()
+        public void PanelToObject()
         {
-            if (this.BTControl == null)
-                return true;
 
-            return true;
         }
+
         #endregion
 
         public static string HashWithMD5(string stringToHash)
@@ -151,7 +91,7 @@ namespace PasswordControler
 
             if (bDataPropChange)
             {
-                Doc.Modified = true;
+                Document.Modified = true;
                 ((DllPasswordControlerProp)m_Control.SpecificProp).PasswordHash = md5;
                 m_Control.IControl.Refresh();
                 lblPasswdExist.Visible = true;

@@ -10,10 +10,8 @@ using CommonLib;
 
 namespace CtrlDataTrigger
 {
-    public partial class CtrlDataTriggerProperties : UserControl, ISpecificPanel
+    public partial class CtrlDataTriggerProperties : BaseControlPropertiesPanel, ISpecificPanel
     {
-        BTControl m_Control = null;
-        private BTDoc m_Document = null;
         bool bScriptChange = false;
 
         #region events
@@ -29,43 +27,6 @@ namespace CtrlDataTrigger
             InitializeComponent();
         }
 
-        /// <summary>
-        /// Accesseur du control
-        /// </summary>
-        public BTControl BTControl
-        {
-            get
-            {
-                return m_Control;
-            }
-            set
-            {
-                if (value != null && value.SpecificProp.GetType() == typeof(DllCtrlDataTriggerProp))
-                    m_Control = value;
-                else
-                    m_Control = null;
-
-                if (m_Control != null)
-                {
-                    DllCtrlDataTriggerProp Props = (DllCtrlDataTriggerProp)m_Control.SpecificProp;
-                    this.Enabled = true;
-                    this.cbxSchmitt.Checked = Props.BehaveLikeTrigger;
-                    this.AdvPropEnable(this.cbxSchmitt.Checked);
-                    this.edtOffToOn.Text = Props.DataOffToOn;
-                    this.edtOnToOff.Text = Props.DataOnToOff;
-                    
-                }
-                else
-                {
-                    this.Enabled = false;
-                    this.cbxSchmitt.Checked = false;
-                    this.edtOffToOn.Text = string.Empty;
-                    this.edtOnToOff.Text = string.Empty;
-                }
-                UpdateScriptPresenceLabels();
-            }
-        }
-    
         void UpdateScriptPresenceLabels()
         {
             if (m_Control != null)
@@ -100,18 +61,6 @@ namespace CtrlDataTrigger
         }
 
 
-        public BTDoc Doc
-        {
-            get
-            {
-                return m_Document;
-            }
-            set
-            {
-                m_Document = value;
-            }
-        }
-
         #region validation des données
         //*****************************************************************************************************
         // Description:
@@ -122,7 +71,7 @@ namespace CtrlDataTrigger
             get
             {
                 bool bRet = true;
-                if (this.BTControl == null)
+                if (this.ConfiguredItem == null)
                     return true;
 
                 if (this.cbxSchmitt.Checked)
@@ -131,7 +80,7 @@ namespace CtrlDataTrigger
                     bool parseResOffOn = int.TryParse(this.edtOffToOn.Text, out dummy);
                     if (!parseResOffOn)
                     {
-                        Data dt = (Data)this.Doc.GestData.GetFromSymbol(this.edtOffToOn.Text);
+                        Data dt = (Data)this.Document.GestData.GetFromSymbol(this.edtOffToOn.Text);
                         if (dt == null)
                             bRet = false;
                     }
@@ -139,7 +88,7 @@ namespace CtrlDataTrigger
                     bool parseResOnOff = int.TryParse(this.edtOnToOff.Text, out dummy);
                     if (!parseResOnOff)
                     {
-                        Data dt = (Data)this.Doc.GestData.GetFromSymbol(this.edtOnToOff.Text);
+                        Data dt = (Data)this.Document.GestData.GetFromSymbol(this.edtOnToOff.Text);
                         if (dt == null)
                             bRet = false;
 
@@ -157,7 +106,7 @@ namespace CtrlDataTrigger
         //*****************************************************************************************************
         public bool ValidateValues()
         {
-            if (this.BTControl == null)
+            if (this.ConfiguredItem == null)
                 return true;
 
             bool bRet = true;
@@ -170,7 +119,7 @@ namespace CtrlDataTrigger
                 bool parseResOffOn = int.TryParse(this.edtOffToOn.Text, out dummy);
                 if (!parseResOffOn)
                 {
-                    dt = (Data)this.Doc.GestData.GetFromSymbol(this.edtOffToOn.Text);
+                    dt = (Data)this.Document.GestData.GetFromSymbol(this.edtOffToOn.Text);
                     if (dt == null)
                     {
                         bRet = false;
@@ -181,7 +130,7 @@ namespace CtrlDataTrigger
                 bool parseResOnOff = int.TryParse(this.edtOnToOff.Text, out dummy);
                 if (!parseResOnOff)
                 {
-                    dt = (Data)this.Doc.GestData.GetFromSymbol(this.edtOnToOff.Text);
+                    dt = (Data)this.Document.GestData.GetFromSymbol(this.edtOnToOff.Text);
                     if (dt == null)
                     {
                         bRet = false;
@@ -196,6 +145,22 @@ namespace CtrlDataTrigger
             }
 
 
+
+            return true;
+        }
+
+        public void ObjectToPanel()
+        {
+            DllCtrlDataTriggerProp Props = (DllCtrlDataTriggerProp)m_Control.SpecificProp;
+            this.cbxSchmitt.Checked = Props.BehaveLikeTrigger;
+            this.AdvPropEnable(this.cbxSchmitt.Checked);
+            this.edtOffToOn.Text = Props.DataOffToOn;
+            this.edtOnToOff.Text = Props.DataOnToOff;
+            UpdateScriptPresenceLabels();
+        }
+
+        public void PanelToObject()
+        {
             DllCtrlDataTriggerProp prop = (DllCtrlDataTriggerProp)m_Control.SpecificProp;
 
             bool bDataPropChange = false;
@@ -213,7 +178,7 @@ namespace CtrlDataTrigger
 
             if (bDataPropChange)
             {
-                Doc.Modified = true;
+                Document.Modified = true;
                 prop.BehaveLikeTrigger = this.cbxSchmitt.Checked;
                 prop.DataOnToOff = this.edtOnToOff.Text;
                 prop.DataOffToOn = this.edtOffToOn.Text;
@@ -221,7 +186,6 @@ namespace CtrlDataTrigger
             }
             if (bDataPropChange && ControlPropertiesChanged != null)
                 ControlPropertiesChanged(m_Control);
-            return true;
         }
         #endregion
 
@@ -233,7 +197,7 @@ namespace CtrlDataTrigger
         private void btnPickOnToOff_Click(object sender, EventArgs e)
         {
             PickDataForm PickData = new PickDataForm();
-            PickData.Document = this.Doc;
+            PickData.Document = this.Document;
             if (PickData.ShowDialog() == DialogResult.OK)
             {
                 if (PickData.SelectedData != null)
@@ -246,7 +210,7 @@ namespace CtrlDataTrigger
         private void btnPickOffToOn_Click(object sender, EventArgs e)
         {
             PickDataForm PickData = new PickDataForm();
-            PickData.Document = this.Doc;
+            PickData.Document = this.Document;
             if (PickData.ShowDialog() == DialogResult.OK)
             {
                 if (PickData.SelectedData != null)
@@ -260,7 +224,7 @@ namespace CtrlDataTrigger
         {
             DllCtrlDataTriggerProp prop = (DllCtrlDataTriggerProp)m_Control.SpecificProp;
             ScriptEditordialog DlgScript = new ScriptEditordialog();
-            DlgScript.Doc = this.m_Document;
+            DlgScript.Doc = this.Document;
             DlgScript.ScriptLines = prop.ScriptOnToOff;
             DialogResult dlgRes = DlgScript.ShowDialog();
             if (dlgRes == DialogResult.OK)
@@ -275,7 +239,7 @@ namespace CtrlDataTrigger
         {
             DllCtrlDataTriggerProp prop = (DllCtrlDataTriggerProp)m_Control.SpecificProp;
             ScriptEditordialog DlgScript = new ScriptEditordialog();
-            DlgScript.Doc = this.m_Document;
+            DlgScript.Doc = this.Document;
             DlgScript.ScriptLines = prop.ScriptOffToOn;
             DialogResult dlgRes = DlgScript.ShowDialog();
             if (dlgRes == DialogResult.OK)

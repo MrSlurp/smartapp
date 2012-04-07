@@ -67,8 +67,8 @@ Global
 		{5A8BD31D-5E4E-4891-9351-DD3119CB6BC9}.BuildLang|Win32.ActiveCfg = BuildLang|Any CPU
 		{5A8BD31D-5E4E-4891-9351-DD3119CB6BC9}.Debug Cmd|Any CPU.ActiveCfg = Debug Cmd|Any CPU
 		{5A8BD31D-5E4E-4891-9351-DD3119CB6BC9}.Debug Cmd|Any CPU.Build.0 = Debug Cmd|Any CPU
-		{5A8BD31D-5E4E-4891-9351-DD3119CB6BC9}.Debug Cmd|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{5A8BD31D-5E4E-4891-9351-DD3119CB6BC9}.Debug Cmd|Mixed Platforms.Build.0 = Debug|Any CPU
+		{5A8BD31D-5E4E-4891-9351-DD3119CB6BC9}.Debug Cmd|Mixed Platforms.ActiveCfg = Debug Cmd|Any CPU
+		{5A8BD31D-5E4E-4891-9351-DD3119CB6BC9}.Debug Cmd|Mixed Platforms.Build.0 = Debug Cmd|Any CPU
 		{5A8BD31D-5E4E-4891-9351-DD3119CB6BC9}.Debug Cmd|Win32.ActiveCfg = Debug Cmd|Any CPU
 		{5A8BD31D-5E4E-4891-9351-DD3119CB6BC9}.Debug Test|Any CPU.ActiveCfg = Debug Test|Any CPU
 		{5A8BD31D-5E4E-4891-9351-DD3119CB6BC9}.Debug Test|Any CPU.Build.0 = Debug Test|Any CPU

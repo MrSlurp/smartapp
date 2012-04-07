@@ -64,6 +64,8 @@ namespace CtrlGraph
         LOG_PERIOD m_LoggingPeriod = LOG_PERIOD.LOG_1_min;
         #endregion
 
+        public DllCtrlGraphProp(ItemScriptsConainter scriptContainter) : base(scriptContainter) { }
+
         #region attributs
         public string GraphTitle
         {

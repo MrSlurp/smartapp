@@ -25,12 +25,14 @@ namespace CtrlDataTrigger
 
         private string m_strDataOffToOn = string.Empty;
 
-        private StringCollection m_ScriptOnToOff = new StringCollection();
-
-        private StringCollection m_ScriptOffToOn = new StringCollection();
-
         private int m_iQuickScriptIDOnToOff;
         private int m_iQuickScriptIDOffToOn;
+
+        public DllCtrlDataTriggerProp(ItemScriptsConainter scriptContainter) : base(scriptContainter) 
+        { 
+            m_scriptContainer["OnToOffScript"] = new string[1];
+            m_scriptContainer["OffToOnScript"] = new string[1];
+        }
 
         public bool BehaveLikeTrigger
         {
@@ -72,20 +74,11 @@ namespace CtrlDataTrigger
         {
             get
             {
-                string[] TabLines = new string[m_ScriptOnToOff.Count];
-                for (int i = 0; i < m_ScriptOnToOff.Count; i++)
-                {
-                    TabLines[i] = m_ScriptOnToOff[i];
-                }
-                return TabLines;
+                return m_scriptContainer["OnToOffScript"];
             }
             set
             {
-                m_ScriptOnToOff.Clear();
-                for (int i = 0; i < value.Length; i++)
-                {
-                    m_ScriptOnToOff.Add(value[i]);
-                }
+                m_scriptContainer["OnToOffScript"] = value;
             }
         }
 
@@ -93,20 +86,11 @@ namespace CtrlDataTrigger
         {
             get
             {
-                string[] TabLines = new string[m_ScriptOffToOn.Count];
-                for (int i = 0; i < m_ScriptOffToOn.Count; i++)
-                {
-                    TabLines[i] = m_ScriptOffToOn[i];
-                }
-                return TabLines;
+                return m_scriptContainer["OffToOnScript"];
             }
             set
             {
-                m_ScriptOffToOn.Clear();
-                for (int i = 0; i < value.Length; i++)
-                {
-                    m_ScriptOffToOn.Add(value[i]);
-                }
+                m_scriptContainer["OffToOnScript"] = value;
             }
         }
 
@@ -150,8 +134,11 @@ namespace CtrlDataTrigger
                     break;
                 }
             }
-            base.ReadScript(ref m_ScriptOnToOff, Node, SCRIPT_ON_OFF);
-            base.ReadScript(ref m_ScriptOffToOn, Node, SCRIPT_OFF_ON);
+            string[] tmp;
+            base.ReadScript(out tmp, Node, SCRIPT_ON_OFF);
+            this.m_scriptContainer["OnToOffScript"] = tmp;
+            base.ReadScript(out tmp, Node, SCRIPT_OFF_ON);
+            this.m_scriptContainer["OffToOnScript"] = tmp;
 
             return true;
         }
@@ -170,8 +157,8 @@ namespace CtrlDataTrigger
             ElemSpecSection.Attributes.Append(AttrOnOff);
             ElemSpecSection.Attributes.Append(AttrOffOn);
             Node.AppendChild(ElemSpecSection);
-            base.WriteScript(m_ScriptOnToOff, XmlDoc, Node, SCRIPT_ON_OFF);
-            base.WriteScript(m_ScriptOffToOn, XmlDoc, Node, SCRIPT_OFF_ON);
+            base.WriteScript(m_scriptContainer["OnToOffScript"], XmlDoc, Node, SCRIPT_ON_OFF);
+            base.WriteScript(m_scriptContainer["OffToOnScript"], XmlDoc, Node, SCRIPT_OFF_ON);
             return true;
         }
 
@@ -179,17 +166,21 @@ namespace CtrlDataTrigger
         {
             if (SrcSpecificProp.GetType() == typeof(DllCtrlDataTriggerProp))
             {
+                DllCtrlDataTriggerProp SrcProps = SrcSpecificProp as DllCtrlDataTriggerProp;
                 if (!bFromOtherInstance)
                 {
-                    m_bBehaveLikeTrigger = ((DllCtrlDataTriggerProp)SrcSpecificProp).m_bBehaveLikeTrigger;
-                    m_strDataOffToOn = ((DllCtrlDataTriggerProp)SrcSpecificProp).m_strDataOffToOn;
-                    m_strDataOnToOff = ((DllCtrlDataTriggerProp)SrcSpecificProp).m_strDataOnToOff;
+                    m_bBehaveLikeTrigger = SrcProps.m_bBehaveLikeTrigger;
+                    m_strDataOffToOn = SrcProps.m_strDataOffToOn;
+                    m_strDataOnToOff = SrcProps.m_strDataOnToOff;
                 }
 
                 if (!bFromOtherInstance)
                 {
-                    base.CopyScript(ref m_ScriptOffToOn, ((DllCtrlDataTriggerProp)SrcSpecificProp).m_ScriptOffToOn);
-                    base.CopyScript(ref m_ScriptOnToOff, ((DllCtrlDataTriggerProp)SrcSpecificProp).m_ScriptOnToOff);
+                    string[] tmp;
+                    base.CopyScript(out tmp, SrcProps.m_scriptContainer["OnToOffScript"]);
+                    m_scriptContainer["OnToOffScript"] = tmp;
+                    base.CopyScript(out tmp, SrcProps.m_scriptContainer["OffToOnScript"]);
+                    m_scriptContainer["OffToOnScript"] = tmp;
                 }
             }
         }
@@ -216,8 +207,6 @@ namespace CtrlDataTrigger
                                 MessParam.ListStrReturns.Add(strMess);
                             }
                         }
-                        base.ScriptTraiteMessage(Mess, m_ScriptOffToOn, obj, PropOwner);
-                        base.ScriptTraiteMessage(Mess, m_ScriptOnToOff, obj, PropOwner);
                         break;
                     case MESSAGE.MESS_ITEM_DELETED:
                         if (((MessDeleted)obj).TypeOfItem == typeof(Data))
@@ -232,8 +221,6 @@ namespace CtrlDataTrigger
                                 m_strDataOnToOff = string.Empty;
                             }
                         }
-                        base.ScriptTraiteMessage(Mess, m_ScriptOffToOn, obj, PropOwner);
-                        base.ScriptTraiteMessage(Mess, m_ScriptOnToOff, obj, PropOwner);
                         break;
                     case MESSAGE.MESS_ITEM_RENAMED:
                         if (((MessItemRenamed)obj).TypeOfItem == typeof(Data))
@@ -248,8 +235,6 @@ namespace CtrlDataTrigger
                                 m_strDataOnToOff = MessParam.NewItemSymbol;
                             }
                         }
-                        base.ScriptTraiteMessage(Mess, m_ScriptOffToOn, obj, PropOwner);
-                        base.ScriptTraiteMessage(Mess, m_ScriptOnToOff, obj, PropOwner);
                         break;
                     default:
                         break;

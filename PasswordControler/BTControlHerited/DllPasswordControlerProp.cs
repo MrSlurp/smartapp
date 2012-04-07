@@ -15,6 +15,8 @@ namespace PasswordControler
         string m_PasswordHash = string.Empty;
         private const string NOM_ATTIB_0 = "Hash";
 
+        public DllPasswordControlerProp(ItemScriptsConainter scriptContainter) : base(scriptContainter) { }
+
         // ajouter ici les accesseur vers les données membres des propriété
         public string PasswordHash
         {

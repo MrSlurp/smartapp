@@ -64,20 +64,6 @@ namespace CommonLib
             {
                 m_Control = value as BTControl;
                 UpdateStateFromControlType();
-                if (m_Control != null)
-                {
-                    this.Enabled = true;
-                }
-                else
-                {
-                    this.AssociateData = "";
-                    this.IsReadOnly = false;
-                    this.UseScreenEvent = false;
-                    this.Enabled = false;
-                    this.Txt = "";
-                    this.m_CtrlFont = null;
-                    this.CtrlFontColor = Color.Black;
-                }
             }
         }
 
@@ -175,7 +161,7 @@ namespace CommonLib
                         bRet = false;
                 }
                 if (m_CurrentSpecificControlPropPanel != null
-                    && !((ISpecificPanel)m_CurrentSpecificControlPropPanel).IsDataValuesValid)
+                    && !((ISpecificPanel)m_CurrentSpecificControlPropPanel).IsObjectPropertiesValid)
                     bRet = false;
 
 
@@ -208,8 +194,13 @@ namespace CommonLib
                 MessageBox.Show(strMessage, Lang.LangSys.C("Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return bRet;
             }
+            if (m_CurrentSpecificControlPropPanel != null
+                && !((ISpecificPanel)m_CurrentSpecificControlPropPanel).ValidateProperties())
+            {
+                bRet = false;
+            }
 
-            return true;
+            return bRet;
         }
 
         /// <summary>
@@ -223,6 +214,12 @@ namespace CommonLib
             this.Txt = m_Control.IControl.Text;
             this.CtrlFont = m_Control.TextFont;
             this.CtrlFontColor = m_Control.TextColor;
+            if (m_CurrentSpecificControlPropPanel != null)
+            {
+                ((ISpecificPanel)m_CurrentSpecificControlPropPanel).Document = this.Document;
+                ((ISpecificPanel)m_CurrentSpecificControlPropPanel).ObjectToPanel();
+            }
+
         }
 
         /// <summary>
@@ -246,10 +243,6 @@ namespace CommonLib
                 bDataPropChange |= true;
 
 
-            if (m_CurrentSpecificControlPropPanel != null
-                && ((ISpecificPanel)m_CurrentSpecificControlPropPanel).ValidateValues())
-                bDataPropChange |= true;
-
             if (bDataPropChange)
             {
                 m_Control.AssociateData = this.AssociateData;
@@ -259,6 +252,10 @@ namespace CommonLib
                 m_Control.TextFont = this.CtrlFont;
                 m_Control.TextColor = this.CtrlFontColor;
                 Document.Modified = true;
+                if (m_CurrentSpecificControlPropPanel != null)
+                {
+                    ((ISpecificPanel)m_CurrentSpecificControlPropPanel).PanelToObject();
+                }
             }
             if (bDataPropChange && ControlPropertiesChanged != null)
                 ControlPropertiesChanged(m_Control); 
@@ -369,8 +366,8 @@ namespace CommonLib
                     m_checkScreenEvent.Enabled = stdProps.m_bcheckScreenEventEnabled;
                     m_checkScreenEvent.Checked = stdProps.m_bcheckScreenEventChecked;
                     SetSpecificPanelProp(((ISpecificControl)m_Control.IControl).SpecificPropPanel);
-                    ((ISpecificPanel)((ISpecificControl)m_Control.IControl).SpecificPropPanel).BTControl = m_Control;
-                    ((ISpecificPanel)((ISpecificControl)m_Control.IControl).SpecificPropPanel).Doc = m_Document;
+                    ((ISpecificPanel)((ISpecificControl)m_Control.IControl).SpecificPropPanel).ConfiguredItem = m_Control;
+                    ((ISpecificPanel)((ISpecificControl)m_Control.IControl).SpecificPropPanel).Document = m_Document;
                     EnableTextEdition(stdProps.m_bEditTextEnabled);
                     if (m_EditText.Enabled)
                         this.Txt = m_Control.IControl.Text;
@@ -447,7 +444,10 @@ namespace CommonLib
                     this.Controls.Add(ctrl);
                     ctrl.Location = this.m_panelPlaceSpec.Location;
                     m_CurrentSpecificControlPropPanel = ctrl;
+                    m_CurrentSpecificControlPropPanel.Width = this.Width/2;
+                    m_CurrentSpecificControlPropPanel.Height = this.Height - ctrl.Location.X -10;
                     m_CurrentSpecificControlPropPanel.Visible = true;
+                    m_CurrentSpecificControlPropPanel.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom | AnchorStyles.Top;
                 }
                 catch (Exception e)
                 {

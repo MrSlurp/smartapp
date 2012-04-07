@@ -13,7 +13,7 @@ namespace CtrlDemux
     internal partial class DemuxConfigForm : Form
     {
         private BTDoc m_Document = null;
-        DllCtrlDemuxProp m_Props = new DllCtrlDemuxProp();
+        DllCtrlDemuxProp m_Props = new DllCtrlDemuxProp(null);
 
         #region attributs
         public BTDoc Doc

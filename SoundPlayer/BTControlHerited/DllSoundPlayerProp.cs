@@ -17,6 +17,8 @@ namespace SoundPlayer
         // ajouter ici les données membres des propriété
         private string m_SoundFile;
 
+        public DllSoundPlayerProp(ItemScriptsConainter scriptContainter) : base(scriptContainter) { }
+
         // ajouter ici les accesseur vers les données membres des propriété
         public string SoundFile
         {

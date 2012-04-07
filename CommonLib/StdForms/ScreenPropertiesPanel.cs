@@ -141,12 +141,8 @@ namespace CommonLib
         {
             get
             {
-                if (this.ConfiguredItem == null)
-                    return true;
-
-                bool bRet = true;
-
-                return bRet;
+                // aucun cas d'invalidité pour cet item
+                return true;
             }
         }
 
@@ -157,12 +153,7 @@ namespace CommonLib
         //*****************************************************************************************************
         public bool ValidateProperties()
         {
-            if (this.ConfiguredItem == null)
-                return true;
-
-            bool bRet = true;
-            string strMessage = "";
-
+            // aucun cas d'invalidité pour cet item
             return true;
         }
 

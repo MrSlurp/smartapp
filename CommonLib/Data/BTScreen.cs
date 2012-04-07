@@ -479,19 +479,25 @@ namespace CommonLib
                 dt.WriteOut(XmlDoc, XmlControlList);
             }
             // on écrit les scripts
+            for (int i = 0; i < m_ScriptContainer["InitScreen"].Length; i++)
+            {
+                if (!string.IsNullOrEmpty(m_ScriptContainer["InitScreen"][i]))
+                {
+                    XmlNode NodeLine = XmlDoc.CreateElement(XML_CF_TAG.Line.ToString());
+                    XmlNode NodeText = XmlDoc.CreateTextNode(m_ScriptContainer["InitScreen"][i]);
+                    NodeLine.AppendChild(NodeText);
+                    XmlInitScript.AppendChild(NodeLine);
+                }
+            }
             for (int i = 0; i < m_ScriptContainer["EvtScreen"].Length; i++)
             {
-                XmlNode NodeLine = XmlDoc.CreateElement(XML_CF_TAG.Line.ToString());
-                XmlNode NodeText = XmlDoc.CreateTextNode(m_ScriptContainer["EvtScreen"][i]);
-                NodeLine.AppendChild(NodeText);
-                XmlInitScript.AppendChild(NodeLine);
-            }
-            for (int i = 0; i < m_ScriptContainer["InitScreen"].Length ; i++)
-            {
-                XmlNode NodeLine = XmlDoc.CreateElement(XML_CF_TAG.Line.ToString());
-                XmlNode NodeText = XmlDoc.CreateTextNode(m_ScriptContainer["EvtScreen"][i]);
-                NodeLine.AppendChild(NodeText);
-                XmlEventScript.AppendChild(NodeLine);
+                if (!string.IsNullOrEmpty(m_ScriptContainer["EvtScreen"][i]))
+                {
+                    XmlNode NodeLine = XmlDoc.CreateElement(XML_CF_TAG.Line.ToString());
+                    XmlNode NodeText = XmlDoc.CreateTextNode(m_ScriptContainer["EvtScreen"][i]);
+                    NodeLine.AppendChild(NodeText);
+                    XmlEventScript.AppendChild(NodeLine);
+                }
             }
             // et le chemin du de l'image de fond
             XmlNode NodeImage = XmlDoc.CreateElement(XML_CF_TAG.ImagePath.ToString());

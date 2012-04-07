@@ -16,7 +16,7 @@ namespace CtrlTwoBitmap
             if (m_IControl != null)
                 m_IControl.SourceBTControl = this;
 
-            m_SpecificProp = new TwoBitmapProp();
+            m_SpecificProp = new TwoBitmapProp(this.ItemScripts);
         }
 
         public BTTwoBitmapControl(InteractiveControl Ctrl)
@@ -25,7 +25,7 @@ namespace CtrlTwoBitmap
             if (m_IControl != null)
                 m_IControl.SourceBTControl = this;
 
-            m_SpecificProp = new TwoBitmapProp();
+            m_SpecificProp = new TwoBitmapProp(this.ItemScripts);
         }
 
         public override SpecificControlProp SpecificProp

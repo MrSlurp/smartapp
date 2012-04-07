@@ -19,7 +19,7 @@ namespace SoundPlayer
             if (m_IControl != null)
                 m_IControl.SourceBTControl = this;
 
-            m_SpecificProp = new DllSoundPlayerProp();
+            m_SpecificProp = new DllSoundPlayerProp(this.ItemScripts);
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace SoundPlayer
             if (m_IControl != null)
                 m_IControl.SourceBTControl = this;
 
-            m_SpecificProp = new DllSoundPlayerProp();
+            m_SpecificProp = new DllSoundPlayerProp(this.ItemScripts);
         }
 
         /// <summary>

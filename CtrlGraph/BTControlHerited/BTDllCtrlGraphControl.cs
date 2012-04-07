@@ -16,7 +16,7 @@ namespace CtrlGraph
             if (m_IControl != null)
                 m_IControl.SourceBTControl = this;
 
-            m_SpecificProp = new DllCtrlGraphProp();
+            m_SpecificProp = new DllCtrlGraphProp(this.ItemScripts);
         }
 
         public BTDllCtrlGraphControl(InteractiveControl Ctrl)
@@ -25,7 +25,7 @@ namespace CtrlGraph
             if (m_IControl != null)
                 m_IControl.SourceBTControl = this;
 
-            m_SpecificProp = new DllCtrlGraphProp();
+            m_SpecificProp = new DllCtrlGraphProp(this.ItemScripts);
         }
 
         public override SpecificControlProp SpecificProp

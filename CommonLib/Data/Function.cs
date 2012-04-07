@@ -70,10 +70,13 @@ namespace CommonLib
             base.WriteOut(XmlDoc, Node);
             for (int i = 0; i < m_ScriptContainer["FuncScript"].Length; i++)
             {
-                XmlNode NodeLine = XmlDoc.CreateElement(XML_CF_TAG.Line.ToString());
-                XmlNode NodeText = XmlDoc.CreateTextNode(m_ScriptContainer["FuncScript"][i]);
-                NodeLine.AppendChild(NodeText);
-                Node.AppendChild(NodeLine);
+                if (!string.IsNullOrEmpty(m_ScriptContainer["FuncScript"][i]))
+                {
+                    XmlNode NodeLine = XmlDoc.CreateElement(XML_CF_TAG.Line.ToString());
+                    XmlNode NodeText = XmlDoc.CreateTextNode(m_ScriptContainer["FuncScript"][i]);
+                    NodeLine.AppendChild(NodeText);
+                    Node.AppendChild(NodeLine);
+                }
             }
             return true;
         }

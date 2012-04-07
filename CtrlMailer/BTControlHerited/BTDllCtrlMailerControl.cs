@@ -19,7 +19,7 @@ namespace CtrlMailer
             if (m_IControl != null)
                 m_IControl.SourceBTControl = this;
 
-            m_SpecificProp = new DllCtrlMailerProp();
+            m_SpecificProp = new DllCtrlMailerProp(this.ItemScripts);
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace CtrlMailer
             if (m_IControl != null)
                 m_IControl.SourceBTControl = this;
 
-            m_SpecificProp = new DllCtrlMailerProp();
+            m_SpecificProp = new DllCtrlMailerProp(this.ItemScripts);
         }
 
         /// <summary>

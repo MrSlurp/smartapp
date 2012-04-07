@@ -65,6 +65,9 @@
     <Compile Include="Comm\HttpComm.cs" />
     <Compile Include="Comm\SerialComm.cs" />
     <Compile Include="Comm\VirtualComm.cs" />
+    <Compile Include="ConfigForms\BaseControlPropertiesPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="ConfigForms\ISpecificPanel.cs" />
     <Compile Include="ConfigForms\TwoColorProperties.cs">
       <SubType>UserControl</SubType>

@@ -16,7 +16,7 @@ namespace CtrlDemux
             if (m_IControl != null)
                 m_IControl.SourceBTControl = this;
 
-            m_SpecificProp = new DllCtrlDemuxProp();
+            m_SpecificProp = new DllCtrlDemuxProp(this.ItemScripts);
         }
 
         public BTDllCtrlDemuxControl(InteractiveControl Ctrl)
@@ -25,7 +25,7 @@ namespace CtrlDemux
             if (m_IControl != null)
                 m_IControl.SourceBTControl = this;
 
-            m_SpecificProp = new DllCtrlDemuxProp();
+            m_SpecificProp = new DllCtrlDemuxProp(this.ItemScripts);
         }
 
         public override SpecificControlProp SpecificProp

@@ -89,8 +89,8 @@ namespace CommonLib
 
                     for (int i = 0; i < m_listPropsPanels.Count; i++)
                     {
-                        m_listPropsPanels[i].ConfiguredItem = m_baseObjectItem;
                         m_listPropsPanels[i].Document = this.Document;
+                        m_listPropsPanels[i].ConfiguredItem = m_baseObjectItem;
                         if (m_baseObjectItem is Data)
                         {
                             m_listPropsPanels[i].ConfiguredItemGest = m_Document.GestData;
@@ -130,6 +130,10 @@ namespace CommonLib
                         m_listPropsPanels[i].ObjectToPanel();
                     }
                     //
+                    if (this.tabControl1.TabPages.Count >= 2)
+                    {
+                        this.tabControl1.SelectedIndex = 1;
+                    }
                 }
                 // Ajouter tous les panels nécessaires au paramétrage de l'objet
                 // et leur demander de s'intialiser
@@ -143,6 +147,8 @@ namespace CommonLib
             panel.Panel.Dock = DockStyle.Fill;
             this.tabControl1.TabPages[this.tabControl1.TabPages.Count - 1].SuspendLayout();
             this.tabControl1.TabPages[this.tabControl1.TabPages.Count - 1].Controls.Add(panel.Panel);
+            this.tabControl1.TabPages[this.tabControl1.TabPages.Count - 1].AutoScroll = true;
+            this.tabControl1.TabPages[this.tabControl1.TabPages.Count - 1].AutoSizeMode = AutoSizeMode.GrowAndShrink;
             this.tabControl1.TabPages[this.tabControl1.TabPages.Count - 1].ResumeLayout();
         }
 

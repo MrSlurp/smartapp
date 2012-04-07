@@ -24,6 +24,8 @@ namespace CtrlDemux
         
         StringCollection m_ListDemuxData = new StringCollection();
 
+        public DllCtrlDemuxProp(ItemScriptsConainter scriptContainter) : base(scriptContainter) { }
+
         // ajouter ici les accesseur vers les données membres des propriété
         public StringCollection ListDemuxData
         {

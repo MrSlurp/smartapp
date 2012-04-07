@@ -19,7 +19,7 @@ namespace CtrlTimeWatch
             if (m_IControl != null)
                 m_IControl.SourceBTControl = this;
 
-            m_SpecificProp = new DllCtrlTimeWatchProp();
+            m_SpecificProp = new DllCtrlTimeWatchProp(this.ItemScripts);
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace CtrlTimeWatch
             if (m_IControl != null)
                 m_IControl.SourceBTControl = this;
 
-            m_SpecificProp = new DllCtrlTimeWatchProp();
+            m_SpecificProp = new DllCtrlTimeWatchProp(this.ItemScripts);
         }
 
         /// <summary>

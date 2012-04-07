@@ -14,6 +14,9 @@ namespace FormatedDisplay
         private string m_FormatString = ":F0";
 
         private const string NOM_ATTIB_FORMAT = "Format";
+
+        public DllFormatedDisplayProp(ItemScriptsConainter scriptContainter) : base(scriptContainter) { }
+
         public string FormatString
         {
             get

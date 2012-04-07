@@ -25,7 +25,7 @@ namespace CtrlGraph
         #region données membres
         private BTDoc m_Document = null;
 
-        DllCtrlGraphProp m_Props = new DllCtrlGraphProp();
+        DllCtrlGraphProp m_Props = new DllCtrlGraphProp(null);
         CurveParam[] m_ListCurve = new CurveParam[DllCtrlGraphProp.NB_CURVE];
 
         CComboData[] m_CboDataDispPeriod;
