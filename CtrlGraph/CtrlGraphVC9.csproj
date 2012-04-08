@@ -78,23 +78,17 @@
   <ItemGroup>
     <Compile Include="BTControlHerited\BTDllCtrlGraphControl.cs" />
     <Compile Include="BTControlHerited\DllCtrlGraphProp.cs" />
-    <Compile Include="ConfigForm\CtrlGraphProperties.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ConfigForm\CtrlGraphProperties.Designer.cs">
-      <DependentUpon>CtrlGraphProperties.cs</DependentUpon>
-    </Compile>
     <Compile Include="ConfigForm\CurveParam.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ConfigForm\CurveParam.Designer.cs">
       <DependentUpon>CurveParam.cs</DependentUpon>
     </Compile>
-    <Compile Include="ConfigForm\GraphConfigForm.cs">
-      <SubType>Form</SubType>
+    <Compile Include="ConfigForm\CtrlGraphProperties.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ConfigForm\GraphConfigForm.Designer.cs">
-      <DependentUpon>GraphConfigForm.cs</DependentUpon>
+    <Compile Include="ConfigForm\CtrlGraphProperties.Designer.cs">
+      <DependentUpon>CtrlGraphProperties.cs</DependentUpon>
     </Compile>
     <Compile Include="DllEntryClass.cs" />
     <Compile Include="GraphicCommandControl\CtrlGraphCmdControl.cs">
@@ -110,17 +104,13 @@
     <Compile Include="Res\CtrlGraphRes.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ConfigForm\CtrlGraphProperties.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>CtrlGraphProperties.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="ConfigForm\CurveParam.resx">
       <SubType>Designer</SubType>
       <DependentUpon>CurveParam.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ConfigForm\GraphConfigForm.resx">
+    <EmbeddedResource Include="ConfigForm\CtrlGraphProperties.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>GraphConfigForm.cs</DependentUpon>
+      <DependentUpon>CtrlGraphProperties.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

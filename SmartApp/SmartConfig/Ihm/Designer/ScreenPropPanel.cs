@@ -183,7 +183,6 @@ namespace SmartApp.Ihm
             {
                 SelectedScreenChange(Scr);
             }
-
         }
         #endregion
 
@@ -203,6 +202,17 @@ namespace SmartApp.Ihm
 
         private void m_ListViewScreens_MouseDoubleClick(object sender, MouseEventArgs e)
         {
+            ListViewItem lviData = null;
+            if (m_ListViewScreens.SelectedItems.Count > 0)
+                lviData = m_ListViewScreens.SelectedItems[0];
+            if (lviData != null)
+            {
+                m_CurSelectedIndex = lviData.Index;
+                string strDataSymb = lviData.Text;
+                BaseObject Scr = GestScreen.GetFromSymbol(strDataSymb);
+                if (SelectedScreenChange != null)
+                    SelectedScreenChange((BTScreen)Scr);
+            }
             if (ScreenDoubleClick != null)
                 ScreenDoubleClick(this, null);
         }

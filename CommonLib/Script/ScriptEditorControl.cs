@@ -126,7 +126,15 @@ namespace CommonLib
         public bool ValidateProperties()
         {
             this.OnScriptCheck(null, null);
-            return true;
+            if (m_bIsScriptChecked)
+                return true;
+            else
+            {
+                string strMessage = "";
+                strMessage = Lang.LangSys.C("Script is invalid");
+                MessageBox.Show(strMessage, Lang.LangSys.C("Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
         }
 
         #endregion

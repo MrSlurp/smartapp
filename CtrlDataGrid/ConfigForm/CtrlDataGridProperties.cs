@@ -175,6 +175,7 @@ namespace CtrlDataGrid
         {
             DllCtrlDataGridProp itemprops = m_Control.SpecificProp as DllCtrlDataGridProp;
             itemprops.CopyParametersFrom(Props, false);
+            Document.Modified = true;
         }
 
         public void ObjectToPanel()

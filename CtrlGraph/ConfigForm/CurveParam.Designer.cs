@@ -36,11 +36,14 @@ namespace CtrlGraph
             this.edtSymb1 = new System.Windows.Forms.TextBox();
             this.lblAlias1 = new System.Windows.Forms.Label();
             this.lblSymb1 = new System.Windows.Forms.Label();
+            this.edtDivisor = new System.Windows.Forms.NumericUpDown();
+            this.label1 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.edtDivisor)).BeginInit();
             this.SuspendLayout();
             // 
             // bntPickColor1
             // 
-            this.bntPickColor1.Location = new System.Drawing.Point(401, 17);
+            this.bntPickColor1.Location = new System.Drawing.Point(385, 17);
             this.bntPickColor1.Name = "bntPickColor1";
             this.bntPickColor1.Size = new System.Drawing.Size(75, 23);
             this.bntPickColor1.TabIndex = 27;
@@ -63,7 +66,7 @@ namespace CtrlGraph
             this.edtColor1.Location = new System.Drawing.Point(354, 20);
             this.edtColor1.Name = "edtColor1";
             this.edtColor1.ReadOnly = true;
-            this.edtColor1.Size = new System.Drawing.Size(40, 20);
+            this.edtColor1.Size = new System.Drawing.Size(25, 20);
             this.edtColor1.TabIndex = 24;
             this.edtColor1.TabStop = false;
             // 
@@ -77,7 +80,7 @@ namespace CtrlGraph
             // lblColor1
             // 
             this.lblColor1.AutoSize = true;
-            this.lblColor1.Location = new System.Drawing.Point(340, 4);
+            this.lblColor1.Location = new System.Drawing.Point(351, 4);
             this.lblColor1.Name = "lblColor1";
             this.lblColor1.Size = new System.Drawing.Size(62, 13);
             this.lblColor1.TabIndex = 22;
@@ -110,18 +113,42 @@ namespace CtrlGraph
             this.lblSymb1.TabIndex = 23;
             this.lblSymb1.Text = "Data n Symbol";
             // 
+            // edtDivisor
+            // 
+            this.edtDivisor.Location = new System.Drawing.Point(466, 18);
+            this.edtDivisor.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.edtDivisor.Name = "edtDivisor";
+            this.edtDivisor.Size = new System.Drawing.Size(58, 20);
+            this.edtDivisor.TabIndex = 29;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(462, 4);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(39, 13);
+            this.label1.TabIndex = 22;
+            this.label1.Text = "Divisor";
+            // 
             // CurveParam
             // 
+            this.Controls.Add(this.edtDivisor);
             this.Controls.Add(this.bntPickColor1);
             this.Controls.Add(this.btnPickData1);
             this.Controls.Add(this.edtColor1);
             this.Controls.Add(this.edtAlias1);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.lblColor1);
             this.Controls.Add(this.edtSymb1);
             this.Controls.Add(this.lblAlias1);
             this.Controls.Add(this.lblSymb1);
             this.Name = "CurveParam";
-            this.Size = new System.Drawing.Size(480, 43);
+            this.Size = new System.Drawing.Size(531, 43);
+            ((System.ComponentModel.ISupportInitialize)(this.edtDivisor)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -137,5 +164,7 @@ namespace CtrlGraph
         private System.Windows.Forms.TextBox edtSymb1;
         private System.Windows.Forms.Label lblAlias1;
         private System.Windows.Forms.Label lblSymb1;
+        private System.Windows.Forms.NumericUpDown edtDivisor;
+        private System.Windows.Forms.Label label1;
     }
 }

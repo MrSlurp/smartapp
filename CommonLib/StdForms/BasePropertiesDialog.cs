@@ -152,13 +152,18 @@ namespace CommonLib
         private void AddPropertyTab(string title, IObjectPropertyPanel panel)
         {
             this.tabControl1.TabPages.Add(title);
+            TabPage newPage = this.tabControl1.TabPages[this.tabControl1.TabPages.Count - 1];
+            newPage.SuspendLayout();
+            newPage.Controls.Add(panel.Panel);
+            newPage.AutoScroll = true;
+            //newPage.ClientSize = panel.Panel.Size;
+            //newPage.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             panel.Panel.Location = new Point(0, 0);
-            panel.Panel.Dock = DockStyle.Fill;
-            this.tabControl1.TabPages[this.tabControl1.TabPages.Count - 1].SuspendLayout();
-            this.tabControl1.TabPages[this.tabControl1.TabPages.Count - 1].Controls.Add(panel.Panel);
-            this.tabControl1.TabPages[this.tabControl1.TabPages.Count - 1].AutoScroll = true;
-            this.tabControl1.TabPages[this.tabControl1.TabPages.Count - 1].AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            this.tabControl1.TabPages[this.tabControl1.TabPages.Count - 1].ResumeLayout();
+            panel.Panel.Width = newPage.Width - 5;
+            panel.Panel.Height = newPage.Height - 5;
+            panel.Panel.Anchor = AnchorStyles.Left | AnchorStyles.Bottom | AnchorStyles.Top | AnchorStyles.Right;
+            //panel.Panel.Dock = DockStyle.Fill;
+            newPage.ResumeLayout();
         }
 
         bool ValidateProperties()
@@ -169,6 +174,11 @@ namespace CommonLib
                 if (!panel.ValidateProperties())
                 {
                     retVal = false;
+                    for (int i = 0; i < tabControl1.TabPages.Count; i++ )
+                    {
+                        if (tabControl1.TabPages[i].Controls.Contains(panel as Control))
+                            tabControl1.SelectedIndex = i;
+                    }
                     break;
                 }
             }
@@ -185,7 +195,7 @@ namespace CommonLib
                 {
                     panel.PanelToObject();
                 }
-                this.Close();
+                this.DialogResult = DialogResult.OK;
             }
         }
     

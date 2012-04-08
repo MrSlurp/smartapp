@@ -32,11 +32,12 @@ namespace SmartApp.Ihm
             this.m_ListViewScreens = new System.Windows.Forms.ListView();
             this.m_colSymbol = new System.Windows.Forms.ColumnHeader();
             this.m_colTitle = new System.Windows.Forms.ColumnHeader();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // m_btnNewScreen
             // 
-            this.m_btnNewScreen.Location = new System.Drawing.Point(3, 260);
+            this.m_btnNewScreen.Location = new System.Drawing.Point(0, 299);
             this.m_btnNewScreen.Name = "m_btnNewScreen";
             this.m_btnNewScreen.Size = new System.Drawing.Size(75, 23);
             this.m_btnNewScreen.TabIndex = 3;
@@ -74,15 +75,25 @@ namespace SmartApp.Ihm
             this.m_colTitle.Text = "Title";
             this.m_colTitle.Width = 150;
             // 
+            // label1
+            // 
+            this.label1.Location = new System.Drawing.Point(0, 261);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(227, 35);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "Double click on a screen in the list above, or a tool in the screen to edit it\'s " +
+                "properties";
+            // 
             // ScreenPropPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.m_ListViewScreens);
             this.Controls.Add(this.m_btnNewScreen);
             this.Name = "ScreenPropPanel";
-            this.Size = new System.Drawing.Size(230, 290);
+            this.Size = new System.Drawing.Size(230, 325);
             this.ResumeLayout(false);
 
         }
@@ -93,5 +104,6 @@ namespace SmartApp.Ihm
         private System.Windows.Forms.ListView m_ListViewScreens;
         private System.Windows.Forms.ColumnHeader m_colSymbol;
         private System.Windows.Forms.ColumnHeader m_colTitle;
+        private System.Windows.Forms.Label label1;
     }
 }

@@ -15,6 +15,7 @@ namespace ImageButton
             this.BackgroundImageLayout = ImageLayout.Stretch;
             this.Appearance = Appearance.Button;
             this.UseVisualStyleBackColor = true;
+            this.TextAlign = ContentAlignment.MiddleCenter;
         }
     }
 }

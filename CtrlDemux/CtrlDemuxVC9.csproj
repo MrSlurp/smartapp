@@ -80,12 +80,6 @@
     <Compile Include="ConfigForm\CtrlDemuxProperties.Designer.cs">
       <DependentUpon>CtrlDemuxProperties.cs</DependentUpon>
     </Compile>
-    <Compile Include="ConfigForm\DemuxConfigForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ConfigForm\DemuxConfigForm.Designer.cs">
-      <DependentUpon>DemuxConfigForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="DllEntryClass.cs" />
     <Compile Include="GraphicCommandControl\CtrlDemuxCmdControl.cs">
       <SubType>UserControl</SubType>
@@ -103,10 +97,6 @@
     <EmbeddedResource Include="ConfigForm\CtrlDemuxProperties.resx">
       <SubType>Designer</SubType>
       <DependentUpon>CtrlDemuxProperties.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ConfigForm\DemuxConfigForm.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>DemuxConfigForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InteractiveHerited\InteractiveCtrlDemuxDllControl.resx">
       <SubType>Designer</SubType>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
@@ -47,8 +48,11 @@ namespace SoundPlayer
                 // par exemple la liaison du click souris à un handler d'event
                 //m_Ctrl.Click += new System.EventHandler(this.OnControlEvent);
                 DllSoundPlayerProp props = this.SpecificProp as DllSoundPlayerProp;
-                m_soundPlayer.SoundLocation = props.SoundFile;
-                m_soundPlayer.Load();
+                if (File.Exists(props.SoundFile))
+                {
+                    m_soundPlayer.SoundLocation = props.SoundFile;
+                    m_soundPlayer.Load();
+                }
             }
         }
 
@@ -105,7 +109,8 @@ namespace SoundPlayer
                         // traitez ici le passage en mode stop du control si nécessaire
                         break;
                     case MESSAGE.MESS_CMD_RUN:
-                        m_iPreviousDataValue = m_AssociateData.Value;
+                        if (m_AssociateData != null)
+                            m_iPreviousDataValue = m_AssociateData.Value;
                         // traitez ici le passage en mode run du control si nécessaire
                         break;
                     default:

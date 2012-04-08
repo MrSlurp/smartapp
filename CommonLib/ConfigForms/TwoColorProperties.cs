@@ -10,9 +10,6 @@ namespace CommonLib
 {
     public partial class TwoColorProperties : BaseControlPropertiesPanel, ISpecificPanel
     {
-        #region données membres
-        #endregion
-
         #region events
         public event ControlPropertiesChange ControlPropertiesChanged;
         #endregion

@@ -252,10 +252,10 @@ namespace CommonLib
                 m_Control.TextFont = this.CtrlFont;
                 m_Control.TextColor = this.CtrlFontColor;
                 Document.Modified = true;
-                if (m_CurrentSpecificControlPropPanel != null)
-                {
-                    ((ISpecificPanel)m_CurrentSpecificControlPropPanel).PanelToObject();
-                }
+            }
+            if (m_CurrentSpecificControlPropPanel != null)
+            {
+                ((ISpecificPanel)m_CurrentSpecificControlPropPanel).PanelToObject();
             }
             if (bDataPropChange && ControlPropertiesChanged != null)
                 ControlPropertiesChanged(m_Control); 
@@ -444,10 +444,11 @@ namespace CommonLib
                     this.Controls.Add(ctrl);
                     ctrl.Location = this.m_panelPlaceSpec.Location;
                     m_CurrentSpecificControlPropPanel = ctrl;
-                    m_CurrentSpecificControlPropPanel.Width = this.Width/2;
-                    m_CurrentSpecificControlPropPanel.Height = this.Height - ctrl.Location.X -10;
+                    m_CurrentSpecificControlPropPanel.Parent = this;
+                    //m_CurrentSpecificControlPropPanel.Width = this.Width/2;
+                    //m_CurrentSpecificControlPropPanel.Height = this.Height - ctrl.Location.X -10;
                     m_CurrentSpecificControlPropPanel.Visible = true;
-                    m_CurrentSpecificControlPropPanel.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom | AnchorStyles.Top;
+                    m_CurrentSpecificControlPropPanel.Anchor = AnchorStyles.Left | AnchorStyles.Bottom | AnchorStyles.Top | AnchorStyles.Right;
                 }
                 catch (Exception e)
                 {

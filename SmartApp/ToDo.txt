@@ -1,13 +1,8 @@
 /*********************************************/
 				SmartConfig
 /*********************************************/
-Gérer l'affichage des fenêtre de script en fonction des propriété standard (item scriptable ou non)
-Créer une moyen de verouiller les fenêtre de script pour le trigger
-
-Passer la page de configuration des plugins suivant en mode panel :
- - Graph
- - Demux
- - Mailer
+bug, si on selectionne un item dans un écran et qu'on double clic sur l'écran alors
+ca ouvre la page de l'item
  /*********************************************/
 				SmartCommand
 /*********************************************/

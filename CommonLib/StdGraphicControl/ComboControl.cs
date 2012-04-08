@@ -78,7 +78,7 @@ namespace CommonLib
             if (m_AssociateData != null)
                 m_AssociateData.Value = ((ComboBox)m_Ctrl).SelectedIndex;
 
-            if (this.m_ScriptContainer["StdScript"].Length != 0)
+            if (this.m_ScriptContainer["EvtScript"] != null && this.m_ScriptContainer["EvtScript"].Length != 0)
             {
 #if !QUICK_MOTOR
                 m_Executer.ExecuteScript(this.ScriptLines);

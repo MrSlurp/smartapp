@@ -93,6 +93,12 @@ namespace CommonLib
                 strMessage = string.Format(Lang.LangSys.C("An object with symbol {0} already exist"), this.m_textBoxSymbol.Text);
                 bRet = false;
             }
+            if (!bRet)
+            {
+                MessageBox.Show(strMessage, Lang.LangSys.C("Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return bRet;
+            }
+
             return bRet;
         }
 

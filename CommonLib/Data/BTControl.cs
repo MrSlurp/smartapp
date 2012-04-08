@@ -633,7 +633,7 @@ namespace CommonLib
 #if QUICK_MOTOR
                 case MESSAGE.MESS_PRE_PARSE:
                     if (this.m_ScriptContainer["EvtScript"].Length != 0)
-                        this.m_iQuickScriptID = m_Executer.PreParseScript(this.m_ScriptContainer["StdScript"]);    
+                        this.m_iQuickScriptID = m_Executer.PreParseScript(this.m_ScriptContainer["EvtScript"]);    
                     break;
 #endif
                 default:

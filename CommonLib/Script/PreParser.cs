@@ -48,16 +48,18 @@ namespace CommonLib
 
         public List<PreParsedLine> PreParseScript(string[] script)
         {
-            if (script.Length == 0)
+            if (script == null || script.Length == 0)
                 return null;
             List<PreParsedLine> retPreParsedScript = new List<PreParsedLine>();
             for (int i = 0; i < script.Length; i++)
-            {            
-                retPreParsedScript.Add(PreParseLine(script[i]));
+            {
+                if (!string.IsNullOrEmpty(script[i]))
+                    retPreParsedScript.Add(PreParseLine(script[i]));
             }
-            return retPreParsedScript;
+            return retPreParsedScript.Count != 0 ? retPreParsedScript : null;
         }
 
+        /*
         public List<PreParsedLine> PreParseScript(StringCollection script)
         {
             if (script.Count == 0)
@@ -70,7 +72,7 @@ namespace CommonLib
                     retPreParsedScript.Add(ppLine);
             }
             return retPreParsedScript;
-        }
+        }*/
 
         public PreParsedLine PreParseLine(string Line)
         {
