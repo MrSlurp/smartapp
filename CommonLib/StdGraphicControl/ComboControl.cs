@@ -20,6 +20,7 @@ namespace CommonLib
     {
         private ArrayList m_ArrayComboValue;
         private string[] m_ListStrValues;
+        private bool m_bLockControlEvent = false;
 
         /// <summary>
         /// constructeur
@@ -75,6 +76,9 @@ namespace CommonLib
         /// <param name="Args"></param>
         public override void OnControlEvent(Object Sender, EventArgs Args)
         {
+            if (m_bLockControlEvent)
+                return;
+
             if (m_AssociateData != null)
                 m_AssociateData.Value = ((ComboBox)m_Ctrl).SelectedIndex;
 
@@ -100,10 +104,12 @@ namespace CommonLib
         {
             if (m_AssociateData != null && m_Ctrl != null)
             {
-                if (m_AssociateData.Value < ((ComboBox)m_Ctrl).Items.Count)
+                m_bLockControlEvent = true;
+                if (m_AssociateData.Value >= 0 && m_AssociateData.Value < ((ComboBox)m_Ctrl).Items.Count)
                     ((ComboBox)m_Ctrl).SelectedIndex = m_AssociateData.Value;
                 else if (((ComboBox)m_Ctrl).Items.Count > 0)
                     ((ComboBox)m_Ctrl).SelectedIndex = 0;
+                m_bLockControlEvent = false;
             }
         }
 

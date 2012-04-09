@@ -40,7 +40,7 @@ namespace CtrlTimeWatch
             m_stdPropEnabling.m_bcheckReadOnlyEnabled = false;
             m_stdPropEnabling.m_bcheckScreenEventEnabled = false;
             m_stdPropEnabling.m_bcheckScreenEventChecked = false;
-            m_stdPropEnabling.m_bEditAssociateDataEnabled = true;
+            m_stdPropEnabling.m_bEditAssociateDataEnabled = false;
             m_stdPropEnabling.m_bEditTextEnabled = false;
             m_stdPropEnabling.m_bCtrlEventScriptEnabled = false;
 

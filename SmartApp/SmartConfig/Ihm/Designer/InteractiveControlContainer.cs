@@ -493,8 +493,6 @@ namespace SmartApp.Ihm.Designer
             iCtrl.Focus();
             if (SelectionChange != null)
                 SelectionChange();
-            if (EventControlDblClick != null)
-                EventControlDblClick();
 
         }
 
