@@ -79,6 +79,14 @@ namespace CommonLib
 		public static Bitmap CxnOff;
         public static Bitmap Empty;
         public static Icon AppIcon;
+
+        public static Bitmap TreeViewScreenIcon;
+        public static Bitmap TreeViewGroupIcon;
+        public static Bitmap TreeViewTimerIcon;
+        public static Bitmap TreeViewFrameIcon;
+        public static Bitmap TreeViewFunctionIcon;
+        public static Bitmap TreeViewLoggerIcon;
+        public static Bitmap TreeViewIOIcon;
 		
 		public static void InitializeBitmap()
 		{
@@ -136,6 +144,14 @@ namespace CommonLib
             TypeSplit16_ETH_OUT = NewBmpTrPath(strAppDir + "\\Res\\WizRes\\EthType_Split16O.png");
             TypeSplit4_ETH_OUT = NewBmpTrPath(strAppDir + "\\Res\\WizRes\\EthType_Split4O.png");
             TypeSplit2_ETH_OUT = NewBmpTrPath(strAppDir + "\\Res\\WizRes\\EthType_Split2O.png");
+
+            TreeViewScreenIcon = NewBmpTrPath(strAppDir + "\\Res\\icon_screen.png");
+            TreeViewGroupIcon = NewBmpTrPath(strAppDir + "\\Res\\icon_group.png");
+            TreeViewTimerIcon = NewBmpTrPath(strAppDir + "\\Res\\icon_timer.png");
+            TreeViewFrameIcon = NewBmpTrPath(strAppDir + "\\Res\\icon_frame.png");
+            TreeViewFunctionIcon = NewBmpTrPath(strAppDir + "\\Res\\icon_function.png");
+            TreeViewLoggerIcon = NewBmpTrPath(strAppDir + "\\Res\\icon_logger.png");
+            TreeViewIOIcon = NewBmpTrPath(strAppDir + "\\Res\\icon_io.png");
         }
 
         public static Bitmap NewBmpTrPath(string path)

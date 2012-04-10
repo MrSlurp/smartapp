@@ -153,7 +153,7 @@ namespace SmartApp.Ihm
             this.m_TabTools.Location = new System.Drawing.Point(4, 22);
             this.m_TabTools.Name = "m_TabTools";
             this.m_TabTools.Padding = new System.Windows.Forms.Padding(3);
-            this.m_TabTools.Size = new System.Drawing.Size(298, 537);
+            this.m_TabTools.Size = new System.Drawing.Size(298, 474);
             this.m_TabTools.TabIndex = 1;
             this.m_TabTools.Text = "Tools";
             this.m_TabTools.UseVisualStyleBackColor = true;
@@ -187,7 +187,7 @@ namespace SmartApp.Ihm
             this.m_LabelSelectedScreen.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.m_LabelSelectedScreen.Location = new System.Drawing.Point(7, 29);
             this.m_LabelSelectedScreen.Name = "m_LabelSelectedScreen";
-            this.m_LabelSelectedScreen.Size = new System.Drawing.Size(84, 16);
+            this.m_LabelSelectedScreen.Size = new System.Drawing.Size(81, 16);
             this.m_LabelSelectedScreen.TabIndex = 1;
             this.m_LabelSelectedScreen.Text = "No Screen";
             // 
@@ -404,7 +404,7 @@ namespace SmartApp.Ihm
             // 
             this.tsbtn_paste.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.tsbtn_paste.Name = "tsbtn_paste";
-            this.tsbtn_paste.Size = new System.Drawing.Size(39, 19);
+            this.tsbtn_paste.Size = new System.Drawing.Size(39, 22);
             this.tsbtn_paste.Text = "Paste";
             this.tsbtn_paste.Click += new System.EventHandler(this.tsbtn_paste_click);
             // 
@@ -414,7 +414,7 @@ namespace SmartApp.Ihm
             this.toolbtnScreenToBitmap.Image = ((System.Drawing.Image)(resources.GetObject("toolbtnScreenToBitmap.Image")));
             this.toolbtnScreenToBitmap.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolbtnScreenToBitmap.Name = "toolbtnScreenToBitmap";
-            this.toolbtnScreenToBitmap.Size = new System.Drawing.Size(90, 19);
+            this.toolbtnScreenToBitmap.Size = new System.Drawing.Size(90, 22);
             this.toolbtnScreenToBitmap.Text = "Save to bitmap";
             this.toolbtnScreenToBitmap.Click += new System.EventHandler(this.toolbtnScreenToBitmap_Click);
             // 

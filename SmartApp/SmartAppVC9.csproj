@@ -526,6 +526,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="SmartConfig\Ihm\VariousFormAndControls\SolutionTreeView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\BaseM3Z2ProjectCreator.cs" />
     <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\Zelio\Z2SR3NETBlocConfig.cs" />
     <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\Zelio\SLZ2WizardConfigData.cs" />
@@ -1103,6 +1106,24 @@
     <Content Include="Res\CxnOff.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Res\icon_frame.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Res\icon_function.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Res\icon_group.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Res\icon_io.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Res\icon_logger.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Res\icon_timer.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Res\PresAssData.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -1136,6 +1157,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="app.config" />
+    <Content Include="Res\icon_screen.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Res\WizRes\EthType_Split16.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

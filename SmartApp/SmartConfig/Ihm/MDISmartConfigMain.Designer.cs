@@ -102,9 +102,14 @@ namespace SmartApp.Ihm
             this.tsbtn_gotoProgram = new System.Windows.Forms.ToolStripButton();
             this.tsbtn_gotoData = new System.Windows.Forms.ToolStripButton();
             this.tsbtn_gotoFrame = new System.Windows.Forms.ToolStripButton();
+            this.solutionPanel = new System.Windows.Forms.Panel();
+            this.lblSolutionView = new System.Windows.Forms.Label();
+            this.solutionTreeView = new SmartApp.SolutionTreeView();
+            this.btnHideShowSolution = new System.Windows.Forms.Button();
             this.m_menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.m_toolStrip.SuspendLayout();
+            this.solutionPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // m_menuStrip
@@ -473,7 +478,7 @@ namespace SmartApp.Ihm
             this.m_toolBarToolStripMenuItem.CheckOnClick = true;
             this.m_toolBarToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.m_toolBarToolStripMenuItem.Name = "m_toolBarToolStripMenuItem";
-            this.m_toolBarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.m_toolBarToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.m_toolBarToolStripMenuItem.Text = "&Toolbar";
             this.m_toolBarToolStripMenuItem.Click += new System.EventHandler(this.ToolBarToolStripMenuItem_Click);
             // 
@@ -483,7 +488,7 @@ namespace SmartApp.Ihm
             this.m_statusBarToolStripMenuItem.CheckOnClick = true;
             this.m_statusBarToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.m_statusBarToolStripMenuItem.Name = "m_statusBarToolStripMenuItem";
-            this.m_statusBarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.m_statusBarToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.m_statusBarToolStripMenuItem.Text = "&Status Bar";
             this.m_statusBarToolStripMenuItem.Click += new System.EventHandler(this.StatusBarToolStripMenuItem_Click);
             // 
@@ -578,6 +583,7 @@ namespace SmartApp.Ihm
             this.statusStrip.Size = new System.Drawing.Size(1016, 22);
             this.statusStrip.TabIndex = 2;
             this.statusStrip.Text = "StatusStrip";
+            this.statusStrip.Visible = false;
             // 
             // toolStripStatusLabel
             // 
@@ -744,11 +750,52 @@ namespace SmartApp.Ihm
             this.tsbtn_gotoFrame.Text = "Frame";
             this.tsbtn_gotoFrame.Click += new System.EventHandler(this.tsbtn_gotoFrame_Click);
             // 
+            // solutionPanel
+            // 
+            this.solutionPanel.Controls.Add(this.btnHideShowSolution);
+            this.solutionPanel.Controls.Add(this.lblSolutionView);
+            this.solutionPanel.Controls.Add(this.solutionTreeView);
+            this.solutionPanel.Dock = System.Windows.Forms.DockStyle.Left;
+            this.solutionPanel.Location = new System.Drawing.Point(0, 49);
+            this.solutionPanel.Name = "solutionPanel";
+            this.solutionPanel.Size = new System.Drawing.Size(250, 692);
+            this.solutionPanel.TabIndex = 9;
+            // 
+            // lblSolutionView
+            // 
+            this.lblSolutionView.AutoSize = true;
+            this.lblSolutionView.Location = new System.Drawing.Point(3, 14);
+            this.lblSolutionView.Name = "lblSolutionView";
+            this.lblSolutionView.Size = new System.Drawing.Size(70, 13);
+            this.lblSolutionView.TabIndex = 1;
+            this.lblSolutionView.Text = "Solution view";
+            // 
+            // solutionTreeView
+            // 
+            this.solutionTreeView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.solutionTreeView.Location = new System.Drawing.Point(3, 33);
+            this.solutionTreeView.Name = "solutionTreeView";
+            this.solutionTreeView.Size = new System.Drawing.Size(244, 659);
+            this.solutionTreeView.TabIndex = 0;
+            // 
+            // btnHideShowSolution
+            // 
+            this.btnHideShowSolution.Location = new System.Drawing.Point(210, 4);
+            this.btnHideShowSolution.Name = "btnHideShowSolution";
+            this.btnHideShowSolution.Size = new System.Drawing.Size(33, 23);
+            this.btnHideShowSolution.TabIndex = 2;
+            this.btnHideShowSolution.Text = "<->";
+            this.btnHideShowSolution.UseVisualStyleBackColor = true;
+            this.btnHideShowSolution.Click += new System.EventHandler(this.btnHideShowSolution_Click);
+            // 
             // MDISmartConfigMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1016, 741);
+            this.Controls.Add(this.solutionPanel);
             this.Controls.Add(this.m_toolStrip);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.m_menuStrip);
@@ -763,6 +810,8 @@ namespace SmartApp.Ihm
             this.statusStrip.PerformLayout();
             this.m_toolStrip.ResumeLayout(false);
             this.m_toolStrip.PerformLayout();
+            this.solutionPanel.ResumeLayout(false);
+            this.solutionPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -842,6 +891,10 @@ namespace SmartApp.Ihm
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator11;
         private System.Windows.Forms.ToolStripMenuItem tsmiZ2SR3NETProjectWizard;
         private System.Windows.Forms.ToolStripMenuItem tsmiZ2SLProjectWizard;
+        private System.Windows.Forms.Panel solutionPanel;
+        private System.Windows.Forms.Label lblSolutionView;
+        private SolutionTreeView solutionTreeView;
+        private System.Windows.Forms.Button btnHideShowSolution;
     }
 }
 

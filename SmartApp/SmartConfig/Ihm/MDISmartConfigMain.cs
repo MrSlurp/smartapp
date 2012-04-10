@@ -522,6 +522,7 @@ namespace SmartApp.Ihm
                     m_strDocumentName = strFullFileName.Substring(lastindex+1);
                     UpdateTitle();
                     m_mruStripMenu.AddFile(strFullFileName);
+                    solutionTreeView.AddDocument(m_Document);
                     return true;
                 }
                 else
@@ -1064,5 +1065,24 @@ namespace SmartApp.Ihm
                 }
             }
         }
+
+        private void btnHideShowSolution_Click(object sender, EventArgs e)
+        {
+            if (this.lblSolutionView.Visible)
+            {
+                this.solutionTreeView.Visible = false;
+                this.solutionPanel.Width = 40;
+                this.btnHideShowSolution.Left = 2;
+                this.lblSolutionView.Visible = false;
+            }
+            else
+            {
+                this.solutionTreeView.Visible = true;
+                this.solutionPanel.Width = 250;
+                this.btnHideShowSolution.Left = 210;
+                this.lblSolutionView.Visible = true;
+            }
+        }
+
     }
 }
