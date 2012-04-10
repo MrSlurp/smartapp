@@ -24,10 +24,10 @@ namespace SmartApp.Ihm
 
         #region données membres
         protected TraceConsole m_TraceConsole;
-        protected DataForm m_DataForm;
+//        protected DataForm m_DataForm;
         protected DesignerForm m_DesignForm;
-        protected FrameForm m_FrameForm;
-        protected ProgramForm m_ProgForm;
+//        protected FrameForm m_FrameForm;
+//        protected ProgramForm m_ProgForm;
         protected BTDoc m_Document = null;
         protected FormsOptions m_FrmOpt = new FormsOptions(); 
         protected string m_strDocumentName = "";
@@ -72,14 +72,8 @@ namespace SmartApp.Ihm
             string strAppDir = Application.StartupPath;
             string strIniFilePath = PathTranslator.LinuxVsWindowsPathUse(strAppDir + @"\" + Cste.STR_FORMPOSINI_FILENAME);
             m_FrmOpt.Load(strIniFilePath);
-            m_DataForm = new DataForm();
             m_DesignForm = new DesignerForm();
-            m_FrameForm = new FrameForm();
-            m_ProgForm = new ProgramForm();
-            m_DataForm.MdiParent = this;
             m_DesignForm.MdiParent = this;
-            m_FrameForm.MdiParent = this;
-            m_ProgForm.MdiParent = this;
             m_mruStripMenu = new MruStripMenuInline(this.m_fileMenu, this.m_MruFiles, new MruStripMenu.ClickedHandler(OnMruFile), strIniFilePath);
             if (LaunchArgParser.DevMode)
             {
@@ -538,19 +532,10 @@ namespace SmartApp.Ihm
         //*****************************************************************************************************
         private bool OpenDocument(BTDoc Doc)
         {
-            m_DataForm.Doc = Doc;
-            m_DataForm.Initialize();
             m_DesignForm.Doc = Doc;
             m_DesignForm.Initialize();
-            m_FrameForm.Doc = Doc;
-            m_FrameForm.Initialize();
-            m_ProgForm.Doc = Doc;
-            m_ProgForm.Initialize();
 
             m_DesignForm.Show();
-            m_DataForm.Show();
-            m_FrameForm.Show();
-            m_ProgForm.Show();
             for (int i = 0; i < this.MdiChildren.Length; i++)
             {
                 MdiChildren[i].Size = m_FrmOpt.GetFormSize(MdiChildren[i]);
@@ -583,10 +568,7 @@ namespace SmartApp.Ihm
         private bool CloseDoc()
         {
             m_strDocumentName = "";
-            m_DataForm.Hide();
             m_DesignForm.Hide();
-            m_FrameForm.Hide();
-            m_ProgForm.Hide();
             m_windowsMenu.Enabled = false;
             m_jumpTotCmdMenuItem.Enabled = false;
             m_MenuItemM3SLWiz.Enabled = false;
@@ -667,29 +649,11 @@ namespace SmartApp.Ihm
         {
             if (Mess == null)
             {
-                if (m_DataForm != null)
-                    m_DataForm.Initialize();
-
-                if (m_FrameForm != null)
-                    m_FrameForm.Initialize();
-
                 if (m_DesignForm != null)
                     m_DesignForm.Initialize();
-
-                if (m_ProgForm != null)
-                    m_ProgForm.Initialize();
             }
             else
             {
-                if (Mess.bUpdateDataForm && m_DataForm != null)
-                    m_DataForm.Initialize();
-
-                if (Mess.bUpdateFrameForm && m_FrameForm != null)
-                    m_FrameForm.Initialize();
-
-                if (Mess.bUpdateProgramForm && m_ProgForm != null)
-                    m_ProgForm.Initialize();
-
                 if (Mess.bUpdateScreenForm && m_DesignForm != null)
                     m_DesignForm.Initialize();
             }
@@ -787,80 +751,6 @@ namespace SmartApp.Ihm
         {
             PluginsVersionsForm plVer = new PluginsVersionsForm();
             plVer.ShowDialog();
-        }
-        #endregion
-
-        #region toolbar de navigation
-        /// <summary>
-        /// met la fenêtre de configuration des écran au premier plan
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void tsbtn_gotoScreen_Click(object sender, EventArgs e)
-        {
-            if (this.ActiveMdiChild != m_DesignForm)
-            {
-                if (m_DesignForm.WindowState == FormWindowState.Minimized)
-                    m_DesignForm.WindowState =
-                        this.ActiveMdiChild.WindowState == FormWindowState.Maximized ?
-                        FormWindowState.Maximized : FormWindowState.Normal;
-
-                m_DesignForm.BringToFront();
-            }
-        }
-
-        /// <summary>
-        /// met la fenêtre de programmation au premier plan
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void tsbtn_gotoProgram_Click(object sender, EventArgs e)
-        {
-            if (this.ActiveMdiChild != m_ProgForm)
-            {
-                if (m_ProgForm.WindowState == FormWindowState.Minimized)
-                    m_ProgForm.WindowState = 
-                        this.ActiveMdiChild.WindowState == FormWindowState.Maximized?
-                        FormWindowState.Maximized : FormWindowState.Normal;
-
-                m_ProgForm.BringToFront();
-            }
-        }
-
-        /// <summary>
-        /// met la fenêtre de configuration des donnée au premier plan
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void tsbtn_gotoData_Click(object sender, EventArgs e)
-        {
-            if (this.ActiveMdiChild != m_DataForm)
-            {
-                if (m_DataForm.WindowState == FormWindowState.Minimized)
-                    m_DataForm.WindowState =
-                        this.ActiveMdiChild.WindowState == FormWindowState.Maximized ?
-                        FormWindowState.Maximized : FormWindowState.Normal;
-
-                m_DataForm.BringToFront();
-            }
-        }
-
-        /// <summary>
-        /// met la fenêtre de configuration des trames au premier plan
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void tsbtn_gotoFrame_Click(object sender, EventArgs e)
-        {
-            if (this.ActiveMdiChild != m_FrameForm)
-            {
-                if (m_FrameForm.WindowState == FormWindowState.Minimized)
-                    m_FrameForm.WindowState =
-                        this.ActiveMdiChild.WindowState == FormWindowState.Maximized ?
-                        FormWindowState.Maximized : FormWindowState.Normal;
-
-                m_FrameForm.BringToFront();
-            }
         }
         #endregion
 

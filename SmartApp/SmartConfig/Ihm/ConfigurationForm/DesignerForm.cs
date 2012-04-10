@@ -35,7 +35,6 @@ namespace SmartApp.Ihm
             set
             {
                 m_Document = value;
-                m_PanelScreenListAndProp.Doc = m_Document;
                 m_PropDialog.Document = m_Document;
             }
         }
@@ -80,7 +79,6 @@ namespace SmartApp.Ihm
 
             // ce code est déporté de InitializeComponent() 
             // car ca pose un problème dans le designer
-            m_tabCTrlConfig.SuspendLayout();
             m_panelToolDragItem = new DragItemPanel();
             // 
             // m_panelToolDragItem
@@ -88,14 +86,9 @@ namespace SmartApp.Ihm
             m_panelToolDragItem.AutoScroll = true;
             m_panelToolDragItem.BackColor = System.Drawing.Color.Transparent;
             m_panelToolDragItem.Dock = System.Windows.Forms.DockStyle.Fill;
-            m_panelToolDragItem.Location = new System.Drawing.Point(3, 3);
-            m_panelToolDragItem.Margin = new System.Windows.Forms.Padding(0);
             m_panelToolDragItem.Name = "m_panelToolDragItem";
-            m_panelToolDragItem.Size = new System.Drawing.Size(275, 531);
-            m_panelToolDragItem.TabIndex = 1;
+            m_MainSplitterContainer.Panel1.Controls.Add(m_panelToolDragItem);
 
-            m_TabTools.Controls.Add(this.m_panelToolDragItem);
-            m_tabCTrlConfig.ResumeLayout(false);
             // fin de code déporté de suspend layout
 
             m_InteractiveControlContainer.SelectionChange += new SelectionChangeEvent(OnScreenDesignerSelectionChange);
@@ -106,10 +99,8 @@ namespace SmartApp.Ihm
             m_InteractiveControlContainer.EventControlPosChanged += new ControlsPosChanged(ControlPosChanged);
             m_InteractiveControlContainer.AllowDrop = false;
 
-            m_PanelScreenListAndProp.ScreenDoubleClick += new EventHandler(PanelScreenListAndProp_ScreenDoubleClick);
 
             OnScreenDesignerSelectionChange();
-            this.m_PanelScreenListAndProp.SelectedScreenChange += new ScreenPropertiesChange(this.OnSelectedScreenChange);
         }
 
         void PanelScreenListAndProp_ScreenDoubleClick(object sender, EventArgs e)
@@ -128,7 +119,6 @@ namespace SmartApp.Ihm
         //*****************************************************************************************************      
         public void Initialize()
         {
-            m_PanelScreenListAndProp.Initialize();
             OnSelectedScreenChange(null);
             m_InteractiveControlContainer.ClearSelection();
         }
@@ -398,15 +388,10 @@ namespace SmartApp.Ihm
         //*****************************************************************************************************      
         private void OnControlDblClick()
         {
-            m_tabCTrlConfig.SelectedIndex = 2; // TODO constante pour la page des controls
             if (m_PropDialog.ConfiguredItem != null)
             {
                 m_PropDialog.Initialize();
                 DialogResult dlgRes = m_PropDialog.ShowDialog();
-                if (m_PropDialog.ConfiguredItem is BTScreen && dlgRes == DialogResult.OK)
-                {
-                    this.m_PanelScreenListAndProp.Initialize();
-                }
             }
         }
 

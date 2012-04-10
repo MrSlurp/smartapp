@@ -34,10 +34,6 @@ namespace SmartApp.Ihm
             this.m_TopToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.m_ContentPanel = new System.Windows.Forms.ToolStripContentPanel();
             this.m_MainSplitterContainer = new System.Windows.Forms.SplitContainer();
-            this.m_tabCTrlConfig = new System.Windows.Forms.TabControl();
-            this.m_TabScreen = new System.Windows.Forms.TabPage();
-            this.m_PanelScreenListAndProp = new SmartApp.Ihm.ScreenPropPanel();
-            this.m_TabTools = new System.Windows.Forms.TabPage();
             this.m_splitterDesigner_Tool = new System.Windows.Forms.SplitContainer();
             this.m_LabelSelectedScreen = new System.Windows.Forms.Label();
             this.m_toolStripDesignLayout = new System.Windows.Forms.ToolStrip();
@@ -67,11 +63,8 @@ namespace SmartApp.Ihm
             this.toolbtnScreenToBitmap = new System.Windows.Forms.ToolStripButton();
             this.panel1 = new SmartApp.Ihm.InteractivePanelContainer();
             this.m_InteractiveControlContainer = new SmartApp.Ihm.Designer.InteractiveControlContainer();
-            this.m_MainSplitterContainer.Panel1.SuspendLayout();
             this.m_MainSplitterContainer.Panel2.SuspendLayout();
             this.m_MainSplitterContainer.SuspendLayout();
-            this.m_tabCTrlConfig.SuspendLayout();
-            this.m_TabScreen.SuspendLayout();
             this.m_splitterDesigner_Tool.Panel1.SuspendLayout();
             this.m_splitterDesigner_Tool.Panel2.SuspendLayout();
             this.m_splitterDesigner_Tool.SuspendLayout();
@@ -99,64 +92,15 @@ namespace SmartApp.Ihm
             this.m_MainSplitterContainer.Location = new System.Drawing.Point(0, 0);
             this.m_MainSplitterContainer.MinimumSize = new System.Drawing.Size(600, 500);
             this.m_MainSplitterContainer.Name = "m_MainSplitterContainer";
-            // 
-            // m_MainSplitterContainer.Panel1
-            // 
-            this.m_MainSplitterContainer.Panel1.Controls.Add(this.m_tabCTrlConfig);
-            this.m_MainSplitterContainer.Panel1MinSize = 310;
+            this.m_MainSplitterContainer.Panel1MinSize = 180;
             // 
             // m_MainSplitterContainer.Panel2
             // 
             this.m_MainSplitterContainer.Panel2.Controls.Add(this.m_splitterDesigner_Tool);
             this.m_MainSplitterContainer.Panel2MinSize = 250;
             this.m_MainSplitterContainer.Size = new System.Drawing.Size(772, 567);
-            this.m_MainSplitterContainer.SplitterDistance = 310;
+            this.m_MainSplitterContainer.SplitterDistance = 180;
             this.m_MainSplitterContainer.TabIndex = 6;
-            // 
-            // m_tabCTrlConfig
-            // 
-            this.m_tabCTrlConfig.Controls.Add(this.m_TabScreen);
-            this.m_tabCTrlConfig.Controls.Add(this.m_TabTools);
-            this.m_tabCTrlConfig.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.m_tabCTrlConfig.Location = new System.Drawing.Point(0, 0);
-            this.m_tabCTrlConfig.Margin = new System.Windows.Forms.Padding(0);
-            this.m_tabCTrlConfig.MinimumSize = new System.Drawing.Size(250, 500);
-            this.m_tabCTrlConfig.Multiline = true;
-            this.m_tabCTrlConfig.Name = "m_tabCTrlConfig";
-            this.m_tabCTrlConfig.SelectedIndex = 0;
-            this.m_tabCTrlConfig.Size = new System.Drawing.Size(306, 563);
-            this.m_tabCTrlConfig.TabIndex = 5;
-            // 
-            // m_TabScreen
-            // 
-            this.m_TabScreen.Controls.Add(this.m_PanelScreenListAndProp);
-            this.m_TabScreen.Location = new System.Drawing.Point(4, 22);
-            this.m_TabScreen.Name = "m_TabScreen";
-            this.m_TabScreen.Padding = new System.Windows.Forms.Padding(3);
-            this.m_TabScreen.Size = new System.Drawing.Size(298, 537);
-            this.m_TabScreen.TabIndex = 0;
-            this.m_TabScreen.Text = "Screens";
-            this.m_TabScreen.UseVisualStyleBackColor = true;
-            // 
-            // m_PanelScreenListAndProp
-            // 
-            this.m_PanelScreenListAndProp.BackColor = System.Drawing.Color.Transparent;
-            this.m_PanelScreenListAndProp.Doc = null;
-            this.m_PanelScreenListAndProp.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.m_PanelScreenListAndProp.Location = new System.Drawing.Point(3, 3);
-            this.m_PanelScreenListAndProp.Name = "m_PanelScreenListAndProp";
-            this.m_PanelScreenListAndProp.Size = new System.Drawing.Size(292, 531);
-            this.m_PanelScreenListAndProp.TabIndex = 0;
-            // 
-            // m_TabTools
-            // 
-            this.m_TabTools.Location = new System.Drawing.Point(4, 22);
-            this.m_TabTools.Name = "m_TabTools";
-            this.m_TabTools.Padding = new System.Windows.Forms.Padding(3);
-            this.m_TabTools.Size = new System.Drawing.Size(298, 474);
-            this.m_TabTools.TabIndex = 1;
-            this.m_TabTools.Text = "Tools";
-            this.m_TabTools.UseVisualStyleBackColor = true;
             // 
             // m_splitterDesigner_Tool
             // 
@@ -178,7 +122,7 @@ namespace SmartApp.Ihm
             this.m_splitterDesigner_Tool.Panel2.BackColor = System.Drawing.Color.White;
             this.m_splitterDesigner_Tool.Panel2.Controls.Add(this.panel1);
             this.m_splitterDesigner_Tool.Panel2.Margin = new System.Windows.Forms.Padding(10);
-            this.m_splitterDesigner_Tool.Size = new System.Drawing.Size(458, 567);
+            this.m_splitterDesigner_Tool.Size = new System.Drawing.Size(588, 567);
             this.m_splitterDesigner_Tool.TabIndex = 0;
             // 
             // m_LabelSelectedScreen
@@ -214,7 +158,7 @@ namespace SmartApp.Ihm
             this.toolbtnScreenToBitmap});
             this.m_toolStripDesignLayout.Location = new System.Drawing.Point(0, 0);
             this.m_toolStripDesignLayout.Name = "m_toolStripDesignLayout";
-            this.m_toolStripDesignLayout.Size = new System.Drawing.Size(454, 25);
+            this.m_toolStripDesignLayout.Size = new System.Drawing.Size(584, 25);
             this.m_toolStripDesignLayout.TabIndex = 0;
             this.m_toolStripDesignLayout.Text = "toolStrip1";
             // 
@@ -425,7 +369,7 @@ namespace SmartApp.Ihm
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(454, 509);
+            this.panel1.Size = new System.Drawing.Size(584, 509);
             this.panel1.TabIndex = 9;
             // 
             // m_InteractiveControlContainer
@@ -453,11 +397,8 @@ namespace SmartApp.Ihm
             this.ShowIcon = false;
             this.Text = "Screens configuration";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnFormClosing);
-            this.m_MainSplitterContainer.Panel1.ResumeLayout(false);
             this.m_MainSplitterContainer.Panel2.ResumeLayout(false);
             this.m_MainSplitterContainer.ResumeLayout(false);
-            this.m_tabCTrlConfig.ResumeLayout(false);
-            this.m_TabScreen.ResumeLayout(false);
             this.m_splitterDesigner_Tool.Panel1.ResumeLayout(false);
             this.m_splitterDesigner_Tool.Panel1.PerformLayout();
             this.m_splitterDesigner_Tool.Panel2.ResumeLayout(false);
@@ -474,16 +415,12 @@ namespace SmartApp.Ihm
         private System.Windows.Forms.ToolStripPanel m_TopToolStripPanel;
         private System.Windows.Forms.ToolStripContentPanel m_ContentPanel;
         private System.Windows.Forms.SplitContainer m_MainSplitterContainer;
-        private System.Windows.Forms.TabControl m_tabCTrlConfig;
-        private System.Windows.Forms.TabPage m_TabScreen;
-        private System.Windows.Forms.TabPage m_TabTools;
         private System.Windows.Forms.ToolStrip m_toolStripDesignLayout;
         private System.Windows.Forms.ToolStripButton m_toolBtnAlignLeft;
         private System.Windows.Forms.ToolStripButton m_toolBtnAlignTop;
         private System.Windows.Forms.ToolStripButton m_toolBtnMSWidth;
         private System.Windows.Forms.ToolStripButton m_toolBtnMSHeight;
         private System.Windows.Forms.ToolStripButton m_toolBtnMSSize;
-        private ScreenPropPanel m_PanelScreenListAndProp;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.Label m_LabelSelectedScreen;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;

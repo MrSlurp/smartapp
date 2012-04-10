@@ -97,15 +97,10 @@ namespace SmartApp.Ihm
             this.tsbtnConfigCom = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
             this.m_helpToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-            this.tsbtn_gotoScreen = new System.Windows.Forms.ToolStripButton();
-            this.tsbtn_gotoProgram = new System.Windows.Forms.ToolStripButton();
-            this.tsbtn_gotoData = new System.Windows.Forms.ToolStripButton();
-            this.tsbtn_gotoFrame = new System.Windows.Forms.ToolStripButton();
             this.solutionPanel = new System.Windows.Forms.Panel();
             this.lblSolutionView = new System.Windows.Forms.Label();
-            this.solutionTreeView = new SmartApp.SolutionTreeView();
             this.btnHideShowSolution = new System.Windows.Forms.Button();
+            this.solutionTreeView = new SmartApp.SolutionTreeView();
             this.m_menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.m_toolStrip.SuspendLayout();
@@ -603,12 +598,7 @@ namespace SmartApp.Ihm
             this.toolStripSeparator2,
             this.tsbtnConfigCom,
             this.toolStripSeparator11,
-            this.m_helpToolStripButton,
-            this.toolStripLabel1,
-            this.tsbtn_gotoScreen,
-            this.tsbtn_gotoProgram,
-            this.tsbtn_gotoData,
-            this.tsbtn_gotoFrame});
+            this.m_helpToolStripButton});
             this.m_toolStrip.Location = new System.Drawing.Point(0, 24);
             this.m_toolStrip.Name = "m_toolStrip";
             this.m_toolStrip.Size = new System.Drawing.Size(1016, 25);
@@ -702,54 +692,6 @@ namespace SmartApp.Ihm
             this.m_helpToolStripButton.Text = "Help";
             this.m_helpToolStripButton.Visible = false;
             // 
-            // toolStripLabel1
-            // 
-            this.toolStripLabel1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripLabel1.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(97, 22);
-            this.toolStripLabel1.Text = "Quick navigation";
-            // 
-            // tsbtn_gotoScreen
-            // 
-            this.tsbtn_gotoScreen.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.tsbtn_gotoScreen.Image = ((System.Drawing.Image)(resources.GetObject("tsbtn_gotoScreen.Image")));
-            this.tsbtn_gotoScreen.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbtn_gotoScreen.Name = "tsbtn_gotoScreen";
-            this.tsbtn_gotoScreen.Size = new System.Drawing.Size(46, 22);
-            this.tsbtn_gotoScreen.Text = "Screen";
-            this.tsbtn_gotoScreen.Click += new System.EventHandler(this.tsbtn_gotoScreen_Click);
-            // 
-            // tsbtn_gotoProgram
-            // 
-            this.tsbtn_gotoProgram.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.tsbtn_gotoProgram.Image = ((System.Drawing.Image)(resources.GetObject("tsbtn_gotoProgram.Image")));
-            this.tsbtn_gotoProgram.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbtn_gotoProgram.Name = "tsbtn_gotoProgram";
-            this.tsbtn_gotoProgram.Size = new System.Drawing.Size(57, 22);
-            this.tsbtn_gotoProgram.Text = "Program";
-            this.tsbtn_gotoProgram.Click += new System.EventHandler(this.tsbtn_gotoProgram_Click);
-            // 
-            // tsbtn_gotoData
-            // 
-            this.tsbtn_gotoData.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.tsbtn_gotoData.Image = ((System.Drawing.Image)(resources.GetObject("tsbtn_gotoData.Image")));
-            this.tsbtn_gotoData.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbtn_gotoData.Name = "tsbtn_gotoData";
-            this.tsbtn_gotoData.Size = new System.Drawing.Size(35, 22);
-            this.tsbtn_gotoData.Text = "Data";
-            this.tsbtn_gotoData.Click += new System.EventHandler(this.tsbtn_gotoData_Click);
-            // 
-            // tsbtn_gotoFrame
-            // 
-            this.tsbtn_gotoFrame.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.tsbtn_gotoFrame.Image = ((System.Drawing.Image)(resources.GetObject("tsbtn_gotoFrame.Image")));
-            this.tsbtn_gotoFrame.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbtn_gotoFrame.Name = "tsbtn_gotoFrame";
-            this.tsbtn_gotoFrame.Size = new System.Drawing.Size(44, 22);
-            this.tsbtn_gotoFrame.Text = "Frame";
-            this.tsbtn_gotoFrame.Click += new System.EventHandler(this.tsbtn_gotoFrame_Click);
-            // 
             // solutionPanel
             // 
             this.solutionPanel.Controls.Add(this.btnHideShowSolution);
@@ -770,16 +712,6 @@ namespace SmartApp.Ihm
             this.lblSolutionView.TabIndex = 1;
             this.lblSolutionView.Text = "Solution view";
             // 
-            // solutionTreeView
-            // 
-            this.solutionTreeView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.solutionTreeView.Location = new System.Drawing.Point(3, 33);
-            this.solutionTreeView.Name = "solutionTreeView";
-            this.solutionTreeView.Size = new System.Drawing.Size(244, 659);
-            this.solutionTreeView.TabIndex = 0;
-            // 
             // btnHideShowSolution
             // 
             this.btnHideShowSolution.Location = new System.Drawing.Point(210, 4);
@@ -789,6 +721,16 @@ namespace SmartApp.Ihm
             this.btnHideShowSolution.Text = "<->";
             this.btnHideShowSolution.UseVisualStyleBackColor = true;
             this.btnHideShowSolution.Click += new System.EventHandler(this.btnHideShowSolution_Click);
+            // 
+            // solutionTreeView
+            // 
+            this.solutionTreeView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.solutionTreeView.Location = new System.Drawing.Point(3, 33);
+            this.solutionTreeView.Name = "solutionTreeView";
+            this.solutionTreeView.Size = new System.Drawing.Size(244, 659);
+            this.solutionTreeView.TabIndex = 0;
             // 
             // MDISmartConfigMain
             // 
@@ -880,11 +822,6 @@ namespace SmartApp.Ihm
         private System.Windows.Forms.ToolStripButton m_printPreviewToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton m_helpToolStripButton;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
-        private System.Windows.Forms.ToolStripButton tsbtn_gotoScreen;
-        private System.Windows.Forms.ToolStripButton tsbtn_gotoProgram;
-        private System.Windows.Forms.ToolStripButton tsbtn_gotoData;
-        private System.Windows.Forms.ToolStripButton tsbtn_gotoFrame;
         private System.Windows.Forms.ToolStripMenuItem tsmiM3SLProjectWizard;
         private System.Windows.Forms.ToolStripMenuItem tsmiM3XN05ProjectWizard;
         private System.Windows.Forms.ToolStripButton tsbtnConfigCom;
