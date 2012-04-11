@@ -103,6 +103,7 @@
     <Compile Include="Gestionnaires\GestScreen.cs" />
     <Compile Include="Gestionnaires\GestTimer.cs" />
     <Compile Include="Gestionnaires\GestTrame.cs" />
+    <Compile Include="Gestionnaires\SolutionGest.cs" />
     <Compile Include="InteractiveControl\DropableItems.cs" />
     <Compile Include="InteractiveControl\DynamicPanel.cs">
       <SubType>UserControl</SubType>

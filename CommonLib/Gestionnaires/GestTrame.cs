@@ -17,6 +17,14 @@ namespace CommonLib
     public class GestTrame : BaseGest
     {
         #region fonction "utilitaires"
+        public override BaseObject AddNewObject()
+        {
+            Trame dat = new Trame();
+            dat.Symbol = GetNextDefaultSymbol();
+            this.AddObj(dat);
+            return dat;
+        }
+
         /// <summary>
         /// renvoie le prochain symbol libre pour une nouvelle donnée
         /// </summary>

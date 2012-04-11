@@ -18,6 +18,13 @@ namespace CommonLib
     public class GestScreen : BaseGest
     {
         #region fonctions utilitaires
+        public override BaseObject AddNewObject()
+        {
+            BTScreen dat = new BTScreen();
+            dat.Symbol = GetNextDefaultSymbol();
+            this.AddObj(dat);
+            return dat;
+        }
         /// <summary>
         /// renvoie le prochain symbol libre pour une nouvelle donnée
         /// </summary>

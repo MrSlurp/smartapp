@@ -8,6 +8,14 @@ namespace CommonLib
     public class GestLogger : BaseGest
     {
         #region fonction "utilitaires"
+        public override BaseObject AddNewObject()
+        {
+            Logger dat = new Logger();
+            dat.Symbol = GetNextDefaultSymbol();
+            this.AddObj(dat);
+            return dat;
+        }
+
         /// <summary>
         /// renvoie le prochain symbol libre pour une nouvelle donnée
         /// </summary>

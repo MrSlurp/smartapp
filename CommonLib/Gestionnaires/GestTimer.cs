@@ -8,6 +8,14 @@ namespace CommonLib
     public class GestTimer : BaseGest
     {
         #region fonction "utilitaires"
+        public override BaseObject AddNewObject()
+        {
+            BTTimer dat = new BTTimer();
+            dat.Symbol = GetNextDefaultSymbol();
+            this.AddObj(dat);
+            return dat;
+        }
+
         /// <summary>
         /// renvoie le prochain symbol libre pour une nouvelle donnée
         /// </summary>

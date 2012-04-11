@@ -16,7 +16,7 @@ using System.Windows.Forms;
 
 namespace CommonLib
 {
-    public class BaseGest : Object
+    public abstract class BaseGest : Object
     {
         #region constantes
         // divers constantes pour les symbols par défaut
@@ -240,10 +240,9 @@ namespace CommonLib
         /// crée, cette fonction virtuelle réalise ceci dans les classes filles.
         /// </summary>
         /// <returns>le symbol du prochain objet de base qui sera créé</returns>
-        public virtual string GetNextDefaultSymbol()
-        {
-            return "";
-        }
+        public abstract string GetNextDefaultSymbol();
+
+        public abstract BaseObject AddNewObject();
         #endregion
 
         #region Gestion des AppMessages

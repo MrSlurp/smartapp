@@ -10,7 +10,7 @@ using System.Xml;
 namespace CommonLib
 {
     // classe spécialisée dans la gestion des objets par groupes
-    public class BaseGestGroup : BaseGest
+    public abstract class BaseGestGroup : BaseGest
     {
         #region classe group représentant les données d'un groupe
         public class Group
@@ -585,10 +585,13 @@ namespace CommonLib
         #endregion
 
         #region Fonction "utilitaires"
-        //*****************************************************************************************************
-        // Description: 
-        // Return: /
-        //*****************************************************************************************************
+        public BaseObject AddNewObject(string groupeSymbol)
+        {
+            BaseObject obj = AddNewObject();
+            this.AddObjAtGroup(obj, groupeSymbol);
+            return obj;
+        }
+
         /// <summary>
         /// renvoie le prochain nom disponible pour un nom de groupe
         /// </summary>

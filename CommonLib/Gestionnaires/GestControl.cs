@@ -17,6 +17,11 @@ namespace CommonLib
     public class GestControl : BaseGest
     {
         #region fonction "utilitaires"
+        public override BaseObject AddNewObject()
+        {
+            throw new NotSupportedException();
+        }
+
         /// <summary>
         /// renvoie le prochain symbol par défaut pour une donnée
         /// </summary>

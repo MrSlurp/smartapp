@@ -96,6 +96,13 @@ namespace CommonLib
         #endregion
 
         #region fonction "utilitaires"
+        public override BaseObject AddNewObject()
+        {
+            Data dat = new Data(GetNextDefaultSymbol(), 0, DATA_SIZE.DATA_SIZE_16B, false);
+            this.AddObj(dat);
+            return dat;
+        }
+
         /// <summary>
         /// renvoie le prochain symbol libre pour une nouvelle donnée
         /// </summary>
