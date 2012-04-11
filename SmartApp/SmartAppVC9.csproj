@@ -259,12 +259,6 @@
     <Compile Include="SmartConfig\Ihm\ConfigurationForm\ProgramForm.Designer.cs">
       <DependentUpon>ProgramForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\DataPropertiesControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\DataPropertiesControl.Designer.cs">
-      <DependentUpon>DataPropertiesControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="SmartConfig\Ihm\Designer\ScreenPropPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -414,10 +408,6 @@
     <EmbeddedResource Include="SmartConfig\Ihm\ObjectPropertiesControls\LoggerPropertiesControl.resx">
       <SubType>Designer</SubType>
       <DependentUpon>LoggerPropertiesControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SmartConfig\Ihm\ObjectPropertiesControls\DataPropertiesControl.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>DataPropertiesControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SmartConfig\Ihm\Designer\ScreenPropPanel.resx">
       <SubType>Designer</SubType>

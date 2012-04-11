@@ -5,19 +5,22 @@ using System.Drawing;
 using System.Data;
 using System.Text;
 using System.Windows.Forms;
-using CommonLib;
 
-
-namespace SmartApp.Ihm
+namespace CommonLib
 {
-    public partial class DataPropertiesControl : UserControl, ILangReloadable
+    public partial class DataPropertiesPanel : BaseObjectPropertiesPanel, IObjectPropertyPanel
     {
         #region données membres
         CComboData[] m_TabCboDataStruct;
-        Data m_Data = null;
         bool bLockUpdateRange = false;
+        Data m_ConfiguredData = null;
 
-        private BTDoc m_Document = null;
+        /// <summary>
+        /// 
+        /// </summary>
+        private GestData m_GestData = null;
+
+
         #endregion
 
         #region events
@@ -29,7 +32,7 @@ namespace SmartApp.Ihm
         // Description:
         // Return: /
         //*****************************************************************************************************
-        public DataPropertiesControl()
+        public DataPropertiesPanel()
         {
             InitializeComponent();
             LoadNonStandardLang();
@@ -39,13 +42,13 @@ namespace SmartApp.Ihm
         public void LoadNonStandardLang()
         {
             m_TabCboDataStruct = new CComboData[7];
-            m_TabCboDataStruct[0] = new CComboData(Program.LangSys.C("1 bit data"), DATA_SIZE.DATA_SIZE_1B);
-            m_TabCboDataStruct[1] = new CComboData(Program.LangSys.C("2 bits data"), DATA_SIZE.DATA_SIZE_2B);
-            m_TabCboDataStruct[2] = new CComboData(Program.LangSys.C("4 bits data"), DATA_SIZE.DATA_SIZE_4B);
-            m_TabCboDataStruct[3] = new CComboData(Program.LangSys.C("8 bits data"), DATA_SIZE.DATA_SIZE_8B);
-            m_TabCboDataStruct[4] = new CComboData(Program.LangSys.C("16 bits data (signed)"), DATA_SIZE.DATA_SIZE_16B);
-            m_TabCboDataStruct[5] = new CComboData(Program.LangSys.C("16 bits data (unsigned)"), DATA_SIZE.DATA_SIZE_16BU);
-            m_TabCboDataStruct[6] = new CComboData(Program.LangSys.C("32 bits data (signed)"), DATA_SIZE.DATA_SIZE_32B);
+            m_TabCboDataStruct[0] = new CComboData(Lang.LangSys.C("1 bit data"), DATA_SIZE.DATA_SIZE_1B);
+            m_TabCboDataStruct[1] = new CComboData(Lang.LangSys.C("2 bits data"), DATA_SIZE.DATA_SIZE_2B);
+            m_TabCboDataStruct[2] = new CComboData(Lang.LangSys.C("4 bits data"), DATA_SIZE.DATA_SIZE_4B);
+            m_TabCboDataStruct[3] = new CComboData(Lang.LangSys.C("8 bits data"), DATA_SIZE.DATA_SIZE_8B);
+            m_TabCboDataStruct[4] = new CComboData(Lang.LangSys.C("16 bits data (signed)"), DATA_SIZE.DATA_SIZE_16B);
+            m_TabCboDataStruct[5] = new CComboData(Lang.LangSys.C("16 bits data (unsigned)"), DATA_SIZE.DATA_SIZE_16BU);
+            m_TabCboDataStruct[6] = new CComboData(Lang.LangSys.C("32 bits data (signed)"), DATA_SIZE.DATA_SIZE_32B);
 
             m_cboSize.ValueMember = "Object";
             m_cboSize.DisplayMember = "DisplayedString";
@@ -56,75 +59,32 @@ namespace SmartApp.Ihm
         #endregion
 
         #region attributs
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        public Data Data
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public BaseGest ConfiguredItemGest
         {
-            get
-            {
-                return m_Data;
-            }
-            set
-            {
-                m_Data = value;
-                if (m_Data != null)
-                {
-                    this.Enabled = true;
-                    this.Description = m_Data.Description;
-                    this.Symbol = m_Data.Symbol;
-                    bLockUpdateRange = true;
-                    //this.DataSize = m_Data.Size;
-                    SelectComboSizeIndexAccordingToData();
-                    bLockUpdateRange = false;
-                    UpdateRangeFromDataSize();
-                    this.MinValue = m_Data.Minimum;
-                    this.MaxValue = m_Data.Maximum;
-                    this.DefaultValue = m_Data.DefaultValue;
-                    this.IsConstant = m_Data.IsConstant;
-                }
-                else
-                {
-                    this.Description = "";
-                    this.Symbol = "";
-                    this.DataSizeAndSign = 8;
-                    this.MinValue = 0;
-                    this.MaxValue = 0;
-                    this.DefaultValue = 0;
-                    this.IsConstant = false;
-                    this.Enabled = false;
-                }
-            }
+            get { return m_GestData; }
+            set { m_GestData = value as GestData; }
         }
 
         //*****************************************************************************************************
         // Description:
         // Return: /
         //*****************************************************************************************************
-        public BTDoc Doc
+        public BaseObject ConfiguredItem
         {
             get
             {
-                return m_Document;
+                return m_ConfiguredData;
             }
             set
             {
-                m_Document = value;
+                m_ConfiguredData = value as Data;
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        public GestData GestData
-        {
-            get
-            {
-                return m_Document.GestData;
-            }
-        }
         #endregion
 
         #region validation des données
@@ -133,23 +93,14 @@ namespace SmartApp.Ihm
         // sinon renvoie true
         // Return: /
         //*****************************************************************************************************
-        public bool IsDataValuesValid
+        public override bool IsObjectPropertiesValid
         {
             get
             {
-                if (Data == null)
-                    return true;
-
-                if (string.IsNullOrEmpty(this.Symbol))
-                    return false;
-
                 bool bRet = true;
                 if (DefaultValue < MinValue)
                     bRet = false;
                 if (DefaultValue > MaxValue)
-                    bRet = false;
-                Data dt = (Data)GestData.GetFromSymbol(this.Symbol);
-                if (dt != null && dt != Data)
                     bRet = false;
 
                 return bRet;
@@ -163,110 +114,76 @@ namespace SmartApp.Ihm
         // l'évènement DataPropertiesChanged est appelé
         // Return: /
         //*****************************************************************************************************
-        public bool ValidateValues()
+        public override bool ValidateProperties()
         {
-            if (Data == null)
-                return true;
-
             bool bRet = true;
             string strMessage = "";
-            if (string.IsNullOrEmpty(this.Symbol))
-            {
-                strMessage = Program.LangSys.C("Symbol must not be empty");
-                bRet = false;
-            }
 
             if (bRet && DefaultValue < MinValue)
             {
-                strMessage = Program.LangSys.C("Default value must be superior to minimum value");
+                strMessage = Lang.LangSys.C("Default value must be superior to minimum value");
                 bRet = false;
             }
             if (bRet && DefaultValue > MaxValue)
             {
-                strMessage = Program.LangSys.C("Default value must be inferior to maximum value");
-                bRet = false;
-            }
-            Data dt = (Data)GestData.GetFromSymbol(this.Symbol);
-            if (bRet && dt != null && dt != Data)
-            {
-                strMessage = string.Format(Program.LangSys.C("A data with symbol {0} already exist"), Symbol);
+                strMessage = Lang.LangSys.C("Default value must be inferior to maximum value");
                 bRet = false;
             }
             if (!bRet)
             {
-                MessageBox.Show(strMessage, Program.LangSys.C("Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(strMessage, Lang.LangSys.C("Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return bRet;
             }
+
+            return true;
+        }
+
+        public void ObjectToPanel()
+        {
+            this.Enabled = true;
+            bLockUpdateRange = true;
+            //this.DataSize = m_Data.Size;
+            SelectComboSizeIndexAccordingToData();
+            bLockUpdateRange = false;
+            UpdateRangeFromDataSize();
+            this.MinValue = m_ConfiguredData.Minimum;
+            this.MaxValue = m_ConfiguredData.Maximum;
+            this.DefaultValue = m_ConfiguredData.DefaultValue;
+            this.IsConstant = m_ConfiguredData.IsConstant;
+        }
+
+        public void PanelToObject()
+        {
             bool bDataPropChange = false;
-            if (m_Data.Description != this.Description)
+            if (m_ConfiguredData.SizeAndSign != this.DataSizeAndSign)
                 bDataPropChange |= true;
-            if (m_Data.Symbol != this.Symbol)
+            if (m_ConfiguredData.Minimum != this.MinValue)
                 bDataPropChange |= true;
-            if (m_Data.SizeAndSign != this.DataSizeAndSign)
+            if (m_ConfiguredData.Maximum != this.MaxValue)
                 bDataPropChange |= true;
-            if (m_Data.Minimum != this.MinValue)
+            if (m_ConfiguredData.DefaultValue != this.DefaultValue)
                 bDataPropChange |= true;
-            if (m_Data.Maximum != this.MaxValue)
-                bDataPropChange |= true;
-            if (m_Data.DefaultValue != this.DefaultValue)
-                bDataPropChange |= true;
-            if (m_Data.IsConstant != this.IsConstant)
+            if (m_ConfiguredData.IsConstant != this.IsConstant)
                 bDataPropChange |= true;
 
             if (bDataPropChange)
             {
-                m_Data.Description = this.Description;
-                m_Data.Symbol = this.Symbol;
-                m_Data.SizeAndSign = this.DataSizeAndSign;
-                m_Data.Minimum = this.MinValue;
-                m_Data.Maximum = this.MaxValue;
-                m_Data.DefaultValue = this.DefaultValue;
-                m_Data.IsConstant = this.IsConstant;
-                Doc.Modified = true;
+                m_ConfiguredData.SizeAndSign = this.DataSizeAndSign;
+                m_ConfiguredData.Minimum = this.MinValue;
+                m_ConfiguredData.Maximum = this.MaxValue;
+                m_ConfiguredData.DefaultValue = this.DefaultValue;
+                m_ConfiguredData.IsConstant = this.IsConstant;
+                Document.Modified = true;
             }
             if (bDataPropChange && DataPropertiesChanged != null)
-                DataPropertiesChanged(m_Data);
-            return true;
+                DataPropertiesChanged(m_ConfiguredData);
         }
         #endregion
 
         #region attribut d'accès aux valeurs de la page de propriété
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        public string Description
-        {
-            get
-            {
-                return m_richTextDesc.Text;
-            }
-            set
-            {
-                m_richTextDesc.Text = value;
-            }
-        }
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        public string Symbol
-        {
-            get
-            {
-                return m_textSymbol.Text;
-            }
-            set
-            {
-                m_textSymbol.Text = value;
-            }
-        }
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
         public int DataSizeAndSign
         {
             get
@@ -283,47 +200,44 @@ namespace SmartApp.Ihm
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
         public int MinValue
         {
             get
             {
-                return (int) this.m_numUDMin.Value;
+                return (int)this.m_numUDMin.Value;
             }
             set
             {
-                this.m_numUDMin.Value = (int) value;
+                this.m_numUDMin.Value = (int)value;
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
         public int MaxValue
         {
             get
             {
-                return (int) this.m_numUDMax.Value;
+                return (int)this.m_numUDMax.Value;
             }
             set
             {
-                this.m_numUDMax.Value = (int) value;
+                this.m_numUDMax.Value = (int)value;
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
         public int DefaultValue
         {
             get
             {
-                return (int) this.m_numUDDefault.Value;
+                return (int)this.m_numUDDefault.Value;
             }
             set
             {
@@ -331,10 +245,9 @@ namespace SmartApp.Ihm
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
         public bool IsConstant
         {
             get
@@ -368,10 +281,10 @@ namespace SmartApp.Ihm
         //*****************************************************************************************************
         private void UpdateRangeFromDataSize()
         {
-            if (m_Data == null)
+            if (m_ConfiguredData == null)
                 return;
-            m_Data.SizeAndSign = this.DataSizeAndSign;
-            switch ((DATA_SIZE)m_Data.SizeAndSign)
+            m_ConfiguredData.SizeAndSign = this.DataSizeAndSign;
+            switch ((DATA_SIZE)m_ConfiguredData.SizeAndSign)
             {
                 case DATA_SIZE.DATA_SIZE_1B:
                     m_numUDMax.Maximum = 1;
@@ -465,10 +378,10 @@ namespace SmartApp.Ihm
         //*****************************************************************************************************
         protected void SelectComboSizeIndexAccordingToData()
         {
-            if (m_Data == null)
+            if (m_ConfiguredData == null)
                 return;
-            
-            switch ((DATA_SIZE)m_Data.SizeAndSign)
+
+            switch ((DATA_SIZE)m_ConfiguredData.SizeAndSign)
             {
                 case DATA_SIZE.DATA_SIZE_1B:
                     this.m_cboSize.SelectedIndex = 0;
@@ -495,18 +408,8 @@ namespace SmartApp.Ihm
                     System.Diagnostics.Debug.Assert(false);
                     break;
             }
-            
+
         }
         #endregion
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
-        private void PropertiesControlValidating(object sender, CancelEventArgs e)
-        {
-            if(!ValidateValues())
-                e.Cancel = true;
-        }
     }
 }

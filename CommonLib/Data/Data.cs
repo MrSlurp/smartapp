@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml;
+using System.Windows.Forms;
 
 namespace CommonLib
 {
@@ -34,6 +35,9 @@ namespace CommonLib
         private bool m_bIsUserVisible = true;
 
         protected bool m_bIsSaturationNotified = false;
+
+        private static Control m_singStdConfigPanel;
+
         #endregion
 
         #region Events
@@ -344,6 +348,19 @@ namespace CommonLib
                 m_bIsUserVisible = value;
             }
         }
+
+        public override Control StdConfigPanel
+        {
+            get
+            {
+                if (m_singStdConfigPanel == null)
+                {
+                    m_singStdConfigPanel = new DataPropertiesPanel();
+                }
+                return m_singStdConfigPanel;
+            }
+        }
+
         #endregion
 
         #region ReadIn / WriteOut

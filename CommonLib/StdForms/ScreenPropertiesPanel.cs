@@ -10,10 +10,9 @@ using CommonLib;
 
 namespace CommonLib
 {
-    public partial class ScreenPropertiesPanel : UserControl, IObjectPropertyPanel
+    public partial class ScreenPropertiesPanel : BaseObjectPropertiesPanel, IObjectPropertyPanel
     {
         #region données membres
-        private BTDoc m_Document = null;
         private BTScreen m_Screen = null;
 
         /// <summary>
@@ -40,22 +39,6 @@ namespace CommonLib
         #endregion
 
         #region attributs
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        public BTDoc Document
-        {
-            get
-            {
-                return m_Document;
-            }
-            set
-            {
-                m_Document = value;
-            }
-        }
-
         /// <summary>
         /// 
         /// </summary>
@@ -64,15 +47,6 @@ namespace CommonLib
             get { return m_GestScreen; }
             set { m_GestScreen = value as GestScreen; }
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public Control Panel
-        {
-            get { return this; }
-        }
-
 
         //*****************************************************************************************************
         // Description:
@@ -133,29 +107,7 @@ namespace CommonLib
         #endregion
 
         #region validation des données
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        public bool IsObjectPropertiesValid
-        {
-            get
-            {
-                // aucun cas d'invalidité pour cet item
-                return true;
-            }
-        }
 
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        public bool ValidateProperties()
-        {
-            // aucun cas d'invalidité pour cet item
-            return true;
-        }
 
         public void ObjectToPanel()
         {

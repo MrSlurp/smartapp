@@ -9,24 +9,9 @@ using CommonLib;
 
 namespace CommonLib
 {
-    public partial class ScreenItemStdPropertiesPanel : UserControl, IObjectPropertyPanel
+    public partial class ScreenItemStdPropertiesPanel : BaseControlPropertiesPanel, IObjectPropertyPanel
     {
         #region données membres
-        /// <summary>
-        /// 
-        /// </summary>
-        private BTControl m_Control = null;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private GestControl m_GestControl = null;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private BTDoc m_Document = null;
-
         /// <summary>
         /// 
         /// </summary>
@@ -54,18 +39,6 @@ namespace CommonLib
         #endregion
 
         #region attribut d'accès aux valeurs de la page de propriété
-        /// <summary>
-        /// 
-        /// </summary>
-        public BaseObject ConfiguredItem
-        {
-            get { return m_Control; }
-            set
-            {
-                m_Control = value as BTControl;
-                UpdateStateFromControlType();
-            }
-        }
 
         /// <summary>
         /// 
@@ -115,38 +88,13 @@ namespace CommonLib
             set { m_checkScreenEvent.Checked = value; }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public BTDoc Document
-        {
-            get { return m_Document; }
-            set { m_Document = value; }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public Control Panel
-        {
-            get { return this; }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public BaseGest ConfiguredItemGest
-        {
-            get { return m_GestControl; }
-            set { m_GestControl = value as GestControl; }
-        }
         #endregion
 
         #region validation des données
         /// <summary>
         /// 
         /// </summary>
-        public bool IsObjectPropertiesValid
+        public override bool IsObjectPropertiesValid
         {
             get
             {
@@ -173,7 +121,7 @@ namespace CommonLib
         /// 
         /// </summary>
         /// <returns></returns>
-        public bool ValidateProperties()
+        public override bool ValidateProperties()
         {
             if (this.m_Control == null)
                 return true;

@@ -35,7 +35,6 @@ namespace SmartApp.Ihm
             {
                 m_Document = value;
                 // on assigne au control des propriété des données le meme gestionaire de donnée
-                m_DataPropertyPage.Doc = m_Document;
             }
         }
 
@@ -60,7 +59,6 @@ namespace SmartApp.Ihm
         {
             //Program.LangSys.Initialize(this);
             InitializeComponent();
-            m_DataPropertyPage.DataPropertiesChanged += new DataPropertiesChange(this.OnDataPropertiesChange);            
         }
 
         //*****************************************************************************************************
@@ -115,7 +113,6 @@ namespace SmartApp.Ihm
                         m_listViewData.Items.Add(lviData);
                     }
                 }
-                m_DataPropertyPage.Data = null;
                 m_CurSelectedIndex = -1;
             }
         }
@@ -170,23 +167,10 @@ namespace SmartApp.Ihm
                 if (lviData.Index == m_CurSelectedIndex)
                     return;
 
-                if (m_DataPropertyPage.IsDataValuesValid)
-                {
-                    m_CurSelectedIndex = lviData.Index;
-                    string strDataSymb = lviData.Text;
-                    BaseObject Dt = GestData.GetFromSymbol(strDataSymb);
-                    m_DataPropertyPage.Data = (Data)Dt;
-                }
-                else
-                {
-                    lviData.Focused = false;
-                    m_listViewData.Items[m_CurSelectedIndex].Selected = true;
-                }
             }
             else
             {
                 m_CurSelectedIndex = -1;
-                m_DataPropertyPage.Data = null;
             }
         }
 
@@ -223,10 +207,6 @@ namespace SmartApp.Ihm
                     if (GestData.RemoveObj((BaseObject)lviData.Tag))
                     {
                         //m_listViewData.Items.Remove(lviData);
-                        if (m_DataPropertyPage.Data == (Data)lviData.Tag)
-                        {
-                            m_DataPropertyPage.Data = null;
-                        }
                         InitListViewFromGroup();
                     }
                 }
@@ -268,15 +248,10 @@ namespace SmartApp.Ihm
         {
             if (e.CloseReason == CloseReason.UserClosing)
             {
-                if (m_DataPropertyPage.IsDataValuesValid)
-                {
-                    this.WindowState = FormWindowState.Minimized;
-                }
                 e.Cancel = true;
             }
             else if (e.CloseReason == CloseReason.MdiFormClosing)
             {
-                if (!m_DataPropertyPage.IsDataValuesValid)
                     e.Cancel = true;
             }
         }
