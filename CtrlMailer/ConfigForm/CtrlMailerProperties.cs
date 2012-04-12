@@ -71,7 +71,7 @@ namespace CtrlMailer
             m_Props.ListToMail = this.edtTo.Text;
             m_Props.MailSubject = this.edtSubject.Text;
             m_Props.MailBody = this.edtBody.Text;
-            m_Control.SpecificProp.CopyParametersFrom(m_Props, false);
+            m_Control.SpecificProp.CopyParametersFrom(m_Props, false, Document);
             Document.Modified = true;
             if (ControlPropertiesChanged != null)
                 ControlPropertiesChanged(m_Control);
@@ -79,7 +79,7 @@ namespace CtrlMailer
 
         public void ObjectToPanel()
         {
-            m_Props.CopyParametersFrom(m_Control.SpecificProp, false);
+            m_Props.CopyParametersFrom(m_Control.SpecificProp, false, Document);
             this.edtTo.Text = m_Props.ListToMail;
             this.edtSubject.Text = m_Props.MailSubject;
             this.edtBody.Text = m_Props.MailBody;

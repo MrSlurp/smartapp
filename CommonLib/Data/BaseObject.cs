@@ -149,7 +149,7 @@ namespace CommonLib
         /// <param name="Node">Noeud Xml de l'objet</param>
         /// <param name="TypeApp">type d'application courante</param>
         /// <returns>true si la lecture s'est bien passé</returns>
-        public virtual bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
+        public virtual bool ReadIn(XmlNode Node, BTDoc document)
         {
             return ReadInBaseObject(Node);
         }
@@ -182,7 +182,7 @@ namespace CommonLib
         /// <param name="XmlDoc">Document XML courant</param>
         /// <param name="Node">Noeud parent du controle dans le document</param>
         /// <returns>true si l'écriture s'est déroulée avec succès</returns>
-        public virtual bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
+        public virtual bool WriteOut(XmlDocument XmlDoc, XmlNode Node, BTDoc document)
         {
             return WriteOutBaseObject(XmlDoc, Node);
         }

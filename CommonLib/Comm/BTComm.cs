@@ -365,7 +365,7 @@ namespace CommonLib
         /// <param name="Node">Noeud Xml de l'objet</param>
         /// <param name="TypeApp">type d'application courante</param>
         /// <returns>true si la lecture s'est bien passé</returns>
-        public bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
+        public bool ReadIn(XmlNode Node, BTDoc document)
         {
             for (int i = 0; i < Node.ChildNodes.Count; i++)
             {
@@ -398,7 +398,7 @@ namespace CommonLib
         /// <param name="XmlDoc">Document XML courant</param>
         /// <param name="Node">Noeud parent du controle dans le document</param>
         /// <returns>true si l'écriture s'est déroulée avec succès</returns>
-        public virtual bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
+        public virtual bool WriteOut(XmlDocument XmlDoc, XmlNode Node, BTDoc document)
         {
             XmlNode comNode = XmlDoc.CreateElement(XML_CF_TAG.Comm.ToString());
             XmlNode comTypeNode = XmlDoc.CreateElement(XML_CF_TAG.CommType.ToString());

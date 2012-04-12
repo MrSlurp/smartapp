@@ -29,7 +29,7 @@ namespace PasswordControler
         /// </summary>
         /// <param name="Node">noeud du control a qui appartiens les propriété </param>
         /// <returns>true en cas de succès de la lecture</returns>
-        public override bool ReadIn(XmlNode Node)
+        public override bool ReadIn(XmlNode Node, BTDoc document)
         {
             XmlNode Attr0 = Node.Attributes.GetNamedItem(NOM_ATTIB_0);
             if (Attr0 == null )
@@ -44,10 +44,10 @@ namespace PasswordControler
         /// <param name="XmlDoc">Document XML</param>
         /// <param name="Node">noeud du control a qui appartiens les propriété</param>
         /// <returns>true en cas de succès de l'écriture</returns>
-        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
+        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node, BTDoc document)
         {
             XmlAttribute Attr0 = XmlDoc.CreateAttribute(NOM_ATTIB_0);
-            Attr0.Value = PathTranslator.AbsolutePathToRelative(PasswordHash);
+            Attr0.Value = document.PathTr.AbsolutePathToRelative(PasswordHash);
             Node.Attributes.Append(Attr0);
             return true;
         }
@@ -56,7 +56,7 @@ namespace PasswordControler
         /// Recopie les paramètres d'un control source du même type vers les paramètres courants
         /// </summary>
         /// <param name="SrcSpecificProp">Paramètres sources</param>
-        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance)
+        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance, BTDoc document)
         {
             DllPasswordControlerProp SrcProp = (DllPasswordControlerProp)SrcSpecificProp;
             this.PasswordHash = SrcProp.PasswordHash;

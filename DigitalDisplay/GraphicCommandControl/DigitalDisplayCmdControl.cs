@@ -14,7 +14,8 @@ namespace DigitalDisplay
         // Description:
         // Return: /
         //*****************************************************************************************************
-        public DigitalDisplayCmdControl()
+        public DigitalDisplayCmdControl(BTDoc document)
+            : base(document)
         {
 
         }

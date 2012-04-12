@@ -40,17 +40,18 @@ namespace CommonLib
         protected Font m_TextFont = new Font(SystemFonts.DefaultFont, FontStyle.Regular);
         protected Color m_TextColor = Color.Black;
 
+        protected BTDoc m_Document;
+
         #endregion
 
         #region constructeurs
         /// <summary>
         /// constructeur par défaut
         /// </summary>
-        public BTControl()
+        public BTControl(BTDoc document)
         {
-            m_IControl = new InteractiveControl();
-            m_IControl.SourceBTControl = this;
             m_ScriptContainer["EvtScript"] = new string[1];
+            m_Document = document;
         }
 
         /// <summary>
@@ -58,7 +59,7 @@ namespace CommonLib
         /// ce constructeur permet d'associé l'objet graphique lors qu'il est droppé dans le designer
         /// </summary>
         /// <param name="Ctrl">objet interactif posé dans la surface de dessin</param>
-        protected BTControl(InteractiveControl Ctrl)
+        protected BTControl(BTDoc document, InteractiveControl Ctrl)
         {
             m_IControl = Ctrl;
             if (m_IControl != null)
@@ -72,7 +73,7 @@ namespace CommonLib
         /// </summary>
         /// <param name="Ctrl">objet interactif posé dans la surface de dessin</param>
         /// <returns>l'objet BT control crée</returns>
-        public static BTControl CreateNewBTControl(InteractiveControl Ctrl)
+        public static BTControl CreateNewBTControl(InteractiveControl Ctrl, BTDoc document)
         {
             BTControl newControl = null;
             switch (Ctrl.ControlType)
@@ -80,11 +81,11 @@ namespace CommonLib
                 case InteractiveControlType.SpecificControl:
                     if (Ctrl.GetType() == typeof(TwoColorFilledRect))
                     {
-                        newControl = new BTFilledRectControl(Ctrl);
+                        newControl = new BTFilledRectControl(document, Ctrl);
                     }
                     else if (Ctrl.GetType() == typeof(TwoColorFilledEllipse))
                     {
-                        newControl = new BTFilledEllipseControl(Ctrl);
+                        newControl = new BTFilledEllipseControl(document, Ctrl);
                     }
                     else
                     {
@@ -92,7 +93,7 @@ namespace CommonLib
                     }
                     break;
                 default:
-                    newControl = new BTControl(Ctrl);
+                    newControl = new BTControl(document, Ctrl);
                     break;
             }
             return newControl;
@@ -100,6 +101,10 @@ namespace CommonLib
         #endregion
 
         #region attributs
+        public BTDoc Document
+        {
+            get { return m_Document; }
+        }
 
         /// <summary>
         /// en lecture seul, renvoie la référence vers l'objet graphique utilisé dans le designer
@@ -108,6 +113,14 @@ namespace CommonLib
         {
             get
             {
+                // on instancie le control interactif que lorsqu'on l'utilise,
+                // ou lors qu'on crée le controle depuis le designer (avec le constructeur approprié)
+                // ainsi en mode Command il n'est pas instancié
+                if (m_IControl == null)
+                {
+                    m_IControl = new InteractiveControl();
+                    m_IControl.SourceBTControl = this;
+                }
                 return m_IControl;
             }
         }
@@ -270,9 +283,9 @@ namespace CommonLib
         /// <param name="Node">Noeud Xml de l'objet</param>
         /// <param name="TypeApp">type d'application courante</param>
         /// <returns>true si la lecture s'est bien passé</returns>
-        public override bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
+        public override bool ReadIn(XmlNode Node, BTDoc document)
         {
-            if (!base.ReadIn(Node, TypeApp))
+            if (!base.ReadIn(Node, document))
                 return false;
             // attribut Type (type de control) cette valeur n'est pas directement stocké dans l'objet
             // mais dans l'objet graphique associé
@@ -430,11 +443,11 @@ namespace CommonLib
         /// <param name="XmlDoc">Document XML courant</param>
         /// <param name="Node">Noeud parent du controle dans le document</param>
         /// <returns>true si l'écriture s'est déroulée avec succès</returns>
-        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
+        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node, BTDoc document)
         {
             XmlNode NodeControl = XmlDoc.CreateElement(XML_CF_TAG.Control.ToString());
             Node.AppendChild(NodeControl);
-            base.WriteOut(XmlDoc, NodeControl);
+            base.WriteOut(XmlDoc, NodeControl, document);
             // on écrit les différents attributs du control
             XmlAttribute AttrType = XmlDoc.CreateAttribute(XML_CF_ATTRIB.Type.ToString());
             switch (m_IControl.ControlType)
@@ -652,12 +665,13 @@ namespace CommonLib
         /// </summary>
         /// <param name="SrcBtControl"></param>
         /// <param name="bFromOtherInstance"></param>
-        public void CopyParametersFrom(BTControl SrcBtControl, bool bFromOtherInstance)
+        public void CopyParametersFrom(BTControl SrcBtControl, bool bFromOtherInstance, BTDoc document)
         {
             if (!bFromOtherInstance)
             {
                 m_strAssociateData = SrcBtControl.m_strAssociateData;
 
+                System.Diagnostics.Debug.Assert(false); // TODO vrai copy, sinon ca va mal se passer
                 this.m_ScriptContainer["EvtScript"] = SrcBtControl.m_ScriptContainer["EvtScript"];
             }
 
@@ -666,7 +680,7 @@ namespace CommonLib
             this.TextColor = SrcBtControl.TextColor;
             if (SpecificProp != null && SrcBtControl.SpecificProp != null)
             {
-                SpecificProp.CopyParametersFrom(SrcBtControl.SpecificProp, bFromOtherInstance);
+                SpecificProp.CopyParametersFrom(SrcBtControl.SpecificProp, bFromOtherInstance, document);
             }
         }
         #endregion

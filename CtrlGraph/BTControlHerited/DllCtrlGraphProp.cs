@@ -161,7 +161,7 @@ namespace CtrlGraph
         #endregion
 
         #region ReadIn / WriteOut
-        public override bool ReadIn(XmlNode Node)
+        public override bool ReadIn(XmlNode Node, BTDoc document)
         {
             int NodeGraphItemCount = 0;
             if (Node.FirstChild != null)
@@ -205,7 +205,7 @@ namespace CtrlGraph
             return true;
         }
 
-        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
+        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node, BTDoc document)
         {
             for (int i = 0; i < NB_CURVE; i++)
             {
@@ -252,7 +252,7 @@ namespace CtrlGraph
         /// 
         /// </summary>
         /// <param name="SrcSpecificProp"></param>
-        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance)
+        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance, BTDoc document)
         {
             if (!bFromOtherInstance)
             {

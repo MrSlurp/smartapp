@@ -143,7 +143,7 @@ namespace CommonLib
             DialogResult dlgRes = CentralizedFileDlg.ShowImageFileDilaog(bf);
             if (dlgRes == DialogResult.OK)
             {
-                BackPictureFile = PathTranslator.AbsolutePathToRelative(CentralizedFileDlg.ImgFileName);
+                BackPictureFile = Document.PathTr.AbsolutePathToRelative(CentralizedFileDlg.ImgFileName);
                 BackPictureFile = PathTranslator.LinuxVsWindowsPathStore(BackPictureFile);
             }
         }

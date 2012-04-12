@@ -61,18 +61,18 @@ namespace CtrlDataGrid
             }
         }
 
-        public BTControl CreateBTControl()
+        public BTControl CreateBTControl(BTDoc document)
         {
-            return new BTDllCtrlDataGridControl();
+            return new BTDllCtrlDataGridControl(document);
         }
 
-        public BTControl CreateBTControl(InteractiveControl iCtrl)
+        public BTControl CreateBTControl(BTDoc document, InteractiveControl iCtrl)
         {
-            return new BTDllCtrlDataGridControl(iCtrl);
+            return new BTDllCtrlDataGridControl(document, iCtrl);
         }
-        public BTControl CreateCommandBTControl()
+        public BTControl CreateCommandBTControl(BTDoc document)
         {
-            return new CtrlDataGridCmdControl();
+            return new CtrlDataGridCmdControl(document);
         }
 
         public InteractiveControl CreateInteractiveControl()

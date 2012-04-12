@@ -51,6 +51,8 @@ namespace SmartApp.Ihm.Designer
         private Point m_ptMouseDown;
         private Bitmap m_BmpBackImage = null;
         private bool m_bDrawGuides = true;
+
+        private BTDoc m_Document;
         #endregion
 
         #region Events
@@ -633,7 +635,7 @@ namespace SmartApp.Ihm.Designer
             {
                 return;
             }
-            ctrlGest.WriteOutForClipBoard(clipDoc, clipDoc.DocumentElement);
+            ctrlGest.WriteOutForClipBoard(clipDoc, clipDoc.DocumentElement, m_Document);
             Clipboard.SetData(InternalFormat.Name, clipDoc.OuterXml);
         }
     
@@ -666,7 +668,7 @@ namespace SmartApp.Ihm.Designer
                         Pid = int.Parse(AttrPid.Value);
                     } 
                     Traces.LogAddDebug(TraceCat.SmartConfig, "Paste en cours avec LoadXml OK");
-                    if (ctrlGest.ReadInForClipBoard(clipDoc.DocumentElement, Program.DllGest))
+                    if (ctrlGest.ReadInForClipBoard(clipDoc.DocumentElement, Program.DllGest, this.m_Document))
                     {
                         List<InteractiveControl> ListSrc = new List<InteractiveControl>();
                         List<InteractiveControl> ListNew = new List<InteractiveControl>();

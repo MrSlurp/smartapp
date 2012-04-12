@@ -1,6 +1,6 @@
-namespace SmartApp.Ihm
+namespace CommonLib
 {
-    partial class LoggerPropertiesControl
+    partial class LoggerPropertiesPanel
     {
         /// <summary> 
         /// Required designer variable.
@@ -36,9 +36,6 @@ namespace SmartApp.Ihm
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.m_labelSymbol = new System.Windows.Forms.Label();
-            this.m_labelDesc = new System.Windows.Forms.Label();
-            this.m_richTextDesc = new System.Windows.Forms.RichTextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.m_chkAutoStart = new System.Windows.Forms.CheckBox();
@@ -51,13 +48,12 @@ namespace SmartApp.Ihm
             this.btnAddData = new System.Windows.Forms.Button();
             this.edtFormatHelp = new System.Windows.Forms.TextBox();
             this.m_txtFileName = new CommonLib.SymbolTextBox();
-            this.m_textSymbol = new CommonLib.SymbolTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.m_LoggerPeriod)).BeginInit();
             this.SuspendLayout();
             // 
             // m_LoggerPeriod
             // 
-            this.m_LoggerPeriod.Location = new System.Drawing.Point(221, 66);
+            this.m_LoggerPeriod.Location = new System.Drawing.Point(3, 313);
             this.m_LoggerPeriod.Name = "m_LoggerPeriod";
             this.m_LoggerPeriod.Size = new System.Drawing.Size(81, 20);
             this.m_LoggerPeriod.TabIndex = 22;
@@ -66,7 +62,7 @@ namespace SmartApp.Ihm
             // 
             this.m_cboLogType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.m_cboLogType.FormattingEnabled = true;
-            this.m_cboLogType.Location = new System.Drawing.Point(221, 26);
+            this.m_cboLogType.Location = new System.Drawing.Point(3, 273);
             this.m_cboLogType.Name = "m_cboLogType";
             this.m_cboLogType.Size = new System.Drawing.Size(195, 21);
             this.m_cboLogType.TabIndex = 21;
@@ -76,7 +72,7 @@ namespace SmartApp.Ihm
             // 
             this.m_cboSeparator.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.m_cboSeparator.FormattingEnabled = true;
-            this.m_cboSeparator.Location = new System.Drawing.Point(221, 167);
+            this.m_cboSeparator.Location = new System.Drawing.Point(221, 65);
             this.m_cboSeparator.Name = "m_cboSeparator";
             this.m_cboSeparator.Size = new System.Drawing.Size(108, 21);
             this.m_cboSeparator.TabIndex = 23;
@@ -89,11 +85,11 @@ namespace SmartApp.Ihm
             this.m_ListViewData.FullRowSelect = true;
             this.m_ListViewData.GridLines = true;
             this.m_ListViewData.HideSelection = false;
-            this.m_ListViewData.Location = new System.Drawing.Point(0, 127);
+            this.m_ListViewData.Location = new System.Drawing.Point(0, 10);
             this.m_ListViewData.MultiSelect = false;
             this.m_ListViewData.Name = "m_ListViewData";
             this.m_ListViewData.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.m_ListViewData.Size = new System.Drawing.Size(212, 248);
+            this.m_ListViewData.Size = new System.Drawing.Size(212, 218);
             this.m_ListViewData.TabIndex = 20;
             this.m_ListViewData.UseCompatibleStateImageBehavior = false;
             this.m_ListViewData.View = System.Windows.Forms.View.Details;
@@ -113,7 +109,7 @@ namespace SmartApp.Ihm
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(221, 50);
+            this.label1.Location = new System.Drawing.Point(3, 297);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(73, 13);
             this.label1.TabIndex = 15;
@@ -122,7 +118,7 @@ namespace SmartApp.Ihm
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(218, 112);
+            this.label3.Location = new System.Drawing.Point(218, 10);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(84, 13);
             this.label3.TabIndex = 14;
@@ -131,42 +127,16 @@ namespace SmartApp.Ihm
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(221, 10);
+            this.label2.Location = new System.Drawing.Point(3, 257);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(67, 13);
             this.label2.TabIndex = 17;
             this.label2.Text = "Logger Type";
             // 
-            // m_labelSymbol
-            // 
-            this.m_labelSymbol.AutoSize = true;
-            this.m_labelSymbol.Location = new System.Drawing.Point(3, 85);
-            this.m_labelSymbol.Name = "m_labelSymbol";
-            this.m_labelSymbol.Size = new System.Drawing.Size(41, 13);
-            this.m_labelSymbol.TabIndex = 16;
-            this.m_labelSymbol.Text = "Symbol";
-            // 
-            // m_labelDesc
-            // 
-            this.m_labelDesc.AutoSize = true;
-            this.m_labelDesc.Location = new System.Drawing.Point(3, 10);
-            this.m_labelDesc.Name = "m_labelDesc";
-            this.m_labelDesc.Size = new System.Drawing.Size(60, 13);
-            this.m_labelDesc.TabIndex = 13;
-            this.m_labelDesc.Text = "Description";
-            // 
-            // m_richTextDesc
-            // 
-            this.m_richTextDesc.Location = new System.Drawing.Point(3, 26);
-            this.m_richTextDesc.Name = "m_richTextDesc";
-            this.m_richTextDesc.Size = new System.Drawing.Size(209, 53);
-            this.m_richTextDesc.TabIndex = 12;
-            this.m_richTextDesc.Text = "";
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(360, 133);
+            this.label4.Location = new System.Drawing.Point(360, 31);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(27, 13);
             this.label4.TabIndex = 24;
@@ -175,7 +145,7 @@ namespace SmartApp.Ihm
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(303, 68);
+            this.label5.Location = new System.Drawing.Point(85, 315);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(20, 13);
             this.label5.TabIndex = 24;
@@ -184,7 +154,7 @@ namespace SmartApp.Ihm
             // m_chkAutoStart
             // 
             this.m_chkAutoStart.AutoSize = true;
-            this.m_chkAutoStart.Location = new System.Drawing.Point(331, 67);
+            this.m_chkAutoStart.Location = new System.Drawing.Point(113, 314);
             this.m_chkAutoStart.Name = "m_chkAutoStart";
             this.m_chkAutoStart.Size = new System.Drawing.Size(73, 17);
             this.m_chkAutoStart.TabIndex = 29;
@@ -194,7 +164,7 @@ namespace SmartApp.Ihm
             // m_chkNotKeepFileOpen
             // 
             this.m_chkNotKeepFileOpen.AutoSize = true;
-            this.m_chkNotKeepFileOpen.Location = new System.Drawing.Point(221, 92);
+            this.m_chkNotKeepFileOpen.Location = new System.Drawing.Point(3, 339);
             this.m_chkNotKeepFileOpen.Name = "m_chkNotKeepFileOpen";
             this.m_chkNotKeepFileOpen.Size = new System.Drawing.Size(128, 17);
             this.m_chkNotKeepFileOpen.TabIndex = 0;
@@ -204,7 +174,7 @@ namespace SmartApp.Ihm
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(218, 151);
+            this.label6.Location = new System.Drawing.Point(218, 49);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(73, 13);
             this.label6.TabIndex = 17;
@@ -214,7 +184,7 @@ namespace SmartApp.Ihm
             // 
             this.m_cboNaming.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.m_cboNaming.FormattingEnabled = true;
-            this.m_cboNaming.Location = new System.Drawing.Point(221, 207);
+            this.m_cboNaming.Location = new System.Drawing.Point(221, 105);
             this.m_cboNaming.Name = "m_cboNaming";
             this.m_cboNaming.Size = new System.Drawing.Size(195, 21);
             this.m_cboNaming.TabIndex = 23;
@@ -223,7 +193,7 @@ namespace SmartApp.Ihm
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(218, 191);
+            this.label7.Location = new System.Drawing.Point(218, 89);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(78, 13);
             this.label7.TabIndex = 17;
@@ -232,7 +202,7 @@ namespace SmartApp.Ihm
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(221, 231);
+            this.label8.Location = new System.Drawing.Point(221, 129);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(62, 13);
             this.label8.TabIndex = 30;
@@ -240,14 +210,14 @@ namespace SmartApp.Ihm
             // 
             // edtDateFormat
             // 
-            this.edtDateFormat.Location = new System.Drawing.Point(221, 247);
+            this.edtDateFormat.Location = new System.Drawing.Point(221, 145);
             this.edtDateFormat.Name = "edtDateFormat";
             this.edtDateFormat.Size = new System.Drawing.Size(195, 20);
             this.edtDateFormat.TabIndex = 31;
             // 
             // btnAddData
             // 
-            this.btnAddData.Location = new System.Drawing.Point(0, 381);
+            this.btnAddData.Location = new System.Drawing.Point(0, 231);
             this.btnAddData.Name = "btnAddData";
             this.btnAddData.Size = new System.Drawing.Size(212, 23);
             this.btnAddData.TabIndex = 32;
@@ -258,7 +228,7 @@ namespace SmartApp.Ihm
             // edtFormatHelp
             // 
             this.edtFormatHelp.AcceptsReturn = true;
-            this.edtFormatHelp.Location = new System.Drawing.Point(221, 273);
+            this.edtFormatHelp.Location = new System.Drawing.Point(221, 171);
             this.edtFormatHelp.Multiline = true;
             this.edtFormatHelp.Name = "edtFormatHelp";
             this.edtFormatHelp.ReadOnly = true;
@@ -269,20 +239,12 @@ namespace SmartApp.Ihm
             // m_txtFileName
             // 
             this.m_txtFileName.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.m_txtFileName.Location = new System.Drawing.Point(221, 128);
+            this.m_txtFileName.Location = new System.Drawing.Point(221, 26);
             this.m_txtFileName.Name = "m_txtFileName";
             this.m_txtFileName.Size = new System.Drawing.Size(137, 20);
             this.m_txtFileName.TabIndex = 18;
             // 
-            // m_textSymbol
-            // 
-            this.m_textSymbol.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.m_textSymbol.Location = new System.Drawing.Point(3, 101);
-            this.m_textSymbol.Name = "m_textSymbol";
-            this.m_textSymbol.Size = new System.Drawing.Size(209, 20);
-            this.m_textSymbol.TabIndex = 19;
-            // 
-            // LoggerPropertiesControl
+            // LoggerPropertiesPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -298,21 +260,16 @@ namespace SmartApp.Ihm
             this.Controls.Add(this.m_cboLogType);
             this.Controls.Add(this.m_ListViewData);
             this.Controls.Add(this.m_txtFileName);
-            this.Controls.Add(this.m_textSymbol);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.m_labelSymbol);
-            this.Controls.Add(this.m_labelDesc);
-            this.Controls.Add(this.m_richTextDesc);
             this.Controls.Add(this.m_cboNaming);
             this.Controls.Add(this.m_cboSeparator);
             this.Controls.Add(this.m_chkNotKeepFileOpen);
-            this.Name = "LoggerPropertiesControl";
-            this.Size = new System.Drawing.Size(426, 416);
-            this.Validating += new System.ComponentModel.CancelEventHandler(this.PropertiesControlValidating);
+            this.Name = "LoggerPropertiesPanel";
+            this.Size = new System.Drawing.Size(426, 362);
             ((System.ComponentModel.ISupportInitialize)(this.m_LoggerPeriod)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -325,13 +282,9 @@ namespace SmartApp.Ihm
         private System.Windows.Forms.ComboBox m_cboLogType;
         private System.Windows.Forms.ListView m_ListViewData;
         private CommonLib.SymbolTextBox m_txtFileName;
-        private CommonLib.SymbolTextBox m_textSymbol;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label m_labelSymbol;
-        private System.Windows.Forms.Label m_labelDesc;
-        private System.Windows.Forms.RichTextBox m_richTextDesc;
         private System.Windows.Forms.ColumnHeader m_colDataSymb;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;

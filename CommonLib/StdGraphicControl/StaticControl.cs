@@ -21,7 +21,8 @@ namespace CommonLib
         // Description:
         // Return: /
         //*****************************************************************************************************
-        public StaticControl()
+        public StaticControl(BTDoc document)
+            : base (document)
         {
 
         }

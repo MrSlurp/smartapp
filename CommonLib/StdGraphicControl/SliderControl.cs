@@ -22,7 +22,8 @@ namespace CommonLib
         // Description:
         // Return: /
         //*****************************************************************************************************
-        public SliderControl()
+        public SliderControl(BTDoc document)
+            : base(document)
         {
         }
 

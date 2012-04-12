@@ -48,6 +48,8 @@ namespace CommonLib
         bool m_bModified = false;
 
         bool m_bModeRun = false;
+
+        PathTranslator m_PathTranslator = new PathTranslator();
         #endregion
 
         #region données membres en mode SmartCommand
@@ -88,6 +90,7 @@ namespace CommonLib
             }
         }
 #endif
+
         private bool RunningState
         {
             get
@@ -143,6 +146,11 @@ namespace CommonLib
             {
                 return m_Comm.CommType;
             }
+        }
+
+        public PathTranslator PathTr
+        {
+            get { return m_PathTranslator; }
         }
 
         #region constructeur
@@ -432,30 +440,30 @@ namespace CommonLib
                         m_GestDLL.ReadInPluginsGlobals(Node);
                         break;
                     case XML_CF_TAG.DataSection:
-                        if (!this.GestData.ReadIn(Node, TypeApp))
+                        if (!this.GestData.ReadIn(Node, this))
                             return false;
                         if (TypeApp == TYPE_APP.SMART_COMMAND)
                         {
-                            if (!this.GestDataVirtual.ReadIn(Node, TypeApp))
+                            if (!this.GestDataVirtual.ReadIn(Node, this))
                                 return false;
                         }
                         break;
                     case XML_CF_TAG.TrameSection:
-                        if (!this.GestTrame.ReadIn(Node, TypeApp))
+                        if (!this.GestTrame.ReadIn(Node, this))
                             return false;
                         break;
                     case XML_CF_TAG.ScreenSection:
-                        if (!this.GestScreen.ReadIn(Node, TypeApp, GestDll))
+                        if (!this.GestScreen.ReadIn(Node, this, GestDll))
                             return false;
                         break;
                     case XML_CF_TAG.FileHeader:
-                        if (!this.ReadFileHeader(Node, TypeApp))
+                        if (!this.ReadFileHeader(Node, this.TypeApp))
                             return false;
                         break;
                     case XML_CF_TAG.Program:
-                        if (!this.GestFunction.ReadIn(Node, TypeApp)
-                            || !this.GestTimer.ReadIn(Node, TypeApp)
-                            || !this.GestLogger.ReadIn(Node, TypeApp)
+                        if (!this.GestFunction.ReadIn(Node, this)
+                            || !this.GestTimer.ReadIn(Node, this)
+                            || !this.GestLogger.ReadIn(Node, this)
                             )
                             return false;
                         break;
@@ -501,7 +509,7 @@ namespace CommonLib
                                 if (FileVer < Cste.CUR_FILE_VERSION)
                                 {
                                     if (TypeApp == TYPE_APP.SMART_CONFIG)
-                                        MessageBox.Show(Lang.LangSys.C("This file have been created with an oldest version, if you save this file, you will not be able tio read it with previous version"), 
+                                        MessageBox.Show(Lang.LangSys.C("This file have been created with an oldest version, if you save this file, you will not be able to read it with previous version"), 
                                                         Lang.LangSys.C("Warning"), 
                                                         MessageBoxButtons.OK,
                                                         MessageBoxIcon.Exclamation);
@@ -578,21 +586,21 @@ namespace CommonLib
 
             XmlNode NodeDataSection = XmlDoc.CreateElement(XML_CF_TAG.DataSection.ToString());
             XmlDoc.DocumentElement.AppendChild(NodeDataSection);
-            GestData.WriteOut(XmlDoc, NodeDataSection);
+            GestData.WriteOut(XmlDoc, NodeDataSection, this);
 
             XmlNode NodeScreenSection = XmlDoc.CreateElement(XML_CF_TAG.ScreenSection.ToString());
             XmlDoc.DocumentElement.AppendChild(NodeScreenSection);
-            GestScreen.WriteOut(XmlDoc, NodeScreenSection);
+            GestScreen.WriteOut(XmlDoc, NodeScreenSection, this);
 
             XmlNode NodeTrameSection = XmlDoc.CreateElement(XML_CF_TAG.TrameSection.ToString());
             XmlDoc.DocumentElement.AppendChild(NodeTrameSection);
-            GestTrame.WriteOut(XmlDoc, NodeTrameSection);
+            GestTrame.WriteOut(XmlDoc, NodeTrameSection, this);
 
             XmlNode NodeProg = XmlDoc.CreateElement(XML_CF_TAG.Program.ToString());
             XmlDoc.DocumentElement.AppendChild(NodeProg);
-            GestFunction.WriteOut(XmlDoc, NodeProg);
-            GestTimer.WriteOut(XmlDoc, NodeProg);
-            GestLogger.WriteOut(XmlDoc, NodeProg);
+            GestFunction.WriteOut(XmlDoc, NodeProg, this);
+            GestTimer.WriteOut(XmlDoc, NodeProg, this);
+            GestLogger.WriteOut(XmlDoc, NodeProg, this);
 
             try
             {

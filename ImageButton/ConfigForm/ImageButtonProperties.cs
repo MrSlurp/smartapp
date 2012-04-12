@@ -179,7 +179,7 @@ namespace ImageButton
             {
 
                 m_txtBoxImg1.Text = PathTranslator.LinuxVsWindowsPathStore(
-                                    PathTranslator.AbsolutePathToRelative(CentralizedFileDlg.ImgFileName));
+                                    m_Document.PathTr.AbsolutePathToRelative(CentralizedFileDlg.ImgFileName));
             }
         }
 
@@ -195,7 +195,7 @@ namespace ImageButton
             if (dlgRes == DialogResult.OK)
             {
                 m_txtBoxImg2.Text = PathTranslator.LinuxVsWindowsPathStore(
-                                    PathTranslator.AbsolutePathToRelative(CentralizedFileDlg.ImgFileName));
+                                    m_Document.PathTr.AbsolutePathToRelative(CentralizedFileDlg.ImgFileName));
             }
         }
 

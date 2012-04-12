@@ -46,7 +46,7 @@ namespace DigitalDisplay
             { m_FormatString = value; }
         }
 
-        public override bool ReadIn(System.Xml.XmlNode Node)
+        public override bool ReadIn(XmlNode Node, BTDoc document)
         {
             XmlNode AttrFormat = Node.Attributes.GetNamedItem(NOM_ATTRIB_FORMAT);
             XmlNode AttrColor = Node.Attributes.GetNamedItem(NOM_ATTRIB_COLOR);
@@ -70,7 +70,7 @@ namespace DigitalDisplay
             return true;
         }
 
-        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
+        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node, BTDoc document)
         {
             XmlAttribute AttrFormat = XmlDoc.CreateAttribute(NOM_ATTRIB_FORMAT);
             XmlAttribute AttrColor = XmlDoc.CreateAttribute(NOM_ATTRIB_COLOR);
@@ -85,7 +85,7 @@ namespace DigitalDisplay
             return true;
         }
 
-        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance)
+        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance, BTDoc document)
         {
             FormatString = ((DllDigitalDisplayProp)SrcSpecificProp).FormatString;
             DigitColor = ((DllDigitalDisplayProp)SrcSpecificProp).DigitColor;

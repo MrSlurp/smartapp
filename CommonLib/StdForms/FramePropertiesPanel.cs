@@ -6,12 +6,11 @@ using System.Data;
 using System.Text;
 using System.Windows.Forms;
 
-using CommonLib;
 
-namespace SmartApp.Ihm
+namespace CommonLib
 {
 
-    public partial class FramePropertiesControl : UserControl, ILangReloadable
+    public partial class FramePropertiesPanel : BaseObjectPropertiesPanel, IObjectPropertyPanel
     {
         #region données membres
         CComboData[] m_TabCboCtrlDataSize;
@@ -19,7 +18,6 @@ namespace SmartApp.Ihm
         CComboData[] m_TabCboConvType;
 
         Trame m_Trame = null;
-        private BTDoc m_Document = null;
         private bool bLockComboCtrlDataTypeEvent = false;
 
         bool m_bLockEvent = false;
@@ -36,7 +34,7 @@ namespace SmartApp.Ihm
         // Description:
         // Return: /
         //*****************************************************************************************************      
-        public FramePropertiesControl()
+        public FramePropertiesPanel()
         {
             InitializeComponent();
             LoadNonStandardLang();
@@ -47,27 +45,26 @@ namespace SmartApp.Ihm
         public void LoadNonStandardLang()
         {
             m_TabCboCtrlDataSize = new CComboData[4];
-            m_TabCboCtrlDataSize[0] = new CComboData(Program.LangSys.C("8 bits"), (int)DATA_SIZE.DATA_SIZE_8B);
-            m_TabCboCtrlDataSize[1] = new CComboData(Program.LangSys.C("16 bits"), (int)DATA_SIZE.DATA_SIZE_16B);
-            m_TabCboCtrlDataSize[2] = new CComboData(Program.LangSys.C("16 bits (unsigned)"), (int)DATA_SIZE.DATA_SIZE_16BU);
-            m_TabCboCtrlDataSize[3] = new CComboData(Program.LangSys.C("32 bits"), (int)DATA_SIZE.DATA_SIZE_32B);
+            m_TabCboCtrlDataSize[0] = new CComboData(Lang.LangSys.C("8 bits"), (int)DATA_SIZE.DATA_SIZE_8B);
+            m_TabCboCtrlDataSize[1] = new CComboData(Lang.LangSys.C("16 bits"), (int)DATA_SIZE.DATA_SIZE_16B);
+            m_TabCboCtrlDataSize[2] = new CComboData(Lang.LangSys.C("16 bits (unsigned)"), (int)DATA_SIZE.DATA_SIZE_16BU);
+            m_TabCboCtrlDataSize[3] = new CComboData(Lang.LangSys.C("32 bits"), (int)DATA_SIZE.DATA_SIZE_32B);
             m_cboCtrlDataSize.ValueMember = "Object";
             m_cboCtrlDataSize.DisplayMember = "DisplayedString";
             m_cboCtrlDataSize.DataSource = m_TabCboCtrlDataSize;
 
-            //m_TabCboCtrlDataType = new CComboData[4];
-            m_TabCboCtrlDataType = new CComboData[3];
-            m_TabCboCtrlDataType[0] = new CComboData(Program.LangSys.C("None"), CTRLDATA_TYPE.NONE.ToString());
-            m_TabCboCtrlDataType[1] = new CComboData(Program.LangSys.C("Millenium3 SL Bloc CheckSum"), CTRLDATA_TYPE.SUM_COMPL_P1.ToString());
-            //m_TabCboCtrlDataType[3] = new CComboData(Program.LangSys.C("Zelio2 SL Bloc CheckSum"), CTRLDATA_TYPE.SUM_COMPL_P2.ToString());
-            m_TabCboCtrlDataType[2] = new CComboData(Program.LangSys.C("Modbus CRC 16"), CTRLDATA_TYPE.MODBUS_CRC.ToString());
+            m_TabCboCtrlDataType = new CComboData[4];
+            m_TabCboCtrlDataType[0] = new CComboData(Lang.LangSys.C("None"), CTRLDATA_TYPE.NONE.ToString());
+            m_TabCboCtrlDataType[1] = new CComboData(Lang.LangSys.C("Millenium3 SL Bloc CheckSum"), CTRLDATA_TYPE.SUM_COMPL_P1.ToString());
+            m_TabCboCtrlDataType[3] = new CComboData(Lang.LangSys.C("Zelio2 SL Bloc CheckSum"), CTRLDATA_TYPE.SUM_COMPL_P2.ToString());
+            m_TabCboCtrlDataType[2] = new CComboData(Lang.LangSys.C("Modbus CRC 16"), CTRLDATA_TYPE.MODBUS_CRC.ToString());
             m_cboCtrlDataType.ValueMember = "Object";
             m_cboCtrlDataType.DisplayMember = "DisplayedString";
             m_cboCtrlDataType.DataSource = m_TabCboCtrlDataType;
 
             m_TabCboConvType = new CComboData[2];
-            m_TabCboConvType[0] = new CComboData(Program.LangSys.C("None"), CONVERT_TYPE.NONE.ToString());
-            m_TabCboConvType[1] = new CComboData(Program.LangSys.C("ASCII"), CONVERT_TYPE.ASCII.ToString());
+            m_TabCboConvType[0] = new CComboData(Lang.LangSys.C("None"), CONVERT_TYPE.NONE.ToString());
+            m_TabCboConvType[1] = new CComboData(Lang.LangSys.C("ASCII"), CONVERT_TYPE.ASCII.ToString());
             m_cboConvType.ValueMember = "Object";
             m_cboConvType.DisplayMember = "DisplayedString";
             m_cboConvType.DataSource = m_TabCboConvType;
@@ -85,7 +82,7 @@ namespace SmartApp.Ihm
         // Description:
         // Return: /
         //*****************************************************************************************************
-        public Trame Trame
+        public BaseObject ConfiguredItem
         {
             get
             {
@@ -93,39 +90,14 @@ namespace SmartApp.Ihm
             }
             set
             {
-                m_Trame= value;
-                if (Trame != null)
-                {
-                    UpdateComboFromTo();
-                    this.Enabled = true;
-                    this.Description = Trame.Description;
-                    this.Symbol = Trame.Symbol;
-                    bLockComboCtrlDataTypeEvent = true;
-                    this.CtrlDataType = m_Trame.CtrlDataType;
-                    bLockComboCtrlDataTypeEvent = false;
-                    this.CtrlDataFrom = m_Trame.CtrlDataFrom;
-                    this.CtrlDataTo = m_Trame.CtrlDataTo;
-                    this.ConvType = m_Trame.ConvType;
-                    this.ConvFrom = m_Trame.ConvFrom;
-                    this.ConvTo = m_Trame.ConvTo;
-                    this.CtrlDataSize = m_Trame.CtrlDataSize;
-                }
-                else
-                {
-                    UpdateComboFromTo();
-                    this.Description = "";
-                    this.Symbol = "";
-                    this.CtrlDataType = "";
-                    this.CtrlDataSize = 8;
-                    this.CtrlDataFrom = 0;
-                    this.CtrlDataTo = 0;
-                    this.ConvType = "";
-                    this.ConvFrom = 0;
-                    this.ConvTo = 0;
-                    this.Enabled = false;
-                }
-                UpdateComboFromToEnabling();
+                m_Trame= value as Trame;
             }
+        }
+
+        public BaseGest ConfiguredItemGest
+        {
+            get { return m_Document.GestTrame; }
+            set {}
         }
 
         //*****************************************************************************************************
@@ -159,40 +131,10 @@ namespace SmartApp.Ihm
                 return m_Document.GestTrame;
             }
         }
+
         #endregion
 
         #region attribut d'accès aux valeurs de la page de propriété
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        public string Description
-        {
-            get
-            {
-                return m_richTextDesc.Text;
-            }
-            set
-            {
-                m_richTextDesc.Text = value;
-            }
-        }
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        public string Symbol
-        {
-            get
-            {
-                return m_textSymbol.Text;
-            }
-            set
-            {
-                m_textSymbol.Text = value;
-            }
-        }
 
         #region Donnée de control
         //*****************************************************************************************************
@@ -347,59 +289,10 @@ namespace SmartApp.Ihm
         #endregion
 
         #region validation des données
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        public bool IsTrameValuesValid
+
+        public void PanelToObject()
         {
-            get
-            {
-                if (m_Trame == null)
-                    return true;
-
-                if (string.IsNullOrEmpty(this.Symbol))
-                    return false;
-
-                bool bRet = true;
-                Trame dt = (Trame)this.GestTrame.GetFromSymbol(this.Symbol);
-                if (dt != null && dt != this.Trame)
-                    bRet = false;
-
-                return bRet;
-            }
-        }
-
-        public bool ValidateValues()
-        {
-            if (m_Trame == null)
-                return true;
-
-            string strMessage = "";
-            bool bRet = true;
-            if (string.IsNullOrEmpty(this.Symbol))
-            {
-                strMessage = Program.LangSys.C("Symbol must not be empty");
-                bRet = false;
-            }
-            Trame dt = (Trame)this.GestTrame.GetFromSymbol(this.Symbol);
-            if (bRet && dt != null && dt != this.Trame)
-            {
-                strMessage = string.Format(Program.LangSys.C("A Frame with symbol {0} already exist"), Symbol);
-                bRet = false;
-            }
-            if (!bRet)
-            {
-                MessageBox.Show(strMessage, Program.LangSys.C("Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return bRet;
-            }
-
             bool bChange = false;
-            if (m_Trame.Description != this.Description)
-                bChange |= true;
-            if (m_Trame.Symbol != this.Symbol)
-                bChange |= true;
-
             if (m_Trame.CtrlDataType != this.CtrlDataType)
                 bChange |= true;
             if (m_Trame.CtrlDataFrom != this.CtrlDataFrom)
@@ -414,15 +307,8 @@ namespace SmartApp.Ihm
             if (m_Trame.ConvTo != this.ConvTo)
                 bChange |= true;
 
-            if (m_Trame.Description != this.Description)
-                bChange |= true;
-            if (m_Trame.Symbol != this.Symbol)
-                bChange |= true;
-
             if (bChange)
             {
-                m_Trame.Description = this.Description;
-                m_Trame.Symbol = this.Symbol;
                 m_Trame.CtrlDataType = this.CtrlDataType;
                 m_Trame.CtrlDataFrom = this.CtrlDataFrom;
                 m_Trame.CtrlDataSize = this.CtrlDataSize;
@@ -431,14 +317,30 @@ namespace SmartApp.Ihm
                 m_Trame.ConvFrom = this.ConvFrom;
                 m_Trame.ConvTo = this.ConvTo;
 
-                Doc.Modified = true;
+                Document.Modified = true;
             }
 
             if (bChange && FramePropertiesChanged != null)
-                FramePropertiesChanged(dt);
-            return true;
+                FramePropertiesChanged(m_Trame);
         }
 
+        public void ObjectToPanel()
+        {
+            if (m_Trame != null)
+            {
+                UpdateComboFromTo();
+                bLockComboCtrlDataTypeEvent = true;
+                this.CtrlDataType = m_Trame.CtrlDataType;
+                bLockComboCtrlDataTypeEvent = false;
+                this.CtrlDataFrom = m_Trame.CtrlDataFrom;
+                this.CtrlDataTo = m_Trame.CtrlDataTo;
+                this.ConvType = m_Trame.ConvType;
+                this.ConvFrom = m_Trame.ConvFrom;
+                this.ConvTo = m_Trame.ConvTo;
+                this.CtrlDataSize = m_Trame.CtrlDataSize;
+            }
+            UpdateComboFromToEnabling();
+        }
         #endregion
 
         #region fonction d'update diverses
@@ -572,8 +474,8 @@ namespace SmartApp.Ihm
                 m_Trame.CtrlDataSize = this.CtrlDataSize;
                 GestData.UpdateAllControlDatas(GestTrame);
                 // on ne l'ajoute que si la donnée n'y est pas déja
-                if (!m_Trame.FrameDatas.Contains(this.Symbol + Cste.STR_SUFFIX_CTRLDATA))
-                    m_Trame.FrameDatas.Add(this.Symbol + Cste.STR_SUFFIX_CTRLDATA);
+                if (!m_Trame.FrameDatas.Contains(m_Trame.Symbol + Cste.STR_SUFFIX_CTRLDATA))
+                    m_Trame.FrameDatas.Add(m_Trame.Symbol + Cste.STR_SUFFIX_CTRLDATA);
             }
             else
             {
@@ -612,7 +514,7 @@ namespace SmartApp.Ihm
                 return;
             if (m_Trame == null)
                 return;
-            if (!this.ValidateValues())
+            if (!this.ValidateProperties())
             {
                 bLockComboCtrlDataTypeEvent = true;
                 this.CtrlDataType = m_Trame.CtrlDataType;
@@ -622,16 +524,6 @@ namespace SmartApp.Ihm
 
             UpdateControlData();
             UpdateComboFromTo();
-        }
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
-        private void PropertiesControlValidating(object sender, CancelEventArgs e)
-        {
-            if (!ValidateValues())
-                e.Cancel = true;
         }
 
         //*****************************************************************************************************

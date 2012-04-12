@@ -118,7 +118,7 @@ namespace CtrlDataTrigger
             }
         }
 
-        public override bool ReadIn(System.Xml.XmlNode Node)
+        public override bool ReadIn(XmlNode Node, BTDoc document)
         {
             for (int ch = 0; ch < Node.ChildNodes.Count ; ch++)
             {
@@ -143,7 +143,7 @@ namespace CtrlDataTrigger
             return true;
         }
 
-        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
+        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node, BTDoc document)
         {
             XmlNode ElemSpecSection = XmlDoc.CreateElement(SPEC_SECTION);
             XmlAttribute AttrBehaveTrigger = XmlDoc.CreateAttribute(BEHAVE_SCHMITT);
@@ -162,7 +162,7 @@ namespace CtrlDataTrigger
             return true;
         }
 
-        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance)
+        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance, BTDoc document)
         {
             if (SrcSpecificProp.GetType() == typeof(DllCtrlDataTriggerProp))
             {

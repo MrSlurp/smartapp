@@ -10,7 +10,8 @@ namespace CtrlTwoBitmap
     {
         protected SpecificControlProp m_SpecificProp = null;
 
-        public BTTwoBitmapControl()
+        public BTTwoBitmapControl(BTDoc document)
+            : base(document)
         {
             m_IControl = new InteractiveTwoBitmap();
             if (m_IControl != null)
@@ -19,7 +20,8 @@ namespace CtrlTwoBitmap
             m_SpecificProp = new TwoBitmapProp(this.ItemScripts);
         }
 
-        public BTTwoBitmapControl(InteractiveControl Ctrl)
+        public BTTwoBitmapControl(BTDoc document, InteractiveControl Ctrl)
+            : base(document, Ctrl)
         {
             m_IControl = Ctrl;
             if (m_IControl != null)
@@ -41,14 +43,14 @@ namespace CtrlTwoBitmap
         // Description: Lit les données de l'objet a partir de son noeud XML
         // Return: /
         //*****************************************************************************************************
-        public override bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
+        public override bool ReadIn(XmlNode Node, BTDoc document)
         {
             if (!ReadInBaseObject(Node))
                 return false;
             if (!ReadInCommonBTControl(Node))
                 return false;
  
-            m_SpecificProp.ReadIn(Node);
+            m_SpecificProp.ReadIn(Node, document);
             // on lit le script si il y en a un
             ReadScript(Node);
 
@@ -59,7 +61,7 @@ namespace CtrlTwoBitmap
         // Description: ecrit les données de l'objet a partir de son noeud XML
         // Return: /
         //*****************************************************************************************************
-        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
+        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node, BTDoc document)
         {
             XmlNode NodeControl = XmlDoc.CreateElement(XML_CF_TAG.DllControl.ToString());
             Node.AppendChild(NodeControl);
@@ -71,7 +73,7 @@ namespace CtrlTwoBitmap
             if (!WriteOutCommonBTControl(XmlDoc, NodeControl))
                 return false;
 
-            if (!m_SpecificProp.WriteOut(XmlDoc, NodeControl))
+            if (!m_SpecificProp.WriteOut(XmlDoc, NodeControl, document))
                 return false;
 
             /// on écrit le script

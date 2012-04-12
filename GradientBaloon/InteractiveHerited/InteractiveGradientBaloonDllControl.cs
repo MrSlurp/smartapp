@@ -13,7 +13,7 @@ namespace GradientBaloon
 {
     public partial class InteractiveGradientBaloonDllControl : InteractiveControl, ISpecificControl
     {
-        UserControl m_SpecificPropPanel = new GradientBaloonProperties();
+        static UserControl m_SpecificPropPanel = new GradientBaloonProperties();
         StandardPropEnabling m_stdPropEnabling = new StandardPropEnabling();
         SpecificGraphicProp m_SpecGraphicProp = new SpecificGraphicProp();
 

@@ -232,7 +232,19 @@
     <Compile Include="StdForms\DataPropertiesPanel.Designer.cs">
       <DependentUpon>DataPropertiesPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="StdForms\FramePropertiesPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="StdForms\FramePropertiesPanel.Designer.cs">
+      <DependentUpon>FramePropertiesPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="StdForms\IObjectPropertyPanel.cs" />
+    <Compile Include="StdForms\LoggerPropertiesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="StdForms\LoggerPropertiesControl.Designer.cs">
+      <DependentUpon>LoggerPropertiesControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="StdForms\PickDataForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -265,6 +277,12 @@
     </Compile>
     <Compile Include="StdForms\SymbolTextBox.Designer.cs">
       <DependentUpon>SymbolTextBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StdForms\TimerPropertiesPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="StdForms\TimerPropertiesPanel.Designer.cs">
+      <DependentUpon>TimerPropertiesPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="StdForms\WaitOpenCommForm.cs">
       <SubType>Form</SubType>
@@ -348,6 +366,14 @@
       <DependentUpon>DataPropertiesPanel.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="StdForms\FramePropertiesPanel.resx">
+      <DependentUpon>FramePropertiesPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StdForms\LoggerPropertiesControl.resx">
+      <DependentUpon>LoggerPropertiesControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="StdForms\PickDataForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>PickDataForm.cs</DependentUpon>
@@ -362,6 +388,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="StdForms\StandardObjectPropPanel.resx">
       <DependentUpon>StandardObjectPropPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StdForms\TimerPropertiesPanel.resx">
+      <DependentUpon>TimerPropertiesPanel.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="StdForms\WaitOpenCommForm.resx">

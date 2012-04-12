@@ -60,18 +60,18 @@ namespace CtrlGraph
             }
         }
 
-        public BTControl CreateBTControl()
+        public BTControl CreateBTControl(BTDoc document)
         {
-            return new BTDllCtrlGraphControl();
+            return new BTDllCtrlGraphControl(document);
         }
 
-        public BTControl CreateBTControl(InteractiveControl iCtrl)
+        public BTControl CreateBTControl(BTDoc document, InteractiveControl iCtrl)
         {
-            return new BTDllCtrlGraphControl(iCtrl);
+            return new BTDllCtrlGraphControl(document, iCtrl);
         }
-        public BTControl CreateCommandBTControl()
+        public BTControl CreateCommandBTControl(BTDoc document)
         {
-            return new CtrlGraphCmdControl();
+            return new CtrlGraphCmdControl(document);
         }
 
         public InteractiveControl CreateInteractiveControl()

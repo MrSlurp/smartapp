@@ -75,7 +75,8 @@ namespace CtrlGraph
         // Description:
         // Return: /
         //*****************************************************************************************************
-        public CtrlGraphCmdControl()
+        public CtrlGraphCmdControl(BTDoc document)
+            : base(document)
         {
 
         }

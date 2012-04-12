@@ -14,10 +14,12 @@ namespace ImageButton
     internal class ImageButtonCmdControl : BTDllImageButtonControl
     {
         protected Data m_AssocInputData = null;
+
         /// <summary>
         /// Constructeur de la classe
         /// </summary>
-        public ImageButtonCmdControl()
+        public ImageButtonCmdControl(BTDoc document)
+            : base(document)
         {
 
         }
@@ -57,7 +59,7 @@ namespace ImageButton
 
                 if (!string.IsNullOrEmpty(SpecProp.ReleasedImage))
                 {
-                    string strImageFullPath = PathTranslator.RelativePathToAbsolute(SpecProp.ReleasedImage);
+                    string strImageFullPath = m_Document.PathTr.RelativePathToAbsolute(SpecProp.ReleasedImage);
                     strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
                     try
                     {
@@ -118,14 +120,14 @@ namespace ImageButton
                 {
                     if (!chk.Checked)
                     {
-                        strImageFullPath = PathTranslator.RelativePathToAbsolute(SpecProp.ReleasedImage);
+                        strImageFullPath = m_Document.PathTr.RelativePathToAbsolute(SpecProp.ReleasedImage);
                         strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
                         if (m_AssociateData != null)
                             m_AssociateData.Value = 0;
                     }
                     else
                     {
-                        strImageFullPath = PathTranslator.RelativePathToAbsolute(SpecProp.PressedImage);
+                        strImageFullPath = m_Document.PathTr.RelativePathToAbsolute(SpecProp.PressedImage);
                         strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
                         if (m_AssociateData != null)
                             m_AssociateData.Value = 1;
@@ -185,7 +187,7 @@ namespace ImageButton
             DllImageButtonProp SpecProp = this.SpecificProp as DllImageButtonProp;
             if (m_Ctrl is Button && !string.IsNullOrEmpty(SpecProp.ReleasedImage) && !SpecProp.ImgFromInput)
             {
-                string strImageFullPath = PathTranslator.RelativePathToAbsolute(SpecProp.ReleasedImage);
+                string strImageFullPath = m_Document.PathTr.RelativePathToAbsolute(SpecProp.ReleasedImage);
                 strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
                 try
                 {
@@ -211,7 +213,7 @@ namespace ImageButton
             DllImageButtonProp SpecProp = this.SpecificProp as DllImageButtonProp;
             if (m_Ctrl is Button && !string.IsNullOrEmpty(SpecProp.PressedImage) && !SpecProp.ImgFromInput)
             {
-                string strImageFullPath = PathTranslator.RelativePathToAbsolute(SpecProp.PressedImage);
+                string strImageFullPath = m_Document.PathTr.RelativePathToAbsolute(SpecProp.PressedImage);
                 strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
                 try
                 {
@@ -244,7 +246,7 @@ namespace ImageButton
                     string strImageFullPath;
                     if (m_AssocInputData.Value == 0)
                     {
-                        strImageFullPath = PathTranslator.RelativePathToAbsolute(prop.ReleasedImage);
+                        strImageFullPath = m_Document.PathTr.RelativePathToAbsolute(prop.ReleasedImage);
                         strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
                         if (m_Ctrl is CheckBox)
                         {
@@ -254,7 +256,7 @@ namespace ImageButton
                     }
                     else
                     {
-                        strImageFullPath = PathTranslator.RelativePathToAbsolute(prop.PressedImage);
+                        strImageFullPath = m_Document.PathTr.RelativePathToAbsolute(prop.PressedImage);
                         strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
                         if (m_Ctrl is CheckBox)
                         {
@@ -280,14 +282,12 @@ namespace ImageButton
         public override bool FinalizeRead(BTDoc Doc)
         {
             bool bret = base.FinalizeRead(Doc);
-
             DllImageButtonProp prop = (DllImageButtonProp)m_SpecificProp;
             if (!string.IsNullOrEmpty(prop.InputData))
             {
                 m_AssocInputData = (Data)Doc.GestData.GetFromSymbol(prop.InputData);
                 if (m_AssocInputData != null)
                     m_AssocInputData.DataValueChanged += new EventDataValueChange(UpdateFromDataDelegate);
-
             }
             return bret;
         }

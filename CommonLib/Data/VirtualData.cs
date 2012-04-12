@@ -129,10 +129,10 @@ namespace CommonLib
         /// <param name="Node">Noeud Xml de l'objet</param>
         /// <param name="TypeApp">type d'application courante</param>
         /// <returns>true si la lecture s'est bien passé</returns>
-        public override bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
+        public override bool ReadIn(XmlNode Node, BTDoc document)
         {
             // en cas de lecture des clichés pour affichage du contenu/edition
-            return base.ReadIn(Node, TypeApp);;             
+            return base.ReadIn(Node, document);           
         }
     
         /// <summary>
@@ -141,7 +141,7 @@ namespace CommonLib
         /// <param name="XmlDoc"></param>
         /// <param name="Node"></param>
         /// <returns></returns>
-        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
+        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node, BTDoc document)
         {
             // il est interdit de faire une écriture complète des paramètres pour une données virtuelle
             // enfin si on peu mais ca sert à rien puisqu'on ne mémorise pas la valeur
@@ -189,7 +189,7 @@ namespace CommonLib
             // on écrit la base pour avoir le symbole
             this.DefaultValue = this.Value;
             //WriteOutBaseObject(XmlDoc, Node);
-            return base.WriteOut(XmlDoc, Node);
+            return base.WriteOut(XmlDoc, Node, null);
         }
         #endregion
 

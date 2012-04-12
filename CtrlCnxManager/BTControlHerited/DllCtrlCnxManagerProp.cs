@@ -30,7 +30,7 @@ namespace CtrlCnxManager
         /// </summary>
         /// <param name="Node">noeud du control a qui appartiens les propriété </param>
         /// <returns>true en cas de succès de la lecture</returns>
-        public override bool ReadIn(XmlNode Node)
+        public override bool ReadIn(XmlNode Node, BTDoc document)
         {
             for (int iChild = 0; iChild < Node.ChildNodes.Count; iChild++)
             {
@@ -50,7 +50,7 @@ namespace CtrlCnxManager
         /// <param name="XmlDoc">Document XML</param>
         /// <param name="Node">noeud du control a qui appartiens les propriété</param>
         /// <returns>true en cas de succès de l'écriture</returns>
-        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
+        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node, BTDoc document)
         {
             XmlNode ParamNode = XmlDoc.CreateElement(Tag_Section);
             Node.AppendChild(ParamNode);
@@ -64,7 +64,7 @@ namespace CtrlCnxManager
         /// Recopie les paramètres d'un control source du même type vers les paramètres courants
         /// </summary>
         /// <param name="SrcSpecificProp">Paramètres sources</param>
-        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance)
+        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance, BTDoc document)
         {
             DllCtrlCnxManagerProp SrcProp = (DllCtrlCnxManagerProp)SrcSpecificProp;
             this.m_iRetryCnxPeriod = SrcProp.m_iRetryCnxPeriod;

@@ -22,7 +22,7 @@ namespace CommonLib
         // Description:
         // Return: /
         //*****************************************************************************************************
-        public CheckControl()
+        public CheckControl(BTDoc document) : base(document)
         {
 
         }

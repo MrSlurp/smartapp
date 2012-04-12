@@ -89,7 +89,7 @@ namespace ImageButton
         /// </summary>
         /// <param name="Node">noeud du control a qui appartiens les propriété </param>
         /// <returns>true en cas de succès de la lecture</returns>
-        public override bool ReadIn(XmlNode Node)
+        public override bool ReadIn(XmlNode Node, BTDoc document)
         {
             if (Node.FirstChild != null)
             {
@@ -132,7 +132,7 @@ namespace ImageButton
         /// <param name="XmlDoc">Document XML</param>
         /// <param name="Node">noeud du control a qui appartiens les propriété</param>
         /// <returns>true en cas de succès de l'écriture</returns>
-        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
+        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node, BTDoc document)
         {
             XmlNode ItemProp = XmlDoc.CreateElement(NOM_NOEUD_PROP);
             XmlAttribute AttrRel = XmlDoc.CreateAttribute(NOM_ATTRIB_REL);
@@ -141,8 +141,8 @@ namespace ImageButton
             XmlAttribute AttrStyle = XmlDoc.CreateAttribute(NOM_ATTRIB_STYLE);
             XmlAttribute AttrBorderSize = XmlDoc.CreateAttribute(NOM_ATTRIB_BORDER_SIZE);
             XmlAttribute AttrInputData = XmlDoc.CreateAttribute(NOM_ATTRIB_INTPUT_DATA);
-            AttrRel.Value = PathTranslator.AbsolutePathToRelative(ReleasedImage);
-            AttrPre.Value = PathTranslator.AbsolutePathToRelative(PressedImage);
+            AttrRel.Value = document.PathTr.AbsolutePathToRelative(ReleasedImage);
+            AttrPre.Value = document.PathTr.AbsolutePathToRelative(PressedImage);
             Attrbistable.Value = m_bIsBistable.ToString();
             AttrStyle.Value = m_Style.ToString();
             AttrBorderSize.Value = m_BorderSize.ToString();
@@ -161,19 +161,19 @@ namespace ImageButton
         /// Recopie les paramètres d'un control source du même type vers les paramètres courants
         /// </summary>
         /// <param name="SrcSpecificProp">Paramètres sources</param>
-        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance)
+        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance, BTDoc document)
         {
             DllImageButtonProp SrcProp = (DllImageButtonProp)SrcSpecificProp;
             if (bFromOtherInstance)
             {
                 if (File.Exists(PathTranslator.LinuxVsWindowsPathUse(
-                                PathTranslator.RelativePathToAbsolute(
+                                document.PathTr.RelativePathToAbsolute(
                                 SrcProp.ReleasedImage))))
                 {
                     ReleasedImage = SrcProp.ReleasedImage;
                 }
                 if (File.Exists(PathTranslator.LinuxVsWindowsPathUse(
-                                PathTranslator.RelativePathToAbsolute(
+                                document.PathTr.RelativePathToAbsolute(
                                 SrcProp.PressedImage))))
                 {
                     PressedImage = SrcProp.PressedImage;

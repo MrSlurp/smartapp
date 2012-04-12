@@ -62,18 +62,18 @@ namespace ScreenItemLocker
             }
         }
 
-        public BTControl CreateBTControl()
+        public BTControl CreateBTControl(BTDoc document)
         {
-            return new BTDllScreenItemLockerControl();
+            return new BTDllScreenItemLockerControl(document);
         }
 
-        public BTControl CreateBTControl(InteractiveControl iCtrl)
+        public BTControl CreateBTControl(BTDoc document, InteractiveControl iCtrl)
         {
-            return new BTDllScreenItemLockerControl(iCtrl);
+            return new BTDllScreenItemLockerControl(document, iCtrl);
         }
-        public BTControl CreateCommandBTControl()
+        public BTControl CreateCommandBTControl(BTDoc document)
         {
-            return new ScreenItemLockerCmdControl();
+            return new ScreenItemLockerCmdControl(document);
         }
 
         public InteractiveControl CreateInteractiveControl()

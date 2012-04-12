@@ -149,7 +149,7 @@ namespace CtrlDataGrid
             {
                 if (value != null)
                 {
-                    m_Props.CopyParametersFrom(value, false);
+                    m_Props.CopyParametersFrom(value, false, this.Document);
                     for (int i = 0; i < DllCtrlDataGridProp.NB_DATA; i++)
                     {
                         m_ListData[i].DataSymbol = m_Props.GetSymbol(i);
@@ -174,7 +174,7 @@ namespace CtrlDataGrid
         public void PanelToObject()
         {
             DllCtrlDataGridProp itemprops = m_Control.SpecificProp as DllCtrlDataGridProp;
-            itemprops.CopyParametersFrom(Props, false);
+            itemprops.CopyParametersFrom(Props, false, this.Document);
             Document.Modified = true;
         }
 

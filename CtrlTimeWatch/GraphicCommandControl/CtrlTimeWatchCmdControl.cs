@@ -22,7 +22,8 @@ namespace CtrlTimeWatch
         /// <summary>
         /// Constructeur de la classe
         /// </summary>
-        public CtrlTimeWatchCmdControl()
+        public CtrlTimeWatchCmdControl(BTDoc document)
+            : base(document)
         {
             m_RefreshTimer.Interval = 1000;
             m_RefreshTimer.Tick += new EventHandler(RefreshTimerTick);

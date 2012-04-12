@@ -29,7 +29,7 @@ namespace FormatedDisplay
             }
         }
 
-        public override bool ReadIn(System.Xml.XmlNode Node)
+        public override bool ReadIn(XmlNode Node, BTDoc document)
         {
             XmlNode AttrFormat = Node.Attributes.GetNamedItem(NOM_ATTIB_FORMAT);
             if (AttrFormat == null)
@@ -38,7 +38,7 @@ namespace FormatedDisplay
             return true;
         }
 
-        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
+        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node, BTDoc document)
         {
             XmlAttribute AttrFormat = XmlDoc.CreateAttribute(NOM_ATTIB_FORMAT);
             AttrFormat.Value = FormatString;
@@ -46,7 +46,7 @@ namespace FormatedDisplay
             return true;
         }
 
-        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance)
+        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance, BTDoc document)
         {
             FormatString = ((DllFormatedDisplayProp)SrcSpecificProp).FormatString;
         }

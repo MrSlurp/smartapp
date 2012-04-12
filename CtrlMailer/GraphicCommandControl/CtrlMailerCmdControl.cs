@@ -20,7 +20,8 @@ namespace CtrlMailer
         /// <summary>
         /// Constructeur de la classe
         /// </summary>
-        public CtrlMailerCmdControl()
+        public CtrlMailerCmdControl(BTDoc document) 
+            : base(document)
         {
             SmtpServer.SendCompleted += new SendCompletedEventHandler(SmtpServer_SendCompleted);
         }

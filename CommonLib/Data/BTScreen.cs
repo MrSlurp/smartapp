@@ -33,6 +33,8 @@ namespace CommonLib
 
         protected ItemScriptsConainter m_ScriptContainer = new ItemScriptsConainter();
 
+        BTDoc m_Document;
+
         #endregion
 
         #region données sépcifiques au fonctionement en mode "Command"
@@ -52,12 +54,13 @@ namespace CommonLib
         /// <summary>
         /// Constructeur par défaut
         /// </summary>
-        public BTScreen()
+        public BTScreen(BTDoc document)
         {
             m_GestControl = new GestControl();
             m_GestControl.DoSendMessage += new SendMessage(this.ObjectSendMessage);
             m_ScriptContainer["EvtScreen"] = new string[1];
             m_ScriptContainer["InitScreen"] = new string[1];
+            m_Document = document;
         }
         #endregion
 
@@ -168,7 +171,7 @@ namespace CommonLib
         /// <param name="Node">Noeud Xml de l'objet</param>
         /// <param name="TypeApp">type d'application courante</param>
         /// <returns>true si la lecture s'est bien passé</returns>
-        public override bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
+        public override bool ReadIn(XmlNode Node, BTDoc document)
         {
             System.Diagnostics.Debug.Assert(false);
             return false;
@@ -181,9 +184,9 @@ namespace CommonLib
         /// <param name="TypeApp">type d'application courante</param>
         /// <param name="GestDLL">Getsionnaire des DLL plugin</param>
         /// <returns>true si la lecture s'est bien passé</returns>
-        public bool ReadIn(XmlNode Node, TYPE_APP TypeApp, DllControlGest GestDLL)
+        public bool ReadIn(XmlNode Node, BTDoc document, DllControlGest GestDLL)
         {
-            if (!base.ReadIn(Node, TypeApp))
+            if (!base.ReadIn(Node, document))
                 return false;
             // on prend d'abord le text
             XmlNode TitleAttrib = Node.Attributes.GetNamedItem(XML_CF_ATTRIB.Text.ToString());
@@ -213,7 +216,7 @@ namespace CommonLib
                             // ceci ne peux pas être fait de la même manière en mode Config ou en mode Command
                             // dans le cas ou on est en mode config, on crée des objet BTControl
                             // qui utiliseront un intercative control dans le designer
-                            if (TypeApp == TYPE_APP.SMART_CONFIG)
+                            if (document.TypeApp == TYPE_APP.SMART_CONFIG)
                             {
 
                                 // on parcour la liste des control
@@ -222,18 +225,18 @@ namespace CommonLib
                                     XmlNode NodeControl = ChildNode.ChildNodes[j];
                                     if (NodeControl.Name == XML_CF_TAG.Control.ToString())
                                     {
-                                        BTControl Control = new BTControl();
-                                        if (!Control.ReadIn(NodeControl, TypeApp))
+                                        BTControl Control = new BTControl(m_Document);
+                                        if (!Control.ReadIn(NodeControl, document))
                                             return false;
 
                                         m_GestControl.AddObj(Control);
                                     }
                                     else if (NodeControl.Name == XML_CF_TAG.SpecificControl.ToString())
                                     {
-                                        BTControl Control = SpecificControlParser.ParseAndCreateSpecificControl(NodeControl);
+                                        BTControl Control = SpecificControlParser.ParseAndCreateSpecificControl(NodeControl, m_Document);
                                         if (Control != null)
                                         {
-                                            if (!Control.ReadIn(NodeControl, TypeApp))
+                                            if (!Control.ReadIn(NodeControl, document))
                                                 return false;
                                             m_GestControl.AddObj(Control);
                                         }
@@ -243,10 +246,10 @@ namespace CommonLib
                                         uint DllID= SpecificControlParser.ParseDllID(NodeControl);
                                         if (GestDLL[DllID] != null)
                                         {
-                                            BTControl Control = GestDLL[DllID].CreateBTControl();
+                                            BTControl Control = GestDLL[DllID].CreateBTControl(m_Document);
                                             if (Control != null)
                                             {
-                                                if (!Control.ReadIn(NodeControl, TypeApp))
+                                                if (!Control.ReadIn(NodeControl, document))
                                                     return false;
                                                 m_GestControl.AddObj(Control);
                                             }
@@ -279,9 +282,9 @@ namespace CommonLib
                                 }
                             }
                             // sinon on effectue une lecture spéciale mode Command
-                            else if (TypeApp == TYPE_APP.SMART_COMMAND)
+                            else if (document.TypeApp == TYPE_APP.SMART_COMMAND)
                             {
-                                if (!ReadControlForCommandMode(ChildNode, GestDLL))
+                                if (!ReadControlForCommandMode(ChildNode, document, GestDLL))
                                     return false;
                             }
                             else
@@ -342,7 +345,7 @@ namespace CommonLib
         /// <param name="Node">Noeud Xml de l'objet</param>
         /// <param name="GestDLL">Getsionnaire des DLL plugin</param>
         /// <returns>true si la lecture s'est bien passé</returns>
-        private bool ReadControlForCommandMode(XmlNode Node, DllControlGest GestDll)
+        private bool ReadControlForCommandMode(XmlNode Node, BTDoc document, DllControlGest GestDll)
         {
             // En mode Commande on doit crée des objets pouvant afficher des vrais controls du framework
             // ceci est fait grace aux objets "baseControl" et dérivés
@@ -370,28 +373,28 @@ namespace CommonLib
                     switch (TypeId)
                     {
                         case CONTROL_TYPE.BUTTON:
-                            NewControl = new ButtonControl();
-                            NewControl.ReadIn(ChildNode, TYPE_APP.SMART_COMMAND);
+                            NewControl = new ButtonControl(m_Document);
+                            NewControl.ReadIn(ChildNode, document);
                             break;
                         case CONTROL_TYPE.CHECK:
-                            NewControl = new CheckControl();
-                            NewControl.ReadIn(ChildNode, TYPE_APP.SMART_COMMAND);
+                            NewControl = new CheckControl(m_Document);
+                            NewControl.ReadIn(ChildNode, document);
                             break;
                         case CONTROL_TYPE.COMBO:
-                            NewControl = new ComboControl();
-                            NewControl.ReadIn(ChildNode, TYPE_APP.SMART_COMMAND);
+                            NewControl = new ComboControl(m_Document);
+                            NewControl.ReadIn(ChildNode, document);
                             break;
                         case CONTROL_TYPE.SLIDER:
-                            NewControl = new SliderControl();
-                            NewControl.ReadIn(ChildNode, TYPE_APP.SMART_COMMAND);
+                            NewControl = new SliderControl(m_Document);
+                            NewControl.ReadIn(ChildNode, document);
                             break;
                         case CONTROL_TYPE.STATIC:
-                            NewControl = new StaticControl();
-                            NewControl.ReadIn(ChildNode, TYPE_APP.SMART_COMMAND);
+                            NewControl = new StaticControl(m_Document);
+                            NewControl.ReadIn(ChildNode, document);
                             break;
                         case CONTROL_TYPE.UP_DOWN:
-                            NewControl = new UpDownControl();
-                            NewControl.ReadIn(ChildNode, TYPE_APP.SMART_COMMAND);
+                            NewControl = new UpDownControl(m_Document);
+                            NewControl.ReadIn(ChildNode, document);
                             break;
                         case CONTROL_TYPE.SPECIFIC:
                             System.Diagnostics.Debug.Assert(false);
@@ -415,12 +418,12 @@ namespace CommonLib
                     switch (ControlType)
                     {
                         case SPECIFIC_TYPE.FILLED_RECT:
-                            NewControl = new FilledRectControl();
-                            NewControl.ReadIn(ChildNode, TYPE_APP.SMART_COMMAND);
+                            NewControl = new FilledRectControl(m_Document);
+                            NewControl.ReadIn(ChildNode, document);
                             break;
                         case SPECIFIC_TYPE.FILLED_ELLIPSE:
-                            NewControl = new FilledEllipseControl();
-                            NewControl.ReadIn(ChildNode, TYPE_APP.SMART_COMMAND);
+                            NewControl = new FilledEllipseControl(m_Document);
+                            NewControl.ReadIn(ChildNode, document);
                             break;
                         case SPECIFIC_TYPE.NULL:
                         default:
@@ -436,8 +439,8 @@ namespace CommonLib
                 else if (ChildNode.Name == XML_CF_TAG.DllControl.ToString())
                 {
                     uint DllID = SpecificControlParser.ParseDllID(ChildNode);
-                    BTControl NewControl = GestDll[DllID].CreateCommandBTControl();
-                    NewControl.ReadIn(ChildNode, TYPE_APP.SMART_COMMAND);
+                    BTControl NewControl = GestDll[DllID].CreateCommandBTControl(m_Document);
+                    NewControl.ReadIn(ChildNode, document);
                     if (NewControl != null)
                     {
                         NewControl.EventAddLogEvent += new AddLogEventDelegate(this.AddLogEvent);
@@ -459,10 +462,10 @@ namespace CommonLib
         /// <param name="XmlDoc">Document XML courant</param>
         /// <param name="Node">Noeud parent du controle dans le document</param>
         /// <returns>true si l'écriture s'est déroulée avec succès</returns>
-        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
+        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node, BTDoc document)
         {
             // on écrit les attributs de l'écran
-            base.WriteOut(XmlDoc, Node);
+            base.WriteOut(XmlDoc, Node, document);
             XmlAttribute TitleAttrib = XmlDoc.CreateAttribute(XML_CF_ATTRIB.Text.ToString());
             TitleAttrib.Value = this.Title;
             Node.Attributes.Append(TitleAttrib);
@@ -476,7 +479,7 @@ namespace CommonLib
             for (int i = 0; i < this.m_GestControl.Count; i++)
             {
                 BTControl dt = (BTControl)m_GestControl[i];
-                dt.WriteOut(XmlDoc, XmlControlList);
+                dt.WriteOut(XmlDoc, XmlControlList, document);
             }
             // on écrit les scripts
             for (int i = 0; i < m_ScriptContainer["InitScreen"].Length; i++)
@@ -501,9 +504,7 @@ namespace CommonLib
             }
             // et le chemin du de l'image de fond
             XmlNode NodeImage = XmlDoc.CreateElement(XML_CF_TAG.ImagePath.ToString());
-            string strTemp = PathTranslator.AbsolutePathToRelative(m_strBackPictureFile);
-            strTemp = PathTranslator.LinuxVsWindowsPathStore(strTemp);
-            XmlNode NodeTextImage = XmlDoc.CreateTextNode(strTemp);
+            XmlNode NodeTextImage = XmlDoc.CreateTextNode(m_strBackPictureFile);
             NodeImage.AppendChild(NodeTextImage);
             Node.AppendChild(NodeImage);
             return true;
@@ -543,7 +544,7 @@ namespace CommonLib
                 this.m_DynamicPanel.MyInitializeComponent(m_ListControls);
                 // on ajuste la taille du dynamic Panel
                 m_DynamicPanel.Size = new Size(pt.X + 10, pt.Y + 10);
-                string strImageFullPath = PathTranslator.RelativePathToAbsolute(BackPictureFile);
+                string strImageFullPath = Doc.PathTr.RelativePathToAbsolute(BackPictureFile);
                 strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
                 try
                 {

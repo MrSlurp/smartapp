@@ -35,7 +35,6 @@ namespace SmartApp.Ihm
             this.m_colDataCount = new System.Windows.Forms.ColumnHeader();
             this.m_TabCtrl = new System.Windows.Forms.TabControl();
             this.m_TabPageFrameProp = new System.Windows.Forms.TabPage();
-            this.m_PanelFrameProp = new SmartApp.Ihm.FramePropertiesControl();
             this.m_TabPageFrameData = new System.Windows.Forms.TabPage();
             this.m_ListViewFrameData = new System.Windows.Forms.ListView();
             this.m_colDataSymbol = new System.Windows.Forms.ColumnHeader();
@@ -127,7 +126,6 @@ namespace SmartApp.Ihm
             // 
             // m_TabPageFrameProp
             // 
-            this.m_TabPageFrameProp.Controls.Add(this.m_PanelFrameProp);
             this.m_TabPageFrameProp.Location = new System.Drawing.Point(4, 22);
             this.m_TabPageFrameProp.Name = "m_TabPageFrameProp";
             this.m_TabPageFrameProp.Padding = new System.Windows.Forms.Padding(3);
@@ -135,26 +133,6 @@ namespace SmartApp.Ihm
             this.m_TabPageFrameProp.TabIndex = 0;
             this.m_TabPageFrameProp.Text = "Frame properties";
             this.m_TabPageFrameProp.UseVisualStyleBackColor = true;
-            // 
-            // m_PanelFrameProp
-            // 
-            this.m_PanelFrameProp.BackColor = System.Drawing.Color.Transparent;
-            this.m_PanelFrameProp.ConvFrom = -1;
-            this.m_PanelFrameProp.ConvTo = -1;
-            this.m_PanelFrameProp.ConvType = "";
-            this.m_PanelFrameProp.CtrlDataFrom = -1;
-            this.m_PanelFrameProp.CtrlDataSize = 8;
-            this.m_PanelFrameProp.CtrlDataTo = -1;
-            this.m_PanelFrameProp.CtrlDataType = "";
-            this.m_PanelFrameProp.Description = "";
-            this.m_PanelFrameProp.Doc = null;
-            this.m_PanelFrameProp.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.m_PanelFrameProp.Location = new System.Drawing.Point(3, 3);
-            this.m_PanelFrameProp.Name = "m_PanelFrameProp";
-            this.m_PanelFrameProp.Size = new System.Drawing.Size(418, 384);
-            this.m_PanelFrameProp.Symbol = "";
-            this.m_PanelFrameProp.TabIndex = 0;
-            this.m_PanelFrameProp.Trame = null;
             // 
             // m_TabPageFrameData
             // 
@@ -222,7 +200,6 @@ namespace SmartApp.Ihm
             this.Name = "FrameForm";
             this.ShowIcon = false;
             this.Text = "Frames configuration";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnFormClosing);
             this.m_MainSplitter.Panel1.ResumeLayout(false);
             this.m_MainSplitter.Panel2.ResumeLayout(false);
             this.m_MainSplitter.ResumeLayout(false);
@@ -247,7 +224,6 @@ namespace SmartApp.Ihm
         private System.Windows.Forms.ColumnHeader m_colDataSize;
         private System.Windows.Forms.ColumnHeader m_colConst;
         private System.Windows.Forms.ColumnHeader m_colDefVal;
-        private SmartApp.Ihm.FramePropertiesControl m_PanelFrameProp;
         private System.Windows.Forms.Button m_btnNew;
 
     }

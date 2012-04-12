@@ -7,17 +7,15 @@ using System.Data;
 using System.Text;
 using System.IO;
 using System.Windows.Forms;
-using CommonLib;
 
 
-namespace SmartApp.Ihm
+namespace CommonLib
 {
 
-    public partial class LoggerPropertiesControl : UserControl, ILangReloadable
+    public partial class LoggerPropertiesPanel : BaseObjectPropertiesPanel, IObjectPropertyPanel
     {
         #region données membres
         private Logger m_Logger = null;
-        private BTDoc m_Document = null;
         CComboData[] m_TabCboLogType;
         CComboData[] m_TabCboSeparator;
         CComboData[] m_TabNamingType;
@@ -57,7 +55,7 @@ namespace SmartApp.Ihm
         /// <summary>
         /// 
         /// </summary>
-        public Logger Logger
+        public BaseObject ConfiguredItem
         {
             get
             {
@@ -65,38 +63,17 @@ namespace SmartApp.Ihm
             }
             set
             {
-                m_Logger = value;
-                if (m_Logger != null)
-                {
-                    this.Enabled = true;
-                    this.Description = m_Logger.Description;
-                    this.Symbol = m_Logger.Symbol;
-                    this.LogType = m_Logger.LogType;
-                    this.Period = m_Logger.Period;
-                    this.LogFile = m_Logger.LogFile;
-                    this.AutoStart = m_Logger.AutoStart;
-                    this.CsvSeperator = m_Logger.CsvSeperator;
-                    this.LoggerMode = m_Logger.LoggerMode;
-                    this.DateFormatString = m_Logger.DateFormatString;
-                    this.DoNotKeepFileOpen = m_Logger.DoNotKeepFileOpen;
-                }
-                else
-                {
-                    this.Description = "";
-                    this.Symbol = "";
-                    this.Enabled = false;
-                    this.LogType = LOGGER_TYPE.STANDARD.ToString();
-                    this.Period = 200;
-                    this.LogFile = "";
-                    this.AutoStart = false;
-                    this.CsvSeperator = '\t';
-                    this.LoggerMode = Logger.LogMode.none;
-                    this.DateFormatString = "";
-                    this.DoNotKeepFileOpen = false;
-                }
-                this.InitListViewData();
-                this.UpdateFromLogType();
+                m_Logger = value as Logger;
             }
+        }
+
+        public BaseGest ConfiguredItemGest
+        {
+            get
+            {
+                return m_Document.GestLogger;
+            }
+            set { }
         }
 
         /// <summary>
@@ -138,7 +115,7 @@ namespace SmartApp.Ihm
         /// <summary>
         /// 
         /// </summary>
-        public LoggerPropertiesControl()
+        public LoggerPropertiesPanel()
         {
             InitializeComponent();
             LoadNonStandardLang();
@@ -154,17 +131,17 @@ namespace SmartApp.Ihm
         public void LoadNonStandardLang()
         {
             m_TabCboLogType = new CComboData[2];
-            m_TabCboLogType[0] = new CComboData(Program.LangSys.C("Normal"), (object)LOGGER_TYPE.STANDARD.ToString());
-            m_TabCboLogType[1] = new CComboData(Program.LangSys.C("Auto"), (object)LOGGER_TYPE.AUTO.ToString());
+            m_TabCboLogType[0] = new CComboData(Lang.LangSys.C("Normal"), (object)LOGGER_TYPE.STANDARD.ToString());
+            m_TabCboLogType[1] = new CComboData(Lang.LangSys.C("Auto"), (object)LOGGER_TYPE.AUTO.ToString());
             m_cboLogType.ValueMember = "Object";
             m_cboLogType.DisplayMember = "DisplayedString";
             m_cboLogType.DataSource = m_TabCboLogType;
             m_cboLogType.SelectedIndex = 0;
 
             m_TabCboSeparator = new CComboData[3];
-            m_TabCboSeparator[0] = new CComboData(Program.LangSys.C("Tabulation"), '\t');
-            m_TabCboSeparator[1] = new CComboData(Program.LangSys.C("Semi colon"), ';');
-            m_TabCboSeparator[2] = new CComboData(Program.LangSys.C("Coma"), ',');
+            m_TabCboSeparator[0] = new CComboData(Lang.LangSys.C("Tabulation"), '\t');
+            m_TabCboSeparator[1] = new CComboData(Lang.LangSys.C("Semi colon"), ';');
+            m_TabCboSeparator[2] = new CComboData(Lang.LangSys.C("Coma"), ',');
 
             m_cboSeparator.ValueMember = "Object";
             m_cboSeparator.DisplayMember = "DisplayedString";
@@ -172,9 +149,9 @@ namespace SmartApp.Ihm
             m_cboSeparator.SelectedIndex = 0;
 
             m_TabNamingType = new CComboData[3];
-            m_TabNamingType[0] = new CComboData(Program.LangSys.C("None"), Logger.LogMode.none);
-            m_TabNamingType[1] = new CComboData(Program.LangSys.C("Auto number"), Logger.LogMode.autoNum);
-            m_TabNamingType[2] = new CComboData(Program.LangSys.C("Auto date time"), Logger.LogMode.autoDated);
+            m_TabNamingType[0] = new CComboData(Lang.LangSys.C("None"), Logger.LogMode.none);
+            m_TabNamingType[1] = new CComboData(Lang.LangSys.C("Auto number"), Logger.LogMode.autoNum);
+            m_TabNamingType[2] = new CComboData(Lang.LangSys.C("Auto date time"), Logger.LogMode.autoDated);
 
             m_cboNaming.ValueMember = "Object";
             m_cboNaming.DisplayMember = "DisplayedString";
@@ -184,36 +161,6 @@ namespace SmartApp.Ihm
         #endregion
 
         #region attribut d'accès aux valeurs de la page de propriété
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Description
-        {
-            get
-            {
-                return m_richTextDesc.Text;
-            }
-            set
-            {
-                m_richTextDesc.Text = value;
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Symbol
-        {
-            get
-            {
-                return m_textSymbol.Text;
-            }
-            set
-            {
-                m_textSymbol.Text = value;
-            }
-        }
-
         /// <summary>
         /// 
         /// </summary>
@@ -286,6 +233,9 @@ namespace SmartApp.Ihm
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string DateFormatString
         {
             get
@@ -298,6 +248,9 @@ namespace SmartApp.Ihm
             }
         }
         
+        /// <summary>
+        /// 
+        /// </summary>
         public bool DoNotKeepFileOpen
         {
             get
@@ -315,19 +268,13 @@ namespace SmartApp.Ihm
         /// <summary>
         /// 
         /// </summary>
-        public bool IsDataValuesValid
+        public override bool IsObjectPropertiesValid
         {
             get
             {
-                if (this.Logger == null)
+                if (this.m_Logger == null)
                     return true;
-
-                if (string.IsNullOrEmpty(this.Symbol))
-                    return false;
                 bool bRet = true;
-                Logger dt = (Logger)this.GestLogger.GetFromSymbol(this.Symbol);
-                if (dt != null && dt != this.Logger)
-                    bRet = false;
                 if (string.IsNullOrEmpty(this.LogFile))
                     bRet = false;
 
@@ -360,34 +307,23 @@ namespace SmartApp.Ihm
        /// 
        /// </summary>
        /// <returns></returns>
-        public bool ValidateValues()
+        public override bool ValidateProperties()
         {
-            if (this.Logger == null)
+            if (this.m_Logger == null)
                 return true;
 
             bool bRet = true;
             string strMessage = "";
-            if (string.IsNullOrEmpty(this.Symbol))
-            {
-                strMessage = Program.LangSys.C("Symbol must not be empty");
-                bRet = false;
-            }
-            Logger Sc = (Logger)GestLogger.GetFromSymbol(this.Symbol);
-            if (bRet && Sc != null && Sc != this.Logger)
-            {
-                strMessage = string.Format(Program.LangSys.C("A Logger with symbol {0} already exist"), Symbol);
-                bRet = false;
-            }
             if (bRet && string.IsNullOrEmpty(this.LogFile))
             {
-                strMessage = string.Format(Program.LangSys.C("Logger output filename must not be empty"));
+                strMessage = string.Format(Lang.LangSys.C("Logger output filename must not be empty"));
                 bRet = false;
             }
             if (bRet && (this.LoggerMode == Logger.LogMode.autoDated))
             {
                 if (string.IsNullOrEmpty(this.DateFormatString))
                 {
-                    strMessage = string.Format(Program.LangSys.C("Logger date time format must not be empty"));
+                    strMessage = string.Format(Lang.LangSys.C("Logger date time format must not be empty"));
                     bRet = false;
                 }
                 else
@@ -398,7 +334,7 @@ namespace SmartApp.Ihm
                     {
                         if (illegal.Contains(c.ToString()))
                         {
-                            strMessage = string.Format(Program.LangSys.C("Following chars can't be used for file names : ") + illegachars);
+                            strMessage = string.Format(Lang.LangSys.C("Following chars can't be used for file names : ") + illegachars);
                             bRet = false;
                             break;
                         }
@@ -408,15 +344,34 @@ namespace SmartApp.Ihm
 
             if (!bRet)
             {
-                MessageBox.Show(strMessage, Program.LangSys.C("Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(strMessage, Lang.LangSys.C("Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return bRet;
             }
 
+            return true;
+        }
+
+        public void ObjectToPanel()
+        {
+            if (m_Logger != null)
+            {
+                this.Enabled = true;
+                this.LogType = m_Logger.LogType;
+                this.Period = m_Logger.Period;
+                this.LogFile = m_Logger.LogFile;
+                this.AutoStart = m_Logger.AutoStart;
+                this.CsvSeperator = m_Logger.CsvSeperator;
+                this.LoggerMode = m_Logger.LoggerMode;
+                this.DateFormatString = m_Logger.DateFormatString;
+                this.DoNotKeepFileOpen = m_Logger.DoNotKeepFileOpen;
+            }
+            this.InitListViewData();
+            this.UpdateFromLogType();
+        }
+
+        public void PanelToObject()
+        {
             bool bDataPropChange = false;
-            if (m_Logger.Description != this.Description)
-                bDataPropChange |= true;
-            if (m_Logger.Symbol != this.Symbol)
-                bDataPropChange |= true;
 
             if (m_Logger.LogType != this.LogType)
                 bDataPropChange |= true;
@@ -445,8 +400,6 @@ namespace SmartApp.Ihm
 
             if (bDataPropChange)
             {
-                m_Logger.Description = this.Description;
-                m_Logger.Symbol = this.Symbol;
                 m_Logger.LogType = this.LogType;
                 m_Logger.Period = this.Period;
                 m_Logger.LogFile = this.LogFile;
@@ -457,21 +410,9 @@ namespace SmartApp.Ihm
                 m_Logger.DoNotKeepFileOpen = this.DoNotKeepFileOpen;
                 Doc.Modified = true;
             }
-            
+
             if (bDataPropChange && LoggerPropChange != null)
                 LoggerPropChange(m_Logger);
-            return true;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void PropertiesControlValidating(object sender, CancelEventArgs e)
-        {
-            if (!ValidateValues())
-                e.Cancel = true;
         }
         #endregion
 
@@ -483,9 +424,9 @@ namespace SmartApp.Ihm
         public void InitListViewData()
         {
             m_ListViewData.Items.Clear();
-            if (this.Logger == null)
+            if (this.m_Logger == null)
                 return;
-            StringCollection Lst = this.Logger.LoggerDatas;
+            StringCollection Lst = this.m_Logger.LoggerDatas;
             if (Lst != null)
             {
                 for (int i = 0; i < Lst.Count; i++)
@@ -566,13 +507,13 @@ namespace SmartApp.Ihm
         /// </summary>
         private void UpdateLoggerDataListFromListView()
         {
-            if (this.Logger == null)
+            if (this.m_Logger == null)
                 return;
 
-            this.Logger.LoggerDatas.Clear();
+            this.m_Logger.LoggerDatas.Clear();
             for (int i = 0; i < m_ListViewData.Items.Count; i++)
             {
-                this.Logger.LoggerDatas.Add(m_ListViewData.Items[i].Text);
+                this.m_Logger.LoggerDatas.Add(m_ListViewData.Items[i].Text);
             }
 
         }
@@ -615,22 +556,22 @@ namespace SmartApp.Ihm
                 case Logger.LogMode.autoNum:
                     edtDateFormat.Enabled = false;
                     edtFormatHelp.Text = 
-                    Program.LangSys.C(@"Add automaticaly an auto incremented number to the file name.")+ "\r\n" +
-                    Program.LangSys.C(@"The choosen number will be the first available (no existing file) from 1 to N");
+                    Lang.LangSys.C(@"Add automaticaly an auto incremented number to the file name.")+ "\r\n" +
+                    Lang.LangSys.C(@"The choosen number will be the first available (no existing file) from 1 to N");
                     break;
                 case Logger.LogMode.autoDated:
                     edtDateFormat.Enabled = true;
                     edtFormatHelp.Text =
-                    Program.LangSys.C(@"Add automaticaly date and time according to the specified format string.") + "\r\n" +
-                    Program.LangSys.C(@"yyyy : years") + "\r\n" +
-                    Program.LangSys.C(@"MM : months") + "\r\n" +
-                    Program.LangSys.C(@"dd : days") + "\r\n" +
-                    Program.LangSys.C(@"HH : hours (24h format)") + "\r\n" +
-                    Program.LangSys.C(@"hh : hours (12h format)") + "\r\n" +
-                    Program.LangSys.C(@"mm : minutes") + "\r\n" +
-                    Program.LangSys.C(@"ss : seconds") + "\r\n" +
-                    Program.LangSys.C(@"tt : PM/AM") + "\r\n" +
-                    Program.LangSys.C(@"(you can add any other text you want since there is not file name forbidden characters)");
+                    Lang.LangSys.C(@"Add automaticaly date and time according to the specified format string.") + "\r\n" +
+                    Lang.LangSys.C(@"yyyy : years") + "\r\n" +
+                    Lang.LangSys.C(@"MM : months") + "\r\n" +
+                    Lang.LangSys.C(@"dd : days") + "\r\n" +
+                    Lang.LangSys.C(@"HH : hours (24h format)") + "\r\n" +
+                    Lang.LangSys.C(@"hh : hours (12h format)") + "\r\n" +
+                    Lang.LangSys.C(@"mm : minutes") + "\r\n" +
+                    Lang.LangSys.C(@"ss : seconds") + "\r\n" +
+                    Lang.LangSys.C(@"tt : PM/AM") + "\r\n" +
+                    Lang.LangSys.C(@"(you can add any other text you want since there is not file name forbidden characters)");
                     break;
             }
         }
@@ -646,7 +587,7 @@ namespace SmartApp.Ihm
         private void OnListViewDataDragEnter(object sender, DragEventArgs e)
         {
             Data dt = (Data)e.Data.GetData(typeof(Data));
-            if (this.Logger != null && dt != null)
+            if (this.m_Logger != null && dt != null)
             {
                 bool bFind = false;
                 for (int i = 0; i < m_ListViewData.Items.Count; i++)

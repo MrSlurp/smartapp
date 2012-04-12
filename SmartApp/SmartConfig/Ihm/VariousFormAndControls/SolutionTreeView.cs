@@ -10,6 +10,7 @@ namespace SmartApp
 {
     class SolutionTreeView : TreeView
     {
+        #region données membres
         TreeNode m_SolutionNode = new TreeNode();
         SolutionGest m_GestSolution;
         ContextMenuStrip m_CtxMenuSolution = new ContextMenuStrip();
@@ -28,9 +29,11 @@ namespace SmartApp
         BasePropertiesDialog m_PropDialog = new BasePropertiesDialog();
 
         SortedList<string, DocumentElementNode> m_ListDocument = new SortedList<string, DocumentElementNode>();
+        #endregion
 
+        #region constructeur et init
         /// <summary>
-        /// 
+        /// Constructeur
         /// </summary>
         public SolutionTreeView()
         {
@@ -52,7 +55,10 @@ namespace SmartApp
             InitContextMenu();
         }
 
-        public void InitContextMenu()
+        /// <summary>
+        /// initialise les menu contextuels
+        /// </summary>
+        private void InitContextMenu()
         {
             // menu de l'item solution
             ToolStripMenuItem item = new ToolStripMenuItem(Program.LangSys.C("Add existing project"));
@@ -60,6 +66,8 @@ namespace SmartApp
             m_CtxMenuSolution.Items.Add(item);
             item = new ToolStripMenuItem(Program.LangSys.C("Add new project"));
             item.Click += new EventHandler(CtxMenuAddNewProj_Click);
+            item = new ToolStripMenuItem(Program.LangSys.C("Open solution directory"));
+            item.Click += new EventHandler(CtxMenuOpenSolutionDir_Click);
             m_CtxMenuSolution.Items.Add(item);
 
             // menus des item document
@@ -96,10 +104,20 @@ namespace SmartApp
             item.Click += new EventHandler(CtxMenuObjectProperties_Click);
             m_CtxMenuObject.Items.Add(item);
         }
+        #endregion
 
+        #region handler souris
+        /// <summary>
+        /// gestion du click standard de la souris
+        /// </summary>
+        /// <param name="sender">standard</param>
+        /// <param name="e">standard</param>
         protected override void OnMouseClick(MouseEventArgs e)
         {
             base.OnMouseClick(e);
+            // gestion du clic souris avec le bouton droit
+            // on fixe le menu contextuel approprié au type d'objet
+            // et l'affiche si il y a lieu d'être
             if (e.Button == MouseButtons.Right)
             {
                 this.SelectedNode = this.GetNodeAt(e.X, e.Y);
@@ -107,22 +125,27 @@ namespace SmartApp
                 if (selNode == null)
                     return;
 
+                // la solution
                 if (selNode == m_SolutionNode)
                 {
                     this.ContextMenuStrip = m_CtxMenuSolution;
                 }
+                // un objet quelconque
                 else if (selNode.Tag is BaseObject)
                 {
                     this.ContextMenuStrip = m_CtxMenuObject;
                 }
+                // un groupe
                 else if (selNode.Tag is BaseGestGroup.Group)
                 {
                     this.ContextMenuStrip = m_CtxMenuGestGroups;
                 }
+                // un document
                 else if (selNode.Tag is DocumentElementNode)
                 {
                     this.ContextMenuStrip = m_CtxMenuProject;
                 }
+                // un gestionnaire de base
                 else if (selNode.Tag is BaseGest)
                 {
                     this.ContextMenuStrip = m_CtxMenuGest;
@@ -136,27 +159,90 @@ namespace SmartApp
             }
         }
 
+        /// <summary>
+        /// gestion de l'évènement double clic sur un noeud
+        /// </summary>
+        /// <param name="e">Argument de l'évènement souris</param>
+        protected override void OnMouseDoubleClick(MouseEventArgs e)
+        {
+            base.OnMouseDoubleClick(e);
+            TreeNode selNode = this.SelectedNode;
+            if (selNode.Tag is BaseObject && !(selNode.Tag is BTScreen))
+            {
+                CtxMenuObjectProperties_Click(this, e);
+            }
+            else if (selNode.Tag is BaseObject && selNode.Tag is BTScreen)
+            {
+                BTScreen scr = selNode.Tag as BTScreen;
+                m_GestSolution.OpenScreenEditor(scr.Symbol, GetDocFromParentNode(selNode));
+            }
+        }
+        #endregion
+
         #region handler context menu
+        /// <summary>
+        /// handler du menu ajouter un projet existant
+        /// </summary>
+        /// <param name="sender">standard</param>
+        /// <param name="e">standard</param>
         void CtxMenuAddExistingProj_Click(object sender, EventArgs e)
         {
         }
 
+        /// <summary>
+        /// handler du menu ouvrir le dossier de la solution
+        /// </summary>
+        /// <param name="sender">standard</param>
+        /// <param name="e">standard</param>
+        void CtxMenuOpenSolutionDir_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// handler du menu ajouter nouveau projet
+        /// </summary>
+        /// <param name="sender">standard</param>
+        /// <param name="e">standard</param>
         void CtxMenuAddNewProj_Click(object sender, EventArgs e)
         {
         }
 
+        /// <summary>
+        /// handler du menu Supprimer un projet
+        /// </summary>
+        /// <param name="sender">standard</param>
+        /// <param name="e">standard</param>
         void CtxMenuRemoveProj_Click(object sender, EventArgs e)
         {
+
         }
 
+        /// <summary>
+        /// handler du menu propriété du projet
+        /// </summary>
+        /// <param name="sender">standard</param>
+        /// <param name="e">standard</param>
         void CtxMenuProjProperties_Click(object sender, EventArgs e)
         {
+
         }
 
+        /// <summary>
+        /// handler du menu proprété d'un groupe
+        /// </summary>
+        /// <param name="sender">standard</param>
+        /// <param name="e">standard</param>
         void CtxMenuGroupProperties_Click(object sender, EventArgs e)
         {
+
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">standard</param>
+        /// <param name="e">standard</param>
         void CtxMenuObjectNew_Click(object sender, EventArgs e)
         {
             TreeNode selNode = this.SelectedNode;
@@ -167,7 +253,7 @@ namespace SmartApp
             {
                 // le noeud parent possède un tag qui est le gestionnaire
                 BaseGestGroup gest = selNode.Tag as BaseGestGroup;
-                bobj = gest.AddNewObject();
+                bobj = gest.AddNewObject(GetDocFromParentNode(selNode));
                 imgKey = selNode.ImageKey;
                 NewItemParentNode = selNode.FirstNode;
             }
@@ -175,14 +261,14 @@ namespace SmartApp
             {
                 // le noeud parent possède un tag qui est le gestionnaire
                 BaseGestGroup gest = selNode.Parent.Tag as BaseGestGroup;
-                bobj = gest.AddNewObject(selNode.Text);
+                bobj = gest.AddNewObject(GetDocFromParentNode(selNode), selNode.Text);
                 imgKey = selNode.Parent.ImageKey;
                 NewItemParentNode = selNode;
             }
             else if (selNode.Tag is BaseGest)
             {
                 BaseGest gest = selNode.Tag as BaseGest;
-                bobj = gest.AddNewObject();
+                bobj = gest.AddNewObject(GetDocFromParentNode(selNode));
                 imgKey = selNode.ImageKey;
                 NewItemParentNode = selNode;
             }
@@ -198,10 +284,21 @@ namespace SmartApp
             }
         }
 
+        /// <summary>
+        /// handler du menu supprimer un élément
+        /// </summary>
+        /// <param name="sender">standard</param>
+        /// <param name="e">standard</param>
         void CtxMenuObjectDelete_Click(object sender, EventArgs e)
         {
+
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">standard</param>
+        /// <param name="e">standard</param>
         void CtxMenuObjectProperties_Click(object sender, EventArgs e)
         {
             TreeNode selNode = this.SelectedNode;
@@ -215,33 +312,11 @@ namespace SmartApp
             }
         }
 
-        protected override void OnMouseDoubleClick(MouseEventArgs e)
-        {
-            base.OnMouseDoubleClick(e);
-            TreeNode selNode = this.SelectedNode;
-            if (selNode.Tag is BaseObject && !(selNode.Tag is BTScreen))
-            {
-                CtxMenuObjectProperties_Click(this, null);
-            }
-        }
-
-        public BTDoc GetDocFromParentNode(TreeNode node)
-        {
-            if (node.Tag is DocumentElementNode)
-            {
-                return ((DocumentElementNode)node.Tag).Document;
-            }
-            else if (node.Parent != null)
-            {
-                return GetDocFromParentNode(node.Parent);
-            }
-            return null;
-        }
         #endregion
 
         #region attributs
         /// <summary>
-        /// 
+        /// Gestionnaire de solution
         /// </summary>
         public SolutionGest SolutionGest
         {
@@ -258,10 +333,11 @@ namespace SmartApp
         }
         #endregion
 
+        #region gestion de l'ajout/suppression/modification d'un document
         /// <summary>
-        /// 
+        /// Ajout un document à l'arbre
         /// </summary>
-        /// <param name="doc"></param>
+        /// <param name="doc">Document à ajouter</param>
         public void AddDocument(BTDoc doc)
         {
             if (!this.Nodes.Contains(m_SolutionNode))
@@ -269,10 +345,13 @@ namespace SmartApp
                 this.Nodes.Add(m_SolutionNode);
             }
 
+            // noeud graphique du document
             TreeNode newNode = new TreeNode();
+            // structure liant le document à un noeud et stocké dans une map
             DocumentElementNode docNode = new DocumentElementNode();
             docNode.Document = doc;
             docNode.DocNode = newNode;
+            // on définit l'icone du noeud document
             newNode.ImageKey = "Document";
             newNode.StateImageKey = "Document";
             newNode.SelectedImageKey = "Document";
@@ -286,13 +365,16 @@ namespace SmartApp
             m_SolutionNode.Expand();
         }
 
+        /// <summary>
+        /// Appelé lorsque le document est modifié
+        /// </summary>
         protected void OnDocumentModified()
         {
-            UpdateNodeFromTag(m_SolutionNode);
+            //UpdateNodeFromTag(m_SolutionNode);
         }
 
         /// <summary>
-        /// 
+        /// Enlève un document de l'arbre
         /// </summary>
         /// <param name="doc"></param>
         public void RemoveDocument(BTDoc doc)
@@ -304,9 +386,9 @@ namespace SmartApp
         }
 
         /// <summary>
-        /// 
+        /// Ajoute les noeuds des différents gestionnaires d'objet d'un document
         /// </summary>
-        /// <param name="docName"></param>
+        /// <param name="docName">nom du document dans la map</param>
         public void AddDocumentNodeGestsNodes(string docName)
         {
             DocumentElementNode docElem = m_ListDocument[docName];
@@ -317,8 +399,16 @@ namespace SmartApp
             AddBaseGestNode(docName, docElem.Document.GestFunction, Program.LangSys.C("Functions"), "Function");
             AddBaseGestNode(docName, docElem.Document.GestLogger, Program.LangSys.C("Loggers"), "Logger");
         }
+        #endregion
 
         #region Ajout des gestionnaires
+        /// <summary>
+        /// Ajout un noeud gestionnaire standard
+        /// </summary>
+        /// <param name="docName">nom du document dans la map</param>
+        /// <param name="gest">Gestionnaire à ajouter</param>
+        /// <param name="Label">label du noeud du gestionnaire</param>
+        /// <param name="imageKey">clé de l'image du noeud dans l'arbre</param>
         public void AddBaseGestNode(string docName, BaseGest gest, string Label, string imageKey)
         {
             DocumentElementNode docElem = m_ListDocument[docName];
@@ -335,11 +425,11 @@ namespace SmartApp
         }
 
         /// <summary>
-        /// 
+        /// Ajoute le contenu d'un gestionnaire de groupe dans l'arbre
         /// </summary>
-        /// <param name="parentNode"></param>
-        /// <param name="gest"></param>
-        /// <param name="imageKey"></param>
+        /// <param name="parentNode">noeud graphique auquel ajouter les éléments</param>
+        /// <param name="gest">Gestionnaire de groupe dont les éléments doivent être insérés</param>
+        /// <param name="imageKey">clé de l'image du noeud dans l'arbre</param>
         private void AddGestGroupContent(TreeNode parentNode, BaseGestGroup gest, string imageKey)
         {
             for (int i = 0; i < gest.GroupCount; i++)
@@ -364,11 +454,11 @@ namespace SmartApp
         }
 
         /// <summary>
-        /// 
+        /// Ajoute le contenu d'un gestionnaire de base dans l'arbre
         /// </summary>
-        /// <param name="parentNode"></param>
-        /// <param name="gest"></param>
-        /// <param name="imageKey"></param>
+        /// <param name="parentNode">noeud graphique auquel ajouter les éléments</param>
+        /// <param name="gest">Gestionnaire dont les éléments doivent être insérés</param>
+        /// <param name="imageKey">clé de l'image du noeud dans l'arbre</param>
         private void AddBaseGestContent(TreeNode parentNode, BaseGest gest, string imageKey)
         {
             for (int i = 0; i < gest.Count; i++ )
@@ -384,8 +474,28 @@ namespace SmartApp
         }
         #endregion
 
+        #region utilitaires
         /// <summary>
-        /// 
+        /// Obtient le document proprétaire d'un noeud
+        /// </summary>
+        /// <param name="node">Noeud dont on souhaite récupérer le document</param>
+        /// <returns></returns>
+        public BTDoc GetDocFromParentNode(TreeNode node)
+        {
+            if (node.Tag is DocumentElementNode)
+            {
+                return ((DocumentElementNode)node.Tag).Document;
+            }
+            else if (node.Parent != null)
+            {
+                return GetDocFromParentNode(node.Parent);
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Met a jour le texte du noeud passé en paramètre et tous ses enfants
+        /// à partir de l'élément stocké dans le tag
         /// </summary>
         /// <param name="node"></param>
         private void UpdateNodeFromTag(TreeNode node)
@@ -400,10 +510,11 @@ namespace SmartApp
         }
 
         /// <summary>
-        /// 
+        /// Obtient le texte à afficher pour un noeud à partir d'un objet
+        /// (actuellement ne fonctionne que pour les BaseObject
         /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
+        /// <param name="obj">tag du TreeNode</param>
+        /// <returns>Texte à afficher</returns>
         public string GetLabelFromTag(object obj)
         {
             if (obj is BaseObject)
@@ -414,5 +525,6 @@ namespace SmartApp
             else
                 return null;
         }
+        #endregion
     }
 }

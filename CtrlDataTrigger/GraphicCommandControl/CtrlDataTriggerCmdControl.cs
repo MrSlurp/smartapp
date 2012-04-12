@@ -24,7 +24,8 @@ namespace CtrlDataTrigger
         // Description:
         // Return: /
         //*****************************************************************************************************
-        public CtrlDataTriggerCmdControl()
+        public CtrlDataTriggerCmdControl(BTDoc document)
+            : base(document)
         {
 
         }

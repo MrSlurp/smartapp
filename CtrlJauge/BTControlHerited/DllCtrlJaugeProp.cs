@@ -55,7 +55,7 @@ namespace CtrlJauge
             { m_ColorMax = value; }
         }
 
-        public override bool ReadIn(System.Xml.XmlNode Node)
+        public override bool ReadIn(XmlNode Node, BTDoc document)
         {
             XmlNode AttrColorMin = Node.Attributes.GetNamedItem(COLOR_MIN);
             XmlNode AttrColorMax = Node.Attributes.GetNamedItem(COLOR_MAX);
@@ -71,7 +71,7 @@ namespace CtrlJauge
             return true;
         }
 
-        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
+        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node, BTDoc document)
         {
             XmlAttribute AttrColorMin = XmlDoc.CreateAttribute(COLOR_MIN);
             XmlAttribute AttrColorMax = XmlDoc.CreateAttribute(COLOR_MAX);
@@ -85,7 +85,7 @@ namespace CtrlJauge
             return true;
         }
 
-        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance)
+        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance, BTDoc document)
         {
             Orientation = ((DllCtrlJaugeProp)SrcSpecificProp).Orientation;
             ColorMin = ((DllCtrlJaugeProp)SrcSpecificProp).ColorMin;

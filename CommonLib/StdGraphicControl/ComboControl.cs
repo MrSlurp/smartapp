@@ -25,7 +25,7 @@ namespace CommonLib
         /// <summary>
         /// constructeur
         /// </summary>
-        public ComboControl()
+        public ComboControl(BTDoc document) : base(document)
         {
             m_ArrayComboValue = new ArrayList();
             m_ListStrValues = new string[Cste.MAX_COMBO_ITEMS];

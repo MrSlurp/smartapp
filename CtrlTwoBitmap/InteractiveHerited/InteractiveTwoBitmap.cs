@@ -13,7 +13,7 @@ namespace CtrlTwoBitmap
 {
     public partial class InteractiveTwoBitmap : InteractiveControl, ISpecificControl
     {
-        UserControl m_SpecificPropPanel = new TwoBitmapProperties();
+        static UserControl m_SpecificPropPanel = new TwoBitmapProperties();
         StandardPropEnabling m_stdPropEnabling = new StandardPropEnabling();
         SpecificGraphicProp m_SpecGraphicProp = new SpecificGraphicProp();
 
@@ -92,7 +92,7 @@ namespace CtrlTwoBitmap
                 {
                     if (((TwoBitmapProp)this.SourceBTControl.SpecificProp).NomFichierInactif != m_strImgInactive)
                     {
-                        m_strImgInactive = PathTranslator.RelativePathToAbsolute(((TwoBitmapProp)this.SourceBTControl.SpecificProp).NomFichierInactif);
+                        m_strImgInactive = SourceBTControl.Document.PathTr.RelativePathToAbsolute(((TwoBitmapProp)this.SourceBTControl.SpecificProp).NomFichierInactif);
                         m_strImgInactive = PathTranslator.LinuxVsWindowsPathUse(m_strImgInactive);
                         string strImageFullPath = m_strImgInactive;
                         m_BmpInact = new Bitmap(strImageFullPath);

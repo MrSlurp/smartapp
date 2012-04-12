@@ -33,7 +33,7 @@ namespace CtrlDemux
             CopyOutputDataFromListView(m_Props.ListDemuxData);
             m_Props.AdressData = edtAddrData.Text;
             m_Props.ValueData = edtValueData.Text;
-            m_Control.SpecificProp.CopyParametersFrom(m_Props, false);
+            m_Control.SpecificProp.CopyParametersFrom(m_Props, false, this.Document);
             Document.Modified = true;
 
             if (ControlPropertiesChanged != null)
@@ -42,7 +42,7 @@ namespace CtrlDemux
 
         public void ObjectToPanel()
         {
-            m_Props.CopyParametersFrom(m_Control.SpecificProp, false);
+            m_Props.CopyParametersFrom(m_Control.SpecificProp, false, this.Document);
             edtAddrData.Text = m_Props.AdressData;
             edtValueData.Text = m_Props.ValueData;
             CopyOutputDataToListView(m_Props.ListDemuxData);

@@ -17,7 +17,7 @@ namespace ImageButton
     public partial class InteractiveImageButtonDllControl : InteractiveControl, ISpecificControl
     {
         // panneau des propriété de l'objet
-        UserControl m_SpecificPropPanel = new ImageButtonProperties();
+        static UserControl m_SpecificPropPanel = new ImageButtonProperties();
         // proriétés d'activation des paramètres standard des controls
         StandardPropEnabling m_stdPropEnabling = new StandardPropEnabling();
         // propriété de comportement de l'objet dans le designer
@@ -30,9 +30,6 @@ namespace ImageButton
         public InteractiveImageButtonDllControl()
         {
             // initialisation du panneau des propriété spécifiques
-            m_SpecificPropPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            m_SpecificPropPanel.AutoSize = true;
             m_SpecificPropPanel.Name = "DllControlPropPanel";
             m_SpecificPropPanel.Text = "";
 
@@ -125,7 +122,7 @@ namespace ImageButton
                     if (SpecProps.ReleasedImage != m_strReleasedImage)
                     {
                         m_strReleasedImage = SpecProps.ReleasedImage;
-                        string sReleasedImage = PathTranslator.RelativePathToAbsolute(m_strReleasedImage);
+                        string sReleasedImage = SourceBTControl.Document.PathTr.RelativePathToAbsolute(m_strReleasedImage);
                         sReleasedImage = PathTranslator.LinuxVsWindowsPathUse(sReleasedImage);
                         Bitmap bmp = new Bitmap(sReleasedImage);
                         bmp.MakeTransparent(Color.Magenta);

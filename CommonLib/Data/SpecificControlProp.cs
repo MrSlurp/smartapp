@@ -25,7 +25,7 @@ namespace CommonLib
         /// </summary>
         /// <param name="Node">Noeud du control</param>
         /// <returns>true si la lecture c'est bien passé, sinon false</returns>
-        public abstract bool ReadIn(XmlNode Node);
+        public abstract bool ReadIn(XmlNode Node, BTDoc document);
 
         /// <summary>
         /// fonction d'écriture des propriété spécifiques
@@ -33,13 +33,13 @@ namespace CommonLib
         /// <param name="XmlDoc">Document Xml</param>
         /// <param name="Node">Noeud du control</param>
         /// <returns>true si l'écriture c'est bien passé</returns>
-        public abstract bool WriteOut(XmlDocument XmlDoc, XmlNode Node);
+        public abstract bool WriteOut(XmlDocument XmlDoc, XmlNode Node, BTDoc document);
 
         /// <summary>
         /// copy les paramètres spécifiques à l'identique
         /// </summary>
         /// <param name="SrcSpecificProp">paramètres sources</param>
-        public abstract void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance);
+        public abstract void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance, BTDoc document);
         #endregion
 
         #region methodes utiles pour la lecture et l'ecriture de script
@@ -286,7 +286,7 @@ namespace CommonLib
         /// </summary>
         /// <param name="Node">Noeud du control</param>
         /// <returns>true si la lecture c'est bien passé, sinon false</returns>
-        public override bool ReadIn(XmlNode Node)
+        public override bool ReadIn(XmlNode Node, BTDoc document)
         {
             XmlNode AttrActiveColor = Node.Attributes.GetNamedItem(XML_CF_ATTRIB.ActiveColor.ToString());
             XmlNode AttrInactiveColor = Node.Attributes.GetNamedItem(XML_CF_ATTRIB.InactiveColor.ToString());
@@ -313,7 +313,7 @@ namespace CommonLib
         /// <param name="XmlDoc">Document Xml</param>
         /// <param name="Node">Noeud du control</param>
         /// <returns>true si l'écriture c'est bien passé</returns>
-        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
+        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node, BTDoc document)
         {
             XmlAttribute AttrActColor = XmlDoc.CreateAttribute(XML_CF_ATTRIB.ActiveColor.ToString());
             XmlAttribute AttrInactColor = XmlDoc.CreateAttribute(XML_CF_ATTRIB.InactiveColor.ToString());
@@ -330,7 +330,7 @@ namespace CommonLib
         /// copie les paramètre des propriété spécifiques passé en paramètre
         /// </summary>
         /// <param name="SrcSpecificProp">propriété sources</param>
-        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance)
+        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance, BTDoc document)
         {
             ColorInactive = ((TwoColorProp)SrcSpecificProp).ColorInactive;
             ColorActive = ((TwoColorProp)SrcSpecificProp).ColorActive;

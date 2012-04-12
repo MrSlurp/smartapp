@@ -13,7 +13,7 @@ namespace CtrlDataTrigger
 {
     public partial class InteractiveCtrlDataTriggerDllControl : InteractiveControl, ISpecificControl
     {
-        UserControl m_SpecificPropPanel = new CtrlDataTriggerProperties();
+        static UserControl m_SpecificPropPanel = new CtrlDataTriggerProperties();
         StandardPropEnabling m_stdPropEnabling = new StandardPropEnabling();
         SpecificGraphicProp m_SpecGraphicProp = new SpecificGraphicProp();
 

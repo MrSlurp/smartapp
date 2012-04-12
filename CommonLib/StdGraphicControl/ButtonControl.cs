@@ -22,7 +22,8 @@ namespace CommonLib
         // Description:
         // Return: /
         //*****************************************************************************************************
-        public ButtonControl()
+        public ButtonControl(BTDoc document) 
+            : base(document)
         {
 
         }

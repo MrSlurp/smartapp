@@ -31,7 +31,7 @@ namespace ScreenItemLocker
             {
                 m_Props.ListItemSymbol.Add(lstSelected.Items[i].ToString());
             }
-            m_Control.SpecificProp.CopyParametersFrom(m_Props, false);
+            m_Control.SpecificProp.CopyParametersFrom(m_Props, false, this.Document);
             Document.Modified = true;
             if (ControlPropertiesChanged != null)
                 ControlPropertiesChanged(m_Control);
@@ -39,7 +39,7 @@ namespace ScreenItemLocker
 
         public void ObjectToPanel()
         {
-            m_Props.CopyParametersFrom(m_Control.SpecificProp, false);
+            m_Props.CopyParametersFrom(m_Control.SpecificProp, false, this.Document);
             InitCurrentSelectionList();
             InitScreenItemList();
         }

@@ -10,6 +10,7 @@ using SmartApp.Ihm;
 using SmartApp.Ihm.Wizards;
 using SmartApp.Wizards;
 using System.Reflection;
+using SmartApp.Ihm.Designer;
 using CommonLib;
 
 namespace SmartApp.Ihm
@@ -22,10 +23,11 @@ namespace SmartApp.Ihm
         private const string APP_TITLE = "SmartConfig";
         protected delegate void UpdateTitleDg(string str);
 
+        private DragItemPanel m_panelToolDragItem;
         #region données membres
         protected TraceConsole m_TraceConsole;
-        protected DesignerForm m_DesignForm;
-        SolutionGest m_GestSolution;
+        protected List<DesignerForm> m_ListDesignForm = new List<DesignerForm>();
+        protected SolutionGest m_GestSolution;
         protected FormsOptions m_FrmOpt = new FormsOptions(); 
         
         protected MruStripMenuInline m_mruStripMenu;
@@ -65,14 +67,15 @@ namespace SmartApp.Ihm
         {
             this.Text = APP_TITLE;
             if (Program.DllGest != null)
+            {
                 m_GestSolution = new SolutionGest(Program.TypeApp, Program.DllGest);
+                m_GestSolution.OnDocScreenEdit += new SolutionGest.DocumentScreenEditHandler(GestSolution_OnDocScreenEdit);
+            }
 
             this.Icon = CommonLib.Resources.AppIcon;
             string strAppDir = Application.StartupPath;
             string strIniFilePath = PathTranslator.LinuxVsWindowsPathUse(strAppDir + @"\" + Cste.STR_FORMPOSINI_FILENAME);
             m_FrmOpt.Load(strIniFilePath);
-            m_DesignForm = new DesignerForm();
-            m_DesignForm.MdiParent = this;
             m_mruStripMenu = new MruStripMenuInline(this.m_fileMenu, this.m_MruFiles, new MruStripMenu.ClickedHandler(OnMruFile), strIniFilePath);
             if (LaunchArgParser.DevMode)
             {
@@ -80,9 +83,52 @@ namespace SmartApp.Ihm
                 m_tsMenuOpenDebugConsole.Visible = true;
             }
             CentralizedFileDlg.InitPrjFileDialog(Application.StartupPath);
+            CentralizedFileDlg.InitSolFileDialog(Application.StartupPath);
             this.solutionTreeView.SolutionGest = m_GestSolution;
             UpdateFileCommand(null, null);
+
+            m_panelToolDragItem = new DragItemPanel();
+            // 
+            // m_panelToolDragItem
+            // 
+            m_panelToolDragItem.AutoScroll = true;
+            m_panelToolDragItem.BackColor = System.Drawing.Color.Transparent;
+            m_panelToolDragItem.Dock = System.Windows.Forms.DockStyle.Fill;
+            m_panelToolDragItem.Name = "m_panelToolDragItem";
+            panel1.Controls.Add(m_panelToolDragItem);
         }
+
+        void GestSolution_OnDocScreenEdit(string screenName, BTDoc document)
+        {
+            BTScreen scr = document.GestScreen.GetFromSymbol(screenName) as BTScreen;
+            foreach (DesignerForm form in this.MdiChildren)
+            {
+                if (form.Doc == document && form.CurrentScreen == scr)
+                {
+                    form.BringToFront();
+                    return;
+                }
+            }
+            DesignerForm DesignForm = new DesignerForm();
+            m_ListDesignForm.Add(DesignForm);
+            DesignForm.FormClosed += new FormClosedEventHandler(DesignFormClosed);
+            DesignForm.MdiParent = this;
+            DesignForm.Doc = document;
+            DesignForm.CurrentScreen = scr ;
+            DesignForm.Show();
+        }
+
+        void DesignFormClosed(object sender, FormClosedEventArgs e)
+        {
+            DesignerForm frm = sender as DesignerForm;
+            if (frm != null)
+            {
+                m_ListDesignForm.Remove(frm);
+                frm.Dispose();
+            }
+            
+        }
+
         #endregion
 
         #region menu edition
@@ -230,7 +276,7 @@ namespace SmartApp.Ihm
                     {
                         return;
                     }
-                    this.CloseDoc();
+                    this.CloseSolution();
 
                     m_Document = new BTDoc(Program.TypeApp);
                     OpenDocument(m_Document);
@@ -240,7 +286,7 @@ namespace SmartApp.Ihm
                 }
                 else
                 {
-                    this.CloseDoc();
+                    this.CloseSolution();
                     m_Document = new BTDoc(Program.TypeApp);
                     OpenDocument(m_Document);
                     // on ne donne pas de nom au document, comme ca on peux savoir qu'il n'a jamais été sauvé
@@ -258,8 +304,8 @@ namespace SmartApp.Ihm
         /// <param name="e"></param>
         private void OpenFile(object sender, EventArgs e)
         {
-            /*
-            if (m_Document != null && m_Document.Modified)
+            
+            if (m_GestSolution != null && m_GestSolution.HaveModifiedDocument)
             {
                 DialogResult res = ShowFileModifiedMessagebox();
                 if (res == DialogResult.Yes)
@@ -270,19 +316,22 @@ namespace SmartApp.Ihm
                 {
                     return;
                 }
-                this.CloseDoc();
-            }*/
-            DialogResult dlgRes = CentralizedFileDlg.ShowOpenPrjFileDilaog();
+                this.CloseSolution();
+            }
+            DialogResult dlgRes = CentralizedFileDlg.ShowOpenSolFileDilaog();
             if (dlgRes == DialogResult.OK)
             {
-                string strFileFullName = CentralizedFileDlg.PrjOpenFileName;
-                m_GestSolution.OpenDocument(strFileFullName);
-                /*
-                if (!OpenDoc(strFileFullName))
+                if (!m_GestSolution.ReadInSolution(CentralizedFileDlg.SolOpenFileName))
                 {
-                    MessageBox.Show(Program.LangSys.C("Error while reading file. File is corrupted"), Program.LangSys.C("Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    this.CloseDoc();
-                }*/
+                    MessageBox.Show(Program.LangSys.C("Error while reading file. File is corrupted"),
+                                    Program.LangSys.C("Error"),
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                    this.CloseSolution();
+                }
+                else
+                    m_mruStripMenu.AddFile(CentralizedFileDlg.SolOpenFileName);
+
             }
         }
 
@@ -317,7 +366,7 @@ namespace SmartApp.Ihm
                         return;
                     }
                 }
-                this.CloseDoc();
+                this.CloseSolution();
             }
             this.Close();
         }
@@ -338,17 +387,17 @@ namespace SmartApp.Ihm
         /// </summary>
         private void DoSaveDocument()
         {
-            /*
-            if (m_Document != null)
+
+            if (m_GestSolution != null)
             {
-                if (string.IsNullOrEmpty(m_Document.FileName))
+                if (string.IsNullOrEmpty(m_GestSolution.FilePath))
                     OnSaveAsClick();
                 else
                 {
-                    m_Document.WriteConfigDocument(true);
-                    m_Document.Modified = false;
+                    m_GestSolution.SaveAllDocumentsAndSolution();
+                    m_GestSolution.HaveModifiedDocument = false;
                 }
-            }*/
+            }
         }
 
         /// <summary>
@@ -365,19 +414,19 @@ namespace SmartApp.Ihm
 #else
                 int idxOfLastAntiSlash = strFileFullName.LastIndexOf(@"\");
 #endif
-                string DossierFichier = strFileFullName.Substring(0, strFileFullName.Length - (strFileFullName.Length - idxOfLastAntiSlash));
-                PathTranslator.BTDocPath = DossierFichier;
+                string DossierFichier = Path.GetDirectoryName(strFileFullName);
                 CentralizedFileDlg.InitImgFileDialog(DossierFichier);
                 CentralizedFileDlg.InitPrjFileDialog(DossierFichier);
-                //m_Document.WriteConfigDocument(strFileFullName, true, Program.DllGest);
-#if LINUX
-                int lastindex = strFileFullName.LastIndexOf(@"/");
-#else
-                int lastindex = strFileFullName.LastIndexOf(@"\");
-#endif
-                //m_strDocumentName = strFileFullName.Substring(lastindex + 1);
+                CentralizedFileDlg.InitSolFileDialog(DossierFichier);
+                m_GestSolution.WriteOutSolution(strFileFullName);
+                m_GestSolution.SaveAllDocumentsAndSolution();
                 this.m_mruStripMenu.AddFile(strFileFullName);
-                //m_Document.Modified = false;
+                m_GestSolution.HaveModifiedDocument = false;
+                //#if LINUX
+//                int lastindex = strFileFullName.LastIndexOf(@"/");
+//#else
+//                int lastindex = strFileFullName.LastIndexOf(@"\");
+//#endif
             }
         }
 
@@ -388,8 +437,7 @@ namespace SmartApp.Ihm
         /// <param name="e"></param>
         private void m_MenuItemClose_Click(object sender, EventArgs e)
         {
-            /*
-            if (m_Document != null && m_Document.Modified)
+            if (m_GestSolution != null && m_GestSolution.HaveModifiedDocument)
             {
                 DialogResult res = ShowFileModifiedMessagebox();
                 if (res == DialogResult.Yes)
@@ -401,8 +449,7 @@ namespace SmartApp.Ihm
                     return;
                 }
             }
-            this.CloseDoc();
-             * */
+            this.CloseSolution();
         }
 
         /// <summary>
@@ -499,7 +546,12 @@ namespace SmartApp.Ihm
         //*****************************************************************************************************
         private bool OpenDoc(string strFullFileName)
         {
+            m_GestSolution.ReadInSolution(strFullFileName);
+            UpdateTitle();
+            m_mruStripMenu.AddFile(strFullFileName);
             m_GestSolution.OpenDocument(strFullFileName);
+            //solutionTreeView.AddDocument(m_Document);
+            //m_GestSolution.OpenDocument(strFullFileName);
             //m_Document = new BTDoc(Program.TypeApp);
             //m_Document.UpdateDocumentFrame += new NeedRefreshHMI(OnNeedUpdateHMI);
             //m_Document.OnDocumentModified += new DocumentModifiedEvent(UpdateModifiedFlag);
@@ -524,9 +576,6 @@ namespace SmartApp.Ihm
                     int lastindex = strFullFileName.LastIndexOf(@"\");
 #endif
                     m_strDocumentName = strFullFileName.Substring(lastindex+1);
-                    UpdateTitle();
-                    m_mruStripMenu.AddFile(strFullFileName);
-                    solutionTreeView.AddDocument(m_Document);
                     return true;
                 }
                 else
@@ -534,7 +583,7 @@ namespace SmartApp.Ihm
             }
             else
              * */
-                return false;
+            return false;
         }
 
         //*****************************************************************************************************
@@ -578,22 +627,22 @@ namespace SmartApp.Ihm
         // Description:
         // Return: /
         //*****************************************************************************************************
-        private bool CloseDoc()
+        private bool CloseSolution()
         {
             //m_strDocumentName = "";
-            m_DesignForm.Hide();
-            m_windowsMenu.Enabled = false;
-            m_jumpTotCmdMenuItem.Enabled = false;
-            m_MenuItemM3SLWiz.Enabled = false;
-            m_MenuItemZ2SLWiz.Enabled = false;
-            m_MenuItemTCPMBWiz.Enabled = false;
-            tsmiM3SLProjectWizard.Enabled = true;
-            tsmiM3XN05ProjectWizard.Enabled = true;
-            tsmiZ2SR3NETProjectWizard.Enabled = true;
-            tsmiZ2SLProjectWizard.Enabled = true;
+            //m_DesignForm.Hide();
+            //m_windowsMenu.Enabled = false;
+            //m_jumpTotCmdMenuItem.Enabled = false;
+            //m_MenuItemM3SLWiz.Enabled = false;
+            //m_MenuItemZ2SLWiz.Enabled = false;
+            //m_MenuItemTCPMBWiz.Enabled = false;
+            //tsmiM3SLProjectWizard.Enabled = true;
+            //tsmiM3XN05ProjectWizard.Enabled = true;
+            //tsmiZ2SR3NETProjectWizard.Enabled = true;
+            //tsmiZ2SLProjectWizard.Enabled = true;
             //m_Document = null;
-            SaveFormsPos();
-            UpdateFileCommand(null, null);
+            //SaveFormsPos();
+            //UpdateFileCommand(null, null);
             return true;
         }
         #endregion
@@ -606,21 +655,17 @@ namespace SmartApp.Ihm
         public void UpdateTitle()
         {
             string strTitle = APP_TITLE;
-            /*
-            strTitle += " - ";
-            strTitle += m_strDocumentName;
-            if (m_Document != null)
+            if (m_GestSolution != null)
             {
-                if (m_Document.Modified)
+                if (m_GestSolution.HaveModifiedDocument)
                 {
                     strTitle += "*";
                 }
-            }*/
+            }
             if (this.InvokeRequired)
             {
                 UpdateTitleDg dg = new UpdateTitleDg(SetTitle);
                 this.Invoke(dg, strTitle);
-
             }
             else
             {
@@ -663,13 +708,14 @@ namespace SmartApp.Ihm
         {
             if (Mess == null)
             {
-                if (m_DesignForm != null)
-                    m_DesignForm.Initialize();
+                // TODO
+                //if (m_DesignForm != null)
+                //    m_DesignForm.Initialize();
             }
             else
             {
-                if (Mess.bUpdateScreenForm && m_DesignForm != null)
-                    m_DesignForm.Initialize();
+                //if (Mess.bUpdateScreenForm && m_DesignForm != null)
+                //    m_DesignForm.Initialize();
             }
         }
 
@@ -727,13 +773,13 @@ namespace SmartApp.Ihm
         //*****************************************************************************************************      
         private void OnFormClosing(object sender, FormClosingEventArgs e)
         {
-            /*
-            if (m_Document != null && m_Document.Modified)
+            
+            if (m_GestSolution != null && m_GestSolution.HaveModifiedDocument)
             {
                 DialogResult res = ShowFileModifiedMessagebox();
                 if (res == DialogResult.Yes)
                 {
-                    DoSaveDocument();
+                    m_GestSolution.SaveAllDocumentsAndSolution();
                 }
                 else if (res == DialogResult.Cancel)
                 {
@@ -741,11 +787,8 @@ namespace SmartApp.Ihm
                     return;
                 }
             }
-             */
             SaveFormsPos();
             m_mruStripMenu.SaveToFile();
-             
-
         }
         #endregion
 
@@ -825,6 +868,7 @@ namespace SmartApp.Ihm
         /// <param name="e"></param>
         private void m_MenuItemZ2SLWiz_Click(object sender, EventArgs e)
         {
+            // TODO
             /*
             if (m_Document != null)
             {
@@ -845,6 +889,7 @@ namespace SmartApp.Ihm
         /// <param name="e"></param>
         private void m_MenuItemTCPMBWiz_Click(object sender, EventArgs e)
         {
+            // TODO
             /*
             if (m_Document != null)
             {
@@ -865,6 +910,7 @@ namespace SmartApp.Ihm
         /// <param name="e"></param>
         private void OnMenuItemM3SLWizClick(object sender, EventArgs e)
         {
+            // TODO
             /*
             if (m_Document != null)
             {
@@ -885,6 +931,7 @@ namespace SmartApp.Ihm
         /// <param name="e"></param>
         private void tsmiM3SLProjectWizard_Click(object sender, EventArgs e)
         {
+            // TODO
             /*
             if (m_Document == null)
             {
@@ -906,6 +953,7 @@ namespace SmartApp.Ihm
         /// <param name="e"></param>
         private void tsmiZ2SLProjectWizard_Click(object sender, EventArgs e)
         {
+            // TODO
             /*
             if (m_Document == null)
             {
@@ -927,6 +975,7 @@ namespace SmartApp.Ihm
         /// <param name="e"></param>
         private void tsmiM3XN05ProjectWizard_Click(object sender, EventArgs e)
         {
+            // TODO
             /*
             if (m_Document == null)
             {
@@ -949,6 +998,7 @@ namespace SmartApp.Ihm
         /// <param name="e"></param>
         private void tsmiZ2SR3NETProjectWizard_Click(object sender, EventArgs e)
         {
+            // TODO
             /*
             if (m_Document == null)
             {
@@ -968,6 +1018,7 @@ namespace SmartApp.Ihm
 
         private void tsbtnConfigCom_Click(object sender, EventArgs e)
         {
+            // TODO
             /*
             if (m_Document != null)
             {

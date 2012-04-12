@@ -33,7 +33,6 @@ namespace SmartApp.Ihm
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DesignerForm));
             this.m_TopToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.m_ContentPanel = new System.Windows.Forms.ToolStripContentPanel();
-            this.m_MainSplitterContainer = new System.Windows.Forms.SplitContainer();
             this.m_splitterDesigner_Tool = new System.Windows.Forms.SplitContainer();
             this.m_LabelSelectedScreen = new System.Windows.Forms.Label();
             this.m_toolStripDesignLayout = new System.Windows.Forms.ToolStrip();
@@ -63,8 +62,6 @@ namespace SmartApp.Ihm
             this.toolbtnScreenToBitmap = new System.Windows.Forms.ToolStripButton();
             this.panel1 = new SmartApp.Ihm.InteractivePanelContainer();
             this.m_InteractiveControlContainer = new SmartApp.Ihm.Designer.InteractiveControlContainer();
-            this.m_MainSplitterContainer.Panel2.SuspendLayout();
-            this.m_MainSplitterContainer.SuspendLayout();
             this.m_splitterDesigner_Tool.Panel1.SuspendLayout();
             this.m_splitterDesigner_Tool.Panel2.SuspendLayout();
             this.m_splitterDesigner_Tool.SuspendLayout();
@@ -83,24 +80,6 @@ namespace SmartApp.Ihm
             // m_ContentPanel
             // 
             this.m_ContentPanel.Size = new System.Drawing.Size(729, 543);
-            // 
-            // m_MainSplitterContainer
-            // 
-            this.m_MainSplitterContainer.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.m_MainSplitterContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.m_MainSplitterContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
-            this.m_MainSplitterContainer.Location = new System.Drawing.Point(0, 0);
-            this.m_MainSplitterContainer.MinimumSize = new System.Drawing.Size(600, 500);
-            this.m_MainSplitterContainer.Name = "m_MainSplitterContainer";
-            this.m_MainSplitterContainer.Panel1MinSize = 180;
-            // 
-            // m_MainSplitterContainer.Panel2
-            // 
-            this.m_MainSplitterContainer.Panel2.Controls.Add(this.m_splitterDesigner_Tool);
-            this.m_MainSplitterContainer.Panel2MinSize = 250;
-            this.m_MainSplitterContainer.Size = new System.Drawing.Size(772, 567);
-            this.m_MainSplitterContainer.SplitterDistance = 180;
-            this.m_MainSplitterContainer.TabIndex = 6;
             // 
             // m_splitterDesigner_Tool
             // 
@@ -122,8 +101,8 @@ namespace SmartApp.Ihm
             this.m_splitterDesigner_Tool.Panel2.BackColor = System.Drawing.Color.White;
             this.m_splitterDesigner_Tool.Panel2.Controls.Add(this.panel1);
             this.m_splitterDesigner_Tool.Panel2.Margin = new System.Windows.Forms.Padding(10);
-            this.m_splitterDesigner_Tool.Size = new System.Drawing.Size(588, 567);
-            this.m_splitterDesigner_Tool.TabIndex = 0;
+            this.m_splitterDesigner_Tool.Size = new System.Drawing.Size(772, 567);
+            this.m_splitterDesigner_Tool.TabIndex = 1;
             // 
             // m_LabelSelectedScreen
             // 
@@ -158,7 +137,7 @@ namespace SmartApp.Ihm
             this.toolbtnScreenToBitmap});
             this.m_toolStripDesignLayout.Location = new System.Drawing.Point(0, 0);
             this.m_toolStripDesignLayout.Name = "m_toolStripDesignLayout";
-            this.m_toolStripDesignLayout.Size = new System.Drawing.Size(584, 25);
+            this.m_toolStripDesignLayout.Size = new System.Drawing.Size(768, 25);
             this.m_toolStripDesignLayout.TabIndex = 0;
             this.m_toolStripDesignLayout.Text = "toolStrip1";
             // 
@@ -169,7 +148,6 @@ namespace SmartApp.Ihm
             this.m_toolBtnAlignLeft.Name = "m_toolBtnAlignLeft";
             this.m_toolBtnAlignLeft.Size = new System.Drawing.Size(23, 22);
             this.m_toolBtnAlignLeft.Text = "Align left";
-            this.m_toolBtnAlignLeft.Click += new System.EventHandler(this.AlignLeftClick);
             // 
             // m_toolBtnAlignTop
             // 
@@ -178,7 +156,6 @@ namespace SmartApp.Ihm
             this.m_toolBtnAlignTop.Name = "m_toolBtnAlignTop";
             this.m_toolBtnAlignTop.Size = new System.Drawing.Size(23, 22);
             this.m_toolBtnAlignTop.Text = "Align top";
-            this.m_toolBtnAlignTop.Click += new System.EventHandler(this.AlignTopClick);
             // 
             // toolStripSeparator1
             // 
@@ -192,7 +169,6 @@ namespace SmartApp.Ihm
             this.m_toolBtnMSWidth.Name = "m_toolBtnMSWidth";
             this.m_toolBtnMSWidth.Size = new System.Drawing.Size(23, 22);
             this.m_toolBtnMSWidth.Text = "Make same width";
-            this.m_toolBtnMSWidth.Click += new System.EventHandler(this.MSWidthClick);
             // 
             // m_toolBtnMSHeight
             // 
@@ -201,7 +177,6 @@ namespace SmartApp.Ihm
             this.m_toolBtnMSHeight.Name = "m_toolBtnMSHeight";
             this.m_toolBtnMSHeight.Size = new System.Drawing.Size(23, 22);
             this.m_toolBtnMSHeight.Text = "Make same height";
-            this.m_toolBtnMSHeight.Click += new System.EventHandler(this.MSHeightClick);
             // 
             // m_toolBtnMSSize
             // 
@@ -210,7 +185,6 @@ namespace SmartApp.Ihm
             this.m_toolBtnMSSize.Name = "m_toolBtnMSSize";
             this.m_toolBtnMSSize.Size = new System.Drawing.Size(23, 22);
             this.m_toolBtnMSSize.Text = "Make same size";
-            this.m_toolBtnMSSize.Click += new System.EventHandler(this.MSSizeClick);
             // 
             // toolStripSeparator2
             // 
@@ -225,7 +199,6 @@ namespace SmartApp.Ihm
             this.m_toolBtnArrangeAcross.Name = "m_toolBtnArrangeAcross";
             this.m_toolBtnArrangeAcross.Size = new System.Drawing.Size(23, 22);
             this.m_toolBtnArrangeAcross.Text = "Make horizonntal spacing equal";
-            this.m_toolBtnArrangeAcross.Click += new System.EventHandler(this.m_toolBtnArrangeAcross_Click);
             // 
             // m_toolBtnArrangeDown
             // 
@@ -235,7 +208,6 @@ namespace SmartApp.Ihm
             this.m_toolBtnArrangeDown.Name = "m_toolBtnArrangeDown";
             this.m_toolBtnArrangeDown.Size = new System.Drawing.Size(23, 22);
             this.m_toolBtnArrangeDown.Text = "Make vertical spacing equal";
-            this.m_toolBtnArrangeDown.Click += new System.EventHandler(this.m_toolBtnArrangeDown_Click);
             // 
             // toolStripSeparator3
             // 
@@ -261,28 +233,24 @@ namespace SmartApp.Ihm
             this.tsbtn_increaseWidth.Name = "tsbtn_increaseWidth";
             this.tsbtn_increaseWidth.Size = new System.Drawing.Size(158, 22);
             this.tsbtn_increaseWidth.Text = "Increase width";
-            this.tsbtn_increaseWidth.Click += new System.EventHandler(this.tsbtn_increaseWidth_Click);
             // 
             // tsbtn_decreaseWidth
             // 
             this.tsbtn_decreaseWidth.Name = "tsbtn_decreaseWidth";
             this.tsbtn_decreaseWidth.Size = new System.Drawing.Size(158, 22);
             this.tsbtn_decreaseWidth.Text = "Decrease width";
-            this.tsbtn_decreaseWidth.Click += new System.EventHandler(this.tsbtn_decreaseWidth_Click);
             // 
             // tsbtn_increaseHeight
             // 
             this.tsbtn_increaseHeight.Name = "tsbtn_increaseHeight";
             this.tsbtn_increaseHeight.Size = new System.Drawing.Size(158, 22);
             this.tsbtn_increaseHeight.Text = "Increase height";
-            this.tsbtn_increaseHeight.Click += new System.EventHandler(this.tsbtn_increaseHeight_Click);
             // 
             // tsbtn_decreaseHeight
             // 
             this.tsbtn_decreaseHeight.Name = "tsbtn_decreaseHeight";
             this.tsbtn_decreaseHeight.Size = new System.Drawing.Size(158, 22);
             this.tsbtn_decreaseHeight.Text = "Decrease height";
-            this.tsbtn_decreaseHeight.Click += new System.EventHandler(this.tsbtn_decreaseHeight_Click);
             // 
             // toolStripDropDownButton2
             // 
@@ -303,28 +271,24 @@ namespace SmartApp.Ihm
             this.tsbtn_moveLeft.Name = "tsbtn_moveLeft";
             this.tsbtn_moveLeft.Size = new System.Drawing.Size(137, 22);
             this.tsbtn_moveLeft.Text = "Move left";
-            this.tsbtn_moveLeft.Click += new System.EventHandler(this.tsbtn_moveLeft_Click);
             // 
             // tsbtn_moveRight
             // 
             this.tsbtn_moveRight.Name = "tsbtn_moveRight";
             this.tsbtn_moveRight.Size = new System.Drawing.Size(137, 22);
             this.tsbtn_moveRight.Text = "Move right";
-            this.tsbtn_moveRight.Click += new System.EventHandler(this.tsbtn_moveRight_Click);
             // 
             // tsbtn_moveUp
             // 
             this.tsbtn_moveUp.Name = "tsbtn_moveUp";
             this.tsbtn_moveUp.Size = new System.Drawing.Size(137, 22);
             this.tsbtn_moveUp.Text = "Move up";
-            this.tsbtn_moveUp.Click += new System.EventHandler(this.tsbtn_moveUp_Click);
             // 
             // tsbtn_moveDown
             // 
             this.tsbtn_moveDown.Name = "tsbtn_moveDown";
             this.tsbtn_moveDown.Size = new System.Drawing.Size(137, 22);
             this.tsbtn_moveDown.Text = "Move down";
-            this.tsbtn_moveDown.Click += new System.EventHandler(this.tsbtn_moveDown_Click);
             // 
             // m_toolBtnBringToFront
             // 
@@ -334,7 +298,6 @@ namespace SmartApp.Ihm
             this.m_toolBtnBringToFront.Name = "m_toolBtnBringToFront";
             this.m_toolBtnBringToFront.Size = new System.Drawing.Size(82, 22);
             this.m_toolBtnBringToFront.Text = "Bring to front";
-            this.m_toolBtnBringToFront.Click += new System.EventHandler(this.m_toolBtnBringToFront_Click);
             // 
             // tsbtn_copy
             // 
@@ -342,7 +305,6 @@ namespace SmartApp.Ihm
             this.tsbtn_copy.Name = "tsbtn_copy";
             this.tsbtn_copy.Size = new System.Drawing.Size(39, 22);
             this.tsbtn_copy.Text = "Copy";
-            this.tsbtn_copy.Click += new System.EventHandler(this.tsbtn_copy_click);
             // 
             // tsbtn_paste
             // 
@@ -350,7 +312,6 @@ namespace SmartApp.Ihm
             this.tsbtn_paste.Name = "tsbtn_paste";
             this.tsbtn_paste.Size = new System.Drawing.Size(39, 22);
             this.tsbtn_paste.Text = "Paste";
-            this.tsbtn_paste.Click += new System.EventHandler(this.tsbtn_paste_click);
             // 
             // toolbtnScreenToBitmap
             // 
@@ -360,7 +321,6 @@ namespace SmartApp.Ihm
             this.toolbtnScreenToBitmap.Name = "toolbtnScreenToBitmap";
             this.toolbtnScreenToBitmap.Size = new System.Drawing.Size(90, 22);
             this.toolbtnScreenToBitmap.Text = "Save to bitmap";
-            this.toolbtnScreenToBitmap.Click += new System.EventHandler(this.toolbtnScreenToBitmap_Click);
             // 
             // panel1
             // 
@@ -369,7 +329,7 @@ namespace SmartApp.Ihm
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(584, 509);
+            this.panel1.Size = new System.Drawing.Size(768, 509);
             this.panel1.TabIndex = 9;
             // 
             // m_InteractiveControlContainer
@@ -390,15 +350,13 @@ namespace SmartApp.Ihm
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(772, 567);
-            this.Controls.Add(this.m_MainSplitterContainer);
+            this.Controls.Add(this.m_splitterDesigner_Tool);
             this.DoubleBuffered = true;
-            this.MinimumSize = new System.Drawing.Size(620, 530);
+            this.MinimumSize = new System.Drawing.Size(300, 200);
             this.Name = "DesignerForm";
             this.ShowIcon = false;
             this.Text = "Screens configuration";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnFormClosing);
-            this.m_MainSplitterContainer.Panel2.ResumeLayout(false);
-            this.m_MainSplitterContainer.ResumeLayout(false);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DesignerForm_FormClosing);
             this.m_splitterDesigner_Tool.Panel1.ResumeLayout(false);
             this.m_splitterDesigner_Tool.Panel1.PerformLayout();
             this.m_splitterDesigner_Tool.Panel2.ResumeLayout(false);
@@ -414,24 +372,19 @@ namespace SmartApp.Ihm
 
         private System.Windows.Forms.ToolStripPanel m_TopToolStripPanel;
         private System.Windows.Forms.ToolStripContentPanel m_ContentPanel;
-        private System.Windows.Forms.SplitContainer m_MainSplitterContainer;
+        private System.Windows.Forms.SplitContainer m_splitterDesigner_Tool;
+        private System.Windows.Forms.Label m_LabelSelectedScreen;
         private System.Windows.Forms.ToolStrip m_toolStripDesignLayout;
         private System.Windows.Forms.ToolStripButton m_toolBtnAlignLeft;
         private System.Windows.Forms.ToolStripButton m_toolBtnAlignTop;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton m_toolBtnMSWidth;
         private System.Windows.Forms.ToolStripButton m_toolBtnMSHeight;
         private System.Windows.Forms.ToolStripButton m_toolBtnMSSize;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.Label m_LabelSelectedScreen;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton m_toolBtnArrangeAcross;
         private System.Windows.Forms.ToolStripButton m_toolBtnArrangeDown;
-        private System.Windows.Forms.ToolStripButton m_toolBtnBringToFront;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.SplitContainer m_splitterDesigner_Tool;
-        private InteractivePanelContainer panel1;
-        private SmartApp.Ihm.Designer.InteractiveControlContainer m_InteractiveControlContainer;
-        private System.Windows.Forms.ToolStripButton toolbtnScreenToBitmap;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
         private System.Windows.Forms.ToolStripMenuItem tsbtn_increaseWidth;
         private System.Windows.Forms.ToolStripMenuItem tsbtn_decreaseWidth;
@@ -442,8 +395,12 @@ namespace SmartApp.Ihm
         private System.Windows.Forms.ToolStripMenuItem tsbtn_moveRight;
         private System.Windows.Forms.ToolStripMenuItem tsbtn_moveUp;
         private System.Windows.Forms.ToolStripMenuItem tsbtn_moveDown;
+        private System.Windows.Forms.ToolStripButton m_toolBtnBringToFront;
         private System.Windows.Forms.ToolStripButton tsbtn_copy;
         private System.Windows.Forms.ToolStripButton tsbtn_paste;
+        private System.Windows.Forms.ToolStripButton toolbtnScreenToBitmap;
+        private InteractivePanelContainer panel1;
+        private SmartApp.Ihm.Designer.InteractiveControlContainer m_InteractiveControlContainer;
 
     }
 }

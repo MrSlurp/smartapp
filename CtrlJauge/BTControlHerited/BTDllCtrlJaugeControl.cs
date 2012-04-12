@@ -10,7 +10,8 @@ namespace CtrlJauge
     {
         protected SpecificControlProp m_SpecificProp = null;
 
-        public BTDllCtrlJaugeControl()
+        public BTDllCtrlJaugeControl(BTDoc document)
+            : base(document)
         {
             m_IControl = new InteractiveCtrlJaugeDllControl();
             if (m_IControl != null)
@@ -19,7 +20,8 @@ namespace CtrlJauge
             m_SpecificProp = new DllCtrlJaugeProp(this.ItemScripts);
         }
 
-        public BTDllCtrlJaugeControl(InteractiveControl Ctrl)
+        public BTDllCtrlJaugeControl(BTDoc document, InteractiveControl Ctrl)
+            : base(document, Ctrl)
         {
             m_IControl = Ctrl;
             if (m_IControl != null)
@@ -41,14 +43,14 @@ namespace CtrlJauge
         // Description: Lit les données de l'objet a partir de son noeud XML
         // Return: /
         //*****************************************************************************************************
-        public override bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
+        public override bool ReadIn(XmlNode Node, BTDoc document)
         {
             if (!ReadInBaseObject(Node))
                 return false;
             if (!ReadInCommonBTControl(Node))
                 return false;
 
-            m_SpecificProp.ReadIn(Node);
+            m_SpecificProp.ReadIn(Node, document);
             // on lit le script si il y en a un
             ReadScript(Node);
 
@@ -59,7 +61,7 @@ namespace CtrlJauge
         // Description: ecrit les données de l'objet a partir de son noeud XML
         // Return: /
         //*****************************************************************************************************
-        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
+        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node, BTDoc document)
         {
             XmlNode NodeControl = XmlDoc.CreateElement(XML_CF_TAG.DllControl.ToString());
             Node.AppendChild(NodeControl);
@@ -71,7 +73,7 @@ namespace CtrlJauge
             if (!WriteOutCommonBTControl(XmlDoc, NodeControl))
                 return false;
 
-            if (!m_SpecificProp.WriteOut(XmlDoc, NodeControl))
+            if (!m_SpecificProp.WriteOut(XmlDoc, NodeControl, document))
                 return false;
 
             /// on écrit le script

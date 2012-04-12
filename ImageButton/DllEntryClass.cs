@@ -61,18 +61,18 @@ namespace ImageButton
             }
         }
 
-        public BTControl CreateBTControl()
+        public BTControl CreateBTControl(BTDoc document)
         {
-            return new BTDllImageButtonControl();
+            return new BTDllImageButtonControl(document);
         }
 
-        public BTControl CreateBTControl(InteractiveControl iCtrl)
+        public BTControl CreateBTControl(BTDoc document, InteractiveControl iCtrl)
         {
-            return new BTDllImageButtonControl(iCtrl);
+            return new BTDllImageButtonControl(document, iCtrl);
         }
-        public BTControl CreateCommandBTControl()
+        public BTControl CreateCommandBTControl(BTDoc document)
         {
-            return new ImageButtonCmdControl();
+            return new ImageButtonCmdControl(document);
         }
 
         public InteractiveControl CreateInteractiveControl()

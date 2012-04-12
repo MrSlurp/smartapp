@@ -14,6 +14,7 @@ namespace SmartApp
     public partial class ScenarioPanel : UserControl
     {
         public event EventHandler SelectionChange;
+        BTDoc m_Document;
 
         public ScenarioPanel()
         {
@@ -51,7 +52,7 @@ namespace SmartApp
             {
                 XmlNode node = DocRootNode.ChildNodes[i];
                 XmlText text = node.FirstChild as XmlText;
-                string str = PathTranslator.RelativePathToAbsolute(text.Value);
+                string str = m_Document.PathTr.RelativePathToAbsolute(text.Value);
                 AddFileToGrid(str);
             }
         }
@@ -69,7 +70,7 @@ namespace SmartApp
             string[] TabValues = new string[3];
             TabValues[0] = string.Format("{0}", m_dataGrid.Rows.Count + 1);
             TabValues[1] = Path.GetFileName(strFile);
-            TabValues[2] = PathTranslator.AbsolutePathToRelative(strFile);
+            TabValues[2] = m_Document.PathTr.AbsolutePathToRelative(strFile);
             m_dataGrid.Rows.Add(TabValues);
         }
 
@@ -92,7 +93,7 @@ namespace SmartApp
                 {
                     m_dataGrid.Rows[idx + 1].Selected = true;
                     strTemp = (string)m_dataGrid.Rows[idx + 1].Cells[2].Value;
-                    strTemp = PathTranslator.RelativePathToAbsolute(strTemp);
+                    strTemp = m_Document.PathTr.RelativePathToAbsolute(strTemp);
                 }
                 else 
                 {
@@ -100,7 +101,7 @@ namespace SmartApp
                     {
                         m_dataGrid.Rows[0].Selected = true;
                         strTemp = (string)m_dataGrid.Rows[0].Cells[2].Value;
-                        strTemp = PathTranslator.RelativePathToAbsolute(strTemp);
+                        strTemp = m_Document.PathTr.RelativePathToAbsolute(strTemp);
                     }
                     else
                         return false;
@@ -127,7 +128,7 @@ namespace SmartApp
                 {
                     m_dataGrid.Rows[idx - 1].Selected = true;
                     strTemp = (string)m_dataGrid.Rows[idx - 1].Cells[2].Value;
-                    strTemp = PathTranslator.RelativePathToAbsolute(strTemp);
+                    strTemp = m_Document.PathTr.RelativePathToAbsolute(strTemp);
                 }
                 else
                 {
@@ -135,7 +136,7 @@ namespace SmartApp
                     {
                         m_dataGrid.Rows[m_dataGrid.Rows.Count-1].Selected = true;
                         strTemp = (string)m_dataGrid.Rows[m_dataGrid.Rows.Count - 1].Cells[2].Value;
-                        strTemp = PathTranslator.RelativePathToAbsolute(strTemp);
+                        strTemp = m_Document.PathTr.RelativePathToAbsolute(strTemp);
                     }
                     else
                         return;
@@ -152,7 +153,7 @@ namespace SmartApp
             {
                 int idx = m_dataGrid.SelectedRows[0].Index;
                 string strTemp = (string)m_dataGrid.Rows[idx].Cells[2].Value;
-                strTemp = PathTranslator.RelativePathToAbsolute(strTemp);
+                strTemp = m_Document.PathTr.RelativePathToAbsolute(strTemp);
                 VirtualDataForm parent = this.Parent.Parent.Parent as VirtualDataForm;
                 if (parent != null)
                     parent.LoadCliche(strTemp);

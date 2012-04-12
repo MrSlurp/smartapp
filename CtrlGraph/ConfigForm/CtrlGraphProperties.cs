@@ -211,7 +211,7 @@ namespace CtrlGraph
             m_Props.GraphTitle = edtTitle.Text;
             m_Props.XAxisTitle = edtXAxis.Text;
             m_Props.YAxisTitle = edtYAxis.Text;
-            m_Control.SpecificProp.CopyParametersFrom(this.m_Props, false);
+            m_Control.SpecificProp.CopyParametersFrom(this.m_Props, false, this.Document);
             Document.Modified = true;
             if (ControlPropertiesChanged != null)
                 ControlPropertiesChanged(m_Control);
@@ -219,7 +219,7 @@ namespace CtrlGraph
 
         public void ObjectToPanel()
         {
-            this.m_Props.CopyParametersFrom(m_Control.SpecificProp, false);
+            this.m_Props.CopyParametersFrom(m_Control.SpecificProp, false, this.Document);
             for (int i = 0; i < DllCtrlGraphProp.NB_CURVE; i++)
             {
                 m_ListCurve[i].DataSymbol = m_Props.GetSymbol(i);

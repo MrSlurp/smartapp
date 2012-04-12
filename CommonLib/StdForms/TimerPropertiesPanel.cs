@@ -7,13 +7,12 @@ using System.Text;
 using System.Windows.Forms;
 using CommonLib;
 
-namespace SmartApp.Ihm
+namespace CommonLib
 {
-    public partial class TimerPropertiesControl : UserControl
+    public partial class TimerPropertiesPanel : BaseObjectPropertiesPanel, IObjectPropertyPanel
     {
         #region données membres
         private BTTimer m_Timer = null;
-        private BTDoc m_Document = null;
         #endregion
 
         #region Events
@@ -21,39 +20,25 @@ namespace SmartApp.Ihm
         #endregion
 
         #region attributs de la classe
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        public BTDoc Doc
-        {
-            get
-            {
-                return m_Document;
-            }
-            set
-            {
-                m_Document = value;
-            }
-        }
 
         //*****************************************************************************************************
         // Description:
         // Return: /
         //*****************************************************************************************************
-        public GestTimer GestTimer
+        public BaseGest ConfiguredItemGest
         {
             get
             {
                 return m_Document.GestTimer;
             }
+            set {}
         }
 
         //*****************************************************************************************************
         // Description:
         // Return: /
         //*****************************************************************************************************
-        public BTTimer Timer
+        public BaseObject ConfiguredItem
         {
             get
             {
@@ -61,26 +46,7 @@ namespace SmartApp.Ihm
             }
             set
             {
-                m_Timer = value;
-                if (m_Timer != null)
-                {
-                    this.Enabled = true;
-                    this.Description = m_Timer.Description;
-                    this.Symbol = m_Timer.Symbol;
-                    this.ScriptLines = m_Timer.ItemScripts["TimerScript"];
-                    this.Period = m_Timer.Period;
-                    this.AutoStart = m_Timer.AutoStart;
-                }
-                else
-                {
-                    this.Description = "";
-                    this.Symbol = "";
-                    this.ScriptLines = null;
-                    this.Period = 50;
-                    this.Enabled = false;
-                    this.AutoStart = false;
-                }
-
+                m_Timer = value as BTTimer;
             }
         }
         #endregion
@@ -90,7 +56,7 @@ namespace SmartApp.Ihm
         // Description:
         // Return: /
         //*****************************************************************************************************
-        public TimerPropertiesControl()
+        public TimerPropertiesPanel()
         {
             InitializeComponent();
             m_NumPeriod.Minimum = 20;
@@ -191,62 +157,18 @@ namespace SmartApp.Ihm
         #endregion
 
         #region validation des données
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        public bool IsDataValuesValid
+        public void ObjectToPanel()
         {
-            get
+            if (m_Timer != null)
             {
-                if (this.Timer == null)
-                    return true;
-
-                if (string.IsNullOrEmpty(this.Symbol))
-                    return false;
-                bool bRet = true;
-                BTTimer dt = (BTTimer)this.GestTimer.GetFromSymbol(this.Symbol);
-                if (dt != null && dt != this.Timer)
-                    bRet = false;
-
-                return bRet;
+                this.Period = m_Timer.Period;
+                this.AutoStart = m_Timer.AutoStart;
             }
         }
 
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        public bool ValidateValues()
+        public void PanelToObject()
         {
-            if (this.Timer == null)
-                return true;
-
-            bool bRet = true;
-            string strMessage = "";
-            if (string.IsNullOrEmpty(this.Symbol))
-            {
-                strMessage = Program.LangSys.C("Symbol must not be empty");
-                bRet = false;
-            }
-            BTTimer Sc = (BTTimer)GestTimer.GetFromSymbol(this.Symbol);
-            if (bRet && Sc != null && Sc != this.Timer)
-            {
-                strMessage = string.Format(Program.LangSys.C("A timer with symbol {0} already exist"), Symbol);
-                bRet = false;
-            }
-            if (!bRet)
-            {
-                MessageBox.Show(strMessage, Program.LangSys.C("Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return bRet;
-            }
-
             bool bDataPropChange = false;
-            if (m_Timer.Description != this.Description)
-                bDataPropChange |= true;
-            if (m_Timer.Symbol != this.Symbol)
-                bDataPropChange |= true;
             if (m_Timer.Period != this.Period)
                 bDataPropChange |= true;
 
@@ -255,26 +177,14 @@ namespace SmartApp.Ihm
 
             if (bDataPropChange)
             {
-                m_Timer.Description = this.Description;
-                m_Timer.Symbol = this.Symbol;
                 m_Timer.Period = this.Period;
                 m_Timer.AutoStart = this.AutoStart;
-                Doc.Modified = true;
+                Document.Modified = true;
             }
             if (bDataPropChange && TimerPropChange != null)
                 TimerPropChange(m_Timer);
-            return true;
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        private void PropertiesControlValidating(object sender, CancelEventArgs e)
-        {
-            if (!ValidateValues())
-                e.Cancel = true;
-        }
         #endregion
 
         #region edition du script

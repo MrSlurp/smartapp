@@ -13,7 +13,7 @@ namespace CtrlDemux
 {
     public partial class InteractiveCtrlDemuxDllControl : InteractiveControl, ISpecificControl
     {
-        UserControl m_SpecificPropPanel = new CtrlDemuxProperties();
+        static UserControl m_SpecificPropPanel = new CtrlDemuxProperties();
         StandardPropEnabling m_stdPropEnabling = new StandardPropEnabling();
         SpecificGraphicProp m_SpecGraphicProp = new SpecificGraphicProp();
 

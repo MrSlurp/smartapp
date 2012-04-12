@@ -59,7 +59,7 @@ namespace CtrlDemux
             }
         }
 
-        public override bool ReadIn(System.Xml.XmlNode Node)
+        public override bool ReadIn(XmlNode Node, BTDoc document)
         {
             if (Node.FirstChild != null)
             {
@@ -82,7 +82,7 @@ namespace CtrlDemux
             return true;
         }
 
-        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
+        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node, BTDoc document)
         {
             for (int i = 0; i < m_ListDemuxData.Count; i++)
             {
@@ -104,7 +104,7 @@ namespace CtrlDemux
             return true;
         }
 
-        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance)
+        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance, BTDoc document)
         {
             if (!bFromOtherInstance)
             {

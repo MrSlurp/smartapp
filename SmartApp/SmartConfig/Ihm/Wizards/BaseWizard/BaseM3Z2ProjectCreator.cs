@@ -153,7 +153,7 @@ namespace SmartApp.Wizards
         /// <param name="InitFunction"></param>
         protected void CreateDefaultScreen(string screenName, string InitFunction)
         {
-            BTScreen screen = new BTScreen();
+            BTScreen screen = new BTScreen(m_Document);
             screen.Symbol = screenName;
             string[] screenInitScriptLines = new string[1];
             screenInitScriptLines[0] = SCR_OBJECT.FUNCTIONS.ToString() + "." + InitFunction + "()";

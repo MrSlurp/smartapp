@@ -25,7 +25,8 @@ namespace CtrlDemux
         // Description:
         // Return: /
         //*****************************************************************************************************
-        public CtrlDemuxCmdControl()
+        public CtrlDemuxCmdControl(BTDoc document)
+            : base(document)
         {
 
         }

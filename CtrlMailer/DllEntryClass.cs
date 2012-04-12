@@ -69,18 +69,18 @@ namespace CtrlMailer
             }
         }
 
-        public BTControl CreateBTControl()
+        public BTControl CreateBTControl(BTDoc document)
         {
-            return new BTDllCtrlMailerControl();
+            return new BTDllCtrlMailerControl(document);
         }
 
-        public BTControl CreateBTControl(InteractiveControl iCtrl)
+        public BTControl CreateBTControl(BTDoc document, InteractiveControl iCtrl)
         {
-            return new BTDllCtrlMailerControl(iCtrl);
+            return new BTDllCtrlMailerControl(document , iCtrl);
         }
-        public BTControl CreateCommandBTControl()
+        public BTControl CreateCommandBTControl(BTDoc document)
         {
-            return new CtrlMailerCmdControl();
+            return new CtrlMailerCmdControl(document);
         }
 
         public InteractiveControl CreateInteractiveControl()

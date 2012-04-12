@@ -35,7 +35,7 @@ namespace ScreenItemLocker
         /// </summary>
         /// <param name="Node">noeud du control a qui appartiens les propriété </param>
         /// <returns>true en cas de succès de la lecture</returns>
-        public override bool ReadIn(XmlNode Node)
+        public override bool ReadIn(XmlNode Node, BTDoc document)
         {
             if (Node.FirstChild != null)
             {
@@ -65,7 +65,7 @@ namespace ScreenItemLocker
         /// <param name="XmlDoc">Document XML</param>
         /// <param name="Node">noeud du control a qui appartiens les propriété</param>
         /// <returns>true en cas de succès de l'écriture</returns>
-        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
+        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node, BTDoc document)
         {
             XmlNode ItemListNodes = XmlDoc.CreateElement(NODE_ITEM_LIST);
             for (int i = 0; i < m_ListItemSymbol.Count; i++)
@@ -84,7 +84,7 @@ namespace ScreenItemLocker
         /// Recopie les paramètres d'un control source du même type vers les paramètres courants
         /// </summary>
         /// <param name="SrcSpecificProp">Paramètres sources</param>
-        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance)
+        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance, BTDoc document)
         {
             DllScreenItemLockerProp SrcProp = (DllScreenItemLockerProp)SrcSpecificProp;
             if (bFromOtherInstance)

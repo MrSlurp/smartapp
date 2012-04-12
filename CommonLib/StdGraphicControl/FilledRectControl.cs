@@ -12,7 +12,8 @@ namespace CommonLib
         // Description:
         // Return: /
         //*****************************************************************************************************
-        public FilledRectControl()
+        public FilledRectControl(BTDoc document)
+            : base(document)
         {
 
         }

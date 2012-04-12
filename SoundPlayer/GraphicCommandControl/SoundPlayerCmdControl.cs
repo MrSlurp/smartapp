@@ -20,7 +20,8 @@ namespace SoundPlayer
         /// <summary>
         /// Constructeur de la classe
         /// </summary>
-        public SoundPlayerCmdControl()
+        public SoundPlayerCmdControl(BTDoc document) 
+            : base(document)
         {
 
         }

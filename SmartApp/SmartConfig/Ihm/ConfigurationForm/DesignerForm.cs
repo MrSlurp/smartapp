@@ -17,7 +17,6 @@ namespace SmartApp.Ihm
         #region données membres
         private BTDoc m_Document = null;
         private BTScreen m_Currentscreen = null;
-        private DragItemPanel m_panelToolDragItem;
         BasePropertiesDialog m_PropDialog = new BasePropertiesDialog();
         #endregion
 
@@ -58,6 +57,15 @@ namespace SmartApp.Ihm
                 return m_Document.GestData;
             }
         }
+
+        public BTScreen CurrentScreen
+        {
+            get { return m_Currentscreen; }
+            set
+            {
+                OnSelectedScreenChange(value);
+            }
+        }
         #endregion
 
         #region constructeurs et inits
@@ -77,20 +85,7 @@ namespace SmartApp.Ihm
             m_toolBtnMSWidth.Image = Resources.MakeSameWidth;
             m_toolBtnMSSize.Image = Resources.MakeSameBoth;
 
-            // ce code est déporté de InitializeComponent() 
-            // car ca pose un problème dans le designer
-            m_panelToolDragItem = new DragItemPanel();
-            // 
-            // m_panelToolDragItem
-            // 
-            m_panelToolDragItem.AutoScroll = true;
-            m_panelToolDragItem.BackColor = System.Drawing.Color.Transparent;
-            m_panelToolDragItem.Dock = System.Windows.Forms.DockStyle.Fill;
-            m_panelToolDragItem.Name = "m_panelToolDragItem";
-            m_MainSplitterContainer.Panel1.Controls.Add(m_panelToolDragItem);
-
             // fin de code déporté de suspend layout
-
             m_InteractiveControlContainer.SelectionChange += new SelectionChangeEvent(OnScreenDesignerSelectionChange);
             m_InteractiveControlContainer.EventControlAdded += new IControlAddedEvent(this.OnDesignerControAdded);
             m_InteractiveControlContainer.EventControlRemoved += new IControlRemovedEvent(this.OnDesignerControRemoved);
@@ -138,21 +133,6 @@ namespace SmartApp.Ihm
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
-        private void OnFormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (e.CloseReason == CloseReason.UserClosing)
-            {
-                this.WindowState = FormWindowState.Minimized;
-                e.Cancel = true;
-            }
-            else if (e.CloseReason == CloseReason.MdiFormClosing)
-            {
-            }
-        }
         #endregion
 
         #region fonctions d'update de l'IHM
@@ -297,7 +277,7 @@ namespace SmartApp.Ihm
 
             try
             {
-                string chemincomplet = PathTranslator.RelativePathToAbsolute(m_Currentscreen.BackPictureFile);
+                string chemincomplet = m_Document.PathTr.RelativePathToAbsolute(m_Currentscreen.BackPictureFile);
                 chemincomplet = PathTranslator.LinuxVsWindowsPathUse(chemincomplet);
                 if (!string.IsNullOrEmpty(chemincomplet)
                     && File.Exists(chemincomplet))
@@ -349,13 +329,13 @@ namespace SmartApp.Ihm
 
             BTControl NewCtrl = null;
             if (ctrl.IsDllControl)
-                NewCtrl = Program.DllGest[ctrl.DllControlID].CreateBTControl(ctrl);
+                NewCtrl = Program.DllGest[ctrl.DllControlID].CreateBTControl(m_Document, ctrl);
             else
-                NewCtrl = BTControl.CreateNewBTControl(ctrl);
+                NewCtrl = BTControl.CreateNewBTControl(ctrl, m_Document);
 
             if (SrcBtControl != null )
             {
-                NewCtrl.CopyParametersFrom(SrcBtControl, bFromOtherInstance);
+                NewCtrl.CopyParametersFrom(SrcBtControl, bFromOtherInstance, m_Document);
             }
 
             NewCtrl.Symbol = m_Currentscreen.Controls.GetNextDefaultSymbol();
@@ -510,5 +490,10 @@ namespace SmartApp.Ihm
             m_InteractiveControlContainer.TreatPaste();            
         }
         #endregion
+
+        private void DesignerForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            m_InteractiveControlContainer.Controls.Clear();
+        }
     }
 }

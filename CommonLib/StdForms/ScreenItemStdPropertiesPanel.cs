@@ -162,6 +162,7 @@ namespace CommonLib
             this.Txt = m_Control.IControl.Text;
             this.CtrlFont = m_Control.TextFont;
             this.CtrlFontColor = m_Control.TextColor;
+            UpdateStateFromControlType();
             if (m_CurrentSpecificControlPropPanel != null)
             {
                 ((ISpecificPanel)m_CurrentSpecificControlPropPanel).Document = this.Document;

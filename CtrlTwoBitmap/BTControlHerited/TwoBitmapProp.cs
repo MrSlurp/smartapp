@@ -42,7 +42,7 @@ namespace CtrlTwoBitmap
             }
         }
 
-        public override bool ReadIn(System.Xml.XmlNode Node)
+        public override bool ReadIn(XmlNode Node, BTDoc document)
         {
             XmlNode AttrActive = Node.Attributes.GetNamedItem(NOM_ATTIB_ACTIVE);
             XmlNode AttrInactive = Node.Attributes.GetNamedItem(NOM_ATTIB_INACTIVE);
@@ -54,29 +54,29 @@ namespace CtrlTwoBitmap
             return true;
         }
 
-        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
+        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node, BTDoc document)
         {
             XmlAttribute AttrActive = XmlDoc.CreateAttribute(NOM_ATTIB_ACTIVE);
             XmlAttribute AttrInactive = XmlDoc.CreateAttribute(NOM_ATTIB_INACTIVE);
-            AttrActive.Value = PathTranslator.AbsolutePathToRelative(m_NomFichierActif);
-            AttrInactive.Value = PathTranslator.AbsolutePathToRelative(m_NomFichierInactif);
+            AttrActive.Value = document.PathTr.AbsolutePathToRelative(m_NomFichierActif);
+            AttrInactive.Value = document.PathTr.AbsolutePathToRelative(m_NomFichierInactif);
             Node.Attributes.Append(AttrActive);
             Node.Attributes.Append(AttrInactive);
             return true;
         }
 
-        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance)
+        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance, BTDoc document)
         {
             if (bFromOtherInstance)
             {
                 if (File.Exists(PathTranslator.LinuxVsWindowsPathUse(
-                                PathTranslator.RelativePathToAbsolute(
+                                document.PathTr.RelativePathToAbsolute(
                                 ((TwoBitmapProp)SrcSpecificProp).NomFichierActif))))
                 {
                     NomFichierActif = ((TwoBitmapProp)SrcSpecificProp).NomFichierActif;
                 }
                 if (File.Exists(PathTranslator.LinuxVsWindowsPathUse(
-                                PathTranslator.RelativePathToAbsolute(
+                                document.PathTr.RelativePathToAbsolute(
                                 ((TwoBitmapProp)SrcSpecificProp).NomFichierInactif))))
                 {
                     NomFichierInactif = ((TwoBitmapProp)SrcSpecificProp).NomFichierInactif;

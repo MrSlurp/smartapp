@@ -13,7 +13,8 @@ namespace CtrlDataTrigger
         /// <summary>
         /// Constructeur de la classe
         /// </summary>
-        public BTDllCtrlDataTriggerControl()
+        public BTDllCtrlDataTriggerControl(BTDoc document)
+            : base(document)
         {
             m_IControl = new InteractiveCtrlDataTriggerDllControl();
             if (m_IControl != null)
@@ -25,7 +26,8 @@ namespace CtrlDataTrigger
         /// <summary>
         /// Constructeur de la à partir d'un control interactif
         /// </summary>
-        public BTDllCtrlDataTriggerControl(InteractiveControl Ctrl)
+        public BTDllCtrlDataTriggerControl(BTDoc document, InteractiveControl Ctrl)
+            : base(document, Ctrl)
         {
             m_IControl = Ctrl;
             if (m_IControl != null)
@@ -52,14 +54,14 @@ namespace CtrlDataTrigger
         /// <param name="Node">Noeud Xml de l'objet</param>
         /// <param name="TypeApp">type d'application courante</param>
         /// <returns>true si la lecture s'est bien passé</returns>
-        public override bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
+        public override bool ReadIn(XmlNode Node, BTDoc document)
         {
             if (!ReadInBaseObject(Node))
                 return false;
             if (!ReadInCommonBTControl(Node))
                 return false;
 
-            m_SpecificProp.ReadIn(Node);
+            m_SpecificProp.ReadIn(Node, document);
             // on lit le script si il y en a un
             ReadScript(Node);
 
@@ -72,7 +74,7 @@ namespace CtrlDataTrigger
         /// <param name="XmlDoc">Document XML courant</param>
         /// <param name="Node">Noeud parent du controle dans le document</param>
         /// <returns>true si l'écriture s'est déroulée avec succès</returns>
-        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
+        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node, BTDoc document)
         {
             XmlNode NodeControl = XmlDoc.CreateElement(XML_CF_TAG.DllControl.ToString());
             Node.AppendChild(NodeControl);
@@ -84,7 +86,7 @@ namespace CtrlDataTrigger
             if (!WriteOutCommonBTControl(XmlDoc, NodeControl))
                 return false;
 
-            if (!m_SpecificProp.WriteOut(XmlDoc, NodeControl))
+            if (!m_SpecificProp.WriteOut(XmlDoc, NodeControl, document))
                 return false;
 
             /// on écrit le script

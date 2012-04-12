@@ -20,7 +20,8 @@ namespace CtrlCnxManager
         /// <summary>
         /// Constructeur de la classe
         /// </summary>
-        public CtrlCnxManagerCmdControl()
+        public CtrlCnxManagerCmdControl(BTDoc document)
+            : base(document)
         {
             m_watchdogTimer.Interval = 10000;
             m_watchdogTimer.Tick += new EventHandler(m_watchdogTimer_Tick);

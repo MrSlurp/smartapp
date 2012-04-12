@@ -19,7 +19,7 @@ namespace SmartApp.Ihm
         private BTDoc m_Document = null;
 
         // index séléctionnné dans la listview
-        private int m_CurSelectedFrameIndex = -1;
+        //private int m_CurSelectedFrameIndex = -1;
         #endregion
 
         #region constructeur et initialiseur
@@ -31,9 +31,6 @@ namespace SmartApp.Ihm
         {
             //Program.LangSys.Initialize(this);
             InitializeComponent();
-            m_PanelFrameProp.BeforeDataListChange += new BeforeCurrentDataListChange(OnTrameDataListWillChange);
-            m_PanelFrameProp.DataListChange += new CurrentDataListChanged(OnTrameDataListChanged);
-            m_PanelFrameProp.FramePropertiesChanged += new TramePropertiesChange(FramePropertiesChanged);
         }
 
         void FramePropertiesChanged(Trame Trame)
@@ -65,7 +62,6 @@ namespace SmartApp.Ihm
             set
             {
                 m_Document = value;
-                m_PanelFrameProp.Doc = m_Document;
             }
         }
 
@@ -116,9 +112,8 @@ namespace SmartApp.Ihm
                     lviData.SubItems.Add(dt.FrameDatas.Count.ToString());
                     m_listViewFrames.Items.Add(lviData);
                 }
-                m_PanelFrameProp.Trame = null;
                 InitListViewFrameData();
-                m_CurSelectedFrameIndex = -1;
+                //m_CurSelectedFrameIndex = -1;
             }
         }
         
@@ -147,6 +142,7 @@ namespace SmartApp.Ihm
         public void InitListViewFrameData()
         {
             m_ListViewFrameData.Items.Clear();
+            /*
             if (m_PanelFrameProp.Trame == null)
                 return;
             StringCollection Lst = m_PanelFrameProp.Trame.FrameDatas;
@@ -174,7 +170,7 @@ namespace SmartApp.Ihm
                     lviData.SubItems.Add(dt.DefaultValue.ToString());
                     m_ListViewFrameData.Items.Add(lviData);
                 }
-            }
+            }*/
         }
         
         //*****************************************************************************************************
@@ -212,6 +208,7 @@ namespace SmartApp.Ihm
         
         private void listViewSelectedFrameChanged(object sender, EventArgs e)
         {
+            /*
             ListViewItem lviData = null;
             if (m_listViewFrames.SelectedItems.Count > 0)
                 lviData = m_listViewFrames.SelectedItems[0];
@@ -237,7 +234,7 @@ namespace SmartApp.Ihm
                 m_PanelFrameProp.Trame = null;
                 m_CurSelectedFrameIndex = -1;
                 InitListViewFrameData();
-            }
+            }*/
         }
 
         //*****************************************************************************************************
@@ -257,11 +254,12 @@ namespace SmartApp.Ihm
                     if (GestTrame.RemoveObj((BaseObject)lviData.Tag))
                     {
                         m_listViewFrames.Items.Remove(lviData);
+                        /*
                         if (m_PanelFrameProp.Trame == (Trame)lviData.Tag)
                         {
                             m_PanelFrameProp.Trame = null;
                             InitListViewFrameData();
-                        }
+                        }*/
                     }
                 }
             }
@@ -309,26 +307,6 @@ namespace SmartApp.Ihm
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
-        private void OnFormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (e.CloseReason == CloseReason.UserClosing)
-            {
-                if (m_PanelFrameProp.IsTrameValuesValid)
-                {
-                    this.WindowState = FormWindowState.Minimized;
-                }
-                e.Cancel = true;
-            }
-            else if (e.CloseReason == CloseReason.MdiFormClosing)
-            {
-                if (!m_PanelFrameProp.IsTrameValuesValid)
-                    e.Cancel = true;
-            }
-        }
         #endregion
 
         #region gestion du drag drop dans la liste des données de la trame
@@ -339,6 +317,7 @@ namespace SmartApp.Ihm
         private void OnListViewFrameDataDragEnter(object sender, DragEventArgs e)
         {
             Data dt = (Data)e.Data.GetData(typeof(Data));
+            /*
             if (m_PanelFrameProp.Trame != null && dt != null)
             {
                 bool bFind = false;
@@ -363,7 +342,7 @@ namespace SmartApp.Ihm
             else
             {
                 e.Effect = DragDropEffects.None;
-            }
+            }*/
         }
 
         //*****************************************************************************************************
@@ -485,6 +464,7 @@ namespace SmartApp.Ihm
         //*****************************************************************************************************      
         private void UpdateFrameDataListFromListView()
         {
+            /*
             if (m_PanelFrameProp.Trame == null)
                 return;
 
@@ -492,7 +472,7 @@ namespace SmartApp.Ihm
             for (int i = 0; i < m_ListViewFrameData.Items.Count; i++)
             {
                 m_PanelFrameProp.Trame.FrameDatas.Add(m_ListViewFrameData.Items[i].Text);
-            }
+            }*/
 
         }
 

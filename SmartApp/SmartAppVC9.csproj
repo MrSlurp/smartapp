@@ -241,66 +241,6 @@
     <Compile Include="SmartConfig\Ihm\MDISmartConfigMain.Designer.cs">
       <DependentUpon>MDISmartConfigMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\FramePropertiesControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\FramePropertiesControl.Designer.cs">
-      <DependentUpon>FramePropertiesControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\LoggerPropertiesControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\LoggerPropertiesControl.Designer.cs">
-      <DependentUpon>LoggerPropertiesControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\ConfigurationForm\ProgramForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\ConfigurationForm\ProgramForm.Designer.cs">
-      <DependentUpon>ProgramForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\Designer\ScreenPropPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\Designer\ScreenPropPanel.Designer.cs">
-      <DependentUpon>ScreenPropPanel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\FunctionPropertiesControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\FunctionPropertiesControl.Designer.cs">
-      <DependentUpon>FunctionPropertiesControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\TimerPropertiesControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\TimerPropertiesControl.Designer.cs">
-      <DependentUpon>TimerPropertiesControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\SpecificProperties\TwoColorProperties.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\SpecificProperties\TwoColorProperties.Designer.cs">
-      <DependentUpon>TwoColorProperties.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\ProgItemPanels\FunctionPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\ProgItemPanels\FunctionPanel.Designer.cs">
-      <DependentUpon>FunctionPanel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\ProgItemPanels\LoggerPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\ProgItemPanels\LoggerPanel.Designer.cs">
-      <DependentUpon>LoggerPanel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\ProgItemPanels\TimerPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\ProgItemPanels\TimerPanel.Designer.cs">
-      <DependentUpon>TimerPanel.cs</DependentUpon>
-    </Compile>
     <Compile Include="SmartConfig\Ihm\VariousFormAndControls\ManageGroupForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -377,10 +317,6 @@
       <SubType>Designer</SubType>
       <DependentUpon>FrameForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SmartConfig\Ihm\ConfigurationForm\ProgramForm.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>ProgramForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="SmartConfig\Ihm\Designer\DragItemPanel.resx">
       <SubType>Designer</SubType>
       <DependentUpon>DragItemPanel.cs</DependentUpon>
@@ -392,42 +328,6 @@
     <EmbeddedResource Include="SmartConfig\Ihm\MDISmartConfigMain.resx">
       <SubType>Designer</SubType>
       <DependentUpon>MDISmartConfigMain.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SmartConfig\Ihm\ObjectPropertiesControls\SpecificProperties\TwoColorProperties.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>TwoColorProperties.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SmartConfig\Ihm\ObjectPropertiesControls\FramePropertiesControl.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>FramePropertiesControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SmartConfig\Ihm\ObjectPropertiesControls\FunctionPropertiesControl.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>FunctionPropertiesControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SmartConfig\Ihm\ObjectPropertiesControls\LoggerPropertiesControl.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>LoggerPropertiesControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SmartConfig\Ihm\Designer\ScreenPropPanel.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>ScreenPropPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SmartConfig\Ihm\ObjectPropertiesControls\TimerPropertiesControl.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>TimerPropertiesControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SmartConfig\Ihm\ProgItemPanels\FunctionPanel.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>FunctionPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SmartConfig\Ihm\ProgItemPanels\LoggerPanel.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>LoggerPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SmartConfig\Ihm\ProgItemPanels\TimerPanel.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>TimerPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SmartConfig\Ihm\VariousFormAndControls\ManageGroupForm.resx">
       <SubType>Designer</SubType>

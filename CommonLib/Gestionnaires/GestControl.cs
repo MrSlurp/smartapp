@@ -17,7 +17,7 @@ namespace CommonLib
     public class GestControl : BaseGest
     {
         #region fonction "utilitaires"
-        public override BaseObject AddNewObject()
+        public override BaseObject AddNewObject(BTDoc document)
         {
             throw new NotSupportedException();
         }
@@ -52,25 +52,25 @@ namespace CommonLib
             }
         }
 
-        public bool ReadInForClipBoard(XmlNode Node, DllControlGest GestDLL)
+        public bool ReadInForClipBoard(XmlNode Node, DllControlGest GestDLL, BTDoc document)
         {
             for (int j = 0; j < Node.ChildNodes.Count; j++)
             {
                 XmlNode NodeControl = Node.ChildNodes[j];
                 if (NodeControl.Name == XML_CF_TAG.Control.ToString())
                 {
-                    BTControl Control = new BTControl();
-                    if (!Control.ReadIn(NodeControl, TYPE_APP.SMART_CONFIG ))
+                    BTControl Control = new BTControl(document);
+                    if (!Control.ReadIn(NodeControl, document))
                         return false;
 
                     AddObj(Control);
                 }
                 else if (NodeControl.Name == XML_CF_TAG.SpecificControl.ToString())
                 {
-                    BTControl Control = SpecificControlParser.ParseAndCreateSpecificControl(NodeControl);
+                    BTControl Control = SpecificControlParser.ParseAndCreateSpecificControl(NodeControl, document);
                     if (Control != null)
                     {
-                        if (!Control.ReadIn(NodeControl, TYPE_APP.SMART_CONFIG))
+                        if (!Control.ReadIn(NodeControl, document))
                             return false;
                         AddObj(Control);
                     }
@@ -80,10 +80,10 @@ namespace CommonLib
                     uint DllID = SpecificControlParser.ParseDllID(NodeControl);
                     if (GestDLL[DllID] != null)
                     {
-                        BTControl Control = GestDLL[DllID].CreateBTControl();
+                        BTControl Control = GestDLL[DllID].CreateBTControl(document);
                         if (Control != null)
                         {
-                            if (!Control.ReadIn(NodeControl, TYPE_APP.SMART_CONFIG))
+                            if (!Control.ReadIn(NodeControl, document))
                                 return false;
                             AddObj(Control);
                         }
@@ -106,12 +106,12 @@ namespace CommonLib
             return true;
         }
 
-        public void WriteOutForClipBoard(XmlDocument XmlDoc, XmlNode Node)
+        public void WriteOutForClipBoard(XmlDocument XmlDoc, XmlNode Node, BTDoc document)
         {
             for (int i = 0; i < m_ListObject.Count; i++)
             {
                 BTControl dt = (BTControl)m_ListObject[i];
-                dt.WriteOut(XmlDoc, Node);
+                dt.WriteOut(XmlDoc, Node, document);
             }
         }
         #endregion

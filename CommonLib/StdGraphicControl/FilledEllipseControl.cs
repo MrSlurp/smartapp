@@ -12,7 +12,8 @@ namespace CommonLib
         // Description:
         // Return: /
         //*****************************************************************************************************
-        public FilledEllipseControl()
+        public FilledEllipseControl(BTDoc document)
+            : base(document)
         {
 
         }

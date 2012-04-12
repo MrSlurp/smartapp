@@ -10,19 +10,19 @@ namespace CtrlTwoBitmap
 {
     internal class TwoBitmapControl : BTTwoBitmapControl
     {
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        public TwoBitmapControl()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="document"></param>
+        public TwoBitmapControl(BTDoc document)
+            : base(document)
         {
 
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
         public override void CreateControl()
         {
             if (m_Ctrl == null)
@@ -32,8 +32,8 @@ namespace CtrlTwoBitmap
                 m_Ctrl.Name = m_strSymbol;
                 m_Ctrl.Size = m_RectControl.Size;
                 m_Ctrl.BackColor = Color.Transparent;
-                
-                string strImageFullPath = PathTranslator.RelativePathToAbsolute(((TwoBitmapProp)this.m_SpecificProp).NomFichierInactif);
+
+                string strImageFullPath = m_Document.PathTr.RelativePathToAbsolute(((TwoBitmapProp)this.m_SpecificProp).NomFichierInactif);
                 strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
                 try
                 {
@@ -44,8 +44,8 @@ namespace CtrlTwoBitmap
                     LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format(DllEntryClass.LangSys.C("Control {0} Failed to load file {1}"), Symbol, strImageFullPath));
                     AddLogEvent(log);
                 }
-                
-                strImageFullPath = PathTranslator.RelativePathToAbsolute(((TwoBitmapProp)this.m_SpecificProp).NomFichierActif);
+
+                strImageFullPath = m_Document.PathTr.RelativePathToAbsolute(((TwoBitmapProp)this.m_SpecificProp).NomFichierActif);
                 strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
                 try
                 {
@@ -63,15 +63,9 @@ namespace CtrlTwoBitmap
             }
         }
 
-        public override void OnControlEvent(object Sender, EventArgs Args)
-        {
-            return;
-        }
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
         public override void UpdateFromData()
         {
             if (m_AssociateData != null && m_Ctrl != null)
@@ -83,6 +77,12 @@ namespace CtrlTwoBitmap
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Mess"></param>
+        /// <param name="obj"></param>
+        /// <param name="TypeApp"></param>
         public override void TraiteMessage(MESSAGE Mess, object obj, TYPE_APP TypeApp)
         {
             base.TraiteMessage(Mess, obj, TypeApp);
