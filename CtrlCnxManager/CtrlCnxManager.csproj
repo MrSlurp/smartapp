@@ -75,7 +75,6 @@
     <Compile Include="BTControlHerited\BTDllCtrlCnxManagerControl.cs" />
     <Compile Include="BTControlHerited\DllCtrlCnxManagerProp.cs" />
     <Compile Include="ConfigForm\CtrlCnxManagerProperties.cs">
-      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ConfigForm\CtrlCnxManagerProperties.Designer.cs">
       <DependentUpon>CtrlCnxManagerProperties.cs</DependentUpon>
@@ -85,7 +84,6 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="InteractiveHerited\InteractiveCtrlCnxManagerDllControl.cs">
-      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="InteractiveHerited\InteractiveCtrlCnxManagerDllControl.Designer.cs">
       <DependentUpon>InteractiveCtrlCnxManagerDllControl.cs</DependentUpon>

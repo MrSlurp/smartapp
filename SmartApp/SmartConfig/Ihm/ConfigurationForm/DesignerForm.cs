@@ -35,6 +35,7 @@ namespace SmartApp.Ihm
             {
                 m_Document = value;
                 m_PropDialog.Document = m_Document;
+                m_InteractiveControlContainer.m_Document = m_Document;
             }
         }
 
@@ -63,7 +64,8 @@ namespace SmartApp.Ihm
             get { return m_Currentscreen; }
             set
             {
-                OnSelectedScreenChange(value);
+                m_Currentscreen = value;
+                SelectedScreenChange();
             }
         }
         #endregion
@@ -114,7 +116,7 @@ namespace SmartApp.Ihm
         //*****************************************************************************************************      
         public void Initialize()
         {
-            OnSelectedScreenChange(null);
+            SelectedScreenChange();
             m_InteractiveControlContainer.ClearSelection();
         }
         #endregion
@@ -251,11 +253,10 @@ namespace SmartApp.Ihm
         // Description: appelé lorsque l'écran séléctionné a changé
         // Return: /
         //*****************************************************************************************************      
-        public void OnSelectedScreenChange(BTScreen Scr)
+        protected void SelectedScreenChange()
         {
-            m_Currentscreen = Scr;
-            m_PropDialog.CurrentScreen = Scr;
-            m_PropDialog.ConfiguredItem = Scr;
+            m_PropDialog.CurrentScreen = m_Currentscreen;
+            m_PropDialog.ConfiguredItem = m_Currentscreen;
             if (m_Currentscreen == null)
             {
                 // si il n'y a pas d'écran selectionné
@@ -269,7 +270,8 @@ namespace SmartApp.Ihm
                 UpdateDesignerFromScreen(null);
                 return;
             }
-            m_LabelSelectedScreen.Text = Scr.Symbol;
+            string strFileName = Path.GetFileNameWithoutExtension(m_Document.FileName);
+            m_LabelSelectedScreen.Text = strFileName + "@" + m_Currentscreen.Symbol;
             m_InteractiveControlContainer.AllowDrop = true;
             toolbtnScreenToBitmap.Enabled = true;
             tsbtn_copy.Enabled = true;

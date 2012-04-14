@@ -431,11 +431,9 @@ namespace CommonLib
                 // on charge une par une chaque section
                 switch (Id)
                 {
-#if _SMARTAPP_MULTICO
                     case XML_CF_TAG.Comm:
-                        m_Comm.ReadIn(RootNode, TypeApp);
+                        m_Comm.ReadIn(RootNode, this);
                         break;
-#endif
                     case XML_CF_TAG.PluginsGlobals:
                         m_GestDLL.ReadInPluginsGlobals(Node);
                         break;
@@ -577,9 +575,7 @@ namespace CommonLib
             XmlDoc.LoadXml("<Root></Root>");
             WriteFileHeader(XmlDoc);
 
-#if _SMARTAPP_MULTICO
-            m_Comm.WriteOut(XmlDoc, XmlDoc.DocumentElement);
-#endif
+            m_Comm.WriteOut(XmlDoc, XmlDoc.DocumentElement, this);
             XmlNode NodePluginsGlobals = XmlDoc.CreateElement(XML_CF_TAG.PluginsGlobals.ToString());
             XmlDoc.DocumentElement.AppendChild(NodePluginsGlobals);
             m_GestDLL.WriteOutPluginsGlobals(XmlDoc, NodePluginsGlobals);

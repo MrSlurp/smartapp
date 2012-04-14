@@ -88,6 +88,8 @@ namespace CommonLib
         #region Delegates & events
         public delegate bool InteractiveMove(InteractiveControl ctrl, ref Size szMove);
         public event InteractiveMove OnMouve;
+        public delegate void InteractiveEndMove();
+        public event InteractiveEndMove EndMouve;
         public delegate void AssociateDataDropedEvent(InteractiveControl iCtrl);
         public event AssociateDataDropedEvent AsscociateDataDroped;
         #endregion
@@ -396,6 +398,10 @@ namespace CommonLib
             {
                 if (resizeButton[i] != null)
                     resizeButton[i].ShowControl(IsSelected);
+            }
+            if (this.EndMouve != null)
+            {
+                EndMouve();
             }
         }
 

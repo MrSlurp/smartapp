@@ -323,17 +323,39 @@ namespace SmartApp
             get { return m_GestSolution; }
             set 
             { 
-                m_GestSolution = value;
-                if (m_GestSolution != null)
+                
+                if (value != null && m_GestSolution != value)
                 {
+                    m_GestSolution = value;
                     m_GestSolution.OnDocOpened += new SolutionGest.DocumentOpenCloseEventHandler(AddDocument);
                     m_GestSolution.OnDocClosed += new SolutionGest.DocumentOpenCloseEventHandler(RemoveDocument);
+                    EmptySolution();
+                }
+                else
+                {
+                    m_GestSolution = null;
+                    this.Nodes.Clear();
+                    m_SolutionNode = null;
                 }
             }
         }
         #endregion
 
         #region gestion de l'ajout/suppression/modification d'un document
+        public void EmptySolution()
+        {
+            this.Nodes.Clear();
+            if (m_SolutionNode == null)
+            {
+                m_SolutionNode = new TreeNode();
+                m_SolutionNode.Text = Program.LangSys.C("Solution");
+            }
+            if (!this.Nodes.Contains(m_SolutionNode))
+            {
+                this.Nodes.Add(m_SolutionNode);
+            }
+        }
+
         /// <summary>
         /// Ajout un document à l'arbre
         /// </summary>

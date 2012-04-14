@@ -77,6 +77,23 @@ namespace CommonLib
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="strFilePath"></param>
+        /// <returns></returns>
+        public void AddDocument(BTDoc doc)
+        {
+            if (!this.ContainsValue(doc))
+            {
+                this.Add(doc.FileName, doc);
+                if (OnDocOpened != null)
+                {
+                    OnDocOpened(doc);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="doc"></param>
         public void CloseDocument(BTDoc doc)
         {

@@ -8,7 +8,6 @@ using System.Data;
 using System.Text;
 using System.Xml;
 using System.Windows.Forms;
-using Microsoft.VisualBasic.Devices;
 using CommonLib;
 
 namespace SmartApp.Ihm.Designer
@@ -52,7 +51,7 @@ namespace SmartApp.Ihm.Designer
         private Bitmap m_BmpBackImage = null;
         private bool m_bDrawGuides = true;
 
-        private BTDoc m_Document;
+        public BTDoc m_Document;
         #endregion
 
         #region Events
@@ -189,6 +188,14 @@ namespace SmartApp.Ihm.Designer
             if (EventControlPosChanged != null)
                 EventControlPosChanged();
             return true;
+        }
+
+        private void InsideControlEndMouve()
+        {
+            if (m_Document != null)
+            {
+                m_Document.Modified = true; ;
+            }
         }
 
         //*****************************************************************************************************
@@ -468,8 +475,8 @@ namespace SmartApp.Ihm.Designer
             {
                 if (!((InteractiveControl)e.Control).Initialized)
                 {
-                    e.Control.MouseDown += new MouseEventHandler(InsideControlMouseDownHandler);
                     ((InteractiveControl)e.Control).OnMouve += new InteractiveControl.InteractiveMove(InsideControlMouve);
+                    ((InteractiveControl)e.Control).EndMouve += new InteractiveControl.InteractiveEndMove(InsideControlEndMouve);
                     e.Control.KeyDown += new KeyEventHandler(OnControlKeydown);
                     e.Control.DoubleClick += new EventHandler(OnControlDoubleClick);
                     ((InteractiveControl)e.Control).AsscociateDataDroped += new InteractiveControl.AssociateDataDropedEvent(ICtrlDataAssigned);

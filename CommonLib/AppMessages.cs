@@ -123,28 +123,11 @@ namespace CommonLib
     //*****************************************************************************************************
     public class MessNeedUpdate : BaseMessage
     {
-        public bool bUpdateDataForm;
-        public bool bUpdateFrameForm;
         public bool bUpdateScreenForm;
-        public bool bUpdateProgramForm;
 
         public MessNeedUpdate(BaseMessage mess)
         {
             if (mess.TypeOfItem == typeof(CommonLib.Data))
-            {
-                bUpdateFrameForm = true;
-                bUpdateScreenForm = true;
-                bUpdateProgramForm = true;
-            }
-            if (mess.TypeOfItem == typeof(CommonLib.Trame))
-            {
-                bUpdateScreenForm = true;
-                bUpdateProgramForm = true;
-            }
-            if (mess.TypeOfItem == typeof(CommonLib.Logger)
-                || mess.TypeOfItem == typeof(CommonLib.Function)
-                || mess.TypeOfItem == typeof(CommonLib.BTTimer)
-                )
             {
                 bUpdateScreenForm = true;
             }
