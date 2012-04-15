@@ -80,7 +80,7 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "BasePropertiesDialog";
+            this.Text = "Properties";
             this.ResumeLayout(false);
 
         }

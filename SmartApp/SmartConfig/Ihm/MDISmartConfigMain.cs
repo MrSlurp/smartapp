@@ -223,7 +223,7 @@ namespace SmartApp.Ihm
                     DialogResult res = ShowFileModifiedMessagebox();
                     if (res == DialogResult.Yes)
                     {
-                        SolutionSave();
+                        SolutionSave(false);
                         UpdateTitle();
                     }
                     if (res == DialogResult.Cancel)
@@ -237,27 +237,21 @@ namespace SmartApp.Ihm
         /// <summary>
         /// 
         /// </summary>
-        private void SolutionSave()
+        private void SolutionSave(bool bforceAskFileName)
         {
             if (m_GestSolution != null)
             {
-                if (string.IsNullOrEmpty(m_GestSolution.FilePath))
+                if (string.IsNullOrEmpty(m_GestSolution.FilePath) || bforceAskFileName)
                 {
                     DialogResult dlgRes = CentralizedFileDlg.ShowSaveSolFileDilaog();
                     if (dlgRes == DialogResult.OK)
                     {
                         string strFileFullName = CentralizedFileDlg.SolSaveFileName;
-#if LINUX
-                        int idxOfLastAntiSlash = strFileFullName.LastIndexOf(@"/");
-#else
-                        int idxOfLastAntiSlash = strFileFullName.LastIndexOf(@"\");
-#endif
                         string DossierFichier = Path.GetDirectoryName(strFileFullName);
                         CentralizedFileDlg.InitImgFileDialog(DossierFichier);
                         CentralizedFileDlg.InitPrjFileDialog(DossierFichier);
                         CentralizedFileDlg.InitSolFileDialog(DossierFichier);
-                        m_GestSolution.WriteOutSolution(strFileFullName);
-                        m_GestSolution.SaveAllDocumentsAndSolution();
+                        m_GestSolution.SaveAllDocumentsAndSolution(strFileFullName);
                         this.m_mruStripMenu.AddFile(strFileFullName);
                         m_GestSolution.HaveModifiedDocument = false;
                     }
@@ -275,23 +269,52 @@ namespace SmartApp.Ihm
         /// </summary>
         private void SolutionOpen(string strSolutionPath)
         {
-            if (m_GestSolution == null)
+            if (string.IsNullOrEmpty(strSolutionPath))
             {
-                SolutionNew();
+                DialogResult dlgRes = CentralizedFileDlg.ShowOpenSolFileDilaog();
+                if (dlgRes == DialogResult.OK)
+                    strSolutionPath = CentralizedFileDlg.SolOpenFileName;
             }
-            m_GestSolution.ReadInSolution(strSolutionPath);
-            m_mruStripMenu.AddFile(strSolutionPath);
-            UpdateTitle();
-            UpdateFileMenu();
+            if (m_GestSolution != null)
+            {
+                System.Diagnostics.Debug.Assert(false);
+            }
+            if (!string.IsNullOrEmpty(strSolutionPath))
+            {
+                m_GestSolution = new SolutionGest(Program.TypeApp, Program.DllGest);
+                solutionTreeView.SolutionGest = m_GestSolution;
+                string DossierFichier = Path.GetDirectoryName(strSolutionPath);
+                CentralizedFileDlg.InitImgFileDialog(DossierFichier);
+                CentralizedFileDlg.InitPrjFileDialog(DossierFichier);
+                CentralizedFileDlg.InitSolFileDialog(DossierFichier);
+                m_GestSolution.ReadInSolution(strSolutionPath);
+                m_GestSolution.OnDocScreenEdit += new SolutionGest.DocumentScreenEditHandler(GestSolution_OnDocScreenEdit);
+                m_mruStripMenu.AddFile(strSolutionPath);
+                UpdateTitle();
+                UpdateFileMenu();
+            }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void SolutionNew()
         {
-            m_GestSolution = new SolutionGest(Program.TypeApp, Program.DllGest);
-            m_GestSolution.OnDocScreenEdit += new SolutionGest.DocumentScreenEditHandler(GestSolution_OnDocScreenEdit);
-            solutionTreeView.SolutionGest = m_GestSolution;
-            UpdateTitle();
-            UpdateFileMenu();
+            DialogResult dlgRes = CentralizedFileDlg.ShowSaveSolFileDilaog();
+            if (dlgRes == DialogResult.OK)
+            {
+                m_GestSolution = new SolutionGest(Program.TypeApp, Program.DllGest);
+                solutionTreeView.SolutionGest = m_GestSolution;
+                m_GestSolution.SaveAllDocumentsAndSolution(CentralizedFileDlg.SolSaveFileName);
+                string DossierFichier = Path.GetDirectoryName(m_GestSolution.FilePath);
+                CentralizedFileDlg.InitImgFileDialog(DossierFichier);
+                CentralizedFileDlg.InitPrjFileDialog(DossierFichier);
+                CentralizedFileDlg.InitSolFileDialog(DossierFichier);
+                m_GestSolution.OnDocScreenEdit += new SolutionGest.DocumentScreenEditHandler(GestSolution_OnDocScreenEdit);
+                m_mruStripMenu.AddFile(m_GestSolution.FilePath);
+                UpdateTitle();
+                UpdateFileMenu();
+            }
         }
 
         /// <summary>
@@ -299,8 +322,13 @@ namespace SmartApp.Ihm
         /// </summary>
         private void SolutionClose()
         {
-            // TODO
-            //m_GestSolution.UnloadSolution();
+            foreach (DesignerForm frm in m_ListDesignForm)
+            {
+                frm.Close();
+            }
+            m_ListDesignForm.Clear();
+            m_GestSolution = null;
+            solutionTreeView.SolutionGest = null;
             UpdateFileMenu();
         }
 
@@ -333,7 +361,9 @@ namespace SmartApp.Ihm
             }
             else
             {
-                this.SolutionOpen(filename);
+                SolutionAskUserToSaveIfIsModified();
+                SolutionClose();
+                SolutionOpen(filename);
                 m_mruStripMenu.SetFirstFile(number);
             }
         }
@@ -567,7 +597,7 @@ namespace SmartApp.Ihm
             if (m_GestSolution != null && m_GestSolution.Count!=0)
             {
                 // si le document n'est pas sauvegardé, on demande de le faire
-                SolutionSave();
+                SolutionSave(false);
 
                 // on vérifie si il a été sauvegardé
                 if (!string.IsNullOrEmpty(m_GestSolution.FilePath) && File.Exists(m_GestSolution.FilePath))
@@ -608,11 +638,26 @@ namespace SmartApp.Ihm
                 if (dlgRes == DialogResult.OK)
                 {
                     string projectName = Path.GetFileName(projNameFrm.ProjectName);
-                    string projectPath = Path.GetDirectoryName(m_GestSolution.FilePath) + projectName;
+                    string projectPath = Path.GetDirectoryName(m_GestSolution.FilePath) + Path.DirectorySeparatorChar + projectName;
                     BTDoc newDoc = new BTDoc(Program.TypeApp);
                     newDoc.WriteConfigDocument(projectPath, false, Program.DllGest);
                     m_GestSolution.AddDocument(newDoc);
                     newDoc.Modified = false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void AddExistingProject()
+        {
+            if (m_GestSolution != null)
+            {
+                DialogResult dlgRes = CentralizedFileDlg.ShowOpenPrjFileDilaog();
+                if (dlgRes == DialogResult.OK)
+                {
+                    m_GestSolution.OpenDocument(CentralizedFileDlg.PrjOpenFileName);
                 }
             }
         }
@@ -685,7 +730,7 @@ namespace SmartApp.Ihm
                 if (dlgRes == DialogResult.OK)
                 {
                     string projectName = Path.GetFileName(projNameFrm.ProjectName);
-                    string projectPath = Path.GetDirectoryName(m_GestSolution.FilePath) + projectName;
+                    string projectPath = Path.GetDirectoryName(m_GestSolution.FilePath) + Path.DirectorySeparatorChar + projectName;
                     BTDoc newDoc = new BTDoc(Program.TypeApp);
                     WizardM3Z2ProjectForm wiz = new WizardM3Z2ProjectForm(new SLWizardConfigData());
                     if (wiz.ShowDialog() == DialogResult.OK)
@@ -713,7 +758,7 @@ namespace SmartApp.Ihm
                 if (dlgRes == DialogResult.OK)
                 {
                     string projectName = Path.GetFileName(projNameFrm.ProjectName);
-                    string projectPath = Path.GetDirectoryName(m_GestSolution.FilePath) + projectName;
+                    string projectPath = Path.GetDirectoryName(m_GestSolution.FilePath) + Path.DirectorySeparatorChar + projectName;
                     BTDoc newDoc = new BTDoc(Program.TypeApp);
                     WizardM3Z2ProjectForm wiz = new WizardM3Z2ProjectForm(new SLZ2WizardConfigData());
                     if (wiz.ShowDialog() == DialogResult.OK)
@@ -741,7 +786,7 @@ namespace SmartApp.Ihm
                 if (dlgRes == DialogResult.OK)
                 {
                     string projectName = Path.GetFileName(projNameFrm.ProjectName);
-                    string projectPath = Path.GetDirectoryName(m_GestSolution.FilePath) + projectName;
+                    string projectPath = Path.GetDirectoryName(m_GestSolution.FilePath) + Path.DirectorySeparatorChar + projectName;
                     BTDoc newDoc = new BTDoc(Program.TypeApp);
                     WizardM3Z2ProjectForm wiz = new WizardM3Z2ProjectForm(new M3XN05WizardConfigData());
                     if (wiz.ShowDialog() == DialogResult.OK)
@@ -769,7 +814,7 @@ namespace SmartApp.Ihm
                 if (dlgRes == DialogResult.OK)
                 {
                     string projectName = Path.GetFileName(projNameFrm.ProjectName);
-                    string projectPath = Path.GetDirectoryName(m_GestSolution.FilePath) + projectName;
+                    string projectPath = Path.GetDirectoryName(m_GestSolution.FilePath) + Path.DirectorySeparatorChar + projectName;
                     BTDoc newDoc = new BTDoc(Program.TypeApp);
                     WizardM3Z2ProjectForm wiz = new WizardM3Z2ProjectForm(new Z2SR3NETWizardConfigData());
                     if (wiz.ShowDialog() == DialogResult.OK)
@@ -830,7 +875,9 @@ namespace SmartApp.Ihm
 
         private void menuItemOpenSolution_Click(object sender, EventArgs e)
         {
-            //this.SolutionOpen(
+            SolutionAskUserToSaveIfIsModified();
+            SolutionClose();
+            this.SolutionOpen(null);
         }
 
         private void menuItemAddProj_emptyProject_Click(object sender, EventArgs e)
@@ -840,6 +887,7 @@ namespace SmartApp.Ihm
 
         private void menuItemAddProj_importExisting_Click(object sender, EventArgs e)
         {
+            AddExistingProject();
         }
 
         private void menuItemAddProj_M3SLWiz_Click(object sender, EventArgs e)
@@ -864,24 +912,37 @@ namespace SmartApp.Ihm
 
         private void menuItemCloseSolution_Click(object sender, EventArgs e)
         {
-            this.SolutionClose();
+            SolutionClose();
         }
 
         private void menuItemExit_Click(object sender, EventArgs e)
         {
-            this.ExitSmartConfig();
+            ExitSmartConfig();
         }
 
         private void menuItemSave_Click(object sender, EventArgs e)
         {
-            this.SolutionSave();
+            SolutionSave(false);
         }
 
         private void menuItemSaveAs_Click(object sender, EventArgs e)
         {
+            SolutionSave(true);
+        }
 
+        private void toolBarItemOpenSolution_Click(object sender, EventArgs e)
+        {
+            SolutionAskUserToSaveIfIsModified();
+            SolutionClose();
+            SolutionOpen(null);
+        }
+
+        private void toolBarItemSaveAll_Click(object sender, EventArgs e)
+        {
+            SolutionSave(false);
         }
         #endregion
+
 
     }
 }

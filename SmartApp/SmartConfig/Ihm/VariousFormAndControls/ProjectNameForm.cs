@@ -14,11 +14,12 @@ namespace SmartApp.Ihm
         public ProjectNameForm()
         {
             InitializeComponent();
+            Program.LangSys.Initialize(this);
         }
 
         public string ProjectName
         {
-            get { return textBox1.Text; }
+            get { return textBox1.Text + ".saf"; }
         }
 
         private void btnOK_Click(object sender, EventArgs e)

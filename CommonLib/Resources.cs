@@ -87,6 +87,7 @@ namespace CommonLib
         public static Bitmap TreeViewFunctionIcon;
         public static Bitmap TreeViewLoggerIcon;
         public static Bitmap TreeViewIOIcon;
+        public static Icon TreeViewSolutionIcon;
 		
 		public static void InitializeBitmap()
 		{
@@ -152,6 +153,7 @@ namespace CommonLib
             TreeViewFunctionIcon = NewBmpTrPath(strAppDir + "\\Res\\icon_function.png");
             TreeViewLoggerIcon = NewBmpTrPath(strAppDir + "\\Res\\icon_logger.png");
             TreeViewIOIcon = NewBmpTrPath(strAppDir + "\\Res\\icon_io.png");
+            TreeViewSolutionIcon = NewIcoTrPath(strAppDir + "\\SmartAppSln.ico");
         }
 
         public static Bitmap NewBmpTrPath(string path)

@@ -271,7 +271,7 @@ namespace SmartApp.Ihm
                 return;
             }
             string strFileName = Path.GetFileNameWithoutExtension(m_Document.FileName);
-            m_LabelSelectedScreen.Text = strFileName + "@" + m_Currentscreen.Symbol;
+            m_LabelSelectedScreen.Text = m_Currentscreen.Symbol + " @ " + strFileName;
             m_InteractiveControlContainer.AllowDrop = true;
             toolbtnScreenToBitmap.Enabled = true;
             tsbtn_copy.Enabled = true;

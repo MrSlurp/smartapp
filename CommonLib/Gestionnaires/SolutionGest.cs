@@ -18,11 +18,12 @@ namespace CommonLib
 
         public delegate void DocumentOpenCloseEventHandler(BTDoc doc);
         public delegate void DocumentScreenEditHandler(string screenName, BTDoc document);
-
+        public delegate void SolutionNameChangedEventHandler();
 
         public event DocumentOpenCloseEventHandler OnDocOpened;
         public event DocumentOpenCloseEventHandler OnDocClosed;
         public event DocumentScreenEditHandler OnDocScreenEdit;
+        public event SolutionNameChangedEventHandler OnSolutionNameChanged;
 
         TYPE_APP m_TypeApp;
         DllControlGest m_GestDLL;
@@ -33,6 +34,17 @@ namespace CommonLib
         public string FilePath
         {
             get { return m_SolutionPath; }
+            private set
+            {
+                if (m_SolutionPath != value)
+                {
+                    m_SolutionPath = value;
+                    if (OnSolutionNameChanged != null)
+                    {
+                        OnSolutionNameChanged();
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -99,7 +111,7 @@ namespace CommonLib
         {
             if (this.ContainsValue(doc))
             {
-                this.Values.Remove(doc);
+                this.Remove(doc.FileName);
                 if (OnDocClosed != null)
                 {
                     OnDocClosed(doc);
@@ -130,7 +142,7 @@ namespace CommonLib
                 return false;
 
             m_PathTranslator.BTDocPath = Path.GetDirectoryName(strSolutionPath);
-            m_SolutionPath = strSolutionPath;
+            this.FilePath = strSolutionPath;
             int SolutionFileVersion = 0;
             for (int iRootChilds = 0; iRootChilds < RootNode.ChildNodes.Count; iRootChilds++)
             {
@@ -159,33 +171,34 @@ namespace CommonLib
                         string cheminProj = attr.Value;
                         cheminProj = m_PathTranslator.RelativePathToAbsolute(cheminProj);
                         cheminProj = PathTranslator.LinuxVsWindowsPathUse(cheminProj);
-                        bool KeepGhostProject = true;
+                        //bool KeepGhostProject = true;
                         if (!File.Exists(cheminProj))
                         {
-                            DialogResult dlgRes = MessageBox.Show(string.Format(Lang.LangSys.C("Unable to open file {0}, do you want to keep it in solution?"),cheminProj),
+                            DialogResult dlgRes = MessageBox.Show(string.Format(Lang.LangSys.C("Unable to open file {0}, this project will be removed from solution"),cheminProj),
                                                                   Lang.LangSys.C("Error"),
-                                                                  MessageBoxButtons.YesNo,
+                                                                  MessageBoxButtons.OK,
                                                                   MessageBoxIcon.Error);
-                            if (dlgRes == DialogResult.Yes)
+                            /*if (dlgRes == DialogResult.Yes)
                             {
-                                KeepGhostProject = true; // TODO
-                            }
+                                KeepGhostProject = true; 
+                            }*/
                         }
                         else if (this.OpenDocument(cheminProj) == null)
                         {
-                            DialogResult dlgRes = MessageBox.Show(string.Format(Lang.LangSys.C("File {0}, is corrupted. Do you want to keep it in solution?"), cheminProj),
+                            DialogResult dlgRes = MessageBox.Show(string.Format(Lang.LangSys.C("File {0}, is corrupted. this project will be removed from solution"), cheminProj),
                                                                   Lang.LangSys.C("Error"),
-                                                                  MessageBoxButtons.YesNo,
+                                                                  MessageBoxButtons.OK,
                                                                   MessageBoxIcon.Error);
-                            if (dlgRes == DialogResult.Yes)
+                            /*if (dlgRes == DialogResult.Yes)
                             {
-                                KeepGhostProject = true; // TODO
-                            }
+                                KeepGhostProject = true; 
+                            }*/
                         }
+                        /*
                         if (KeepGhostProject)
                         {
                             // TODO ENVOYER LE GHOST
-                        }
+                        }*/
                     }
                 }
             }
@@ -196,18 +209,9 @@ namespace CommonLib
         /// <summary>
         /// 
         /// </summary>
-        /// <returns></returns>
-        public bool WriteOutSolution()
-        {
-            return WriteOutSolution(m_SolutionPath);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="strSolutionPath"></param>
         /// <returns></returns>
-        public bool WriteOutSolution(string strSolutionPath)
+        protected bool WriteOutSolution(string strSolutionPath)
         {
             XmlDocument XmlDoc = new XmlDocument();
             XmlDoc.LoadXml("<Solution></Solution>");
@@ -229,6 +233,7 @@ namespace CommonLib
                 NodeProj.Attributes.Append(attr);
                 NodeProjList.AppendChild(NodeProj);
             }
+            XmlDoc.Save(strSolutionPath);
             return true;
         }
 
@@ -237,7 +242,25 @@ namespace CommonLib
         /// </summary>
         public void SaveAllDocumentsAndSolution()
         {
-            WriteOutSolution();
+            WriteOutSolution(m_SolutionPath);
+            SaveDocuments();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void SaveAllDocumentsAndSolution(string strSolutionPath)
+        {
+            this.FilePath = strSolutionPath;
+            WriteOutSolution(strSolutionPath);
+            SaveDocuments();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected void SaveDocuments()
+        {
             foreach (BTDoc doc in this.Values)
             {
                 doc.WriteConfigDocument(true);

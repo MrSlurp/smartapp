@@ -26,6 +26,8 @@ namespace CommonLib
         public BasePropertiesDialog()
         {
             InitializeComponent();
+            if (Lang.LangSys != null)
+                Lang.LangSys.Initialize(this);
         }
 
         /// <summary>

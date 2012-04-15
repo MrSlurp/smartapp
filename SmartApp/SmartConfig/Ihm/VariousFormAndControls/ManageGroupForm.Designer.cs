@@ -1,4 +1,4 @@
-namespace SmartApp.Ihm
+namespace SmartApp
 {
     partial class ManageGroupForm
     {
@@ -120,8 +120,8 @@ namespace SmartApp.Ihm
             this.m_ListViewDataDest.TabIndex = 1;
             this.m_ListViewDataDest.UseCompatibleStateImageBehavior = false;
             this.m_ListViewDataDest.View = System.Windows.Forms.View.Details;
-            this.m_ListViewDataDest.DragEnter += new System.Windows.Forms.DragEventHandler(this.OnListViewDestDragEnter);
             this.m_ListViewDataDest.DragDrop += new System.Windows.Forms.DragEventHandler(this.OnListViewFrameDataDragDrop);
+            this.m_ListViewDataDest.DragEnter += new System.Windows.Forms.DragEventHandler(this.OnListViewDestDragEnter);
             // 
             // columnHeader1
             // 
@@ -169,8 +169,8 @@ namespace SmartApp.Ihm
             this.splitContainer1.Panel2.Controls.Add(this.button1);
             this.splitContainer1.Panel2.Controls.Add(this.m_cboGroupDest);
             this.splitContainer1.Panel2.Controls.Add(this.m_ListViewDataDest);
-            this.splitContainer1.Size = new System.Drawing.Size(761, 430);
             this.splitContainer1.Panel2MinSize = 350;
+            this.splitContainer1.Size = new System.Drawing.Size(761, 430);
             this.splitContainer1.SplitterDistance = 380;
             this.splitContainer1.TabIndex = 2;
             // 

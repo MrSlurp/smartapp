@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using CommonLib;
 
 
-namespace SmartApp.Ihm
+namespace SmartApp
 {
     public partial class ManageGroupForm : Form
     {
@@ -277,6 +277,11 @@ namespace SmartApp.Ihm
             m_cboGroupDest.SelectedIndex = DestCboCurIndex;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnBtnSelectColorClick(object sender, EventArgs e)
         {
             string strGroupName = (string)m_cboGroupSrc.SelectedValue;
@@ -290,6 +295,11 @@ namespace SmartApp.Ihm
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnbtnDeleteGroupClick(object sender, EventArgs e)
         {
             string strGroupName = (string)m_cboGroupSrc.SelectedValue;
@@ -303,6 +313,11 @@ namespace SmartApp.Ihm
             InitCombosGroups();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnbtnNewGroupClick(object sender, EventArgs e)
         {
             string strNewGroupText = GestData.GetNextDefaultGroupText();
@@ -313,6 +328,9 @@ namespace SmartApp.Ihm
             InitCombosGroups();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void InitCombosGroups()
         {
             // il faut remettre l'index selectionné a 0 avant de changer la data source
