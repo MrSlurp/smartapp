@@ -623,6 +623,7 @@ namespace SmartApp.Ihm
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator1.Visible = false;
             // 
             // m_printToolStripButton
             // 
@@ -658,6 +659,7 @@ namespace SmartApp.Ihm
             this.tsbtnConfigCom.Name = "tsbtnConfigCom";
             this.tsbtnConfigCom.Size = new System.Drawing.Size(132, 22);
             this.tsbtnConfigCom.Text = "Configure connections";
+            this.tsbtnConfigCom.Visible = false;
             // 
             // toolStripSeparator11
             // 

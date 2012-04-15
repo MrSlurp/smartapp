@@ -369,30 +369,6 @@ namespace SmartApp.Ihm
         }
         #endregion
 
-        /// <summary>
-        /// affiche le panel de préférence de l'application
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void menuItemPref_Click(object sender, EventArgs e)
-        {
-            PreferencesForm prfForm = new PreferencesForm();
-            prfForm.SelectedLang = SmartApp.Properties.Settings.Default.Lang;
-            if (prfForm.ShowDialog() == DialogResult.OK)
-            {
-                if (prfForm.SelectedLang != SmartApp.Properties.Settings.Default.Lang)
-                {
-                    SmartApp.Properties.Settings.Default.Lang = prfForm.SelectedLang;
-                    SmartApp.Properties.Settings.Default.Save();
-                    OnNeedUpdateHMI(null);
-                    //MessageBox.Show(Program.LangSys.C("Please restart the application in order apply language change"), Program.LangSys.C("Informations"), MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    Lang.LangSys.ChangeLangage(prfForm.SelectedLang);
-                    Program.ChangePluginLang(prfForm.SelectedLang);
-                    Program.LangSys.ChangeLangage(prfForm.SelectedLang);
-                }
-            }
-        }
-
         #region handler d'event menu caché développeur
         /// <summary>
         /// affiche le panel de configuration des logs
@@ -941,6 +917,31 @@ namespace SmartApp.Ihm
         {
             SolutionSave(false);
         }
+
+        /// <summary>
+        /// affiche le panel de préférence de l'application
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void menuItemPref_Click(object sender, EventArgs e)
+        {
+            PreferencesForm prfForm = new PreferencesForm();
+            prfForm.SelectedLang = SmartApp.Properties.Settings.Default.Lang;
+            if (prfForm.ShowDialog() == DialogResult.OK)
+            {
+                if (prfForm.SelectedLang != SmartApp.Properties.Settings.Default.Lang)
+                {
+                    SmartApp.Properties.Settings.Default.Lang = prfForm.SelectedLang;
+                    SmartApp.Properties.Settings.Default.Save();
+                    OnNeedUpdateHMI(null);
+                    //MessageBox.Show(Program.LangSys.C("Please restart the application in order apply language change"), Program.LangSys.C("Informations"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Lang.LangSys.ChangeLangage(prfForm.SelectedLang);
+                    Program.ChangePluginLang(prfForm.SelectedLang);
+                    Program.LangSys.ChangeLangage(prfForm.SelectedLang);
+                }
+            }
+        }
+
         #endregion
 
 
