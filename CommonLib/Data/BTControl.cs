@@ -27,7 +27,7 @@ namespace CommonLib
 
         #region Déclaration des données de la classe
         // control affiché dans le designer d'ecrans
-        protected InteractiveControl m_IControl = new InteractiveControl();
+        protected InteractiveControl m_IControl;
         // symbol de la donnée associée au control
         protected string m_strAssociateData;
         // indique si le control utilise l'évènement d'écran
@@ -50,6 +50,8 @@ namespace CommonLib
         /// </summary>
         public BTControl(BTDoc document)
         {
+            m_IControl = new InteractiveControl();
+            m_IControl.SourceBTControl = this;
             m_ScriptContainer["EvtScript"] = new string[1];
             m_Document = document;
         }
@@ -113,14 +115,6 @@ namespace CommonLib
         {
             get
             {
-                // on instancie le control interactif que lorsqu'on l'utilise,
-                // ou lors qu'on crée le controle depuis le designer (avec le constructeur approprié)
-                // ainsi en mode Command il n'est pas instancié
-                if (m_IControl == null)
-                {
-                    m_IControl = new InteractiveControl();
-                    m_IControl.SourceBTControl = this;
-                }
                 return m_IControl;
             }
         }

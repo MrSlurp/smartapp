@@ -21,10 +21,9 @@ namespace SmartApp.Ihm
         #endregion
 
         #region attributs de la classe
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
+        /// <summary>
+        /// 
+        /// </summary>
         public BTDoc Doc
         {
             get
@@ -39,6 +38,9 @@ namespace SmartApp.Ihm
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public GestScreen GestScreen
         {
             get
@@ -47,10 +49,9 @@ namespace SmartApp.Ihm
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
+        /// <summary>
+        /// 
+        /// </summary>
         public GestData GestData
         {
             get
@@ -59,6 +60,9 @@ namespace SmartApp.Ihm
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public BTScreen CurrentScreen
         {
             get { return m_Currentscreen; }
@@ -71,10 +75,9 @@ namespace SmartApp.Ihm
         #endregion
 
         #region constructeurs et inits
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
+        /// <summary>
+        /// 
+        /// </summary>
         public DesignerForm()
         {
             //Program.LangSys.Initialize(this);
@@ -93,27 +96,15 @@ namespace SmartApp.Ihm
             m_InteractiveControlContainer.EventControlRemoved += new IControlRemovedEvent(this.OnDesignerControRemoved);
             m_InteractiveControlContainer.EventControlBringToTop += new IControlBringToTop(this.OnDesignerControBringTop);
             m_InteractiveControlContainer.EventControlDblClick += new ControlDoubleClicked(this.OnControlDblClick);
-            m_InteractiveControlContainer.EventControlPosChanged += new ControlsPosChanged(ControlPosChanged);
             m_InteractiveControlContainer.AllowDrop = false;
 
 
             OnScreenDesignerSelectionChange();
         }
 
-        void PanelScreenListAndProp_ScreenDoubleClick(object sender, EventArgs e)
-        {
-            OnControlDblClick();
-        }
-
-        void ControlPosChanged()
-        {
-            m_Document.Modified = true;
-        }
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
+        /// <summary>
+        /// 
+        /// </summary>
         public void Initialize()
         {
             SelectedScreenChange();
@@ -122,10 +113,9 @@ namespace SmartApp.Ihm
         #endregion
 
         #region event handlers
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
+        /// <summary>
+        /// 
+        /// </summary>
         private void OnScreenDesignerSelectionChange()
         {
             UpdateLayoutToolBarButtons();
@@ -138,11 +128,9 @@ namespace SmartApp.Ihm
         #endregion
 
         #region fonctions d'update de l'IHM
-        //*****************************************************************************************************
-        // Description: met a jour l'état des boutons de la tool bar de mise en forme en fonction de la selection
-        // du designer (InteractiveControlContainer)
-        // Return: /
-        //*****************************************************************************************************      
+        /// <summary>
+        /// 
+        /// </summary>
         private void UpdateLayoutToolBarButtons()
         {
             if (m_InteractiveControlContainer.SelectionCount <= 1)
@@ -249,10 +237,9 @@ namespace SmartApp.Ihm
         #endregion
 
         #region fonctions de gestion du transfert des données Designer => objet && objet ==> designer
-        //*****************************************************************************************************
-        // Description: appelé lorsque l'écran séléctionné a changé
-        // Return: /
-        //*****************************************************************************************************      
+        /// <summary>
+        /// 
+        /// </summary>
         protected void SelectedScreenChange()
         {
             m_PropDialog.CurrentScreen = m_Currentscreen;
@@ -302,10 +289,10 @@ namespace SmartApp.Ihm
             UpdateDesignerFromScreen(m_Currentscreen);
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Scr"></param>
         private void UpdateDesignerFromScreen(BTScreen Scr)
         {
             m_InteractiveControlContainer.Controls.Clear();
@@ -319,11 +306,13 @@ namespace SmartApp.Ihm
             }
         }
 
-        //*****************************************************************************************************
-        // Description: appelé lorsqu'on ajoute manuellement un control au designer
-        // ajoute le control dans la liste des controls de l'écran
-        // Return: /
-        //*****************************************************************************************************      
+        /// <summary>
+        /// appelé lorsqu'on ajoute manuellement un control au designer
+        /// ajoute le control dans la liste des controls de l'écran
+        /// </summary>
+        /// <param name="ctrl"></param>
+        /// <param name="SrcBtControl"></param>
+        /// <param name="bFromOtherInstance"></param>
         private void OnDesignerControAdded(InteractiveControl ctrl, BTControl SrcBtControl,bool bFromOtherInstance)
         {
             if (m_Currentscreen == null)
@@ -346,10 +335,10 @@ namespace SmartApp.Ihm
             m_Document.Modified = true;
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ctrl"></param>
         private void OnDesignerControRemoved(InteractiveControl ctrl)
         {
             if (m_Currentscreen == null)
@@ -364,10 +353,9 @@ namespace SmartApp.Ihm
         }
 
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
+        /// <summary>
+        /// 
+        /// </summary>
         private void OnControlDblClick()
         {
             if (m_PropDialog.ConfiguredItem != null)
@@ -378,50 +366,43 @@ namespace SmartApp.Ihm
         }
 
         #endregion
-
-        #region fonctions "helpers"
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
-        /*
-        public BTControl FindControlFromIControl(InteractiveControl iCtrl)
-        {
-            if (m_Currentscreen != null)
-            {
-                for (int i = 0; i < m_Currentscreen.Controls.Count; i++)
-                {
-                    BTControl Ctrl = (BTControl)m_Currentscreen.Controls[i];
-                    if (Ctrl.IControl == iCtrl)
-                        return Ctrl;
-                }
-            }
-            return null;
-        }
-         * */
-        #endregion
-
-        private void OnDesignerKeyDown(object sender, KeyEventArgs e)
-        {
-        }
-
+ 
         #region arrange functions
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void m_toolBtnArrangeAcross_Click(object sender, EventArgs e)
         {
             m_InteractiveControlContainer.ArrangeItemsAcross();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void m_toolBtnArrangeDown_Click(object sender, EventArgs e)
         {
             m_InteractiveControlContainer.ArrangeItemsDown();
         }
         #endregion
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void m_toolBtnBringToFront_Click(object sender, EventArgs e)
         {
             m_InteractiveControlContainer.LayoutBringToFront();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ctrl"></param>
         private void OnDesignerControBringTop(InteractiveControl ctrl)
         {
             if (m_Currentscreen != null)
@@ -430,27 +411,52 @@ namespace SmartApp.Ihm
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void toolbtnScreenToBitmap_Click(object sender, EventArgs e)
         {
             m_InteractiveControlContainer.SaveAsBitmap();
         }
 
         #region size functions
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tsbtn_increaseWidth_Click(object sender, EventArgs e)
         {
             m_InteractiveControlContainer.SizeCtrlsPlusW();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tsbtn_decreaseWidth_Click(object sender, EventArgs e)
         {
             m_InteractiveControlContainer.SizeCtrlsMinusW();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tsbtn_increaseHeight_Click(object sender, EventArgs e)
         {
             m_InteractiveControlContainer.SizeCtrlsPlusH();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tsbtn_decreaseHeight_Click(object sender, EventArgs e)
         {
             m_InteractiveControlContainer.SizeCtrlsMinusH();
@@ -458,41 +464,76 @@ namespace SmartApp.Ihm
         #endregion
 
         #region move functions
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tsbtn_moveLeft_Click(object sender, EventArgs e)
         {
             Size szMove = new Size(-1, 0);
             m_InteractiveControlContainer.TraiteMove(null, szMove);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tsbtn_moveRight_Click(object sender, EventArgs e)
         {
             Size szMove = new Size(1, 0);
             m_InteractiveControlContainer.TraiteMove(null, szMove);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tsbtn_moveUp_Click(object sender, EventArgs e)
         {
             Size szMove = new Size(0, -1);
             m_InteractiveControlContainer.TraiteMove(null, szMove);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tsbtn_moveDown_Click(object sender, EventArgs e)
         {
             Size szMove = new Size(0, 1);
             m_InteractiveControlContainer.TraiteMove(null, szMove);
         }
-    
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tsbtn_copy_click(object sender, EventArgs e)
         {
             m_InteractiveControlContainer.TreatCopy();            
         }
-    
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tsbtn_paste_click(object sender, EventArgs e)
         {
             m_InteractiveControlContainer.TreatPaste();            
         }
         #endregion
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DesignerForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             m_InteractiveControlContainer.Controls.Clear();

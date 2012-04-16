@@ -90,7 +90,7 @@ namespace CommonLib
         public event InteractiveMove OnMouve;
         public delegate void InteractiveEndMove();
         public event InteractiveEndMove EndMouve;
-        public delegate void AssociateDataDropedEvent(InteractiveControl iCtrl);
+        public delegate bool AssociateDataDropedEvent(InteractiveControl iCtrl, string strDataSymbol);
         public event AssociateDataDropedEvent AsscociateDataDroped;
         #endregion
 
@@ -609,11 +609,17 @@ namespace CommonLib
         /// <param name="e">arguments de l'évènement</param>
         private void InteractiveControl_DragOver(object sender, DragEventArgs e)
         {
-            Data DropedItem = (Data)e.Data.GetData(typeof(Data));
-            if (DropedItem != null && this.ControlType != InteractiveControlType.Text)
-                e.Effect = DragDropEffects.All;
-            else
-                e.Effect = DragDropEffects.None;
+            TreeNode DropedItem = (TreeNode)e.Data.GetData(typeof(TreeNode));
+            if (DropedItem != null)
+            {
+                if (DropedItem.Tag is Data &&
+                    this.ControlType != InteractiveControlType.Text)
+                {
+                    e.Effect = DragDropEffects.All;
+                    return;
+                }
+            }
+            e.Effect = DragDropEffects.None;
         }
 
         /// <summary>
@@ -633,14 +639,20 @@ namespace CommonLib
         /// <param name="e">arguments de l'évènement</param>
         private void InteractiveControl_DragDrop(object sender, DragEventArgs e)
         {
-            Data DropedItem = (Data)e.Data.GetData(typeof(Data));
+            TreeNode DropedItem = (TreeNode)e.Data.GetData(typeof(TreeNode));
             if (DropedItem != null)
             {
-                if (this.ControlType != InteractiveControlType.Text)
+                if (DropedItem.Tag is Data && 
+                    this.ControlType != InteractiveControlType.Text)
                 {
-                    m_SrcBTControl.AssociateData = DropedItem.Symbol;
                     if (AsscociateDataDroped != null)
-                        AsscociateDataDroped(this);
+                    {
+                        Data dt = DropedItem.Tag as Data;
+                        if (AsscociateDataDroped(this, dt.Symbol))
+                        {
+                            m_SrcBTControl.AssociateData = dt.Symbol;
+                        }
+                    }
                 }
             }
         }

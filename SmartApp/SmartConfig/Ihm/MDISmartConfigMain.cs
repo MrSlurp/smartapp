@@ -85,7 +85,7 @@ namespace SmartApp.Ihm
             m_panelToolDragItem.BackColor = System.Drawing.Color.Transparent;
             m_panelToolDragItem.Dock = System.Windows.Forms.DockStyle.Fill;
             m_panelToolDragItem.Name = "m_panelToolDragItem";
-            panel1.Controls.Add(m_panelToolDragItem);
+            toolsPanel.Controls.Add(m_panelToolDragItem);
         }
         #endregion
 
@@ -289,9 +289,28 @@ namespace SmartApp.Ihm
                 CentralizedFileDlg.InitSolFileDialog(DossierFichier);
                 m_GestSolution.ReadInSolution(strSolutionPath);
                 m_GestSolution.OnDocScreenEdit += new SolutionGest.DocumentScreenEditHandler(GestSolution_OnDocScreenEdit);
+                m_GestSolution.OnDocumentChanged += new SolutionGest.SolutionDocumentChangedEventHandler(UpdateTitle);
+                m_GestSolution.OnDocClosed += new SolutionGest.DocumentOpenCloseEventHandler(GestSolution_OnDocClosed);
                 m_mruStripMenu.AddFile(strSolutionPath);
                 UpdateTitle();
                 UpdateFileMenu();
+            }
+        }
+
+        void GestSolution_OnDocClosed(BTDoc doc)
+        {
+            List<DesignerForm> toDelList = new List<DesignerForm>();
+            foreach (DesignerForm frm in m_ListDesignForm)
+            {
+                if (frm.Doc == doc)
+                {
+                    toDelList.Add(frm);
+                }
+            }
+            foreach (DesignerForm frm in toDelList)
+            {
+                m_ListDesignForm.Remove(frm);
+                frm.Close();
             }
         }
 
@@ -311,6 +330,7 @@ namespace SmartApp.Ihm
                 CentralizedFileDlg.InitPrjFileDialog(DossierFichier);
                 CentralizedFileDlg.InitSolFileDialog(DossierFichier);
                 m_GestSolution.OnDocScreenEdit += new SolutionGest.DocumentScreenEditHandler(GestSolution_OnDocScreenEdit);
+                m_GestSolution.OnDocumentChanged += new SolutionGest.SolutionDocumentChangedEventHandler(UpdateTitle);
                 m_mruStripMenu.AddFile(m_GestSolution.FilePath);
                 UpdateTitle();
                 UpdateFileMenu();
@@ -825,24 +845,6 @@ namespace SmartApp.Ihm
         }
         #endregion
 
-        private void btnHideShowSolution_Click(object sender, EventArgs e)
-        {
-            if (this.lblSolutionView.Visible)
-            {
-                this.solutionTreeView.Visible = false;
-                this.solutionPanel.Width = 40;
-                this.btnHideShowSolution.Left = 2;
-                this.lblSolutionView.Visible = false;
-            }
-            else
-            {
-                this.solutionTreeView.Visible = true;
-                this.solutionPanel.Width = 250;
-                this.btnHideShowSolution.Left = 210;
-                this.lblSolutionView.Visible = true;
-            }
-        }
-
         #region handler d'event du menu file
         private void menuItemNewSolution_Click(object sender, EventArgs e)
         {
@@ -888,6 +890,7 @@ namespace SmartApp.Ihm
 
         private void menuItemCloseSolution_Click(object sender, EventArgs e)
         {
+            this.SolutionAskUserToSaveIfIsModified();
             SolutionClose();
         }
 
@@ -943,6 +946,41 @@ namespace SmartApp.Ihm
         }
 
         #endregion
+
+        private void btnHideShowSolution_Click(object sender, EventArgs e)
+        {
+            if (this.lblSolutionView.Visible)
+            {
+                this.solutionTreeView.Visible = false;
+                this.solutionPanel.Width = 40;
+                this.btnHideShowSolution.Left = 2;
+                this.lblSolutionView.Visible = false;
+            }
+            else
+            {
+                this.solutionTreeView.Visible = true;
+                this.solutionPanel.Width = 250;
+                this.btnHideShowSolution.Left = 210;
+                this.lblSolutionView.Visible = true;
+            }
+        }
+
+        private void btnHideShowRightPanel_Click(object sender, EventArgs e)
+        {
+            if (this.lblToolsView.Visible)
+            {
+                this.rightPanel.Width = 40;
+                this.toolsPanel.Visible = false;
+                this.lblToolsView.Visible = false;
+            }
+            else
+            {
+                this.rightPanel.Width = 200;
+                this.toolsPanel.Visible = true;
+                this.lblToolsView.Visible = true;
+            }
+
+        }
 
 
 

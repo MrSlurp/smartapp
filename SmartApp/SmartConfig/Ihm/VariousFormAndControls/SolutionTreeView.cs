@@ -28,6 +28,8 @@ namespace SmartApp
             public BTDoc Document;
         }
 
+        CheckBox m_chkViewTips = new CheckBox();
+
         BasePropertiesDialog m_PropDialog = new BasePropertiesDialog();
 
         SortedList<string, DocumentElementNode> m_ListDocument = new SortedList<string, DocumentElementNode>();
@@ -39,7 +41,7 @@ namespace SmartApp
         /// </summary>
         public SolutionTreeView()
         {
-            if (this.ImageList == null)
+            if (this.ImageList == null && Resources.AppIcon != null)
             {
                 this.ImageList = new ImageList();
                 //this.StateImageList = this.ImageList;
@@ -53,6 +55,15 @@ namespace SmartApp
                 this.ImageList.Images.Add("Logger", Resources.TreeViewLoggerIcon);
                 this.ImageList.Images.Add("IO", Resources.TreeViewIOIcon);
                 this.ImageList.Images.Add("Solution", Resources.TreeViewSolutionIcon);
+                m_chkViewTips.Width = 120;
+                m_chkViewTips.Text = Program.LangSys.C("Show tooltip");
+                m_chkViewTips.Location = new Point(this.Right - (m_chkViewTips.Width + 5), 0);
+                m_chkViewTips.Height = 16;
+                m_chkViewTips.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+                m_chkViewTips.CheckAlign = ContentAlignment.MiddleRight;
+                m_chkViewTips.CheckedChanged += new EventHandler(chkViewTips_CheckedChanged);
+                m_chkViewTips.TextAlign = ContentAlignment.MiddleRight;
+                this.Controls.Add(m_chkViewTips);
             }
             if (m_SolutionNode == null)
             {
@@ -64,9 +75,15 @@ namespace SmartApp
                 m_SolutionNode.ForeColor = Color.Red;
                 m_SolutionNode.NodeFont = new Font(SystemFonts.CaptionFont, FontStyle.Bold);
             }
-
             InitContextMenu();
         }
+
+        void chkViewTips_CheckedChanged(object sender, EventArgs e)
+        {
+            this.ShowNodeToolTips = m_chkViewTips.Checked;
+        }
+
+
 
         /// <summary>
         /// initialise les menu contextuels
@@ -317,6 +334,7 @@ namespace SmartApp
                 newNode.SelectedImageKey = imgKey;
                 newNode.StateImageKey = imgKey;
                 newNode.Tag = bobj;
+                newNode.ToolTipText = GetToolTipFromTag(bobj);
                 NewItemParentNode.Nodes.Add(newNode);
             }
         }
@@ -361,6 +379,7 @@ namespace SmartApp
                 m_PropDialog.Document = GetDocFromParentNode(selNode);
                 m_PropDialog.Initialize();
                 m_PropDialog.ShowDialog();
+                selNode.ToolTipText = m_PropDialog.ConfiguredItem.Symbol + "\n" + m_PropDialog.ConfiguredItem.Description;
             }
         }
 
@@ -442,6 +461,7 @@ namespace SmartApp
 
             m_SolutionNode.Nodes.Add(newNode);
             newNode.Tag = docNode;
+            newNode.ToolTipText = GetToolTipFromTag(docNode);
             newNode.Text = Path.GetFileNameWithoutExtension(doc.FileName);
             m_ListDocument.Add(newNode.Text, docNode);
             AddDocumentNodeGestsNodes(newNode.Text);
@@ -507,6 +527,7 @@ namespace SmartApp
             GestNode.StateImageKey = imageKey;
             GestNode.SelectedImageKey = imageKey;
             GestNode.Tag = gest;
+            GestNode.ToolTipText = GetToolTipFromTag(gest);
             docElem.DocNode.Nodes.Add(GestNode);
             if (gest is BaseGestGroup)
                 AddGestGroupContent(GestNode, gest as BaseGestGroup, imageKey);
@@ -527,6 +548,7 @@ namespace SmartApp
                 BaseGestGroup.Group CurrentGroup = gest.Groups[i];
                 TreeNode grpNode = new TreeNode(CurrentGroup.GroupName);
                 grpNode.Tag = CurrentGroup;
+                grpNode.ToolTipText = GetToolTipFromTag(CurrentGroup);
                 grpNode.ImageKey = "Group";
                 grpNode.StateImageKey = "Group";
                 grpNode.SelectedImageKey ="Group";
@@ -540,6 +562,7 @@ namespace SmartApp
                         ItemNode.ImageKey = imageKey;
                         ItemNode.StateImageKey = imageKey;
                         ItemNode.SelectedImageKey = imageKey;
+                        ItemNode.ToolTipText = GetToolTipFromTag(item);
                         grpNode.Nodes.Add(ItemNode);
                     }
                 }
@@ -564,18 +587,24 @@ namespace SmartApp
                     ItemNode.StateImageKey = imageKey;
                     ItemNode.SelectedImageKey = imageKey;
                     ItemNode.Tag = item;
+                    ItemNode.ToolTipText = GetToolTipFromTag(item);
                     parentNode.Nodes.Add(ItemNode);
                 }
             }
         }
         #endregion
 
+        #region gestion du drag & drop
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnItemDrag(ItemDragEventArgs e)
         {
             TreeNode selNode = e.Item as TreeNode;
             if (selNode != null && selNode.Tag is Data)
             {
-                this.DoDragDrop(selNode.Tag, DragDropEffects.All);
+                this.DoDragDrop(selNode, DragDropEffects.All);
             }
             else
             {
@@ -584,18 +613,71 @@ namespace SmartApp
             
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="drgevent"></param>
+        protected override void OnDragOver(DragEventArgs drgevent)
+        {
+            TreeNode overTreeNode = this.GetNodeAt(PointToClient( new Point(drgevent.X, drgevent.Y)));
+            TreeNode DropedItem = (TreeNode)drgevent.Data.GetData(typeof(TreeNode));
+            if (overTreeNode != null)
+            {
+                if (overTreeNode.Tag is BaseGestGroup.Group)
+                {
+                    BTDoc docDest = GetDocFromParentNode(overTreeNode);
+                    BTDoc docSrc = GetDocFromParentNode(DropedItem);
+                    // pour empècher de remettre dans le même groupe, vérifier si le groupe src et dest sont
+                    // différents
+                    //BaseGestGroup.Group dstGrp = overTreeNode.Tag as BaseGestGroup.Group;
+                    if (docSrc == docDest)
+                        drgevent.Effect = DragDropEffects.Move;
+                }
+                else
+                {
+                    drgevent.Effect = DragDropEffects.None;
+                }
+            }
+            
+            base.OnDragOver(drgevent);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="drgevent"></param>
         protected override void OnDragDrop(DragEventArgs drgevent)
         {
-            TreeNode selNode = this.SelectedNode;
-            if (selNode.Tag is BaseObject)
+            TreeNode overTreeNode = this.GetNodeAt(PointToClient( new Point(drgevent.X, drgevent.Y)));
+            
+            TreeNode DropedItem = (TreeNode)drgevent.Data.GetData(typeof(TreeNode));
+            if (overTreeNode != null && DropedItem != null)
             {
-                this.DoDragDrop(selNode.Tag, DragDropEffects.All);
-            }
-            else
-            {
-                base.OnDragDrop(drgevent);
+                if (overTreeNode.Tag is BaseGestGroup.Group)
+                {
+                    // le noeud parent possède un tag qui est le gestionnaire
+                    BTDoc docDest = GetDocFromParentNode(overTreeNode);
+                    BTDoc docSrc = GetDocFromParentNode(DropedItem);
+                    BaseGestGroup gest = overTreeNode.Parent.Tag as BaseGestGroup;
+                    BaseGestGroup.Group curGroup = overTreeNode.Tag as BaseGestGroup.Group;
+                    BaseObject bobj = DropedItem.Tag as BaseObject;
+                    if (docDest == docSrc &&
+                        bobj != null && 
+                        gest != null && 
+                        curGroup != null)
+                    {
+                        gest.AddObjectToGroup(curGroup.GroupSymbol, bobj);
+                        DropedItem.Remove();
+                        overTreeNode.Nodes.Add(DropedItem);
+                    }
+                }
+                else
+                {
+                    drgevent.Effect = DragDropEffects.None;
+                }
             }
         }
+        #endregion
 
         #region utilitaires
         /// <summary>
@@ -648,6 +730,33 @@ namespace SmartApp
             else
                 return null;
         }
+
+        public string GetToolTipFromTag(object obj)
+        {
+            string returnedText = string.Empty;
+            if (obj is BTScreen)
+            {
+                BaseObject bobj = obj as BaseObject;
+                returnedText = bobj.Symbol + "\n" + bobj.Description;
+                returnedText += "\n";
+                returnedText += Program.LangSys.C("Right click for properties, double click to edit");
+            }
+            else if (obj is BaseObject)
+            {
+                BaseObject bobj = obj as BaseObject;
+                returnedText = bobj.Symbol + "\n" + bobj.Description;
+                returnedText += "\n";
+                returnedText += Program.LangSys.C("Right click to edit");
+            }
+            else if (obj is BaseGest 
+                  || obj is BaseGestGroup.Group
+                  || obj is DocumentElementNode)
+            {
+                returnedText += Program.LangSys.C("Right click for more options");
+            }
+            return returnedText;
+        }
         #endregion
+
     }
 }

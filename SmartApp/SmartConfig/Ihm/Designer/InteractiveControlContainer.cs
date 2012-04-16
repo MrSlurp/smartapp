@@ -59,19 +59,16 @@ namespace SmartApp.Ihm.Designer
         public event SelectionChangeEvent SelectionChange;
         public event IControlAddedEvent EventControlAdded;
         public event IControlRemovedEvent EventControlRemoved;
-        public event CanChangeSelectionEvent EventCanChangeSelection;
         public event ControlDoubleClicked EventControlDblClick;
-        public event ControlsPosChanged EventControlPosChanged;
         public event IControlBringToTop EventControlBringToTop;
 
         #endregion 
 
         #region attributs
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
         public int SelectionCount
         {
             get
@@ -80,10 +77,9 @@ namespace SmartApp.Ihm.Designer
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
         public InteractiveControl FirstSelected
         {
             get
@@ -95,10 +91,9 @@ namespace SmartApp.Ihm.Designer
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
         public Bitmap ScreenBckImage
         {
             get
@@ -112,20 +107,18 @@ namespace SmartApp.Ihm.Designer
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
         public void ClearSelection()
         {
             m_ListSelection.Clear();
             this.Update();
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
         public SelectionAbilitiesValues SelectionAbilities
         {
             get
@@ -164,10 +157,9 @@ namespace SmartApp.Ihm.Designer
         #endregion
 
         #region constructeur
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
         public InteractiveControlContainer()
         {
             m_ListSelection = new ArrayList();
@@ -178,18 +170,21 @@ namespace SmartApp.Ihm.Designer
 
         #region Handler d'évènements
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Ctrl"></param>
+        /// <param name="szMove"></param>
+        /// <returns></returns>
         private bool InsideControlMouve(InteractiveControl Ctrl, ref Size szMove)
         {
             TraiteMove(Ctrl, szMove);
-            if (EventControlPosChanged != null)
-                EventControlPosChanged();
             return true;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void InsideControlEndMouve()
         {
             if (m_Document != null)
@@ -198,24 +193,23 @@ namespace SmartApp.Ihm.Designer
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="e"></param>
         private void InsideControlMouseDownHandler(object obj, MouseEventArgs e)
         {
             TraiteSelection(obj, e);
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="e"></param>
         private void TraiteSelection(object obj, MouseEventArgs e)
         {
-            if (EventCanChangeSelection != null && !EventCanChangeSelection())
-                return;
-
             // on convertis en point écran
             Point ptMouse = ((Control)obj).PointToScreen(e.Location);
             // puis en point client pour this
@@ -254,10 +248,11 @@ namespace SmartApp.Ihm.Designer
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Ctrl"></param>
+        /// <param name="szMove"></param>
         public void TraiteMove(Control Ctrl, Size szMove)
         {
             // rectangle représentant la séléction
@@ -315,15 +310,12 @@ namespace SmartApp.Ihm.Designer
 
         #region overrides
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnMouseClick(MouseEventArgs e)
         {
-            if (EventCanChangeSelection != null && !EventCanChangeSelection())
-                return;
-
             for (int i = 0; i < m_ListSelection.Count; i++)
             {
                 ((IInteractive)m_ListSelection[i]).Selected = false;
@@ -335,10 +327,10 @@ namespace SmartApp.Ihm.Designer
             base.OnMouseClick(e);
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnMouseDown(MouseEventArgs e)
         {
             base.OnMouseDown(e);
@@ -347,10 +339,10 @@ namespace SmartApp.Ihm.Designer
             m_ptMouseDown = e.Location;
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
@@ -396,10 +388,10 @@ namespace SmartApp.Ihm.Designer
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnMouseMove(MouseEventArgs e)
         {
             base.OnMouseMove(e);
@@ -424,10 +416,10 @@ namespace SmartApp.Ihm.Designer
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnMouseUp(MouseEventArgs e)
         {
             base.OnMouseUp(e);
@@ -463,10 +455,10 @@ namespace SmartApp.Ihm.Designer
             m_bMouseDown = false;
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnControlAdded(ControlEventArgs e)
         {
             base.OnControlAdded(e);
@@ -475,6 +467,7 @@ namespace SmartApp.Ihm.Designer
             {
                 if (!((InteractiveControl)e.Control).Initialized)
                 {
+                    e.Control.MouseDown += new MouseEventHandler(InsideControlMouseDownHandler);
                     ((InteractiveControl)e.Control).OnMouve += new InteractiveControl.InteractiveMove(InsideControlMouve);
                     ((InteractiveControl)e.Control).EndMouve += new InteractiveControl.InteractiveEndMove(InsideControlEndMouve);
                     e.Control.KeyDown += new KeyEventHandler(OnControlKeydown);
@@ -489,8 +482,20 @@ namespace SmartApp.Ihm.Designer
             }
         }
 
-        private void ICtrlDataAssigned(InteractiveControl iCtrl)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="iCtrl"></param>
+        /// <param name="dataSymbol"></param>
+        /// <returns></returns>
+        private bool ICtrlDataAssigned(InteractiveControl iCtrl, string dataSymbol)
         {
+            if (m_Document.GestData.GetFromSymbol(dataSymbol) == null)
+            {
+                string strErr = string.Format(Program.LangSys.C("This data ({0}) does not exists in this document"), dataSymbol);
+                MessageBox.Show(strErr, Program.LangSys.C("Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
             for (int i = 0; i < m_ListSelection.Count; i++)
             {
                 ((IInteractive)m_ListSelection[i]).Selected = false;
@@ -503,12 +508,13 @@ namespace SmartApp.Ihm.Designer
             if (SelectionChange != null)
                 SelectionChange();
 
+            return true;
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnControlRemoved(ControlEventArgs e)
         {
             base.OnControlRemoved(e);
@@ -525,10 +531,9 @@ namespace SmartApp.Ihm.Designer
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
         protected void RemoveSelectedControls()
         {
             while (m_ListSelection.Count > 0)
@@ -548,10 +553,12 @@ namespace SmartApp.Ihm.Designer
 
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <param name="keyData"></param>
+        /// <returns></returns>
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             const int WM_KEYDOWN = 0x100;
@@ -566,6 +573,10 @@ namespace SmartApp.Ihm.Designer
             
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
         protected void TraiteArrowKeys(Keys e)
         {
             if ((e & Keys.Control) == 0)
@@ -623,6 +634,9 @@ namespace SmartApp.Ihm.Designer
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void TreatCopy()
         {
             // copier
@@ -646,6 +660,9 @@ namespace SmartApp.Ihm.Designer
             Clipboard.SetData(InternalFormat.Name, clipDoc.OuterXml);
         }
     
+        /// <summary>
+        /// 
+        /// </summary>
         public void TreatPaste()
         {
             // coller
@@ -696,10 +713,11 @@ namespace SmartApp.Ihm.Designer
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void OnControlKeydown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Delete
@@ -710,10 +728,11 @@ namespace SmartApp.Ihm.Designer
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void OnControlDoubleClick(object sender, EventArgs e)
         {
             if (EventControlDblClick != null)
@@ -723,10 +742,11 @@ namespace SmartApp.Ihm.Designer
         #endregion
 
         #region gestion du drag drop
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnDragEnter(object sender, DragEventArgs e)
         {
             InteractiveControl DropedItem = DropableItems.GetDropableItem(e);
@@ -736,10 +756,11 @@ namespace SmartApp.Ihm.Designer
                 e.Effect = DragDropEffects.None;
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnDragDrop(object sender, DragEventArgs e)
         {
             // on récupère les données de l'objet dropé en correspondance avec ce qu'on veux
@@ -758,6 +779,13 @@ namespace SmartApp.Ihm.Designer
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ListNew"></param>
+        /// <param name="ListSrc"></param>
+        /// <param name="PtMouse"></param>
+        /// <param name="bFromOtherInstance"></param>
         private void InsertDropedItems(List<InteractiveControl> ListNew, List<InteractiveControl> ListSrc, Point PtMouse, bool bFromOtherInstance)
         {
             //bool bFirstItemDone = false;
@@ -859,10 +887,9 @@ namespace SmartApp.Ihm.Designer
         #endregion
 
         #region fonctions de layout
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
         public void AlignSelectionLeft()
         {
             if (m_ListSelection.Count > 1)
@@ -878,10 +905,9 @@ namespace SmartApp.Ihm.Designer
             Refresh();
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
         public void AlignSelectionTop()
         {
             if (m_ListSelection.Count > 1)
@@ -897,6 +923,9 @@ namespace SmartApp.Ihm.Designer
             Refresh();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void LayoutBringToFront()
         {
             if (m_ListSelection.Count >= 1)
@@ -912,10 +941,9 @@ namespace SmartApp.Ihm.Designer
             Refresh();
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
         public void MakeSelectionSameWidth()
         {
             if (m_ListSelection.Count > 1)
@@ -931,10 +959,9 @@ namespace SmartApp.Ihm.Designer
             Refresh();
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
         public void MakeSelectionSameHeight()
         {
             if (m_ListSelection.Count > 1)
@@ -950,10 +977,9 @@ namespace SmartApp.Ihm.Designer
             Refresh();
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
         public void MakeSelectionSameSize()
         {
             if (m_ListSelection.Count > 1)
@@ -971,10 +997,9 @@ namespace SmartApp.Ihm.Designer
             Refresh();
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
         public void ArrangeItemsAcross()
         {
             if (m_ListSelection.Count > 1)
@@ -1039,10 +1064,10 @@ namespace SmartApp.Ihm.Designer
             }
             Refresh();
         }
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+
+        /// <summary>
+        /// 
+        /// </summary>
         public void ArrangeItemsDown()
         {
             if (m_ListSelection.Count > 1)
@@ -1110,11 +1135,19 @@ namespace SmartApp.Ihm.Designer
 
         #endregion
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="activeControl"></param>
+        /// <returns></returns>
         protected override Point ScrollToControl(Control activeControl)
         {
             return Point.Empty;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void SaveAsBitmap()
         {
             SaveFileDialog dlg = new SaveFileDialog();
@@ -1172,6 +1205,9 @@ namespace SmartApp.Ihm.Designer
         }
 
         #region Sizes
+        /// <summary>
+        /// 
+        /// </summary>
         public void SizeCtrlsPlusW()
         {
             if (m_ListSelection.Count >= 1)
@@ -1187,6 +1223,10 @@ namespace SmartApp.Ihm.Designer
             }
             Refresh();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public void SizeCtrlsMinusW()
         {
             if (m_ListSelection.Count >= 1)
@@ -1202,6 +1242,10 @@ namespace SmartApp.Ihm.Designer
             }
             Refresh();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public void SizeCtrlsPlusH()
         {
             if (m_ListSelection.Count >= 1)
@@ -1217,6 +1261,10 @@ namespace SmartApp.Ihm.Designer
             }
             Refresh();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public void SizeCtrlsMinusH()
         {
             if (m_ListSelection.Count >= 1)

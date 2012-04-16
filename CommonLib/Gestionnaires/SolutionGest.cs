@@ -19,17 +19,20 @@ namespace CommonLib
         public delegate void DocumentOpenCloseEventHandler(BTDoc doc);
         public delegate void DocumentScreenEditHandler(string screenName, BTDoc document);
         public delegate void SolutionNameChangedEventHandler();
+        public delegate void SolutionDocumentChangedEventHandler();
 
         public event DocumentOpenCloseEventHandler OnDocOpened;
         public event DocumentOpenCloseEventHandler OnDocClosed;
         public event DocumentScreenEditHandler OnDocScreenEdit;
         public event SolutionNameChangedEventHandler OnSolutionNameChanged;
+        public event SolutionDocumentChangedEventHandler OnDocumentChanged;
 
         TYPE_APP m_TypeApp;
         DllControlGest m_GestDLL;
 
         PathTranslator m_PathTranslator = new PathTranslator();
         string m_SolutionPath;
+        bool m_bModified = false;
 
         public string FilePath
         {
@@ -43,6 +46,23 @@ namespace CommonLib
                     {
                         OnSolutionNameChanged();
                     }
+                }
+            }
+        }
+
+        protected bool Modified
+        {
+            get
+            {
+                return m_bModified;
+            }
+            set
+            {
+                bool bOldValue = m_bModified;
+                m_bModified = value;
+                if (bOldValue != m_bModified && OnDocumentChanged != null)
+                {
+                    OnDocumentChanged();
                 }
             }
         }
@@ -71,6 +91,8 @@ namespace CommonLib
                 if (openedDoc.ReadConfigDocument(strFilePath, m_TypeApp, m_GestDLL))
                 {
                     this.Add(strFilePath, openedDoc);
+                    Modified = true;
+                    openedDoc.OnDocumentModified += new DocumentModifiedEvent(OnDocumentModified);
                     if (OnDocOpened != null)
                     {
                         OnDocOpened(openedDoc);
@@ -96,10 +118,23 @@ namespace CommonLib
             if (!this.ContainsValue(doc))
             {
                 this.Add(doc.FileName, doc);
+                Modified = true;
+                doc.OnDocumentModified += new DocumentModifiedEvent(OnDocumentModified);
                 if (OnDocOpened != null)
                 {
                     OnDocOpened(doc);
                 }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        void OnDocumentModified()
+        {
+            if (this.OnDocumentChanged != null)
+            {
+                this.OnDocumentChanged();
             }
         }
 
@@ -112,6 +147,7 @@ namespace CommonLib
             if (this.ContainsValue(doc))
             {
                 this.Remove(doc.FileName);
+                Modified = true;
                 if (OnDocClosed != null)
                 {
                     OnDocClosed(doc);
@@ -202,7 +238,7 @@ namespace CommonLib
                     }
                 }
             }
-
+            Modified = false;
             return true;
         }
 
@@ -244,6 +280,7 @@ namespace CommonLib
         {
             WriteOutSolution(m_SolutionPath);
             SaveDocuments();
+            Modified = false;
         }
 
         /// <summary>
@@ -254,6 +291,7 @@ namespace CommonLib
             this.FilePath = strSolutionPath;
             WriteOutSolution(strSolutionPath);
             SaveDocuments();
+            Modified = false;
         }
 
         /// <summary>
@@ -280,6 +318,7 @@ namespace CommonLib
                 {
                     bModifiedDoc |= doc.Modified;
                 }
+                bModifiedDoc |= Modified;
                 return bModifiedDoc;
             }
             set
@@ -288,6 +327,7 @@ namespace CommonLib
                 {
                     doc.Modified = value;
                 }
+                Modified = true;
             }
         }
 
