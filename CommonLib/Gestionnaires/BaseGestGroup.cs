@@ -588,7 +588,7 @@ namespace CommonLib
         public BaseObject AddNewObject(BTDoc document, string groupeSymbol)
         {
             BaseObject obj = AddNewObject(document);
-            this.AddObjAtGroup(obj, groupeSymbol);
+            this.AddObjectToGroup(groupeSymbol, obj);
             return obj;
         }
 

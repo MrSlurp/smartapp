@@ -127,6 +127,17 @@ namespace CommonLib
             }
         }
 
+        /// <summary>
+        /// obtient ou assigne si la valeur est visible à l'utilisateur
+        /// (les données de controle des protocoles ne sont pas visibles)
+        /// </summary>
+        public virtual bool IsUserVisible
+        {
+            get { return true; }
+            set {  }
+        }
+
+
         public int QuickScriptID
         {
             get

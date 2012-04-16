@@ -945,5 +945,6 @@ namespace SmartApp.Ihm
         #endregion
 
 
+
     }
 }

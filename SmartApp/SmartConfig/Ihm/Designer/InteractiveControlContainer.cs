@@ -530,9 +530,9 @@ namespace SmartApp.Ihm.Designer
         // Return: /
         //*****************************************************************************************************
         protected void RemoveSelectedControls()
+        {
+            while (m_ListSelection.Count > 0)
             {
-            while (m_ListSelection.Count >0)
-                {
                 if (this.Controls.Contains((Control)m_ListSelection[0]))
                 {
                     InteractiveControl iControl = (InteractiveControl)m_ListSelection[0];

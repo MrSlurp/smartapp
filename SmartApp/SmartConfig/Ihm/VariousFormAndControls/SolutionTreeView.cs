@@ -39,7 +39,7 @@ namespace SmartApp
         /// </summary>
         public SolutionTreeView()
         {
-            if (Resources.TreeViewGroupIcon != null)
+            if (this.ImageList == null)
             {
                 this.ImageList = new ImageList();
                 //this.StateImageList = this.ImageList;
@@ -297,7 +297,8 @@ namespace SmartApp
             {
                 // le noeud parent possède un tag qui est le gestionnaire
                 BaseGestGroup gest = selNode.Parent.Tag as BaseGestGroup;
-                bobj = gest.AddNewObject(GetDocFromParentNode(selNode), selNode.Text);
+                BaseGestGroup.Group curGroup = selNode.Tag as BaseGestGroup.Group;
+                bobj = gest.AddNewObject(GetDocFromParentNode(selNode), curGroup.GroupSymbol);
                 imgKey = selNode.Parent.ImageKey;
                 NewItemParentNode = selNode;
             }
@@ -532,12 +533,15 @@ namespace SmartApp
                 parentNode.Nodes.Add(grpNode);
                 foreach (BaseObject item in CurrentGroup.Items)
                 {
-                    TreeNode ItemNode = new TreeNode(item.Symbol);
-                    ItemNode.Tag = item;
-                    ItemNode.ImageKey = imageKey;
-                    ItemNode.StateImageKey = imageKey;
-                    ItemNode.SelectedImageKey = imageKey;
-                    grpNode.Nodes.Add(ItemNode);
+                    if (item.IsUserVisible)
+                    {
+                        TreeNode ItemNode = new TreeNode(item.Symbol);
+                        ItemNode.Tag = item;
+                        ItemNode.ImageKey = imageKey;
+                        ItemNode.StateImageKey = imageKey;
+                        ItemNode.SelectedImageKey = imageKey;
+                        grpNode.Nodes.Add(ItemNode);
+                    }
                 }
             }
         }
@@ -553,15 +557,45 @@ namespace SmartApp
             for (int i = 0; i < gest.Count; i++ )
             {
                 BaseObject item = gest[i];
-                TreeNode ItemNode = new TreeNode(item.Symbol);
-                ItemNode.ImageKey = imageKey;
-                ItemNode.StateImageKey = imageKey;
-                ItemNode.SelectedImageKey = imageKey;
-                ItemNode.Tag = item;
-                parentNode.Nodes.Add(ItemNode);
+                if (item.IsUserVisible)
+                {
+                    TreeNode ItemNode = new TreeNode(item.Symbol);
+                    ItemNode.ImageKey = imageKey;
+                    ItemNode.StateImageKey = imageKey;
+                    ItemNode.SelectedImageKey = imageKey;
+                    ItemNode.Tag = item;
+                    parentNode.Nodes.Add(ItemNode);
+                }
             }
         }
         #endregion
+
+        protected override void OnItemDrag(ItemDragEventArgs e)
+        {
+            TreeNode selNode = e.Item as TreeNode;
+            if (selNode != null && selNode.Tag is Data)
+            {
+                this.DoDragDrop(selNode.Tag, DragDropEffects.All);
+            }
+            else
+            {
+                base.OnItemDrag(e);
+            }
+            
+        }
+
+        protected override void OnDragDrop(DragEventArgs drgevent)
+        {
+            TreeNode selNode = this.SelectedNode;
+            if (selNode.Tag is BaseObject)
+            {
+                this.DoDragDrop(selNode.Tag, DragDropEffects.All);
+            }
+            else
+            {
+                base.OnDragDrop(drgevent);
+            }
+        }
 
         #region utilitaires
         /// <summary>

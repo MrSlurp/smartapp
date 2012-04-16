@@ -337,7 +337,7 @@ namespace CommonLib
         /// obtient ou assigne si la valeur est visible à l'utilisateur
         /// (les données de controle des protocoles ne sont pas visibles)
         /// </summary>
-        public bool IsUserVisible
+        public override bool IsUserVisible
         {
             get
             {

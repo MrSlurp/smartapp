@@ -162,15 +162,15 @@ namespace SmartApp
             this.splitContainer1.Panel1.Controls.Add(this.m_btnDeleteGroup);
             this.splitContainer1.Panel1.Controls.Add(this.m_listViewDataSrc);
             this.splitContainer1.Panel1.Controls.Add(this.m_cboGroupSrc);
-            this.splitContainer1.Panel1MinSize = 350;
+            this.splitContainer1.Panel1MinSize = 300;
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.button1);
             this.splitContainer1.Panel2.Controls.Add(this.m_cboGroupDest);
             this.splitContainer1.Panel2.Controls.Add(this.m_ListViewDataDest);
-            this.splitContainer1.Panel2MinSize = 350;
             this.splitContainer1.Size = new System.Drawing.Size(761, 430);
+            this.splitContainer1.Panel2MinSize = 300;
             this.splitContainer1.SplitterDistance = 380;
             this.splitContainer1.TabIndex = 2;
             // 
