@@ -947,6 +947,12 @@ namespace SmartApp.Ihm
 
         #endregion
 
+        #region handler des boutons pour masquer afficher les panneaux lateraux
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnHideShowSolution_Click(object sender, EventArgs e)
         {
             if (this.lblSolutionView.Visible)
@@ -965,6 +971,11 @@ namespace SmartApp.Ihm
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnHideShowRightPanel_Click(object sender, EventArgs e)
         {
             if (this.lblToolsView.Visible)
@@ -981,8 +992,6 @@ namespace SmartApp.Ihm
             }
 
         }
-
-
-
+        #endregion
     }
 }

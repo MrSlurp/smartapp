@@ -330,10 +330,10 @@ namespace CommonLib
                 Traces.LogAddDebug(TraceCat.ExecuteFrame, string.Format("Send frame {0}", tr.Symbol));
 
             Byte[] buffer = tr.CreateTrameToSend(false);
-            if (m_Document.m_Comm.IsOpen)
+            if (m_Document.Communication.IsOpen)
             {
-                if (m_Document.m_Comm.CommType == TYPE_COMM.VIRTUAL)
-                    m_Document.m_Comm.SendData(tr, m_Document.GestData, m_Document.GestDataVirtual);
+                if (m_Document.Communication.CommType == TYPE_COMM.VIRTUAL)
+                    m_Document.Communication.SendData(tr, m_Document.GestData, m_Document.GestDataVirtual);
                 else
                 {
                     string strmess = string.Format(Lang.LangSys.C("Frame {0} sent"), tr.Symbol);
@@ -346,7 +346,7 @@ namespace CommonLib
                         }
                         Traces.LogAddDebug(TraceCat.ExecuteFrame, string.Format("Frame datas {0}", strSendData));
                     }
-                    m_Document.m_Comm.SendData(buffer);
+                    m_Document.Communication.SendData(buffer);
                 }
             }
             else
@@ -365,11 +365,11 @@ namespace CommonLib
             if (Traces.IsDebugAndCatOK(TraceCat.ExecuteFrame))
                 Traces.LogAddDebug(TraceCat.ExecuteFrame, string.Format("Recieve frame {0}", TrameToRecieve.Symbol));
 
-            if (m_Document.m_Comm.IsOpen)
+            if (m_Document.Communication.IsOpen)
             {
                 byte[] FrameHeader = TrameToRecieve.FrameHeader;
                 int ConvertedSize = TrameToRecieve.GetConvertedTrameSizeInByte();
-                if (!m_Document.m_Comm.WaitTrameRecieved(ConvertedSize, FrameHeader))
+                if (!m_Document.Communication.WaitTrameRecieved(ConvertedSize, FrameHeader))
                 {
                     //indiquer qu'une trame n'a pas été recu
                     // et demander a l'utilisateur si il souhaite continuer l'execution des actions
@@ -391,10 +391,10 @@ namespace CommonLib
                     return;
                 }
                 byte[] buffer = null;
-                if (m_Document.m_Comm.CommType == TYPE_COMM.VIRTUAL)
-                    buffer = m_Document.m_Comm.GetRecievedData(ConvertedSize, TrameToRecieve);
+                if (m_Document.Communication.CommType == TYPE_COMM.VIRTUAL)
+                    buffer = m_Document.Communication.GetRecievedData(ConvertedSize, TrameToRecieve);
                 else
-                    buffer = m_Document.m_Comm.GetRecievedData(ConvertedSize, FrameHeader);
+                    buffer = m_Document.Communication.GetRecievedData(ConvertedSize, FrameHeader);
 
                 if (buffer == null || !TrameToRecieve.TreatRecieveTrame(buffer))
                 {

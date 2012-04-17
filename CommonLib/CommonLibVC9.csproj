@@ -149,28 +149,6 @@
     <Compile Include="LogEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources.cs" />
-    <Compile Include="Script\Executer.cs" />
-    <Compile Include="Script\Executer.Frame.cs">
-      <DependentUpon>Executer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Script\Executer.Function.cs">
-      <DependentUpon>Executer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Script\Executer.Logger.cs">
-      <DependentUpon>Executer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Script\Executer.Logic.cs">
-      <DependentUpon>Executer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Script\Executer.Maths.cs">
-      <DependentUpon>Executer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Script\Executer.Screen.cs">
-      <DependentUpon>Executer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Script\Executer.Timer.cs">
-      <DependentUpon>Executer.cs</DependentUpon>
-    </Compile>
     <Compile Include="Script\Parser.cs" />
     <Compile Include="Script\Parser.Frame.cs">
       <DependentUpon>Parser.cs</DependentUpon>
@@ -260,6 +238,12 @@
     <Compile Include="StdForms\BrowseFileBtn.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="StdForms\ScenarioPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="StdForms\ScenarioPanel.Designer.cs">
+      <DependentUpon>ScenarioPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="StdForms\ScreenItemStdPropertiesPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -289,6 +273,18 @@
     </Compile>
     <Compile Include="StdForms\TimerPropertiesPanel.Designer.cs">
       <DependentUpon>TimerPropertiesPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StdForms\VirtualDataForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StdForms\VirtualDataForm.Designer.cs">
+      <DependentUpon>VirtualDataForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StdForms\VirtualDataPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="StdForms\VirtualDataPanel.Designer.cs">
+      <DependentUpon>VirtualDataPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="StdForms\WaitOpenCommForm.cs">
       <SubType>Form</SubType>
@@ -387,6 +383,10 @@
       <SubType>Designer</SubType>
       <DependentUpon>PickDataForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="StdForms\ScenarioPanel.resx">
+      <DependentUpon>ScenarioPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="StdForms\ScreenItemStdPropertiesPanel.resx">
       <DependentUpon>ScreenItemStdPropertiesPanel.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -401,6 +401,14 @@
     </EmbeddedResource>
     <EmbeddedResource Include="StdForms\TimerPropertiesPanel.resx">
       <DependentUpon>TimerPropertiesPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StdForms\VirtualDataForm.resx">
+      <DependentUpon>VirtualDataForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StdForms\VirtualDataPanel.resx">
+      <DependentUpon>VirtualDataPanel.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="StdForms\WaitOpenCommForm.resx">

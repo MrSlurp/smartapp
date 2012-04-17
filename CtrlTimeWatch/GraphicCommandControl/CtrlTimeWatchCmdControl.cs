@@ -151,10 +151,6 @@ namespace CtrlTimeWatch
                         // traitez ici le passage en mode run du control si nécessaire
                         m_RefreshTimer.Start();
                         break;
-#if QUICK_MOTOR
-                    case MESSAGE.MESS_PRE_PARSE:
-                        break;
-#endif
                     case MESSAGE.MESS_PRE_PARSE:
                     default:
                         break;

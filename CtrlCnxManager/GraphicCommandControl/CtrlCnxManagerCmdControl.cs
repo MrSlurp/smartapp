@@ -32,7 +32,7 @@ namespace CtrlCnxManager
             DllCtrlCnxManagerProp SpecProps =  this.SpecificProp as DllCtrlCnxManagerProp;
             if (m_Doc != null && SpecProps != null)
             {
-                if (m_Doc.m_Comm.IsOpen)
+                if (m_Doc.Communication.IsOpen)
                 {
                     m_DisconnectionTime = DateTime.MinValue;
                     
@@ -44,7 +44,7 @@ namespace CtrlCnxManager
                     
                 }
                 // celui est co
-                if (!m_Doc.IsRunning && m_Doc.m_Comm.IsOpen)
+                if (!m_Doc.IsRunning && m_Doc.Communication.IsOpen)
                 {
                     m_Doc.TraiteMessage(MESSAGE.MESS_CMD_RUN, null, TYPE_APP.SMART_COMMAND);
                 }

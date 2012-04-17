@@ -55,10 +55,10 @@ namespace SmartApp
                 this.ImageList.Images.Add("Logger", Resources.TreeViewLoggerIcon);
                 this.ImageList.Images.Add("IO", Resources.TreeViewIOIcon);
                 this.ImageList.Images.Add("Solution", Resources.TreeViewSolutionIcon);
-                m_chkViewTips.Width = 120;
+                // ceci n'est init que si l'appli est lancé, pour pas que le designer tenter de l'ajouter lui même
+                m_chkViewTips.AutoSize = true;
                 m_chkViewTips.Text = Program.LangSys.C("Show tooltip");
                 m_chkViewTips.Location = new Point(this.Right - (m_chkViewTips.Width + 5), 0);
-                m_chkViewTips.Height = 16;
                 m_chkViewTips.Anchor = AnchorStyles.Top | AnchorStyles.Right;
                 m_chkViewTips.CheckAlign = ContentAlignment.MiddleRight;
                 m_chkViewTips.CheckedChanged += new EventHandler(chkViewTips_CheckedChanged);
@@ -77,13 +77,6 @@ namespace SmartApp
             }
             InitContextMenu();
         }
-
-        void chkViewTips_CheckedChanged(object sender, EventArgs e)
-        {
-            this.ShowNodeToolTips = m_chkViewTips.Checked;
-        }
-
-
 
         /// <summary>
         /// initialise les menu contextuels
@@ -264,12 +257,12 @@ namespace SmartApp
             //DocumentProprtiesDialog projectPropDialog = new DocumentProprtiesDialog();
             CommConfiguration commCfgPage = new CommConfiguration();
             commCfgPage.AllowRowSelect = true;
-            commCfgPage.CurComParam = elem.Document.m_Comm.CommParam;
-            commCfgPage.CurTypeCom = elem.Document.m_Comm.CommType;
+            commCfgPage.CurComParam = elem.Document.Communication.CommParam;
+            commCfgPage.CurTypeCom = elem.Document.Communication.CommType;
             DialogResult dlgRes = commCfgPage.ShowDialog();
             if (dlgRes == DialogResult.OK)
             {
-                elem.Document.m_Comm.SetCommTypeAndParam(commCfgPage.CurTypeCom, commCfgPage.CurComParam);
+                elem.Document.Communication.SetCommTypeAndParam(commCfgPage.CurTypeCom, commCfgPage.CurComParam);
             }
         }
 
@@ -458,11 +451,10 @@ namespace SmartApp
             newNode.SelectedImageKey = "Document";
             newNode.ForeColor = Color.Blue;
             newNode.NodeFont = new Font(SystemFonts.CaptionFont, FontStyle.Bold);
-
-            m_SolutionNode.Nodes.Add(newNode);
             newNode.Tag = docNode;
             newNode.ToolTipText = GetToolTipFromTag(docNode);
             newNode.Text = Path.GetFileNameWithoutExtension(doc.FileName);
+            m_SolutionNode.Nodes.Add(newNode);
             m_ListDocument.Add(newNode.Text, docNode);
             AddDocumentNodeGestsNodes(newNode.Text);
             doc.OnDocumentModified += new DocumentModifiedEvent(OnDocumentModified);
@@ -731,6 +723,11 @@ namespace SmartApp
                 return null;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public string GetToolTipFromTag(object obj)
         {
             string returnedText = string.Empty;
@@ -748,7 +745,7 @@ namespace SmartApp
                 returnedText += "\n";
                 returnedText += Program.LangSys.C("Right click to edit");
             }
-            else if (obj is BaseGest 
+            else if (obj is BaseGest
                   || obj is BaseGestGroup.Group
                   || obj is DocumentElementNode)
             {
@@ -757,6 +754,39 @@ namespace SmartApp
             return returnedText;
         }
         #endregion
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void chkViewTips_CheckedChanged(object sender, EventArgs e)
+        {
+            List<TreeNode> listNodes = new List<TreeNode>();
+            ListExpandedNodes(listNodes, this.Nodes);
+            this.ShowNodeToolTips = m_chkViewTips.Checked;
+            foreach (TreeNode node in listNodes)
+            {
+                node.Expand();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="listNodes"></param>
+        /// <param name="curNodes"></param>
+        private void ListExpandedNodes(List<TreeNode> listNodes, TreeNodeCollection curNodes)
+        {
+            foreach (TreeNode node in curNodes)
+            {
+                if (node.IsExpanded)
+                {
+                    listNodes.Add(node);
+                }
+                ListExpandedNodes(listNodes, node.Nodes);
+            }
+        }
 
     }
 }

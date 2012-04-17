@@ -15,44 +15,31 @@ namespace SmartApp
 {
     public partial class MDISmartCommandMain : Form
     {
-        private const string APP_TITLE = "SmartCommand";
+        private const string APP_TITLE = "SmartCommand - Monitor";
 
         #region données membres
         protected TraceConsole m_TraceConsole;
-        // fenêtre des variables (Watch)
-        ///private VariableForm m_VariableForm;
-        // fenêtre des données virtuelles (affichée que si on utilise une connexion virtuell
-        ///private VirtualDataForm m_VirtualDataForm;
-        // Document chargé par l'application
-        //private BTDoc m_Document = null;
         // fenêtre de log des évènements
         private static AppEventLogForm m_EventLog;
         // fenêtre de configuration des connexions
-        //private CommConfiguration m_CommConfigPage;
-        // Liste des pages "utilisateur" ==> une par BTScreen présent dans le document
+        // Liste des pages "utilisateur" ==> une par BTScreen présent dans chaque document
         private List<DynamicPanelForm> m_FormList = new List<DynamicPanelForm>();
         // fichier d'ini des options
         private AppOptions m_Option = new AppOptions();
         // chemin du dossier de log utilisateurs
         private string m_strLogFilePath;
-        // booléen indiquant si il faut mémoriser les connexion utilisées pour chaque fichier
-        //private bool m_bSaveFileComm = true;
         // stocke temporairement le nom de fichier passé par la ligne de commande
         private string m_strAutoOpenFileName = "";
-
-        private bool m_bFullScreenMode = false;
-        private FormWindowState m_PrevFullScreenState = FormWindowState.Normal;
-
+        //
         protected MruStripMenuInline m_mruStripMenu;
-
+        //
         SolutionGest m_GestSolution;
         #endregion
 
         #region attributs
-        //*****************************************************************************************************
-        // Description: accesseur de la fenêtre event log. Défini comme étant static (un seul event log)
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// accesseur de la fenêtre event log. Défini comme étant static (un seul event log)
+        /// </summary>
         public static AppEventLogForm EventLogger
         {
             get
@@ -63,10 +50,9 @@ namespace SmartApp
         #endregion
 
         #region constructeurs
-        //*****************************************************************************************************
-        // Description: constructeur par défaut
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// constructeur par défaut
+        /// </summary>
         public MDISmartCommandMain()
         {
             Program.LangSys.Initialize(this);
@@ -74,10 +60,10 @@ namespace SmartApp
             CommonConstructorInit();
         }
 
-        //*****************************************************************************************************
-        // Description: constructeur avec nom de fichier (ouvre le fichier passé en paramètre)
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// constructeur avec nom de fichier (ouvre le fichier passé en paramètre)
+        /// </summary>
+        /// <param name="strFileName"></param>
         public MDISmartCommandMain(string strFileName)
         {
             Program.LangSys.Initialize(this);
@@ -86,154 +72,115 @@ namespace SmartApp
             m_strAutoOpenFileName = strFileName;
         }
 
-        //*****************************************************************************************************
-        // Description: Initialisations communes aux deux constructeurs
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// Initialisations communes aux deux constructeurs
+        /// </summary>
         public void CommonConstructorInit()
         {
             m_EventLog = new AppEventLogForm();
-            //m_CommConfigPage = new CommConfiguration();
             this.Text = APP_TITLE;
             this.Icon = CommonLib.Resources.AppIcon;
-            m_EventLog.MdiParent = this;
             string strAppDir = Application.StartupPath;
             string strIniFilePath = PathTranslator.LinuxVsWindowsPathUse(strAppDir + @"\" + Cste.STR_FORMPOSINI_FILENAME);
             m_mruStripMenu = new MruStripMenuInline(this.fileMenu, this.m_MruFiles, new MruStripMenu.ClickedHandler(OnMruFile), strIniFilePath);
             if (LaunchArgParser.DevMode)
             {
-                m_tsMenuLogConfig.Visible = true;
-                m_tsMenuOpenDebugConsole.Visible = true;
+                menuItemTraceConfig.Visible = true;
+                menuItemOpenDebugConsole.Visible = true;
             }
-            UpdateStartStopButtonState();
-            UpdateToolBarCxnItemState();
-            AsyncComStateUpdater();
-            InitCboComms();
             CentralizedFileDlg.InitPrjFileDialog(Application.StartupPath);
-            
+            dataGridMonitor.CellClick += new DataGridViewCellEventHandler(dataGridMonitor_CellClick);
         }
+
         #endregion
 
-        #region Update de la toolbar
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
-        public void UpdateToolBarCxnItemState()
-        {
-            /*
-            if (m_Document != null && !m_Document.m_Comm.IsOpen)
-                m_tsCboCurConnection.Enabled = true;
-            else
-                m_tsCboCurConnection.Enabled = false;
+        #region handler d'event des document et MAJ de la grille
 
-            if (m_Document == null || (m_Document != null && !m_Document.m_Comm.IsOpen))
-                m_tsBtnConfigComm.Enabled = true;
-            else
-                m_tsBtnConfigComm.Enabled = false;
-             * */
-        }
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
-        void OnCommStateChange()
+        /// <summary>
+        /// handler d'event du changement de status de la comm d'un document
+        /// </summary>
+        /// <param name="document"></param>
+        void OnDocument_CommStateChange(BTDoc document)
         {
-            /*
-            if (m_Document != null)
+            if (this.InvokeRequired)
             {
-                if (this.InvokeRequired)
-                {
-                    CommOpenedStateChange AsyncCall = new CommOpenedStateChange(AsyncComStateUpdater);
-                    this.Invoke(AsyncCall);
-                }
-                else
-                {
-                    AsyncComStateUpdater();
-                }
-            }*/
+                DocComStateChange AsyncCall = new DocComStateChange(AsyncComStateUpdater);
+                this.Invoke(AsyncCall);
+            }
+            else
+            {
+                AsyncComStateUpdater(document);
+            }
         }
 
         /// <summary>
-        /// 
+        /// handler d'event du changement de status run d'un document
         /// </summary>
-        void OnRunStateChange()
+        /// <param name="document"></param>
+        void OnDocument_RunStateChange(BTDoc document)
         {
-            /*
-            if (m_Document != null)
+            if (this.InvokeRequired)
             {
-                if (this.InvokeRequired)
-                {
-                    CommOpenedStateChange AsyncCall = new CommOpenedStateChange(UpdateStartStopButtonState);
-                    this.Invoke(AsyncCall);
-                }
-                else
-                {
-                    UpdateStartStopButtonState();
-                }
-            }*/
-        }
-
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
-        protected void AsyncComStateUpdater()
-        {
-            /*
-            if (m_Document != null && m_Document.m_Comm != null)
-            {
-                if (m_Document.m_Comm.IsOpen)
-                {
-                    m_tsBtnConnexion.Checked = true;
-                    m_tsBtnConnexion.Text = Program.LangSys.C("Connected");
-                    m_tsBtnConnexion.Image = Resources.CxnOn;
-                    UpdateStartStopButtonState();
-                    UpdateToolBarCxnItemState();
-                }
-                else
-                {
-                    m_tsBtnConnexion.Checked = false;
-                    m_tsBtnConnexion.Text = Program.LangSys.C("Disconnected");
-                    m_tsBtnConnexion.Image = Resources.CxnOff;
-                    m_Document.TraiteMessage(MESSAGE.MESS_CMD_STOP, null, Program.TypeApp);
-                    UpdateStartStopButtonState();
-                    UpdateToolBarCxnItemState();
-                }
+                RunStateChangeEvent AsyncCall = new RunStateChangeEvent(AsyncRunStateUpdater);
+                this.Invoke(AsyncCall, document);
             }
             else
             {
-                m_tsBtnConnexion.Checked = false;
-                m_tsBtnConnexion.Text = Program.LangSys.C("Disconnected");
-                m_tsBtnConnexion.Image = Resources.CxnOff;
-                UpdateStartStopButtonState();
-            }*/
+                AsyncRunStateUpdater(document);
+            }
+        }
+
+        /// <summary>
+        /// Met a jour la grid view avec le status actuel de la com du document
+        /// </summary>
+        /// <param name="doc"></param>
+        protected void AsyncComStateUpdater(BTDoc doc)
+        {
+            foreach (DataGridViewRow row in dataGridMonitor.Rows)
+            {
+                if (row.Tag == doc)
+                {
+                    Image img = Resources.CxnOff;
+                    if (doc.Communication.IsOpen)
+                        img = Resources.CxnOn;
+                    DataGridViewImageCell projectCnxStatuxCell = row.Cells[this.colProjCnxStatus.Name] as DataGridViewImageCell;
+                    projectCnxStatuxCell.Value = img;
+                    break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Met a jour la grid view avec le status actuel du "run" du document
+        /// </summary>
+        /// <param name="doc"></param>
+        protected void AsyncRunStateUpdater(BTDoc doc)
+        {
+            foreach (DataGridViewRow row in dataGridMonitor.Rows)
+            {
+                if (row.Tag == doc)
+                {
+                    Image img = Resources.CxnOff;
+                    if (doc.IsRunning)
+                        img = Resources.CxnOn;
+                    DataGridViewImageCell projectRunStatuxCell = row.Cells[this.colRunStatus.Name] as DataGridViewImageCell;
+                    projectRunStatuxCell.Value = img;
+                    break;
+                }
+            }
         }
 
         #endregion
 
         #region Handlers du menu fichier
         /// <summary>
-        /// 
+        /// handler du menu "Ouvrir", ou du bouton ouvrir de la toolbar
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OpenFile(object sender, EventArgs e)
+        private void menuItemOpen_Click(object sender, EventArgs e)
         {
             SolutionOpen(null);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ExitToolsStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.CloseDoc();
-            Application.Exit();
         }
 
         /// <summary>
@@ -253,10 +200,36 @@ namespace SmartApp
             }
             else
             {
-                this.CloseDoc();
+                SolutionClose();
                 SolutionOpen(filename);
                 m_mruStripMenu.SetFirstFile(number);
             }
+        }
+
+        /// <summary>
+        ///  handler du menu "Exit"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void menuItemExit_Click(object sender, EventArgs e)
+        {
+            this.SolutionClose();
+            foreach (DataGridViewRow row in dataGridMonitor.Rows)
+            {
+                if (row.Tag is BTDoc)
+                {
+                    BTDoc doc = row.Tag as BTDoc;
+                    doc.TraiteMessage(MESSAGE.MESS_CMD_STOP, null, Program.TypeApp);
+                    doc.Communication.CloseComm();
+                }
+            }
+            DateTime enWaitTime = DateTime.Now.AddSeconds(1);
+            do
+            {
+                Application.DoEvents();
+            } while (enWaitTime < DateTime.Now);
+            // envoyer un stop et un disconnect à chaque document
+            this.Close();
         }
 
         #endregion
@@ -272,12 +245,14 @@ namespace SmartApp
         }
         #endregion
 
-        #region fonction d'ouverture sauvegarde et fermeture du document
+        #region fonction d'ouverture sauvegarde et fermeture de la solutions
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="strSolutionPath"></param>
         private void SolutionOpen(string strSolutionPath)
         {
+            dataGridMonitor.Rows.Clear();
             if (string.IsNullOrEmpty(strSolutionPath))
             {
                 DialogResult dlgRes = CentralizedFileDlg.ShowOpenSolFileDilaog();
@@ -292,12 +267,11 @@ namespace SmartApp
             {
                 m_GestSolution = new SolutionGest(Program.TypeApp, Program.DllGest);
                 string DossierFichier = Path.GetDirectoryName(strSolutionPath);
-                CentralizedFileDlg.InitImgFileDialog(DossierFichier);
-                CentralizedFileDlg.InitPrjFileDialog(DossierFichier);
                 CentralizedFileDlg.InitSolFileDialog(DossierFichier);
                 m_GestSolution.OnDocOpened += new SolutionGest.DocumentOpenCloseEventHandler(GestSolution_OnDocOpened);
+                m_GestSolution.OnDocClosed += new SolutionGest.DocumentOpenCloseEventHandler(GestSolution_OnDocClosed);
                 m_GestSolution.ReadInSolution(strSolutionPath);
-                //m_GestSolution.OnDocScreenEdit += new SolutionGest.DocumentScreenEditHandler(GestSolution_OnDocScreenEdit);
+                
                 m_mruStripMenu.AddFile(strSolutionPath);
             }
         }
@@ -306,154 +280,143 @@ namespace SmartApp
         /// 
         /// </summary>
         /// <param name="document"></param>
-        void GestSolution_OnDocOpened(BTDoc document)
+        void GestSolution_OnDocOpened(BTDoc doc)
         {
-            OpenDocument(document);
+            OpenDocumentForCommand(doc);
+            AddDocToMonitorList(doc);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="strFullFileName"></param>
-        /// <returns></returns>
-        /*
-        private bool OpenDoc(string strFullFileName)
+        /// <param name="doc"></param>
+        void GestSolution_OnDocClosed(BTDoc doc)
         {
-            
-            m_Document = new BTDoc(Program.TypeApp);
-            m_Document.OnCommStateChange += new CommOpenedStateChange(OnCommStateChange);
-            m_Document.EventAddLogEvent += new AddLogEventDelegate(AddLogEvent);
-            m_Document.OnRunStateChange += new RunStateChangeEvent(OnRunStateChange);
-#if LINUX
-            int lastindex = strFullFileName.LastIndexOf(@"/");
-#else
-            int lastindex = strFullFileName.LastIndexOf(@"\");
-#endif
-            string DossierFichier = strFullFileName.Substring(0, strFullFileName.Length - (strFullFileName.Length - lastindex));
-
-            CentralizedFileDlg.InitImgFileDialog(DossierFichier);
-            CentralizedFileDlg.InitPrjFileDialog(DossierFichier);
-            if (m_Document.ReadConfigDocument(strFullFileName, Program.TypeApp, Program.DllGest))
+            List<DynamicPanelForm> toDelList = new List<DynamicPanelForm>();
+            foreach (DynamicPanelForm frm in m_FormList)
             {
-                if (OpenDocument(m_Document))
+                if (frm.Document == doc)
                 {
-                    string strFileName = strFullFileName.Substring(lastindex + 1);
-                    this.Text += " - " + strFileName;
-                    m_tsBtnConnexion.Enabled = true;
-                    UpdateToolBarCxnItemState();
-                    if (m_tsCboCurConnection.Items.Count != 0 && m_tsCboCurConnection.SelectedIndex == -1)
-                    {
-                        m_tsCboCurConnection.SelectedIndex = 0;
-                    }
-                    SetTypeComeAndParamFromCbo();
-                    return true;
+                    toDelList.Add(frm);
+                }
+            }
+            foreach (DynamicPanelForm frm in toDelList)
+            {
+                m_FormList.Remove(frm);
+                frm.Close();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void dataGridMonitor_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex == -1 || e.ColumnIndex == -1)
+                return;
+
+            if (e.ColumnIndex == colBtnConnectStart.Index)
+            {
+                DataGridViewRow row = dataGridMonitor.Rows[e.RowIndex];
+                BTDoc doc = row.Tag as BTDoc;
+                if (doc.Communication.IsOpen && doc.IsRunning)
+                {
+                    doc.TraiteMessage(MESSAGE.MESS_CMD_STOP, null, Program.TypeApp);
+                    doc.Communication.CloseComm();
                 }
                 else
-                    return false;
+                {
+                    if (!doc.Communication.IsOpen)
+                    {
+                        doc.OpenDocumentComm();
+                    }
+                    if (doc.Communication.IsOpen && !doc.IsRunning)
+                    {
+                        doc.TraiteMessage(MESSAGE.MESS_CMD_RUN, null, Program.TypeApp);
+                    }
+                }
             }
-            else
-                return false;
-        }*/
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="doc"></param>
+        void AddDocToMonitorList(BTDoc doc)
+        {
+            int indexRow = dataGridMonitor.Rows.Add(1);
+            DataGridViewRow docRow = dataGridMonitor.Rows[indexRow];
+            docRow.Tag = doc;
+            DataGridViewTextBoxCell projectNameCell = docRow.Cells[this.colProjName.Name] as DataGridViewTextBoxCell;
+            projectNameCell.Value = Path.GetFileNameWithoutExtension(doc.FileName);
+            DataGridViewImageCell projectCnxStatuxCell = docRow.Cells[this.colProjCnxStatus.Name] as DataGridViewImageCell;
+            projectCnxStatuxCell.ImageLayout = DataGridViewImageCellLayout.Normal;
+            projectCnxStatuxCell.Value = Resources.CxnOff;
+            DataGridViewImageCell projectRunStatuxCell = docRow.Cells[this.colRunStatus.Name] as DataGridViewImageCell;
+            projectRunStatuxCell.Value = Resources.CxnOff;
+            projectRunStatuxCell.ImageLayout = DataGridViewImageCellLayout.Normal;
+            DataGridViewButtonCell projectBtnRunStartCell = docRow.Cells[this.colBtnConnectStart.Name] as DataGridViewButtonCell;
+            //projectBtnRunStartCell.
+            projectBtnRunStartCell.Value = Program.LangSys.C("Connect / Start");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void SolutionClose()
+        {
+            foreach (DynamicPanelForm frm in m_FormList)
+            {
+                frm.Close();
+            }
+            m_FormList.Clear();
+            m_GestSolution = null;
+            //UpdateFileMenu();
+        }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="Doc"></param>
         /// <returns></returns>
-        private bool OpenDocument(BTDoc Doc)
+        private bool OpenDocumentForCommand(BTDoc Doc)
         {
             Doc.LogFilePath = m_strLogFilePath;
-            m_EventLog.Show();
             if (!Doc.FinalizeRead(this))
             {
                 Traces.LogAddDebug(TraceCat.SmartCommand, "MDICommand", "Erreur lors du FinalizeRead()");
                 MessageBox.Show(Program.LangSys.C("Can't initialize run mode datas. Please contact support"), Program.LangSys.C("Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                CloseDoc();
+                SolutionClose();
                 return false;
             }
-            string strTypeComm = m_Option.GetFileCommType(Doc.FileName);
-            string strCommParam = m_Option.GetFileCommParam(Doc.FileName);
-            SelectCommInComboOrCreateTemp(strTypeComm, strCommParam);
 
+            // abonnement aux event de com et d'état
+            Doc.OnCommStateChange += new DocComStateChange(OnDocument_CommStateChange);
+            Doc.OnRunStateChange += new RunStateChangeEvent(OnDocument_RunStateChange);
             for (int i = 0; i < Doc.GestScreen.Count; i++)
             {
                 BTScreen Scr = (BTScreen)Doc.GestScreen[i];
-                Scr.Panel.SetMeToTop += new DynamicPanel.SetMeToTopEvent(SetClientFormToTop);
                 Scr.Panel.DocumentFileName = Doc.FileName;
                 DynamicPanelForm Frm = new DynamicPanelForm(Scr.Panel);
                 Scr.Panel.Location = new Point(10, 10);
                 Frm.ClientSize = new System.Drawing.Size(Scr.Panel.Width + Scr.Panel.Left + 10,
                                                     Scr.Panel.Height + Scr.Panel.Top + 10);
+                Frm.Document = Doc;
                 Frm.Text = Scr.Title;
-                Frm.MdiParent = this;
                 Frm.Show();
                 Frm.DynamicPanelEnabled = false;
                 m_FormList.Add(Frm);
             }
-            /*
-            if (m_VariableForm != null)
-            {
-                m_VariableForm.Hide();
-                m_VariableForm = null;
-            }*/
-            /*
-            m_VariableForm = new VariableForm(m_Document.GestData);
-            m_VariableForm.MdiParent = this;
-            m_VariableForm.Show();
-             * */
             if (!m_EventLog.IsEmpty)
             {
+                m_EventLog.Show();
                 m_EventLog.BringToFront();
             }
             return true;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        private bool CloseDoc()
-        {
-            /*
-            if (m_Document != null)
-            {
-                if (m_bSaveFileComm)
-                {
-                    string strTypeComm = m_Document.m_Comm.CommType.ToString();
-                    string strCommParam = m_Document.m_Comm.CommParam;
-                    m_Option.SetFileCommType(m_Document.FileName, strTypeComm);
-                    m_Option.SetFileCommParam(m_Document.FileName, strCommParam);
-                }
-                m_Document.TraiteMessage(MESSAGE.MESS_CMD_STOP, null, Program.TypeApp);
-                m_Document.DetachCommEventHandler(OnCommStateChange);
-                m_Document.CloseDocumentComm();
-                TraiteCommStateVirtualDataForm();
-            }
-            m_Document = null;
-            AsyncComStateUpdater();
-
-            for (int i = 0; i < this.MdiChildren.Length; i++)
-            {
-                this.MdiChildren[i].Hide();
-            }
-            m_EventLog.Hide();
-            m_tsBtnConnexion.Checked = false;
-            m_tsBtnConnexion.Enabled = false;
-            UpdateToolBarCxnItemState();
-            UpdateStartStopButtonState();
-            for (int i = 0;  i < m_FormList.Count; i++)
-            {
-                m_FormList[i].Dispose();
-            }
-            m_FormList.Clear();
-            if (m_VariableForm != null)
-            {
-                m_VariableForm.Hide();
-                m_VariableForm = null;
-            }
-            */
-            return true;
-        }
         #endregion
 
         #region Handlers d'event de la form
@@ -510,217 +473,13 @@ namespace SmartApp
         }
         #endregion
 
-        #region Handlers de la tool bar
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
-        private void m_tsBtnConnexion_Click(object sender, EventArgs e)
-        {
-            /*
-            if (m_Document != null)
-            {
-                if (m_Document.m_Comm.IsOpen)
-                {
-                    m_Document.CloseDocumentComm();
-                    TraiteCommStateVirtualDataForm();
-                }
-                else
-                {
-                    m_Document.OpenDocumentComm();
-                    TraiteCommStateVirtualDataForm();
-                }
-            }*/
-        }
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
-        private void m_tsBtnStartStop_Click(object sender, EventArgs e)
-        {
-            /*
-            if (m_Document != null)
-            {
-                if (m_tsBtnStartStop.Checked == false)
-                {
-                    m_Document.TraiteMessage(MESSAGE.MESS_CMD_RUN, null, Program.TypeApp);
-                }
-                else
-                {
-                    m_Document.TraiteMessage(MESSAGE.MESS_CMD_STOP, null, Program.TypeApp);
-                }
-            }
-            else
-            {
-                UpdateStartStopButtonState();
-                UpdateToolBarCxnItemState();
-            }*/
-
-        }
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
-        private void UpdateStartStopButtonState()
-        {
-            /*
-            if (m_Document != null)
-            {
-                if (m_Document.m_Comm.IsOpen)
-                    m_tsBtnStartStop.Enabled = true;
-                else
-                    m_tsBtnStartStop.Enabled = false;
-
-                m_tsBtnStartStop.Checked = m_Document.IsRunning;
-                if (m_tsBtnStartStop.Checked == true)
-                {
-                    m_tsBtnStartStop.Text = Program.LangSys.C("Running");
-                    m_tsBtnStartStop.Image = Resources.CxnOn;
-                    for (int i = 0; i < m_FormList.Count; i++)
-                    {
-                        m_FormList[i].DynamicPanelEnabled = true;
-                    }
-
-                }
-                else
-                {
-                    m_tsBtnStartStop.Text = Program.LangSys.C("Stoppped");
-                    m_tsBtnStartStop.Image = Resources.CxnOff;
-                    for (int i = 0; i < m_FormList.Count; i++)
-                    {
-                        m_FormList[i].DynamicPanelEnabled = false;
-                    }
-                }
-            }
-            else
-            {
-                m_tsBtnStartStop.Enabled = false;
-                m_tsBtnStartStop.Checked = false;
-                m_tsBtnStartStop.Text = Program.LangSys.C("Stoppped");
-                m_tsBtnStartStop.Image = Resources.CxnOff;
-            }*/
-        }
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
-        private void m_tsBtnConfigComm_Click(object sender, EventArgs e)
-        {
-            //m_CommConfigPage.ShowDialog();
-            //InitCboComms();
-        }
-        #endregion
-
-        #region Gestion de la combo de connexion
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        protected void SelectCommInComboOrCreateTemp(string strTypeComm, string strCommParam)
-        {
-            /*
-            if (!string.IsNullOrEmpty(strTypeComm) && !string.IsNullOrEmpty(strCommParam))
-            {
-                bool bCxnExist = false;
-                for (int i = 0; i < m_tsCboCurConnection.Items.Count; i++)
-                {
-                    string comm = m_tsCboCurConnection.Items[i].ToString();
-                    string[] TabComm = comm.Split('/');
-                    if (TabComm[1].Trim() == strTypeComm && TabComm[2].Trim() == strCommParam)
-                    {
-                        bCxnExist = true;
-                        m_tsCboCurConnection.SelectedIndex = i;
-                        break;
-                    }
-                }
-                if (!bCxnExist)
-                {
-                    int index = m_tsCboCurConnection.Items.Add(Program.LangSys.C("New connection /") + strTypeComm + "/" + strCommParam);
-                    m_tsCboCurConnection.SelectedIndex = index;
-                }
-            }*/
-        }
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
-        private void InitCboComms()
-        {
-            /*
-            m_tsCboCurConnection.Items.Clear();
-            for (int i = 0; i < Cste.NB_MAX_COMM; i++)
-            {
-                string strSection = string.Format(Cste.STR_FILE_DESC_HEADER_FORMAT, i);
-                string strName = m_CommConfigPage.IniFile.GetValue(strSection, Cste.STR_FILE_DESC_NAME);
-                string strCommType = m_CommConfigPage.IniFile.GetValue(strSection, Cste.STR_FILE_DESC_COMM);
-                string strCommParam = m_CommConfigPage.IniFile.GetValue(strSection, Cste.STR_FILE_DESC_ADDR);
-                if (!string.IsNullOrEmpty(strCommType)
-                    && !string.IsNullOrEmpty(strCommParam)
-                    )
-                {
-                    if (string.IsNullOrEmpty(strName))
-                        strName = string.Format(Program.LangSys.C("Connection {0}"), i);
-                    AddStringToCombo(strName, strCommType, strCommParam, strSection);
-                }
-            }
-            if (m_tsCboCurConnection.Items.Count > 0)
-                m_tsCboCurConnection.SelectedIndex = 0;*/
-        }
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
-        private void AddStringToCombo(string Name, string CommType, string CommParam, string Section)
-        {
-            //m_tsCboCurConnection.Items.Add(Name + "/" + CommType + "/" + CommParam);
-        }
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
-        private void m_tsCboCurConnection_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //SetTypeComeAndParamFromCbo();
-        }
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
-        private void SetTypeComeAndParamFromCbo()
-        {
-            /*
-            if (m_tsCboCurConnection.SelectedItem != null)
-            {
-                string comm = m_tsCboCurConnection.SelectedItem.ToString();
-                if (!string.IsNullOrEmpty(comm))
-                {
-                    string[] TabComm = comm.Split('/');
-                    if (m_Document != null)
-                    {
-                        if (!m_Document.m_Comm.IsOpen)
-                        {
-                            TYPE_COMM type = (TYPE_COMM)Enum.Parse(typeof(TYPE_COMM), TabComm[1].Trim());
-                            m_Document.m_Comm.SetCommTypeAndParam(type, TabComm[2]);
-                        }
-                    }
-                }
-            }*/
-        }
-        #endregion
-
         #region handler du menu tool
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
-        private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void menuItemOptions_Click(object sender, EventArgs e)
         {
             OptionForm optForm = new OptionForm();
             optForm.LogFileDirectory = m_strLogFilePath;
@@ -741,50 +500,42 @@ namespace SmartApp
         #endregion
 
         #region methodes divers
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
         public void TryAutoOpenDoc()
         {
-            /*
             if (!string.IsNullOrEmpty(m_strAutoOpenFileName))
             {
                 if (File.Exists(m_strAutoOpenFileName))
                 {
-                    if (!OpenDoc(m_strAutoOpenFileName))
-                    {
-                        MessageBox.Show(Program.LangSys.C("Error while reading file. File is corrupted"), Program.LangSys.C("Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        this.CloseDoc();
-                        return;
-                    }
+                    SolutionOpen(m_strAutoOpenFileName);
                 }
                 else
                 {
                     MessageBox.Show(string.Format(Program.LangSys.C("File {0} does not exists"), m_strAutoOpenFileName), Program.LangSys.C("Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                UpdateToolBarCxnItemState();
             }
             else // chaine vide
                 return;
+
             if (LaunchArgParser.AutoConnect)
             {
-                if (m_Document.m_Comm.SetCommTypeAndParam(LaunchArgParser.CommType, LaunchArgParser.CommParam))
+                foreach (string docName in m_GestSolution.Keys)
                 {
-                    SelectCommInComboOrCreateTemp(LaunchArgParser.CommType.ToString(), LaunchArgParser.CommParam);
-                    m_Document.OpenDocumentComm();
-                    TraiteCommStateVirtualDataForm();
-                    if (m_Document.m_Comm.IsOpen && LaunchArgParser.AutoStart)
+                    BTDoc doc = m_GestSolution[docName];
+                    doc.OpenDocumentComm();
+                    if (doc.Communication.IsOpen && LaunchArgParser.AutoStart)
                     {
-                        m_tsBtnStartStop_Click(null, null);
+                        doc.TraiteMessage(MESSAGE.MESS_CMD_RUN, null, Program.TypeApp);
                     }
-                    else if (!m_Document.m_Comm.IsOpen && LaunchArgParser.AutoStart == false)
+                    else if (! doc.Communication.IsOpen && !LaunchArgParser.AutoStart)
                     {
                         LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, Program.LangSys.C("Failed to connect"));
                         MDISmartCommandMain.EventLogger.AddLogEvent(log);
                     }
-                    else if (!m_Document.m_Comm.IsOpen && LaunchArgParser.AutoStart == true)
+                    else if (!doc.Communication.IsOpen && LaunchArgParser.AutoStart)
                     {
                         LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, Program.LangSys.C("Failed to connect. Application not started"));
                         MDISmartCommandMain.EventLogger.AddLogEvent(log);
@@ -795,131 +546,24 @@ namespace SmartApp
             {
                 this.menuStrip.Visible = false;
                 this.m_StatusBar.Visible = false;
-                this.m_tsBtnFullScreen.Visible = false;
-                this.m_tsBtnConfigComm.Visible = false;
-                this.m_tsCboCurConnection.Visible = false;
-                this.openToolStripButton.Visible = false;
+                this.dataGridMonitor.Enabled = false;
                 // on enlève les bouton des la barre de titre
                 this.ControlBox = false;
-                // on enlève les bord
-                this.FormBorderStyle = FormBorderStyle.None;
             }
-            if (LaunchArgParser.AutoPosition)
-            {
-                this.Location = LaunchArgParser.StartupBound.Location;
-                this.Size = LaunchArgParser.StartupBound.Size;
-            }
-            if (LaunchArgParser.AutoMaximizeFirstScreen)
-            {
-                if (m_FormList.Count >=1)
-                {
-                    m_FormList[0].WindowState = FormWindowState.Maximized;
-                }
-            }*/
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        private void TraiteCommStateVirtualDataForm()
-        {
-            /*
-            if (m_Document != null)
-            {
-                if (m_Document.m_Comm.IsOpen)
-                {
-                    if (m_Document.TypeComm == TYPE_COMM.VIRTUAL && m_VirtualDataForm == null)
-                    {
-                        m_VirtualDataForm = new VirtualDataForm(m_Document);
-                        m_VirtualDataForm.Show();
-                        m_VirtualDataForm.BringToFront();
-                    }
-                }
-                else
-                {
-                    if (m_VirtualDataForm != null)
-                    {
-                        m_VirtualDataForm.Hide();
-                        m_VirtualDataForm = null;
-                    }
-                }
-            }*/
-        }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Event"></param>
         protected void AddLogEvent(LogEvent Event)
         {
             m_EventLog.AddLogEvent(Event);
         }
         #endregion
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void m_tsBtnFullScreen_Click(object sender, EventArgs e)
-        {
-            if (!m_bFullScreenMode)
-                m_PrevFullScreenState = this.WindowState;
-
-            m_bFullScreenMode = !m_bFullScreenMode;
-            if (m_bFullScreenMode)
-            {
-#if !LINUX
-                this.SuspendLayout();
-                // on cache le menu, la bare de status
-                this.menuStrip.Visible = false;
-                this.m_StatusBar.Visible = false;
-                // on enlève les bouton des la barre de titre
-                this.ControlBox = false;
-                // on maximise la fenêtre principale 
-                this.WindowState = FormWindowState.Maximized;
-                // on enlève les bord
-                this.FormBorderStyle = FormBorderStyle.None;
-                this.ResumeLayout();
-#else
-                this.menuStrip.Visible = false;
-                this.m_StatusBar.Visible = false;
-                this.WindowState = FormWindowState.Maximized;
-#endif
-            }
-            else
-            {
-#if !LINUX
-                this.SuspendLayout();
-                // tout l'inverse de ce qui est fait au dessus
-                this.menuStrip.Visible = true;
-                this.m_StatusBar.Visible = true;
-                this.WindowState = m_PrevFullScreenState;
-                this.ControlBox = true;
-                this.FormBorderStyle = FormBorderStyle.Sizable;
-                this.MaximizeBox = true;
-                this.ResumeLayout();
-#else
-                this.menuStrip.Visible = true;
-                this.m_StatusBar.Visible = true;
-#endif
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="ClientForm"></param>
-        private void SetClientFormToTop(Form ClientForm)
-        {
-#if LINUX
-            this.ActivateMdiChild(ClientForm);
-#else
-            ClientForm.BringToFront();
-#endif
-        }
-
+        #region handlers du menu ?
         /// <summary>
         /// 
         /// </summary>
@@ -930,13 +574,15 @@ namespace SmartApp
             PluginsVersionsForm plVer = new PluginsVersionsForm();
             plVer.ShowDialog();
         }
+        #endregion
 
+        #region handler des menu caché du développeur
         /// <summary>
         /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void m_tsMenuLogConfig_Click(object sender, EventArgs e)
+        private void menuItemLogConfig_Click(object sender, EventArgs e)
         {
             LogCatForm LogForm = new LogCatForm();
             LogForm.Level = (TracesLevel)SmartApp.Properties.Settings.Default.LogLevel;
@@ -959,7 +605,7 @@ namespace SmartApp
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void m_tsMenuOpenDebugConsole_Click(object sender, EventArgs e)
+        private void menuItemOpenDebugConsole_Click(object sender, EventArgs e)
         {
             if (m_TraceConsole == null)
                 m_TraceConsole = new TraceConsole();
@@ -971,5 +617,7 @@ namespace SmartApp
 
             m_TraceConsole.Show();
         }
+        #endregion
+
     }
 }

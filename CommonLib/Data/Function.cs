@@ -12,9 +12,7 @@ namespace CommonLib
         // script de la fonction
         protected ItemScriptsConainter m_ScriptContainer = new ItemScriptsConainter();
 
-#if QUICK_MOTOR
         protected QuickExecuter m_Executer = null;
-#endif
 
         public Function()
         {
@@ -89,9 +87,7 @@ namespace CommonLib
         /// <returns>true si tout s'est bien passé</returns>
         public override bool FinalizeRead(BTDoc Doc)
         {
-#if QUICK_MOTOR
             m_Executer = Doc.Executer;
-#endif 
             return true;
         }
 
@@ -107,13 +103,11 @@ namespace CommonLib
         public override void TraiteMessage(MESSAGE Mess, object obj, TYPE_APP TypeApp)
         {
             ScriptTraiteMessage(this, Mess, m_ScriptContainer, obj);
-#if QUICK_MOTOR
             if (Mess == MESSAGE.MESS_PRE_PARSE)
             {
                 if (this.m_ScriptContainer["FuncScript"].Length != 0)
                     this.m_iQuickScriptID = m_Executer.PreParseScript(m_ScriptContainer["FuncScript"]);    
             }
-#endif
         }
         #endregion
     }

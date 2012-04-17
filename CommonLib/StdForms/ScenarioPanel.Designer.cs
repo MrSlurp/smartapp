@@ -1,4 +1,4 @@
-namespace SmartApp
+namespace CommonLib
 {
     partial class ScenarioPanel
     {

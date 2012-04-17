@@ -18,6 +18,9 @@ namespace CommonLib
         #endregion
 
         #region cosntructeur
+        /// <summary>
+        /// 
+        /// </summary>
         public VirtualComm()
         {
             m_bDataAvailable = true;
@@ -59,8 +62,6 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// renvoie les données reçues par le port série
-        /// (renvoie null si aucune donnée n'a été reçu au moment de l'appel a cette fonction
         /// NE PAS UTILISER DANS LA COMM VIRTUELLE
         /// </summary>
         /// <param name="NumberOfByte">nombre d'octet de la trame à extraire</param>

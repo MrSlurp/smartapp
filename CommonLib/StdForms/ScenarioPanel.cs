@@ -7,9 +7,8 @@ using System.Text;
 using System.IO;
 using System.Xml;
 using System.Windows.Forms;
-using CommonLib;
 
-namespace SmartApp
+namespace CommonLib
 {
     public partial class ScenarioPanel : UserControl
     {
@@ -31,6 +30,12 @@ namespace SmartApp
             {
                 m_dataGrid.Enabled = value;
             }
+        }
+
+        public BTDoc Document
+        {
+            get { return m_Document; }
+            set { m_Document = value; }
         }
 
         public void SaveScenario(XmlDocument XmlDoc, XmlNode DocRootNode)

@@ -23,11 +23,7 @@ namespace CommonLib
         Timer m_Timer = new Timer();
         bool m_bTimerEnabled = false;
         // executer de script du document
-#if !QUICK_MOTOR
-        protected ScriptExecuter m_Executer = null;
-#else
         protected QuickExecuter m_Executer = null;
-#endif
         #endregion
 
         #region propriétées de la classe
@@ -75,15 +71,6 @@ namespace CommonLib
         /// <summary>
         /// obtient ou assigne l'executer de l'écran
         /// </summary>
-#if !QUICK_MOTOR
-        public ScriptExecuter Executer
-        {
-            get
-            {
-                return m_Executer;
-            }
-        }
-#else
         public QuickExecuter Executer
         {
             get
@@ -91,8 +78,6 @@ namespace CommonLib
                 return m_Executer;
             }
         }
-#endif
-
         #endregion
 
         #region ReadIn / WriteOut
@@ -203,12 +188,10 @@ namespace CommonLib
                     case MESSAGE.MESS_CMD_STOP:
                         this.StopTimer();
                         break;
-#if QUICK_MOTOR
                     case MESSAGE.MESS_PRE_PARSE:
                         if (this.ItemScripts["TimerScript"].Length != 0)
                             this.m_iQuickScriptID = m_Executer.PreParseScript(this.m_ScriptContainer["TimerScript"]);    
                         break;
-#endif
                     default:
                         break;
                 }
@@ -249,12 +232,7 @@ namespace CommonLib
                 m_Timer.Stop();
 
                 CommonLib.PerfChrono theChrono = new PerfChrono();
-#if !QUICK_MOTOR
-                m_Executer.ExecuteScript(this.ScriptLines);
-#else
                 m_Executer.ExecuteScript(this.m_iQuickScriptID);
-#endif
-                
                 theChrono.EndMeasure("InstanceName = " + this.Symbol);
                 m_Timer.Start();
             }

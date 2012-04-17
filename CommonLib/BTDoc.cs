@@ -18,7 +18,8 @@ namespace CommonLib
 {
     public delegate void NeedRefreshHMI(MessNeedUpdate Mess);
     public delegate void DocumentModifiedEvent();
-    public delegate void RunStateChangeEvent();
+    public delegate void RunStateChangeEvent(BTDoc doc);
+    public delegate void DocComStateChange(BTDoc doc);
     /// <summary>
     /// 
     /// </summary>
@@ -50,38 +51,28 @@ namespace CommonLib
         bool m_bModeRun = false;
 
         PathTranslator m_PathTranslator = new PathTranslator();
+
+        VirtualDataForm m_virtualDataForm;
         #endregion
 
         #region données membres en mode SmartCommand
-        public BTComm m_Comm = new BTComm();
+        protected BTComm m_Comm = new BTComm();
         protected string m_strLogFilePath;
         #endregion
 
         #region Events
         public event NeedRefreshHMI UpdateDocumentFrame;
         public event DocumentModifiedEvent OnDocumentModified;
-        public event CommOpenedStateChange OnCommStateChange;
+        public event DocComStateChange OnCommStateChange;
         public event RunStateChangeEvent OnRunStateChange;
         public event AddLogEventDelegate EventAddLogEvent;
         #endregion
 
         #region donnée spécifiques aux fonctionement en mode Command
-#if !QUICK_MOTOR
-        ScriptExecuter m_Executer = null;
-#else
         QuickExecuter m_Executer = null;  
-#endif
         #endregion
 
-#if !QUICK_MOTOR
-        public ScriptExecuter Executer
-        {
-            get
-            {
-                return m_Executer;
-            }
-        }
-#else
+        #region attributs
         public QuickExecuter Executer
         {
             get
@@ -89,20 +80,16 @@ namespace CommonLib
                 return m_Executer;
             }
         }
-#endif
 
         private bool RunningState
         {
-            get
-            {
-                return m_bModeRun;
-            }
+            get { return m_bModeRun; }
             set
             {
                 bool prevValue = m_bModeRun;
                 m_bModeRun = value;
                 if (value != prevValue && OnRunStateChange != null)
-                    OnRunStateChange();
+                    OnRunStateChange(this);
             }
         }
         /// <summary>
@@ -153,6 +140,12 @@ namespace CommonLib
             get { return m_PathTranslator; }
         }
 
+        public BTComm Communication
+        {
+            get { return m_Comm; }
+        }
+        #endregion
+
         #region constructeur
         /// <summary>
         /// Constructeur par défaut
@@ -176,11 +169,7 @@ namespace CommonLib
             m_GestLogger.EventAddLogEvent += new AddLogEventDelegate(AddLogEvent);
             m_Comm.OnCommStateChange += new CommOpenedStateChange(this.CommeStateChangeEvent);
             m_Comm.EventAddLogEvent += new AddLogEventDelegate(AddLogEvent);
-#if !QUICK_MOTOR
-            m_Executer = new ScriptExecuter();
-#else
             m_Executer = new QuickExecuter();            
-#endif
             m_Executer.EventAddLogEvent += new AddLogEventDelegate(AddLogEvent);
             m_Executer.Document = this;
             m_TypeApp = TypeApp;
@@ -202,7 +191,7 @@ namespace CommonLib
         {
             if (OnCommStateChange != null)
             {
-                m_Comm.OnCommStateChange -= new CommOpenedStateChange(this.CommeStateChangeEvent);
+                m_Comm.OnCommStateChange -= this.CommeStateChangeEvent;
             }
         }
         #endregion
@@ -351,6 +340,7 @@ namespace CommonLib
 
                     if (MESSAGE.MESS_CMD_STOP == Mess)
                         RunningState = false;
+
                     if (UpdateDocumentFrame != null
                         && (Mess == MESSAGE.MESS_ITEM_DELETED || Mess == MESSAGE.MESS_ITEM_RENAMED)
                         )
@@ -371,7 +361,6 @@ namespace CommonLib
                     // puis des ecrans vers les gestionaires de control, et donc vers les controles
                     GestScreen.TraiteMessage(Mess, Param, TypeApp);
                     break;
-#if QUICK_MOTOR
                 case MESSAGE.MESS_PRE_PARSE:
                     if (!m_Executer.PreParsedDone)
                     {
@@ -381,7 +370,6 @@ namespace CommonLib
                         m_Executer.PreParsedDone = true;
                     }
                     break;
-#endif
             }
         }
         #endregion
@@ -683,7 +671,22 @@ namespace CommonLib
         private void CommeStateChangeEvent()
         {
             if (OnCommStateChange != null)
-                OnCommStateChange();
+                OnCommStateChange(this);
+
+            if (m_Comm.IsOpen && m_Comm.CommType == TYPE_COMM.VIRTUAL)
+            {
+                m_virtualDataForm = new VirtualDataForm(this);
+                m_virtualDataForm.Show();
+                m_virtualDataForm.BringToFront();
+            }
+            else
+            {
+                if (m_virtualDataForm != null)
+                {
+                    m_virtualDataForm.Close();
+                    m_virtualDataForm = null;
+                }
+            }
         }
 
         /// <summary>

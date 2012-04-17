@@ -124,8 +124,8 @@ namespace CommonLib
 
             move = NewBmpTrPath(strAppDir + "\\Res\\move.bmp");
 
-            CxnOn = NewBmpTrPath(strAppDir + "\\Res\\CxnOn.bmp");
-            CxnOff = NewBmpTrPath(strAppDir + "\\Res\\CxnOff.bmp");
+            CxnOn = NewBmpTrPath(strAppDir + "\\Res\\green-on-016.png");
+            CxnOff = NewBmpTrPath(strAppDir + "\\Res\\red-on-016.png");
             Empty = NewBmpTrPath(strAppDir + "\\Res\\EmptyImg.bmp");
 
             WizardSLProject = NewBmpTrPath(strAppDir + "\\Res\\WizRes\\M3SL_wiz.png");

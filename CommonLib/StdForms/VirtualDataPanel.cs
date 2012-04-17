@@ -5,9 +5,8 @@ using System.Drawing;
 using System.Data;
 using System.Text;
 using System.Windows.Forms;
-using CommonLib;
 
-namespace SmartApp
+namespace CommonLib
 {
     public partial class VirtualDataPanel : UserControl
     {
@@ -16,7 +15,7 @@ namespace SmartApp
         string m_strSymbolGroup = null;
         public VirtualDataPanel(GestDataVirtual GestVirtualData, GestData GestData, string strSymbolGroup)
         {
-            Program.LangSys.Initialize(this);
+            Lang.LangSys.Initialize(this);
             InitializeComponent();
             m_GestVirtualData = GestVirtualData;
             m_GestData = GestData;

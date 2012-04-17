@@ -7,9 +7,8 @@ using System.Text;
 using System.IO;
 using System.Windows.Forms;
 using System.Xml;
-using CommonLib;
 
-namespace SmartApp
+namespace CommonLib
 {
     public partial class VirtualDataForm : Form
     {
@@ -25,18 +24,19 @@ namespace SmartApp
         private OpenFileDialog m_ScnOpendlg = new OpenFileDialog();
         public VirtualDataForm(BTDoc Document)
         {
-            Program.LangSys.Initialize(this);
+            Lang.LangSys.Initialize(this);
             InitializeComponent();
+            m_PanelScenario.Document = Document;
             m_GestVirtualData = Document.GestDataVirtual;
             m_GestData = Document.GestData;
             m_TimerScenPlayer.Tick += new EventHandler(m_TimerScenPlayer_Tick);
-            m_CliSavedlg.Filter = "Data cliche File (*.sac)|*.sac";
+            m_CliSavedlg.Filter = Lang.LangSys.C("Data cliche File (*.sac)|*.sac");
             m_CliSavedlg.InitialDirectory = Path.GetDirectoryName(Document.FileName);
-            m_CliOpendlg.Filter = "Data cliche File (*.sac)|*.sac";
+            m_CliOpendlg.Filter = Lang.LangSys.C("Data cliche File (*.sac)|*.sac");
             m_CliOpendlg.InitialDirectory = Path.GetDirectoryName(Document.FileName);
-            m_ScnOpendlg.Filter = "Scenario cliche File (*.sas)|*.sas";
+            m_ScnOpendlg.Filter = Lang.LangSys.C("Scenario cliche File (*.sas)|*.sas");
             m_ScnOpendlg.InitialDirectory = Path.GetDirectoryName(Document.FileName);
-            m_ScnSavedlg.Filter = "Scenario cliche File (*.sas)|*.sas";
+            m_ScnSavedlg.Filter = Lang.LangSys.C("Scenario cliche File (*.sas)|*.sas");
             m_ScnSavedlg.InitialDirectory = Path.GetDirectoryName(Document.FileName);
         }
 
@@ -141,7 +141,7 @@ namespace SmartApp
             }
             catch (Exception ex)
             {
-                string strErr = Program.LangSys.C("The file is corrupted");
+                string strErr = Lang.LangSys.C("The file is corrupted");
                 strErr += ex.Message;
                 Traces.LogAddDebug(TraceCat.SmartCommand, "Load Cliche", strErr);
                 return;
@@ -215,7 +215,7 @@ namespace SmartApp
                 }
                 catch (Exception ex)
                 {
-                    string strErr = Program.LangSys.C("The file is corrupted");
+                    string strErr = Lang.LangSys.C("The file is corrupted");
                     strErr += ex.Message;
                     Traces.LogAddDebug(TraceCat.SmartCommand, "Load Scen", strErr);
                     return;

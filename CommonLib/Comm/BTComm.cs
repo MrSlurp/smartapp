@@ -146,6 +146,10 @@ namespace CommonLib
         #endregion
 
         #region methodes publiques
+        public bool SetCommTypeAndParam()
+        {
+            return SetCommTypeAndParam(m_TypeComm, m_strDestAdress);
+        }
         /// <summary>
         /// permet de définir le type de comm avec ses paramètres
         /// initialise la comm en fontion du type et des paramètres
@@ -389,6 +393,7 @@ namespace CommonLib
                     break;
                 }
             }
+            SetCommTypeAndParam();
             return true;
         }
 

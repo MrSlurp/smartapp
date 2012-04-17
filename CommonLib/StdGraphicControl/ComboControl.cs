@@ -84,11 +84,7 @@ namespace CommonLib
 
             if (this.m_ScriptContainer["EvtScript"] != null && this.m_ScriptContainer["EvtScript"].Length != 0)
             {
-#if !QUICK_MOTOR
-                m_Executer.ExecuteScript(this.ScriptLines);
-#else
                 m_Executer.ExecuteScript(this.m_iQuickScriptID);
-#endif
             }
 
             if (m_bUseScreenEvent)

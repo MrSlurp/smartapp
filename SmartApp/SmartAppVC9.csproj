@@ -172,34 +172,10 @@
     <Compile Include="SmartCommand\Ihm\VariableForm.Designer.cs">
       <DependentUpon>VariableForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="SmartCommand\Ihm\VirtualDataForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SmartCommand\Ihm\VirtualDataForm.Designer.cs">
-      <DependentUpon>VirtualDataForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SmartCommand\Ihm\VirtualDataPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="SmartCommand\Ihm\VirtualDataPanel.Designer.cs">
-      <DependentUpon>VirtualDataPanel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SmartCommand\Ihm\ScenarioPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="SmartCommand\Ihm\ScenarioPanel.Designer.cs">
-      <DependentUpon>ScenarioPanel.cs</DependentUpon>
-    </Compile>
     <Compile Include="SmartCommand\Ihm\WaitOpenCommForm.cs">
     </Compile>
     <Compile Include="SmartCommand\Ihm\WaitOpenCommForm.Designer.cs">
       <DependentUpon>WaitOpenCommForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\ConfigurationForm\DataForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\ConfigurationForm\DataForm.Designer.cs">
-      <DependentUpon>DataForm.cs</DependentUpon>
     </Compile>
     <Compile Include="SmartConfig\Ihm\ConfigurationForm\DesignerForm.cs">
       <SubType>Form</SubType>
@@ -284,29 +260,13 @@
       <SubType>Designer</SubType>
       <DependentUpon>OptionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SmartCommand\Ihm\ScenarioPanel.resx">
-      <DependentUpon>ScenarioPanel.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="SmartCommand\Ihm\VariableForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>VariableForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SmartCommand\Ihm\VirtualDataForm.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>VirtualDataForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SmartCommand\Ihm\VirtualDataPanel.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>VirtualDataPanel.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="SmartCommand\Ihm\WaitOpenCommForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>WaitOpenCommForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SmartConfig\Ihm\ConfigurationForm\DataForm.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>DataForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SmartConfig\Ihm\ConfigurationForm\DesignerForm.resx">
       <SubType>Designer</SubType>
@@ -1004,6 +964,9 @@
     <Content Include="Res\CxnOff.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Res\green-on-016.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Res\icon_frame.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -1056,6 +1019,9 @@
     </None>
     <None Include="app.config" />
     <Content Include="Res\icon_screen.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Res\red-on-016.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Res\WizRes\EthType_Split16.png">

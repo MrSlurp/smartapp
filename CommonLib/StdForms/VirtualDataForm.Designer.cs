@@ -1,4 +1,4 @@
-namespace SmartApp
+namespace CommonLib
 {
     partial class VirtualDataForm
     {
@@ -42,7 +42,7 @@ namespace SmartApp
             this.m_btnDown = new System.Windows.Forms.Button();
             this.m_btnUp = new System.Windows.Forms.Button();
             this.m_btnAddCliche = new System.Windows.Forms.Button();
-            this.m_PanelScenario = new SmartApp.ScenarioPanel();
+            this.m_PanelScenario = new ScenarioPanel();
             this.m_TabPageVData = new System.Windows.Forms.TabPage();
             this.m_tabControlDataPanels = new System.Windows.Forms.TabControl();
             this.m_BtnSaveCliche = new System.Windows.Forms.Button();
@@ -315,7 +315,7 @@ namespace SmartApp
         private System.Windows.Forms.TabControl m_tabControlDataPanels;
         private System.Windows.Forms.Button m_BtnSaveCliche;
         private System.Windows.Forms.Button m_BtnLoadCliche;
-        private SmartApp.ScenarioPanel m_PanelScenario;
+        private ScenarioPanel m_PanelScenario;
         private System.Windows.Forms.TabPage m_TabPageScenario;
         private System.Windows.Forms.TabPage m_TabPageVData;
         private System.Windows.Forms.Label label1;

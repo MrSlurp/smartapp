@@ -637,12 +637,10 @@ namespace CommonLib
                 case MESSAGE.MESS_UPDATE_FROM_DATA:
                     UpdateFromData();
                     break;
-#if QUICK_MOTOR
                 case MESSAGE.MESS_PRE_PARSE:
                     if (this.m_ScriptContainer["EvtScript"].Length != 0)
                         this.m_iQuickScriptID = m_Executer.PreParseScript(this.m_ScriptContainer["EvtScript"]);    
                     break;
-#endif
                 default:
                     break;
             }
