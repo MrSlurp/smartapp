@@ -663,8 +663,14 @@ namespace CommonLib
             {
                 m_strAssociateData = SrcBtControl.m_strAssociateData;
 
-                System.Diagnostics.Debug.Assert(false); // TODO vrai copy, sinon ca va mal se passer
-                this.m_ScriptContainer["EvtScript"] = SrcBtControl.m_ScriptContainer["EvtScript"];
+                System.Diagnostics.Debug.Assert(false); 
+                // TODO vrai copy, sinon ca va mal se passer
+                string[] scriptcopy = new string[SrcBtControl.m_ScriptContainer["EvtScript"].Length];
+                for (int i = 0; i < scriptcopy.Length; i++)
+                {
+                    scriptcopy[i] = SrcBtControl.m_ScriptContainer["EvtScript"][i];
+                }
+                this.m_ScriptContainer["EvtScript"] = scriptcopy;
             }
 
             m_bUseScreenEvent = SrcBtControl.m_bUseScreenEvent;

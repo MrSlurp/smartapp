@@ -58,6 +58,7 @@ namespace SmartApp
             this.colProjCnxStatus = new System.Windows.Forms.DataGridViewImageColumn();
             this.colRunStatus = new System.Windows.Forms.DataGridViewImageColumn();
             this.colBtnConnectStart = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.appEventLogPanel = new SmartApp.AppEventLog.AppEventLogPanel();
             this.menuStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridMonitor)).BeginInit();
@@ -72,7 +73,7 @@ namespace SmartApp
             this.helpMenu});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(489, 24);
+            this.menuStrip.Size = new System.Drawing.Size(496, 24);
             this.menuStrip.TabIndex = 0;
             this.menuStrip.Text = "MenuStrip";
             // 
@@ -88,7 +89,7 @@ namespace SmartApp
             this.menuItemExit});
             this.fileMenu.ImageTransparentColor = System.Drawing.SystemColors.ActiveBorder;
             this.fileMenu.Name = "fileMenu";
-            this.fileMenu.Size = new System.Drawing.Size(35, 20);
+            this.fileMenu.Size = new System.Drawing.Size(37, 20);
             this.fileMenu.Text = "&File";
             // 
             // menuItemOpen
@@ -97,14 +98,14 @@ namespace SmartApp
             this.menuItemOpen.ImageTransparentColor = System.Drawing.Color.Black;
             this.menuItemOpen.Name = "menuItemOpen";
             this.menuItemOpen.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.menuItemOpen.Size = new System.Drawing.Size(192, 22);
+            this.menuItemOpen.Size = new System.Drawing.Size(193, 22);
             this.menuItemOpen.Text = "&Open Solution";
             this.menuItemOpen.Click += new System.EventHandler(this.menuItemOpen_Click);
             // 
             // menuItemTraceConfig
             // 
             this.menuItemTraceConfig.Name = "menuItemTraceConfig";
-            this.menuItemTraceConfig.Size = new System.Drawing.Size(192, 22);
+            this.menuItemTraceConfig.Size = new System.Drawing.Size(193, 22);
             this.menuItemTraceConfig.Text = "Trace Config";
             this.menuItemTraceConfig.Visible = false;
             this.menuItemTraceConfig.Click += new System.EventHandler(this.menuItemLogConfig_Click);
@@ -112,7 +113,7 @@ namespace SmartApp
             // menuItemOpenDebugConsole
             // 
             this.menuItemOpenDebugConsole.Name = "menuItemOpenDebugConsole";
-            this.menuItemOpenDebugConsole.Size = new System.Drawing.Size(192, 22);
+            this.menuItemOpenDebugConsole.Size = new System.Drawing.Size(193, 22);
             this.menuItemOpenDebugConsole.Text = "Open Debug Console";
             this.menuItemOpenDebugConsole.Visible = false;
             this.menuItemOpenDebugConsole.Click += new System.EventHandler(this.menuItemOpenDebugConsole_Click);
@@ -120,24 +121,24 @@ namespace SmartApp
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(189, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(190, 6);
             // 
             // m_MruFiles
             // 
             this.m_MruFiles.Enabled = false;
             this.m_MruFiles.Name = "m_MruFiles";
-            this.m_MruFiles.Size = new System.Drawing.Size(192, 22);
+            this.m_MruFiles.Size = new System.Drawing.Size(193, 22);
             this.m_MruFiles.Text = "Recent Files";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(189, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(190, 6);
             // 
             // menuItemExit
             // 
             this.menuItemExit.Name = "menuItemExit";
-            this.menuItemExit.Size = new System.Drawing.Size(192, 22);
+            this.menuItemExit.Size = new System.Drawing.Size(193, 22);
             this.menuItemExit.Text = "E&xit";
             this.menuItemExit.Click += new System.EventHandler(this.menuItemExit_Click);
             // 
@@ -146,7 +147,7 @@ namespace SmartApp
             this.viewMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolBarToolStripMenuItem});
             this.viewMenu.Name = "viewMenu";
-            this.viewMenu.Size = new System.Drawing.Size(41, 20);
+            this.viewMenu.Size = new System.Drawing.Size(44, 20);
             this.viewMenu.Text = "&View";
             // 
             // toolBarToolStripMenuItem
@@ -155,7 +156,7 @@ namespace SmartApp
             this.toolBarToolStripMenuItem.CheckOnClick = true;
             this.toolBarToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.toolBarToolStripMenuItem.Name = "toolBarToolStripMenuItem";
-            this.toolBarToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.toolBarToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
             this.toolBarToolStripMenuItem.Text = "&Toolbar";
             this.toolBarToolStripMenuItem.Click += new System.EventHandler(this.ToolBarToolStripMenuItem_Click);
             // 
@@ -164,13 +165,13 @@ namespace SmartApp
             this.toolsMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.optionsToolStripMenuItem});
             this.toolsMenu.Name = "toolsMenu";
-            this.toolsMenu.Size = new System.Drawing.Size(44, 20);
+            this.toolsMenu.Size = new System.Drawing.Size(48, 20);
             this.toolsMenu.Text = "&Tools";
             // 
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.optionsToolStripMenuItem.Text = "&Options";
             this.optionsToolStripMenuItem.Click += new System.EventHandler(this.menuItemOptions_Click);
             // 
@@ -181,7 +182,7 @@ namespace SmartApp
             this.aboutToolStripMenuItem,
             this.pluginsVersionsToolStripMenuItem});
             this.helpMenu.Name = "helpMenu";
-            this.helpMenu.Size = new System.Drawing.Size(40, 20);
+            this.helpMenu.Size = new System.Drawing.Size(44, 20);
             this.helpMenu.Text = "&Help";
             // 
             // indexToolStripMenuItem
@@ -189,21 +190,21 @@ namespace SmartApp
             this.indexToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("indexToolStripMenuItem.Image")));
             this.indexToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
             this.indexToolStripMenuItem.Name = "indexToolStripMenuItem";
-            this.indexToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.indexToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.indexToolStripMenuItem.Text = "&Help";
             this.indexToolStripMenuItem.Visible = false;
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.aboutToolStripMenuItem.Text = "&About ...";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // pluginsVersionsToolStripMenuItem
             // 
             this.pluginsVersionsToolStripMenuItem.Name = "pluginsVersionsToolStripMenuItem";
-            this.pluginsVersionsToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.pluginsVersionsToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.pluginsVersionsToolStripMenuItem.Text = "Plugins versions";
             this.pluginsVersionsToolStripMenuItem.Click += new System.EventHandler(this.pluginsVersionsToolStripMenuItem_Click);
             // 
@@ -214,7 +215,7 @@ namespace SmartApp
             this.toolStripSeparator2});
             this.toolStrip.Location = new System.Drawing.Point(0, 24);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(489, 25);
+            this.toolStrip.Size = new System.Drawing.Size(496, 25);
             this.toolStrip.TabIndex = 1;
             this.toolStrip.Text = "ToolStrip";
             // 
@@ -248,8 +249,7 @@ namespace SmartApp
             this.dataGridMonitor.AllowUserToDeleteRows = false;
             this.dataGridMonitor.AllowUserToOrderColumns = true;
             this.dataGridMonitor.AllowUserToResizeRows = false;
-            this.dataGridMonitor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
+            this.dataGridMonitor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridMonitor.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridMonitor.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -259,7 +259,7 @@ namespace SmartApp
             this.colBtnConnectStart});
             this.dataGridMonitor.Location = new System.Drawing.Point(0, 52);
             this.dataGridMonitor.Name = "dataGridMonitor";
-            this.dataGridMonitor.Size = new System.Drawing.Size(489, 186);
+            this.dataGridMonitor.Size = new System.Drawing.Size(496, 164);
             this.dataGridMonitor.TabIndex = 4;
             // 
             // colProjName
@@ -286,11 +286,22 @@ namespace SmartApp
             this.colBtnConnectStart.HeaderText = "Connect / Start";
             this.colBtnConnectStart.Name = "colBtnConnectStart";
             // 
+            // appEventLogPanel
+            // 
+            this.appEventLogPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.appEventLogPanel.Location = new System.Drawing.Point(0, 222);
+            this.appEventLogPanel.Name = "appEventLogPanel";
+            this.appEventLogPanel.Size = new System.Drawing.Size(496, 200);
+            this.appEventLogPanel.TabIndex = 5;
+            // 
             // MDISmartCommandMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(489, 239);
+            this.ClientSize = new System.Drawing.Size(496, 423);
+            this.Controls.Add(this.appEventLogPanel);
             this.Controls.Add(this.dataGridMonitor);
             this.Controls.Add(this.m_StatusBar);
             this.Controls.Add(this.toolStrip);
@@ -341,6 +352,7 @@ namespace SmartApp
         private System.Windows.Forms.DataGridViewImageColumn colProjCnxStatus;
         private System.Windows.Forms.DataGridViewImageColumn colRunStatus;
         private System.Windows.Forms.DataGridViewButtonColumn colBtnConnectStart;
+        private SmartApp.AppEventLog.AppEventLogPanel appEventLogPanel;
     }
 }
 

@@ -1,6 +1,6 @@
 namespace SmartApp.AppEventLog
 {
-    partial class AppEventLogForm
+    partial class AppEventLogPanel
     {
         /// <summary>
         /// Required designer variable.
@@ -110,7 +110,6 @@ namespace SmartApp.AppEventLog
             this.DoubleBuffered = true;
             this.Name = "AppEventLogForm";
             this.Text = "Application log";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AppEventLogForm_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

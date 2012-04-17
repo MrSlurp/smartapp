@@ -132,10 +132,13 @@ namespace CtrlDemux
 
         void  Executer_EventFrameRecieved(Trame frame)
         {
-            if (frame.FrameDatas.Contains(ValueData.Symbol) &&
-                frame.FrameDatas.Contains(AdressData.Symbol))
+            if (ValueData != null && AdressData != null)
             {
-                UpdateFromData();
+                if (frame.FrameDatas.Contains(ValueData.Symbol) &&
+                    frame.FrameDatas.Contains(AdressData.Symbol))
+                {
+                    UpdateFromData();
+                }
             }
         }
 

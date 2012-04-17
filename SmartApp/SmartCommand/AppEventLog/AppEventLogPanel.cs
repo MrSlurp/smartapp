@@ -9,7 +9,7 @@ using CommonLib;
 
 namespace SmartApp.AppEventLog
 {
-    public partial class AppEventLogForm : Form
+    public partial class AppEventLogPanel : UserControl
     {
         private delegate void delegateAddLog(LogEvent ev);
         #region donnés membres
@@ -31,9 +31,8 @@ namespace SmartApp.AppEventLog
         // Description:
         // Return: /
         //*****************************************************************************************************
-        public AppEventLogForm()
+        public AppEventLogPanel()
         {
-            Program.LangSys.Initialize(this);
             InitializeComponent();
         }
         #endregion
@@ -102,18 +101,6 @@ namespace SmartApp.AppEventLog
                 this.BringToFront();
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        private void AppEventLogForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (e.CloseReason == CloseReason.UserClosing)
-            {
-                e.Cancel = true;
-                this.WindowState = FormWindowState.Minimized;
-            }
-        }
         #endregion
 
         #region Handler d'évènements des objets de la form

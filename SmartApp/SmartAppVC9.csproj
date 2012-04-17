@@ -130,11 +130,11 @@
       <DependentUpon>PreferencesForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
-    <Compile Include="SmartCommand\AppEventLog\AppEventLogForm.cs">
-      <SubType>Form</SubType>
+    <Compile Include="SmartCommand\AppEventLog\AppEventLogPanel.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="SmartCommand\AppEventLog\AppEventLogForm.Designer.cs">
-      <DependentUpon>AppEventLogForm.cs</DependentUpon>
+    <Compile Include="SmartCommand\AppEventLog\AppEventLogPanel.Designer.cs">
+      <DependentUpon>AppEventLogPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Common\Controls Personnalisables\Gauge.cs">
       <SubType>Component</SubType>
@@ -240,9 +240,9 @@
       <SubType>Designer</SubType>
       <DependentUpon>PreferencesForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SmartCommand\AppEventLog\AppEventLogForm.resx">
+    <EmbeddedResource Include="SmartCommand\AppEventLog\AppEventLogPanel.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>AppEventLogForm.cs</DependentUpon>
+      <DependentUpon>AppEventLogPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SmartCommand\Ihm\CommConfiguration.resx">
       <SubType>Designer</SubType>

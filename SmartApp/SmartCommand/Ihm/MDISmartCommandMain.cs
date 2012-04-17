@@ -20,7 +20,7 @@ namespace SmartApp
         #region données membres
         protected TraceConsole m_TraceConsole;
         // fenêtre de log des évènements
-        private static AppEventLogForm m_EventLog;
+        private static AppEventLogPanel m_EventLogPanel;
         // fenêtre de configuration des connexions
         // Liste des pages "utilisateur" ==> une par BTScreen présent dans chaque document
         private List<DynamicPanelForm> m_FormList = new List<DynamicPanelForm>();
@@ -40,11 +40,11 @@ namespace SmartApp
         /// <summary>
         /// accesseur de la fenêtre event log. Défini comme étant static (un seul event log)
         /// </summary>
-        public static AppEventLogForm EventLogger
+        public static AppEventLogPanel EventLogger
         {
             get
             {
-                return m_EventLog;
+                return m_EventLogPanel;
             }
         }
         #endregion
@@ -77,7 +77,7 @@ namespace SmartApp
         /// </summary>
         public void CommonConstructorInit()
         {
-            m_EventLog = new AppEventLogForm();
+            m_EventLogPanel = appEventLogPanel;
             this.Text = APP_TITLE;
             this.Icon = CommonLib.Resources.AppIcon;
             string strAppDir = Application.StartupPath;
@@ -105,7 +105,7 @@ namespace SmartApp
             if (this.InvokeRequired)
             {
                 DocComStateChange AsyncCall = new DocComStateChange(AsyncComStateUpdater);
-                this.Invoke(AsyncCall);
+                this.Invoke(AsyncCall, document);
             }
             else
             {
@@ -395,6 +395,7 @@ namespace SmartApp
             // abonnement aux event de com et d'état
             Doc.OnCommStateChange += new DocComStateChange(OnDocument_CommStateChange);
             Doc.OnRunStateChange += new RunStateChangeEvent(OnDocument_RunStateChange);
+            Doc.EventAddLogEvent += new AddLogEventDelegate(AddLogEvent);
             for (int i = 0; i < Doc.GestScreen.Count; i++)
             {
                 BTScreen Scr = (BTScreen)Doc.GestScreen[i];
@@ -408,11 +409,6 @@ namespace SmartApp
                 Frm.Show();
                 Frm.DynamicPanelEnabled = false;
                 m_FormList.Add(Frm);
-            }
-            if (!m_EventLog.IsEmpty)
-            {
-                m_EventLog.Show();
-                m_EventLog.BringToFront();
             }
             return true;
         }
@@ -559,7 +555,7 @@ namespace SmartApp
         /// <param name="Event"></param>
         protected void AddLogEvent(LogEvent Event)
         {
-            m_EventLog.AddLogEvent(Event);
+            m_EventLogPanel.AddLogEvent(Event);
         }
         #endregion
 
