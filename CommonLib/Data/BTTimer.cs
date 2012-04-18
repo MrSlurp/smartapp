@@ -24,6 +24,9 @@ namespace CommonLib
         bool m_bTimerEnabled = false;
         // executer de script du document
         protected QuickExecuter m_Executer = null;
+
+        private static Control m_singStdConfigPanel;
+
         #endregion
 
         #region propriétées de la classe
@@ -78,6 +81,19 @@ namespace CommonLib
                 return m_Executer;
             }
         }
+
+        public override Control StdConfigPanel
+        {
+            get
+            {
+                if (m_singStdConfigPanel == null)
+                {
+                    m_singStdConfigPanel = new TimerPropertiesPanel();
+                }
+                return m_singStdConfigPanel;
+            }
+        }
+
         #endregion
 
         #region ReadIn / WriteOut

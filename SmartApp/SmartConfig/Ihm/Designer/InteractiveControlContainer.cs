@@ -358,33 +358,35 @@ namespace SmartApp.Ihm.Designer
             // dessin des lignes "helpers"
             if (m_bDrawGuides)
             {
-                Pen penDotRed = new Pen(Color.Red);
-                penDotRed.DashStyle = DashStyle.Dot;
-                Point[] ptRepere1280par1024 = new Point[3] { new Point(0, 1024), new Point(1280, 1024), new Point(1280, 0) };
-                e.Graphics.DrawLines(penDotRed, ptRepere1280par1024);
-                string strHelpText = "1280 x 1024";
-                e.Graphics.DrawString(strHelpText, SystemFonts.DefaultFont, Brushes.Red, new Point(640, 1024));
+                using (Pen penDotRed = new Pen(Color.Red))
+                using (Pen penDotBlue = new Pen(Color.Blue))
+                using (Pen penDotGreen = new Pen(Color.Green))
+                using (Pen penDotPurple = new Pen(Color.Purple))
+                {
+                    penDotRed.DashStyle = DashStyle.Dot;
+                    Point[] ptRepere1280par1024 = new Point[3] { new Point(0, 1024), new Point(1280, 1024), new Point(1280, 0) };
+                    e.Graphics.DrawLines(penDotRed, ptRepere1280par1024);
+                    string strHelpText = "1280 x 1024";
+                    e.Graphics.DrawString(strHelpText, SystemFonts.DefaultFont, Brushes.Red, new Point(640, 1024));
 
-                Pen penDotBlue = new Pen(Color.Blue);
-                penDotBlue.DashStyle = DashStyle.Dot;
-                Point[] ptRepere1024par768 = new Point[3] { new Point(0, 768), new Point(1024, 768), new Point(1024, 0) };
-                e.Graphics.DrawLines(penDotBlue, ptRepere1024par768);
-                strHelpText = "1024 x 768";
-                e.Graphics.DrawString(strHelpText, SystemFonts.DefaultFont, Brushes.Blue, new Point(512, 768));
+                    penDotBlue.DashStyle = DashStyle.Dot;
+                    Point[] ptRepere1024par768 = new Point[3] { new Point(0, 768), new Point(1024, 768), new Point(1024, 0) };
+                    e.Graphics.DrawLines(penDotBlue, ptRepere1024par768);
+                    strHelpText = "1024 x 768";
+                    e.Graphics.DrawString(strHelpText, SystemFonts.DefaultFont, Brushes.Blue, new Point(512, 768));
 
-                Pen penDotGreen = new Pen(Color.Green);
-                penDotGreen.DashStyle = DashStyle.Dot;
-                Point[] ptRepere1680par1050 = new Point[3] { new Point(0, 1050), new Point(1680, 1050), new Point(1680, 0) };
-                e.Graphics.DrawLines(penDotGreen, ptRepere1680par1050);
-                strHelpText = "1680 x 1050";
-                e.Graphics.DrawString(strHelpText, SystemFonts.DefaultFont, Brushes.Green, new Point(840, 1050));
+                    penDotGreen.DashStyle = DashStyle.Dot;
+                    Point[] ptRepere1680par1050 = new Point[3] { new Point(0, 1050), new Point(1680, 1050), new Point(1680, 0) };
+                    e.Graphics.DrawLines(penDotGreen, ptRepere1680par1050);
+                    strHelpText = "1680 x 1050";
+                    e.Graphics.DrawString(strHelpText, SystemFonts.DefaultFont, Brushes.Green, new Point(840, 1050));
 
-                Pen penDotPurple = new Pen(Color.Purple);
-                penDotPurple.DashStyle = DashStyle.Dot;
-                Point[] ptRepere1600par1200 = new Point[3] { new Point(0, 1200), new Point(1600, 1200), new Point(1600, 0) };
-                e.Graphics.DrawLines(penDotPurple, ptRepere1600par1200);
-                strHelpText = "1600 x 1200";
-                e.Graphics.DrawString(strHelpText, SystemFonts.DefaultFont, Brushes.Purple, new Point(800, 1188));
+                    penDotPurple.DashStyle = DashStyle.Dot;
+                    Point[] ptRepere1600par1200 = new Point[3] { new Point(0, 1200), new Point(1600, 1200), new Point(1600, 0) };
+                    e.Graphics.DrawLines(penDotPurple, ptRepere1600par1200);
+                    strHelpText = "1600 x 1200";
+                    e.Graphics.DrawString(strHelpText, SystemFonts.DefaultFont, Brushes.Purple, new Point(800, 1188));
+                }
             }
         }
 

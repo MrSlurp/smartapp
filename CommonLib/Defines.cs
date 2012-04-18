@@ -108,6 +108,7 @@ namespace CommonLib
         Data,
         ScreenSection,
         Screen,
+        ScreenAttribs,
         ControlList,
         InitScript,
         EventScript,

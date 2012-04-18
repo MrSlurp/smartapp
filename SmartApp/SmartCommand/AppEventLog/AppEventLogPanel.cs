@@ -7,7 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using CommonLib;
 
-namespace SmartApp.AppEventLog
+namespace SmartApp
 {
     public partial class AppEventLogPanel : UserControl
     {

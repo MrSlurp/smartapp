@@ -5,7 +5,6 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using SmartApp.AppEventLog;
 using CommonLib;
 
 using System.IO;
@@ -49,7 +48,7 @@ namespace SmartApp
         }
         #endregion
 
-        #region constructeurs
+        #region constructeurs et init
         /// <summary>
         /// constructeur par défaut
         /// </summary>
@@ -90,8 +89,77 @@ namespace SmartApp
             }
             CentralizedFileDlg.InitPrjFileDialog(Application.StartupPath);
             dataGridMonitor.CellClick += new DataGridViewCellEventHandler(dataGridMonitor_CellClick);
+            InitTrayIcon();
         }
 
+        /// <summary>
+        /// initialise l'icone du systray
+        /// </summary>
+        private void InitTrayIcon()
+        {
+            m_trayIcon.Text = APP_TITLE;
+            m_trayIcon.Icon = CommonLib.Resources.AppIcon;
+            m_trayIcon.ContextMenuStrip = new ContextMenuStrip();
+            m_trayIcon.ContextMenuStrip.AutoSize = true;
+            ToolStripMenuItem tsItemShowMonitor = new ToolStripMenuItem();
+            tsItemShowMonitor.Text = Program.LangSys.C("Show monitor");
+            tsItemShowMonitor.Checked = true;
+            tsItemShowMonitor.Name = "ShowMonTrayMenu";
+            tsItemShowMonitor.Click += new EventHandler(trayShowMonitor_Click);
+            ToolStripMenuItem tsItemExit = new ToolStripMenuItem();
+            tsItemExit.Text = Program.LangSys.C("Quit");
+            tsItemExit.Name = "ExitTrayMenu";
+            tsItemExit.Click += new EventHandler(trayExit_Click);
+
+            m_trayIcon.ContextMenuStrip.Items.Add(tsItemShowMonitor);
+            m_trayIcon.ContextMenuStrip.Items.Add(tsItemExit);
+        }
+        #endregion
+
+        #region handler d'event du menu du systray
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void trayExit_Click(object sender, EventArgs e)
+        {
+            ExitSmartCommand();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void trayShowMonitor_Click(object sender, EventArgs e)
+        {
+            if (this.Visible)
+            {
+                this.Visible = false;
+            }
+            else
+            {
+                this.Visible = true;
+            }
+            UpdateTrayMenuFromState();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        void UpdateTrayMenuFromState()
+        {
+            ToolStripMenuItem trayMenuItem = m_trayIcon.ContextMenuStrip.Items["ShowMonTrayMenu"] as ToolStripMenuItem;
+            if (this.Visible)
+            {
+                trayMenuItem.Checked = true;
+            }
+            else
+            {
+                trayMenuItem.Checked = false;
+            }
+        }
         #endregion
 
         #region handler d'event des document et MAJ de la grille
@@ -172,6 +240,42 @@ namespace SmartApp
 
         #endregion
 
+        /// <summary>
+        /// 
+        /// </summary>
+        private void StopActiveDocuments()
+        {
+            foreach (DataGridViewRow row in dataGridMonitor.Rows)
+            {
+                if (row.Tag is BTDoc)
+                {
+                    BTDoc doc = row.Tag as BTDoc;
+                    if (doc.IsRunning)
+                        doc.TraiteMessage(MESSAGE.MESS_CMD_STOP, null, Program.TypeApp);
+                    if (doc.Communication.IsOpen)
+                        doc.Communication.CloseComm();
+                }
+            }
+            // petit attente d'une seconde en forçant le traitement
+            // des évènement fenêtre
+            DateTime enWaitTime = DateTime.Now.AddSeconds(1);
+            do
+            {
+                Application.DoEvents();
+                System.Threading.Thread.Sleep(10);
+            } while (enWaitTime < DateTime.Now);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void ExitSmartCommand()
+        {
+            StopActiveDocuments();
+            SolutionClose();
+            this.Close();
+        }
+
         #region Handlers du menu fichier
         /// <summary>
         /// handler du menu "Ouvrir", ou du bouton ouvrir de la toolbar
@@ -213,32 +317,17 @@ namespace SmartApp
         /// <param name="e"></param>
         private void menuItemExit_Click(object sender, EventArgs e)
         {
-            this.SolutionClose();
-            foreach (DataGridViewRow row in dataGridMonitor.Rows)
-            {
-                if (row.Tag is BTDoc)
-                {
-                    BTDoc doc = row.Tag as BTDoc;
-                    doc.TraiteMessage(MESSAGE.MESS_CMD_STOP, null, Program.TypeApp);
-                    doc.Communication.CloseComm();
-                }
-            }
-            DateTime enWaitTime = DateTime.Now.AddSeconds(1);
-            do
-            {
-                Application.DoEvents();
-            } while (enWaitTime < DateTime.Now);
-            // envoyer un stop et un disconnect à chaque document
-            this.Close();
+            ExitSmartCommand();
         }
 
         #endregion
 
         #region handlers du menu View
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ToolBarToolStripMenuItem_Click(object sender, EventArgs e)
         {
             toolStrip.Visible = toolBarToolStripMenuItem.Checked;
@@ -401,9 +490,32 @@ namespace SmartApp
                 BTScreen Scr = (BTScreen)Doc.GestScreen[i];
                 Scr.Panel.DocumentFileName = Doc.FileName;
                 DynamicPanelForm Frm = new DynamicPanelForm(Scr.Panel);
-                Scr.Panel.Location = new Point(10, 10);
-                Frm.ClientSize = new System.Drawing.Size(Scr.Panel.Width + Scr.Panel.Left + 10,
-                                                    Scr.Panel.Height + Scr.Panel.Top + 10);
+                Scr.Panel.Location = new Point(0, 0);
+                Frm.ClientSize = new System.Drawing.Size(Scr.Panel.Width + Scr.Panel.Left,
+                                                    Scr.Panel.Height + Scr.Panel.Top );
+
+                Frm.ShowInTaskbar = Scr.StyleVisibleInTaskBar;
+                if (!Scr.StyleShowTitleBar)
+                    Frm.FormBorderStyle = FormBorderStyle.None;
+
+                if (Scr.ScreenPosition.X != -1)
+                {
+                    Frm.Left = Scr.ScreenPosition.X;
+                    Frm.StartPosition = FormStartPosition.Manual;
+                }
+                if (Scr.ScreenPosition.Y != -1)
+                {
+                    Frm.Top = Scr.ScreenPosition.Y;
+                    Frm.StartPosition = FormStartPosition.Manual;
+                }
+
+                if (Scr.ScreenSize.Width != -1)
+                    Frm.Width = Scr.ScreenSize.Width;
+
+                if (Scr.ScreenSize.Height != -1)
+                    Frm.Height = Scr.ScreenSize.Height;
+
+
                 Frm.Document = Doc;
                 Frm.Text = Scr.Title;
                 Frm.Show();
@@ -421,29 +533,11 @@ namespace SmartApp
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnFormClosing(object sender, FormClosingEventArgs e)
-        {
-            /*
-            if (m_Document != null)
-            {
-                this.CloseDoc();
-            }
-            m_mruStripMenu.SaveToFile();*/
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void MDISmartCommandMain_Load(object sender, EventArgs e)
         {
             string IniOptionFileName = PathTranslator.LinuxVsWindowsPathUse(Application.StartupPath + @"\" + Cste.STR_OPTINI_FILENAME);
             m_Option.Load(IniOptionFileName);
-
             m_strLogFilePath = m_Option.LogDir;
-            //m_bSaveFileComm = m_Option.SaveFileComParam;
-
         }
 
         /// <summary>
@@ -454,8 +548,10 @@ namespace SmartApp
         private void MDISmartCommandMain_FormClosed(object sender, FormClosedEventArgs e)
         {
             m_Option.LogDir = m_strLogFilePath;
-            //m_Option.SaveFileComParam = m_bSaveFileComm;
+            StopActiveDocuments(); 
+            SolutionClose();
             m_Option.Save();
+            m_mruStripMenu.SaveToFile();
         }
 
         /// <summary>
@@ -467,6 +563,21 @@ namespace SmartApp
         {
             TryAutoOpenDoc();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MDISmartCommandMain_SizeChanged(object sender, EventArgs e)
+        {
+            if (WindowState == FormWindowState.Minimized)
+            {
+                this.Visible = false;
+                UpdateTrayMenuFromState();
+            }
+        }
+
         #endregion
 
         #region handler du menu tool
@@ -547,7 +658,6 @@ namespace SmartApp
                 this.ControlBox = false;
             }
         }
-
 
         /// <summary>
         /// 

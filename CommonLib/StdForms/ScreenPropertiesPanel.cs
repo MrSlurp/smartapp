@@ -113,6 +113,12 @@ namespace CommonLib
         {
             this.Title = m_Screen.Title;
             this.BackPictureFile = m_Screen.BackPictureFile;
+            edtPosX.Value = m_Screen.ScreenPosition.X;
+            edtPosY.Value = m_Screen.ScreenPosition.Y;
+            edtSizeW.Value = m_Screen.ScreenSize.Width;
+            edtSizeH.Value = m_Screen.ScreenSize.Height;
+            chkShowTitleBar.Checked = m_Screen.StyleShowTitleBar;
+            chkShowInTaskBar.Checked = m_Screen.StyleVisibleInTaskBar;
         }
 
         public void PanelToObject()
@@ -123,11 +129,27 @@ namespace CommonLib
                 bDataPropChange |= true;
             if (m_Screen.BackPictureFile != this.BackPictureFile)
                 bDataPropChange |= true;
+            Point pos = new Point((int)edtPosX.Value, (int)edtPosY.Value);
+            if (m_Screen.ScreenPosition != pos)
+                bDataPropChange |= true;
+
+            Size sz = new Size((int)edtSizeW.Value, (int)edtSizeH.Value);
+            if (m_Screen.ScreenSize != sz)
+                bDataPropChange |= true;
+
+            if (m_Screen.StyleShowTitleBar != chkShowTitleBar.Checked)
+                bDataPropChange |= true;
+            if (m_Screen.StyleVisibleInTaskBar != chkShowInTaskBar.Checked)
+                bDataPropChange |= true;
 
             if (bDataPropChange)
             {
                 m_Screen.Title = this.Title;
                 m_Screen.BackPictureFile = this.BackPictureFile;
+                m_Screen.ScreenPosition = pos;
+                m_Screen.ScreenSize = sz;
+                m_Screen.StyleShowTitleBar = chkShowTitleBar.Checked;
+                m_Screen.StyleVisibleInTaskBar = chkShowInTaskBar.Checked;
                 Document.Modified = true;
             }
             if (bDataPropChange && ScreenPropertiesChanged != null)

@@ -521,11 +521,13 @@ namespace SmartApp.Ihm
             {
                 menuItemAddProj.Enabled = true;
                 menuItemCloseSolution.Enabled = true;
+                menuItemJumpToCmd.Enabled = true;
             }
             else
             {
                 menuItemAddProj.Enabled = false;
                 menuItemCloseSolution.Enabled = false;
+                menuItemJumpToCmd.Enabled = false;
             }
         }
 

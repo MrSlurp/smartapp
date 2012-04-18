@@ -110,9 +110,14 @@ namespace SmartApp
 
             for (int i = 0; i < strArgsList.Length; i++)
             {
-                if (strArgsList[i].EndsWith(".saf"))
+                if (strArgsList[i].EndsWith(".slt"))
                 {
                     m_strFileName = strArgsList[i];
+                }
+                else if (strArgsList[i].EndsWith(".saf"))
+                {
+                    // fichier plus pris en charge à l'ouverture
+                    //m_strFileName = strArgsList[i];
                 }
                 else if (strArgsList[i].StartsWith("-"))
                 {

@@ -44,6 +44,12 @@ namespace CommonLib
         private List<BTControl> m_ListControls = new List<BTControl>();
         // liens vers l'executer de script
         protected QuickExecuter m_Executer = null;
+
+        protected Point m_screenPosition = new Point(-1,-1);
+        protected Size m_screenSize = new Size(-1,-1);
+
+        protected bool m_bShowInTaskBar = true;
+        protected bool m_bShowTitleBar = true;
         #endregion
 
         #region constructeur
@@ -146,6 +152,29 @@ namespace CommonLib
             {
                 return m_DynamicPanel;
             }
+        }
+
+        public Size ScreenSize
+        {
+            get { return m_screenSize; }
+            set { m_screenSize = value; }
+        }
+
+        public Point ScreenPosition
+        {
+            get { return m_screenPosition; }
+            set { m_screenPosition = value; }
+        }
+
+        public bool StyleVisibleInTaskBar
+        {
+            get { return m_bShowInTaskBar; }
+            set { m_bShowInTaskBar = value; }
+        }
+        public bool StyleShowTitleBar
+        {
+            get { return m_bShowTitleBar; }
+            set { m_bShowTitleBar = value; }
         }
         #endregion
 
@@ -313,6 +342,9 @@ namespace CommonLib
                         if (ChildNode.FirstChild != null)
                             this.m_strBackPictureFile = ChildNode.FirstChild.Value;
                         break;
+                    case XML_CF_TAG.ScreenAttribs:
+                        ReadInVisualStyleAttributes(ChildNode);
+                        break;
                     default:
                         break;
                 }
@@ -443,6 +475,32 @@ namespace CommonLib
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ScreenAttrNode"></param>
+        /// <returns></returns>
+        private bool ReadInVisualStyleAttributes(XmlNode ScreenAttrNode)
+        {
+            XmlNode AttrSize = ScreenAttrNode.Attributes.GetNamedItem(XML_CF_ATTRIB.size.ToString());
+            XmlNode AttrPos = ScreenAttrNode.Attributes.GetNamedItem(XML_CF_ATTRIB.Pos.ToString());
+            XmlNode AttrShowInTaskBar = ScreenAttrNode.Attributes.GetNamedItem("ShowInTaskBar");
+            XmlNode AttrShowTitleBar = ScreenAttrNode.Attributes.GetNamedItem("ShowTitleBar");
+            if (AttrSize != null
+                && AttrPos != null
+                && AttrShowInTaskBar != null
+                && AttrShowTitleBar != null)
+            {
+                string[] TabStrPos = AttrPos.Value.Split(',');
+                string[] TabStrSize = AttrSize.Value.Split(',');
+                this.ScreenPosition = new Point(int.Parse(TabStrPos[0]), int.Parse(TabStrPos[1]));
+                this.ScreenSize = new Size(int.Parse(TabStrSize[0]), int.Parse(TabStrSize[1]));
+                m_bShowInTaskBar = bool.Parse(AttrShowInTaskBar.Value);
+                m_bShowTitleBar = bool.Parse(AttrShowTitleBar.Value);
+            }
+            return true;
+        }
+
+        /// <summary>
         /// écrit les données de l'objet dans le fichier XML
         /// </summary>
         /// <param name="XmlDoc">Document XML courant</param>
@@ -493,6 +551,21 @@ namespace CommonLib
             XmlNode NodeTextImage = XmlDoc.CreateTextNode(m_strBackPictureFile);
             NodeImage.AppendChild(NodeTextImage);
             Node.AppendChild(NodeImage);
+
+            XmlNode NodeScreenAttr = XmlDoc.CreateElement(XML_CF_TAG.ScreenAttribs.ToString());
+            XmlAttribute AttrSize = XmlDoc.CreateAttribute(XML_CF_ATTRIB.size.ToString());
+            XmlAttribute AttrPos = XmlDoc.CreateAttribute(XML_CF_ATTRIB.Pos.ToString());
+            XmlAttribute AttrShowInTaskBar = XmlDoc.CreateAttribute("ShowInTaskBar");
+            XmlAttribute AttrShowTitleBar = XmlDoc.CreateAttribute("ShowTitleBar");
+            Node.AppendChild(NodeScreenAttr);
+            NodeScreenAttr.Attributes.Append(AttrSize);
+            NodeScreenAttr.Attributes.Append(AttrPos);
+            NodeScreenAttr.Attributes.Append(AttrShowInTaskBar);
+            NodeScreenAttr.Attributes.Append(AttrShowTitleBar);
+            AttrPos.Value = string.Format("{0},{1}", m_screenPosition.X, m_screenPosition.Y);
+            AttrSize.Value = string.Format("{0},{1}", m_screenSize.Width, m_screenSize.Height);
+            AttrShowInTaskBar.Value = m_bShowInTaskBar.ToString();
+            AttrShowTitleBar.Value = m_bShowTitleBar.ToString();
             return true;
         }
 

@@ -105,7 +105,7 @@ namespace CtrlTwoBitmap
                         return;
                     }
                 }
-                catch (Exception e)
+                catch (Exception )
                 {
                 }
             }

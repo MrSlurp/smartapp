@@ -65,48 +65,9 @@ namespace CommonLib
         #endregion
 
         #region attribut d'accès aux valeurs de la page de propriété
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        public string Description
-        {
-            get
-            {
-                return m_richTextDesc.Text;
-            }
-            set
-            {
-                if (value != null)
-                    m_richTextDesc.Text = value;
-                else
-                    m_richTextDesc.Text = string.Empty;
-            }
-        }
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        public string Symbol
-        {
-            get
-            {
-                return m_textSymbol.Text;
-            }
-            set
-            {
-                if (value != null)
-                    m_textSymbol.Text = value;
-                else
-                    m_textSymbol.Text = string.Empty;
-            }
-        }
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
         public int Period
         {
             get
@@ -119,6 +80,9 @@ namespace CommonLib
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public bool AutoStart
         {
             get
@@ -128,30 +92,6 @@ namespace CommonLib
             set
             {
                 m_chkAutoStart.Checked = value;
-            }
-        }
-
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        public string[] ScriptLines
-        {
-            get
-            {
-                return m_EditScript.Lines;
-            }
-            set
-            {
-                if (value != null)
-                    m_EditScript.Lines = value;
-                else
-                {
-                    string[] strTabTmp = new string[1];
-                    strTabTmp[0] = string.Empty;
-                    m_EditScript.Lines = strTabTmp;
-                }
             }
         }
         #endregion
@@ -185,25 +125,6 @@ namespace CommonLib
                 TimerPropChange(m_Timer);
         }
 
-        #endregion
-
-        #region edition du script
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        private void OnBtnEditScriptClick(object sender, EventArgs e)
-        {
-            ScriptEditordialog DlgScript = new ScriptEditordialog();
-            DlgScript.Doc = this.m_Document;
-            DlgScript.ScriptLines = m_Timer.ItemScripts["TimerScript"];
-            DialogResult dlgRes = DlgScript.ShowDialog();
-            if (dlgRes == DialogResult.OK)
-            {
-                m_Timer.ItemScripts["TimerScript"] = DlgScript.ScriptLines;
-                this.ScriptLines = DlgScript.ScriptLines;
-            }
-        }
         #endregion
     }
 }
