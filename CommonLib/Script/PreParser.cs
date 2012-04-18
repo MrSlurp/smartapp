@@ -363,6 +363,12 @@ namespace CommonLib
                 retPreParsedLine.m_Arguments = new BaseObject[1] {m_Document.GestScreen.QuickGetFromSymbol(strScreen)};  
                 switch (SecondTokenType)
                 {
+                    case SCREEN_FUNC.SHOW:
+                        retPreParsedLine.m_FunctionToExec = ALL_FUNC.SCREEN_SHOW;
+                        break;
+                    case SCREEN_FUNC.HIDE:
+                        retPreParsedLine.m_FunctionToExec = ALL_FUNC.SCREEN_HIDE;
+                        break;
                     case SCREEN_FUNC.SHOW_ON_TOP:
                         retPreParsedLine.m_FunctionToExec = ALL_FUNC.SCREEN_SHOW_ON_TOP;
                         break;

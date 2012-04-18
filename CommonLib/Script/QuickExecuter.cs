@@ -249,8 +249,10 @@ namespace CommonLib
                 {
                     case SCR_OBJECT.FRAMES:
                     case SCR_OBJECT.TIMERS:
-                    case SCR_OBJECT.SCREEN:
                         QuickExecuteFunc(QuickScript[i]);
+                        break;
+                    case SCR_OBJECT.SCREEN:
+                        QuickExecuteScreen(QuickScript[i]);
                         break;
                     case SCR_OBJECT.LOGGERS:
                         QuickExecuteLogger(QuickScript[i]);
@@ -302,18 +304,6 @@ namespace CommonLib
                         Traces.LogAddDebug(TraceCat.ExecuteTimer,
                                            string.Format("timer.STOP {0}", QuickScript.m_Arguments[0].Symbol));
                     ((BTTimer)QuickScript.m_Arguments[0]).StopTimer();
-                    break;
-                case ALL_FUNC.SCREEN_SHOW_ON_TOP:
-                    if (Traces.IsDebugAndCatOK(TraceCat.ExecuteScreen))
-                        Traces.LogAddDebug(TraceCat.ExecuteScreen,
-                                           string.Format("Screen.SHOW_ON_TOP {0}", QuickScript.m_Arguments[0].Symbol));
-                    ((BTScreen)QuickScript.m_Arguments[0]).ShowScreenToTop();
-                    break;
-                case ALL_FUNC.SCREEN_SCREEN_SHOT:
-                    if (Traces.IsDebugAndCatOK(TraceCat.ExecuteScreen))
-                        Traces.LogAddDebug(TraceCat.ExecuteScreen,
-                                           string.Format("Screen.SCREEN_SNAPSHOT {0}", QuickScript.m_Arguments[0].Symbol));
-                    ((BTScreen)QuickScript.m_Arguments[0]).TakeScreenShot("");
                     break;
             }
         }
@@ -733,6 +723,37 @@ namespace CommonLib
                         Traces.LogAddDebug(TraceCat.ExecuteLogger,
                                            string.Format("Logger.NEW_FILE {0}", QuickScript.m_Arguments[0].Symbol));
                     ((Logger)QuickScript.m_Arguments[0]).NewFile();
+                    break;
+            }
+        }
+
+        internal void QuickExecuteScreen(PreParsedLine QuickScript)
+        {
+            switch (QuickScript.m_FunctionToExec)
+            {
+                case ALL_FUNC.SCREEN_HIDE:
+                    if (Traces.IsDebugAndCatOK(TraceCat.ExecuteScreen))
+                        Traces.LogAddDebug(TraceCat.ExecuteScreen,
+                                           string.Format("Screen Show {0}", QuickScript.m_Arguments[0].Symbol));
+                    ((BTScreen)QuickScript.m_Arguments[0]).ExecuteShow();
+                    break;
+                case ALL_FUNC.SCREEN_SHOW:
+                    if (Traces.IsDebugAndCatOK(TraceCat.ExecuteScreen))
+                        Traces.LogAddDebug(TraceCat.ExecuteScreen,
+                                           string.Format("Screen Hide {0}", QuickScript.m_Arguments[0].Symbol));
+                    ((BTScreen)QuickScript.m_Arguments[0]).ExecuteHide();
+                    break;
+                case ALL_FUNC.SCREEN_SHOW_ON_TOP:
+                    if (Traces.IsDebugAndCatOK(TraceCat.ExecuteScreen))
+                        Traces.LogAddDebug(TraceCat.ExecuteScreen,
+                                           string.Format("Screen.SHOW_ON_TOP {0}", QuickScript.m_Arguments[0].Symbol));
+                    ((BTScreen)QuickScript.m_Arguments[0]).ShowScreenToTop();
+                    break;
+                case ALL_FUNC.SCREEN_SCREEN_SHOT:
+                    if (Traces.IsDebugAndCatOK(TraceCat.ExecuteScreen))
+                        Traces.LogAddDebug(TraceCat.ExecuteScreen,
+                                           string.Format("Screen.SCREEN_SNAPSHOT {0}", QuickScript.m_Arguments[0].Symbol));
+                    ((BTScreen)QuickScript.m_Arguments[0]).TakeScreenShot("");
                     break;
             }
         }

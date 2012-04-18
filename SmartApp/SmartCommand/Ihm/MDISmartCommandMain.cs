@@ -233,6 +233,13 @@ namespace SmartApp
                         img = Resources.CxnOn;
                     DataGridViewImageCell projectRunStatuxCell = row.Cells[this.colRunStatus.Name] as DataGridViewImageCell;
                     projectRunStatuxCell.Value = img;
+                    foreach (DynamicPanelForm frm in m_FormList)
+                    {
+                        if (frm.Document == doc)
+                        {
+                            frm.DynamicPanelEnabled = doc.IsRunning;
+                        }
+                    }
                     break;
                 }
             }

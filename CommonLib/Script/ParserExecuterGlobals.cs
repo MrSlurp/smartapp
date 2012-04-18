@@ -112,6 +112,8 @@ namespace CommonLib
         INVALID,
         SHOW_ON_TOP,
         SCREEN_SHOT,
+        HIDE,
+        SHOW,
     }
 
     public enum ALL_FUNC
@@ -137,6 +139,8 @@ namespace CommonLib
         LOGIC_NOR,
         LOGIC_XOR,
         SCREEN_SHOW_ON_TOP,
+        SCREEN_HIDE,
+        SCREEN_SHOW,
         SCREEN_SCREEN_SHOT,
     }
 

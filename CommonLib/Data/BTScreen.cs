@@ -726,5 +726,20 @@ namespace CommonLib
         }
         #endregion
 
+        public void ExecuteShow()
+        {
+            if (m_DynamicPanel != null)
+            {
+                m_DynamicPanel.Parent.Show();
+            }
+        }
+        public void ExecuteHide()
+        {
+            if (m_DynamicPanel != null)
+            {
+                m_DynamicPanel.Parent.Hide();
+            }
+        }
+
     }
 }

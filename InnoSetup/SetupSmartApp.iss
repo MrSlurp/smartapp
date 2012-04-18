@@ -43,23 +43,23 @@ winxpsp2_title=Windows XP Service Pack 2
 ; Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{2FE97D82-A4DD-4235-A710-9C1A17CAE705}
-AppName=Smart Application
-AppVerName=Smart Application 2.8.0.0
+AppName=Smart Application V3
+AppVerName=Smart Application V3Alpha1
 AppPublisher=Pascal Bigot
 AppCopyright=Copyright (C) 2007-2010 Pascal Bigot   
 AppPublisherURL=http://www.smartappsoftware.net
 AppSupportURL=http://www.smartappsoftware.net
 AppUpdatesURL=http://www.smartappsoftware.net
-AppVersion=2.8.0.0
-DefaultDirName={pf}\M3Tool\Smart Application
-DefaultGroupName=Smart Application
+AppVersion=3.0.0.0
+DefaultDirName={pf}\M3Tool\Smart Application V3
+DefaultGroupName=Smart Application V3
 AllowNoIcons=yes
-OutputBaseFilename=Setup_SmartApp
+OutputBaseFilename=Setup_SmartApp_V3
 Compression=lzma
 SolidCompression=yes
 WizardImageFile=images\SetupLeft.bmp
 WizardSmallImageFile=images\SmartApp.bmp
-SetupIconFile=images\SmartApp.ico 
+SetupIconFile=images\SmartAppSln.ico 
 ChangesAssociations=yes
 
 [Languages]
@@ -84,6 +84,8 @@ Source: "..\Prod\Release\Res\*"; DestDir: "{app}\Res"; Flags: recursesubdirs cre
 Source: "..\Prod\Release\Lang\*.po"; DestDir: "{app}\Lang";
 ; fichier icone principal
 Source: "..\Prod\Release\SmartApp.ico"; DestDir: "{app}";
+; fichier icone secondaire
+Source: "..\Prod\Release\SmartAppSln.ico"; DestDir: "{app}";
 ; fichier de configuration de l'application
 Source: "ressources\EN.SmartApp.exe.config"; DestDir: "{app}"; DestName:"SmartApp.exe.config"; Languages: english; Flags: onlyifdoesntexist uninsneveruninstall
 Source: "ressources\FR.SmartApp.exe.config"; DestDir: "{app}"; DestName:"SmartApp.exe.config"; Languages: french; Flags: onlyifdoesntexist uninsneveruninstall
@@ -98,16 +100,17 @@ Source: "fournitures\*.ini"; DestDir: "{app}"; Flags: onlyifdoesntexist uninsnev
 
 [Registry]
 Root: HKCR; Subkey: ".saf"; ValueType: string; ValueName: ""; ValueData: "smartapp"; Flags: uninsdeletevalue
+Root: HKCR; Subkey: ".slt"; ValueType: string; ValueName: ""; ValueData: "smartapp"; Flags: uninsdeletevalue
 Root: HKCR; Subkey: "smartapp"; ValueType: string; ValueName: ""; ValueData: "Smart App files"; Flags: uninsdeletekey
-Root: HKCR; Subkey: "smartapp\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\SmartApp.exe,0"
+Root: HKCR; Subkey: "smartapp\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\SmartAppSln.ico"
 Root: HKCR; Subkey: "smartapp\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\SmartApp.exe"" ""%1"""
 
 [Icons]
-Name: "{group}\Smart Config"; Filename: "{app}\SmartApp.exe"; WorkingDir: "{app}"
-Name: "{group}\Smart Command"; Filename: "{app}\SmartApp.exe"; WorkingDir: "{app}"; Parameters: "-cmd"
-Name: "{group}\{cm:UninstallProgram,Smart Application}"; Filename: "{uninstallexe}"
-Name: "{commondesktop}\Smart Config"; Filename: "{app}\SmartApp.exe"; WorkingDir: "{app}"; Tasks: desktopicon
-Name: "{commondesktop}\Smart Command"; Filename: "{app}\SmartApp.exe"; WorkingDir: "{app}"; Tasks: desktopicon ;Parameters: "-cmd"
+Name: "{group}\Smart Config V3"; Filename: "{app}\SmartApp.exe"; WorkingDir: "{app}"
+Name: "{group}\Smart Command V3"; Filename: "{app}\SmartApp.exe"; WorkingDir: "{app}"; Parameters: "-cmd"
+Name: "{group}\{cm:UninstallProgram,Smart Application V3}"; Filename: "{uninstallexe}"
+Name: "{commondesktop}\Smart Config V3"; Filename: "{app}\SmartApp.exe"; WorkingDir: "{app}"; Tasks: desktopicon
+Name: "{commondesktop}\Smart Command V3"; Filename: "{app}\SmartApp.exe"; WorkingDir: "{app}"; Tasks: desktopicon ;Parameters: "-cmd"
 
 [Run]
 Filename: "{app}\SmartApp.exe"; Description: "{cm:LaunchProgram,Smart Application}"; Flags: nowait postinstall skipifsilent
@@ -143,8 +146,8 @@ begin
 	
 	//install .netfx 2.0 sp2 if possible; if not sp1 if possible; if not .netfx 2.0
 	//if minwinversion(5, 0) then begin
-		dotnetfx20();
-		//dotnetfx20sp2();
+		//dotnetfx20();
+		dotnetfx20sp2();
 		//dotnetfx20sp2lp();
 	//end else begin
 		//if minwinversion(5, 0) and minwinspversion(5, 0, 4) then begin
