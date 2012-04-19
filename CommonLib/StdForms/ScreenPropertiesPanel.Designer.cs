@@ -312,7 +312,7 @@ namespace CommonLib
             this.groupBox2.Size = new System.Drawing.Size(135, 181);
             this.groupBox2.TabIndex = 15;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Visual style";
+            this.groupBox2.Text = "Positions and size";
             // 
             // label9
             // 

@@ -35,6 +35,12 @@ namespace CommonLib
 
         BTDoc m_Document;
 
+        protected Point m_screenPosition = new Point(-1, -1);
+        protected Size m_screenSize = new Size(-1, -1);
+
+        protected bool m_bShowInTaskBar = true;
+        protected bool m_bShowTitleBar = true;
+
         #endregion
 
         #region données sépcifiques au fonctionement en mode "Command"
@@ -45,11 +51,6 @@ namespace CommonLib
         // liens vers l'executer de script
         protected QuickExecuter m_Executer = null;
 
-        protected Point m_screenPosition = new Point(-1,-1);
-        protected Size m_screenSize = new Size(-1,-1);
-
-        protected bool m_bShowInTaskBar = true;
-        protected bool m_bShowTitleBar = true;
         #endregion
 
         #region constructeur

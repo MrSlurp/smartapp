@@ -204,17 +204,35 @@
     <Compile Include="StdForms\ChangeListForm.Designer.cs">
       <DependentUpon>ChangeListForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="StdForms\CommConfiguration.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StdForms\CommConfiguration.Designer.cs">
+      <DependentUpon>CommConfiguration.cs</DependentUpon>
+    </Compile>
     <Compile Include="StdForms\DataPropertiesPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="StdForms\DataPropertiesPanel.Designer.cs">
       <DependentUpon>DataPropertiesPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="StdForms\DocumentMainContainer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StdForms\DocumentMainContainer.Designer.cs">
+      <DependentUpon>DocumentMainContainer.cs</DependentUpon>
+    </Compile>
     <Compile Include="StdForms\DocumentProprtiesDialog.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="StdForms\DocumentProprtiesDialog.Designer.cs">
       <DependentUpon>DocumentProprtiesDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StdForms\DynamicPanelForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StdForms\DynamicPanelForm.Designer.cs">
+      <DependentUpon>DynamicPanelForm.cs</DependentUpon>
     </Compile>
     <Compile Include="StdForms\FramePropertiesPanel.cs">
       <SubType>UserControl</SubType>
@@ -364,12 +382,23 @@
       <DependentUpon>ChangeListForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="StdForms\CommConfiguration.resx">
+      <DependentUpon>CommConfiguration.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="StdForms\DataPropertiesPanel.resx">
       <DependentUpon>DataPropertiesPanel.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="StdForms\DocumentMainContainer.resx">
+      <DependentUpon>DocumentMainContainer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="StdForms\DocumentProprtiesDialog.resx">
       <DependentUpon>DocumentProprtiesDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StdForms\DynamicPanelForm.resx">
+      <DependentUpon>DynamicPanelForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="StdForms\FramePropertiesPanel.resx">
       <DependentUpon>FramePropertiesPanel.cs</DependentUpon>

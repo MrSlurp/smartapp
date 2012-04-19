@@ -255,15 +255,9 @@ namespace SmartApp
             TreeNode selNode = SelectedNode;
             DocumentElementNode elem = selNode.Tag as DocumentElementNode;
             //DocumentProprtiesDialog projectPropDialog = new DocumentProprtiesDialog();
-            CommConfiguration commCfgPage = new CommConfiguration();
-            commCfgPage.AllowRowSelect = true;
-            commCfgPage.CurComParam = elem.Document.Communication.CommParam;
-            commCfgPage.CurTypeCom = elem.Document.Communication.CommType;
-            DialogResult dlgRes = commCfgPage.ShowDialog();
-            if (dlgRes == DialogResult.OK)
-            {
-                elem.Document.Communication.SetCommTypeAndParam(commCfgPage.CurTypeCom, commCfgPage.CurComParam);
-            }
+            DocumentProprtiesDialog CfgPage = new DocumentProprtiesDialog();
+            CfgPage.Document = elem.Document;
+            CfgPage.ShowDialog();
         }
 
         /// <summary>

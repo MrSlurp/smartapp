@@ -142,18 +142,6 @@
     <Compile Include="Common\Controls Personnalisables\Gauge.Designer.cs">
       <DependentUpon>Gauge.cs</DependentUpon>
     </Compile>
-    <Compile Include="SmartCommand\Ihm\CommConfiguration.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SmartCommand\Ihm\CommConfiguration.Designer.cs">
-      <DependentUpon>CommConfiguration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SmartCommand\Ihm\DynamicPanelForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SmartCommand\Ihm\DynamicPanelForm.Designer.cs">
-      <DependentUpon>DynamicPanelForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="SmartCommand\Ihm\MDISmartCommandMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -243,14 +231,6 @@
     <EmbeddedResource Include="SmartCommand\AppEventLog\AppEventLogPanel.resx">
       <SubType>Designer</SubType>
       <DependentUpon>AppEventLogPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SmartCommand\Ihm\CommConfiguration.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>CommConfiguration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SmartCommand\Ihm\DynamicPanelForm.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>DynamicPanelForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SmartCommand\Ihm\MDISmartCommandMain.resx">
       <SubType>Designer</SubType>

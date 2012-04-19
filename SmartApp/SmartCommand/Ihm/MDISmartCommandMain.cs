@@ -20,9 +20,6 @@ namespace SmartApp
         protected TraceConsole m_TraceConsole;
         // fenêtre de log des évènements
         private static AppEventLogPanel m_EventLogPanel;
-        // fenêtre de configuration des connexions
-        // Liste des pages "utilisateur" ==> une par BTScreen présent dans chaque document
-        private List<DynamicPanelForm> m_FormList = new List<DynamicPanelForm>();
         // fichier d'ini des options
         private AppOptions m_Option = new AppOptions();
         // chemin du dossier de log utilisateurs
@@ -233,13 +230,6 @@ namespace SmartApp
                         img = Resources.CxnOn;
                     DataGridViewImageCell projectRunStatuxCell = row.Cells[this.colRunStatus.Name] as DataGridViewImageCell;
                     projectRunStatuxCell.Value = img;
-                    foreach (DynamicPanelForm frm in m_FormList)
-                    {
-                        if (frm.Document == doc)
-                        {
-                            frm.DynamicPanelEnabled = doc.IsRunning;
-                        }
-                    }
                     break;
                 }
             }
@@ -380,8 +370,28 @@ namespace SmartApp
         /// <param name="document"></param>
         void GestSolution_OnDocOpened(BTDoc doc)
         {
-            OpenDocumentForCommand(doc);
-            AddDocToMonitorList(doc);
+            doc.LogFilePath = m_strLogFilePath;
+            if (doc.FinalizeRead(this))
+            {
+                if (doc.OpenDocumentForCommand())
+                {
+                    doc.OnCommStateChange += new DocComStateChange(OnDocument_CommStateChange);
+                    doc.OnRunStateChange += new RunStateChangeEvent(OnDocument_RunStateChange);
+                    doc.EventAddLogEvent += new AddLogEventDelegate(AddLogEvent);
+                    AddDocToMonitorList(doc);
+                }
+                else
+                {
+                    SolutionClose();
+                }
+            }
+            else
+            {
+                Traces.LogAddDebug(TraceCat.SmartCommand, "MDICommand", "Erreur lors du FinalizeRead()");
+                MessageBox.Show(Program.LangSys.C("Can't initialize run mode datas. Please contact support"),
+                                Program.LangSys.C("Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
         }
 
         /// <summary>
@@ -390,19 +400,7 @@ namespace SmartApp
         /// <param name="doc"></param>
         void GestSolution_OnDocClosed(BTDoc doc)
         {
-            List<DynamicPanelForm> toDelList = new List<DynamicPanelForm>();
-            foreach (DynamicPanelForm frm in m_FormList)
-            {
-                if (frm.Document == doc)
-                {
-                    toDelList.Add(frm);
-                }
-            }
-            foreach (DynamicPanelForm frm in toDelList)
-            {
-                m_FormList.Remove(frm);
-                frm.Close();
-            }
+            doc.CloseSupervisionForms();
         }
 
         /// <summary>
@@ -465,73 +463,8 @@ namespace SmartApp
         /// </summary>
         private void SolutionClose()
         {
-            foreach (DynamicPanelForm frm in m_FormList)
-            {
-                frm.Close();
-            }
-            m_FormList.Clear();
             m_GestSolution = null;
             //UpdateFileMenu();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="Doc"></param>
-        /// <returns></returns>
-        private bool OpenDocumentForCommand(BTDoc Doc)
-        {
-            Doc.LogFilePath = m_strLogFilePath;
-            if (!Doc.FinalizeRead(this))
-            {
-                Traces.LogAddDebug(TraceCat.SmartCommand, "MDICommand", "Erreur lors du FinalizeRead()");
-                MessageBox.Show(Program.LangSys.C("Can't initialize run mode datas. Please contact support"), Program.LangSys.C("Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                SolutionClose();
-                return false;
-            }
-
-            // abonnement aux event de com et d'état
-            Doc.OnCommStateChange += new DocComStateChange(OnDocument_CommStateChange);
-            Doc.OnRunStateChange += new RunStateChangeEvent(OnDocument_RunStateChange);
-            Doc.EventAddLogEvent += new AddLogEventDelegate(AddLogEvent);
-            for (int i = 0; i < Doc.GestScreen.Count; i++)
-            {
-                BTScreen Scr = (BTScreen)Doc.GestScreen[i];
-                Scr.Panel.DocumentFileName = Doc.FileName;
-                DynamicPanelForm Frm = new DynamicPanelForm(Scr.Panel);
-                Scr.Panel.Location = new Point(0, 0);
-                Frm.ClientSize = new System.Drawing.Size(Scr.Panel.Width + Scr.Panel.Left,
-                                                    Scr.Panel.Height + Scr.Panel.Top );
-
-                Frm.ShowInTaskbar = Scr.StyleVisibleInTaskBar;
-                if (!Scr.StyleShowTitleBar)
-                    Frm.FormBorderStyle = FormBorderStyle.None;
-
-                if (Scr.ScreenPosition.X != -1)
-                {
-                    Frm.Left = Scr.ScreenPosition.X;
-                    Frm.StartPosition = FormStartPosition.Manual;
-                }
-                if (Scr.ScreenPosition.Y != -1)
-                {
-                    Frm.Top = Scr.ScreenPosition.Y;
-                    Frm.StartPosition = FormStartPosition.Manual;
-                }
-
-                if (Scr.ScreenSize.Width != -1)
-                    Frm.Width = Scr.ScreenSize.Width;
-
-                if (Scr.ScreenSize.Height != -1)
-                    Frm.Height = Scr.ScreenSize.Height;
-
-
-                Frm.Document = Doc;
-                Frm.Text = Scr.Title;
-                Frm.Show();
-                Frm.DynamicPanelEnabled = false;
-                m_FormList.Add(Frm);
-            }
-            return true;
         }
 
         #endregion

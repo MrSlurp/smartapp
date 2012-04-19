@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml;
+using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
 
@@ -53,11 +54,21 @@ namespace CommonLib
         PathTranslator m_PathTranslator = new PathTranslator();
 
         VirtualDataForm m_virtualDataForm;
+
+        bool m_bUseMainContainer = false;
+        protected Point m_MCPosition = new Point(-1, -1);
+        protected Size m_MCSize = new Size(-1, -1);
+
+        protected bool m_bMCShowInTaskBar = true;
+        protected bool m_bMCShowTitleBar = true;
         #endregion
 
         #region données membres en mode SmartCommand
         protected BTComm m_Comm = new BTComm();
         protected string m_strLogFilePath;
+        // Liste des pages "utilisateur" ==> une par BTScreen présent dans chaque document
+        private List<DynamicPanelForm> m_FormList;
+        private DocumentMainContainer m_MainContainer;
         #endregion
 
         #region Events
@@ -88,8 +99,12 @@ namespace CommonLib
             {
                 bool prevValue = m_bModeRun;
                 m_bModeRun = value;
-                if (value != prevValue && OnRunStateChange != null)
-                    OnRunStateChange(this);
+                if (value != prevValue)
+                {
+                    UpdateRunState();
+                    if (OnRunStateChange != null)
+                        OnRunStateChange(this);
+                }
             }
         }
         /// <summary>
@@ -224,6 +239,36 @@ namespace CommonLib
                 if (OnDocumentModified != null)
                     OnDocumentModified();
             }
+        }
+
+        public bool UseMainContainer
+        {
+            get { return m_bUseMainContainer; }
+            set { m_bUseMainContainer = value; }
+        }
+
+        public Size MCSize
+        {
+            get { return m_MCSize; }
+            set { m_MCSize = value; }
+        }
+
+        public Point MCPosition
+        {
+            get { return m_MCPosition; }
+            set { m_MCPosition = value; }
+        }
+
+        public bool MCStyleVisibleInTaskBar
+        {
+            get { return m_bMCShowInTaskBar; }
+            set { m_bMCShowInTaskBar = value; }
+        }
+
+        public bool MCStyleShowTitleBar
+        {
+            get { return m_bMCShowTitleBar; }
+            set { m_bMCShowTitleBar = value; }
         }
 
         #endregion
@@ -374,7 +419,7 @@ namespace CommonLib
         }
         #endregion
 
-        #region lecture et sauvegarde du fichier;
+        #region lecture et sauvegarde du fichier
         /// <summary>
         /// lit le document XML de supervision
         /// </summary>
@@ -419,6 +464,9 @@ namespace CommonLib
                 // on charge une par une chaque section
                 switch (Id)
                 {
+                    case XML_CF_TAG.ProjOptions:
+                        ReadProjectOptions(Node);
+                        break;
                     case XML_CF_TAG.Comm:
                         m_Comm.ReadIn(RootNode, this);
                         break;
@@ -564,6 +612,7 @@ namespace CommonLib
             WriteFileHeader(XmlDoc);
 
             m_Comm.WriteOut(XmlDoc, XmlDoc.DocumentElement, this);
+            WriteProjectOptions(XmlDoc, XmlDoc.DocumentElement);
             XmlNode NodePluginsGlobals = XmlDoc.CreateElement(XML_CF_TAG.PluginsGlobals.ToString());
             XmlDoc.DocumentElement.AppendChild(NodePluginsGlobals);
             m_GestDLL.WriteOutPluginsGlobals(XmlDoc, NodePluginsGlobals);
@@ -619,6 +668,68 @@ namespace CommonLib
             NodeFileHeader.AppendChild(NodeSoftVer);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ProjOptNode"></param>
+        private void ReadProjectOptions(XmlNode ProjOptNode)
+        {
+            foreach (XmlNode node in ProjOptNode.ChildNodes)
+            {
+                if (node.Name == XML_CF_TAG.MainContainer.ToString())
+                {
+                    XmlNode attrIsUsed = node.Attributes.GetNamedItem("IsUsed");
+                    if (attrIsUsed != null)
+                    {
+                        m_bUseMainContainer = bool.Parse(attrIsUsed.Value);
+                        XmlNode AttrSize = node.Attributes.GetNamedItem(XML_CF_ATTRIB.size.ToString());
+                        XmlNode AttrPos = node.Attributes.GetNamedItem(XML_CF_ATTRIB.Pos.ToString());
+                        XmlNode AttrShowInTaskBar = node.Attributes.GetNamedItem("ShowInTaskBar");
+                        XmlNode AttrShowTitleBar = node.Attributes.GetNamedItem("ShowTitleBar");
+                        if (AttrSize != null
+                            && AttrPos != null
+                            && AttrShowInTaskBar != null
+                            && AttrShowTitleBar != null)
+                        {
+                            string[] TabStrPos = AttrPos.Value.Split(',');
+                            string[] TabStrSize = AttrSize.Value.Split(',');
+                            this.MCPosition = new Point(int.Parse(TabStrPos[0]), int.Parse(TabStrPos[1]));
+                            this.MCSize = new Size(int.Parse(TabStrSize[0]), int.Parse(TabStrSize[1]));
+                            m_bMCShowInTaskBar = bool.Parse(AttrShowInTaskBar.Value);
+                            m_bMCShowTitleBar = bool.Parse(AttrShowTitleBar.Value);
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="XmlDoc"></param>
+        private void WriteProjectOptions(XmlDocument XmlDoc, XmlNode node)
+        {
+            XmlNode projOptNode = XmlDoc.CreateElement(XML_CF_TAG.ProjOptions.ToString());
+            XmlNode containerNode = XmlDoc.CreateElement(XML_CF_TAG.MainContainer.ToString());
+            projOptNode.AppendChild(containerNode);
+            XmlAttribute usedNode = XmlDoc.CreateAttribute("IsUsed");
+            containerNode.Attributes.Append(usedNode);
+            usedNode.Value = m_bUseMainContainer.ToString();
+
+            XmlAttribute AttrSize = XmlDoc.CreateAttribute(XML_CF_ATTRIB.size.ToString());
+            XmlAttribute AttrPos = XmlDoc.CreateAttribute(XML_CF_ATTRIB.Pos.ToString());
+            XmlAttribute AttrShowInTaskBar = XmlDoc.CreateAttribute("ShowInTaskBar");
+            XmlAttribute AttrShowTitleBar = XmlDoc.CreateAttribute("ShowTitleBar");
+            containerNode.Attributes.Append(AttrSize);
+            containerNode.Attributes.Append(AttrPos);
+            containerNode.Attributes.Append(AttrShowInTaskBar);
+            containerNode.Attributes.Append(AttrShowTitleBar);
+            AttrPos.Value = string.Format("{0},{1}", m_MCPosition.X, m_MCPosition.Y);
+            AttrSize.Value = string.Format("{0},{1}", m_MCSize.Width, m_MCSize.Height);
+            AttrShowInTaskBar.Value = m_bMCShowInTaskBar.ToString();
+            AttrShowTitleBar.Value = m_bMCShowTitleBar.ToString();
+            node.AppendChild(projOptNode);
+        }
         /// <summary>
         /// finalise la lecture du document
         /// Cette étape est effectué à la fin de la lecture afin que les objet
@@ -687,6 +798,39 @@ namespace CommonLib
                     m_virtualDataForm = null;
                 }
             }
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected void UpdateRunState()
+        {
+            if (m_FormList != null)
+            {
+                foreach (DynamicPanelForm frm in m_FormList)
+                {
+                    if (frm.Document == this)
+                    {
+                        frm.DynamicPanelEnabled = this.IsRunning;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void CloseSupervisionForms()
+        {
+            if (m_FormList != null)
+            {
+                foreach (DynamicPanelForm frm in m_FormList)
+                {
+                    frm.Close();
+                }
+            }
+            m_FormList.Clear();
         }
 
         /// <summary>
@@ -699,6 +843,86 @@ namespace CommonLib
             {
                 EventAddLogEvent(Event);
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Doc"></param>
+        /// <returns></returns>
+        public bool OpenDocumentForCommand()
+        {
+            m_FormList = new List<DynamicPanelForm>();
+            if (this.m_bUseMainContainer)
+            {
+                m_MainContainer = new DocumentMainContainer();
+                m_MainContainer.ShowInTaskbar = this.m_bMCShowInTaskBar;
+                if (!m_bMCShowTitleBar)
+                    m_MainContainer.FormBorderStyle = FormBorderStyle.None;
+
+                if (MCPosition.X != -1)
+                {
+                    m_MainContainer.Left = MCPosition.X;
+                    m_MainContainer.StartPosition = FormStartPosition.Manual;
+                }
+                if (MCPosition.Y != -1)
+                {
+                    m_MainContainer.Top = MCPosition.Y;
+                    m_MainContainer.StartPosition = FormStartPosition.Manual;
+                }
+
+                if (MCSize.Width != -1)
+                    m_MainContainer.Width = MCSize.Width;
+
+                if (MCSize.Height != -1)
+                    m_MainContainer.Height = MCSize.Height;
+            }
+            // abonnement aux event de com et d'état
+            for (int i = 0; i < this.GestScreen.Count; i++)
+            {
+                BTScreen Scr = this.GestScreen[i] as BTScreen;
+                Scr.Panel.DocumentFileName = this.FileName;
+                DynamicPanelForm Frm = new DynamicPanelForm(Scr.Panel);
+                Scr.Panel.Location = new Point(0, 0);
+                Frm.ClientSize = new Size(Scr.Panel.Width + Scr.Panel.Left,
+                                          Scr.Panel.Height + Scr.Panel.Top);
+
+                Frm.ShowInTaskbar = Scr.StyleVisibleInTaskBar;
+                if (!Scr.StyleShowTitleBar)
+                    Frm.FormBorderStyle = FormBorderStyle.None;
+
+                if (Scr.ScreenPosition.X != -1)
+                {
+                    Frm.Left = Scr.ScreenPosition.X;
+                    Frm.StartPosition = FormStartPosition.Manual;
+                }
+                if (Scr.ScreenPosition.Y != -1)
+                {
+                    Frm.Top = Scr.ScreenPosition.Y;
+                    Frm.StartPosition = FormStartPosition.Manual;
+                }
+
+                if (Scr.ScreenSize.Width != -1)
+                    Frm.Width = Scr.ScreenSize.Width;
+
+                if (Scr.ScreenSize.Height != -1)
+                    Frm.Height = Scr.ScreenSize.Height;
+
+
+                Frm.Document = this;
+                Frm.Text = Scr.Title;
+                if (m_MainContainer != null)
+                    Frm.MdiParent = m_MainContainer;
+                Frm.Show();
+                Frm.DynamicPanelEnabled = false;
+                m_FormList.Add(Frm);
+            }
+            if (m_FormList.Count != 0)
+            {
+                if (m_MainContainer != null)
+                    m_MainContainer.Show();
+            }
+            return true;
         }
     }
 }

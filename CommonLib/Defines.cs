@@ -103,6 +103,8 @@ namespace CommonLib
         SoftVersion,
         Comm,
         CommType,
+        ProjOptions,
+        MainContainer,
         CommParam,
         DataSection,
         Data,

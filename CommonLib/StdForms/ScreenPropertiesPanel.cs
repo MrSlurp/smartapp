@@ -124,7 +124,6 @@ namespace CommonLib
         public void PanelToObject()
         {
             bool bDataPropChange = false;
-            bDataPropChange |= true;
             if (m_Screen.Title != this.Title)
                 bDataPropChange |= true;
             if (m_Screen.BackPictureFile != this.BackPictureFile)
