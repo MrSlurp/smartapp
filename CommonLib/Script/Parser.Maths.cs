@@ -44,20 +44,21 @@ namespace CommonLib
                     return;
                 }
 
+                string[] strParamList  = null;
+                if (!GetArgsAsString(line, ErrorList, ref strParamList))
+                    return;
                 switch (SecondTokenType)
                 {
                     case MATHS_FUNC.ADD:
                     case MATHS_FUNC.SUB:
                     case MATHS_FUNC.MUL:
                     case MATHS_FUNC.DIV:
+                    case MATHS_FUNC.POW:
                         // si on est ici, c'est que les parenthèses sont présentes
                         // on regarde ce qu'il y a à l'intérieur
                         //string strParams = strTempFull.Substring(posOpenParenthese+1, strTempFull.Length - 2 - posOpenParenthese);
                         //strParams = strParams.Trim('(');
                         //strParams = strParams.Trim(')');
-                        string[] strParamList  = null;
-                        if (!GetArgsAsString(line, ErrorList, ref strParamList))
-                            return;
                         //= strParams.Split(',');
                         if (strParamList.Length < 3)
                         {
@@ -76,6 +77,29 @@ namespace CommonLib
                             CheckParamsAsDatas(strParamList, ErrorList, -32768, 32767);
                         }
                         // ajouter du code ici si il faut parser le contenu des parenthèses
+                        break;
+                    case MATHS_FUNC.COS:
+                    case MATHS_FUNC.SIN:
+                    case MATHS_FUNC.TAN:
+                    case MATHS_FUNC.SQRT:
+                    case MATHS_FUNC.LN:
+                    case MATHS_FUNC.LOG:
+                        if (strParamList.Length < 2)
+                        {
+                            string strErr = string.Format(Lang.LangSys.C("Invalid line, not enought parameters for Maths function"));
+                            ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
+                            ErrorList.Add(Err);
+                        }
+                        else if (strParamList.Length > 2)
+                        {
+                            string strErr = string.Format(Lang.LangSys.C("Invalid line, too many parameters for Maths function"));
+                            ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
+                            ErrorList.Add(Err);
+                        }
+                        else // on en a exactement 2
+                        {
+                            CheckParamsAsDatas(strParamList, ErrorList, -32768, 32767);
+                        }
                         break;
                     case MATHS_FUNC.INVALID:
                     default:

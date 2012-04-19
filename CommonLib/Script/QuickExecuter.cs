@@ -413,7 +413,7 @@ namespace CommonLib
         {
             Data ResultData = (Data)QuickScript.m_Arguments[0];
             Data Operator1Data = (Data)QuickScript.m_Arguments[1];
-            Data Operator2Data = (Data)QuickScript.m_Arguments[2];
+            Data Operator2Data = QuickScript.m_Arguments.Length >=2 ? (Data)QuickScript.m_Arguments[2] : null;
             switch (QuickScript.m_FunctionToExec)
             {
                 case ALL_FUNC.MATHS_ADD:
@@ -427,6 +427,27 @@ namespace CommonLib
                     break;
                 case ALL_FUNC.MATHS_SUB:
                     ExecuteMathSub(ResultData, Operator1Data, Operator2Data);
+                    break;
+                case ALL_FUNC.MATHS_COS:
+                    ExecuteMathCos(ResultData, Operator1Data);
+                    break;
+                case ALL_FUNC.MATHS_SIN:
+                    ExecuteMathSin(ResultData, Operator1Data);
+                    break;
+                case ALL_FUNC.MATHS_TAN:
+                    ExecuteMathTan(ResultData, Operator1Data);
+                    break;
+                case ALL_FUNC.MATHS_SQRT:
+                    ExecuteMathSqrt(ResultData, Operator1Data);
+                    break;
+                case ALL_FUNC.MATHS_POW:
+                    ExecuteMathPow(ResultData, Operator1Data, Operator2Data);
+                    break;
+                case ALL_FUNC.MATHS_LN:
+                    ExecuteMathLn(ResultData, Operator1Data);
+                    break;
+                case ALL_FUNC.MATHS_LOG:
+                    ExecuteMathLog(ResultData, Operator1Data);
                     break;
             }
         }
@@ -505,6 +526,113 @@ namespace CommonLib
                 return;
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Result">donnée de sortie de l'opération</param>
+        /// <param name="Operator1">premier opérateur de l'opération</param>
+        protected void ExecuteMathSin(Data Result, Data Operator1)
+        {
+            string opsValues = string.Empty;
+            if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
+                opsValues = string.Format("Sin({0})", Operator1.Value);
+            Result.Value = (int) (Math.Sin(Operator1.Value) * 100);
+            if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
+                Traces.LogAddDebug(TraceCat.ExecuteMath, "Math.SIN", string.Format("{0} = {1}", Result.Value, opsValues));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Result">donnée de sortie de l'opération</param>
+        /// <param name="Operator1">premier opérateur de l'opération</param>
+        protected void ExecuteMathCos(Data Result, Data Operator1)
+        {
+            string opsValues = string.Empty;
+            if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
+                opsValues = string.Format("Cos({0})", Operator1.Value);
+            Result.Value = (int)(Math.Cos(Operator1.Value) * 100);
+            if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
+                Traces.LogAddDebug(TraceCat.ExecuteMath, "Math.SIN", string.Format("{0} = {1}", Result.Value, opsValues));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Result">donnée de sortie de l'opération</param>
+        /// <param name="Operator1">premier opérateur de l'opération</param>
+        protected void ExecuteMathTan(Data Result, Data Operator1)
+        {
+            string opsValues = string.Empty;
+            if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
+                opsValues = string.Format("Tan({0})", Operator1.Value);
+            Result.Value = (int)(Math.Tan(Operator1.Value) * 100);
+            if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
+                Traces.LogAddDebug(TraceCat.ExecuteMath, "Math.TAN", string.Format("{0} = {1}", Result.Value, opsValues));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Result">donnée de sortie de l'opération</param>
+        /// <param name="Operator1">premier opérateur de l'opération</param>
+        /// <param name="Operator2">second opérateur de l'opération</param>
+        protected void ExecuteMathPow(Data Result, Data Operator1, Data Operator2)
+        {
+            string opsValues = string.Empty;
+            if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
+                opsValues = string.Format("{0} ^ {1}", Operator1.Value, Operator2.Value);
+            Result.Value = (int)(Math.Pow(Operator1.Value, Operator2.Value));
+            if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
+                Traces.LogAddDebug(TraceCat.ExecuteMath, "Math.POW", string.Format("{0} = {1}", Result.Value, opsValues));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Result">donnée de sortie de l'opération</param>
+        /// <param name="Operator1">premier opérateur de l'opération</param>
+        protected void ExecuteMathSqrt(Data Result, Data Operator1)
+        {
+            string opsValues = string.Empty;
+            if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
+                opsValues = string.Format("Sqrt({0})", Operator1.Value);
+            Result.Value = (int)(Math.Sqrt(Operator1.Value));
+            if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
+                Traces.LogAddDebug(TraceCat.ExecuteMath, "Math.SQRT", string.Format("{0} = {1}", Result.Value, opsValues));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Result">donnée de sortie de l'opération</param>
+        /// <param name="Operator1">premier opérateur de l'opération</param>
+        protected void ExecuteMathLn(Data Result, Data Operator1)
+        {
+            string opsValues = string.Empty;
+            if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
+                opsValues = string.Format("Sqrt({0})", Operator1.Value);
+            Result.Value = (int)(Math.Log(Operator1.Value)*100);
+            if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
+                Traces.LogAddDebug(TraceCat.ExecuteMath, "Math.SQRT", string.Format("{0} = {1}", Result.Value, opsValues));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Result">donnée de sortie de l'opération</param>
+        /// <param name="Operator1">premier opérateur de l'opération</param>
+        protected void ExecuteMathLog(Data Result, Data Operator1)
+        {
+            string opsValues = string.Empty;
+            if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
+                opsValues = string.Format("Sqrt({0})", Operator1.Value);
+            Result.Value = (int)(Math.Log10(Operator1.Value));
+            if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
+                Traces.LogAddDebug(TraceCat.ExecuteMath, "Math.SQRT", string.Format("{0} = {1}", Result.Value, opsValues));
+        }
+
         #endregion
 
         #region fonction logiques

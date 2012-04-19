@@ -292,6 +292,7 @@ namespace SmartApp
         private void menuItemOpen_Click(object sender, EventArgs e)
         {
             SolutionOpen(null);
+            this.BringToFront();
         }
 
         /// <summary>
@@ -313,6 +314,7 @@ namespace SmartApp
             {
                 SolutionClose();
                 SolutionOpen(filename);
+                this.BringToFront();
                 m_mruStripMenu.SetFirstFile(number);
             }
         }
@@ -624,6 +626,7 @@ namespace SmartApp
                 if (File.Exists(m_strAutoOpenFileName))
                 {
                     SolutionOpen(m_strAutoOpenFileName);
+                    this.BringToFront();
                 }
                 else
                 {

@@ -88,6 +88,14 @@ namespace CommonLib
         SUB,
         MUL,
         DIV,
+        COS,
+        SIN,
+        TAN,
+        SQRT,
+        POW,
+        LN,
+        LOG,
+
     }
 
     /// <summary>
@@ -132,6 +140,13 @@ namespace CommonLib
         MATHS_SUB,
         MATHS_MUL,
         MATHS_DIV,
+        MATHS_COS,
+        MATHS_SIN,
+        MATHS_TAN,
+        MATHS_SQRT,
+        MATHS_POW,
+        MATHS_LN,
+        MATHS_LOG,
         LOGIC_NOT,
         LOGIC_AND,
         LOGIC_OR,

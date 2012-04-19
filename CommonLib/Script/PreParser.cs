@@ -272,6 +272,27 @@ namespace CommonLib
                         case MATHS_FUNC.DIV:
                             retPreParsedLine.m_FunctionToExec = ALL_FUNC.MATHS_DIV;
                             break;
+                        case MATHS_FUNC.COS:
+                            retPreParsedLine.m_FunctionToExec = ALL_FUNC.MATHS_COS;
+                            break;
+                        case MATHS_FUNC.SIN:
+                            retPreParsedLine.m_FunctionToExec = ALL_FUNC.MATHS_SIN;
+                            break;
+                        case MATHS_FUNC.TAN:
+                            retPreParsedLine.m_FunctionToExec = ALL_FUNC.MATHS_TAN;
+                            break;
+                        case MATHS_FUNC.SQRT:
+                            retPreParsedLine.m_FunctionToExec = ALL_FUNC.MATHS_SQRT;
+                            break;
+                        case MATHS_FUNC.POW:
+                            retPreParsedLine.m_FunctionToExec = ALL_FUNC.MATHS_POW;
+                            break;
+                        case MATHS_FUNC.LN:
+                            retPreParsedLine.m_FunctionToExec = ALL_FUNC.MATHS_LN;
+                            break;
+                        case MATHS_FUNC.LOG:
+                            retPreParsedLine.m_FunctionToExec = ALL_FUNC.MATHS_LOG;
+                            break;
                     }
                 }
             }            
