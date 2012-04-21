@@ -665,7 +665,7 @@ namespace SmartApp.Ihm
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void WizardStartZ2SL(BTDoc document)
+        public void WizardStartZ2SL(BTDoc document)
         {
             if (document != null)
             {
@@ -683,7 +683,7 @@ namespace SmartApp.Ihm
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void WizardStartTCPMB(BTDoc document)
+        public void WizardStartTCPMB(BTDoc document)
         {
             if (document != null)
             {
@@ -701,7 +701,7 @@ namespace SmartApp.Ihm
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void WizardStartM3SL(BTDoc document)
+        public void WizardStartM3SL(BTDoc document)
         {
             if (document != null)
             {

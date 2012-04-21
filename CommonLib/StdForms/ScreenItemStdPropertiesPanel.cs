@@ -152,13 +152,13 @@ namespace CommonLib
         /// </summary>
         public void ObjectToPanel()
         {
+            UpdateStateFromControlType();
             this.AssociateData = m_Control.AssociateData; ;
             this.IsReadOnly = m_Control.IsReadOnly;
             this.UseScreenEvent = m_Control.UseScreenEvent;
             this.Txt = m_Control.IControl.Text;
             this.CtrlFont = m_Control.TextFont;
             this.CtrlFontColor = m_Control.TextColor;
-            UpdateStateFromControlType();
             if (m_CurrentSpecificControlPropPanel != null)
             {
                 ((ISpecificPanel)m_CurrentSpecificControlPropPanel).Document = this.Document;

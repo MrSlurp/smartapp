@@ -63,6 +63,7 @@ namespace CommonLib
         /// <param name="Ctrl">objet interactif posé dans la surface de dessin</param>
         protected BTControl(BTDoc document, InteractiveControl Ctrl)
         {
+            m_Document = document;
             m_IControl = Ctrl;
             if (m_IControl != null)
                 m_IControl.SourceBTControl = this;

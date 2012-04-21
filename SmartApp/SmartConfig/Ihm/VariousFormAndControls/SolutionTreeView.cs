@@ -7,6 +7,7 @@ using System.IO;
 using System.Drawing;
 using System.Diagnostics;
 using CommonLib;
+using SmartApp.Ihm;
 
 namespace SmartApp
 {
@@ -21,6 +22,7 @@ namespace SmartApp
         ContextMenuStrip m_CtxMenuGest = new ContextMenuStrip();
         ContextMenuStrip m_CtxMenuGroups = new ContextMenuStrip();
         ContextMenuStrip m_CtxMenuObject = new ContextMenuStrip();
+        ContextMenuStrip m_CtxMenuTrame = new ContextMenuStrip();
         //ContextMenuStrip m_CtxMenuStrip = new ContextMenuStrip();
         class DocumentElementNode
         {
@@ -128,6 +130,20 @@ namespace SmartApp
             item = new ToolStripMenuItem(Program.LangSys.C("Properties"));
             item.Click += new EventHandler(CtxMenuObjectProperties_Click);
             m_CtxMenuObject.Items.Add(item);
+
+            // menu pour le gestionnaire de trames
+            item = new ToolStripMenuItem(Program.LangSys.C("Use Modbus TCP Wizard"));
+            item.Click += new EventHandler(CtxMenuTrameTCPMBWizard_Click);
+            m_CtxMenuTrame.Items.Add(item);
+            item = new ToolStripMenuItem(Program.LangSys.C("Use M3 SL Wizard"));
+            item.Click += new EventHandler(CtxMenuTrameM3SLWizard_Click);
+            m_CtxMenuTrame.Items.Add(item);
+            item = new ToolStripMenuItem(Program.LangSys.C("Use Z2 SL Wizard"));
+            item.Click += new EventHandler(CtxMenuTrameZ2SLWizard_Click);
+            m_CtxMenuTrame.Items.Add(item);
+            item = new ToolStripMenuItem(Program.LangSys.C("Add item"));
+            item.Click += new EventHandler(CtxMenuObjectNew_Click);
+            m_CtxMenuTrame.Items.Add(item);
         }
         #endregion
 
@@ -170,6 +186,10 @@ namespace SmartApp
                 {
                     this.ContextMenuStrip = m_CtxMenuProject;
                 }
+                else if (selNode.Tag is GestTrame)
+                {
+                    this.ContextMenuStrip = m_CtxMenuTrame;
+                }
                 // un gestionnaire de base
                 else if (selNode.Tag is BaseGest)
                 {
@@ -192,14 +212,17 @@ namespace SmartApp
         {
             base.OnMouseDoubleClick(e);
             TreeNode selNode = this.SelectedNode;
-            if (selNode.Tag is BaseObject && !(selNode.Tag is BTScreen))
+            if (selNode != null)
             {
-                CtxMenuObjectProperties_Click(this, e);
-            }
-            else if (selNode.Tag is BaseObject && selNode.Tag is BTScreen)
-            {
-                BTScreen scr = selNode.Tag as BTScreen;
-                m_GestSolution.OpenScreenEditor(scr.Symbol, GetDocFromParentNode(selNode));
+                if (selNode.Tag is BaseObject && !(selNode.Tag is BTScreen))
+                {
+                    CtxMenuObjectProperties_Click(this, e);
+                }
+                else if (selNode.Tag is BaseObject && selNode.Tag is BTScreen)
+                {
+                    BTScreen scr = selNode.Tag as BTScreen;
+                    m_GestSolution.OpenScreenEditor(scr.Symbol, GetDocFromParentNode(selNode));
+                }
             }
         }
         #endregion
@@ -369,6 +392,87 @@ namespace SmartApp
                 m_PropDialog.ShowDialog();
                 selNode.ToolTipText = GetToolTipFromTag(bobj);
                 selNode.Text = bobj.Symbol;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void CtxMenuTrameTCPMBWizard_Click(object sender, EventArgs e)
+        {
+            TreeNode selNode = this.SelectedNode;
+            if (selNode.Tag is GestTrame)
+            {
+                BTDoc doc = this.GetDocFromParentNode(selNode);
+                MDISmartConfigMain mainFrame = this.Parent.Parent as MDISmartConfigMain;
+                if (mainFrame != null)
+                {
+                    mainFrame.WizardStartTCPMB(doc);
+                    selNode.Nodes.Clear();
+                    AddBaseGestContent(selNode, selNode.Tag as BaseGest, selNode.ImageKey);
+                    TreeNode gestDataNode = GetTreeNodeFromTag(this.Nodes[0], doc.GestData);
+                    if (gestDataNode != null)
+                    {
+                        gestDataNode.Nodes.Clear();
+                        AddGestGroupContent(gestDataNode, gestDataNode.Tag as BaseGestGroup, gestDataNode.ImageKey);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void CtxMenuTrameM3SLWizard_Click(object sender, EventArgs e)
+        {
+            TreeNode selNode = this.SelectedNode;
+            if (selNode.Tag is GestTrame)
+            {
+                BTDoc doc = this.GetDocFromParentNode(selNode);
+                MDISmartConfigMain mainFrame = this.Parent.Parent as MDISmartConfigMain;
+                if (mainFrame != null)
+                {
+                    mainFrame.WizardStartM3SL(doc);
+                    selNode.Nodes.Clear();
+                    AddBaseGestContent(selNode, selNode.Tag as BaseGest, selNode.ImageKey);
+                    TreeNode gestDataNode = GetTreeNodeFromTag(this.Nodes[0], doc.GestData);
+                    if (gestDataNode != null)
+                    {
+                        gestDataNode.Nodes.Clear();
+                        AddGestGroupContent(gestDataNode, gestDataNode.Tag as BaseGestGroup, gestDataNode.ImageKey);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void CtxMenuTrameZ2SLWizard_Click(object sender, EventArgs e)
+        {
+            TreeNode selNode = this.SelectedNode;
+            if (selNode.Tag is GestTrame)
+            {
+                BTDoc doc = this.GetDocFromParentNode(selNode);
+                MDISmartConfigMain mainFrame = this.Parent.Parent as MDISmartConfigMain;
+                if (mainFrame != null)
+                {
+                    mainFrame.WizardStartZ2SL(doc);
+                    selNode.Nodes.Clear();
+                    AddBaseGestContent(selNode, selNode.Tag as BaseGest, selNode.ImageKey);
+                    TreeNode gestDataNode = GetTreeNodeFromTag(this.Nodes[0], doc.GestData);
+                    if (gestDataNode != null)
+                    {
+                        gestDataNode.Nodes.Clear();
+                        AddGestGroupContent(gestDataNode, gestDataNode.Tag as BaseGestGroup, gestDataNode.ImageKey);
+                    }
+                }
             }
         }
 
@@ -782,5 +886,21 @@ namespace SmartApp
             }
         }
 
+        private TreeNode GetTreeNodeFromTag(TreeNode startNode, object tag)
+        {
+            TreeNode nodeFound = null;
+            foreach (TreeNode node in startNode.Nodes)
+            {
+                if (node.Tag == tag)
+                    nodeFound = node;
+                else
+                {
+                    nodeFound = GetTreeNodeFromTag(node, tag);
+                }
+                if (nodeFound != null)
+                    return nodeFound;
+            }
+            return null;
+        }
     }
 }

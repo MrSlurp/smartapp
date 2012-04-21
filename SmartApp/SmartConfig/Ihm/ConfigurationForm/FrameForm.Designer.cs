@@ -45,7 +45,6 @@ namespace SmartApp.Ihm
             this.m_MainSplitter.Panel2.SuspendLayout();
             this.m_MainSplitter.SuspendLayout();
             this.m_TabCtrl.SuspendLayout();
-            this.m_TabPageFrameProp.SuspendLayout();
             this.m_TabPageFrameData.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -101,7 +100,6 @@ namespace SmartApp.Ihm
             this.m_listViewFrames.UseCompatibleStateImageBehavior = false;
             this.m_listViewFrames.View = System.Windows.Forms.View.Details;
             this.m_listViewFrames.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnListViewKeyDown);
-            this.m_listViewFrames.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.listViewSelectedFrameChanged);
             // 
             // m_ColSymbol
             // 
@@ -164,12 +162,12 @@ namespace SmartApp.Ihm
             this.m_ListViewFrameData.TabIndex = 0;
             this.m_ListViewFrameData.UseCompatibleStateImageBehavior = false;
             this.m_ListViewFrameData.View = System.Windows.Forms.View.Details;
-            this.m_ListViewFrameData.DragEnter += new System.Windows.Forms.DragEventHandler(this.OnListViewFrameDataDragEnter);
             this.m_ListViewFrameData.DragDrop += new System.Windows.Forms.DragEventHandler(this.OnListViewFrameDataDragDrop);
-            this.m_ListViewFrameData.DragOver += new System.Windows.Forms.DragEventHandler(this.OnListViewFrameDataDragOver);
+            this.m_ListViewFrameData.DragEnter += new System.Windows.Forms.DragEventHandler(this.OnListViewFrameDataDragEnter);
             this.m_ListViewFrameData.DragLeave += new System.EventHandler(this.OnListViewFrameDataDragLeave);
             this.m_ListViewFrameData.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnListViewFrameDataKeyDown);
             this.m_ListViewFrameData.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.OnListViewFrameDataItemDrag);
+            this.m_ListViewFrameData.DragOver += new System.Windows.Forms.DragEventHandler(this.OnListViewFrameDataDragOver);
             // 
             // m_colDataSymbol
             // 
@@ -204,7 +202,6 @@ namespace SmartApp.Ihm
             this.m_MainSplitter.Panel2.ResumeLayout(false);
             this.m_MainSplitter.ResumeLayout(false);
             this.m_TabCtrl.ResumeLayout(false);
-            this.m_TabPageFrameProp.ResumeLayout(false);
             this.m_TabPageFrameData.ResumeLayout(false);
             this.ResumeLayout(false);
 
