@@ -14,10 +14,6 @@ namespace CtrlJauge
     {
         private eOrientationJauge m_Orientation = eOrientationJauge.eHorizontaleDG;
 
-        #region events
-        public event ControlPropertiesChange ControlPropertiesChanged;
-        #endregion
-
         public CtrlJaugeProperties()
         {
             DllEntryClass.LangSys.Initialize(this);
@@ -54,10 +50,7 @@ namespace CtrlJauge
                 ((DllCtrlJaugeProp)m_Control.SpecificProp).ColorMax = m_TextMaxColor.BackColor;
                 ((DllCtrlJaugeProp)m_Control.SpecificProp).Orientation = m_Orientation;
                 Document.Modified = true;
-                m_Control.IControl.Refresh();
             }
-            if (bDataPropChange && ControlPropertiesChanged != null)
-                ControlPropertiesChanged(m_Control);
         }
 
         public void ObjectToPanel()

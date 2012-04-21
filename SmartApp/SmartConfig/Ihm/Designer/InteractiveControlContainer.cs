@@ -50,7 +50,7 @@ namespace SmartApp.Ihm.Designer
         private Point m_ptMouseDown;
         private Bitmap m_BmpBackImage = null;
         private bool m_bDrawGuides = true;
-
+        private Size m_SizeCustomLines = new Size(-1,-1);
         public BTDoc m_Document;
         #endregion
 
@@ -153,6 +153,12 @@ namespace SmartApp.Ihm.Designer
                 }
                 return Abilities;
             }
+        }
+
+        public Size CustomLineSize
+        {
+            get { return m_SizeCustomLines; }
+            set { m_SizeCustomLines = value; }
         }
         #endregion
 
@@ -362,6 +368,7 @@ namespace SmartApp.Ihm.Designer
                 using (Pen penDotBlue = new Pen(Color.Blue))
                 using (Pen penDotGreen = new Pen(Color.Green))
                 using (Pen penDotPurple = new Pen(Color.Purple))
+                using (Pen penDotCustom = new Pen(Color.Orange))
                 {
                     penDotRed.DashStyle = DashStyle.Dot;
                     Point[] ptRepere1280par1024 = new Point[3] { new Point(0, 1024), new Point(1280, 1024), new Point(1280, 0) };
@@ -386,6 +393,16 @@ namespace SmartApp.Ihm.Designer
                     e.Graphics.DrawLines(penDotPurple, ptRepere1600par1200);
                     strHelpText = "1600 x 1200";
                     e.Graphics.DrawString(strHelpText, SystemFonts.DefaultFont, Brushes.Purple, new Point(800, 1188));
+                    if (m_SizeCustomLines.Width != -1 && m_SizeCustomLines.Height != -1)
+                    {
+                        penDotCustom.DashStyle = DashStyle.Dot;
+                        Point[] ptRepereCustom = new Point[3] {  new Point(0, m_SizeCustomLines.Height), 
+                                                                      new Point(m_SizeCustomLines.Width, m_SizeCustomLines.Height), 
+                                                                      new Point(m_SizeCustomLines.Width, 0) };
+                        e.Graphics.DrawLines(penDotCustom, ptRepereCustom);
+                        strHelpText = string.Format("{0} x {1}", m_SizeCustomLines.Width, m_SizeCustomLines.Height);
+                        e.Graphics.DrawString(strHelpText, SystemFonts.DefaultFont, Brushes.Orange, new Point(m_SizeCustomLines.Width / 2, m_SizeCustomLines.Height - 12));
+                    }
                 }
             }
         }

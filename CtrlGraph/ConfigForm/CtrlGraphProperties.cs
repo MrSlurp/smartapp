@@ -24,10 +24,6 @@ namespace CtrlGraph
         }
         #region données membres
 
-        #region events
-        public event ControlPropertiesChange ControlPropertiesChanged;
-        #endregion
-
         DllCtrlGraphProp m_Props = new DllCtrlGraphProp(null);
         CurveParam[] m_ListCurve = new CurveParam[DllCtrlGraphProp.NB_CURVE];
 
@@ -213,8 +209,6 @@ namespace CtrlGraph
             m_Props.YAxisTitle = edtYAxis.Text;
             m_Control.SpecificProp.CopyParametersFrom(this.m_Props, false, this.Document);
             Document.Modified = true;
-            if (ControlPropertiesChanged != null)
-                ControlPropertiesChanged(m_Control);
         }
 
         public void ObjectToPanel()

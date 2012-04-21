@@ -84,7 +84,7 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// obtient ou assigne le mode de loggere
+        /// obtient ou assigne le mode de logger
         /// </summary>e
         public LogMode LoggerMode
         {
@@ -366,6 +366,19 @@ namespace CommonLib
             return true;
         }
         #endregion
+
+        public override string GetToolTipText()
+        {
+            string returnedText = base.GetToolTipText();
+            returnedText += Lang.LangSys.C("Type : ") + this.m_LogType + "\n";
+            if (this.m_LogType == LOGGER_TYPE.AUTO.ToString())
+            {
+                returnedText += Lang.LangSys.C("Period : ") + this.Period.ToString() + "\n";
+            }
+            returnedText += Lang.LangSys.C("File : ") + this.LogFile + "\n";
+            returnedText += "\n";
+            return returnedText;
+        }
 
         #region Gestion des AppMessages
         /// <summary>

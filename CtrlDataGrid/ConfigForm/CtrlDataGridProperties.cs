@@ -12,10 +12,6 @@ namespace CtrlDataGrid
     public partial class CtrlDataGridProperties : BaseControlPropertiesPanel, ISpecificPanel
     {
 
-        #region events
-        public event ControlPropertiesChange ControlPropertiesChanged;
-        #endregion
-
         struct DispLogAsso
         {
             public SAVE_PERIOD DispPeriod;
@@ -183,8 +179,6 @@ namespace CtrlDataGrid
             DllCtrlDataGridProp itemprops = m_Control.SpecificProp as DllCtrlDataGridProp;
             this.Props = itemprops;
             //Props.CopyParametersFrom(itemprops, false);
-            if (ControlPropertiesChanged != null)
-                ControlPropertiesChanged(m_Control);
         }
 
         #endregion

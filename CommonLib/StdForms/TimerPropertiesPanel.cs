@@ -15,10 +15,6 @@ namespace CommonLib
         private BTTimer m_Timer = null;
         #endregion
 
-        #region Events
-        public event TimerPropertiesChange TimerPropChange;
-        #endregion
-
         #region attributs de la classe
 
         //*****************************************************************************************************
@@ -121,8 +117,6 @@ namespace CommonLib
                 m_Timer.AutoStart = this.AutoStart;
                 Document.Modified = true;
             }
-            if (bDataPropChange && TimerPropChange != null)
-                TimerPropChange(m_Timer);
         }
 
         #endregion

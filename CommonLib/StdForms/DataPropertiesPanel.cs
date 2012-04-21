@@ -23,10 +23,6 @@ namespace CommonLib
 
         #endregion
 
-        #region events
-        public event DataPropertiesChange DataPropertiesChanged;
-        #endregion
-
         #region constructeur
         //*****************************************************************************************************
         // Description:
@@ -175,8 +171,6 @@ namespace CommonLib
                 m_ConfiguredData.IsConstant = this.IsConstant;
                 Document.Modified = true;
             }
-            if (bDataPropChange && DataPropertiesChanged != null)
-                DataPropertiesChanged(m_ConfiguredData);
         }
         #endregion
 

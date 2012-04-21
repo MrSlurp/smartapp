@@ -12,10 +12,6 @@ namespace CtrlTimeWatch
 {
     internal partial class CtrlTimeWatchProperties : BaseControlPropertiesPanel, ISpecificPanel
     {
-        #region events
-        public event ControlPropertiesChange ControlPropertiesChanged;
-        #endregion
-
         /// <summary>
         /// Constructeur de la classe
         /// </summary>
@@ -117,10 +113,7 @@ namespace CtrlTimeWatch
                 prop.DataHours = this.edtHours.Text;
                 prop.DataMinutes = this.edtMinutes.Text;
                 prop.DataSecond = this.edtSeconds.Text;
-                m_Control.IControl.Refresh();
             }
-            if (bDataPropChange && ControlPropertiesChanged != null)
-                ControlPropertiesChanged(m_Control);
         }
 
         public void ObjectToPanel()

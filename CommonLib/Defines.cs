@@ -13,13 +13,7 @@ using System.Drawing;
 namespace CommonLib
 {
     #region delegate pour les évènement de changement de propriété des objets divers
-    public delegate void DataPropertiesChange(Data Obj);
-    public delegate void ScreenPropertiesChange(BTScreen Obj);
-    public delegate void ControlPropertiesChange(BTControl Obj);
-    public delegate void TramePropertiesChange(Trame Trame);
-    public delegate void FunctionPropertiesChange(Function Function);
-    public delegate void TimerPropertiesChange(BTTimer Timer);
-    public delegate void LoggerPropertiesChange(Logger Logger);
+    public delegate void BaseObjectPropertiesChangedEvent(BaseObject Obj);
 
     public delegate void AddLogEventDelegate(LogEvent Event);
     #endregion

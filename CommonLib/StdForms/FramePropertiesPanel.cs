@@ -24,7 +24,6 @@ namespace CommonLib
         #endregion
 
         #region events
-        public event TramePropertiesChange FramePropertiesChanged;
         public event CurrentDataListChanged DataListChange;
         public event BeforeCurrentDataListChange BeforeDataListChange;
         #endregion
@@ -320,8 +319,6 @@ namespace CommonLib
                 Document.Modified = true;
             }
 
-            if (bChange && FramePropertiesChanged != null)
-                FramePropertiesChanged(m_Trame);
         }
 
         public void ObjectToPanel()

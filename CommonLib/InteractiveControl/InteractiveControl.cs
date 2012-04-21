@@ -651,6 +651,7 @@ namespace CommonLib
                         if (AsscociateDataDroped(this, dt.Symbol))
                         {
                             m_SrcBTControl.AssociateData = dt.Symbol;
+                            this.Refresh();
                         }
                     }
                 }

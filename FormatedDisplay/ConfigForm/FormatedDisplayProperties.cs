@@ -14,10 +14,6 @@ namespace FormatedDisplay
     {
         private string m_FormatString = ":F0";
 
-        #region events
-        public event ControlPropertiesChange ControlPropertiesChanged;
-        #endregion
-
         public FormatedDisplayProperties()
         {
             DllEntryClass.LangSys.Initialize(this);
@@ -39,11 +35,7 @@ namespace FormatedDisplay
             {
                 ((DllFormatedDisplayProp)m_Control.SpecificProp).FormatString = m_FormatString;
                 Document.Modified = true;
-                m_Control.IControl.Refresh();
             }
-            if (bDataPropChange && ControlPropertiesChanged != null)
-                ControlPropertiesChanged(m_Control);
-
         }
 
         public void ObjectToPanel()

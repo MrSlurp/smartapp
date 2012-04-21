@@ -254,5 +254,14 @@ namespace CommonLib
             }
         }
         #endregion
+
+        public override string GetToolTipText()
+        {
+            string returnedText = base.GetToolTipText();
+            returnedText += Lang.LangSys.C("Period : ") + this.Period + "ms\n";
+            returnedText += Lang.LangSys.C("Auto start : ") + (this.AutoStart ? Lang.LangSys.C("Yes") : Lang.LangSys.C("No")) + "\n";
+            returnedText += "\n";
+            return returnedText;
+        }
     }
 }

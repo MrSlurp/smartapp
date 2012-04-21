@@ -23,10 +23,6 @@ namespace CommonLib
 
         #endregion
 
-        #region Events
-        public event ScreenPropertiesChange ScreenPropertiesChanged;
-        #endregion
-
         #region constructeur
         //*****************************************************************************************************
         // Description:
@@ -151,8 +147,6 @@ namespace CommonLib
                 m_Screen.StyleVisibleInTaskBar = chkShowInTaskBar.Checked;
                 Document.Modified = true;
             }
-            if (bDataPropChange && ScreenPropertiesChanged != null)
-                ScreenPropertiesChanged(m_Screen);
 
         }
 

@@ -9,11 +9,5 @@ namespace CommonLib
     /// </summary>
     public interface ISpecificPanel : IObjectPropertyPanel
     {
-        #region évènements de l'interface
-        /// <summary>
-        /// évènement déclenché lors que les propriété de l'objet on changé
-        /// </summary>
-        event ControlPropertiesChange ControlPropertiesChanged;
-        #endregion
     }
 }

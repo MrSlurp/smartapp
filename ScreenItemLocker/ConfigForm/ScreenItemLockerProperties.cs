@@ -11,10 +11,6 @@ namespace ScreenItemLocker
 {
     internal partial class ScreenItemLockerProperties : BaseControlPropertiesPanel, ISpecificPanel
     {
-        #region events
-        public event ControlPropertiesChange ControlPropertiesChanged;
-        #endregion
-
         DllScreenItemLockerProp m_Props = new DllScreenItemLockerProp(null);
         public ScreenItemLockerProperties()
         {
@@ -33,8 +29,6 @@ namespace ScreenItemLocker
             }
             m_Control.SpecificProp.CopyParametersFrom(m_Props, false, this.Document);
             Document.Modified = true;
-            if (ControlPropertiesChanged != null)
-                ControlPropertiesChanged(m_Control);
         }
 
         public void ObjectToPanel()

@@ -14,10 +14,6 @@ namespace CtrlDataTrigger
     {
         bool bScriptChange = false;
 
-        #region events
-        public event ControlPropertiesChange ControlPropertiesChanged;
-        #endregion
-
         /// <summary>
         /// Constructeur de la classe
         /// </summary>
@@ -183,10 +179,7 @@ namespace CtrlDataTrigger
                 prop.BehaveLikeTrigger = this.cbxSchmitt.Checked;
                 prop.DataOnToOff = this.edtOnToOff.Text;
                 prop.DataOffToOn = this.edtOffToOn.Text;
-                m_Control.IControl.Refresh();
             }
-            if (bDataPropChange && ControlPropertiesChanged != null)
-                ControlPropertiesChanged(m_Control);
         }
         #endregion
 

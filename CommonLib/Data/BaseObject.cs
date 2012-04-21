@@ -74,6 +74,7 @@ namespace CommonLib
         // event pour l'envoie de message
         public event SendMessage DoSendMessage;
         public event AddLogEventDelegate EventAddLogEvent;
+        public event BaseObjectPropertiesChangedEvent PropertiesChanged;
         #endregion
 
         #region constructeur
@@ -400,6 +401,21 @@ namespace CommonLib
             {
                 EventAddLogEvent(Event);
             }
+        }
+
+        public virtual string GetToolTipText()
+        {
+            string returnedText = string.Empty;
+            returnedText = Lang.LangSys.C("Symbol : ") +  this.Symbol + "\n" ;
+            returnedText += Lang.LangSys.C("Description : ") + this.Description;
+            returnedText += "\n";
+            return returnedText;
+        }
+
+        public virtual void NotifyPropertiesChanged()
+        {
+            if (PropertiesChanged != null)
+                PropertiesChanged(this);
         }
         #endregion
     }

@@ -20,6 +20,7 @@ namespace CommonLib
     public class BTScreen : BaseObject, IScriptable
     {
         #region Données de la classe
+        delegate void NoArgSimpleDelegate();
         private static Control m_singStdConfigPanel;
 
         // gestionnaire des control appartenant a l'écran
@@ -636,6 +637,15 @@ namespace CommonLib
 
         #endregion
 
+        public override string GetToolTipText()
+        {
+            string returnedText = base.GetToolTipText();
+            returnedText += Lang.LangSys.C("Title : ") + this.Title + "\n";
+            returnedText += "\n";
+            return returnedText;
+        }
+
+
         #region Gestion des AppMessages
         /// <summary>
         /// effectue les opération nécessaire lors de la récéption d'un message
@@ -731,16 +741,27 @@ namespace CommonLib
         {
             if (m_DynamicPanel != null)
             {
-                m_DynamicPanel.Parent.Show();
+                if (!m_DynamicPanel.InvokeRequired)
+                    m_DynamicPanel.Parent.Visible = true;
+                else
+                {
+                    NoArgSimpleDelegate AsyncCall = new NoArgSimpleDelegate(this.ExecuteShow);
+                    m_DynamicPanel.Invoke(AsyncCall);
+                }
             }
         }
         public void ExecuteHide()
         {
             if (m_DynamicPanel != null)
             {
-                m_DynamicPanel.Parent.Hide();
+                if (!m_DynamicPanel.InvokeRequired)
+                    m_DynamicPanel.Parent.Visible = false;
+                else
+                {
+                    NoArgSimpleDelegate AsyncCall = new NoArgSimpleDelegate(this.ExecuteHide);
+                    m_DynamicPanel.Invoke(AsyncCall);
+                }
             }
         }
-
     }
 }

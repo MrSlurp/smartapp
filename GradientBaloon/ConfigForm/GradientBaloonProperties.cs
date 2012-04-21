@@ -12,9 +12,6 @@ namespace GradientBaloon
 {
     public partial class GradientBaloonProperties : BaseControlPropertiesPanel, ISpecificPanel
     {
-        #region events
-        public event ControlPropertiesChange ControlPropertiesChanged;
-        #endregion
 
         public GradientBaloonProperties()
         {
@@ -25,6 +22,7 @@ namespace GradientBaloon
         #region validation des données
         public void PanelToObject()
         {
+            /*
             bool bDataPropChange = false;
 
             // testez ici si les paramètres ont changé en les comparant avec ceux contenu dans les propriété
@@ -34,10 +32,7 @@ namespace GradientBaloon
             if (bDataPropChange)
             {
                 Document.Modified = true;
-                m_Control.IControl.Refresh();
-            }
-            if (bDataPropChange && ControlPropertiesChanged != null)
-                ControlPropertiesChanged(m_Control);
+            }*/
         }
 
         public void ObjectToPanel()

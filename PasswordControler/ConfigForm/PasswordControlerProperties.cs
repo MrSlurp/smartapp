@@ -13,10 +13,6 @@ namespace PasswordControler
 {
     internal partial class PasswordControlerProperties : BaseControlPropertiesPanel, ISpecificPanel
     {
-        #region events
-        public event ControlPropertiesChange ControlPropertiesChanged;
-        #endregion
-
         /// <summary>
         /// Constructeur de la classe
         /// </summary>
@@ -93,11 +89,8 @@ namespace PasswordControler
             {
                 Document.Modified = true;
                 ((DllPasswordControlerProp)m_Control.SpecificProp).PasswordHash = md5;
-                m_Control.IControl.Refresh();
                 lblPasswdExist.Visible = true;
             }
-            if (bDataPropChange && ControlPropertiesChanged != null)
-                ControlPropertiesChanged(m_Control);
         }
 
     }

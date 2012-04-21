@@ -21,10 +21,6 @@ namespace CommonLib
         CComboData[] m_TabNamingType;
         #endregion
 
-        #region Events
-        public event LoggerPropertiesChange LoggerPropChange;
-        #endregion
-
         #region attributs de la classe
         /// <summary>
         /// 
@@ -410,10 +406,7 @@ namespace CommonLib
                 m_Logger.DoNotKeepFileOpen = this.DoNotKeepFileOpen;
                 Doc.Modified = true;
             }
-
-            if (bDataPropChange && LoggerPropChange != null)
-                LoggerPropChange(m_Logger);
-        }
+       }
         #endregion
 
         #region Gestion de la listview data

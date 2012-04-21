@@ -679,6 +679,13 @@ namespace CommonLib
                 SpecificProp.CopyParametersFrom(SrcBtControl.SpecificProp, bFromOtherInstance, document);
             }
         }
+
+        public override void NotifyPropertiesChanged()
+        {
+            m_IControl.Refresh();
+            base.NotifyPropertiesChanged();
+        }
+
         #endregion
     }
 }

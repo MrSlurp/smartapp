@@ -12,10 +12,6 @@ namespace SoundPlayer
 {
     internal partial class SoundPlayerProperties : BaseControlPropertiesPanel, ISpecificPanel
     {
-        // controle dont on édite les propriété
-        #region events
-        public event ControlPropertiesChange ControlPropertiesChanged;
-        #endregion
 
         /// <summary>
         /// Constructeur de la classe
@@ -56,10 +52,7 @@ namespace SoundPlayer
             {
                 Document.Modified = true;
                 props.SoundFile = this.FilePath;
-                m_Control.IControl.Refresh();
             }
-            if (bDataPropChange && ControlPropertiesChanged != null)
-                ControlPropertiesChanged(m_Control);
         }
         #endregion
 

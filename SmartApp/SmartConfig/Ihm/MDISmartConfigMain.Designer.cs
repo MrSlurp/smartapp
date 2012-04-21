@@ -97,11 +97,11 @@ namespace SmartApp.Ihm
             this.solutionPanel = new System.Windows.Forms.Panel();
             this.btnHideShowSolution = new System.Windows.Forms.Button();
             this.lblSolutionView = new System.Windows.Forms.Label();
+            this.solutionTreeView = new SmartApp.SolutionTreeView();
             this.rightPanel = new System.Windows.Forms.Panel();
             this.lblToolsView = new System.Windows.Forms.Label();
             this.toolsPanel = new System.Windows.Forms.Panel();
             this.btnHideShowRightPanel = new System.Windows.Forms.Button();
-            this.solutionTreeView = new SmartApp.SolutionTreeView();
             this.m_menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.m_toolStrip.SuspendLayout();
@@ -710,6 +710,19 @@ namespace SmartApp.Ihm
             this.lblSolutionView.TabIndex = 1;
             this.lblSolutionView.Text = "Solution view";
             // 
+            // solutionTreeView
+            // 
+            this.solutionTreeView.AllowDrop = true;
+            this.solutionTreeView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.solutionTreeView.Indent = 16;
+            this.solutionTreeView.Location = new System.Drawing.Point(3, 33);
+            this.solutionTreeView.Name = "solutionTreeView";
+            this.solutionTreeView.Size = new System.Drawing.Size(240, 652);
+            this.solutionTreeView.SolutionGest = null;
+            this.solutionTreeView.TabIndex = 0;
+            // 
             // rightPanel
             // 
             this.rightPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -750,20 +763,6 @@ namespace SmartApp.Ihm
             this.btnHideShowRightPanel.Text = "<->";
             this.btnHideShowRightPanel.UseVisualStyleBackColor = true;
             this.btnHideShowRightPanel.Click += new System.EventHandler(this.btnHideShowRightPanel_Click);
-            // 
-            // solutionTreeView
-            // 
-            this.solutionTreeView.AllowDrop = true;
-            this.solutionTreeView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.solutionTreeView.Indent = 16;
-            this.solutionTreeView.Location = new System.Drawing.Point(3, 33);
-            this.solutionTreeView.Name = "solutionTreeView";
-            this.solutionTreeView.ShowNodeToolTips = true;
-            this.solutionTreeView.Size = new System.Drawing.Size(240, 652);
-            this.solutionTreeView.SolutionGest = null;
-            this.solutionTreeView.TabIndex = 0;
             // 
             // MDISmartConfigMain
             // 

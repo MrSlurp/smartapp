@@ -12,10 +12,6 @@ namespace FourBitmap
 {
     public partial class FourBitmapProperties : BaseControlPropertiesPanel, ISpecificPanel
     {
-        #region events
-        public event ControlPropertiesChange ControlPropertiesChanged;
-        #endregion
-
         public FourBitmapProperties()
         {
             DllEntryClass.LangSys.Initialize(this);
@@ -54,10 +50,7 @@ namespace FourBitmap
                 ((DllFourBitmapProp)m_Control.SpecificProp).NomFichier2 = m_txtBoxImg2.Text;
                 ((DllFourBitmapProp)m_Control.SpecificProp).NomFichier3 = m_txtBoxImg3.Text;
                 Document.Modified = true;
-                m_Control.IControl.Refresh();
             }
-            if (bDataPropChange && ControlPropertiesChanged != null)
-                ControlPropertiesChanged(m_Control);
         }
         #endregion
 

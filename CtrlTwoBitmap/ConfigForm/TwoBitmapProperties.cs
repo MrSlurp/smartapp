@@ -12,10 +12,6 @@ namespace CtrlTwoBitmap
 {
     public partial class TwoBitmapProperties : BaseControlPropertiesPanel, ISpecificPanel
     {
-        #region events
-        public event ControlPropertiesChange ControlPropertiesChanged;
-        #endregion        
-
         public TwoBitmapProperties()
         {
             DllEntryClass.LangSys.Initialize(this);
@@ -37,11 +33,7 @@ namespace CtrlTwoBitmap
                 ((TwoBitmapProp)m_Control.SpecificProp).NomFichierInactif = m_txtBoxImg1.Text;
                 ((TwoBitmapProp)m_Control.SpecificProp).NomFichierActif = m_txtBoxImg2.Text;
                 Document.Modified = true;
-                m_Control.IControl.Refresh();
             }
-            if (bDataPropChange && ControlPropertiesChanged != null)
-                ControlPropertiesChanged(m_Control);
-
         }
 
         public void ObjectToPanel()

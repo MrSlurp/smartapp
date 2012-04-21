@@ -68,12 +68,12 @@ namespace SmartApp
             if (m_SolutionNode == null)
             {
                 m_SolutionNode = new TreeNode();
+                m_SolutionNode.NodeFont = new Font(SystemFonts.CaptionFont, FontStyle.Bold);
                 m_SolutionNode.Text = Program.LangSys.C("Solution");
                 m_SolutionNode.StateImageKey = "Solution";
                 m_SolutionNode.ImageKey = "Solution";
                 m_SolutionNode.SelectedImageKey = "Solution";
                 m_SolutionNode.ForeColor = Color.Red;
-                m_SolutionNode.NodeFont = new Font(SystemFonts.CaptionFont, FontStyle.Bold);
             }
             InitContextMenu();
         }
@@ -99,7 +99,7 @@ namespace SmartApp
             item = new ToolStripMenuItem(Program.LangSys.C("Remove project from solution"));
             item.Click += new EventHandler(CtxMenuRemoveProj_Click);
             m_CtxMenuProject.Items.Add(item);
-            item = new ToolStripMenuItem(Program.LangSys.C("Configure connection"));
+            item = new ToolStripMenuItem(Program.LangSys.C("Configure project / connection"));
             item.Click += new EventHandler(CtxMenuProjProperties_Click);
             m_CtxMenuProject.Items.Add(item);
 
@@ -361,12 +361,14 @@ namespace SmartApp
             TreeNode selNode = this.SelectedNode;
             if (selNode.Tag is BaseObject)
             {
-                m_PropDialog.ConfiguredItem = selNode.Tag as BaseObject;
+                BaseObject bobj = selNode.Tag as BaseObject;
+                m_PropDialog.ConfiguredItem = bobj;
                 m_PropDialog.CurrentScreen = null;
                 m_PropDialog.Document = GetDocFromParentNode(selNode);
                 m_PropDialog.Initialize();
                 m_PropDialog.ShowDialog();
-                selNode.ToolTipText = m_PropDialog.ConfiguredItem.Symbol + "\n" + m_PropDialog.ConfiguredItem.Description;
+                selNode.ToolTipText = GetToolTipFromTag(bobj);
+                selNode.Text = bobj.Symbol;
             }
         }
 
@@ -409,12 +411,12 @@ namespace SmartApp
             if (m_SolutionNode == null)
             {
                 m_SolutionNode = new TreeNode();
+                m_SolutionNode.NodeFont = new Font(SystemFonts.CaptionFont, FontStyle.Bold);
                 m_SolutionNode.Text = Program.LangSys.C("Solution");
                 m_SolutionNode.StateImageKey = "Solution";
                 m_SolutionNode.ImageKey = "Solution";
                 m_SolutionNode.SelectedImageKey = "Solution";
                 m_SolutionNode.ForeColor = Color.Red;
-                m_SolutionNode.NodeFont = new Font(SystemFonts.CaptionFont, FontStyle.Bold);
             }
             if (!this.Nodes.Contains(m_SolutionNode))
             {
@@ -440,6 +442,7 @@ namespace SmartApp
             docNode.Document = doc;
             docNode.DocNode = newNode;
             // on définit l'icone du noeud document
+            newNode.Text = Path.GetFileNameWithoutExtension(doc.FileName);
             newNode.ImageKey = "Document";
             newNode.StateImageKey = "Document";
             newNode.SelectedImageKey = "Document";
@@ -447,7 +450,6 @@ namespace SmartApp
             newNode.NodeFont = new Font(SystemFonts.CaptionFont, FontStyle.Bold);
             newNode.Tag = docNode;
             newNode.ToolTipText = GetToolTipFromTag(docNode);
-            newNode.Text = Path.GetFileNameWithoutExtension(doc.FileName);
             m_SolutionNode.Nodes.Add(newNode);
             m_ListDocument.Add(newNode.Text, docNode);
             AddDocumentNodeGestsNodes(newNode.Text);
@@ -728,15 +730,13 @@ namespace SmartApp
             if (obj is BTScreen)
             {
                 BaseObject bobj = obj as BaseObject;
-                returnedText = bobj.Symbol + "\n" + bobj.Description;
-                returnedText += "\n";
+                returnedText = bobj.GetToolTipText();
                 returnedText += Program.LangSys.C("Right click for properties, double click to edit");
             }
             else if (obj is BaseObject)
             {
                 BaseObject bobj = obj as BaseObject;
-                returnedText = bobj.Symbol + "\n" + bobj.Description;
-                returnedText += "\n";
+                returnedText = bobj.GetToolTipText();
                 returnedText += Program.LangSys.C("Right click to edit");
             }
             else if (obj is BaseGest

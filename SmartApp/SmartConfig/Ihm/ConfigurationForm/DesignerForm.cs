@@ -68,7 +68,15 @@ namespace SmartApp.Ihm
             get { return m_Currentscreen; }
             set
             {
+                if (m_Currentscreen != null)
+                {
+                    m_Currentscreen.PropertiesChanged -= ScreenPropsChanged;
+                }
                 m_Currentscreen = value;
+                if (m_Currentscreen != null)
+                {
+                    m_Currentscreen.PropertiesChanged += ScreenPropsChanged;
+                }
                 SelectedScreenChange();
             }
         }
@@ -237,6 +245,11 @@ namespace SmartApp.Ihm
         #endregion
 
         #region fonctions de gestion du transfert des données Designer => objet && objet ==> designer
+        protected void ScreenPropsChanged(BaseObject bobj)
+        {
+            SelectedScreenChange();
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -255,6 +268,7 @@ namespace SmartApp.Ihm
                 tsbtn_copy.Enabled = false;
                 tsbtn_paste.Enabled = false;
                 UpdateDesignerFromScreen(null);
+                m_InteractiveControlContainer.CustomLineSize = new Size(-1,-1);
                 return;
             }
             string strFileName = Path.GetFileNameWithoutExtension(m_Document.FileName);
@@ -263,7 +277,7 @@ namespace SmartApp.Ihm
             toolbtnScreenToBitmap.Enabled = true;
             tsbtn_copy.Enabled = true;
             tsbtn_paste.Enabled = true;
-
+            m_InteractiveControlContainer.CustomLineSize = m_Currentscreen.ScreenSize;
             try
             {
                 string chemincomplet = m_Document.PathTr.RelativePathToAbsolute(m_Currentscreen.BackPictureFile);
@@ -287,6 +301,7 @@ namespace SmartApp.Ihm
             }
             // on met a jour le designer avec l'écran séléctionné
             UpdateDesignerFromScreen(m_Currentscreen);
+            m_InteractiveControlContainer.Refresh();
         }
 
         /// <summary>
@@ -537,6 +552,7 @@ namespace SmartApp.Ihm
         private void DesignerForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             m_InteractiveControlContainer.Controls.Clear();
+            m_Currentscreen.PropertiesChanged -= this.ScreenPropsChanged;
         }
     }
 }

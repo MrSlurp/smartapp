@@ -12,10 +12,6 @@ namespace CtrlCnxManager
 {
     internal partial class CtrlCnxManagerProperties : BaseControlPropertiesPanel, ISpecificPanel
     {
-        #region events
-        public event ControlPropertiesChange ControlPropertiesChanged;
-        #endregion
-
         /// <summary>
         /// Constructeur de la classe
         /// </summary>
@@ -42,11 +38,7 @@ namespace CtrlCnxManager
             {
                 Document.Modified = true;
                 SpecProps.RetryCnxPeriod = (int)edtDelay.Value;
-                m_Control.IControl.Refresh();
             }
-            if (bDataPropChange && ControlPropertiesChanged != null)
-                ControlPropertiesChanged(m_Control);
-
         }
 
         public void ObjectToPanel()

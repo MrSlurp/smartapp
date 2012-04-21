@@ -197,6 +197,7 @@ namespace CommonLib
                 {
                     panel.PanelToObject();
                 }
+                m_baseObjectItem.NotifyPropertiesChanged();
                 this.DialogResult = DialogResult.OK;
             }
         }

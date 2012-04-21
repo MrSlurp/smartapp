@@ -11,11 +11,6 @@ namespace CtrlMailer
 {
     public partial class CtrlMailerProperties : BaseControlPropertiesPanel, ISpecificPanel
     {
-
-        #region events
-        public event ControlPropertiesChange ControlPropertiesChanged;
-        #endregion
-
         DllCtrlMailerProp m_Props = new DllCtrlMailerProp(null);
 
         public DllCtrlMailerProp Props
@@ -73,8 +68,6 @@ namespace CtrlMailer
             m_Props.MailBody = this.edtBody.Text;
             m_Control.SpecificProp.CopyParametersFrom(m_Props, false, Document);
             Document.Modified = true;
-            if (ControlPropertiesChanged != null)
-                ControlPropertiesChanged(m_Control);
         }
 
         public void ObjectToPanel()

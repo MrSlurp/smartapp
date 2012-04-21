@@ -469,5 +469,19 @@ namespace CommonLib
         }
         #endregion
 
+        public override string GetToolTipText()
+        {
+            string returnedText = base.GetToolTipText();
+            returnedText = Lang.LangSys.C("Size : ") + this.SizeInBits.ToString() + "bit(s)\n";
+            returnedText += Lang.LangSys.C("Min : ") + this.Minimum + "\n";
+            returnedText += Lang.LangSys.C("Max : ") + this.Maximum + "\n";
+            returnedText += Lang.LangSys.C("Defaut : ") + this.DefaultValue + "\n";
+            if (IsConstant)
+                returnedText += Lang.LangSys.C("Constant") + "\n";
+
+            returnedText += "\n";
+            return returnedText;
+        }
+
     }
 }

@@ -342,9 +342,9 @@ namespace SmartApp.Ihm
         /// </summary>
         private void SolutionClose()
         {
-            foreach (DesignerForm frm in m_ListDesignForm)
+            for (int i = 0;i < m_ListDesignForm.Count; i++)
             {
-                frm.Close();
+                m_ListDesignForm[i].Close();
             }
             m_ListDesignForm.Clear();
             m_GestSolution = null;

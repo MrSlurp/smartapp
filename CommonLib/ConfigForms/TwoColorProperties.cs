@@ -10,10 +10,6 @@ namespace CommonLib
 {
     public partial class TwoColorProperties : BaseControlPropertiesPanel, ISpecificPanel
     {
-        #region events
-        public event ControlPropertiesChange ControlPropertiesChanged;
-        #endregion
-
         #region constructeur
         /// <summary>
         /// constructeur par défaut
@@ -47,10 +43,7 @@ namespace CommonLib
                 ((TwoColorProp)m_Control.SpecificProp).ColorActive = m_TextActiveColor.BackColor;
                 ((TwoColorProp)m_Control.SpecificProp).ColorInactive = m_TextInactiveColor.BackColor;
                 Document.Modified = true;
-                m_Control.IControl.Refresh();
             }
-            if (bDataPropChange && ControlPropertiesChanged != null)
-                ControlPropertiesChanged(m_Control);
 
         }
 

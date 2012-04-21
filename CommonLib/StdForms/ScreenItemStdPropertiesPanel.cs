@@ -24,10 +24,6 @@ namespace CommonLib
 
         #endregion
 
-        #region events
-        public event ControlPropertiesChange ControlPropertiesChanged;
-        #endregion
-
         #region constructeur
         /// <summary>
         /// 
@@ -206,8 +202,6 @@ namespace CommonLib
             {
                 ((ISpecificPanel)m_CurrentSpecificControlPropPanel).PanelToObject();
             }
-            if (bDataPropChange && ControlPropertiesChanged != null)
-                ControlPropertiesChanged(m_Control); 
         }
 
         #endregion

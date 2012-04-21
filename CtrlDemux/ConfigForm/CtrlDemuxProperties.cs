@@ -12,10 +12,6 @@ namespace CtrlDemux
 {
     internal partial class CtrlDemuxProperties : BaseControlPropertiesPanel, ISpecificPanel
     {
-        #region events
-        public event ControlPropertiesChange ControlPropertiesChanged;
-        #endregion
-
         DllCtrlDemuxProp m_Props = new DllCtrlDemuxProp(null);
 
         #region attributs
@@ -35,9 +31,6 @@ namespace CtrlDemux
             m_Props.ValueData = edtValueData.Text;
             m_Control.SpecificProp.CopyParametersFrom(m_Props, false, this.Document);
             Document.Modified = true;
-
-            if (ControlPropertiesChanged != null)
-                ControlPropertiesChanged(m_Control);
         }
 
         public void ObjectToPanel()

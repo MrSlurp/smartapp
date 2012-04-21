@@ -14,9 +14,6 @@ namespace ImageButton
     {
         private CComboData[] m_ListCboStyles;
 
-        #region events
-        public event ControlPropertiesChange ControlPropertiesChanged;
-        #endregion
 
         /// <summary>
         /// Constructeur de la classe
@@ -158,10 +155,7 @@ namespace ImageButton
                 ((DllImageButtonProp)m_Control.SpecificProp).BorderSize = finalBorderSize;
                 ((DllImageButtonProp)m_Control.SpecificProp).InputData = this.edtInputData.Text;
                 Document.Modified = true;
-                m_Control.IControl.Refresh();
             }
-            if (bDataPropChange && ControlPropertiesChanged != null)
-                ControlPropertiesChanged(m_Control);
         }
 
         #endregion

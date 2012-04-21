@@ -14,10 +14,6 @@ namespace DigitalDisplay
     {
         private string m_FormatString = ":F0";
 
-        #region events
-        public event ControlPropertiesChange ControlPropertiesChanged;
-        #endregion
-
         public DigitalDisplayProperties()
         {
             DllEntryClass.LangSys.Initialize(this);
@@ -54,11 +50,7 @@ namespace DigitalDisplay
                 ((DllDigitalDisplayProp)m_Control.SpecificProp).DigitColor = m_TextColor.BackColor;
                 ((DllDigitalDisplayProp)m_Control.SpecificProp).BackColor = m_TextBackColor.BackColor;
                 Document.Modified = true;
-                m_Control.IControl.Refresh();
             }
-            if (bDataPropChange && ControlPropertiesChanged != null)
-                ControlPropertiesChanged(m_Control);
-
         }
 
         public void ObjectToPanel()
