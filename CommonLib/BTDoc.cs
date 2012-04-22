@@ -827,6 +827,7 @@ namespace CommonLib
             {
                 foreach (DynamicPanelForm frm in m_FormList)
                 {
+                    frm.DisableCloseProtection = true;
                     frm.Close();
                 }
             }
@@ -878,18 +879,20 @@ namespace CommonLib
                     m_MainContainer.Height = MCSize.Height;
             }
             // abonnement aux event de com et d'état
-            for (int i = 0; i < this.GestScreen.Count; i++)
+            for (int i = (GestScreen.Count -1) ; i >= 0; i--)
             {
                 BTScreen Scr = this.GestScreen[i] as BTScreen;
                 Scr.Panel.DocumentFileName = this.FileName;
                 DynamicPanelForm Frm = new DynamicPanelForm(Scr.Panel);
                 Scr.Panel.Location = new Point(0, 0);
-                Frm.ClientSize = new Size(Scr.Panel.Width + Scr.Panel.Left,
-                                          Scr.Panel.Height + Scr.Panel.Top);
+                Frm.ClientSize = new Size(Scr.Panel.Width ,
+                                          Scr.Panel.Height);
 
                 Frm.ShowInTaskbar = Scr.StyleVisibleInTaskBar;
                 if (!Scr.StyleShowTitleBar)
                     Frm.FormBorderStyle = FormBorderStyle.None;
+
+                Frm.Show();
 
                 if (Scr.ScreenPosition.X != -1)
                 {
@@ -913,7 +916,6 @@ namespace CommonLib
                 Frm.Text = Scr.Title;
                 if (m_MainContainer != null)
                     Frm.MdiParent = m_MainContainer;
-                Frm.Show();
                 Frm.DynamicPanelEnabled = false;
                 m_FormList.Add(Frm);
             }
@@ -923,6 +925,25 @@ namespace CommonLib
                     m_MainContainer.Show();
             }
             return true;
+        }
+
+        public void CloseDocumentForCommand()
+        {
+            if (m_FormList.Count != 0)
+            {
+                if (m_MainContainer != null)
+                {
+                    m_MainContainer.DisableCloseProtection = true;
+                    m_MainContainer.Close();
+                    CloseSupervisionForms();
+                    return;
+                }
+                else
+                {
+                    CloseSupervisionForms();
+                }
+            }
+
         }
     }
 }
