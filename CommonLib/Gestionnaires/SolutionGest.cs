@@ -155,6 +155,14 @@ namespace CommonLib
             }
         }
 
+        public void CloseDocumentsForCommand()
+        {
+            foreach (string docName in this.Keys)
+            {
+                this[docName].CloseDocumentForCommand();
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>

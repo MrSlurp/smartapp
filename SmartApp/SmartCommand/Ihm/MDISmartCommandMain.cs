@@ -281,6 +281,8 @@ namespace SmartApp
         /// <param name="e"></param>
         private void menuItemOpen_Click(object sender, EventArgs e)
         {
+            StopActiveDocuments();
+            SolutionClose();
             SolutionOpen(null);
             this.BringToFront();
         }
@@ -302,6 +304,7 @@ namespace SmartApp
             }
             else
             {
+                StopActiveDocuments();
                 SolutionClose();
                 SolutionOpen(filename);
                 this.BringToFront();
@@ -400,7 +403,7 @@ namespace SmartApp
         /// <param name="doc"></param>
         void GestSolution_OnDocClosed(BTDoc doc)
         {
-            doc.CloseSupervisionForms();
+            doc.CloseDocumentForCommand();
         }
 
         /// <summary>
@@ -463,6 +466,11 @@ namespace SmartApp
         /// </summary>
         private void SolutionClose()
         {
+            if (m_GestSolution != null)
+            {
+                m_GestSolution.CloseDocumentsForCommand();
+                m_GestSolution.Clear();
+            }
             m_GestSolution = null;
             //UpdateFileMenu();
         }

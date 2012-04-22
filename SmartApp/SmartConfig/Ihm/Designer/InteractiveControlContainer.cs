@@ -52,6 +52,8 @@ namespace SmartApp.Ihm.Designer
         private bool m_bDrawGuides = true;
         private Size m_SizeCustomLines = new Size(-1,-1);
         public BTDoc m_Document;
+
+        private int m_GridSpacing = 20;
         #endregion
 
         #region Events
@@ -65,6 +67,15 @@ namespace SmartApp.Ihm.Designer
         #endregion 
 
         #region attributs
+        public int GridSpacing
+        {
+            get { return m_GridSpacing; }
+            set
+            {
+                m_GridSpacing = value;
+                this.Refresh();
+            }
+        }
 
         /// <summary>
         /// 
@@ -369,6 +380,7 @@ namespace SmartApp.Ihm.Designer
                 using (Pen penDotGreen = new Pen(Color.Green))
                 using (Pen penDotPurple = new Pen(Color.Purple))
                 using (Pen penDotCustom = new Pen(Color.Orange))
+                using (Pen penGrille = new Pen(Color.Gray))
                 {
                     penDotRed.DashStyle = DashStyle.Dot;
                     Point[] ptRepere1280par1024 = new Point[3] { new Point(0, 1024), new Point(1280, 1024), new Point(1280, 0) };
@@ -402,6 +414,19 @@ namespace SmartApp.Ihm.Designer
                         e.Graphics.DrawLines(penDotCustom, ptRepereCustom);
                         strHelpText = string.Format("{0} x {1}", m_SizeCustomLines.Width, m_SizeCustomLines.Height);
                         e.Graphics.DrawString(strHelpText, SystemFonts.DefaultFont, Brushes.Orange, new Point(m_SizeCustomLines.Width / 2, m_SizeCustomLines.Height - 12));
+                    }
+                    penGrille.DashStyle = DashStyle.DashDot;
+                    for (int i = m_GridSpacing; m_GridSpacing > 0 &&  i < this.Width; i += m_GridSpacing)
+                    {
+                        Point[] ptRepereGrid = new Point[] {  new Point(i, 0), 
+                                                               new Point(i, this.Height) };
+                        e.Graphics.DrawLines(penGrille, ptRepereGrid);
+                    }
+                    for (int i = m_GridSpacing; m_GridSpacing > 0 && i < this.Height; i += m_GridSpacing)
+                    {
+                        Point[] ptRepereGrid2 = new Point[] {  new Point(0, i), 
+                                                               new Point(this.Width, i) };
+                        e.Graphics.DrawLines(penGrille, ptRepereGrid2);
                     }
                 }
             }
@@ -484,17 +509,12 @@ namespace SmartApp.Ihm.Designer
             // losrqu'un control est ajouté, les handlers suivants sont automatiquement ajoutés
             if (DropableItems.AllowedItem(e.Control.GetType()))
             {
-                if (!((InteractiveControl)e.Control).Initialized)
-                {
-                    e.Control.MouseDown += new MouseEventHandler(InsideControlMouseDownHandler);
-                    ((InteractiveControl)e.Control).OnMouve += new InteractiveControl.InteractiveMove(InsideControlMouve);
-                    ((InteractiveControl)e.Control).EndMouve += new InteractiveControl.InteractiveEndMove(InsideControlEndMouve);
-                    e.Control.KeyDown += new KeyEventHandler(OnControlKeydown);
-                    e.Control.DoubleClick += new EventHandler(OnControlDoubleClick);
-                    ((InteractiveControl)e.Control).AsscociateDataDroped += new InteractiveControl.AssociateDataDropedEvent(ICtrlDataAssigned);
-                    //e.Control.KeyPress += new KeyPressEventHandler(OnArrowKeyPress);
-                    //e.Control.KeyDown += new KeyEventHandler(OnArrowKeyPress);
-                }
+                e.Control.MouseDown += new MouseEventHandler(InsideControlMouseDownHandler);
+                ((InteractiveControl)e.Control).OnMouve += new InteractiveControl.InteractiveMove(InsideControlMouve);
+                ((InteractiveControl)e.Control).EndMouve += new InteractiveControl.InteractiveEndMove(InsideControlEndMouve);
+                e.Control.KeyDown += new KeyEventHandler(OnControlKeydown);
+                e.Control.DoubleClick += new EventHandler(OnControlDoubleClick);
+                ((InteractiveControl)e.Control).AsscociateDataDroped += new InteractiveControl.AssociateDataDropedEvent(ICtrlDataAssigned);
                 // au moment ou il est initialisé, il deviens possible de le redimensionner ou de le déplacer
                 // donc c'est uniquement lors qu'il est ajouté au container qu'il deviens complètement fonctionel
                 ((InteractiveControl)e.Control).InitInteractiveControl();
@@ -536,6 +556,17 @@ namespace SmartApp.Ihm.Designer
         /// <param name="e"></param>
         protected override void OnControlRemoved(ControlEventArgs e)
         {
+
+            if (e.Control is InteractiveControl)
+            {
+                e.Control.MouseDown -= InsideControlMouseDownHandler;
+                ((InteractiveControl)e.Control).OnMouve -= InsideControlMouve;
+                ((InteractiveControl)e.Control).EndMouve -= InsideControlEndMouve;
+                e.Control.KeyDown -= OnControlKeydown;
+                e.Control.DoubleClick -= OnControlDoubleClick;
+                ((InteractiveControl)e.Control).AsscociateDataDroped -= ICtrlDataAssigned;
+            }
+
             base.OnControlRemoved(e);
             if (DropableItems.AllowedItem(e.Control.GetType()))
             {

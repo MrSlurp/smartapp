@@ -214,7 +214,7 @@ namespace CtrlGraph
         // ajouter ici les données membres du control affiché
         ZedGraphControl m_ZedGraphCtrl = null;
         CtrlGraphCmdControl m_SourceCtrl = null;
-
+        bool m_bInitDone = false;
         /// <summary>
         /// 
         /// </summary>
@@ -485,6 +485,8 @@ namespace CtrlGraph
         /// </summary>
         public void InitGraphs()
         {
+            if (m_bInitDone)
+                return;
             GraphPane myPane = m_ZedGraphCtrl.GraphPane;
             DllCtrlGraphProp specProps = (DllCtrlGraphProp)m_SourceCtrl.SpecificProp;
             myPane.Title.Text = specProps.GraphTitle;
@@ -501,6 +503,7 @@ namespace CtrlGraph
                 curve.Tag = Data;
             }
             myPane.XAxis.Type = AxisType.Date;
+            m_bInitDone = true;
         }
 
         public void DataLogNotify()

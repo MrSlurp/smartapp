@@ -863,13 +863,13 @@ namespace CommonLib
                     if (Traces.IsDebugAndCatOK(TraceCat.ExecuteScreen))
                         Traces.LogAddDebug(TraceCat.ExecuteScreen,
                                            string.Format("Screen Show {0}", QuickScript.m_Arguments[0].Symbol));
-                    ((BTScreen)QuickScript.m_Arguments[0]).ExecuteShow();
+                    ((BTScreen)QuickScript.m_Arguments[0]).ExecuteHide();
                     break;
                 case ALL_FUNC.SCREEN_SHOW:
                     if (Traces.IsDebugAndCatOK(TraceCat.ExecuteScreen))
                         Traces.LogAddDebug(TraceCat.ExecuteScreen,
                                            string.Format("Screen Hide {0}", QuickScript.m_Arguments[0].Symbol));
-                    ((BTScreen)QuickScript.m_Arguments[0]).ExecuteHide();
+                    ((BTScreen)QuickScript.m_Arguments[0]).ExecuteShow();
                     break;
                 case ALL_FUNC.SCREEN_SHOW_ON_TOP:
                     if (Traces.IsDebugAndCatOK(TraceCat.ExecuteScreen))

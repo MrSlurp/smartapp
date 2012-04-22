@@ -13,6 +13,13 @@ namespace CommonLib
         private DynamicPanel m_DynamicPanel = null;
 
         BTDoc m_Document;
+        private bool m_bDisableCloseProtection = false;
+
+        public bool DisableCloseProtection
+        {
+            get { return m_bDisableCloseProtection; }
+            set { m_bDisableCloseProtection = value; }
+        }
 
         /// <summary>
         /// 
@@ -58,7 +65,7 @@ namespace CommonLib
         /// <param name="e"></param>
         private void DynamicPanelForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (e.CloseReason == CloseReason.UserClosing)
+            if (e.CloseReason == CloseReason.UserClosing && !m_bDisableCloseProtection)
             {
                 e.Cancel = true;
                 this.WindowState = FormWindowState.Minimized;

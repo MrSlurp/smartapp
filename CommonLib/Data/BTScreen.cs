@@ -604,7 +604,7 @@ namespace CommonLib
                 // du refresh pour les objet dessiné sur le panel
                 this.m_DynamicPanel.MyInitializeComponent(m_ListControls);
                 // on ajuste la taille du dynamic Panel
-                m_DynamicPanel.Size = new Size(pt.X + 10, pt.Y + 10);
+                m_DynamicPanel.Size = new Size(pt.X, pt.Y);
                 string strImageFullPath = Doc.PathTr.RelativePathToAbsolute(BackPictureFile);
                 strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
                 try
