@@ -431,6 +431,7 @@ namespace CommonLib
         {
             m_GestDLL = GestDll;
             m_strfileFullName = strFullFileName;
+            m_PathTranslator.BTDocPath = Path.GetDirectoryName(strFullFileName);
             XmlDocument XmlDoc = new XmlDocument();
             try
             {

@@ -54,6 +54,7 @@ namespace CommonLib
                     case MATHS_FUNC.MUL:
                     case MATHS_FUNC.DIV:
                     case MATHS_FUNC.POW:
+                    case MATHS_FUNC.MOD:
                         // si on est ici, c'est que les parenthèses sont présentes
                         // on regarde ce qu'il y a à l'intérieur
                         //string strParams = strTempFull.Substring(posOpenParenthese+1, strTempFull.Length - 2 - posOpenParenthese);
@@ -84,6 +85,7 @@ namespace CommonLib
                     case MATHS_FUNC.SQRT:
                     case MATHS_FUNC.LN:
                     case MATHS_FUNC.LOG:
+                    case MATHS_FUNC.SET:
                         if (strParamList.Length < 2)
                         {
                             string strErr = string.Format(Lang.LangSys.C("Invalid line, not enought parameters for Maths function"));

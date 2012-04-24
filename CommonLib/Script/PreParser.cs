@@ -293,6 +293,12 @@ namespace CommonLib
                         case MATHS_FUNC.LOG:
                             retPreParsedLine.m_FunctionToExec = ALL_FUNC.MATHS_LOG;
                             break;
+                        case MATHS_FUNC.SET:
+                            retPreParsedLine.m_FunctionToExec = ALL_FUNC.MATHS_SET;
+                            break;
+                        case MATHS_FUNC.MOD:
+                            retPreParsedLine.m_FunctionToExec = ALL_FUNC.MATHS_MOD;
+                            break;
                     }
                 }
             }            

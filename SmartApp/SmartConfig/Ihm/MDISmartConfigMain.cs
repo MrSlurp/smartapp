@@ -73,8 +73,10 @@ namespace SmartApp.Ihm
                 menuItemTraceConfig.Visible = true;
                 menuItemOpenDebugConsole.Visible = true;
             }
+            CentralizedFileDlg.InitImgFileDialog(Application.StartupPath);
             CentralizedFileDlg.InitPrjFileDialog(Application.StartupPath);
             CentralizedFileDlg.InitSolFileDialog(Application.StartupPath);
+            CentralizedFileDlg.ActiveProjectPath = Application.StartupPath;
             UpdateFileMenu();
 
             m_panelToolDragItem = new DragItemPanel();
@@ -251,6 +253,7 @@ namespace SmartApp.Ihm
                         CentralizedFileDlg.InitImgFileDialog(DossierFichier);
                         CentralizedFileDlg.InitPrjFileDialog(DossierFichier);
                         CentralizedFileDlg.InitSolFileDialog(DossierFichier);
+                        CentralizedFileDlg.ActiveProjectPath = DossierFichier;
                         m_GestSolution.SaveAllDocumentsAndSolution(strFileFullName);
                         this.m_mruStripMenu.AddFile(strFileFullName);
                         m_GestSolution.HaveModifiedDocument = false;
@@ -287,6 +290,7 @@ namespace SmartApp.Ihm
                 CentralizedFileDlg.InitImgFileDialog(DossierFichier);
                 CentralizedFileDlg.InitPrjFileDialog(DossierFichier);
                 CentralizedFileDlg.InitSolFileDialog(DossierFichier);
+                CentralizedFileDlg.ActiveProjectPath = DossierFichier;
                 m_GestSolution.ReadInSolution(strSolutionPath);
                 m_GestSolution.OnDocScreenEdit += new SolutionGest.DocumentScreenEditHandler(GestSolution_OnDocScreenEdit);
                 m_GestSolution.OnDocumentChanged += new SolutionGest.SolutionDocumentChangedEventHandler(UpdateTitle);

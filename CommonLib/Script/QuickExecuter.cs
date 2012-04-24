@@ -413,7 +413,7 @@ namespace CommonLib
         {
             Data ResultData = (Data)QuickScript.m_Arguments[0];
             Data Operator1Data = (Data)QuickScript.m_Arguments[1];
-            Data Operator2Data = QuickScript.m_Arguments.Length >=2 ? (Data)QuickScript.m_Arguments[2] : null;
+            Data Operator2Data = QuickScript.m_Arguments.Length >=3 ? (Data)QuickScript.m_Arguments[2] : null;
             switch (QuickScript.m_FunctionToExec)
             {
                 case ALL_FUNC.MATHS_ADD:
@@ -448,6 +448,12 @@ namespace CommonLib
                     break;
                 case ALL_FUNC.MATHS_LOG:
                     ExecuteMathLog(ResultData, Operator1Data);
+                    break;
+                case ALL_FUNC.MATHS_SET:
+                    ExecuteMathSet(ResultData, Operator1Data);
+                    break;
+                case ALL_FUNC.MATHS_MOD:
+                    ExecuteMathMod(ResultData, Operator1Data, Operator2Data);
                     break;
             }
         }
@@ -633,6 +639,47 @@ namespace CommonLib
                 Traces.LogAddDebug(TraceCat.ExecuteMath, "Math.SQRT", string.Format("{0} = {1}", Result.Value, opsValues));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Result">donnée de sortie de l'opération</param>
+        /// <param name="Operator1">premier opérateur de l'opération</param>
+        protected void ExecuteMathSet(Data Result, Data Operator1)
+        {
+            string opsValues = string.Empty;
+            if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
+                opsValues = string.Format("Set({0})", Operator1.Value);
+            Result.Value = Operator1.Value;
+            if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
+                Traces.LogAddDebug(TraceCat.ExecuteMath, "Math.SET", string.Format("{0} = {1}", Result.Value, opsValues));
+        }
+
+        /// <summary>
+        /// exécute un un modulo
+        /// </summary>
+        /// <param name="Result">donnée de sortie de l'opération</param>
+        /// <param name="Operator1">premier opérateur de l'opération</param>
+        /// <param name="Operator2">second opérateur de l'opération</param>
+        internal void ExecuteMathMod(Data Result, Data Operator1, Data Operator2)
+        {
+            if (Operator2.Value != 0)
+            {
+                string opsValues = string.Empty;
+                if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
+                    opsValues = string.Format("{0} % {1}", Operator1.Value, Operator2.Value);
+                Result.Value = Operator1.Value % Operator2.Value;
+                if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
+                    Traces.LogAddDebug(TraceCat.ExecuteMath, "Math.MOD", string.Format("{0} = {1} ", Result.Value, opsValues));
+            }
+            else
+            {
+                LogEvent logEvent = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format(Lang.LangSys.C("Division by zero forbidden")));
+                AddLogEvent(logEvent);
+                if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
+                    Traces.LogAddDebug(TraceCat.ExecuteMath, "Math.MOD", "Modulo by zero");
+                return;
+            }
+        }
         #endregion
 
         #region fonction logiques

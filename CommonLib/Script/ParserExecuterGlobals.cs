@@ -95,7 +95,8 @@ namespace CommonLib
         POW,
         LN,
         LOG,
-
+        SET,
+        MOD,
     }
 
     /// <summary>
@@ -147,6 +148,8 @@ namespace CommonLib
         MATHS_POW,
         MATHS_LN,
         MATHS_LOG,
+        MATHS_SET,
+        MATHS_MOD,
         LOGIC_NOT,
         LOGIC_AND,
         LOGIC_OR,

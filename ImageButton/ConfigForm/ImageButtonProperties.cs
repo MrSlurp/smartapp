@@ -125,8 +125,8 @@ namespace ImageButton
                 bDataPropChange = true;
 
             int curStyle = (int)cboStyle.SelectedValue;
-            FlatStyle finalStyle = FlatStyle.Standard;
-            int finalBorderSize = 1;
+            FlatStyle finalStyle = SpecProps.Style;
+            int finalBorderSize = SpecProps.BorderSize;
             if (curStyle == 0 && SpecProps.Style != FlatStyle.Standard)
             {
                 bDataPropChange = true;
