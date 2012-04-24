@@ -62,6 +62,10 @@ namespace SmartApp.Ihm
             this.toolbtnScreenToBitmap = new System.Windows.Forms.ToolStripButton();
             this.panel1 = new SmartApp.Ihm.InteractivePanelContainer();
             this.m_InteractiveControlContainer = new SmartApp.Ihm.Designer.InteractiveControlContainer();
+            this.toolStripDropDownButton3 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.tsMenuGridOff = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsMenuGrid20 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsMenuGrid40 = new System.Windows.Forms.ToolStripMenuItem();
             this.m_splitterDesigner_Tool.Panel1.SuspendLayout();
             this.m_splitterDesigner_Tool.Panel2.SuspendLayout();
             this.m_splitterDesigner_Tool.SuspendLayout();
@@ -134,7 +138,8 @@ namespace SmartApp.Ihm
             this.m_toolBtnBringToFront,
             this.tsbtn_copy,
             this.tsbtn_paste,
-            this.toolbtnScreenToBitmap});
+            this.toolbtnScreenToBitmap,
+            this.toolStripDropDownButton3});
             this.m_toolStripDesignLayout.Location = new System.Drawing.Point(0, 0);
             this.m_toolStripDesignLayout.Name = "m_toolStripDesignLayout";
             this.m_toolStripDesignLayout.Size = new System.Drawing.Size(768, 25);
@@ -232,34 +237,34 @@ namespace SmartApp.Ihm
             this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
             this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-            this.toolStripDropDownButton1.Size = new System.Drawing.Size(44, 22);
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(45, 22);
             this.toolStripDropDownButton1.Text = "Sizes";
             // 
             // tsbtn_increaseWidth
             // 
             this.tsbtn_increaseWidth.Name = "tsbtn_increaseWidth";
-            this.tsbtn_increaseWidth.Size = new System.Drawing.Size(163, 22);
+            this.tsbtn_increaseWidth.Size = new System.Drawing.Size(158, 22);
             this.tsbtn_increaseWidth.Text = "Increase width";
             this.tsbtn_increaseWidth.Click += new System.EventHandler(this.tsbtn_increaseWidth_Click);
             // 
             // tsbtn_decreaseWidth
             // 
             this.tsbtn_decreaseWidth.Name = "tsbtn_decreaseWidth";
-            this.tsbtn_decreaseWidth.Size = new System.Drawing.Size(163, 22);
+            this.tsbtn_decreaseWidth.Size = new System.Drawing.Size(158, 22);
             this.tsbtn_decreaseWidth.Text = "Decrease width";
             this.tsbtn_decreaseWidth.Click += new System.EventHandler(this.tsbtn_decreaseWidth_Click);
             // 
             // tsbtn_increaseHeight
             // 
             this.tsbtn_increaseHeight.Name = "tsbtn_increaseHeight";
-            this.tsbtn_increaseHeight.Size = new System.Drawing.Size(163, 22);
+            this.tsbtn_increaseHeight.Size = new System.Drawing.Size(158, 22);
             this.tsbtn_increaseHeight.Text = "Increase height";
             this.tsbtn_increaseHeight.Click += new System.EventHandler(this.tsbtn_increaseHeight_Click);
             // 
             // tsbtn_decreaseHeight
             // 
             this.tsbtn_decreaseHeight.Name = "tsbtn_decreaseHeight";
-            this.tsbtn_decreaseHeight.Size = new System.Drawing.Size(163, 22);
+            this.tsbtn_decreaseHeight.Size = new System.Drawing.Size(158, 22);
             this.tsbtn_decreaseHeight.Text = "Decrease height";
             this.tsbtn_decreaseHeight.Click += new System.EventHandler(this.tsbtn_decreaseHeight_Click);
             // 
@@ -274,34 +279,34 @@ namespace SmartApp.Ihm
             this.toolStripDropDownButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton2.Image")));
             this.toolStripDropDownButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton2.Name = "toolStripDropDownButton2";
-            this.toolStripDropDownButton2.Size = new System.Drawing.Size(62, 22);
+            this.toolStripDropDownButton2.Size = new System.Drawing.Size(68, 22);
             this.toolStripDropDownButton2.Text = "Positions";
             // 
             // tsbtn_moveLeft
             // 
             this.tsbtn_moveLeft.Name = "tsbtn_moveLeft";
-            this.tsbtn_moveLeft.Size = new System.Drawing.Size(152, 22);
+            this.tsbtn_moveLeft.Size = new System.Drawing.Size(137, 22);
             this.tsbtn_moveLeft.Text = "Move left";
             this.tsbtn_moveLeft.Click += new System.EventHandler(this.tsbtn_moveLeft_Click);
             // 
             // tsbtn_moveRight
             // 
             this.tsbtn_moveRight.Name = "tsbtn_moveRight";
-            this.tsbtn_moveRight.Size = new System.Drawing.Size(152, 22);
+            this.tsbtn_moveRight.Size = new System.Drawing.Size(137, 22);
             this.tsbtn_moveRight.Text = "Move right";
             this.tsbtn_moveRight.Click += new System.EventHandler(this.tsbtn_moveRight_Click);
             // 
             // tsbtn_moveUp
             // 
             this.tsbtn_moveUp.Name = "tsbtn_moveUp";
-            this.tsbtn_moveUp.Size = new System.Drawing.Size(152, 22);
+            this.tsbtn_moveUp.Size = new System.Drawing.Size(137, 22);
             this.tsbtn_moveUp.Text = "Move up";
             this.tsbtn_moveUp.Click += new System.EventHandler(this.tsbtn_moveUp_Click);
             // 
             // tsbtn_moveDown
             // 
             this.tsbtn_moveDown.Name = "tsbtn_moveDown";
-            this.tsbtn_moveDown.Size = new System.Drawing.Size(152, 22);
+            this.tsbtn_moveDown.Size = new System.Drawing.Size(137, 22);
             this.tsbtn_moveDown.Text = "Move down";
             this.tsbtn_moveDown.Click += new System.EventHandler(this.tsbtn_moveDown_Click);
             // 
@@ -311,7 +316,7 @@ namespace SmartApp.Ihm
             this.m_toolBtnBringToFront.Image = ((System.Drawing.Image)(resources.GetObject("m_toolBtnBringToFront.Image")));
             this.m_toolBtnBringToFront.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.m_toolBtnBringToFront.Name = "m_toolBtnBringToFront";
-            this.m_toolBtnBringToFront.Size = new System.Drawing.Size(75, 22);
+            this.m_toolBtnBringToFront.Size = new System.Drawing.Size(82, 22);
             this.m_toolBtnBringToFront.Text = "Bring to front";
             this.m_toolBtnBringToFront.Click += new System.EventHandler(this.m_toolBtnBringToFront_Click);
             // 
@@ -319,7 +324,7 @@ namespace SmartApp.Ihm
             // 
             this.tsbtn_copy.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.tsbtn_copy.Name = "tsbtn_copy";
-            this.tsbtn_copy.Size = new System.Drawing.Size(36, 22);
+            this.tsbtn_copy.Size = new System.Drawing.Size(39, 22);
             this.tsbtn_copy.Text = "Copy";
             this.tsbtn_copy.Click += new System.EventHandler(this.tsbtn_copy_click);
             // 
@@ -327,7 +332,7 @@ namespace SmartApp.Ihm
             // 
             this.tsbtn_paste.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.tsbtn_paste.Name = "tsbtn_paste";
-            this.tsbtn_paste.Size = new System.Drawing.Size(38, 22);
+            this.tsbtn_paste.Size = new System.Drawing.Size(39, 22);
             this.tsbtn_paste.Text = "Paste";
             this.tsbtn_paste.Click += new System.EventHandler(this.tsbtn_paste_click);
             // 
@@ -337,7 +342,7 @@ namespace SmartApp.Ihm
             this.toolbtnScreenToBitmap.Image = ((System.Drawing.Image)(resources.GetObject("toolbtnScreenToBitmap.Image")));
             this.toolbtnScreenToBitmap.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolbtnScreenToBitmap.Name = "toolbtnScreenToBitmap";
-            this.toolbtnScreenToBitmap.Size = new System.Drawing.Size(83, 22);
+            this.toolbtnScreenToBitmap.Size = new System.Drawing.Size(90, 22);
             this.toolbtnScreenToBitmap.Text = "Save to bitmap";
             this.toolbtnScreenToBitmap.Click += new System.EventHandler(this.toolbtnScreenToBitmap_Click);
             // 
@@ -356,12 +361,46 @@ namespace SmartApp.Ihm
             this.m_InteractiveControlContainer.BackColor = System.Drawing.SystemColors.Control;
             this.m_InteractiveControlContainer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.m_InteractiveControlContainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.m_InteractiveControlContainer.CustomLineSize = new System.Drawing.Size(-1, -1);
+            this.m_InteractiveControlContainer.GridSpacing = 20;
             this.m_InteractiveControlContainer.Location = new System.Drawing.Point(10, 11);
             this.m_InteractiveControlContainer.Margin = new System.Windows.Forms.Padding(0);
             this.m_InteractiveControlContainer.Name = "m_InteractiveControlContainer";
             this.m_InteractiveControlContainer.ScreenBckImage = null;
             this.m_InteractiveControlContainer.Size = new System.Drawing.Size(1920, 1210);
             this.m_InteractiveControlContainer.TabIndex = 9;
+            // 
+            // toolStripDropDownButton3
+            // 
+            this.toolStripDropDownButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripDropDownButton3.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsMenuGridOff,
+            this.tsMenuGrid20,
+            this.tsMenuGrid40});
+            this.toolStripDropDownButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton3.Image")));
+            this.toolStripDropDownButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButton3.Name = "toolStripDropDownButton3";
+            this.toolStripDropDownButton3.Size = new System.Drawing.Size(42, 22);
+            this.toolStripDropDownButton3.Text = "Grid";
+            // 
+            // tsMenuGridOff
+            // 
+            this.tsMenuGridOff.Name = "tsMenuGridOff";
+            this.tsMenuGridOff.Size = new System.Drawing.Size(152, 22);
+            this.tsMenuGridOff.Text = "Off";
+            this.tsMenuGridOff.Click += new System.EventHandler(this.tsMenuGrid_Click);
+            // 
+            // tsMenuGrid20
+            // 
+            this.tsMenuGrid20.Name = "tsMenuGrid20";
+            this.tsMenuGrid20.Size = new System.Drawing.Size(152, 22);
+            this.tsMenuGrid20.Text = "Spacing = 20";
+            // 
+            // tsMenuGrid40
+            // 
+            this.tsMenuGrid40.Name = "tsMenuGrid40";
+            this.tsMenuGrid40.Size = new System.Drawing.Size(152, 22);
+            this.tsMenuGrid40.Text = "Spacing = 40";
             // 
             // DesignerForm
             // 
@@ -420,6 +459,10 @@ namespace SmartApp.Ihm
         private System.Windows.Forms.ToolStripButton toolbtnScreenToBitmap;
         private InteractivePanelContainer panel1;
         private SmartApp.Ihm.Designer.InteractiveControlContainer m_InteractiveControlContainer;
+        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton3;
+        private System.Windows.Forms.ToolStripMenuItem tsMenuGridOff;
+        private System.Windows.Forms.ToolStripMenuItem tsMenuGrid20;
+        private System.Windows.Forms.ToolStripMenuItem tsMenuGrid40;
 
     }
 }

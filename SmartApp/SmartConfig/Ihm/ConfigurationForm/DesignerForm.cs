@@ -554,5 +554,21 @@ namespace SmartApp.Ihm
             m_InteractiveControlContainer.Controls.Clear();
             m_Currentscreen.PropertiesChanged -= this.ScreenPropsChanged;
         }
+
+        private void tsMenuGrid_Click(object sender, EventArgs e)
+        {
+            if (sender == tsMenuGridOff)
+            {
+                m_InteractiveControlContainer.GridSpacing = 0;
+            }
+            else if (sender == tsMenuGrid20)
+            {
+                m_InteractiveControlContainer.GridSpacing = 20;
+            }
+            else if (sender == tsMenuGrid40)
+            {
+                m_InteractiveControlContainer.GridSpacing = 40;
+            }
+        }
     }
 }
