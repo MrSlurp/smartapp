@@ -658,6 +658,19 @@ namespace CommonLib
             }
         }
 
+        protected override void OnMove(EventArgs e)
+        {
+            foreach (ResizeButton button in resizeButton)
+            {
+                if (button != null)
+                {
+                    if (button.Visible)
+                        button.ShowControl(false);
+                }
+            }
+            base.OnMove(e);
+        }
+
         /// <summary>
         /// 
         /// </summary>

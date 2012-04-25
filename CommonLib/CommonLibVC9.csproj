@@ -80,6 +80,7 @@
     </Compile>
     <Compile Include="Data\BaseObject.cs" />
     <Compile Include="BTDoc.cs" />
+    <Compile Include="Data\BasePluginBTControl.cs" />
     <Compile Include="Data\BTControl.Command.cs" />
     <Compile Include="Data\BTControl.cs" />
     <Compile Include="Data\BTScreen.cs" />

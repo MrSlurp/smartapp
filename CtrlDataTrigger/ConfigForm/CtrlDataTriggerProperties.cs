@@ -214,6 +214,7 @@ namespace CtrlDataTrigger
             }
         }
 
+        /*
         private void btnOnToOffScript_Click(object sender, EventArgs e)
         {
             DllCtrlDataTriggerProp prop = (DllCtrlDataTriggerProp)m_Control.SpecificProp;
@@ -242,6 +243,6 @@ namespace CtrlDataTrigger
                 bScriptChange = true;
             }
             UpdateScriptPresenceLabels();        
-        }
+        }*/
     }
 }

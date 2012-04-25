@@ -9,17 +9,57 @@ using CommonLib;
 
 namespace CtrlDataComp
 {
+    internal enum eCompareMode
+    {
+        cmp_ASupB,
+        cmp_ASupEqB,
+        cmp_AInfB,
+        cmp_AInfEqB,
+        cmp_ASupBSupC,
+        cmp_ASupEqBSupEqC
+    }
+
     internal class DllCtrlDataCompProp : SpecificControlProp
     {
-        // ajouter ici les données membres des propriété
+        private const string NODE_SECTION_COMP = "CompParam";
+        private const string ATTR_MODE_COMP = "CompMode";
+        private const string ATTR_DATA_A = "DataA";
+        private const string ATTR_DATA_B = "DataB";
+        private const string ATTR_DATA_C = "DataC";
 
-        // ajouter ici les accesseur vers les données membres des propriété
+        protected string m_sDataA;
+        protected string m_sDataB;
+        protected string m_sDataC;
+        protected eCompareMode m_CompMode = eCompareMode.cmp_ASupB;
+
+        public string DataA
+        {
+            get { return m_sDataA; }
+            set { m_sDataA = value; }
+        }
+        public string DataB
+        {
+            get { return m_sDataB; }
+            set { m_sDataB = value; }
+        }
+        public string DataC
+        {
+            get { return m_sDataC; }
+            set { m_sDataC = value; }
+        }
+
+        public eCompareMode CompMode
+        {
+            get { return m_CompMode; }
+            set { m_CompMode = value; }
+        }
 
         public DllCtrlDataCompProp(ItemScriptsConainter scriptContainter)
             :base(scriptContainter)
         {
 
         }
+
         /// <summary>
         /// Lecture des paramètres depuis le fichier XML
         /// </summary>
@@ -27,6 +67,24 @@ namespace CtrlDataComp
         /// <returns>true en cas de succès de la lecture</returns>
         public override bool ReadIn(XmlNode Node, BTDoc document)
         {
+            for (int ch = 0; ch < Node.ChildNodes.Count; ch++)
+            {
+                if (Node.ChildNodes[ch].Name == NODE_SECTION_COMP)
+                {
+                    XmlNode AttrCompMode = Node.ChildNodes[ch].Attributes.GetNamedItem(ATTR_MODE_COMP);
+                    XmlNode AttrDataA = Node.ChildNodes[ch].Attributes.GetNamedItem(ATTR_DATA_A);
+                    XmlNode AttrDataB = Node.ChildNodes[ch].Attributes.GetNamedItem(ATTR_DATA_B);
+                    XmlNode AttrDataC = Node.ChildNodes[ch].Attributes.GetNamedItem(ATTR_DATA_C);
+
+
+                    m_CompMode = (eCompareMode)int.Parse(AttrCompMode.Value);
+                    m_sDataA = AttrDataA.Value;
+                    m_sDataB = AttrDataB.Value;
+                    m_sDataC = AttrDataC.Value;
+                    break;
+                }
+            }
+
             return true;
         }
 
@@ -38,6 +96,21 @@ namespace CtrlDataComp
         /// <returns>true en cas de succès de l'écriture</returns>
         public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node, BTDoc document)
         {
+            XmlNode ElemSpecSection = XmlDoc.CreateElement(NODE_SECTION_COMP);
+            XmlAttribute AttrModeComp = XmlDoc.CreateAttribute(ATTR_MODE_COMP);
+            XmlAttribute AttrDataA = XmlDoc.CreateAttribute(ATTR_DATA_A);
+            XmlAttribute AttrDataB = XmlDoc.CreateAttribute(ATTR_DATA_B);
+            XmlAttribute AttrDataC = XmlDoc.CreateAttribute(ATTR_DATA_C);
+            AttrModeComp.Value = ((int)m_CompMode).ToString();
+            AttrDataA.Value = m_sDataA;
+            AttrDataB.Value = m_sDataB;
+            AttrDataC.Value = m_sDataC;
+
+            ElemSpecSection.Attributes.Append(AttrModeComp);
+            ElemSpecSection.Attributes.Append(AttrDataA);
+            ElemSpecSection.Attributes.Append(AttrDataB);
+            ElemSpecSection.Attributes.Append(AttrDataC);
+            Node.AppendChild(ElemSpecSection);
             return true;
         }
 
@@ -47,7 +120,18 @@ namespace CtrlDataComp
         /// <param name="SrcSpecificProp">Paramètres sources</param>
         public override void  CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance, BTDoc document)
         {
-            DllCtrlDataCompProp SrcProp = (DllCtrlDataCompProp)SrcSpecificProp;
+            DllCtrlDataCompProp SrcProp = SrcSpecificProp as DllCtrlDataCompProp;
+            if (!bFromOtherInstance)
+            {
+                m_CompMode = SrcProp.m_CompMode;
+                m_sDataA = SrcProp.m_sDataA;
+                m_sDataB = SrcProp.m_sDataB;
+                m_sDataC = SrcProp.m_sDataC;
+            }
+            else
+            {
+                m_CompMode = SrcProp.m_CompMode;
+            }
         }
 
         /// <summary>
@@ -69,45 +153,62 @@ namespace CtrlDataComp
                 switch (Mess)
                 {
                     case MESSAGE.MESS_ASK_ITEM_DELETE:
-                        // exemple de traitement de la demande de supression d'une donnée
-                        // m_strDataOffToOn est le symbol d'une donnée
-                        /*
                         if (((MessAskDelete)obj).TypeOfItem == typeof(Data))
                         {
-                            if (MessParam.WantDeletetItemSymbol == m_strDataOffToOn)
+                            MessAskDelete MessParam = (MessAskDelete)obj;
+                            string strMess = string.Empty;
+                            if (MessParam.WantDeletetItemSymbol == m_sDataA)
                             {
-                                strMess = string.Format("Data Trigger {0} : Data \"Off to On\" will be removed", PropOwner.Symbol);
+                                strMess = string.Format("Data Comparer {0} : Data A will be removed", PropOwner.Symbol);
+                                MessParam.ListStrReturns.Add(strMess);
+                            }
+                            if (MessParam.WantDeletetItemSymbol == m_sDataB)
+                            {
+                                strMess = string.Format("Data Comparer {0} : Data A will be removed", PropOwner.Symbol);
+                                MessParam.ListStrReturns.Add(strMess);
+                            }
+                            if (MessParam.WantDeletetItemSymbol == m_sDataB)
+                            {
+                                strMess = string.Format("Data Comparer {0} : Data A will be removed", PropOwner.Symbol);
                                 MessParam.ListStrReturns.Add(strMess);
                             }
                         }
-                         * */
                         break;
                     case MESSAGE.MESS_ITEM_DELETED:
-                        // exemple de traitement de la supression d'une donnée
-                        // m_strDataOffToOn est le symbol d'une donnée
-                        /*
                         if (((MessDeleted)obj).TypeOfItem == typeof(Data))
                         {
                             MessDeleted MessParam = (MessDeleted)obj;
-                            if (MessParam.DeletetedItemSymbol == m_strDataOffToOn)
+                            if (MessParam.DeletetedItemSymbol == m_sDataA)
                             {
-                                m_strDataOffToOn = string.Empty;
+                                m_sDataA = string.Empty;
+                            }
+                            if (MessParam.DeletetedItemSymbol == m_sDataB)
+                            {
+                                m_sDataB = string.Empty;
+                            }
+                            if (MessParam.DeletetedItemSymbol == m_sDataC)
+                            {
+                                m_sDataC = string.Empty;
                             }
                         }
-                         * */
                         break;
                     case MESSAGE.MESS_ITEM_RENAMED:
-                        // exemple de traitement du renommage d'une donnée
-                        // m_strDataOffToOn est le symbol d'une donnée
-                        /*
                         if (((MessItemRenamed)obj).TypeOfItem == typeof(Data))
                         {
                             MessItemRenamed MessParam = (MessItemRenamed)obj;
-                            if (MessParam.OldItemSymbol == m_strDataOffToOn)
+                            if (MessParam.OldItemSymbol == m_sDataA)
                             {
-                                m_strDataOffToOn = MessParam.NewItemSymbol;
+                                m_sDataA = MessParam.NewItemSymbol;
                             }
-                        }*/
+                            if (MessParam.OldItemSymbol == m_sDataB)
+                            {
+                                m_sDataB = MessParam.NewItemSymbol;
+                            }
+                            if (MessParam.OldItemSymbol == m_sDataC)
+                            {
+                                m_sDataC = MessParam.NewItemSymbol;
+                            }
+                        }
                         break;
                     default:
                         break;

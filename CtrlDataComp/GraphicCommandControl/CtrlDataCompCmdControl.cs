@@ -13,6 +13,15 @@ namespace CtrlDataComp
     /// </summary>
     internal class CtrlDataCompCmdControl : BTDllCtrlDataCompControl
     {
+        Data m_dataA;
+        int m_ValueA;
+
+        Data m_dataB;
+        int m_ValueB;
+
+        Data m_dataC;
+        int m_ValueC;
+
         /// <summary>
         /// Constructeur de la classe
         /// </summary>
@@ -73,6 +82,50 @@ namespace CtrlDataComp
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Doc"></param>
+        /// <returns></returns>
+        public override bool FinalizeRead(BTDoc Doc)
+        {
+            bool bret = base.FinalizeRead(Doc);
+
+            DllCtrlDataCompProp SpecProp = (DllCtrlDataCompProp)m_SpecificProp;
+            if (SpecProp.BehaveLikeTrigger == true)
+            {
+                bool ParseRes = false;
+                if (!string.IsNullOrEmpty(prop.DataOnToOff))
+                {
+                    ParseRes = int.TryParse(prop.DataOnToOff, out m_iValueOnToOff);
+                    if (!ParseRes)
+                    {
+                        m_AssocDataOnToOff = (Data)Doc.GestData.GetFromSymbol(prop.DataOnToOff);
+                        if (m_AssocDataOnToOff != null)
+                        {
+                            m_iValueOnToOff = m_AssocDataOnToOff.DefaultValue;
+                            // ici on a pas besoin de vérifier InvokeRequired, car on ne change pas l'aspect du control
+                            m_AssocDataOnToOff.DataValueChanged += new EventDataValueChange(UpdateFromData);
+                        }
+                    }
+                }
+                if (!string.IsNullOrEmpty(prop.DataOffToOn))
+                {
+                    ParseRes = int.TryParse(prop.DataOffToOn, out m_iValueOffToOn);
+                    if (!ParseRes)
+                    {
+                        m_AssocDataOffToOn = (Data)Doc.GestData.GetFromSymbol(prop.DataOffToOn);
+                        if (m_AssocDataOffToOn != null)
+                        {
+                            m_iValueOffToOn = m_AssocDataOffToOn.DefaultValue;
+                            // ici on a pas besoin de vérifier InvokeRequired, car on ne change pas l'aspect du control
+                            m_AssocDataOffToOn.DataValueChanged += new EventDataValueChange(UpdateFromData);
+                        }
+                    }
+                }
+            }
+            return bret;
+        }
         /// <summary>
         /// Traite les message intra applicatif de SmartConfig
         /// Ces messages informes de : 
