@@ -92,6 +92,7 @@ namespace CtrlDataComp
             bool bret = base.FinalizeRead(Doc);
 
             DllCtrlDataCompProp SpecProp = (DllCtrlDataCompProp)m_SpecificProp;
+            /*
             if (SpecProp.BehaveLikeTrigger == true)
             {
                 bool ParseRes = false;
@@ -123,7 +124,7 @@ namespace CtrlDataComp
                         }
                     }
                 }
-            }
+            }*/
             return bret;
         }
         /// <summary>

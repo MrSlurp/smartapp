@@ -201,6 +201,7 @@ namespace CtrlGraph
                 m_Props.SetSymbol(i, m_ListCurve[i].DataSymbol);
                 m_Props.SetAlias(i, m_ListCurve[i].Alias);
                 m_Props.SetColor(i, m_ListCurve[i].CurveColor);
+                m_Props.SetDataDivisor(i, m_ListCurve[i].Divisor);
             }
             m_Props.SavePeriod = (SAVE_PERIOD)cboDispPeriod.SelectedValue;
             m_Props.LogPeriod = (LOG_PERIOD)cboLogPeriod.SelectedValue;
@@ -219,6 +220,7 @@ namespace CtrlGraph
                 m_ListCurve[i].DataSymbol = m_Props.GetSymbol(i);
                 m_ListCurve[i].Alias = m_Props.GetAlias(i);
                 m_ListCurve[i].CurveColor = m_Props.GetColor(i);
+                m_ListCurve[i].Divisor = m_Props.GetDataDivisor(i);
             }
             edtTitle.Text = m_Props.GraphTitle;
             edtXAxis.Text = m_Props.XAxisTitle;

@@ -133,7 +133,7 @@ namespace CtrlGraph
             this.uscPanelCurveCfg.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.uscPanelCurveCfg.Location = new System.Drawing.Point(8, 135);
             this.uscPanelCurveCfg.Name = "uscPanelCurveCfg";
-            this.uscPanelCurveCfg.Size = new System.Drawing.Size(528, 219);
+            this.uscPanelCurveCfg.Size = new System.Drawing.Size(558, 219);
             this.uscPanelCurveCfg.TabIndex = 0;
             // 
             // CtrlGraphProperties
@@ -152,7 +152,7 @@ namespace CtrlGraph
             this.Controls.Add(this.cboDispPeriod);
             this.Controls.Add(this.label1);
             this.Name = "CtrlGraphProperties";
-            this.Size = new System.Drawing.Size(539, 364);
+            this.Size = new System.Drawing.Size(569, 364);
             this.ResumeLayout(false);
             this.PerformLayout();
 

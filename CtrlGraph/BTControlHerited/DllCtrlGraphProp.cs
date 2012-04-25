@@ -58,6 +58,7 @@ namespace CtrlGraph
         // ajouter ici les données membres des propriété
         string[] ListDataSymbol = new string[NB_CURVE];
         string[] ListDataAlias = new string[NB_CURVE];
+        int[] ListDataDivisor = new int[NB_CURVE];
         Color[] ListCurveColor = new Color[NB_CURVE];
 
         SAVE_PERIOD m_SavePeriod= SAVE_PERIOD.SAVE_1_h;
@@ -144,6 +145,16 @@ namespace CtrlGraph
             return ListCurveColor[index];
         }
 
+        public int GetDataDivisor(int index)
+        {
+
+            return ListDataDivisor[index];
+        }
+        public void SetDataDivisor(int index, int value)
+        {
+            ListDataDivisor[index] = value;
+        }
+
         public void SetSymbol(int index, string Symbol)
         {
             ListDataSymbol[index] = Symbol;
@@ -174,9 +185,12 @@ namespace CtrlGraph
                         XmlNode AttrSymbol = Node.ChildNodes[ch].Attributes.GetNamedItem(XML_CF_ATTRIB.strSymbol.ToString());
                         XmlNode AttrText = Node.ChildNodes[ch].Attributes.GetNamedItem(XML_CF_ATTRIB.Text.ToString());
                         XmlNode AttrColor = Node.ChildNodes[ch].Attributes.GetNamedItem(XML_CF_ATTRIB.bkColor.ToString());
+                        XmlNode AttrDivisor = Node.ChildNodes[ch].Attributes.GetNamedItem("Divisor");
                         ListDataSymbol[NodeGraphItemCount] = AttrSymbol.Value;
                         ListDataAlias[NodeGraphItemCount] = AttrText.Value;
                         ListCurveColor[NodeGraphItemCount] = ColorTranslate.StringToColor(AttrColor.Value);
+                        if (AttrDivisor != null)
+                            ListDataDivisor[NodeGraphItemCount] = int.Parse(AttrDivisor.Value);
 
                         NodeGraphItemCount++;
                         // on reprend à 0 si les items ne sont pas dans le bon ordre
@@ -214,12 +228,15 @@ namespace CtrlGraph
                 XmlAttribute AttrSymbol = XmlDoc.CreateAttribute(XML_CF_ATTRIB.strSymbol.ToString());
                 XmlAttribute AttrText = XmlDoc.CreateAttribute(XML_CF_ATTRIB.Text.ToString());
                 XmlAttribute AttrColor = XmlDoc.CreateAttribute(XML_CF_ATTRIB.bkColor.ToString());
+                XmlAttribute AttrDivisor = XmlDoc.CreateAttribute("Divisor");
                 AttrSymbol.Value = ListDataSymbol[i];
                 AttrText.Value = ListDataAlias[i];
                 AttrColor.Value = ColorTranslate.ColorToString(ListCurveColor[i]);
+                AttrDivisor.Value = ListDataDivisor[i].ToString();
                 CurvPropNode.Attributes.Append(AttrSymbol);
                 CurvPropNode.Attributes.Append(AttrText);
                 CurvPropNode.Attributes.Append(AttrColor);
+                CurvPropNode.Attributes.Append(AttrDivisor);
                 Node.AppendChild(CurvPropNode);
             }
             XmlNode Titles = XmlDoc.CreateElement(NODE_TITLE_ITEM);
@@ -263,6 +280,7 @@ namespace CtrlGraph
                         ListDataSymbol[i] = ((DllCtrlGraphProp)SrcSpecificProp).ListDataSymbol[i];
                         ListDataAlias[i] = ((DllCtrlGraphProp)SrcSpecificProp).ListDataAlias[i];
                         ListCurveColor[i] = ((DllCtrlGraphProp)SrcSpecificProp).ListCurveColor[i];
+                        ListDataDivisor[i] = ((DllCtrlGraphProp)SrcSpecificProp).ListDataDivisor[i];
                     }
                     m_SavePeriod = ((DllCtrlGraphProp)SrcSpecificProp).m_SavePeriod;
                     m_LoggingPeriod = ((DllCtrlGraphProp)SrcSpecificProp).m_LoggingPeriod;

@@ -82,6 +82,12 @@ namespace CtrlGraph
             }
         }
 
+        public int Divisor
+        {
+            get { return (int)edtDivisor.Value; }
+            set { edtDivisor.Value = value; }
+        }
+
         private void btnPickData1_Click(object sender, EventArgs e)
         {
             PickDataForm PickData = new PickDataForm();
