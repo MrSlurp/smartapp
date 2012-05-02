@@ -271,13 +271,10 @@ namespace CommonLib
                 case InteractiveControlType.Text:
                     EnableTextEdition(true);
                     EnableFontSelection(true);
-                    this.AssociateData = string.Empty;
-                    m_EditAssociateData.Enabled = false;
-                    btn_pickdata.Enabled = false;
+                    m_EditAssociateData.Enabled = true;
+                    btn_pickdata.Enabled = true;
                     m_checkReadOnly.Enabled = false;
-                    m_checkReadOnly.Checked = false;
                     m_checkScreenEvent.Enabled = false;
-                    m_checkScreenEvent.Checked = false;
                     SetSpecificPanelProp(null);
                     break;
                 case InteractiveControlType.NumericUpDown:

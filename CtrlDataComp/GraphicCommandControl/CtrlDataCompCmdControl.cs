@@ -50,7 +50,7 @@ namespace CtrlDataComp
                 // on définit son fond comme étant transparent (peut être changé)
                 m_Ctrl.BackColor = Color.Transparent;
                 // faites ici les initialisation spécifiques du control affiché
-
+                UpdateFromData();
                 // par exemple la liaison du click souris à un handler d'event
                 //m_Ctrl.Click += new System.EventHandler(this.OnControlEvent);
             }
@@ -78,7 +78,59 @@ namespace CtrlDataComp
         {
             if (m_AssociateData != null && m_Ctrl != null)
             {
-                // effectuez ici le traitement à executer lorsque la valeur change
+                int iOutputValue = 0;
+                DllCtrlDataCompProp SpecProp = m_SpecificProp as DllCtrlDataCompProp;
+                switch (SpecProp.CompMode)
+                {
+                    case eCompareMode.cmp_AInfB:
+                        if (m_ValueA < m_ValueB)
+                            iOutputValue = 1;
+                        else
+                            iOutputValue = 0;
+                        break;
+                    case eCompareMode.cmp_AInfEqB:
+                        if (m_ValueA <= m_ValueB)
+                            iOutputValue = 1;
+                        else
+                            iOutputValue = 0;
+                        break;
+                    case eCompareMode.cmp_ASupB:
+                        if (m_ValueA > m_ValueB)
+                            iOutputValue = 1;
+                        else
+                            iOutputValue = 0;
+                        break;
+                    case eCompareMode.cmp_ASupEqB:
+                        if (m_ValueA >= m_ValueB)
+                            iOutputValue = 1;
+                        else
+                            iOutputValue = 0;
+                        break;
+                    case eCompareMode.cmp_ASupBSupC:
+                        if (m_ValueA > m_ValueB && m_ValueB > m_ValueC)
+                            iOutputValue = 1;
+                        else
+                            iOutputValue = 0;
+                        break;
+                    case eCompareMode.cmp_ASupEqBSupEqC:
+                        if (m_ValueA >= m_ValueB && m_ValueB >= m_ValueC)
+                            iOutputValue = 1;
+                        else
+                            iOutputValue = 0;
+                        break;
+                    default:
+                        System.Diagnostics.Debug.Assert(false);
+                        break;
+                }
+                if (iOutputValue != m_AssociateData.Value)
+                {
+                    m_AssociateData.Value = iOutputValue;
+                    m_Executer.ExecuteScript(this.QuickScriptID);
+                    if (m_bUseScreenEvent)
+                    {
+                        m_Parent.ControlEvent();
+                    }
+                }
             }
         }
 
@@ -90,42 +142,53 @@ namespace CtrlDataComp
         public override bool FinalizeRead(BTDoc Doc)
         {
             bool bret = base.FinalizeRead(Doc);
-
-            DllCtrlDataCompProp SpecProp = (DllCtrlDataCompProp)m_SpecificProp;
-            /*
-            if (SpecProp.BehaveLikeTrigger == true)
+            bool ParseRes = true;
+            DllCtrlDataCompProp SpecProp = m_SpecificProp as DllCtrlDataCompProp;
+            if (!string.IsNullOrEmpty(SpecProp.DataA))
             {
-                bool ParseRes = false;
-                if (!string.IsNullOrEmpty(prop.DataOnToOff))
+                ParseRes = int.TryParse(SpecProp.DataA, out m_ValueA);
+                if (!ParseRes)
                 {
-                    ParseRes = int.TryParse(prop.DataOnToOff, out m_iValueOnToOff);
-                    if (!ParseRes)
-                    {
-                        m_AssocDataOnToOff = (Data)Doc.GestData.GetFromSymbol(prop.DataOnToOff);
-                        if (m_AssocDataOnToOff != null)
-                        {
-                            m_iValueOnToOff = m_AssocDataOnToOff.DefaultValue;
-                            // ici on a pas besoin de vérifier InvokeRequired, car on ne change pas l'aspect du control
-                            m_AssocDataOnToOff.DataValueChanged += new EventDataValueChange(UpdateFromData);
-                        }
-                    }
+                    m_dataA = Doc.GestData.GetFromSymbol(SpecProp.DataA) as Data;
+                    if (m_dataA != null)
+                        m_dataA.DataValueChanged += new EventDataValueChange(CompData_ValueChanged);
                 }
-                if (!string.IsNullOrEmpty(prop.DataOffToOn))
+            }
+
+            if (!string.IsNullOrEmpty(SpecProp.DataB))
+            {
+                ParseRes = int.TryParse(SpecProp.DataB, out m_ValueB);
+                if (!ParseRes)
                 {
-                    ParseRes = int.TryParse(prop.DataOffToOn, out m_iValueOffToOn);
-                    if (!ParseRes)
-                    {
-                        m_AssocDataOffToOn = (Data)Doc.GestData.GetFromSymbol(prop.DataOffToOn);
-                        if (m_AssocDataOffToOn != null)
-                        {
-                            m_iValueOffToOn = m_AssocDataOffToOn.DefaultValue;
-                            // ici on a pas besoin de vérifier InvokeRequired, car on ne change pas l'aspect du control
-                            m_AssocDataOffToOn.DataValueChanged += new EventDataValueChange(UpdateFromData);
-                        }
-                    }
+                    m_dataB = Doc.GestData.GetFromSymbol(SpecProp.DataB) as Data;
+                    if (m_dataB != null)
+                        m_dataB.DataValueChanged += new EventDataValueChange(CompData_ValueChanged);
                 }
-            }*/
+            }
+
+            if (!string.IsNullOrEmpty(SpecProp.DataC))
+            {
+                ParseRes = int.TryParse(SpecProp.DataC, out m_ValueC);
+                if (!ParseRes)
+                {
+                    m_dataC = Doc.GestData.GetFromSymbol(SpecProp.DataC) as Data;
+                    if (m_dataC != null)
+                        m_dataC.DataValueChanged += new EventDataValueChange(CompData_ValueChanged);
+                }
+            }
             return bret;
+        }
+
+        void CompData_ValueChanged()
+        {
+            if (m_dataA != null)
+                m_ValueA = m_dataA.Value;
+            if (m_dataB != null)
+                m_ValueB = m_dataB.Value;
+            if (m_dataC != null)
+                m_ValueC = m_dataC.Value;
+
+            this.UpdateFromDataDelegate();
         }
         /// <summary>
         /// Traite les message intra applicatif de SmartConfig

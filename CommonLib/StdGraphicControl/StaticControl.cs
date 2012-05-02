@@ -41,6 +41,7 @@ namespace CommonLib
                 m_Ctrl.Size = m_RectControl.Size;
                 m_Ctrl.Text = this.IControl.Text;
                 m_Ctrl.BackColor = Color.Transparent;
+                UpdateFromData();
             }
         }
 
@@ -53,13 +54,15 @@ namespace CommonLib
             // le label n'ayant aucun évènement, cette fonction reste vide
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        public override bool FinalizeRead(BTDoc Doc)
+        public override void UpdateFromData()
         {
-            return true;
+            if (m_AssociateData != null && m_Ctrl != null)
+            {
+                if (m_AssociateData.Value != 0)
+                    m_Ctrl.Visible = true;
+                else
+                    m_Ctrl.Visible = false;
+            }
         }
     }
 }

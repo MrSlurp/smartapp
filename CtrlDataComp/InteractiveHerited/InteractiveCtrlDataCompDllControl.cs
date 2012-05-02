@@ -17,7 +17,7 @@ namespace CtrlDataComp
     public partial class InteractiveCtrlDataCompDllControl : InteractiveControl, ISpecificControl
     {
         // panneau des propriété de l'objet
-        UserControl m_SpecificPropPanel = new CtrlDataCompProperties();
+        static UserControl m_SpecificPropPanel = new CtrlDataCompProperties();
         // proriétés d'activation des paramètres standard des controls
         StandardPropEnabling m_stdPropEnabling = new StandardPropEnabling();
         // propriété de comportement de l'objet dans le designer
@@ -37,15 +37,15 @@ namespace CtrlDataComp
             // modifiez ici les valeur afin que le control rende disponibles les champs standard souhaités
             m_stdPropEnabling.m_bcheckReadOnlyChecked = false;
             m_stdPropEnabling.m_bcheckReadOnlyEnabled = false;
-            m_stdPropEnabling.m_bcheckScreenEventEnabled = false;
+            m_stdPropEnabling.m_bcheckScreenEventEnabled = true;
             m_stdPropEnabling.m_bcheckScreenEventChecked = false;
             m_stdPropEnabling.m_bEditAssociateDataEnabled = true;
             m_stdPropEnabling.m_bEditTextEnabled = false;
-            m_stdPropEnabling.m_bCtrlEventScriptEnabled = false;
+            m_stdPropEnabling.m_bCtrlEventScriptEnabled = true;
 
             // modifiez ici les valeur afin que le control ai la taille min souhaité et ses possibilité de redimensionnement
-            m_SpecGraphicProp.m_bcanResizeWidth = true;
-            m_SpecGraphicProp.m_bcanResizeHeight = true;
+            m_SpecGraphicProp.m_bcanResizeWidth = false;
+            m_SpecGraphicProp.m_bcanResizeHeight = false;
             m_SpecGraphicProp.m_MinSize = new Size(70, 30);
             m_SpecGraphicProp.m_MaxSize = new Size(70, 30);
             // Ne jamais supprimer cette ligne, provoque la prise en compte de tout ce qui est définit précédement

@@ -543,7 +543,7 @@ namespace CommonLib
             string opsValues = string.Empty;
             if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
                 opsValues = string.Format("Sin({0})", Operator1.Value);
-            Result.Value = (int) (Math.Sin(Operator1.Value) * 100);
+            Result.Value = (int)(Math.Sin(Operator1.Value * (Math.PI / 180)) * 100);
             if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
                 Traces.LogAddDebug(TraceCat.ExecuteMath, "Math.SIN", string.Format("{0} = {1}", Result.Value, opsValues));
         }
@@ -558,7 +558,7 @@ namespace CommonLib
             string opsValues = string.Empty;
             if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
                 opsValues = string.Format("Cos({0})", Operator1.Value);
-            Result.Value = (int)(Math.Cos(Operator1.Value) * 100);
+            Result.Value = (int)(Math.Cos(Operator1.Value * (Math.PI/180)) * 100);
             if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
                 Traces.LogAddDebug(TraceCat.ExecuteMath, "Math.SIN", string.Format("{0} = {1}", Result.Value, opsValues));
         }
@@ -573,7 +573,7 @@ namespace CommonLib
             string opsValues = string.Empty;
             if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
                 opsValues = string.Format("Tan({0})", Operator1.Value);
-            Result.Value = (int)(Math.Tan(Operator1.Value) * 100);
+            Result.Value = (int)(Math.Tan(Operator1.Value * (Math.PI / 180)) * 100);
             if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
                 Traces.LogAddDebug(TraceCat.ExecuteMath, "Math.TAN", string.Format("{0} = {1}", Result.Value, opsValues));
         }
@@ -618,10 +618,10 @@ namespace CommonLib
         {
             string opsValues = string.Empty;
             if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
-                opsValues = string.Format("Sqrt({0})", Operator1.Value);
+                opsValues = string.Format("Ln({0})", Operator1.Value);
             Result.Value = (int)(Math.Log(Operator1.Value)*100);
             if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
-                Traces.LogAddDebug(TraceCat.ExecuteMath, "Math.SQRT", string.Format("{0} = {1}", Result.Value, opsValues));
+                Traces.LogAddDebug(TraceCat.ExecuteMath, "Math.LN", string.Format("{0} = {1}", Result.Value, opsValues));
         }
 
         /// <summary>
@@ -633,10 +633,10 @@ namespace CommonLib
         {
             string opsValues = string.Empty;
             if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
-                opsValues = string.Format("Sqrt({0})", Operator1.Value);
-            Result.Value = (int)(Math.Log10(Operator1.Value));
+                opsValues = string.Format("Log({0})", Operator1.Value);
+            Result.Value = (int)(Math.Log10(Operator1.Value)*100);
             if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
-                Traces.LogAddDebug(TraceCat.ExecuteMath, "Math.SQRT", string.Format("{0} = {1}", Result.Value, opsValues));
+                Traces.LogAddDebug(TraceCat.ExecuteMath, "Math.LOG", string.Format("{0} = {1}", Result.Value, opsValues));
         }
 
         /// <summary>

@@ -16,7 +16,7 @@ namespace CommonLib
     {
         // on met aussi les caractères en minuscule car la text box est en UpperCase
         // les caractères autorisé sont les lettre, les chiffres et le underscore
-        public const string AthorizedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_0123456789-";
+        public const string AthorizedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_0123456789- ";
 
         //*****************************************************************************************************
         // Description: constructeur de la classe, met automatiquement le texte box en UpperCase
@@ -41,11 +41,32 @@ namespace CommonLib
             if (!AthorizedChars.Contains(strCurChar))
             {
                 // Touches de suppression
-                if (!(CurChar == 46 || CurChar == 8))
+                if (!(CurChar == 46 || CurChar == 8) && Form.ModifierKeys != Keys.Control)
                     e.Handled = true;
             }
 
             base.OnKeyPress(e);
+        }
+
+        protected override void OnTextChanged(EventArgs e)
+        {
+            
+            string finalString = this.Text;
+            foreach (char c in this.Text)
+            {
+                if (c == ' ')
+                    finalString = finalString.Replace(new string(c, 1), "_");
+                else if (!AthorizedChars.Contains(new string(c, 1)))
+                {
+                    finalString = finalString.Replace(new string(c, 1), "");
+                }
+            }
+            base.OnTextChanged(e);
+            if (finalString != this.Text)
+            {
+                this.Text = finalString;
+                this.SelectionStart = this.Text.Length;
+            }
         }
     }
 }

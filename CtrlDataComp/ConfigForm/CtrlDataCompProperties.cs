@@ -86,8 +86,32 @@ namespace CtrlDataComp
                 if (this.BTControl == null)
                     return true;
 
+                if (!CheckDataOrInt(this.edtDataA.Text))
+                    return false;
+                if (!CheckDataOrInt(this.edtDataB.Text))
+                    return false;
+                if (!CheckDataOrInt(this.edtDataC.Text))
+                    return false;
+
                 return true;
             }
+        }
+
+        private bool CheckDataOrInt(string SymbolOrValue)
+        {
+            bool bRet = true;
+            if (!string.IsNullOrEmpty(SymbolOrValue))
+            {
+                int dummy;
+                bool parseRes = int.TryParse(SymbolOrValue, out dummy);
+                if (!parseRes)
+                {
+                    Data dt = Document.GestData.GetFromSymbol(SymbolOrValue) as Data;
+                    if (dt == null)
+                        bRet = false;
+                }
+            }
+            return bRet;
         }
 
         /// <summary>
@@ -98,6 +122,30 @@ namespace CtrlDataComp
         {
             if (this.BTControl == null)
                 return true;
+
+            bool bRet = true;
+            string strMessage = "";
+
+            if (!CheckDataOrInt(this.edtDataA.Text))
+            {
+                strMessage = string.Format(DllEntryClass.LangSys.C("Associate data {0} is not valid"), this.edtDataA.Text);
+                bRet = false;
+            }
+            if (!CheckDataOrInt(this.edtDataB.Text))
+            {
+                strMessage = string.Format(DllEntryClass.LangSys.C("Associate data {0} is not valid"), this.edtDataB.Text);
+                bRet = false;
+            }
+            if (!CheckDataOrInt(this.edtDataC.Text))
+            {
+                strMessage = string.Format(DllEntryClass.LangSys.C("Associate data {0} is not valid"), this.edtDataC.Text);
+                bRet = false;
+            }
+            if (!bRet)
+            {
+                MessageBox.Show(strMessage, DllEntryClass.LangSys.C("Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return bRet;
+            }
 
             return true;
         }

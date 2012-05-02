@@ -364,6 +364,10 @@ namespace CommonLib
                 m_AutoComplListBox.Focus();
                 e.Handled = true;
             }
+            if ((e.KeyCode == Keys.Right || e.KeyCode == Keys.Left || e.KeyCode == Keys.Space) && m_AutoComplListBox.Visible)
+            {
+                m_AutoComplListBox.Visible = false;
+            }
             else if (e.KeyCode == Keys.Enter && m_AutoComplListBox.Visible)
             {
                 DoInsertAutoCompleteString();
