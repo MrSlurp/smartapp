@@ -44,7 +44,7 @@ winxpsp2_title=Windows XP Service Pack 2
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{2FE97D82-A4DD-4235-A710-9C1A17CAE705}
 AppName=Smart Application V3
-AppVerName=Smart Application V3Alpha2
+AppVerName=Smart Application V3Alpha3
 AppPublisher=Pascal Bigot
 AppCopyright=Copyright (C) 2007-2010 Pascal Bigot   
 AppPublisherURL=http://www.smartappsoftware.net
