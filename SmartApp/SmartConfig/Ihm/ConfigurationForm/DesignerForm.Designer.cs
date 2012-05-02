@@ -60,12 +60,12 @@ namespace SmartApp.Ihm
             this.tsbtn_copy = new System.Windows.Forms.ToolStripButton();
             this.tsbtn_paste = new System.Windows.Forms.ToolStripButton();
             this.toolbtnScreenToBitmap = new System.Windows.Forms.ToolStripButton();
-            this.panel1 = new SmartApp.Ihm.InteractivePanelContainer();
-            this.m_InteractiveControlContainer = new SmartApp.Ihm.Designer.InteractiveControlContainer();
             this.toolStripDropDownButton3 = new System.Windows.Forms.ToolStripDropDownButton();
             this.tsMenuGridOff = new System.Windows.Forms.ToolStripMenuItem();
             this.tsMenuGrid20 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsMenuGrid40 = new System.Windows.Forms.ToolStripMenuItem();
+            this.panel1 = new SmartApp.Ihm.InteractivePanelContainer();
+            this.m_InteractiveControlContainer = new SmartApp.Ihm.Designer.InteractiveControlContainer();
             this.m_splitterDesigner_Tool.Panel1.SuspendLayout();
             this.m_splitterDesigner_Tool.Panel2.SuspendLayout();
             this.m_splitterDesigner_Tool.SuspendLayout();
@@ -105,7 +105,7 @@ namespace SmartApp.Ihm
             this.m_splitterDesigner_Tool.Panel2.BackColor = System.Drawing.Color.White;
             this.m_splitterDesigner_Tool.Panel2.Controls.Add(this.panel1);
             this.m_splitterDesigner_Tool.Panel2.Margin = new System.Windows.Forms.Padding(10);
-            this.m_splitterDesigner_Tool.Size = new System.Drawing.Size(772, 567);
+            this.m_splitterDesigner_Tool.Size = new System.Drawing.Size(597, 567);
             this.m_splitterDesigner_Tool.TabIndex = 1;
             // 
             // m_LabelSelectedScreen
@@ -142,7 +142,7 @@ namespace SmartApp.Ihm
             this.toolStripDropDownButton3});
             this.m_toolStripDesignLayout.Location = new System.Drawing.Point(0, 0);
             this.m_toolStripDesignLayout.Name = "m_toolStripDesignLayout";
-            this.m_toolStripDesignLayout.Size = new System.Drawing.Size(768, 25);
+            this.m_toolStripDesignLayout.Size = new System.Drawing.Size(593, 25);
             this.m_toolStripDesignLayout.TabIndex = 0;
             this.m_toolStripDesignLayout.Text = "toolStrip1";
             // 
@@ -346,30 +346,6 @@ namespace SmartApp.Ihm
             this.toolbtnScreenToBitmap.Text = "Save to bitmap";
             this.toolbtnScreenToBitmap.Click += new System.EventHandler(this.toolbtnScreenToBitmap_Click);
             // 
-            // panel1
-            // 
-            this.panel1.AutoScroll = true;
-            this.panel1.Controls.Add(this.m_InteractiveControlContainer);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(768, 509);
-            this.panel1.TabIndex = 9;
-            // 
-            // m_InteractiveControlContainer
-            // 
-            this.m_InteractiveControlContainer.BackColor = System.Drawing.SystemColors.Control;
-            this.m_InteractiveControlContainer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.m_InteractiveControlContainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.m_InteractiveControlContainer.CustomLineSize = new System.Drawing.Size(-1, -1);
-            this.m_InteractiveControlContainer.GridSpacing = 20;
-            this.m_InteractiveControlContainer.Location = new System.Drawing.Point(10, 11);
-            this.m_InteractiveControlContainer.Margin = new System.Windows.Forms.Padding(0);
-            this.m_InteractiveControlContainer.Name = "m_InteractiveControlContainer";
-            this.m_InteractiveControlContainer.ScreenBckImage = null;
-            this.m_InteractiveControlContainer.Size = new System.Drawing.Size(1920, 1210);
-            this.m_InteractiveControlContainer.TabIndex = 9;
-            // 
             // toolStripDropDownButton3
             // 
             this.toolStripDropDownButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
@@ -386,28 +362,52 @@ namespace SmartApp.Ihm
             // tsMenuGridOff
             // 
             this.tsMenuGridOff.Name = "tsMenuGridOff";
-            this.tsMenuGridOff.Size = new System.Drawing.Size(152, 22);
+            this.tsMenuGridOff.Size = new System.Drawing.Size(142, 22);
             this.tsMenuGridOff.Text = "Off";
             this.tsMenuGridOff.Click += new System.EventHandler(this.tsMenuGrid_Click);
             // 
             // tsMenuGrid20
             // 
             this.tsMenuGrid20.Name = "tsMenuGrid20";
-            this.tsMenuGrid20.Size = new System.Drawing.Size(152, 22);
+            this.tsMenuGrid20.Size = new System.Drawing.Size(142, 22);
             this.tsMenuGrid20.Text = "Spacing = 20";
             // 
             // tsMenuGrid40
             // 
             this.tsMenuGrid40.Name = "tsMenuGrid40";
-            this.tsMenuGrid40.Size = new System.Drawing.Size(152, 22);
+            this.tsMenuGrid40.Size = new System.Drawing.Size(142, 22);
             this.tsMenuGrid40.Text = "Spacing = 40";
+            // 
+            // panel1
+            // 
+            this.panel1.AutoScroll = true;
+            this.panel1.Controls.Add(this.m_InteractiveControlContainer);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(593, 509);
+            this.panel1.TabIndex = 9;
+            // 
+            // m_InteractiveControlContainer
+            // 
+            this.m_InteractiveControlContainer.BackColor = System.Drawing.SystemColors.Control;
+            this.m_InteractiveControlContainer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.m_InteractiveControlContainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.m_InteractiveControlContainer.CustomLineSize = new System.Drawing.Size(-1, -1);
+            this.m_InteractiveControlContainer.GridSpacing = 20;
+            this.m_InteractiveControlContainer.Location = new System.Drawing.Point(10, 11);
+            this.m_InteractiveControlContainer.Margin = new System.Windows.Forms.Padding(0);
+            this.m_InteractiveControlContainer.Name = "m_InteractiveControlContainer";
+            this.m_InteractiveControlContainer.ScreenBckImage = null;
+            this.m_InteractiveControlContainer.Size = new System.Drawing.Size(1920, 1210);
+            this.m_InteractiveControlContainer.TabIndex = 9;
             // 
             // DesignerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(772, 567);
+            this.ClientSize = new System.Drawing.Size(597, 567);
             this.Controls.Add(this.m_splitterDesigner_Tool);
             this.DoubleBuffered = true;
             this.MinimumSize = new System.Drawing.Size(300, 200);

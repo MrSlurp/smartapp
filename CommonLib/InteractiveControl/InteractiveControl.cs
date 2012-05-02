@@ -220,6 +220,16 @@ namespace CommonLib
             }
         }
 
+        public bool CanResizeWidth
+        {
+            get { return canResizeWidth; }
+        }
+
+        public bool CanResizeHeight
+        {
+            get { return canResizeHeight; }
+        }
+
         #endregion
 
         #region constructeur et init
@@ -612,7 +622,8 @@ namespace CommonLib
             TreeNode DropedItem = (TreeNode)e.Data.GetData(typeof(TreeNode));
             if (DropedItem != null)
             {
-                if (DropedItem.Tag is Data )
+                if (DropedItem.Tag is Data &&
+                    this.ControlType != InteractiveControlType.Text)
                 {
                     e.Effect = DragDropEffects.All;
                     return;
@@ -641,7 +652,8 @@ namespace CommonLib
             TreeNode DropedItem = (TreeNode)e.Data.GetData(typeof(TreeNode));
             if (DropedItem != null)
             {
-                if (DropedItem.Tag is Data)
+                if (DropedItem.Tag is Data && 
+                    this.ControlType != InteractiveControlType.Text)
                 {
                     if (AsscociateDataDroped != null)
                     {

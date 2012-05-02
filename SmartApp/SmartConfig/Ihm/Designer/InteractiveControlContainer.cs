@@ -1002,8 +1002,11 @@ namespace SmartApp.Ihm.Designer
                 int ctrlwidth = FirstCtrl.Width;
                 for (int i = 1; i < m_ListSelection.Count; i++)
                 {
-                    ((IInteractive)m_ListSelection[i]).Width = ctrlwidth;
-                    ((IInteractive)m_ListSelection[i]).UpdateSelectionLocation();
+                    if (((InteractiveControl)m_ListSelection[i]).CanResizeWidth)
+                    {
+                        ((IInteractive)m_ListSelection[i]).Width = ctrlwidth;
+                        ((IInteractive)m_ListSelection[i]).UpdateSelectionLocation();
+                    }
                 }
             }
             Refresh();
@@ -1020,8 +1023,11 @@ namespace SmartApp.Ihm.Designer
                 int ctrlHeight = FirstCtrl.Height;
                 for (int i = 1; i < m_ListSelection.Count; i++)
                 {
-                    ((IInteractive)m_ListSelection[i]).Height = ctrlHeight;
-                    ((IInteractive)m_ListSelection[i]).UpdateSelectionLocation();
+                    if (((InteractiveControl)m_ListSelection[i]).CanResizeHeight)
+                    {
+                        ((IInteractive)m_ListSelection[i]).Height = ctrlHeight;
+                        ((IInteractive)m_ListSelection[i]).UpdateSelectionLocation();
+                    }
                 }
             }
             Refresh();
@@ -1039,8 +1045,14 @@ namespace SmartApp.Ihm.Designer
                 int ctrlwidth = FirstCtrl.Width;
                 for (int i = 1; i < m_ListSelection.Count; i++)
                 {
-                    ((IInteractive)m_ListSelection[i]).Width = ctrlwidth;
-                    ((IInteractive)m_ListSelection[i]).Height = ctrlHeight;
+                    if (((InteractiveControl)m_ListSelection[i]).CanResizeWidth)
+                    {
+                        ((IInteractive)m_ListSelection[i]).Width = ctrlwidth;
+                    }
+                    if (((InteractiveControl)m_ListSelection[i]).CanResizeHeight)
+                    {
+                        ((IInteractive)m_ListSelection[i]).Height = ctrlHeight;
+                    }
                     ((IInteractive)m_ListSelection[i]).UpdateSelectionLocation();
                 }
             }

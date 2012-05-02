@@ -265,6 +265,12 @@ namespace CommonLib
                 System.Diagnostics.Debug.Assert(false);
 
             string SelectedText = m_EditScript.SelectedText;
+            if (SelectedText.Contains("("))
+            {
+                SelectedText = SelectedText.Split('(')[1];
+                if (SelectedText.Contains(","))
+                    SelectedText = SelectedText.Split(',')[1];
+            }
             m_EditScript.SelectionLength = 0;
             m_EditScript.SelectionStart = posCarret;
 
@@ -278,7 +284,8 @@ namespace CommonLib
 
                 // on parcour la liste de façon décrémentiel de sorte a ce que le dernier 
                 // item sur lequel on passe soit le premier dans la liste
-                if (!string.IsNullOrEmpty(SelectedText))
+
+                if (!string.IsNullOrEmpty(SelectedText) && !string.IsNullOrEmpty(SelectedText.Trim()))
                 {
                     for (int i = m_AutoComplListBox.Items.Count - 1; i > 0; i--)
                     {
@@ -296,10 +303,10 @@ namespace CommonLib
                             return;
                         }
                     }
-                }
-                if (!m_AutoComplListBox.Visible)
-                {
-                    m_AutoComplListBox.Show();
+                    if (!m_AutoComplListBox.Visible)
+                    {
+                        m_AutoComplListBox.Show();
+                    }
                 }
             }
             else
@@ -368,7 +375,7 @@ namespace CommonLib
             {
                 m_AutoComplListBox.Visible = false;
             }
-            else if (e.KeyCode == Keys.Enter && m_AutoComplListBox.Visible)
+            else if (e.KeyCode == Keys.Enter && m_AutoComplListBox.Visible && m_AutoComplListBox.Focused)
             {
                 DoInsertAutoCompleteString();
                 e.Handled = true;

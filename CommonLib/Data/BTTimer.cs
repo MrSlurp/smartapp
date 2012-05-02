@@ -18,11 +18,6 @@ namespace CommonLib
         private bool m_bAutoStart = true;
         #endregion
 
-        public BTTimer()
-        {
-            m_ScriptContainer["TimerScript"] = new string[1];
-        }
-
         #region donnée spécifiques aux fonctionement en mode Command
         // objet Timer utilisé en mode Command
         Timer m_Timer = new Timer();
@@ -33,6 +28,11 @@ namespace CommonLib
         private static Control m_singStdConfigPanel;
 
         #endregion
+
+        public BTTimer()
+        {
+            m_ScriptContainer["TimerScript"] = new string[1];
+        }
 
         #region propriétées de la classe
         /// <summary>
