@@ -30,6 +30,9 @@ namespace SmartApp
         protected MruStripMenuInline m_mruStripMenu;
         //
         SolutionGest m_GestSolution;
+
+        protected bool m_bAutoStartProjOnOpen = false;
+        protected bool m_bHidePonAfterPrjStart = false;
         #endregion
 
         #region attributs
@@ -138,6 +141,11 @@ namespace SmartApp
             else
             {
                 this.Visible = true;
+                if (this.WindowState == FormWindowState.Minimized)
+                {
+                    this.WindowState = FormWindowState.Normal;
+                    this.BringToFront();
+                }
             }
             UpdateTrayMenuFromState();
         }
@@ -361,7 +369,13 @@ namespace SmartApp
                 CentralizedFileDlg.InitSolFileDialog(DossierFichier);
                 m_GestSolution.OnDocOpened += new SolutionGest.DocumentOpenCloseEventHandler(GestSolution_OnDocOpened);
                 m_GestSolution.OnDocClosed += new SolutionGest.DocumentOpenCloseEventHandler(GestSolution_OnDocClosed);
-                m_GestSolution.ReadInSolution(strSolutionPath);
+                if (m_GestSolution.ReadInSolution(strSolutionPath))
+                {
+                    if (m_bAutoStartProjOnOpen)
+                    {
+                        StartAllProjects();
+                    }
+                }
                 
                 m_mruStripMenu.AddFile(strSolutionPath);
             }
@@ -439,6 +453,29 @@ namespace SmartApp
             }
         }
 
+        public void StartAllProjects()
+        {
+            foreach (BTDoc doc in m_GestSolution.Values)
+            {
+                if (doc.Communication.IsOpen && doc.IsRunning)
+                {
+                    doc.TraiteMessage(MESSAGE.MESS_CMD_STOP, null, Program.TypeApp);
+                    doc.Communication.CloseComm();
+                }
+                else
+                {
+                    if (!doc.Communication.IsOpen)
+                    {
+                        doc.OpenDocumentComm();
+                    }
+                    if (doc.Communication.IsOpen && !doc.IsRunning)
+                    {
+                        doc.TraiteMessage(MESSAGE.MESS_CMD_RUN, null, Program.TypeApp);
+                    }
+                }
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -488,6 +525,8 @@ namespace SmartApp
             string IniOptionFileName = PathTranslator.LinuxVsWindowsPathUse(Application.StartupPath + @"\" + Cste.STR_OPTINI_FILENAME);
             m_Option.Load(IniOptionFileName);
             m_strLogFilePath = m_Option.LogDir;
+            m_bAutoStartProjOnOpen = m_Option.AutoStartProjOnOpen;
+            m_bHidePonAfterPrjStart = m_Option.HideMonitorAfterPrjStart;
         }
 
         /// <summary>
@@ -498,6 +537,8 @@ namespace SmartApp
         private void MDISmartCommandMain_FormClosed(object sender, FormClosedEventArgs e)
         {
             m_Option.LogDir = m_strLogFilePath;
+            m_Option.AutoStartProjOnOpen = m_bAutoStartProjOnOpen;
+            m_Option.HideMonitorAfterPrjStart = m_bHidePonAfterPrjStart;
             StopActiveDocuments(); 
             SolutionClose();
             m_Option.Save();
@@ -540,11 +581,12 @@ namespace SmartApp
         {
             OptionForm optForm = new OptionForm();
             optForm.LogFileDirectory = m_strLogFilePath;
-            //optForm.SaveFileComm = m_bSaveFileComm;
+            optForm.AutoStartProjOnOpen = m_bAutoStartProjOnOpen;
+            optForm.HideMonitorAfterPrjStart = m_bHidePonAfterPrjStart;
             if (optForm.ShowDialog() == DialogResult.OK)
             {
                 m_strLogFilePath = optForm.LogFileDirectory;
-                //m_bSaveFileComm = optForm.SaveFileComm;
+                m_bAutoStartProjOnOpen = optForm.AutoStartProjOnOpen;
             }
         }
         #endregion

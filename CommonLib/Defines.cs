@@ -57,7 +57,8 @@ namespace CommonLib
         public const string STR_FILE_DESC_HEADER_OPT = "Options";
         //public const string STR_FILE_DESC_LANG = "Lang";
         public const string STR_FILE_DESC_LOGDIR = "LogDir";
-        public const string STR_FILE_DESC_SAVE_PREF_COMM = "SaveComm";
+        public const string STR_FILE_DESC_AUTO_START = "Autostart";
+        public const string STR_FILE_DESC_HIDE_MON = "HideMonitor";
         public static Color TransparencyColor = Color.FromArgb(255, 0, 255);
 
         public const string STR_DEV_LANG = "EN";

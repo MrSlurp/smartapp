@@ -12,7 +12,9 @@ namespace CtrlDataGrid
     #region enums
     public enum SAVE_PERIOD
     {
+        SAVE_5_min = 15,
         SAVE_10_min = 10,
+        SAVE_15_min = 15,
         SAVE_1_h = 60,
         SAVE_2_h = 120,
         SAVE_6_h = 360,
@@ -28,6 +30,7 @@ namespace CtrlDataGrid
         LOG_2_min = 120,
         LOG_5_min = 300,
         LOG_10_min = 600,
+        LOG_15_min = 900,
     }
     #endregion
 

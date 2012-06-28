@@ -356,27 +356,29 @@ namespace SmartApp.Ihm
             this.toolStripDropDownButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton3.Image")));
             this.toolStripDropDownButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton3.Name = "toolStripDropDownButton3";
-            this.toolStripDropDownButton3.Size = new System.Drawing.Size(42, 22);
+            this.toolStripDropDownButton3.Size = new System.Drawing.Size(42, 19);
             this.toolStripDropDownButton3.Text = "Grid";
             // 
             // tsMenuGridOff
             // 
             this.tsMenuGridOff.Name = "tsMenuGridOff";
-            this.tsMenuGridOff.Size = new System.Drawing.Size(142, 22);
+            this.tsMenuGridOff.Size = new System.Drawing.Size(152, 22);
             this.tsMenuGridOff.Text = "Off";
             this.tsMenuGridOff.Click += new System.EventHandler(this.tsMenuGrid_Click);
             // 
             // tsMenuGrid20
             // 
             this.tsMenuGrid20.Name = "tsMenuGrid20";
-            this.tsMenuGrid20.Size = new System.Drawing.Size(142, 22);
+            this.tsMenuGrid20.Size = new System.Drawing.Size(152, 22);
             this.tsMenuGrid20.Text = "Spacing = 20";
+            this.tsMenuGrid20.Click += new System.EventHandler(this.tsMenuGrid_Click);
             // 
             // tsMenuGrid40
             // 
             this.tsMenuGrid40.Name = "tsMenuGrid40";
-            this.tsMenuGrid40.Size = new System.Drawing.Size(142, 22);
+            this.tsMenuGrid40.Size = new System.Drawing.Size(152, 22);
             this.tsMenuGrid40.Text = "Spacing = 40";
+            this.tsMenuGrid40.Click += new System.EventHandler(this.tsMenuGrid_Click);
             // 
             // panel1
             // 

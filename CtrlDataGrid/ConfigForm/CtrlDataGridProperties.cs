@@ -33,9 +33,15 @@ namespace CtrlDataGrid
 
         DispLogAsso[] m_DispLogAsso =
         {
+            new DispLogAsso(SAVE_PERIOD.SAVE_5_min, new LOG_PERIOD[] 
+                                                     {LOG_PERIOD.LOG_1_sec, LOG_PERIOD.LOG_10_sec,  
+                                                      LOG_PERIOD.LOG_30_sec}),
             new DispLogAsso(SAVE_PERIOD.SAVE_10_min, new LOG_PERIOD[] 
                                                      {LOG_PERIOD.LOG_1_sec, LOG_PERIOD.LOG_10_sec,  
                                                       LOG_PERIOD.LOG_30_sec}),
+            new DispLogAsso(SAVE_PERIOD.SAVE_15_min, new LOG_PERIOD[] 
+                                                     {LOG_PERIOD.LOG_1_sec, LOG_PERIOD.LOG_10_sec,  
+                                                      LOG_PERIOD.LOG_30_sec, LOG_PERIOD.LOG_1_min}),
             new DispLogAsso(SAVE_PERIOD.SAVE_1_h,    new LOG_PERIOD[] 
                                                      {LOG_PERIOD.LOG_1_sec,  LOG_PERIOD.LOG_10_sec, 
                                                       LOG_PERIOD.LOG_30_sec, LOG_PERIOD.LOG_1_min, 
@@ -87,14 +93,16 @@ namespace CtrlDataGrid
                 this.uscPanelCurveCfg.Controls.Add(m_ListData[i]);
             }
 
-            m_CboDataDispPeriod = new CComboData[5];
-            m_CboDataDispPeriod[0] = new CComboData(DllEntryClass.LangSys.C("10 minutes"), SAVE_PERIOD.SAVE_10_min);
-            m_CboDataDispPeriod[1] = new CComboData(DllEntryClass.LangSys.C("1 hour"), SAVE_PERIOD.SAVE_1_h);
-            m_CboDataDispPeriod[2] = new CComboData(DllEntryClass.LangSys.C("2 hours"), SAVE_PERIOD.SAVE_2_h);
-            m_CboDataDispPeriod[3] = new CComboData(DllEntryClass.LangSys.C("6 hours"), SAVE_PERIOD.SAVE_6_h);
-            m_CboDataDispPeriod[4] = new CComboData(DllEntryClass.LangSys.C("12 hours"), SAVE_PERIOD.SAVE_12_h);
+            m_CboDataDispPeriod = new CComboData[7];
+            m_CboDataDispPeriod[0] = new CComboData(DllEntryClass.LangSys.C("5 minutes"), SAVE_PERIOD.SAVE_5_min);
+            m_CboDataDispPeriod[1] = new CComboData(DllEntryClass.LangSys.C("10 minutes"), SAVE_PERIOD.SAVE_10_min);
+            m_CboDataDispPeriod[2] = new CComboData(DllEntryClass.LangSys.C("15 minutes"), SAVE_PERIOD.SAVE_15_min);
+            m_CboDataDispPeriod[3] = new CComboData(DllEntryClass.LangSys.C("1 hour"), SAVE_PERIOD.SAVE_1_h);
+            m_CboDataDispPeriod[4] = new CComboData(DllEntryClass.LangSys.C("2 hours"), SAVE_PERIOD.SAVE_2_h);
+            m_CboDataDispPeriod[5] = new CComboData(DllEntryClass.LangSys.C("6 hours"), SAVE_PERIOD.SAVE_6_h);
+            m_CboDataDispPeriod[6] = new CComboData(DllEntryClass.LangSys.C("12 hours"), SAVE_PERIOD.SAVE_12_h);
 
-            m_CboDataLogPeriod = new CComboData[7];
+            m_CboDataLogPeriod = new CComboData[8];
             m_CboDataLogPeriod[0] = new CComboData(DllEntryClass.LangSys.C("1 sec"), LOG_PERIOD.LOG_1_sec);
             m_CboDataLogPeriod[1] = new CComboData(DllEntryClass.LangSys.C("10 sec"), LOG_PERIOD.LOG_10_sec);
             m_CboDataLogPeriod[2] = new CComboData(DllEntryClass.LangSys.C("30 sec"), LOG_PERIOD.LOG_30_sec);
@@ -102,6 +110,7 @@ namespace CtrlDataGrid
             m_CboDataLogPeriod[4] = new CComboData(DllEntryClass.LangSys.C("2 minutes"), LOG_PERIOD.LOG_2_min);
             m_CboDataLogPeriod[5] = new CComboData(DllEntryClass.LangSys.C("5 minutes"), LOG_PERIOD.LOG_5_min);
             m_CboDataLogPeriod[6] = new CComboData(DllEntryClass.LangSys.C("10 minutes"), LOG_PERIOD.LOG_10_min);
+            m_CboDataLogPeriod[7] = new CComboData(DllEntryClass.LangSys.C("15 minutes"), LOG_PERIOD.LOG_10_min);
 
             // pour la combo des périodes, on peux directement assigner la liste complète
             cboDispPeriod.ValueMember = "Object";
