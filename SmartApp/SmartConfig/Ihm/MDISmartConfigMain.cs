@@ -29,7 +29,22 @@ namespace SmartApp.Ihm
         protected SolutionGest m_GestSolution;
         protected FormsOptions m_FrmOpt = new FormsOptions(); 
         protected MruStripMenuInline m_mruStripMenu;
+        static BasePropertiesDialog m_PropDialog;
+
         #endregion
+
+        public static BasePropertiesDialog GlobalPropDialog
+        {
+            get
+            {
+                if (m_PropDialog == null)
+                {
+                    m_PropDialog = new BasePropertiesDialog();
+                }
+                return m_PropDialog;
+            }
+        }
+        
 
         #region constructeurs
         /// <summary>

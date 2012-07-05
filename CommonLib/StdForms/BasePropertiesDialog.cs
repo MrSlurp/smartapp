@@ -19,6 +19,8 @@ namespace CommonLib
         List<IObjectPropertyPanel> m_listPropsPanels = new List<IObjectPropertyPanel>();
         List<string> m_listTitle = new List<string>();
 
+        public event EventHandler ObjectPropertiesChanged;
+
         BTScreen m_CurrentScreen;
         /// <summary>
         /// 
@@ -39,6 +41,7 @@ namespace CommonLib
             set 
             { 
                 m_baseObjectItem = value;
+                this.Enabled = m_baseObjectItem == null? false : true;
             } 
         }
 
@@ -146,8 +149,6 @@ namespace CommonLib
                         this.tabControl1.SelectedIndex = 1;
                     }
                 }
-                // Ajouter tous les panels nécessaires au paramétrage de l'objet
-                // et leur demander de s'intialiser
             }
         }
 
@@ -198,8 +199,16 @@ namespace CommonLib
                     panel.PanelToObject();
                 }
                 m_baseObjectItem.NotifyPropertiesChanged();
-                this.DialogResult = DialogResult.OK;
+                if (ObjectPropertiesChanged != null)
+                    ObjectPropertiesChanged(this, new EventArgs());
+                //this.DialogResult = DialogResult.OK;
             }
+        }
+
+        private void BasePropertiesDialog_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing)
+                this.Hide;
         }
     
 

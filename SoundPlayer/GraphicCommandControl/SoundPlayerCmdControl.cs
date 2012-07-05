@@ -49,10 +49,20 @@ namespace SoundPlayer
                 // par exemple la liaison du click souris à un handler d'event
                 //m_Ctrl.Click += new System.EventHandler(this.OnControlEvent);
                 DllSoundPlayerProp props = this.SpecificProp as DllSoundPlayerProp;
-                if (File.Exists(props.SoundFile))
+                string strFullPath = this.Document.PathTr.RelativePathToAbsolute(props.SoundFile);
+                strFullPath = PathTranslator.LinuxVsWindowsPathUse(strFullPath);
+                if (File.Exists(strFullPath))
                 {
-                    m_soundPlayer.SoundLocation = props.SoundFile;
-                    m_soundPlayer.Load();
+                    try
+                    {
+                        m_soundPlayer.SoundLocation = strFullPath;
+                        m_soundPlayer.Load();
+                    }
+                    catch (Exception)
+                    {
+                        LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format(DllEntryClass.LangSys.C("Control {0} Failed to load file {1}"), Symbol, m_soundPlayer.SoundLocation));
+                        AddLogEvent(log);
+                    }
                 }
             }
         }
@@ -122,7 +132,15 @@ namespace SoundPlayer
 
         private void DoPlaySound()
         {
-            m_soundPlayer.Play();
+            try
+            {
+                m_soundPlayer.Play();
+            }
+            catch (Exception)
+            {
+                LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format(DllEntryClass.LangSys.C("SoundPlayer {0} Failed to play file {1}"), Symbol, m_soundPlayer.SoundLocation));
+                AddLogEvent(log);
+            }
         }
     }
 

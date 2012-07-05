@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.m_AutoComplListBox = new System.Windows.Forms.ListBox();
             this.m_labelScript = new System.Windows.Forms.Label();
             this.m_EditScript = new System.Windows.Forms.RichTextBox();
             this.button1 = new System.Windows.Forms.Button();
@@ -37,6 +36,7 @@
             this.m_colErrorType = new System.Windows.Forms.ColumnHeader();
             this.m_ColLine = new System.Windows.Forms.ColumnHeader();
             this.m_colMessage = new System.Windows.Forms.ColumnHeader();
+            this.m_AutoComplListBox = new System.Windows.Forms.ListBox();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -62,21 +62,6 @@
             this.splitContainer1.SplitterDistance = 225;
             this.splitContainer1.TabIndex = 1;
             // 
-            // m_AutoComplListBox
-            // 
-            this.m_AutoComplListBox.BackColor = System.Drawing.SystemColors.Control;
-            this.m_AutoComplListBox.FormattingEnabled = true;
-            this.m_AutoComplListBox.HorizontalScrollbar = true;
-            this.m_AutoComplListBox.Location = new System.Drawing.Point(408, 2);
-            this.m_AutoComplListBox.Name = "m_AutoComplListBox";
-            this.m_AutoComplListBox.Size = new System.Drawing.Size(139, 17);
-            this.m_AutoComplListBox.Sorted = true;
-            this.m_AutoComplListBox.TabIndex = 19;
-            this.m_AutoComplListBox.TabStop = false;
-            this.m_AutoComplListBox.Visible = false;
-            this.m_AutoComplListBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnAutoComplListBoxKeyDown);
-            this.m_AutoComplListBox.Click += new System.EventHandler(this.OnAutoComplListBoxClick);
-            // 
             // m_labelScript
             // 
             this.m_labelScript.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
@@ -94,14 +79,15 @@
             this.m_EditScript.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_EditScript.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.m_EditScript.Location = new System.Drawing.Point(10, 25);
             this.m_EditScript.Name = "m_EditScript";
             this.m_EditScript.Size = new System.Drawing.Size(555, 192);
             this.m_EditScript.TabIndex = 17;
             this.m_EditScript.Text = "";
             this.m_EditScript.WordWrap = false;
-            this.m_EditScript.Leave += new System.EventHandler(this.m_EditScript_Leave);
             this.m_EditScript.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnEditScriptKeyDown);
+            this.m_EditScript.Leave += new System.EventHandler(this.m_EditScript_Leave);
             this.m_EditScript.TextChanged += new System.EventHandler(this.OnEditScriptTextChanged);
             this.m_EditScript.Click += new System.EventHandler(this.OnEditScriptClick);
             // 
@@ -145,6 +131,21 @@
             // 
             this.m_colMessage.Text = "Informations";
             this.m_colMessage.Width = 490;
+            // 
+            // m_AutoComplListBox
+            // 
+            this.m_AutoComplListBox.BackColor = System.Drawing.SystemColors.Control;
+            this.m_AutoComplListBox.FormattingEnabled = true;
+            this.m_AutoComplListBox.HorizontalScrollbar = true;
+            this.m_AutoComplListBox.Location = new System.Drawing.Point(408, 2);
+            this.m_AutoComplListBox.Name = "m_AutoComplListBox";
+            this.m_AutoComplListBox.Size = new System.Drawing.Size(139, 17);
+            this.m_AutoComplListBox.Sorted = true;
+            this.m_AutoComplListBox.TabIndex = 19;
+            this.m_AutoComplListBox.TabStop = false;
+            this.m_AutoComplListBox.Visible = false;
+            this.m_AutoComplListBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnAutoComplListBoxKeyDown);
+            this.m_AutoComplListBox.Click += new System.EventHandler(this.OnAutoComplListBoxClick);
             // 
             // ScriptEditorControl
             // 

@@ -66,10 +66,9 @@ namespace SoundPlayer
             DialogResult dlgRes = CentralizedFileDlg.ShowSndFileDilaog(bf);
             if (dlgRes == DialogResult.OK)
             {
-                string path = Path.GetDirectoryName(CentralizedFileDlg.SndFileName);
-                this.FilePath = CentralizedFileDlg.SndFileName;
+                this.FilePath = PathTranslator.LinuxVsWindowsPathStore(
+                                    Document.PathTr.AbsolutePathToRelative(CentralizedFileDlg.SndFileName));
             }
         }
-
     }
 }

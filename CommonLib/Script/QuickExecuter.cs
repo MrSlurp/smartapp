@@ -271,6 +271,9 @@ namespace CommonLib
                     case SCR_OBJECT.MATHS:
                         QuickExecuteMaths(QuickScript[i]);
                         break;
+                    case SCR_OBJECT.SYSTEM:
+                        QuickExecuteSystem(QuickScript[i]);
+                        break;
                     case SCR_OBJECT.INVALID:
                     default:
                         break;
@@ -929,6 +932,30 @@ namespace CommonLib
                         Traces.LogAddDebug(TraceCat.ExecuteScreen,
                                            string.Format("Screen.SCREEN_SNAPSHOT {0}", QuickScript.m_Arguments[0].Symbol));
                     ((BTScreen)QuickScript.m_Arguments[0]).TakeScreenShot("");
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Execute les fonction mathématiques
+        /// </summary>
+        /// <param name="QuickScript"></param>
+        internal void QuickExecuteSystem(PreParsedLine QuickScript)
+        {
+            string[] args = QuickScript.m_objArguments as string[];
+            if (args == null)
+                return;
+
+            string exeName = args[0];
+            string arguments = string.Empty;
+            for (int i = 1 ; i <args.Length; i++)
+            {
+                arguments += "\"" + args[i] + "\" ";
+            }
+            switch (QuickScript.m_FunctionToExec)
+            {
+                case ALL_FUNC.SYSTEM_SHELL_EXEC:
+                    System.Diagnostics.Process.Start(args[0], arguments);
                     break;
             }
         }

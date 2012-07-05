@@ -41,7 +41,7 @@
             this.tabControl1.Location = new System.Drawing.Point(2, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(603, 570);
+            this.tabControl1.Size = new System.Drawing.Size(603, 573);
             this.tabControl1.TabIndex = 0;
             // 
             // btnOK
@@ -51,7 +51,7 @@
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(80, 23);
             this.btnOK.TabIndex = 1;
-            this.btnOK.Text = "OK";
+            this.btnOK.Text = "Apply";
             this.btnOK.UseVisualStyleBackColor = true;
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
@@ -63,18 +63,18 @@
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(80, 23);
             this.btnCancel.TabIndex = 1;
-            this.btnCancel.Text = "Cancel";
+            this.btnCancel.Text = "Close";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
             // BasePropertiesDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(692, 573);
+            this.ClientSize = new System.Drawing.Size(692, 576);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.tabControl1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(700, 600);
@@ -83,6 +83,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Properties";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BasePropertiesDialog_FormClosing);
             this.ResumeLayout(false);
 
         }

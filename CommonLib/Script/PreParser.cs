@@ -59,21 +59,6 @@ namespace CommonLib
             return retPreParsedScript.Count != 0 ? retPreParsedScript : null;
         }
 
-        /*
-        public List<PreParsedLine> PreParseScript(StringCollection script)
-        {
-            if (script.Count == 0)
-                return null;
-            List<PreParsedLine> retPreParsedScript = new List<PreParsedLine>();
-            for (int i = 0; i < script.Count; i++)
-            {   
-                PreParsedLine ppLine = PreParseLine(script[i]);
-                if (ppLine != null)         
-                    retPreParsedScript.Add(ppLine);
-            }
-            return retPreParsedScript;
-        }*/
-
         public PreParsedLine PreParseLine(string Line)
         {
             PreParsedLine retPreParsedLine = new PreParsedLine();
@@ -105,6 +90,9 @@ namespace CommonLib
                         break;
                     case SCR_OBJECT.SCREEN:
                         PreParseScreen(ref retPreParsedLine, Line);
+                        break;
+                    case SCR_OBJECT.SYSTEM:
+                        PreParseSystem(ref retPreParsedLine, Line);
                         break;
                     case SCR_OBJECT.INVALID:
                     default:
@@ -185,6 +173,49 @@ namespace CommonLib
             ScriptParser.TrimEndParenthese(ref FunctionSymb);
             Function func = (Function)m_Document.GestFunction.QuickGetFromSymbol(FunctionSymb);
             retPreParsedLine.m_Arguments = new BaseObject[1] {func};
+        }
+
+        public void PreParseSystem(ref PreParsedLine retPreParsedLine, string line)
+        {
+            // dans le cas des fonction système, il peut y avoir des points entre les parenthèses
+            string[] strTab = line.Split(ParseExecGlobals.TOKEN_SEPARATOR);
+            if (strTab.Length >= 2)
+            {
+                string strTempFull = strTab[1];
+                int posOpenParenthese = 0;
+                int posCloseParenthese = 0;
+                ScriptParser.GetParenthesePos(strTempFull, ref posOpenParenthese, ref posCloseParenthese);
+                string MathFunc = strTempFull;
+                MathFunc = MathFunc.Remove(posOpenParenthese);
+                MathFunc = MathFunc.Trim();
+
+                SYSTEM_FUNC SecondTokenType = SYSTEM_FUNC.INVALID;
+                try
+                {
+                    SecondTokenType = (SYSTEM_FUNC)Enum.Parse(typeof(SYSTEM_FUNC), MathFunc);
+                }
+                catch (Exception)
+                {
+                    Traces.LogAddDebug(TraceCat.Parser, "Erreur parsing system func");
+                    return;
+                }
+                if (SecondTokenType != SYSTEM_FUNC.INVALID)
+                {
+                    string[] strParamList = null;
+                    ScriptParser.GetArgsAsString(line, ref strParamList);
+                    retPreParsedLine.m_objArguments = new string[strParamList.Length];
+                    for (int i = 0; i < strParamList.Length; i++)
+                    {
+                        ((string[])retPreParsedLine.m_objArguments)[i] = strParamList[i].Trim();
+                    }
+                    switch (SecondTokenType)
+                    {
+                        case SYSTEM_FUNC.SHELL_EXEC:
+                            retPreParsedLine.m_FunctionToExec = ALL_FUNC.SYSTEM_SHELL_EXEC;
+                            break;
+                    }
+                }
+            }
         }
     
         public void PreParseTimers(ref PreParsedLine retPreParsedLine, string line)

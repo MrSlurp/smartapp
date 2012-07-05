@@ -32,7 +32,7 @@ namespace SmartApp
 
         CheckBox m_chkViewTips = new CheckBox();
 
-        BasePropertiesDialog m_PropDialog = new BasePropertiesDialog();
+        BasePropertiesDialog m_PropDialog; //= new BasePropertiesDialog();
 
         SortedList<string, DocumentElementNode> m_ListDocument = new SortedList<string, DocumentElementNode>();
         #endregion
@@ -77,6 +77,9 @@ namespace SmartApp
                 m_SolutionNode.SelectedImageKey = "Solution";
                 m_SolutionNode.ForeColor = Color.Red;
             }
+            m_PropDialog = MDISmartConfigMain.GlobalPropDialog;
+            m_PropDialog.ObjectPropertiesChanged += new EventHandler(OnPropertiesDlgObjChangedNotified);
+
             InitContextMenu();
         }
 
@@ -175,29 +178,39 @@ namespace SmartApp
                 else if (selNode.Tag is BaseObject)
                 {
                     this.ContextMenuStrip = m_CtxMenuObject;
+                    BaseObject bobj = selNode.Tag as BaseObject;
+                    m_PropDialog.Document = GetDocFromParentNode(selNode);
+                    m_PropDialog.CurrentScreen = null;
+                    m_PropDialog.ConfiguredItem = bobj;
+                    m_PropDialog.Initialize();
                 }
                 // un groupe
                 else if (selNode.Tag is BaseGestGroup.Group)
                 {
                     this.ContextMenuStrip = m_CtxMenuGestGroups;
+                    m_PropDialog.ConfiguredItem = null;
                 }
                 // un document
                 else if (selNode.Tag is DocumentElementNode)
                 {
                     this.ContextMenuStrip = m_CtxMenuProject;
+                    m_PropDialog.ConfiguredItem = null;
                 }
                 else if (selNode.Tag is GestTrame)
                 {
                     this.ContextMenuStrip = m_CtxMenuTrame;
+                    m_PropDialog.ConfiguredItem = null;
                 }
                 // un gestionnaire de base
                 else if (selNode.Tag is BaseGest)
                 {
                     this.ContextMenuStrip = m_CtxMenuGest;
+                    m_PropDialog.ConfiguredItem = null;
                 }
                 else
                 {
                     this.ContextMenuStrip = null;
+                    m_PropDialog.ConfiguredItem = null;
                 }
                 if (this.ContextMenuStrip != null)
                     this.ContextMenuStrip.Show(e.Location);
@@ -389,7 +402,19 @@ namespace SmartApp
                 m_PropDialog.CurrentScreen = null;
                 m_PropDialog.Document = GetDocFromParentNode(selNode);
                 m_PropDialog.Initialize();
-                m_PropDialog.ShowDialog();
+                if (!m_PropDialog.Visible)
+                {
+                    m_PropDialog.Visible = true;
+                }
+            }
+        }
+
+        void OnPropertiesDlgObjChangedNotified(object sender, EventArgs e)
+        {
+            TreeNode selNode = this.SelectedNode;
+            if (m_PropDialog.ConfiguredItem == selNode.Tag)
+            {
+                BaseObject bobj = selNode.Tag as BaseObject;
                 selNode.ToolTipText = GetToolTipFromTag(bobj);
                 selNode.Text = bobj.Symbol;
             }

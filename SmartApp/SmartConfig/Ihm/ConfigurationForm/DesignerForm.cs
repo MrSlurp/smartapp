@@ -17,7 +17,7 @@ namespace SmartApp.Ihm
         #region données membres
         private BTDoc m_Document = null;
         private BTScreen m_Currentscreen = null;
-        BasePropertiesDialog m_PropDialog = new BasePropertiesDialog();
+        BasePropertiesDialog m_PropDialog;//= new BasePropertiesDialog();
         #endregion
 
         #region attributs de la classe
@@ -33,7 +33,6 @@ namespace SmartApp.Ihm
             set
             {
                 m_Document = value;
-                m_PropDialog.Document = m_Document;
                 m_InteractiveControlContainer.m_Document = m_Document;
             }
         }
@@ -106,7 +105,7 @@ namespace SmartApp.Ihm
             m_InteractiveControlContainer.EventControlDblClick += new ControlDoubleClicked(this.OnControlDblClick);
             m_InteractiveControlContainer.AllowDrop = false;
 
-
+            m_PropDialog = MDISmartConfigMain.GlobalPropDialog;
             OnScreenDesignerSelectionChange();
         }
 
@@ -129,7 +128,13 @@ namespace SmartApp.Ihm
             UpdateLayoutToolBarButtons();
             if (m_InteractiveControlContainer.SelectionCount >= 1)
             {
+                m_PropDialog.Document = m_Document;
                 m_PropDialog.ConfiguredItem = m_InteractiveControlContainer.FirstSelected.SourceBTControl;
+                m_PropDialog.Initialize();
+            }
+            else
+            {
+                m_PropDialog.ConfiguredItem = null;
             }
         }
 
@@ -255,8 +260,10 @@ namespace SmartApp.Ihm
         /// </summary>
         protected void SelectedScreenChange()
         {
+            m_PropDialog.Document = m_Document;
             m_PropDialog.CurrentScreen = m_Currentscreen;
             m_PropDialog.ConfiguredItem = m_Currentscreen;
+            m_PropDialog.Initialize();
             if (m_Currentscreen == null)
             {
                 // si il n'y a pas d'écran selectionné
@@ -375,8 +382,13 @@ namespace SmartApp.Ihm
         {
             if (m_PropDialog.ConfiguredItem != null)
             {
+                m_PropDialog.Document = m_Document;
                 m_PropDialog.Initialize();
-                DialogResult dlgRes = m_PropDialog.ShowDialog();
+                if (!m_PropDialog.Visible)
+                {
+                    m_PropDialog.Show();
+                }
+                //DialogResult dlgRes = m_PropDialog.ShowDialog();
             }
         }
 

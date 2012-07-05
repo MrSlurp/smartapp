@@ -182,6 +182,11 @@ namespace CommonLib
                         IsParameter = true;
                     }
                     break;
+                case SCR_OBJECT.SYSTEM:
+                    retTokenType = TOKEN_TYPE.SYSTEM;
+                    if (TokenNumAtPos == 1)
+                        retTokenType = TOKEN_TYPE.SYSTEM_FUNC;
+                    break;
                 case SCR_OBJECT.INVALID:
                 default:
                     break;
@@ -261,6 +266,9 @@ namespace CommonLib
                 case TOKEN_TYPE.LOGIC_FUNC:
                     AutoCompleteStrings.AddRange(Enum.GetNames(typeof(LOGIC_FUNC)));
                     break;
+                case TOKEN_TYPE.SYSTEM_FUNC:
+                    AutoCompleteStrings.AddRange(Enum.GetNames(typeof(SYSTEM_FUNC)));
+                    break;
                 case TOKEN_TYPE.NULL:
                 default:
                     break;
@@ -318,6 +326,10 @@ namespace CommonLib
                             case SCR_OBJECT.SCREEN:
                                 if (ParseScreen(Line, ErrorList))
                                     ParseScreenFunction(Line, ErrorList);
+                                break;
+                            case SCR_OBJECT.SYSTEM:
+                                if (ParseSystem(Line, ErrorList))
+                                    ParseSystemFunction(Line, ErrorList);
                                 break;
                             case SCR_OBJECT.INVALID:
                             default:
@@ -596,5 +608,105 @@ namespace CommonLib
             return !HaveError;
         } 
         #endregion
+
+        #region parsing des fonction systeme
+        /// <summary>
+        /// vérifie que la trame utilisé pour les appels aux fonctions system
+        /// </summary>
+        /// <param name="line">ligne de script</param>
+        /// <param name="ErrorList">liste des erreur (sortie)</param>
+        /// <returns>true si le symbol de trame est valide</returns>
+        protected bool ParseSystem(string line, List<ScriptParserError> ErrorList)
+        {
+            string[] strTab = line.Split(ParseExecGlobals.TOKEN_SEPARATOR);
+            if (strTab.Length > 1)
+            {
+                string strTemp = strTab[1];
+                if (!CheckParenthese(line, ErrorList))
+                {
+                    return false;
+                }
+                /*
+                TrimEndParenthese(ref strTemp);
+                string strFunc = strTemp;
+                strFunc = strFunc.Trim();*/
+
+                /*
+                if (m_Document.GestFunction.GetFromSymbol(strFunc) == null)
+                {
+                    string strErr = string.Format("Invalid Function symbol {0}", strFunc);
+                    ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
+                    ErrorList.Add(Err);
+                    return false;
+                }*/
+
+                return true;
+            }
+            else
+            {
+                string strErr = string.Format("Invalid line, missing system function");
+                ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
+                ErrorList.Add(Err);
+            }
+            return false;
+
+        }
+
+        protected void ParseSystemFunction(string line, List<ScriptParserError> ErrorList)
+        {
+            string[] strTab = line.Split(ParseExecGlobals.TOKEN_SEPARATOR);
+            if (strTab.Length > 1)
+            {
+                int posOpenParenthese = -1;
+                int posCloseParenthese = -1;
+                if (!CheckParenthese(line, ErrorList, ref posOpenParenthese, ref posCloseParenthese))
+                    return;
+                string strTemp = strTab[1];
+                string strTempFull = strTemp;
+                GetParenthesePos(strTemp, ref posOpenParenthese, ref posCloseParenthese);
+
+                strTemp = strTemp.Remove(posOpenParenthese);
+                string strScrObject = strTemp;
+                SYSTEM_FUNC SecondTokenType = SYSTEM_FUNC.INVALID;
+                try
+                {
+                    SecondTokenType = (SYSTEM_FUNC)Enum.Parse(typeof(SYSTEM_FUNC), strScrObject);
+                }
+                catch (Exception)
+                {
+                    string strErr = string.Format(Lang.LangSys.C("Invalid system function {0}"), strScrObject);
+                    ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
+                    ErrorList.Add(Err);
+                    return;
+                }
+                string[] strParamList = null;
+                if (!GetArgsAsString(line, ErrorList, ref strParamList))
+                    return;
+
+                switch (SecondTokenType)
+                {
+                    case SYSTEM_FUNC.SHELL_EXEC:
+                        if (strParamList.Length < 1)
+                        {
+                            string strErr = string.Format(Lang.LangSys.C("Invalid line, not enought parameters for system function"));
+                            ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
+                            ErrorList.Add(Err);
+                        }
+                        break;
+                    case SYSTEM_FUNC.INVALID:
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                string strErr = string.Format(Lang.LangSys.C("Invalid line, missing system function"));
+                ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
+                ErrorList.Add(Err);
+            }
+
+        }
+        #endregion
+
     }
 }

@@ -194,7 +194,7 @@ namespace CommonLib
             m_bIsScriptChecked = false;
             int posCarret = m_EditScript.SelectionStart;
             RichTextBoxSelectionTypes oldval = m_EditScript.SelectionType;
-            m_EditScript.Text = m_EditScript.Text.ToUpper();
+            //m_EditScript.Text = m_EditScript.Text.ToUpper();
 
             int CarretLine = m_EditScript.GetLineFromCharIndex(posCarret);
             //            m_EditScript.SelectionStart = posCarret;
