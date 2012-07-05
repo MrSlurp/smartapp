@@ -140,94 +140,6 @@ namespace SmartApp
         // Description:
         // Return: /
         //*****************************************************************************************************      
-        private void OnlistViewSrcItemDrag(object sender, ItemDragEventArgs e)
-        {
-            try
-            {
-                Data lviData = (Data)((ListViewItem)e.Item).Tag;
-                DoDragDrop(lviData, DragDropEffects.All);
-            }
-            catch (Exception)
-            {
-
-            }
-        }
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
-        private void OnListViewDestDragEnter(object sender, DragEventArgs e)
-        {
-            Data dt = (Data)e.Data.GetData(typeof(Data));
-            bool bFind = false;
-            for (int i = 0; i < m_ListViewDataDest.Items.Count; i++)
-            {
-                if (m_ListViewDataDest.Items[i].Text == dt.Symbol)
-                {
-                    bFind = true;
-                    break;
-                }
-            }
-
-            if (bFind)
-            {
-                e.Effect = DragDropEffects.None;
-            }
-            else
-            {
-                e.Effect = DragDropEffects.Copy;
-            }
-        }
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
-        private void OnListViewFrameDataDragDrop(object sender, DragEventArgs e)
-        {
-            Data DropedItem = (Data)e.Data.GetData(typeof(Data));
-            if (DropedItem != null)
-            {
-                bool bFind = false;
-                ListViewItem LvFoundItem = null;
-                for (int i = 0; i < m_ListViewDataDest.Items.Count; i++)
-                {
-                    if (m_ListViewDataDest.Items[i].Text == DropedItem.Symbol)
-                    {
-                        bFind = true;
-                        LvFoundItem = m_ListViewDataDest.Items[i];
-                        break;
-                    }
-                }
-
-                if (bFind)
-                {
-                    // nothing to do
-                    // normalement c'est interdit puisque dropeffects = none;
-                }
-                else
-                {
-                    // on ne travail pas directement sur les listes mais sur les groupes
-                    string strSrcGroupName = (string)m_cboGroupSrc.SelectedValue;
-                    ArrayList SrcLst = GestData.GetGroupFromSymbol(strSrcGroupName).Items;
-                    string strDestGroupName = (string)m_cboGroupDest.SelectedValue;
-                    ArrayList DestLst = GestData.GetGroupFromSymbol(strDestGroupName).Items;
-                    if (SrcLst.Contains(DropedItem))
-                    {
-                        SrcLst.Remove(DropedItem);
-                        DestLst.Add(DropedItem);
-                        InitListViewSrcFromGroup();
-                        InitListViewDestFromGroup();
-                    }
-                }
-            }
-        }
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
         private void OnGroupSrcSelectedIndexChanged(object sender, EventArgs e)
         {
             InitListViewSrcFromGroup();
@@ -346,6 +258,55 @@ namespace SmartApp
             m_cboGroupDest.DisplayMember = "GroupName";
             m_cboGroupDest.ValueMember = "GroupSymbol";
             m_cboGroupDest.DataSource = m_GestGroupDest;
+        }
+
+        private void m_ListViewDataDest_ItemDrag(object sender, ItemDragEventArgs e)
+        {
+
+        }
+
+        private void btnMoveRight_Click(object sender, EventArgs e)
+        {
+            if (m_listViewDataSrc.SelectedItems.Count > 0)
+            {
+                string strSrcGroupName = (string)m_cboGroupSrc.SelectedValue;
+                ArrayList SrcLst = GestData.GetGroupFromSymbol(strSrcGroupName).Items;
+                string strDestGroupName = (string)m_cboGroupDest.SelectedValue;
+                ArrayList DestLst = GestData.GetGroupFromSymbol(strDestGroupName).Items;
+                foreach (ListViewItem item in m_listViewDataSrc.SelectedItems)
+                {
+                    Data data = item.Tag as Data;
+                    if (SrcLst.Contains(data))
+                    {
+                        SrcLst.Remove(data);
+                        DestLst.Add(data);
+                    }
+                }
+                InitListViewSrcFromGroup();
+                InitListViewDestFromGroup();
+            }
+        }
+
+        private void btnMoveLeft_Click(object sender, EventArgs e)
+        {
+            if (m_ListViewDataDest.SelectedItems.Count > 0)
+            {
+                string strSrcGroupName = (string)m_cboGroupSrc.SelectedValue;
+                ArrayList SrcLst = GestData.GetGroupFromSymbol(strSrcGroupName).Items;
+                string strDestGroupName = (string)m_cboGroupDest.SelectedValue;
+                ArrayList DestLst = GestData.GetGroupFromSymbol(strDestGroupName).Items;
+                foreach (ListViewItem item in m_ListViewDataDest.SelectedItems)
+                {
+                    Data data = item.Tag as Data;
+                    if (DestLst.Contains(data))
+                    {
+                        DestLst.Remove(data);
+                        SrcLst.Add(data);
+                    }
+                }
+                InitListViewSrcFromGroup();
+                InitListViewDestFromGroup();
+            }
         }
     }
 }

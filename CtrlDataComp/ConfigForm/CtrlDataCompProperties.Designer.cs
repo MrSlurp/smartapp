@@ -87,6 +87,7 @@
             // 
             // edtDataB
             // 
+            this.edtDataB.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.edtDataB.Location = new System.Drawing.Point(4, 191);
             this.edtDataB.Name = "edtDataB";
             this.edtDataB.Size = new System.Drawing.Size(209, 20);
@@ -94,6 +95,7 @@
             // 
             // edtDataA
             // 
+            this.edtDataA.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.edtDataA.Location = new System.Drawing.Point(4, 152);
             this.edtDataA.Name = "edtDataA";
             this.edtDataA.Size = new System.Drawing.Size(209, 20);
@@ -179,6 +181,7 @@
             // 
             // edtDataC
             // 
+            this.edtDataC.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.edtDataC.Location = new System.Drawing.Point(4, 230);
             this.edtDataC.Name = "edtDataC";
             this.edtDataC.Size = new System.Drawing.Size(209, 20);

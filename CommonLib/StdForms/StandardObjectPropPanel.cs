@@ -107,8 +107,16 @@ namespace CommonLib
         /// </summary>
         public void ObjectToPanel()
         {
-            this.m_richTextDesc.Text = m_baseObjectItem.Description;
-            this.m_textBoxSymbol.Text = m_baseObjectItem.Symbol;
+            if (m_baseObjectItem != null)
+            {
+                this.m_richTextDesc.Text = m_baseObjectItem.Description;
+                this.m_textBoxSymbol.Text = m_baseObjectItem.Symbol;
+            }
+            else
+            {
+                this.m_richTextDesc.Text = string.Empty;
+                this.m_textBoxSymbol.Text = string.Empty;
+            }
         }
 
         /// <summary>

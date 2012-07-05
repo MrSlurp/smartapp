@@ -14,7 +14,10 @@ namespace ImageButton
     internal class ImageButtonCmdControl : BTDllImageButtonControl
     {
         protected Data m_AssocInputData = null;
+        Bitmap m_Bmp1;
+        Bitmap m_Bmp2;
 
+        bool m_bAnimationStatus;
         /// <summary>
         /// Constructeur de la classe
         /// </summary>
@@ -63,10 +66,8 @@ namespace ImageButton
                     strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
                     try
                     {
-                        Bitmap bmp = new Bitmap(strImageFullPath);
-                        bmp.MakeTransparent(Color.Magenta);
-                        m_Ctrl.BackgroundImage = bmp;
-
+                        m_Bmp1 = new Bitmap(strImageFullPath);
+                        SetUsedImage(m_Bmp1, false);
                     }
                     catch (Exception)
                     {
@@ -76,7 +77,21 @@ namespace ImageButton
                 }
                 else
                 {
-                    m_Ctrl.BackgroundImage = ImageButtonRes.DefaultImg;
+                    SetUsedImage(m_Bmp1);
+                }
+                if (!string.IsNullOrEmpty(SpecProp.PressedImage))
+                {
+                    string strImageFullPath = m_Document.PathTr.RelativePathToAbsolute(SpecProp.PressedImage);
+                    strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
+                    try
+                    {
+                        m_Bmp2 = new Bitmap(strImageFullPath);
+                    }
+                    catch (Exception)
+                    {
+                        LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format(DllEntryClass.LangSys.C("Control {0} Failed to load file {1}"), Symbol, strImageFullPath));
+                        AddLogEvent(log);
+                    }
                 }
 
                 if (m_Ctrl is Button)
@@ -115,36 +130,24 @@ namespace ImageButton
             {
                 DllImageButtonProp SpecProp = this.SpecificProp as DllImageButtonProp;
                 CheckBox chk = m_Ctrl as CheckBox;
-                string strImageFullPath;
                 if (!SpecProp.ImgFromInput)
                 {
+                    Bitmap usedBmp = null;
                     if (!chk.Checked)
                     {
-                        strImageFullPath = m_Document.PathTr.RelativePathToAbsolute(SpecProp.ReleasedImage);
-                        strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
+                        usedBmp = m_Bmp1;
                         if (m_AssociateData != null)
                             m_AssociateData.Value = 0;
                     }
                     else
                     {
-                        strImageFullPath = m_Document.PathTr.RelativePathToAbsolute(SpecProp.PressedImage);
-                        strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
+                        usedBmp = m_Bmp2;
                         if (m_AssociateData != null)
                             m_AssociateData.Value = 1;
                     }
-                    try
+                    if (!SpecProp.ImgFromInput)
                     {
-                        if (!SpecProp.ImgFromInput)
-                        {
-                            Bitmap bmp = new Bitmap(strImageFullPath);
-                            bmp.MakeTransparent(Color.Magenta);
-                            m_Ctrl.BackgroundImage = bmp;
-                        }
-                    }
-                    catch (Exception)
-                    {
-                        LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format(DllEntryClass.LangSys.C("Control {0} Failed to load file {1}"), Symbol, strImageFullPath));
-                        AddLogEvent(log);
+                        SetUsedImage(usedBmp);
                     }
                 }
                 else
@@ -182,6 +185,46 @@ namespace ImageButton
             return;
         }
 
+        private void SetUsedImage(Bitmap usedBmp)
+        {
+            SetUsedImage(usedBmp, true);
+        }
+
+        private void SetUsedImage(Bitmap usedBmp, bool bStartAnim)
+        {
+            if (usedBmp != null)
+            {
+                if (m_Ctrl.BackgroundImage != usedBmp)
+                {
+                    ImageAnimator.StopAnimate(m_Ctrl.BackgroundImage, OnImageFrameChanged);
+                    m_bAnimationStatus = false;
+                    if (!ImageAnimator.CanAnimate(usedBmp))
+                    {
+                        usedBmp.MakeTransparent(Color.Magenta);
+                        bStartAnim = false;
+                    }
+                    m_Ctrl.BackgroundImage = usedBmp;
+                }
+
+                if (bStartAnim && !m_bAnimationStatus)
+                {
+                    ImageAnimator.Animate(m_Ctrl.BackgroundImage, OnImageFrameChanged);
+                    m_bAnimationStatus = true;
+                }
+            }
+            else if (usedBmp == null)
+            {
+                m_Ctrl.BackgroundImage = ImageButtonRes.DefaultImg;
+            }
+            m_Ctrl.Invalidate();
+        }
+
+        public void OnImageFrameChanged(object sender, EventArgs e)
+        {
+            ImageAnimator.UpdateFrames(m_Ctrl.BackgroundImage);
+            m_Ctrl.Invalidate();
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -190,21 +233,9 @@ namespace ImageButton
         void ImageButtonCmdControl_MouseUp(object sender, MouseEventArgs e)
         {
             DllImageButtonProp SpecProp = this.SpecificProp as DllImageButtonProp;
-            if (m_Ctrl is Button && !string.IsNullOrEmpty(SpecProp.ReleasedImage) && !SpecProp.ImgFromInput)
+            if (m_Ctrl is Button && !SpecProp.ImgFromInput)
             {
-                string strImageFullPath = m_Document.PathTr.RelativePathToAbsolute(SpecProp.ReleasedImage);
-                strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
-                try
-                {
-                    Bitmap bmp = new Bitmap(strImageFullPath);
-                    bmp.MakeTransparent(Color.Magenta);
-                    m_Ctrl.BackgroundImage = bmp;
-                }
-                catch (Exception)
-                {
-                    LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format(DllEntryClass.LangSys.C("Control {0} Failed to load file {1}"), Symbol, strImageFullPath));
-                    AddLogEvent(log);
-                }
+                SetUsedImage(m_Bmp1);
             }
         }
 
@@ -216,21 +247,9 @@ namespace ImageButton
         void ImageButtonCmdControl_MouseDown(object sender, MouseEventArgs e)
         {
             DllImageButtonProp SpecProp = this.SpecificProp as DllImageButtonProp;
-            if (m_Ctrl is Button && !string.IsNullOrEmpty(SpecProp.PressedImage) && !SpecProp.ImgFromInput)
+            if (m_Ctrl is Button && !SpecProp.ImgFromInput)
             {
-                string strImageFullPath = m_Document.PathTr.RelativePathToAbsolute(SpecProp.PressedImage);
-                strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
-                try
-                {
-                    Bitmap bmp = new Bitmap(strImageFullPath);
-                    bmp.MakeTransparent(Color.Magenta);
-                    m_Ctrl.BackgroundImage = bmp;
-                }
-                catch (Exception)
-                {
-                    LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format(DllEntryClass.LangSys.C("Control {0} Failed to load file {1}"), Symbol, strImageFullPath));
-                    AddLogEvent(log);
-                }
+                SetUsedImage(m_Bmp2);
             }
         }
 
@@ -248,11 +267,11 @@ namespace ImageButton
             {
                 if (prop.ImgFromInput)
                 {
-                    string strImageFullPath;
+                    
+                    Bitmap usedBmp;
                     if (m_AssocInputData.Value == 0)
                     {
-                        strImageFullPath = m_Document.PathTr.RelativePathToAbsolute(prop.ReleasedImage);
-                        strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
+                        usedBmp = m_Bmp1;
                         if (m_Ctrl is CheckBox)
                         {
                             CheckBox chk = m_Ctrl as CheckBox;
@@ -261,25 +280,14 @@ namespace ImageButton
                     }
                     else
                     {
-                        strImageFullPath = m_Document.PathTr.RelativePathToAbsolute(prop.PressedImage);
-                        strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
+                        usedBmp = m_Bmp2;
                         if (m_Ctrl is CheckBox)
                         {
                             CheckBox chk = m_Ctrl as CheckBox;
                             chk.Checked = true;
                         }
                     }
-                    try
-                    {
-                        Bitmap bmp = new Bitmap(strImageFullPath);
-                        bmp.MakeTransparent(Color.Magenta);
-                        m_Ctrl.BackgroundImage = bmp;
-                    }
-                    catch (Exception)
-                    {
-                        LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format(DllEntryClass.LangSys.C("Control {0} Failed to load file {1}"), Symbol, strImageFullPath));
-                        AddLogEvent(log);
-                    }
+                    SetUsedImage(usedBmp);
                 }
             }
         }
@@ -315,10 +323,13 @@ namespace ImageButton
                 {
                     // message de requête sur les conséquence d'une supression
                     case MESSAGE.MESS_CMD_STOP:
+                        ImageAnimator.StopAnimate(m_Ctrl.BackgroundImage, OnImageFrameChanged);
+                        m_bAnimationStatus = false;
                         // traitez ici le passage en mode stop du control si nécessaire
                         break;
                     case MESSAGE.MESS_CMD_RUN:
                         // traitez ici le passage en mode run du control si nécessaire
+                        SetUsedImage(m_Bmp1);
                         break;
                     default:
                         break;

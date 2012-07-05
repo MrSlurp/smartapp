@@ -45,7 +45,7 @@ namespace DigitalDisplay
             // m_rdBtn3
             // 
             this.m_rdBtn3.AutoSize = true;
-            this.m_rdBtn3.Location = new System.Drawing.Point(18, 147);
+            this.m_rdBtn3.Location = new System.Drawing.Point(207, 78);
             this.m_rdBtn3.Name = "m_rdBtn3";
             this.m_rdBtn3.Size = new System.Drawing.Size(58, 17);
             this.m_rdBtn3.TabIndex = 4;
@@ -57,7 +57,7 @@ namespace DigitalDisplay
             // m_rdBtn2
             // 
             this.m_rdBtn2.AutoSize = true;
-            this.m_rdBtn2.Location = new System.Drawing.Point(18, 124);
+            this.m_rdBtn2.Location = new System.Drawing.Point(143, 78);
             this.m_rdBtn2.Name = "m_rdBtn2";
             this.m_rdBtn2.Size = new System.Drawing.Size(58, 17);
             this.m_rdBtn2.TabIndex = 5;
@@ -69,7 +69,7 @@ namespace DigitalDisplay
             // m_rdBtn1
             // 
             this.m_rdBtn1.AutoSize = true;
-            this.m_rdBtn1.Location = new System.Drawing.Point(18, 101);
+            this.m_rdBtn1.Location = new System.Drawing.Point(79, 78);
             this.m_rdBtn1.Name = "m_rdBtn1";
             this.m_rdBtn1.Size = new System.Drawing.Size(58, 17);
             this.m_rdBtn1.TabIndex = 6;
@@ -172,7 +172,7 @@ namespace DigitalDisplay
             this.Controls.Add(this.m_rdBtn0);
             this.Controls.Add(this.label1);
             this.Name = "DigitalDisplayProperties";
-            this.Size = new System.Drawing.Size(214, 169);
+            this.Size = new System.Drawing.Size(277, 105);
             this.ResumeLayout(false);
             this.PerformLayout();
 

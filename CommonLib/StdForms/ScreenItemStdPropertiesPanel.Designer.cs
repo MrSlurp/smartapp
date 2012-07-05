@@ -69,11 +69,9 @@ namespace CommonLib
             // 
             // m_EditText
             // 
-            this.m_EditText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
             this.m_EditText.Location = new System.Drawing.Point(3, 57);
             this.m_EditText.Name = "m_EditText";
-            this.m_EditText.Size = new System.Drawing.Size(270, 20);
+            this.m_EditText.Size = new System.Drawing.Size(342, 20);
             this.m_EditText.TabIndex = 12;
             // 
             // labelText
@@ -97,8 +95,7 @@ namespace CommonLib
             // 
             // btn_pickdata
             // 
-            this.btn_pickdata.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_pickdata.Location = new System.Drawing.Point(192, 17);
+            this.btn_pickdata.Location = new System.Drawing.Point(264, 17);
             this.btn_pickdata.Name = "btn_pickdata";
             this.btn_pickdata.Size = new System.Drawing.Size(78, 23);
             this.btn_pickdata.TabIndex = 16;
@@ -146,14 +143,12 @@ namespace CommonLib
             // m_EditAssociateData
             // 
             this.m_EditAssociateData.AllowDrop = true;
-            this.m_EditAssociateData.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
             this.m_EditAssociateData.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.m_EditAssociateData.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.m_EditAssociateData.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.m_EditAssociateData.Location = new System.Drawing.Point(4, 17);
             this.m_EditAssociateData.Name = "m_EditAssociateData";
-            this.m_EditAssociateData.Size = new System.Drawing.Size(182, 20);
+            this.m_EditAssociateData.Size = new System.Drawing.Size(254, 20);
             this.m_EditAssociateData.TabIndex = 13;
             this.m_EditAssociateData.DragDrop += new System.Windows.Forms.DragEventHandler(this.OnEditAssociateDataDragDrop);
             this.m_EditAssociateData.DragEnter += new System.Windows.Forms.DragEventHandler(this.OnEditAssociateDataDragEnter);
@@ -188,7 +183,7 @@ namespace CommonLib
             this.Controls.Add(this.m_checkScreenEvent);
             this.Controls.Add(this.m_labelAssoData);
             this.Name = "ScreenItemStdPropertiesPanel";
-            this.Size = new System.Drawing.Size(278, 194);
+            this.Size = new System.Drawing.Size(350, 194);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -93,5 +93,12 @@ namespace FourBitmap
                                     Document.PathTr.AbsolutePathToRelative(CentralizedFileDlg.ImgFileName));
             }
         }
+
+        private void m_txtBoxImgn_KeyDown(object sender, KeyEventArgs e)
+        {
+            TextBox senderTB = sender as TextBox;
+            if (senderTB != null)
+                senderTB.Text = string.Empty;
+        }
     }
 }

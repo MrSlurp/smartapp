@@ -59,7 +59,7 @@ namespace FormatedDisplay
             // m_rdBtn1
             // 
             this.m_rdBtn1.AutoSize = true;
-            this.m_rdBtn1.Location = new System.Drawing.Point(18, 39);
+            this.m_rdBtn1.Location = new System.Drawing.Point(79, 16);
             this.m_rdBtn1.Name = "m_rdBtn1";
             this.m_rdBtn1.Size = new System.Drawing.Size(58, 17);
             this.m_rdBtn1.TabIndex = 1;
@@ -71,7 +71,7 @@ namespace FormatedDisplay
             // m_rdBtn2
             // 
             this.m_rdBtn2.AutoSize = true;
-            this.m_rdBtn2.Location = new System.Drawing.Point(18, 62);
+            this.m_rdBtn2.Location = new System.Drawing.Point(143, 16);
             this.m_rdBtn2.Name = "m_rdBtn2";
             this.m_rdBtn2.Size = new System.Drawing.Size(58, 17);
             this.m_rdBtn2.TabIndex = 1;
@@ -83,7 +83,7 @@ namespace FormatedDisplay
             // m_rdBtn3
             // 
             this.m_rdBtn3.AutoSize = true;
-            this.m_rdBtn3.Location = new System.Drawing.Point(18, 85);
+            this.m_rdBtn3.Location = new System.Drawing.Point(207, 16);
             this.m_rdBtn3.Name = "m_rdBtn3";
             this.m_rdBtn3.Size = new System.Drawing.Size(58, 17);
             this.m_rdBtn3.TabIndex = 1;
@@ -103,7 +103,7 @@ namespace FormatedDisplay
             this.Controls.Add(this.m_rdBtn0);
             this.Controls.Add(this.label1);
             this.Name = "FormatedDisplayProperties";
-            this.Size = new System.Drawing.Size(137, 111);
+            this.Size = new System.Drawing.Size(283, 45);
             this.ResumeLayout(false);
             this.PerformLayout();
 

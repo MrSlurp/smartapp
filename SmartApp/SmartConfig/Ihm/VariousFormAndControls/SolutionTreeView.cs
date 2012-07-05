@@ -159,15 +159,15 @@ namespace SmartApp
         protected override void OnMouseClick(MouseEventArgs e)
         {
             base.OnMouseClick(e);
+            this.SelectedNode = this.GetNodeAt(e.X, e.Y);
+            TreeNode selNode = this.SelectedNode;
+            if (selNode == null)
+                return;
             // gestion du clic souris avec le bouton droit
             // on fixe le menu contextuel approprié au type d'objet
             // et l'affiche si il y a lieu d'être
             if (e.Button == MouseButtons.Right)
             {
-                this.SelectedNode = this.GetNodeAt(e.X, e.Y);
-                TreeNode selNode = this.SelectedNode;
-                if (selNode == null)
-                    return;
 
                 // la solution
                 if (selNode == m_SolutionNode)
@@ -178,11 +178,6 @@ namespace SmartApp
                 else if (selNode.Tag is BaseObject)
                 {
                     this.ContextMenuStrip = m_CtxMenuObject;
-                    BaseObject bobj = selNode.Tag as BaseObject;
-                    m_PropDialog.Document = GetDocFromParentNode(selNode);
-                    m_PropDialog.CurrentScreen = null;
-                    m_PropDialog.ConfiguredItem = bobj;
-                    m_PropDialog.Initialize();
                 }
                 // un groupe
                 else if (selNode.Tag is BaseGestGroup.Group)
@@ -214,6 +209,17 @@ namespace SmartApp
                 }
                 if (this.ContextMenuStrip != null)
                     this.ContextMenuStrip.Show(e.Location);
+            }
+            else
+            {
+                if (selNode.Tag is BaseObject)
+                {
+                    BaseObject bobj = selNode.Tag as BaseObject;
+                    m_PropDialog.Document = GetDocFromParentNode(selNode);
+                    m_PropDialog.CurrentScreen = null;
+                    m_PropDialog.ConfiguredItem = bobj;
+                    m_PropDialog.Initialize();
+                }
             }
         }
 
@@ -359,6 +365,10 @@ namespace SmartApp
                 newNode.Tag = bobj;
                 newNode.ToolTipText = GetToolTipFromTag(bobj);
                 NewItemParentNode.Nodes.Add(newNode);
+                BTDoc doc = GetDocFromParentNode(newNode);
+                doc.Modified = true;
+                this.SelectedNode = newNode;
+                OnMouseDoubleClick(null);
             }
         }
 
@@ -404,8 +414,9 @@ namespace SmartApp
                 m_PropDialog.Initialize();
                 if (!m_PropDialog.Visible)
                 {
-                    m_PropDialog.Visible = true;
+                    m_PropDialog.Show();
                 }
+                m_PropDialog.BringToFront();
             }
         }
 

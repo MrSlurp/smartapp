@@ -210,5 +210,17 @@ namespace ImageButton
                     edtInputData.Text = string.Empty;
             }
         }
+
+        private void m_txtBoxImg1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Delete)
+                m_txtBoxImg1.Text = string.Empty;
+        }
+
+        private void m_txtBoxImg2_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Delete)
+                m_txtBoxImg2.Text = string.Empty;
+        }
     }
 }

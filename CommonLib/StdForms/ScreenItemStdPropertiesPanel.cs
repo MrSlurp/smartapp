@@ -387,8 +387,9 @@ namespace CommonLib
                     m_CurrentSpecificControlPropPanel.Parent = this;
                     //m_CurrentSpecificControlPropPanel.Width = this.Width/2;
                     //m_CurrentSpecificControlPropPanel.Height = this.Height - ctrl.Location.X -10;
+                    m_CurrentSpecificControlPropPanel.AutoScroll = true;
                     m_CurrentSpecificControlPropPanel.Visible = true;
-                    m_CurrentSpecificControlPropPanel.Anchor = AnchorStyles.Left | AnchorStyles.Bottom | AnchorStyles.Top | AnchorStyles.Right;
+                    m_CurrentSpecificControlPropPanel.Anchor = AnchorStyles.Left | AnchorStyles.Top;
                 }
                 catch (Exception e)
                 {

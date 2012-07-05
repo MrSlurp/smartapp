@@ -124,22 +124,25 @@ namespace CtrlGraph
             // 
             this.edtYAxis.Location = new System.Drawing.Point(308, 65);
             this.edtYAxis.Name = "edtYAxis";
-            this.edtYAxis.Size = new System.Drawing.Size(173, 20);
+            this.edtYAxis.Size = new System.Drawing.Size(177, 20);
             this.edtYAxis.TabIndex = 3;
             // 
             // uscPanelCurveCfg
             // 
+            this.uscPanelCurveCfg.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)));
             this.uscPanelCurveCfg.AutoScroll = true;
             this.uscPanelCurveCfg.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.uscPanelCurveCfg.Location = new System.Drawing.Point(8, 135);
             this.uscPanelCurveCfg.Name = "uscPanelCurveCfg";
-            this.uscPanelCurveCfg.Size = new System.Drawing.Size(558, 219);
+            this.uscPanelCurveCfg.Size = new System.Drawing.Size(559, 209);
             this.uscPanelCurveCfg.TabIndex = 0;
             // 
             // CtrlGraphProperties
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.Controls.Add(this.uscPanelCurveCfg);
             this.Controls.Add(this.edtYAxis);
             this.Controls.Add(this.edtXAxis);
@@ -152,7 +155,7 @@ namespace CtrlGraph
             this.Controls.Add(this.cboDispPeriod);
             this.Controls.Add(this.label1);
             this.Name = "CtrlGraphProperties";
-            this.Size = new System.Drawing.Size(569, 364);
+            this.Size = new System.Drawing.Size(572, 347);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -41,7 +41,12 @@ namespace CommonLib
             set 
             { 
                 m_baseObjectItem = value;
-                this.Enabled = m_baseObjectItem == null? false : true;
+                this.tabControl1.Enabled = m_baseObjectItem == null ? false : true;
+                this.btnOK.Enabled = m_baseObjectItem == null ? false : true;
+                if (m_baseObjectItem == null)
+                {
+                    Initialize();
+                }
             } 
         }
 
@@ -68,11 +73,15 @@ namespace CommonLib
         {
             m_listPropsPanels.Clear();
             m_listTitle.Clear();
+            tabControl1.SuspendLayout();
+            tabControl1.Visible = false;
             tabControl1.TabPages.Clear();
+            m_listPropsPanels.Add(m_stdPropPanel);
+            m_listTitle.Add(Lang.LangSys.C("Symbol & Description"));
             if (m_baseObjectItem != null)
             {
-                m_listPropsPanels.Add(m_stdPropPanel);
-                m_listTitle.Add(Lang.LangSys.C("Symbol & Description"));
+                m_stdPropPanel.Enabled = true;
+                this.Text = Lang.LangSys.C("Properties of ") + m_baseObjectItem.Symbol;
                 if (m_baseObjectItem != null && m_Document != null)
                 {
                     if (m_baseObjectItem.StdConfigPanel != null)
@@ -150,6 +159,16 @@ namespace CommonLib
                     }
                 }
             }
+            else
+            {
+                this.Text = Lang.LangSys.C("Selection is empty");
+                m_stdPropPanel.Enabled = false;
+                m_stdPropPanel.ConfiguredItem = null;
+                m_stdPropPanel.ObjectToPanel();
+                AddPropertyTab(m_listTitle[0], m_listPropsPanels[0]);
+            }
+            tabControl1.ResumeLayout();
+            tabControl1.Visible = true;
         }
 
         private void AddPropertyTab(string title, IObjectPropertyPanel panel)
@@ -157,15 +176,10 @@ namespace CommonLib
             this.tabControl1.TabPages.Add(title);
             TabPage newPage = this.tabControl1.TabPages[this.tabControl1.TabPages.Count - 1];
             newPage.SuspendLayout();
-            newPage.Controls.Add(panel.Panel);
             newPage.AutoScroll = true;
-            //newPage.ClientSize = panel.Panel.Size;
-            //newPage.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             panel.Panel.Location = new Point(0, 0);
-            panel.Panel.Width = newPage.Width - 5;
-            panel.Panel.Height = newPage.Height - 5;
-            panel.Panel.Anchor = AnchorStyles.Left | AnchorStyles.Bottom | AnchorStyles.Top | AnchorStyles.Right;
-            //panel.Panel.Dock = DockStyle.Fill;
+            panel.Panel.Dock = DockStyle.Fill;
+            newPage.Controls.Add(panel.Panel);
             newPage.ResumeLayout();
         }
 
@@ -208,11 +222,33 @@ namespace CommonLib
         private void BasePropertiesDialog_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (e.CloseReason == CloseReason.UserClosing)
-                this.Hide;
+            {
+                this.Hide();
+                e.Cancel = true;
+            }
         }
-    
 
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            foreach (IObjectPropertyPanel pan in m_listPropsPanels)
+            {
+                pan.ObjectToPanel();
+            }
+        }
 
-        
+        private void BasePropertiesDialog_Enter(object sender, EventArgs e)
+        {
+            this.Opacity = 1;
+        }
+
+        private void BasePropertiesDialog_Leave(object sender, EventArgs e)
+        {
+            this.Opacity = 0.85;
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+        }
     }
 }

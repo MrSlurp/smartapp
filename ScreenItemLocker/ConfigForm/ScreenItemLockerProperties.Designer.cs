@@ -43,16 +43,16 @@
             this.lstScreen.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)));
             this.lstScreen.FormattingEnabled = true;
-            this.lstScreen.Location = new System.Drawing.Point(11, 29);
+            this.lstScreen.Location = new System.Drawing.Point(5, 16);
             this.lstScreen.Name = "lstScreen";
             this.lstScreen.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lstScreen.Size = new System.Drawing.Size(198, 186);
+            this.lstScreen.Size = new System.Drawing.Size(170, 225);
             this.lstScreen.TabIndex = 0;
             this.lstScreen.SelectedIndexChanged += new System.EventHandler(this.lstScreen_SelectedIndexChanged);
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(214, 53);
+            this.btnAdd.Location = new System.Drawing.Point(181, 40);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(100, 23);
             this.btnAdd.TabIndex = 1;
@@ -62,7 +62,7 @@
             // 
             // btnAddAll
             // 
-            this.btnAddAll.Location = new System.Drawing.Point(214, 82);
+            this.btnAddAll.Location = new System.Drawing.Point(181, 69);
             this.btnAddAll.Name = "btnAddAll";
             this.btnAddAll.Size = new System.Drawing.Size(100, 23);
             this.btnAddAll.TabIndex = 1;
@@ -72,7 +72,7 @@
             // 
             // btnRemove
             // 
-            this.btnRemove.Location = new System.Drawing.Point(214, 136);
+            this.btnRemove.Location = new System.Drawing.Point(181, 123);
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Size = new System.Drawing.Size(100, 23);
             this.btnRemove.TabIndex = 1;
@@ -82,7 +82,7 @@
             // 
             // btnRemoveAll
             // 
-            this.btnRemoveAll.Location = new System.Drawing.Point(214, 165);
+            this.btnRemoveAll.Location = new System.Drawing.Point(181, 152);
             this.btnRemoveAll.Name = "btnRemoveAll";
             this.btnRemoveAll.Size = new System.Drawing.Size(100, 23);
             this.btnRemoveAll.TabIndex = 1;
@@ -95,17 +95,17 @@
             this.lstSelected.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)));
             this.lstSelected.FormattingEnabled = true;
-            this.lstSelected.Location = new System.Drawing.Point(321, 29);
+            this.lstSelected.Location = new System.Drawing.Point(287, 16);
             this.lstSelected.Name = "lstSelected";
             this.lstSelected.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lstSelected.Size = new System.Drawing.Size(192, 186);
+            this.lstSelected.Size = new System.Drawing.Size(170, 225);
             this.lstSelected.TabIndex = 0;
             this.lstSelected.SelectedIndexChanged += new System.EventHandler(this.lstSelected_SelectedIndexChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 13);
+            this.label1.Location = new System.Drawing.Point(3, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(88, 13);
             this.label1.TabIndex = 2;
@@ -114,17 +114,16 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(319, 13);
+            this.label2.Location = new System.Drawing.Point(284, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(89, 13);
             this.label2.TabIndex = 2;
             this.label2.Text = "Selected controls";
             // 
-            // SelectControlsForm
+            // ScreenItemLockerProperties
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(520, 235);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnRemoveAll);
@@ -133,8 +132,8 @@
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.lstSelected);
             this.Controls.Add(this.lstScreen);
-            this.Name = "SelectControlsForm";
-            this.Text = "Select Controls";
+            this.Name = "ScreenItemLockerProperties";
+            this.Size = new System.Drawing.Size(461, 241);
             this.ResumeLayout(false);
             this.PerformLayout();
 

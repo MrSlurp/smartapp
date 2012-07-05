@@ -64,7 +64,7 @@ namespace SmartApp
             }
             set
             {
-                m_IniOptionFile.SetValue(Cste.STR_FILE_DESC_HEADER_OPT, Cste.STR_FILE_DESC_AUTO_START, value.ToString());
+                m_IniOptionFile.SetValue(Cste.STR_FILE_DESC_HEADER_OPT, Cste.STR_FILE_DESC_HIDE_MON, value.ToString());
             }
         }
 

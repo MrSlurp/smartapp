@@ -559,12 +559,11 @@ namespace CommonLib
                 Directory.CreateDirectory(Path.GetDirectoryName(FileName));
             }
 
-            if (!CheckExistInDictionnary(FileName,DevText))
+            if (!CheckExistInDictionnary(FileName,DevText) && !string.IsNullOrEmpty(DevText))
             {
                 // la chaine n'existe pas dans le fichier
                 using (FileStream fsw = new FileStream(FileName, FileMode.Append, FileAccess.Write, FileShare.Read))
                 {
-    
                     StreamWriter sw = new StreamWriter(fsw, System.Text.Encoding.Unicode);
                     //ecriture du message
                     sw.WriteLine();

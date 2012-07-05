@@ -56,7 +56,6 @@ namespace SmartApp.Ihm
             InitializeComponent();
             CommonConstructorInit();
             tsbtnConfigCom.Visible = false;
-
         }
 
         /// <summary>

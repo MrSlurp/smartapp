@@ -46,7 +46,7 @@ namespace CtrlDemux
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(3, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(65, 13);
             this.label1.TabIndex = 0;
@@ -54,7 +54,7 @@ namespace CtrlDemux
             // 
             // edtAddrData
             // 
-            this.edtAddrData.Location = new System.Drawing.Point(12, 26);
+            this.edtAddrData.Location = new System.Drawing.Point(3, 17);
             this.edtAddrData.Name = "edtAddrData";
             this.edtAddrData.Size = new System.Drawing.Size(215, 20);
             this.edtAddrData.TabIndex = 1;
@@ -62,7 +62,7 @@ namespace CtrlDemux
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 51);
+            this.label2.Location = new System.Drawing.Point(3, 42);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(60, 13);
             this.label2.TabIndex = 0;
@@ -70,14 +70,14 @@ namespace CtrlDemux
             // 
             // edtValueData
             // 
-            this.edtValueData.Location = new System.Drawing.Point(12, 70);
+            this.edtValueData.Location = new System.Drawing.Point(3, 61);
             this.edtValueData.Name = "edtValueData";
             this.edtValueData.Size = new System.Drawing.Size(215, 20);
             this.edtValueData.TabIndex = 1;
             // 
             // btnPickAddr
             // 
-            this.btnPickAddr.Location = new System.Drawing.Point(233, 24);
+            this.btnPickAddr.Location = new System.Drawing.Point(224, 15);
             this.btnPickAddr.Name = "btnPickAddr";
             this.btnPickAddr.Size = new System.Drawing.Size(69, 23);
             this.btnPickAddr.TabIndex = 2;
@@ -87,7 +87,7 @@ namespace CtrlDemux
             // 
             // btnPickValue
             // 
-            this.btnPickValue.Location = new System.Drawing.Point(233, 68);
+            this.btnPickValue.Location = new System.Drawing.Point(224, 59);
             this.btnPickValue.Name = "btnPickValue";
             this.btnPickValue.Size = new System.Drawing.Size(69, 23);
             this.btnPickValue.TabIndex = 2;
@@ -105,10 +105,10 @@ namespace CtrlDemux
             this.m_listViewData.FullRowSelect = true;
             this.m_listViewData.GridLines = true;
             this.m_listViewData.HideSelection = false;
-            this.m_listViewData.Location = new System.Drawing.Point(12, 126);
+            this.m_listViewData.Location = new System.Drawing.Point(3, 88);
             this.m_listViewData.MultiSelect = false;
             this.m_listViewData.Name = "m_listViewData";
-            this.m_listViewData.Size = new System.Drawing.Size(365, 212);
+            this.m_listViewData.Size = new System.Drawing.Size(295, 212);
             this.m_listViewData.TabIndex = 9;
             this.m_listViewData.UseCompatibleStateImageBehavior = false;
             this.m_listViewData.View = System.Windows.Forms.View.Details;
@@ -127,7 +127,7 @@ namespace CtrlDemux
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(383, 126);
+            this.btnAdd.Location = new System.Drawing.Point(304, 88);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(87, 23);
             this.btnAdd.TabIndex = 10;
@@ -137,7 +137,7 @@ namespace CtrlDemux
             // 
             // btnRemove
             // 
-            this.btnRemove.Location = new System.Drawing.Point(382, 315);
+            this.btnRemove.Location = new System.Drawing.Point(303, 277);
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Size = new System.Drawing.Size(84, 23);
             this.btnRemove.TabIndex = 10;
@@ -147,7 +147,7 @@ namespace CtrlDemux
             // 
             // btnMoveDown
             // 
-            this.btnMoveDown.Location = new System.Drawing.Point(383, 233);
+            this.btnMoveDown.Location = new System.Drawing.Point(304, 195);
             this.btnMoveDown.Name = "btnMoveDown";
             this.btnMoveDown.Size = new System.Drawing.Size(87, 23);
             this.btnMoveDown.TabIndex = 12;
@@ -157,7 +157,7 @@ namespace CtrlDemux
             // 
             // btnMoveUp
             // 
-            this.btnMoveUp.Location = new System.Drawing.Point(382, 204);
+            this.btnMoveUp.Location = new System.Drawing.Point(303, 166);
             this.btnMoveUp.Name = "btnMoveUp";
             this.btnMoveUp.Size = new System.Drawing.Size(87, 23);
             this.btnMoveUp.TabIndex = 12;
@@ -181,7 +181,7 @@ namespace CtrlDemux
             this.Controls.Add(this.edtAddrData);
             this.Controls.Add(this.label1);
             this.Name = "CtrlDemuxProperties";
-            this.Size = new System.Drawing.Size(481, 354);
+            this.Size = new System.Drawing.Size(403, 310);
             this.ResumeLayout(false);
             this.PerformLayout();
 

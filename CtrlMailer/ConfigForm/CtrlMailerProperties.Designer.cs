@@ -195,11 +195,10 @@
             this.btnInsertData.UseVisualStyleBackColor = true;
             this.btnInsertData.Click += new System.EventHandler(this.btnInsertData_Click);
             // 
-            // MailEditionForm
+            // CtrlMailerProperties
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(546, 344);
             this.Controls.Add(this.btnInsertData);
             this.Controls.Add(this.edtBody);
             this.Controls.Add(this.lblPort);
@@ -216,8 +215,8 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.edtFrom);
-            this.Name = "MailEditionForm";
-            this.Text = "e-Mail configuration";
+            this.Name = "CtrlMailerProperties";
+            this.Size = new System.Drawing.Size(546, 344);
             this.ResumeLayout(false);
             this.PerformLayout();
 

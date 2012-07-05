@@ -388,7 +388,7 @@ namespace SmartApp.Ihm
                 {
                     m_PropDialog.Show();
                 }
-                //DialogResult dlgRes = m_PropDialog.ShowDialog();
+                m_PropDialog.BringToFront();
             }
         }
 

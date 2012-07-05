@@ -32,7 +32,7 @@ namespace SmartApp
         SolutionGest m_GestSolution;
 
         protected bool m_bAutoStartProjOnOpen = false;
-        protected bool m_bHidePonAfterPrjStart = false;
+        protected bool m_bHideMonAfterPrjStart = false;
         #endregion
 
         #region attributs
@@ -474,6 +474,11 @@ namespace SmartApp
                     }
                 }
             }
+            if (this.m_bHideMonAfterPrjStart)
+            {
+                this.Visible = false;
+                UpdateTrayMenuFromState();
+            }
         }
 
         /// <summary>
@@ -526,7 +531,7 @@ namespace SmartApp
             m_Option.Load(IniOptionFileName);
             m_strLogFilePath = m_Option.LogDir;
             m_bAutoStartProjOnOpen = m_Option.AutoStartProjOnOpen;
-            m_bHidePonAfterPrjStart = m_Option.HideMonitorAfterPrjStart;
+            m_bHideMonAfterPrjStart = m_Option.HideMonitorAfterPrjStart;
         }
 
         /// <summary>
@@ -538,7 +543,7 @@ namespace SmartApp
         {
             m_Option.LogDir = m_strLogFilePath;
             m_Option.AutoStartProjOnOpen = m_bAutoStartProjOnOpen;
-            m_Option.HideMonitorAfterPrjStart = m_bHidePonAfterPrjStart;
+            m_Option.HideMonitorAfterPrjStart = m_bHideMonAfterPrjStart;
             StopActiveDocuments(); 
             SolutionClose();
             m_Option.Save();
@@ -582,11 +587,12 @@ namespace SmartApp
             OptionForm optForm = new OptionForm();
             optForm.LogFileDirectory = m_strLogFilePath;
             optForm.AutoStartProjOnOpen = m_bAutoStartProjOnOpen;
-            optForm.HideMonitorAfterPrjStart = m_bHidePonAfterPrjStart;
+            optForm.HideMonitorAfterPrjStart = m_bHideMonAfterPrjStart;
             if (optForm.ShowDialog() == DialogResult.OK)
             {
                 m_strLogFilePath = optForm.LogFileDirectory;
                 m_bAutoStartProjOnOpen = optForm.AutoStartProjOnOpen;
+                m_bHideMonAfterPrjStart = optForm.HideMonitorAfterPrjStart;
             }
         }
         #endregion
