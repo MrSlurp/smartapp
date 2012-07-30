@@ -23,11 +23,12 @@ namespace SmartApp
         ContextMenuStrip m_CtxMenuGroups = new ContextMenuStrip();
         ContextMenuStrip m_CtxMenuObject = new ContextMenuStrip();
         ContextMenuStrip m_CtxMenuTrame = new ContextMenuStrip();
+        ContextMenuStrip m_CtxMenuBridge = new ContextMenuStrip();
         //ContextMenuStrip m_CtxMenuStrip = new ContextMenuStrip();
         class DocumentElementNode
         {
             public TreeNode DocNode;
-            public BTDoc Document;
+            public BaseDoc Document;
         }
 
         CheckBox m_chkViewTips = new CheckBox();
@@ -57,6 +58,7 @@ namespace SmartApp
                 this.ImageList.Images.Add("Logger", Resources.TreeViewLoggerIcon);
                 this.ImageList.Images.Add("IO", Resources.TreeViewIOIcon);
                 this.ImageList.Images.Add("Solution", Resources.TreeViewSolutionIcon);
+                this.ImageList.Images.Add("Bridge", Resources.TreeViewBridgeIcon);
                 // ceci n'est init que si l'appli est lancé, pour pas que le designer tenter de l'ajouter lui même
                 m_chkViewTips.AutoSize = true;
                 m_chkViewTips.Text = Program.LangSys.C("Show tooltip");
@@ -107,6 +109,14 @@ namespace SmartApp
             item = new ToolStripMenuItem(Program.LangSys.C("Configure project / connection"));
             item.Click += new EventHandler(CtxMenuProjProperties_Click);
             m_CtxMenuProject.Items.Add(item);
+
+            // menus des item document
+            item = new ToolStripMenuItem(Program.LangSys.C("Remove bridge from solution"));
+            item.Click += new EventHandler(CtxMenuRemoveProj_Click);
+            m_CtxMenuBridge.Items.Add(item);
+            item = new ToolStripMenuItem(Program.LangSys.C("Configure Bridge"));
+            item.Click += new EventHandler(CtxMenuBridgeProperties_Click);
+            m_CtxMenuBridge.Items.Add(item);
 
             // menu pour un gestionnaire de group
             item = new ToolStripMenuItem(Program.LangSys.C("Manage group"));
@@ -188,8 +198,17 @@ namespace SmartApp
                 // un document
                 else if (selNode.Tag is DocumentElementNode)
                 {
-                    this.ContextMenuStrip = m_CtxMenuProject;
-                    m_PropDialog.ConfiguredItem = null;
+                    DocumentElementNode docNode = selNode.Tag as DocumentElementNode;
+                    if (docNode.Document is BTDoc)
+                    {
+                        this.ContextMenuStrip = m_CtxMenuProject;
+                        m_PropDialog.ConfiguredItem = null;
+                    }
+                    else if (docNode.Document is BridgeDoc)
+                    {
+                        this.ContextMenuStrip = m_CtxMenuBridge;
+                        m_PropDialog.ConfiguredItem = null;
+                    }
                 }
                 else if (selNode.Tag is GestTrame)
                 {
@@ -215,7 +234,7 @@ namespace SmartApp
                 if (selNode.Tag is BaseObject)
                 {
                     BaseObject bobj = selNode.Tag as BaseObject;
-                    m_PropDialog.Document = GetDocFromParentNode(selNode);
+                    m_PropDialog.Document = GetDocFromParentNode(selNode) as BTDoc;
                     m_PropDialog.CurrentScreen = null;
                     m_PropDialog.ConfiguredItem = bobj;
                     m_PropDialog.Initialize();
@@ -240,7 +259,7 @@ namespace SmartApp
                 else if (selNode.Tag is BaseObject && selNode.Tag is BTScreen)
                 {
                     BTScreen scr = selNode.Tag as BTScreen;
-                    m_GestSolution.OpenScreenEditor(scr.Symbol, GetDocFromParentNode(selNode));
+                    m_GestSolution.OpenScreenEditor(scr.Symbol, GetDocFromParentNode(selNode) as BTDoc);
                 }
             }
         }
@@ -298,8 +317,25 @@ namespace SmartApp
             DocumentElementNode elem = selNode.Tag as DocumentElementNode;
             //DocumentProprtiesDialog projectPropDialog = new DocumentProprtiesDialog();
             DocumentProprtiesDialog CfgPage = new DocumentProprtiesDialog();
-            CfgPage.Document = elem.Document;
+            CfgPage.Document = elem.Document as BTDoc;
             CfgPage.ShowDialog();
+        }
+
+        /// <summary>
+        /// handler du menu propriété du projet
+        /// </summary>
+        /// <param name="sender">standard</param>
+        /// <param name="e">standard</param>
+        void CtxMenuBridgeProperties_Click(object sender, EventArgs e)
+        {
+            TreeNode selNode = SelectedNode;
+            DocumentElementNode elem = selNode.Tag as DocumentElementNode;
+            BridgeEditorForm brideDlg = new BridgeEditorForm(m_GestSolution);
+            brideDlg.ShowDialog();
+            //DocumentProprtiesDialog projectPropDialog = new DocumentProprtiesDialog();
+            //DocumentProprtiesDialog CfgPage = new DocumentProprtiesDialog();
+            //CfgPage.Document = elem.Document as BTDoc;
+            //CfgPage.ShowDialog();
         }
 
         /// <summary>
@@ -335,7 +371,7 @@ namespace SmartApp
             {
                 // le noeud parent possède un tag qui est le gestionnaire
                 BaseGestGroup gest = selNode.Tag as BaseGestGroup;
-                bobj = gest.AddNewObject(GetDocFromParentNode(selNode));
+                bobj = gest.AddNewObject(GetDocFromParentNode(selNode) as BTDoc);
                 imgKey = selNode.ImageKey;
                 NewItemParentNode = selNode.FirstNode;
             }
@@ -344,14 +380,14 @@ namespace SmartApp
                 // le noeud parent possède un tag qui est le gestionnaire
                 BaseGestGroup gest = selNode.Parent.Tag as BaseGestGroup;
                 BaseGestGroup.Group curGroup = selNode.Tag as BaseGestGroup.Group;
-                bobj = gest.AddNewObject(GetDocFromParentNode(selNode), curGroup.GroupSymbol);
+                bobj = gest.AddNewObject(GetDocFromParentNode(selNode) as BTDoc, curGroup.GroupSymbol);
                 imgKey = selNode.Parent.ImageKey;
                 NewItemParentNode = selNode;
             }
             else if (selNode.Tag is BaseGest)
             {
                 BaseGest gest = selNode.Tag as BaseGest;
-                bobj = gest.AddNewObject(GetDocFromParentNode(selNode));
+                bobj = gest.AddNewObject(GetDocFromParentNode(selNode) as BTDoc);
                 imgKey = selNode.ImageKey;
                 NewItemParentNode = selNode;
             }
@@ -365,7 +401,7 @@ namespace SmartApp
                 newNode.Tag = bobj;
                 newNode.ToolTipText = GetToolTipFromTag(bobj);
                 NewItemParentNode.Nodes.Add(newNode);
-                BTDoc doc = GetDocFromParentNode(newNode);
+                BTDoc doc = GetDocFromParentNode(newNode) as BTDoc;
                 doc.Modified = true;
                 this.SelectedNode = newNode;
                 OnMouseDoubleClick(null);
@@ -410,11 +446,11 @@ namespace SmartApp
                 BaseObject bobj = selNode.Tag as BaseObject;
                 m_PropDialog.ConfiguredItem = bobj;
                 m_PropDialog.CurrentScreen = null;
-                m_PropDialog.Document = GetDocFromParentNode(selNode);
+                m_PropDialog.Document = GetDocFromParentNode(selNode) as BTDoc;
                 m_PropDialog.Initialize();
                 if (!m_PropDialog.Visible)
                 {
-                    m_PropDialog.Show();
+                    m_PropDialog.Show(Program.CurrentMainForm);
                 }
                 m_PropDialog.BringToFront();
             }
@@ -441,7 +477,7 @@ namespace SmartApp
             TreeNode selNode = this.SelectedNode;
             if (selNode.Tag is GestTrame)
             {
-                BTDoc doc = this.GetDocFromParentNode(selNode);
+                BTDoc doc = this.GetDocFromParentNode(selNode) as BTDoc;
                 MDISmartConfigMain mainFrame = this.Parent.Parent as MDISmartConfigMain;
                 if (mainFrame != null)
                 {
@@ -468,7 +504,7 @@ namespace SmartApp
             TreeNode selNode = this.SelectedNode;
             if (selNode.Tag is GestTrame)
             {
-                BTDoc doc = this.GetDocFromParentNode(selNode);
+                BTDoc doc = this.GetDocFromParentNode(selNode) as BTDoc;
                 MDISmartConfigMain mainFrame = this.Parent.Parent as MDISmartConfigMain;
                 if (mainFrame != null)
                 {
@@ -495,7 +531,7 @@ namespace SmartApp
             TreeNode selNode = this.SelectedNode;
             if (selNode.Tag is GestTrame)
             {
-                BTDoc doc = this.GetDocFromParentNode(selNode);
+                BTDoc doc = this.GetDocFromParentNode(selNode) as BTDoc;
                 MDISmartConfigMain mainFrame = this.Parent.Parent as MDISmartConfigMain;
                 if (mainFrame != null)
                 {
@@ -568,7 +604,7 @@ namespace SmartApp
         /// Ajout un document à l'arbre
         /// </summary>
         /// <param name="doc">Document à ajouter</param>
-        public void AddDocument(BTDoc doc)
+        public void AddDocument(BaseDoc doc)
         {
             if (!this.Nodes.Contains(m_SolutionNode))
             {
@@ -582,14 +618,27 @@ namespace SmartApp
             docNode.Document = doc;
             docNode.DocNode = newNode;
             // on définit l'icone du noeud document
+            if (doc is BTDoc)
+            {
+                newNode.ImageKey = "Document";
+                newNode.StateImageKey = "Document";
+                newNode.SelectedImageKey = "Document";
+                newNode.ForeColor = Color.Blue;
+                newNode.NodeFont = new Font(SystemFonts.CaptionFont, FontStyle.Bold);
+                newNode.Tag = docNode;
+                newNode.ToolTipText = GetToolTipFromTag(docNode);
+            }
+            if (doc is BridgeDoc)
+            {
+                newNode.ImageKey = "Bridge";
+                newNode.StateImageKey = "Bridge";
+                newNode.SelectedImageKey = "Bridge";
+                newNode.ForeColor = Color.Green;
+                newNode.NodeFont = new Font(SystemFonts.CaptionFont, FontStyle.Bold);
+                newNode.Tag = docNode;
+                newNode.ToolTipText = GetToolTipFromTag(docNode);
+            }
             newNode.Text = Path.GetFileNameWithoutExtension(doc.FileName);
-            newNode.ImageKey = "Document";
-            newNode.StateImageKey = "Document";
-            newNode.SelectedImageKey = "Document";
-            newNode.ForeColor = Color.Blue;
-            newNode.NodeFont = new Font(SystemFonts.CaptionFont, FontStyle.Bold);
-            newNode.Tag = docNode;
-            newNode.ToolTipText = GetToolTipFromTag(docNode);
             m_SolutionNode.Nodes.Add(newNode);
             m_ListDocument.Add(newNode.Text, docNode);
             AddDocumentNodeGestsNodes(newNode.Text);
@@ -610,7 +659,7 @@ namespace SmartApp
         /// Enlève un document de l'arbre
         /// </summary>
         /// <param name="doc"></param>
-        public void RemoveDocument(BTDoc doc)
+        public void RemoveDocument(BaseDoc doc)
         {
             string docName = Path.GetFileNameWithoutExtension(doc.FileName);
             DocumentElementNode docElem = m_ListDocument[docName];
@@ -625,12 +674,16 @@ namespace SmartApp
         public void AddDocumentNodeGestsNodes(string docName)
         {
             DocumentElementNode docElem = m_ListDocument[docName];
-            AddBaseGestNode(docName, docElem.Document.GestData, Program.LangSys.C("Datas"), "IO");
-            AddBaseGestNode(docName, docElem.Document.GestScreen, Program.LangSys.C("Screens"), "Screen");
-            AddBaseGestNode(docName, docElem.Document.GestTrame, Program.LangSys.C("Frames"), "Frame");
-            AddBaseGestNode(docName, docElem.Document.GestTimer, Program.LangSys.C("Timers"), "Timer");
-            AddBaseGestNode(docName, docElem.Document.GestFunction, Program.LangSys.C("Functions"), "Function");
-            AddBaseGestNode(docName, docElem.Document.GestLogger, Program.LangSys.C("Loggers"), "Logger");
+            if (docElem.Document is BTDoc)
+            {
+                BTDoc doc = docElem.Document as BTDoc;
+                AddBaseGestNode(docName, doc.GestData, Program.LangSys.C("Datas"), "IO");
+                AddBaseGestNode(docName, doc.GestScreen, Program.LangSys.C("Screens"), "Screen");
+                AddBaseGestNode(docName, doc.GestTrame, Program.LangSys.C("Frames"), "Frame");
+                AddBaseGestNode(docName, doc.GestTimer, Program.LangSys.C("Timers"), "Timer");
+                AddBaseGestNode(docName, doc.GestFunction, Program.LangSys.C("Functions"), "Function");
+                AddBaseGestNode(docName, doc.GestLogger, Program.LangSys.C("Loggers"), "Logger");
+            }
         }
 
         void SolutionNameChanged()
@@ -753,8 +806,8 @@ namespace SmartApp
             {
                 if (overTreeNode.Tag is BaseGestGroup.Group)
                 {
-                    BTDoc docDest = GetDocFromParentNode(overTreeNode);
-                    BTDoc docSrc = GetDocFromParentNode(DropedItem);
+                    BTDoc docDest = GetDocFromParentNode(overTreeNode) as BTDoc;
+                    BTDoc docSrc = GetDocFromParentNode(DropedItem) as BTDoc;
                     // pour empècher de remettre dans le même groupe, vérifier si le groupe src et dest sont
                     // différents
                     //BaseGestGroup.Group dstGrp = overTreeNode.Tag as BaseGestGroup.Group;
@@ -784,8 +837,8 @@ namespace SmartApp
                 if (overTreeNode.Tag is BaseGestGroup.Group)
                 {
                     // le noeud parent possède un tag qui est le gestionnaire
-                    BTDoc docDest = GetDocFromParentNode(overTreeNode);
-                    BTDoc docSrc = GetDocFromParentNode(DropedItem);
+                    BTDoc docDest = GetDocFromParentNode(overTreeNode) as BTDoc;
+                    BTDoc docSrc = GetDocFromParentNode(DropedItem) as BTDoc;
                     BaseGestGroup gest = overTreeNode.Parent.Tag as BaseGestGroup;
                     BaseGestGroup.Group curGroup = overTreeNode.Tag as BaseGestGroup.Group;
                     BaseObject bobj = DropedItem.Tag as BaseObject;
@@ -813,7 +866,7 @@ namespace SmartApp
         /// </summary>
         /// <param name="node">Noeud dont on souhaite récupérer le document</param>
         /// <returns></returns>
-        public BTDoc GetDocFromParentNode(TreeNode node)
+        public BaseDoc GetDocFromParentNode(TreeNode node)
         {
             if (node.Tag is DocumentElementNode)
             {

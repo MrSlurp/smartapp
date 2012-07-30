@@ -39,7 +39,7 @@ namespace SmartApp.Ihm.Designer
     // - des alignements a gauche ou en haut
     // - des mises aux meme dimension des éléments séléctionnés
     //*****************************************************************************************************
-    public partial class InteractiveControlContainer : UserControl
+    public partial class InteractiveControlContainer : UserControl, ILangNonTranslatable
     {
         private const string CLIP_FORMAT = "SmartAppCtrlList";
         DataFormats.Format InternalFormat = DataFormats.GetFormat(CLIP_FORMAT);

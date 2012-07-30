@@ -95,6 +95,8 @@
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(400, 300);
             this.Name = "BasePropertiesDialog";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Properties";
             this.Deactivate += new System.EventHandler(this.BasePropertiesDialog_Leave);

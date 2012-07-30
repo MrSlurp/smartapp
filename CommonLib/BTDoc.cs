@@ -24,10 +24,9 @@ namespace CommonLib
     /// <summary>
     /// 
     /// </summary>
-    public class BTDoc : Object
+    public class BTDoc : BaseDoc
     {
         #region données membres
-        private string m_strfileFullName;
         // Stocke la liste de toutes les données de l'application
         private GestData        m_GestData = new GestData();
         // Stocke la liste de tous les ecrans de l'application
@@ -44,12 +43,6 @@ namespace CommonLib
         private GestDataVirtual m_GestVirtualData = new GestDataVirtual();
 
         private DllControlGest m_GestDLL;
-
-        private TYPE_APP m_TypeApp = TYPE_APP.NONE;
-        // indique si le document a été modifié
-        bool m_bModified = false;
-
-        bool m_bModeRun = false;
 
         PathTranslator m_PathTranslator = new PathTranslator();
 
@@ -73,10 +66,8 @@ namespace CommonLib
 
         #region Events
         public event NeedRefreshHMI UpdateDocumentFrame;
-        public event DocumentModifiedEvent OnDocumentModified;
         public event DocComStateChange OnCommStateChange;
         public event RunStateChangeEvent OnRunStateChange;
-        public event AddLogEventDelegate EventAddLogEvent;
         #endregion
 
         #region donnée spécifiques aux fonctionement en mode Command
@@ -166,7 +157,7 @@ namespace CommonLib
         /// Constructeur par défaut
         /// </summary>
         /// <param name="TypeApp">Type d'application courante</param>
-        public BTDoc(TYPE_APP TypeApp)
+        public BTDoc(TYPE_APP TypeApp) : base(TypeApp)
         {
             m_GestData.DoSendMessage += new SendMessage(TraiteMessage);
             m_GestData.EventAddLogEvent += new AddLogEventDelegate(AddLogEvent);
@@ -187,7 +178,6 @@ namespace CommonLib
             m_Executer = new QuickExecuter();            
             m_Executer.EventAddLogEvent += new AddLogEventDelegate(AddLogEvent);
             m_Executer.Document = this;
-            m_TypeApp = TypeApp;
         }
 
         /// <summary>
@@ -212,34 +202,6 @@ namespace CommonLib
         #endregion
 
         #region attributs
-        /// <summary>
-        /// accesseur du nom de fichier
-        /// </summary>
-        public string FileName
-        {
-            get
-            {
-                return m_strfileFullName;
-            }
-        }
-
-        /// <summary>
-        /// indique si le document à été modifé depuis sa dernière sauvegarde
-        /// et le notifie si son état est changé
-        /// </summary>
-        public bool Modified
-        {
-            get
-            {
-                return m_bModified;
-            }
-            set
-            {
-                m_bModified = value;
-                if (OnDocumentModified != null)
-                    OnDocumentModified();
-            }
-        }
 
         public bool UseMainContainer
         {
@@ -586,7 +548,7 @@ namespace CommonLib
         /// </summary>
         /// <param name="bShowError">affiche ou non les erreurs</param>
         /// <returns>true si la sauvegarde a reussie</returns>
-        public bool WriteConfigDocument(bool bShowError)
+        public override bool WriteConfigDocument(bool bShowError)
         {
             return WriteConfigDocument(m_strfileFullName, bShowError, m_GestDLL);
         }
@@ -758,10 +720,6 @@ namespace CommonLib
 
         #endregion
 
-        public bool IsRunning
-        {
-            get { return m_bModeRun; }
-        }
         /// <summary>
         /// ouvre la connexion du document
         /// </summary>
@@ -833,18 +791,6 @@ namespace CommonLib
                 }
             }
             m_FormList.Clear();
-        }
-
-        /// <summary>
-        /// ajout un message à la fenêtre de log de l'application
-        /// </summary>
-        /// <param name="Event">Event à afficher</param>
-        protected void AddLogEvent(LogEvent Event)
-        {
-            if (EventAddLogEvent != null)
-            {
-                EventAddLogEvent(Event);
-            }
         }
 
         /// <summary>

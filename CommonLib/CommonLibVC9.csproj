@@ -59,6 +59,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppMessages.cs" />
+    <Compile Include="BaseDoc.cs" />
+    <Compile Include="BridgeDoc.cs" />
     <Compile Include="Comm\BaseComm.cs" />
     <Compile Include="Comm\BTComm.cs" />
     <Compile Include="Comm\EthernetComm.cs" />

@@ -145,41 +145,47 @@ namespace CtrlMailer
                     message.Subject = props.MailSubject;
                     string mailBody = props.MailBody;
                     int iPosDebutVar = 0;
+                    //pour tant qu'on trouve la balise de début dans le corps
+                    // et qu'on est pas eu dela de la fin du mail
                     while (iPosDebutVar != -1 && iPosDebutVar < mailBody.Length)
                     {
                         iPosDebutVar = mailBody.IndexOf("<DATA.", iPosDebutVar);
                         if (iPosDebutVar != -1)
                         {
+                            // on prends les position de la fin de variable et du séparateur de formatage
                             int iPosFinDescVar = mailBody.IndexOf(">", iPosDebutVar);
                             int iPosOptionSpliter = mailBody.IndexOf("|", iPosDebutVar);
 
                             int iPosFinVar = 0;
-                            //bool bPosSplitterValid = false;
-                            if (iPosOptionSpliter < iPosFinDescVar && iPosOptionSpliter > iPosDebutVar)
+                            // si le séparateur est valide (entre début de fin de balise)
+                            if (iPosOptionSpliter < iPosFinDescVar && iPosOptionSpliter > iPosDebutVar && iPosOptionSpliter != -1)
                             {
+                                // alors la position de la fin de la variable est celle du splitter
                                 iPosFinVar = iPosOptionSpliter;
-                                if (iPosOptionSpliter != -1)
-                                {
-                                    string optSubString = mailBody.Substring(iPosOptionSpliter, (iPosFinVar + 1) - iPosOptionSpliter);
-                                    optSubString = optSubString.Replace("|", "").Replace(">", "");
-                                    string[] optionList = optSubString.Split(':');
-                                }
                             }
                             else
+                            {
+                                // sinon la position de fin est la position de fin de la balise
                                 iPosFinVar = iPosFinDescVar;
+                            }
 
+                            // si on a pas de fin, c'est une erreur de formatage, on le log et on passe à la suite
                             if (iPosFinVar == -1)
                             {
                                 LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format(DllEntryClass.LangSys.C("Mailer {0} : Can't replace data, bad message format"), this.Symbol));
                                 AddLogEvent(log);
+                                // on avance le curseur de début de 1
+                                iPosDebutVar ++;
                                 continue;
                             }
+                            // arrivé ici on peu extraire le symbole, et les options
                             string varSubString = mailBody.Substring(iPosDebutVar, (iPosFinVar + 1) - iPosDebutVar);
                             string fullVarString = mailBody.Substring(iPosDebutVar, (iPosFinDescVar + 1) - iPosDebutVar);
                             string dataSymbol = varSubString.Replace("<DATA.", "").Replace(">", "").Replace("|", "");
                             Data dt = m_DocGestData.GetFromSymbol(dataSymbol) as Data;
                             if (dt == null)
                             {
+                                // la donnée n'est pas trouvé
                                 LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format(DllEntryClass.LangSys.C("Mailer {0} : Unknown data {1}"), this.Symbol, dataSymbol));
                                 AddLogEvent(log);
                                 iPosDebutVar = iPosDebutVar + 1;
@@ -187,16 +193,20 @@ namespace CtrlMailer
                             }
                             else
                             {
+                                // on a la donnée, on récupère sa valeur
                                 string valueString = dt.Value.ToString();
+                                // si on a des options
                                 if (iPosOptionSpliter < iPosFinDescVar && iPosOptionSpliter > iPosDebutVar)
                                 {
                                     if (iPosOptionSpliter != -1)
                                     {
+                                        // on récupère la liste des options
                                         string optSubString = mailBody.Substring(iPosOptionSpliter, (iPosFinDescVar + 1) - iPosOptionSpliter);
                                         optSubString = optSubString.Replace("|", "").Replace(">", "");
                                         string[] optionList = optSubString.Split(':');
                                         float finalValue = dt.Value;
                                         string formatString = "{0}";
+                                        // on applique les options dans l'ordre
                                         for (int i = 0; i < optionList.Length; i++)
                                         {
                                             string curOption = optionList[i];

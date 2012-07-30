@@ -85,6 +85,7 @@ namespace SmartApp.Ihm
             if (LaunchArgParser.DevMode)
             {
                 menuItemTraceConfig.Visible = true;
+                menuItemaddBridge.Visible = true;
                 menuItemOpenDebugConsole.Visible = true;
             }
             CentralizedFileDlg.InitImgFileDialog(Application.StartupPath);
@@ -315,7 +316,7 @@ namespace SmartApp.Ihm
             }
         }
 
-        void GestSolution_OnDocClosed(BTDoc doc)
+        void GestSolution_OnDocClosed(BaseDoc doc)
         {
             List<DesignerForm> toDelList = new List<DesignerForm>();
             foreach (DesignerForm frm in m_ListDesignForm)
@@ -1013,5 +1014,24 @@ namespace SmartApp.Ihm
 
         }
         #endregion
+
+        private void menuItemaddBridge_Click(object sender, EventArgs e)
+        {
+            if (m_GestSolution != null)
+            {
+                ProjectNameForm projNameFrm = new ProjectNameForm();
+                DialogResult dlgRes = projNameFrm.ShowDialog();
+                if (dlgRes == DialogResult.OK)
+                {
+                    string bridgeName = Path.GetFileName(projNameFrm.ProjectName);
+                    string projectPath = Path.GetDirectoryName(m_GestSolution.FilePath) + Path.DirectorySeparatorChar + bridgeName;
+                    BridgeDoc newDoc = new BridgeDoc(Program.TypeApp);
+                    newDoc.WriteOut(projectPath, false);
+                    m_GestSolution.AddDocument(newDoc);
+                    newDoc.Modified = false;
+                }
+            }
+
+        }
     }
 }

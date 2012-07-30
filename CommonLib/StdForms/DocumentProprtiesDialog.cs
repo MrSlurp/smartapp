@@ -18,6 +18,8 @@ namespace CommonLib
             m_commCfgPage = new CommConfiguration();
             m_commCfgPage.AllowRowSelect = true;
             chkDocumentUseMainContainer_CheckedChanged(null, null);
+            if (Lang.LangSys != null)
+                Lang.LangSys.Initialize(this);
         }
 
         public BTDoc Document

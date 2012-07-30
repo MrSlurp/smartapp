@@ -98,6 +98,7 @@ namespace CtrlTwoBitmap
                             m_strImgInactive = SourceBTControl.Document.PathTr.RelativePathToAbsolute(((TwoBitmapProp)this.SourceBTControl.SpecificProp).NomFichierInactif);
                             m_strImgInactive = PathTranslator.LinuxVsWindowsPathUse(m_strImgInactive);
                             string strImageFullPath = m_strImgInactive;
+                            PathTranslator.CheckFileExistOrThrow(strImageFullPath);
                             m_BmpInact = new Bitmap(strImageFullPath);
                             m_BmpInact.MakeTransparent(Color.Magenta);
                         }

@@ -87,7 +87,7 @@ namespace SmartApp.Ihm
         /// </summary>
         public DesignerForm()
         {
-            //Program.LangSys.Initialize(this);
+            Program.LangSys.Initialize(this);
             InitializeComponent();
             m_toolBtnAlignLeft.Image = Resources.AlignLeft;
             m_toolBtnAlignTop.Image = Resources.AlignTop;
@@ -386,7 +386,7 @@ namespace SmartApp.Ihm
                 m_PropDialog.Initialize();
                 if (!m_PropDialog.Visible)
                 {
-                    m_PropDialog.Show();
+                    m_PropDialog.Show(Program.CurrentMainForm);
                 }
                 m_PropDialog.BringToFront();
             }

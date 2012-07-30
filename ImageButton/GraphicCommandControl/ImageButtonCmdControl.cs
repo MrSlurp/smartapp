@@ -66,6 +66,7 @@ namespace ImageButton
                     strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
                     try
                     {
+                        PathTranslator.CheckFileExistOrThrow(strImageFullPath);
                         m_Bmp1 = new Bitmap(strImageFullPath);
                         SetUsedImage(m_Bmp1, false);
                     }
@@ -85,6 +86,7 @@ namespace ImageButton
                     strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
                     try
                     {
+                        PathTranslator.CheckFileExistOrThrow(strImageFullPath);
                         m_Bmp2 = new Bitmap(strImageFullPath);
                     }
                     catch (Exception)

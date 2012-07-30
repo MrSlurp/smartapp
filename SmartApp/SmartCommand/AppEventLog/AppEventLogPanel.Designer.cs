@@ -72,7 +72,7 @@ namespace SmartApp
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(9, 26);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(40, 13);
             this.label1.TabIndex = 1;
@@ -80,6 +80,7 @@ namespace SmartApp
             // 
             // m_btnClearLog
             // 
+            this.m_btnClearLog.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.m_btnClearLog.Location = new System.Drawing.Point(566, 9);
             this.m_btnClearLog.Name = "m_btnClearLog";
             this.m_btnClearLog.Size = new System.Drawing.Size(110, 23);
@@ -90,26 +91,27 @@ namespace SmartApp
             // 
             // checkBringToTop
             // 
+            this.checkBringToTop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBringToTop.AutoSize = true;
-            this.checkBringToTop.Location = new System.Drawing.Point(280, 12);
+            this.checkBringToTop.Location = new System.Drawing.Point(331, 13);
             this.checkBringToTop.Name = "checkBringToTop";
             this.checkBringToTop.Size = new System.Drawing.Size(163, 17);
             this.checkBringToTop.TabIndex = 3;
             this.checkBringToTop.Text = "Bring windows to top on error";
             this.checkBringToTop.UseVisualStyleBackColor = true;
+            this.checkBringToTop.Visible = false;
             // 
-            // AppEventLogForm
+            // AppEventLogPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(688, 220);
             this.Controls.Add(this.checkBringToTop);
             this.Controls.Add(this.m_btnClearLog);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.m_lvEvent);
             this.DoubleBuffered = true;
-            this.Name = "AppEventLogForm";
-            this.Text = "Application log";
+            this.Name = "AppEventLogPanel";
+            this.Size = new System.Drawing.Size(688, 220);
             this.ResumeLayout(false);
             this.PerformLayout();
 

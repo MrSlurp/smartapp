@@ -385,29 +385,33 @@ namespace SmartApp
         /// 
         /// </summary>
         /// <param name="document"></param>
-        void GestSolution_OnDocOpened(BTDoc doc)
+        void GestSolution_OnDocOpened(BaseDoc baseDoc)
         {
-            doc.LogFilePath = m_strLogFilePath;
-            if (doc.FinalizeRead(this))
+            if (baseDoc is BTDoc)
             {
-                if (doc.OpenDocumentForCommand())
+                BTDoc doc = baseDoc as BTDoc;
+                doc.LogFilePath = m_strLogFilePath;
+                if (doc.FinalizeRead(this))
                 {
-                    doc.OnCommStateChange += new DocComStateChange(OnDocument_CommStateChange);
-                    doc.OnRunStateChange += new RunStateChangeEvent(OnDocument_RunStateChange);
-                    doc.EventAddLogEvent += new AddLogEventDelegate(AddLogEvent);
-                    AddDocToMonitorList(doc);
+                    if (doc.OpenDocumentForCommand())
+                    {
+                        doc.OnCommStateChange += new DocComStateChange(OnDocument_CommStateChange);
+                        doc.OnRunStateChange += new RunStateChangeEvent(OnDocument_RunStateChange);
+                        doc.EventAddLogEvent += new AddLogEventDelegate(AddLogEvent);
+                        AddDocToMonitorList(doc);
+                    }
+                    else
+                    {
+                        SolutionClose();
+                    }
                 }
                 else
                 {
-                    SolutionClose();
-                }
-            }
-            else
-            {
-                Traces.LogAddDebug(TraceCat.SmartCommand, "MDICommand", "Erreur lors du FinalizeRead()");
-                MessageBox.Show(Program.LangSys.C("Can't initialize run mode datas. Please contact support"),
-                                Program.LangSys.C("Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Traces.LogAddDebug(TraceCat.SmartCommand, "MDICommand", "Erreur lors du FinalizeRead()");
+                    MessageBox.Show(Program.LangSys.C("Can't initialize run mode datas. Please contact support"),
+                                    Program.LangSys.C("Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
 
+                }
             }
         }
 
@@ -415,9 +419,12 @@ namespace SmartApp
         /// 
         /// </summary>
         /// <param name="doc"></param>
-        void GestSolution_OnDocClosed(BTDoc doc)
+        void GestSolution_OnDocClosed(BaseDoc baseDoc)
         {
-            doc.CloseDocumentForCommand();
+            if (baseDoc is BTDoc)
+            {
+                ((BTDoc)baseDoc).CloseDocumentForCommand();
+            }
         }
 
         /// <summary>
@@ -455,22 +462,26 @@ namespace SmartApp
 
         public void StartAllProjects()
         {
-            foreach (BTDoc doc in m_GestSolution.Values)
+            foreach (BaseDoc baseDoc in m_GestSolution.Values)
             {
-                if (doc.Communication.IsOpen && doc.IsRunning)
+                if (baseDoc is BTDoc)
                 {
-                    doc.TraiteMessage(MESSAGE.MESS_CMD_STOP, null, Program.TypeApp);
-                    doc.Communication.CloseComm();
-                }
-                else
-                {
-                    if (!doc.Communication.IsOpen)
+                    BTDoc doc = baseDoc as BTDoc;
+                    if (doc.Communication.IsOpen && doc.IsRunning)
                     {
-                        doc.OpenDocumentComm();
+                        doc.TraiteMessage(MESSAGE.MESS_CMD_STOP, null, Program.TypeApp);
+                        doc.Communication.CloseComm();
                     }
-                    if (doc.Communication.IsOpen && !doc.IsRunning)
+                    else
                     {
-                        doc.TraiteMessage(MESSAGE.MESS_CMD_RUN, null, Program.TypeApp);
+                        if (!doc.Communication.IsOpen)
+                        {
+                            doc.OpenDocumentComm();
+                        }
+                        if (doc.Communication.IsOpen && !doc.IsRunning)
+                        {
+                            doc.TraiteMessage(MESSAGE.MESS_CMD_RUN, null, Program.TypeApp);
+                        }
                     }
                 }
             }
@@ -628,23 +639,26 @@ namespace SmartApp
 
             if (LaunchArgParser.AutoConnect)
             {
-                foreach (string docName in m_GestSolution.Keys)
+                foreach (BaseDoc baseDoc in m_GestSolution.Values)
                 {
-                    BTDoc doc = m_GestSolution[docName];
-                    doc.OpenDocumentComm();
-                    if (doc.Communication.IsOpen && LaunchArgParser.AutoStart)
+                    if (baseDoc is BTDoc)
                     {
-                        doc.TraiteMessage(MESSAGE.MESS_CMD_RUN, null, Program.TypeApp);
-                    }
-                    else if (! doc.Communication.IsOpen && !LaunchArgParser.AutoStart)
-                    {
-                        LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, Program.LangSys.C("Failed to connect"));
-                        MDISmartCommandMain.EventLogger.AddLogEvent(log);
-                    }
-                    else if (!doc.Communication.IsOpen && LaunchArgParser.AutoStart)
-                    {
-                        LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, Program.LangSys.C("Failed to connect. Application not started"));
-                        MDISmartCommandMain.EventLogger.AddLogEvent(log);
+                        BTDoc doc = baseDoc as BTDoc;
+                        doc.OpenDocumentComm();
+                        if (doc.Communication.IsOpen && LaunchArgParser.AutoStart)
+                        {
+                            doc.TraiteMessage(MESSAGE.MESS_CMD_RUN, null, Program.TypeApp);
+                        }
+                        else if (!doc.Communication.IsOpen && !LaunchArgParser.AutoStart)
+                        {
+                            LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, Program.LangSys.C("Failed to connect"));
+                            MDISmartCommandMain.EventLogger.AddLogEvent(log);
+                        }
+                        else if (!doc.Communication.IsOpen && LaunchArgParser.AutoStart)
+                        {
+                            LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, Program.LangSys.C("Failed to connect. Application not started"));
+                            MDISmartCommandMain.EventLogger.AddLogEvent(log);
+                        }
                     }
                 }
             }

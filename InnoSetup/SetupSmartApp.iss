@@ -100,7 +100,9 @@ Source: "fournitures\*.ini"; DestDir: "{app}"; Flags: onlyifdoesntexist uninsnev
 
 [Registry]
 Root: HKCR; Subkey: ".saf"; ValueType: string; ValueName: ""; ValueData: "smartapp"; Flags: uninsdeletevalue
+Root: HKCR; Subkey: ".saf\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\SmartApp.ico"
 Root: HKCR; Subkey: ".slt"; ValueType: string; ValueName: ""; ValueData: "smartapp"; Flags: uninsdeletevalue
+Root: HKCR; Subkey: ".slt\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\SmartAppSln.ico"
 Root: HKCR; Subkey: "smartapp"; ValueType: string; ValueName: ""; ValueData: "Smart App files"; Flags: uninsdeletekey
 Root: HKCR; Subkey: "smartapp\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\SmartAppSln.ico"
 Root: HKCR; Subkey: "smartapp\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\SmartApp.exe"" ""%1"""
@@ -110,7 +112,7 @@ Name: "{group}\Smart Config V3"; Filename: "{app}\SmartApp.exe"; WorkingDir: "{a
 Name: "{group}\Smart Command V3"; Filename: "{app}\SmartApp.exe"; WorkingDir: "{app}"; Parameters: "-cmd"
 Name: "{group}\{cm:UninstallProgram,Smart Application V3}"; Filename: "{uninstallexe}"
 Name: "{commondesktop}\Smart Config V3"; Filename: "{app}\SmartApp.exe"; WorkingDir: "{app}"; Tasks: desktopicon
-Name: "{commondesktop}\Smart Command V3"; Filename: "{app}\SmartApp.exe"; WorkingDir: "{app}"; Tasks: desktopicon ;Parameters: "-cmd"
+Name: "{commondesktop}\Smart Command V3"; Filename: "{app}\SmartApp.exe"; WorkingDir: "{app}"; Tasks: desktopicon ;Parameters: "-cmd" 
 
 [Run]
 Filename: "{app}\SmartApp.exe"; Description: "{cm:LaunchProgram,Smart Application}"; Flags: nowait postinstall skipifsilent

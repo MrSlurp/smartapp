@@ -37,6 +37,7 @@ namespace FourBitmap
                 strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
                 try
                 {
+                    PathTranslator.CheckFileExistOrThrow(strImageFullPath);
                     ((FourBitmapDispCtrl)m_Ctrl).Bmp0 = new Bitmap(strImageFullPath);
                 }
                 catch (Exception)
@@ -49,6 +50,7 @@ namespace FourBitmap
                 strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
                 try
                 {
+                    PathTranslator.CheckFileExistOrThrow(strImageFullPath);
                     ((FourBitmapDispCtrl)m_Ctrl).Bmp1 = new Bitmap(strImageFullPath);
                 }
                 catch (Exception)
@@ -64,6 +66,7 @@ namespace FourBitmap
                 strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
                 try
                 {
+                    PathTranslator.CheckFileExistOrThrow(strImageFullPath);
                     ((FourBitmapDispCtrl)m_Ctrl).Bmp2 = new Bitmap(strImageFullPath);
                 }
                 catch (Exception)
@@ -79,6 +82,7 @@ namespace FourBitmap
                 strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
                 try
                 {
+                    PathTranslator.CheckFileExistOrThrow(strImageFullPath);
                     ((FourBitmapDispCtrl)m_Ctrl).Bmp3 = new Bitmap(strImageFullPath);
                 }
                 catch (Exception)

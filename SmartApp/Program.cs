@@ -104,17 +104,17 @@ namespace SmartApp
                 case TYPE_APP.SMART_CONFIG:
                     m_TypeApp = TYPE_APP.SMART_CONFIG;
                     if (LaunchArgParser.File != null)
-                        m_ConfigApp = new MDISmartConfigMain(LaunchArgParser.File);
+                        m_CurrentMainForm = m_ConfigApp = new MDISmartConfigMain(LaunchArgParser.File);
                     else
-                        m_ConfigApp = new MDISmartConfigMain();
+                        m_CurrentMainForm = m_ConfigApp = new MDISmartConfigMain();
                     Application.Run(m_ConfigApp);
                     break;
                 case TYPE_APP.SMART_COMMAND:
                     m_TypeApp = TYPE_APP.SMART_COMMAND;
                     if (LaunchArgParser.File != null)
-                        m_CommandApp = new MDISmartCommandMain(LaunchArgParser.File);
+                        m_CurrentMainForm = m_CommandApp = new MDISmartCommandMain(LaunchArgParser.File);
                     else
-                        m_CommandApp = new MDISmartCommandMain();
+                        m_CurrentMainForm = m_CommandApp = new MDISmartCommandMain();
 
                     Application.Run(m_CommandApp);
                     break;

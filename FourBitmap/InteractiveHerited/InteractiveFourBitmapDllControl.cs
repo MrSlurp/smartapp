@@ -96,6 +96,7 @@ namespace FourBitmap
                         m_strImg0 = SourceBTControl.Document.PathTr.RelativePathToAbsolute(((DllFourBitmapProp)this.SourceBTControl.SpecificProp).NomFichier0);
                         m_strImg0 = PathTranslator.LinuxVsWindowsPathUse(m_strImg0);
                         string strImageFullPath = m_strImg0;
+                        PathTranslator.CheckFileExistOrThrow(strImageFullPath);
                         m_Bmp0 = new Bitmap(strImageFullPath);
                         m_Bmp0.MakeTransparent(Color.Magenta);
                     }

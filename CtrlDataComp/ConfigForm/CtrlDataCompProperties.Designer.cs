@@ -224,6 +224,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnPickC);
             this.Controls.Add(this.btnPickB);
@@ -235,7 +236,7 @@
             this.Controls.Add(this.edtDataB);
             this.Controls.Add(this.edtDataA);
             this.Name = "CtrlDataCompProperties";
-            this.Size = new System.Drawing.Size(293, 268);
+            this.Size = new System.Drawing.Size(312, 268);
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -37,6 +37,7 @@ namespace CtrlTwoBitmap
                 strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
                 try
                 {
+                    PathTranslator.CheckFileExistOrThrow(strImageFullPath);
                     ((TwoBitmap)m_Ctrl).BmpInact = new Bitmap(strImageFullPath);
                 }
                 catch (Exception)
@@ -49,6 +50,7 @@ namespace CtrlTwoBitmap
                 strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
                 try
                 {
+                    PathTranslator.CheckFileExistOrThrow(strImageFullPath);
                     ((TwoBitmap)m_Ctrl).BmpAct = new Bitmap(strImageFullPath);
                 }
                 catch (Exception)

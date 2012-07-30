@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace CommonLib
 {
-    public class SolutionGest : SortedList<string, BTDoc>
+    public class SolutionGest : SortedList<string, BaseDoc>
     {
         private const string NODE_SOLUTION_ROOT = "Solution";
         private const string NODE_SOLUTION_FILEVER = "FileVersion";
@@ -16,7 +16,7 @@ namespace CommonLib
         private const string ATTR_VALUE = "Value";
         private const int SOLLUTION_FILE_VERSION = 1;
 
-        public delegate void DocumentOpenCloseEventHandler(BTDoc doc);
+        public delegate void DocumentOpenCloseEventHandler(BaseDoc doc);
         public delegate void DocumentScreenEditHandler(string screenName, BTDoc document);
         public delegate void SolutionNameChangedEventHandler();
         public delegate void SolutionDocumentChangedEventHandler();
@@ -83,7 +83,7 @@ namespace CommonLib
         /// </summary>
         /// <param name="strFilePath"></param>
         /// <returns></returns>
-        public BTDoc OpenDocument(string strFilePath)
+        public BaseDoc OpenDocument(string strFilePath)
         {
             if (!this.ContainsKey(strFilePath))
             {
@@ -113,7 +113,7 @@ namespace CommonLib
         /// </summary>
         /// <param name="strFilePath"></param>
         /// <returns></returns>
-        public void AddDocument(BTDoc doc)
+        public void AddDocument(BaseDoc doc)
         {
             if (!this.ContainsValue(doc))
             {
@@ -142,7 +142,7 @@ namespace CommonLib
         /// 
         /// </summary>
         /// <param name="doc"></param>
-        public void CloseDocument(BTDoc doc)
+        public void CloseDocument(BaseDoc doc)
         {
             if (this.ContainsValue(doc))
             {
@@ -157,9 +157,10 @@ namespace CommonLib
 
         public void CloseDocumentsForCommand()
         {
-            foreach (string docName in this.Keys)
+            foreach (BaseDoc doc in this.Values)
             {
-                this[docName].CloseDocumentForCommand();
+                if (doc is BTDoc)
+                    ((BTDoc)doc).CloseDocumentForCommand();
             }
         }
 
@@ -267,7 +268,7 @@ namespace CommonLib
             XmlNode NodeProjList = XmlDoc.CreateElement(NODE_PROJECT_LIST);
             XmlDoc.DocumentElement.AppendChild(NodeProjList);
 
-            foreach (BTDoc doc in Values)
+            foreach (BaseDoc doc in Values)
             {
                 XmlNode NodeProj = XmlDoc.CreateElement(NODE_PROJECT_LIST);
                 attr = XmlDoc.CreateAttribute(ATTR_VALUE);
@@ -307,9 +308,11 @@ namespace CommonLib
         /// </summary>
         protected void SaveDocuments()
         {
-            foreach (BTDoc doc in this.Values)
+            foreach (BaseDoc doc in this.Values)
             {
-                doc.WriteConfigDocument(true);
+                if (doc is BTDoc)
+                    ((BTDoc)doc).WriteConfigDocument(true);
+
                 doc.Modified = false;
             }
         }
@@ -322,7 +325,7 @@ namespace CommonLib
             get
             {
                 bool bModifiedDoc = false;
-                foreach (BTDoc doc in this.Values)
+                foreach (BaseDoc doc in this.Values)
                 {
                     bModifiedDoc |= doc.Modified;
                 }
@@ -331,7 +334,7 @@ namespace CommonLib
             }
             set
             {
-                foreach (BTDoc doc in this.Values)
+                foreach (BaseDoc doc in this.Values)
                 {
                     doc.Modified = value;
                 }

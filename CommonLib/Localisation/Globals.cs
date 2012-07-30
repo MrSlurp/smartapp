@@ -121,6 +121,10 @@ namespace CommonLib
         
     }
 
+    public interface ILangNonTranslatable
+    {
+        // interface à ajouter pour que le système de langue ignore le composant
+    }
 
     public static class Globals
     {

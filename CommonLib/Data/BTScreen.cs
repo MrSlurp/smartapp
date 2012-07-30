@@ -610,6 +610,7 @@ namespace CommonLib
                 try
                 {
                     // si il y a une image, on la charge
+                    PathTranslator.CheckFileExistOrThrow(strImageFullPath);
                     Bitmap imgBack = new Bitmap(strImageFullPath);
                     imgBack.MakeTransparent(Cste.TransparencyColor);
                     // ets i besoin on réajuste la taille du panel

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
 using System.Windows.Forms;
 
 namespace CommonLib
@@ -103,6 +104,14 @@ namespace CommonLib
 #else
             return strPath;
 #endif
+        }
+
+        public static void CheckFileExistOrThrow(string strFilePath)
+        {
+            if (File.Exists(strFilePath))
+                return;
+            else
+                throw new Exception("File doesnot exists");
         }
 
     }
