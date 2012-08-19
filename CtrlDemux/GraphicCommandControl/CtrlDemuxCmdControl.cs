@@ -62,7 +62,7 @@ namespace CtrlDemux
         {
             if (DemuxParemtersOK)
             {
-                if (AdressData.Value < m_ListRefDatas.Count)
+                if (AdressData.Value >= 0 && AdressData.Value < m_ListRefDatas.Count)
                 {
                     ((Data)m_ListRefDatas[AdressData.Value]).Value = ValueData.Value;
                 }

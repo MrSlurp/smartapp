@@ -187,7 +187,7 @@ namespace CtrlDemux
                             }
                             for (int i = 0; i < m_ListDemuxData.Count; i++)
                             {
-                                if (m_ListDemuxData[i] == MessParam.NewItemSymbol)
+                                if (m_ListDemuxData[i] == MessParam.OldItemSymbol)
                                 {
                                     m_ListDemuxData[i] = MessParam.NewItemSymbol;
                                 }

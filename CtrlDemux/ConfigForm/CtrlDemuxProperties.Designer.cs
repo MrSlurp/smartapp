@@ -41,6 +41,7 @@ namespace CtrlDemux
             this.btnRemove = new System.Windows.Forms.Button();
             this.btnMoveDown = new System.Windows.Forms.Button();
             this.btnMoveUp = new System.Windows.Forms.Button();
+            this.m_colHeadAddr = new System.Windows.Forms.ColumnHeader();
             this.SuspendLayout();
             // 
             // label1
@@ -100,6 +101,7 @@ namespace CtrlDemux
             this.m_listViewData.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)));
             this.m_listViewData.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.m_colHeadAddr,
             this.m_ColHeadSymbol,
             this.m_ColHeadSize});
             this.m_listViewData.FullRowSelect = true;
@@ -165,6 +167,10 @@ namespace CtrlDemux
             this.btnMoveUp.UseVisualStyleBackColor = true;
             this.btnMoveUp.Click += new System.EventHandler(this.btnMoveUp_Click);
             // 
+            // m_colHeadAddr
+            // 
+            this.m_colHeadAddr.Text = "Address";
+            // 
             // CtrlDemuxProperties
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -202,5 +208,6 @@ namespace CtrlDemux
         private System.Windows.Forms.Button btnRemove;
         private System.Windows.Forms.Button btnMoveDown;
         private System.Windows.Forms.Button btnMoveUp;
+        private System.Windows.Forms.ColumnHeader m_colHeadAddr;
     }
 }

@@ -61,8 +61,9 @@ namespace CtrlDemux
             for (int i = 0; i < stringCollection.Count; i++)
             {
                 Data dt = (Data)Document.GestData.GetFromSymbol(stringCollection[i]);
-                ListViewItem lviData = new ListViewItem(dt.Symbol);
+                ListViewItem lviData = new ListViewItem(i.ToString());
                 lviData.Tag = dt;
+                lviData.SubItems.Add(dt.Symbol);
                 lviData.SubItems.Add(dt.SizeInBits.ToString());
                 m_listViewData.Items.Add(lviData);
             }
@@ -108,8 +109,9 @@ namespace CtrlDemux
                         if (PickData.SelectedDatas[i] != null)
                         {
                             Data dt = PickData.SelectedDatas[i];
-                            ListViewItem lviData = new ListViewItem(dt.Symbol);
+                            ListViewItem lviData = new ListViewItem(m_listViewData.Items.Count.ToString());
                             lviData.Tag = dt;
+                            lviData.SubItems.Add(dt.Symbol);
                             lviData.SubItems.Add(dt.SizeInBits.ToString());
                             m_listViewData.Items.Add(lviData);
                         }
@@ -158,8 +160,10 @@ namespace CtrlDemux
                 int idx = lviData.Index;
                 if (idx < m_listViewData.Items.Count - 2)
                 {
+                    lviData.Text = (idx+1).ToString();
                     m_listViewData.Items.Remove(lviData);
                     m_listViewData.Items.Insert(idx + 1, lviData);
+                    m_listViewData.Items[idx].Text = idx.ToString();
                 }
             }
 
@@ -175,8 +179,10 @@ namespace CtrlDemux
                 int idx = lviData.Index;
                 if (idx > 0 )
                 {
+                    lviData.Text = (idx - 1).ToString();
                     m_listViewData.Items.Remove(lviData);
                     m_listViewData.Items.Insert(idx - 1, lviData);
+                    m_listViewData.Items[idx].Text = idx.ToString();
                 }
             }
         }
