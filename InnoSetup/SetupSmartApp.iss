@@ -44,13 +44,13 @@ winxpsp2_title=Windows XP Service Pack 2
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{2FE97D82-A4DD-4235-A710-9C1A17CAE705}
 AppName=Smart Application V3
-AppVerName=Smart Application Beta
+AppVerName=Smart Application 3.1.0.0
 AppPublisher=Pascal Bigot
 AppCopyright=Copyright (C) 2007-2012 Pascal Bigot   
 AppPublisherURL=http://www.smartappsoftware.net
 AppSupportURL=http://www.smartappsoftware.net
 AppUpdatesURL=http://www.smartappsoftware.net
-AppVersion=3.0.0.4
+AppVersion=3.1.0.0
 DefaultDirName={pf}\M3Tool\Smart Application V3
 DefaultGroupName=Smart Application V3
 AllowNoIcons=yes
@@ -75,13 +75,13 @@ Source: "..\Prod\Release\SmartApp.exe"; DestDir: "{app}"; Flags: ignoreversion
 ; plugins + zegraph
 Source: "..\Prod\Release\*.dll"; DestDir: "{app}"; Flags: ignoreversion
 ; fichier de documentation de zedgraph
-Source: "..\Prod\Release\*.xml"; DestDir: "{app}"; ; Permissions : everyone-modify
+Source: "..\Prod\Release\*.xml"; DestDir: "{app}"; Permissions : everyone-modify
 ; librairie d'image pour les fond de plan
 Source: "..\Prod\Release\ImgLib\*"; DestDir: "{app}\ImgLib"; Flags: recursesubdirs createallsubdirs ; Permissions : everyone-modify
 ; images ressources de l'application
 Source: "..\Prod\Release\Res\*"; DestDir: "{app}\Res"; Flags: recursesubdirs createallsubdirs ; Permissions : everyone-modify
 ; fichier de langues
-Source: "..\Prod\Release\Lang\*.po"; DestDir: "{app}\Lang"; ; Permissions : everyone-modify
+Source: "..\Prod\Release\Lang\*.po"; DestDir: "{app}\Lang"; Permissions : everyone-modify
 ; fichier icone principal
 Source: "..\Prod\Release\SmartApp.ico"; DestDir: "{app}";
 ; fichier icone secondaire
