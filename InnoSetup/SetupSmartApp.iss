@@ -91,6 +91,7 @@ Source: "ressources\EN.SmartApp.exe.config"; DestDir: "{app}"; DestName:"SmartAp
 Source: "ressources\FR.SmartApp.exe.config"; DestDir: "{app}"; DestName:"SmartApp.exe.config"; Languages: french; Flags: onlyifdoesntexist uninsneveruninstall ; Permissions : everyone-modify
 ; fichier de fournitures
 Source: "fournitures\*.saf"; DestDir: "{app}\exemples"; Flags: recursesubdirs createallsubdirs ; Permissions : everyone-modify
+Source: "fournitures\*.slt"; DestDir: "{app}\exemples"; Flags: recursesubdirs createallsubdirs ; Permissions : everyone-modify
 Source: "fournitures\*.pm3"; DestDir: "{app}\exemples"; Flags: recursesubdirs createallsubdirs ; Permissions : everyone-modify
 Source: "fournitures\*.bmp"; DestDir: "{app}\exemples"; Flags: onlyifdoesntexist uninsneveruninstall ; Permissions : everyone-modify
 Source: "fournitures\*.ini"; DestDir: "{app}"; Flags: onlyifdoesntexist uninsneveruninstall ; Permissions : everyone-modify
