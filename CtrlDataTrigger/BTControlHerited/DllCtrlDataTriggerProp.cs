@@ -164,7 +164,7 @@ namespace CtrlDataTrigger
 
         public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance, BTDoc document)
         {
-            if (SrcSpecificProp.GetType() == typeof(DllCtrlDataTriggerProp))
+            if (SrcSpecificProp is DllCtrlDataTriggerProp)
             {
                 DllCtrlDataTriggerProp SrcProps = SrcSpecificProp as DllCtrlDataTriggerProp;
                 if (!bFromOtherInstance)
@@ -172,15 +172,6 @@ namespace CtrlDataTrigger
                     m_bBehaveLikeTrigger = SrcProps.m_bBehaveLikeTrigger;
                     m_strDataOffToOn = SrcProps.m_strDataOffToOn;
                     m_strDataOnToOff = SrcProps.m_strDataOnToOff;
-                }
-
-                if (!bFromOtherInstance)
-                {
-                    string[] tmp;
-                    base.CopyScript(out tmp, SrcProps.m_scriptContainer["OnToOffScript"]);
-                    m_scriptContainer["OnToOffScript"] = tmp;
-                    base.CopyScript(out tmp, SrcProps.m_scriptContainer["OffToOnScript"]);
-                    m_scriptContainer["OffToOnScript"] = tmp;
                 }
             }
         }

@@ -224,6 +224,68 @@ namespace CommonLib
                 }
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="GestTr"></param>
+        /// <param name="Tr"></param>
+        /// <param name="ctrlDataType"></param>
+        /// <param name="ctrlDataSize"></param>
+        public void UpdateControlDataForCurrentFrame(Trame Tr, string ctrlDataType, int ctrlDataSize)
+        {
+            //Liste des données de control nécessaires
+            string NeededCtrlData = string.Empty;
+            // liste des trames ayant besoin d'une donnée de controls
+            Trame TrameNeedCtrlData = null;
+            // on crée une liste syncronisée des noms des 
+            // données de control nécessaire et des trames correspondantes
+                // si la trame possède une donnée de control
+            if (ctrlDataType != CTRLDATA_TYPE.NONE.ToString())
+            {
+                // et si il n'existe pas déja une donnée de control pour cette trame
+                if (GetFromSymbol(Tr.Symbol + Cste.STR_SUFFIX_CTRLDATA) == null)
+                {
+                    string strNeeded = Tr.Symbol + Cste.STR_SUFFIX_CTRLDATA;
+                    // alors on enregistre le nom de la donnée nécessaire
+                    NeededCtrlData = strNeeded;
+                    // et la trame qui en a besoin
+                    TrameNeedCtrlData = Tr;
+                }
+            }
+
+            // on crée les données de control manquantes
+            if (TrameNeedCtrlData != null)
+            {
+                Data NewData = new Data();
+                NewData.Symbol = TrameNeedCtrlData.Symbol + Cste.STR_SUFFIX_CTRLDATA;
+                NewData.SizeAndSign = ctrlDataSize;
+                this.AddObj(NewData);
+
+                switch ((DATA_SIZE)NewData.SizeAndSign)
+                {
+                    case DATA_SIZE.DATA_SIZE_8B:
+                        NewData.Minimum = 0;
+                        NewData.Maximum = 255;
+                        break;
+                    case DATA_SIZE.DATA_SIZE_16B:
+                        NewData.Minimum = -32768;
+                        NewData.Maximum = 32767;
+                        break;
+                    case DATA_SIZE.DATA_SIZE_16BU:
+                        NewData.Minimum = 0;
+                        NewData.Maximum = 0xFFFF;
+                        break;
+                    case DATA_SIZE.DATA_SIZE_32B:
+                        NewData.Minimum = int.MinValue;
+                        NewData.Maximum = int.MaxValue;
+                        break;
+                    default:
+                        System.Diagnostics.Debug.Assert(false);
+                        break;
+                }
+            }
+        }
         #endregion
 
     }

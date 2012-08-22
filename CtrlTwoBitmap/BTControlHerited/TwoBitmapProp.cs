@@ -67,27 +67,18 @@ namespace CtrlTwoBitmap
 
         public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance, BTDoc document)
         {
-            if (bFromOtherInstance)
-            {
-                if (File.Exists(PathTranslator.LinuxVsWindowsPathUse(
-                                document.PathTr.RelativePathToAbsolute(
-                                ((TwoBitmapProp)SrcSpecificProp).NomFichierActif))))
-                {
-                    NomFichierActif = ((TwoBitmapProp)SrcSpecificProp).NomFichierActif;
-                }
-                if (File.Exists(PathTranslator.LinuxVsWindowsPathUse(
-                                document.PathTr.RelativePathToAbsolute(
-                                ((TwoBitmapProp)SrcSpecificProp).NomFichierInactif))))
-                {
-                    NomFichierInactif = ((TwoBitmapProp)SrcSpecificProp).NomFichierInactif;
-                }
-            }
-            else
+            if (File.Exists(PathTranslator.LinuxVsWindowsPathUse(
+                            document.PathTr.RelativePathToAbsolute(
+                            ((TwoBitmapProp)SrcSpecificProp).NomFichierActif))))
             {
                 NomFichierActif = ((TwoBitmapProp)SrcSpecificProp).NomFichierActif;
+            }
+            if (File.Exists(PathTranslator.LinuxVsWindowsPathUse(
+                            document.PathTr.RelativePathToAbsolute(
+                            ((TwoBitmapProp)SrcSpecificProp).NomFichierInactif))))
+            {
                 NomFichierInactif = ((TwoBitmapProp)SrcSpecificProp).NomFichierInactif;
             }
         }
-
     }
 }

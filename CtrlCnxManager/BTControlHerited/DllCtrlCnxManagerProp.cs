@@ -66,8 +66,11 @@ namespace CtrlCnxManager
         /// <param name="SrcSpecificProp">Paramètres sources</param>
         public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance, BTDoc document)
         {
-            DllCtrlCnxManagerProp SrcProp = (DllCtrlCnxManagerProp)SrcSpecificProp;
-            this.m_iRetryCnxPeriod = SrcProp.m_iRetryCnxPeriod;
+            if (SrcSpecificProp is DllCtrlCnxManagerProp)
+            {
+                DllCtrlCnxManagerProp SrcProp = SrcSpecificProp as DllCtrlCnxManagerProp;
+                this.m_iRetryCnxPeriod = SrcProp.m_iRetryCnxPeriod;
+            }
         }
 
         /// <summary>

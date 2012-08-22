@@ -125,7 +125,10 @@ namespace CtrlCnxManager
                 {
                     // message de requête sur les conséquence d'une supression
                     case MESSAGE.MESS_CMD_STOP:
-                        m_watchdogTimer.Start(); // et oui il n'est jamais arrêté
+                        if (m_watchdogTimer.Enabled == false)
+                            m_watchdogTimer.Start(); // et oui il n'est jamais arrêté
+                            // et sa première mise en marche correspond à l'arret de la supervision suite à une coupure de connexion
+
                         // traitez ici le passage en mode stop du control si nécessaire
                         break;
                     case MESSAGE.MESS_CMD_RUN:

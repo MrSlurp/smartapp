@@ -218,6 +218,7 @@ namespace SmartApp
                         img = Resources.CxnOn;
                     DataGridViewImageCell projectCnxStatuxCell = row.Cells[this.colProjCnxStatus.Name] as DataGridViewImageCell;
                     projectCnxStatuxCell.Value = img;
+                   
                     break;
                 }
             }

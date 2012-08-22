@@ -527,26 +527,28 @@ namespace SmartApp.Ihm.Designer
         /// <param name="iCtrl"></param>
         /// <param name="dataSymbol"></param>
         /// <returns></returns>
-        private bool ICtrlDataAssigned(InteractiveControl iCtrl, string dataSymbol)
+        private bool ICtrlDataAssigned(InteractiveControl iCtrl, string dataSymbol, bool bDone)
         {
-            if (m_Document.GestData.GetFromSymbol(dataSymbol) == null)
+            if (m_Document.GestData.GetFromSymbol(dataSymbol) == null && !bDone)
             {
                 string strErr = string.Format(Program.LangSys.C("This data ({0}) does not exists in this document"), dataSymbol);
                 MessageBox.Show(strErr, Program.LangSys.C("Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            for (int i = 0; i < m_ListSelection.Count; i++)
+            if (bDone)
             {
-                ((IInteractive)m_ListSelection[i]).Selected = false;
+                for (int i = 0; i < m_ListSelection.Count; i++)
+                {
+                    ((IInteractive)m_ListSelection[i]).Selected = false;
+                }
+                // et on séléctionne l'objet posé 
+                m_ListSelection.Clear();
+                m_ListSelection.Add(iCtrl);
+                iCtrl.Selected = true;
+                iCtrl.Focus();
+                if (SelectionChange != null)
+                    SelectionChange();
             }
-            // et on séléctionne l'objet posé 
-            m_ListSelection.Clear();
-            m_ListSelection.Add(iCtrl);
-            iCtrl.Selected = true;
-            iCtrl.Focus();
-            if (SelectionChange != null)
-                SelectionChange();
-
             return true;
         }
 

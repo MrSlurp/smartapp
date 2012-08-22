@@ -172,19 +172,17 @@ namespace CtrlDataGrid
         /// <param name="SrcSpecificProp">Paramètres sources</param>
         public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance, BTDoc document)
         {
-            DllCtrlDataGridProp SrcProp = (DllCtrlDataGridProp)SrcSpecificProp;
-            if (!bFromOtherInstance)
+            if (SrcSpecificProp is DllCtrlDataGridProp)
             {
-                if (SrcSpecificProp.GetType() == typeof(DllCtrlDataGridProp))
+                DllCtrlDataGridProp SpecProp = SrcSpecificProp as DllCtrlDataGridProp;
+                for (int i = 0; i < NB_DATA; i++)
                 {
-                    for (int i = 0; i < NB_DATA; i++)
-                    {
-                        ListDataSymbol[i] = ((DllCtrlDataGridProp)SrcSpecificProp).ListDataSymbol[i];
-                        ListDataAlias[i] = ((DllCtrlDataGridProp)SrcSpecificProp).ListDataAlias[i];
-                    }
-                    m_SavePeriod = ((DllCtrlDataGridProp)SrcSpecificProp).m_SavePeriod;
-                    m_LoggingPeriod = ((DllCtrlDataGridProp)SrcSpecificProp).m_LoggingPeriod;
+                    ListDataSymbol[i] = BTControl.CheckAndDoAssociateDataCopy(document, SpecProp.ListDataSymbol[i]);
+                    if (!string.IsNullOrEmpty(ListDataSymbol[i]))
+                        ListDataAlias[i] = SpecProp.ListDataAlias[i];
                 }
+                m_SavePeriod = SpecProp.m_SavePeriod;
+                m_LoggingPeriod = SpecProp.m_LoggingPeriod;
             }
         }
 

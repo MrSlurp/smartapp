@@ -271,23 +271,24 @@ namespace CtrlGraph
         /// <param name="SrcSpecificProp"></param>
         public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance, BTDoc document)
         {
-            if (!bFromOtherInstance)
+            if (SrcSpecificProp is DllCtrlGraphProp)
             {
-                if (SrcSpecificProp.GetType() == typeof(DllCtrlGraphProp))
+                DllCtrlGraphProp specProps = SrcSpecificProp as DllCtrlGraphProp;
+                for (int i = 0; i < NB_CURVE; i++)
                 {
-                    for (int i = 0; i < NB_CURVE; i++)
+                    ListDataSymbol[i] = BTControl.CheckAndDoAssociateDataCopy(document, specProps.ListDataSymbol[i]);
+                    if (!string.IsNullOrEmpty(ListDataSymbol[i]))
                     {
-                        ListDataSymbol[i] = ((DllCtrlGraphProp)SrcSpecificProp).ListDataSymbol[i];
-                        ListDataAlias[i] = ((DllCtrlGraphProp)SrcSpecificProp).ListDataAlias[i];
-                        ListCurveColor[i] = ((DllCtrlGraphProp)SrcSpecificProp).ListCurveColor[i];
-                        ListDataDivisor[i] = ((DllCtrlGraphProp)SrcSpecificProp).ListDataDivisor[i];
+                        ListDataAlias[i] = specProps.ListDataAlias[i];
+                        ListCurveColor[i] = specProps.ListCurveColor[i];
+                        ListDataDivisor[i] = specProps.ListDataDivisor[i];
                     }
-                    m_SavePeriod = ((DllCtrlGraphProp)SrcSpecificProp).m_SavePeriod;
-                    m_LoggingPeriod = ((DllCtrlGraphProp)SrcSpecificProp).m_LoggingPeriod;
-                    strGraphTitle = ((DllCtrlGraphProp)SrcSpecificProp).strGraphTitle;
-                    strXAxisTitle = ((DllCtrlGraphProp)SrcSpecificProp).strXAxisTitle;
-                    strYAxisTitle = ((DllCtrlGraphProp)SrcSpecificProp).strYAxisTitle;
                 }
+                m_SavePeriod = specProps.m_SavePeriod;
+                m_LoggingPeriod = specProps.m_LoggingPeriod;
+                strGraphTitle = specProps.strGraphTitle;
+                strXAxisTitle = specProps.strXAxisTitle;
+                strYAxisTitle = specProps.strYAxisTitle;
             }
         }
         #endregion

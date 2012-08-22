@@ -169,8 +169,9 @@ namespace CommonLib
         public void PreParseFunction(ref PreParsedLine retPreParsedLine, string line)
         {
             string[] strTab = line.Split(ParseExecGlobals.TOKEN_SEPARATOR);
-            string FunctionSymb = strTab[1];
+            string FunctionSymb = strTab[1].Trim();
             ScriptParser.TrimEndParenthese(ref FunctionSymb);
+            FunctionSymb = FunctionSymb.Trim();
             Function func = (Function)m_Document.GestFunction.QuickGetFromSymbol(FunctionSymb);
             retPreParsedLine.m_Arguments = new BaseObject[1] {func};
         }

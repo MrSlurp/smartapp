@@ -15,6 +15,8 @@ using CommonLib;
 
 namespace SmartApp.Ihm
 {
+    public delegate void AsyncUpdateHMI(MessNeedUpdate Mess);
+
     /// <summary>
     /// fenêtre principale de SmartConfig
     /// </summary>

@@ -34,6 +34,8 @@
     <ApplicationVersion>2.0.0.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>SmartAppKey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -171,12 +173,6 @@
     <Compile Include="SmartConfig\Ihm\ConfigurationForm\DesignerForm.Designer.cs">
       <DependentUpon>DesignerForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="SmartConfig\Ihm\ConfigurationForm\FrameForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\ConfigurationForm\FrameForm.Designer.cs">
-      <DependentUpon>FrameForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="SmartConfig\Ihm\ControlConfig\GaugeConfig.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -257,10 +253,6 @@
     <EmbeddedResource Include="SmartConfig\Ihm\ConfigurationForm\DesignerForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>DesignerForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SmartConfig\Ihm\ConfigurationForm\FrameForm.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>FrameForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SmartConfig\Ihm\Designer\DragItemPanel.resx">
       <SubType>Designer</SubType>
@@ -1012,6 +1004,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="app.config" />
+    <None Include="SmartAppKey.snk" />
     <Content Include="Res\icon_screen.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

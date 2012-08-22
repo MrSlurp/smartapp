@@ -86,12 +86,13 @@ namespace ScreenItemLocker
         /// <param name="SrcSpecificProp">Paramètres sources</param>
         public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance, BTDoc document)
         {
-            DllScreenItemLockerProp SrcProp = (DllScreenItemLockerProp)SrcSpecificProp;
-            if (bFromOtherInstance)
-                return;
-            m_ListItemSymbol.Clear();
-            foreach (string st in SrcProp.ListItemSymbol)
-                m_ListItemSymbol.Add(st);
+            if (SrcSpecificProp is DllScreenItemLockerProp)
+            {
+                DllScreenItemLockerProp SrcProp = SrcSpecificProp as DllScreenItemLockerProp;
+                // on ne copie rien pour cet objet, puisque d'une écran à l'autre les symboles n'ont plus
+                // rien a voir
+                m_ListItemSymbol.Clear();
+            }
         }
 
         /// <summary>

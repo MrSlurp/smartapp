@@ -115,10 +115,13 @@ namespace CtrlMailer
         /// <param name="SrcSpecificProp">Paramètres sources</param>
         public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance, BTDoc document)
         {
-            DllCtrlMailerProp SrcProp = (DllCtrlMailerProp)SrcSpecificProp;
-            m_ListToMail = SrcProp.m_ListToMail;
-            m_MailSubject = SrcProp.m_MailSubject;
-            m_MailBody = SrcProp.m_MailBody;
+            if (SrcSpecificProp is DllCtrlMailerProp)
+            {
+                DllCtrlMailerProp SrcProp = SrcSpecificProp as DllCtrlMailerProp;
+                m_ListToMail = SrcProp.m_ListToMail;
+                m_MailSubject = SrcProp.m_MailSubject;
+                m_MailBody = SrcProp.m_MailBody;
+            }
         }
 
         /// <summary>

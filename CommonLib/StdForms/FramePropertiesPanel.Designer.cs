@@ -44,6 +44,12 @@ namespace CommonLib
             this.label6 = new System.Windows.Forms.Label();
             this.m_cboCtrlDataType = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.m_ListViewFrameData = new System.Windows.Forms.ListView();
+            this.m_colDataSymbol = new System.Windows.Forms.ColumnHeader();
+            this.m_colDataSize = new System.Windows.Forms.ColumnHeader();
+            this.m_colConst = new System.Windows.Forms.ColumnHeader();
+            this.m_colDefVal = new System.Windows.Forms.ColumnHeader();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -208,20 +214,76 @@ namespace CommonLib
             this.label5.TabIndex = 0;
             this.label5.Text = "From";
             // 
-            // FramePropertiesControl
+            // m_ListViewFrameData
+            // 
+            this.m_ListViewFrameData.AllowDrop = true;
+            this.m_ListViewFrameData.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.m_colDataSymbol,
+            this.m_colDataSize,
+            this.m_colConst,
+            this.m_colDefVal});
+            this.m_ListViewFrameData.FullRowSelect = true;
+            this.m_ListViewFrameData.GridLines = true;
+            this.m_ListViewFrameData.HideSelection = false;
+            this.m_ListViewFrameData.Location = new System.Drawing.Point(3, 232);
+            this.m_ListViewFrameData.MultiSelect = false;
+            this.m_ListViewFrameData.Name = "m_ListViewFrameData";
+            this.m_ListViewFrameData.Size = new System.Drawing.Size(460, 383);
+            this.m_ListViewFrameData.TabIndex = 11;
+            this.m_ListViewFrameData.UseCompatibleStateImageBehavior = false;
+            this.m_ListViewFrameData.View = System.Windows.Forms.View.Details;
+            this.m_ListViewFrameData.DragDrop += new System.Windows.Forms.DragEventHandler(this.OnListViewFrameDataDragDrop);
+            this.m_ListViewFrameData.DragEnter += new System.Windows.Forms.DragEventHandler(this.OnListViewFrameDataDragEnter);
+            this.m_ListViewFrameData.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnListViewFrameDataKeyDown);
+            this.m_ListViewFrameData.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.OnListViewFrameDataItemDrag);
+            this.m_ListViewFrameData.DragOver += new System.Windows.Forms.DragEventHandler(this.OnListViewFrameDataDragOver);
+            // 
+            // m_colDataSymbol
+            // 
+            this.m_colDataSymbol.Text = "Data Symbol";
+            this.m_colDataSymbol.Width = 176;
+            // 
+            // m_colDataSize
+            // 
+            this.m_colDataSize.Text = "Size";
+            // 
+            // m_colConst
+            // 
+            this.m_colConst.Text = "Constant";
+            this.m_colConst.Width = 78;
+            // 
+            // m_colDefVal
+            // 
+            this.m_colDefVal.Text = "Default Value";
+            this.m_colDefVal.Width = 102;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(4, 213);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(72, 13);
+            this.label1.TabIndex = 12;
+            this.label1.Text = "Frame\'s datas";
+            // 
+            // FramePropertiesPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.m_ListViewFrameData);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Name = "FramePropertiesControl";
-            this.Size = new System.Drawing.Size(424, 211);
+            this.Name = "FramePropertiesPanel";
+            this.Size = new System.Drawing.Size(469, 618);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -243,5 +305,11 @@ namespace CommonLib
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox m_cboCtrlDataType;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ListView m_ListViewFrameData;
+        private System.Windows.Forms.ColumnHeader m_colDataSymbol;
+        private System.Windows.Forms.ColumnHeader m_colDataSize;
+        private System.Windows.Forms.ColumnHeader m_colConst;
+        private System.Windows.Forms.ColumnHeader m_colDefVal;
+        private System.Windows.Forms.Label label1;
     }
 }

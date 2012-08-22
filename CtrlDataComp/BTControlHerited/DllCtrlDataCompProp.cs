@@ -120,17 +120,13 @@ namespace CtrlDataComp
         /// <param name="SrcSpecificProp">Paramètres sources</param>
         public override void  CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance, BTDoc document)
         {
-            DllCtrlDataCompProp SrcProp = SrcSpecificProp as DllCtrlDataCompProp;
-            if (!bFromOtherInstance)
+            if (SrcSpecificProp is DllCtrlDataCompProp)
             {
+                DllCtrlDataCompProp SrcProp = SrcSpecificProp as DllCtrlDataCompProp;
                 m_CompMode = SrcProp.m_CompMode;
-                m_sDataA = SrcProp.m_sDataA;
-                m_sDataB = SrcProp.m_sDataB;
-                m_sDataC = SrcProp.m_sDataC;
-            }
-            else
-            {
-                m_CompMode = SrcProp.m_CompMode;
+                m_sDataA = BTControl.CheckAndDoAssociateDataCopy(document, SrcProp.m_sDataA);
+                m_sDataB = BTControl.CheckAndDoAssociateDataCopy(document, SrcProp.m_sDataB);
+                m_sDataC = BTControl.CheckAndDoAssociateDataCopy(document, SrcProp.m_sDataC);
             }
         }
 

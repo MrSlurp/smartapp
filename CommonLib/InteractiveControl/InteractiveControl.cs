@@ -90,7 +90,7 @@ namespace CommonLib
         public event InteractiveMove OnMouve;
         public delegate void InteractiveEndMove();
         public event InteractiveEndMove EndMouve;
-        public delegate bool AssociateDataDropedEvent(InteractiveControl iCtrl, string strDataSymbol);
+        public delegate bool AssociateDataDropedEvent(InteractiveControl iCtrl, string strDataSymbol, bool bDone);
         public event AssociateDataDropedEvent AsscociateDataDroped;
         #endregion
 
@@ -652,15 +652,15 @@ namespace CommonLib
             TreeNode DropedItem = (TreeNode)e.Data.GetData(typeof(TreeNode));
             if (DropedItem != null)
             {
-                if (DropedItem.Tag is Data && 
-                    this.ControlType != InteractiveControlType.Text)
+                if (DropedItem.Tag is Data)
                 {
                     if (AsscociateDataDroped != null)
                     {
                         Data dt = DropedItem.Tag as Data;
-                        if (AsscociateDataDroped(this, dt.Symbol))
+                        if (AsscociateDataDroped(this, dt.Symbol, false))
                         {
                             m_SrcBTControl.AssociateData = dt.Symbol;
+                            AsscociateDataDroped(this, dt.Symbol, true);
                             this.Refresh();
                         }
                     }

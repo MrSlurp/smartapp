@@ -106,18 +106,18 @@ namespace CtrlDemux
 
         public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance, BTDoc document)
         {
-            if (!bFromOtherInstance)
+            if (SrcSpecificProp is DllCtrlDemuxProp)
             {
-                if (SrcSpecificProp.GetType() == typeof(DllCtrlDemuxProp))
+                DllCtrlDemuxProp SpecProps = SrcSpecificProp as DllCtrlDemuxProp;
+                m_ListDemuxData.Clear();
+                for (int i = 0; i < SpecProps.m_ListDemuxData.Count; i++)
                 {
-                    m_ListDemuxData.Clear();
-                    for (int i = 0; i < ((DllCtrlDemuxProp)SrcSpecificProp).m_ListDemuxData.Count; i++)
-                    {
-                        m_ListDemuxData.Add(((DllCtrlDemuxProp)SrcSpecificProp).m_ListDemuxData[i]);
-                    }
-                    m_strAdressData = ((DllCtrlDemuxProp)SrcSpecificProp).m_strAdressData;
-                    m_strValueData = ((DllCtrlDemuxProp)SrcSpecificProp).m_strValueData;
+                    string strTmp = BTControl.CheckAndDoAssociateDataCopy(document, SpecProps.m_ListDemuxData[i]);
+                    if (!string.IsNullOrEmpty(strTmp))
+                        m_ListDemuxData.Add(strTmp);
                 }
+                m_strAdressData = BTControl.CheckAndDoAssociateDataCopy(document, SpecProps.m_strAdressData);
+                m_strValueData = BTControl.CheckAndDoAssociateDataCopy(document, SpecProps.m_strValueData);
             }
         }
 		

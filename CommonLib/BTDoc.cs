@@ -757,7 +757,11 @@ namespace CommonLib
                     m_virtualDataForm = null;
                 }
             }
-
+            /*
+            if (!m_Comm.IsOpen)
+            {
+                this.TraiteMessage(MESSAGE.MESS_CMD_STOP, null, Program.TypeApp);
+            }*/
         }
 
         /// <summary>

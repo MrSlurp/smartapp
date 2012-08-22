@@ -163,9 +163,9 @@ namespace ImageButton
         /// <param name="SrcSpecificProp">Paramètres sources</param>
         public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance, BTDoc document)
         {
-            DllImageButtonProp SrcProp = (DllImageButtonProp)SrcSpecificProp;
-            if (bFromOtherInstance)
+            if (SrcSpecificProp is DllImageButtonProp)
             {
+                DllImageButtonProp SrcProp = SrcSpecificProp as DllImageButtonProp;
                 if (File.Exists(PathTranslator.LinuxVsWindowsPathUse(
                                 document.PathTr.RelativePathToAbsolute(
                                 SrcProp.ReleasedImage))))
@@ -181,15 +181,6 @@ namespace ImageButton
                 m_bIsBistable = SrcProp.m_bIsBistable;
                 m_Style = SrcProp.m_Style;
                 m_BorderSize = SrcProp.m_BorderSize;
-            }
-            else
-            {
-                ReleasedImage = SrcProp.ReleasedImage;
-                PressedImage = SrcProp.PressedImage;
-                m_bIsBistable = SrcProp.m_bIsBistable;
-                m_Style = SrcProp.m_Style;
-                m_BorderSize = SrcProp.m_BorderSize;
-                m_strInputData = SrcProp.m_strInputData;
             }
         }
 

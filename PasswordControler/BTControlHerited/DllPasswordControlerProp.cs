@@ -58,11 +58,10 @@ namespace PasswordControler
         /// <param name="SrcSpecificProp">Paramètres sources</param>
         public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance, BTDoc document)
         {
-            DllPasswordControlerProp SrcProp = (DllPasswordControlerProp)SrcSpecificProp;
-            this.PasswordHash = SrcProp.PasswordHash;
-            if (bFromOtherInstance)
+            if (SrcSpecificProp is DllPasswordControlerProp)
             {
-                //rien a copier
+                DllPasswordControlerProp SrcProp = SrcSpecificProp as DllPasswordControlerProp;
+                this.PasswordHash = SrcProp.PasswordHash;
             }
         }
 

@@ -660,18 +660,8 @@ namespace CommonLib
         /// <param name="bFromOtherInstance"></param>
         public void CopyParametersFrom(BTControl SrcBtControl, bool bFromOtherInstance, BTDoc document)
         {
-            if (!bFromOtherInstance)
-            {
-                m_strAssociateData = SrcBtControl.m_strAssociateData;
-
-                string[] scriptcopy = new string[SrcBtControl.m_ScriptContainer["EvtScript"].Length];
-                for (int i = 0; i < scriptcopy.Length; i++)
-                {
-                    scriptcopy[i] = SrcBtControl.m_ScriptContainer["EvtScript"][i];
-                }
-                this.m_ScriptContainer["EvtScript"] = scriptcopy;
-            }
-
+            m_strAssociateData = CheckAndDoAssociateDataCopy(document, SrcBtControl.m_strAssociateData);
+            CheckAndDoScriptCopy(document, SrcBtControl.ItemScripts, this.ItemScripts);
             m_bUseScreenEvent = SrcBtControl.m_bUseScreenEvent;
             this.TextFont = SrcBtControl.TextFont;
             this.TextColor = SrcBtControl.TextColor;
@@ -679,6 +669,35 @@ namespace CommonLib
             {
                 SpecificProp.CopyParametersFrom(SrcBtControl.SpecificProp, bFromOtherInstance, document);
             }
+        }
+
+        public static void CheckAndDoScriptCopy(BTDoc doc, ItemScriptsConainter srcCtrl, ItemScriptsConainter destCtrl)
+        {
+            foreach (string scriptName in srcCtrl.ScriptKeys)
+            {
+                ScriptParser Parser = new ScriptParser();
+                Parser.Document = doc;
+                List<ScriptParserError> errList = new List<ScriptParserError>();
+                Parser.ParseScript(srcCtrl[scriptName], errList);
+                if (errList.Count == 0)
+                {
+                    string[] scriptcopy = new string[srcCtrl[scriptName].Length];
+                    for (int i = 0; i < scriptcopy.Length; i++)
+                    {
+                        scriptcopy[i] = srcCtrl[scriptName][i];
+                    }
+                    destCtrl[scriptName] = scriptcopy;
+                }
+            }
+        }
+
+        public static string CheckAndDoAssociateDataCopy(BTDoc doc, string strSrcDataSymbol)
+        {
+            if (doc.GestData.GetFromSymbol(strSrcDataSymbol) != null)
+            {
+                return strSrcDataSymbol;
+            }
+            return string.Empty;
         }
 
         public override void NotifyPropertiesChanged()

@@ -67,9 +67,16 @@ namespace SoundPlayer
         /// <param name="SrcSpecificProp">Paramètres sources</param>
         public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance, BTDoc document)
         {
-            DllSoundPlayerProp SrcProp = (DllSoundPlayerProp)SrcSpecificProp;
-            if (!bFromOtherInstance)
-                m_SoundFile = SrcProp.m_SoundFile; 
+            if (SrcSpecificProp is DllSoundPlayerProp)
+            {
+                DllSoundPlayerProp SrcProp = SrcSpecificProp as DllSoundPlayerProp;
+                if (File.Exists(PathTranslator.LinuxVsWindowsPathUse(
+                                document.PathTr.RelativePathToAbsolute(
+                                SrcProp.m_SoundFile))))
+                {
+                    m_SoundFile = SrcProp.m_SoundFile;
+                }
+            }
         }
 
         /// <summary>

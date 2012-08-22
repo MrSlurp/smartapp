@@ -44,7 +44,7 @@ winxpsp2_title=Windows XP Service Pack 2
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{2FE97D82-A4DD-4235-A710-9C1A17CAE705}
 AppName=Smart Application V3
-AppVerName=Smart Application V3Alpha5
+AppVerName=Smart Application Beta
 AppPublisher=Pascal Bigot
 AppCopyright=Copyright (C) 2007-2012 Pascal Bigot   
 AppPublisherURL=http://www.smartappsoftware.net
@@ -75,25 +75,25 @@ Source: "..\Prod\Release\SmartApp.exe"; DestDir: "{app}"; Flags: ignoreversion
 ; plugins + zegraph
 Source: "..\Prod\Release\*.dll"; DestDir: "{app}"; Flags: ignoreversion
 ; fichier de documentation de zedgraph
-Source: "..\Prod\Release\*.xml"; DestDir: "{app}"; 
+Source: "..\Prod\Release\*.xml"; DestDir: "{app}"; ; Permissions : everyone-modify
 ; librairie d'image pour les fond de plan
-Source: "..\Prod\Release\ImgLib\*"; DestDir: "{app}\ImgLib"; Flags: recursesubdirs createallsubdirs
+Source: "..\Prod\Release\ImgLib\*"; DestDir: "{app}\ImgLib"; Flags: recursesubdirs createallsubdirs ; Permissions : everyone-modify
 ; images ressources de l'application
-Source: "..\Prod\Release\Res\*"; DestDir: "{app}\Res"; Flags: recursesubdirs createallsubdirs
+Source: "..\Prod\Release\Res\*"; DestDir: "{app}\Res"; Flags: recursesubdirs createallsubdirs ; Permissions : everyone-modify
 ; fichier de langues
-Source: "..\Prod\Release\Lang\*.po"; DestDir: "{app}\Lang";
+Source: "..\Prod\Release\Lang\*.po"; DestDir: "{app}\Lang"; ; Permissions : everyone-modify
 ; fichier icone principal
 Source: "..\Prod\Release\SmartApp.ico"; DestDir: "{app}";
 ; fichier icone secondaire
 Source: "..\Prod\Release\SmartAppSln.ico"; DestDir: "{app}";
 ; fichier de configuration de l'application
-Source: "ressources\EN.SmartApp.exe.config"; DestDir: "{app}"; DestName:"SmartApp.exe.config"; Languages: english; Flags: onlyifdoesntexist uninsneveruninstall
-Source: "ressources\FR.SmartApp.exe.config"; DestDir: "{app}"; DestName:"SmartApp.exe.config"; Languages: french; Flags: onlyifdoesntexist uninsneveruninstall
+Source: "ressources\EN.SmartApp.exe.config"; DestDir: "{app}"; DestName:"SmartApp.exe.config"; Languages: english; Flags: onlyifdoesntexist uninsneveruninstall ; Permissions : everyone-modify
+Source: "ressources\FR.SmartApp.exe.config"; DestDir: "{app}"; DestName:"SmartApp.exe.config"; Languages: french; Flags: onlyifdoesntexist uninsneveruninstall ; Permissions : everyone-modify
 ; fichier de fournitures
-Source: "fournitures\*.saf"; DestDir: "{app}\exemples"; Flags: recursesubdirs createallsubdirs
-Source: "fournitures\*.pm3"; DestDir: "{app}\exemples"; Flags: recursesubdirs createallsubdirs
-Source: "fournitures\*.bmp"; DestDir: "{app}\exemples"; Flags: onlyifdoesntexist uninsneveruninstall
-Source: "fournitures\*.ini"; DestDir: "{app}"; Flags: onlyifdoesntexist uninsneveruninstall
+Source: "fournitures\*.saf"; DestDir: "{app}\exemples"; Flags: recursesubdirs createallsubdirs ; Permissions : everyone-modify
+Source: "fournitures\*.pm3"; DestDir: "{app}\exemples"; Flags: recursesubdirs createallsubdirs ; Permissions : everyone-modify
+Source: "fournitures\*.bmp"; DestDir: "{app}\exemples"; Flags: onlyifdoesntexist uninsneveruninstall ; Permissions : everyone-modify
+Source: "fournitures\*.ini"; DestDir: "{app}"; Flags: onlyifdoesntexist uninsneveruninstall ; Permissions : everyone-modify
 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 

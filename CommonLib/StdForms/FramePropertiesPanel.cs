@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Drawing;
 using System.Data;
@@ -21,11 +22,7 @@ namespace CommonLib
         private bool bLockComboCtrlDataTypeEvent = false;
 
         bool m_bLockEvent = false;
-        #endregion
-
-        #region events
-        public event CurrentDataListChanged DataListChange;
-        public event BeforeCurrentDataListChange BeforeDataListChange;
+        bool m_bCurFrameDataListChanged = false;
         #endregion
 
         #region constructeur et init
@@ -305,6 +302,8 @@ namespace CommonLib
                 bChange |= true;
             if (m_Trame.ConvTo != this.ConvTo)
                 bChange |= true;
+            if (m_bCurFrameDataListChanged)
+                bChange |= true;
 
             if (bChange)
             {
@@ -315,14 +314,15 @@ namespace CommonLib
                 m_Trame.ConvType = this.ConvType;
                 m_Trame.ConvFrom = this.ConvFrom;
                 m_Trame.ConvTo = this.ConvTo;
-
+                UpdateFrameDataListFromListView();
                 Document.Modified = true;
+                m_bCurFrameDataListChanged = false;
             }
-
         }
 
         public void ObjectToPanel()
         {
+            m_bCurFrameDataListChanged = false;
             if (m_Trame != null)
             {
                 UpdateComboFromTo();
@@ -335,6 +335,7 @@ namespace CommonLib
                 this.ConvFrom = m_Trame.ConvFrom;
                 this.ConvTo = m_Trame.ConvTo;
                 this.CtrlDataSize = m_Trame.CtrlDataSize;
+                InitListViewFrameData();
             }
             UpdateComboFromToEnabling();
         }
@@ -459,33 +460,34 @@ namespace CommonLib
         {
             if (m_Trame == null)
                 return;
-            // on préviens que la liste des données va changer 
-            // la frame form va updater la liste des données de la trame a partir de la 
-            // list view
-            if (BeforeDataListChange != null)
-                BeforeDataListChange();
 
             // traitement de l'ajout / suppression de la donnée de control
             if (this.CtrlDataType != CTRLDATA_TYPE.NONE.ToString())
             {
-                m_Trame.CtrlDataSize = this.CtrlDataSize;
-                GestData.UpdateAllControlDatas(GestTrame);
+                //m_Trame.CtrlDataSize = this.CtrlDataSize;
+                GestData.UpdateControlDataForCurrentFrame(m_Trame, this.CtrlDataType, this.CtrlDataSize);
                 // on ne l'ajoute que si la donnée n'y est pas déja
-                if (!m_Trame.FrameDatas.Contains(m_Trame.Symbol + Cste.STR_SUFFIX_CTRLDATA))
-                    m_Trame.FrameDatas.Add(m_Trame.Symbol + Cste.STR_SUFFIX_CTRLDATA);
+                bool bFind = false;
+                for (int i = 0; i < m_ListViewFrameData.Items.Count; i++)
+                {
+                    bFind |= m_ListViewFrameData.Items[i].Text == m_Trame.Symbol + Cste.STR_SUFFIX_CTRLDATA;
+                }
+                if (!bFind)
+                {
+                    Data ctrlData = GestData.GetFromSymbol(m_Trame.Symbol + Cste.STR_SUFFIX_CTRLDATA)as Data;
+                    this.AddOneDataToListView(ctrlData);
+                }
             }
             else
             {
-                for (int i = 0; i < m_Trame.FrameDatas.Count; i++)
+                for (int i = 0; i < m_ListViewFrameData.Items.Count; i++)
                 {
-                    if (m_Trame.FrameDatas[i].EndsWith(Cste.STR_SUFFIX_CTRLDATA))
-                        m_Trame.FrameDatas.Remove(m_Trame.FrameDatas[i]);
+                    if (m_ListViewFrameData.Items[i].Text == m_Trame.Symbol + Cste.STR_SUFFIX_CTRLDATA)
+                    {
+                        m_ListViewFrameData.Items.RemoveAt(i);
+                    }
                 }
             }
-            // on préviens que la liste des données a changé
-            // la frame form va updater la listview des données de la trame
-            if (DataListChange != null)
-                DataListChange();
         }
         #endregion
 
@@ -534,5 +536,212 @@ namespace CommonLib
         }
         #endregion
 
+        #region gestion de la listview des donnée
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void InitListViewFrameData()
+        {
+            m_ListViewFrameData.Items.Clear();
+            
+            StringCollection Lst = m_Trame.FrameDatas;
+            if (Lst != null)
+            {
+                for (int i = 0; i < Lst.Count; i++)
+                {
+                    string dtsymb = Lst[i];
+                    Data dt = (Data)this.GestData.GetFromSymbol(dtsymb);
+                    if (dt == null)
+                    {
+                        System.Diagnostics.Debug.Assert(false);
+                        continue;
+                    }
+                    AddOneDataToListView(dt);
+                }
+            }
+        }
+
+        public void AddOneDataToListView(Data dt)
+        {
+            ListViewItem lviData = new ListViewItem(dt.Symbol);
+            lviData.Tag = dt;
+            BaseGestGroup.Group gr = GestData.GetGroupFromObject(dt);
+            if (gr != null)
+            {
+                lviData.BackColor = gr.m_GroupColor;
+            }
+            lviData.SubItems.Add(dt.SizeInBits.ToString());
+            lviData.SubItems.Add(dt.IsConstant.ToString());
+            lviData.SubItems.Add(dt.DefaultValue.ToString());
+            m_ListViewFrameData.Items.Add(lviData);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnListViewFrameDataKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete
+                || e.KeyCode == Keys.Back)
+            {
+                ListViewItem lviData = null;
+                if (m_ListViewFrameData.SelectedItems.Count > 0)
+                    lviData = m_ListViewFrameData.SelectedItems[0];
+                if (lviData != null)
+                {
+                    if (!((Data)lviData.Tag).Symbol.EndsWith(Cste.STR_SUFFIX_CTRLDATA))
+                    {
+                        m_ListViewFrameData.Items.Remove(lviData);
+                        m_bCurFrameDataListChanged = true;
+                    }
+                    else
+                        MessageBox.Show(Lang.LangSys.C("You can't remove frame control data"), Lang.LangSys.C("Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void OnListViewFrameDataDragEnter(object sender, DragEventArgs e)
+        {
+            TreeNode DropedItem = (TreeNode)e.Data.GetData(typeof(TreeNode));
+            if (DropedItem != null)
+            {
+                if (DropedItem.Tag is Data)
+                {
+                    Data dt = DropedItem.Tag as Data;
+                    if (m_Trame != null && dt != null)
+                    {
+                        bool bFind = false;
+                        for (int i = 0; i < m_ListViewFrameData.Items.Count; i++)
+                        {
+                            if (m_ListViewFrameData.Items[i].Text == dt.Symbol)
+                            {
+                                bFind = true;
+                                break;
+                            }
+                        }
+
+                        if (bFind)
+                        {
+                            e.Effect = DragDropEffects.Move;
+                        }
+                        else
+                        {
+                            e.Effect = DragDropEffects.Copy;
+                        }
+                    }
+                    else
+                    {
+                        e.Effect = DragDropEffects.None;
+                    }
+                }
+            }
+        }
+
+        private void OnListViewFrameDataItemDrag(object sender, ItemDragEventArgs e)
+        {
+            try
+            {
+                Data lviData = (Data)((ListViewItem)e.Item).Tag;
+                DoDragDrop(lviData, DragDropEffects.All);
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+
+        private void OnListViewFrameDataDragDrop(object sender, DragEventArgs e)
+        {
+            TreeNode DropedItem = (TreeNode)e.Data.GetData(typeof(TreeNode));
+            if (DropedItem != null)
+            {
+                if (DropedItem.Tag is Data)
+                {
+                    Data dt = DropedItem.Tag as Data;
+                    bool bFind = false;
+                    ListViewItem LvFoundItem = null;
+                    for (int i = 0; i < m_ListViewFrameData.Items.Count; i++)
+                    {
+                        if (m_ListViewFrameData.Items[i].Text == dt.Symbol)
+                        {
+                            bFind = true;
+                            LvFoundItem = m_ListViewFrameData.Items[i];
+                            break;
+                        }
+                    }
+
+                    if (bFind)
+                    {
+                        Point prCurInListView = m_ListViewFrameData.PointToClient(new Point(e.X, e.Y));
+                        ListViewItem lviAtCursor = m_ListViewFrameData.GetItemAt(prCurInListView.X, prCurInListView.Y);
+                        if (lviAtCursor != LvFoundItem)
+                        {
+                            m_ListViewFrameData.Items.Remove(LvFoundItem);
+                            if (lviAtCursor != null)
+                                m_ListViewFrameData.Items.Insert(lviAtCursor.Index, LvFoundItem);
+                            else
+                                m_ListViewFrameData.Items.Add(LvFoundItem);
+
+                            m_bCurFrameDataListChanged = true;
+                        }
+                    }
+                    else
+                    {
+                        Point prCurInListView = m_ListViewFrameData.PointToClient(new Point(e.X, e.Y));
+                        ListViewItem lviAtCursor = m_ListViewFrameData.GetItemAt(prCurInListView.X, prCurInListView.Y);
+
+                        ListViewItem lviData = new ListViewItem(dt.Symbol);
+                        lviData.Tag = DropedItem;
+                        lviData.SubItems.Add(dt.SizeInBits.ToString());
+                        lviData.SubItems.Add(dt.IsConstant.ToString());
+                        lviData.SubItems.Add(dt.DefaultValue.ToString());
+
+                        if (lviAtCursor != null)
+                            m_ListViewFrameData.Items.Insert(lviAtCursor.Index, lviData);
+                        else
+                            m_ListViewFrameData.Items.Add(lviData);
+
+                        m_bCurFrameDataListChanged = true;
+                    }
+                }
+            }
+        }
+
+        private void OnListViewFrameDataDragOver(object sender, DragEventArgs e)
+        {
+            Data DropItem = (Data)e.Data.GetData(typeof(Data));
+            if (DropItem != null)
+            {
+                Point prCurInListView = m_ListViewFrameData.PointToClient(new Point(e.X, e.Y));
+                ListViewItem lviAtCursor = m_ListViewFrameData.GetItemAt(prCurInListView.X, prCurInListView.Y);
+                for (int i = 0; i < m_ListViewFrameData.Items.Count; i++)
+                {
+                    if (m_ListViewFrameData.Items[i] != lviAtCursor)
+                    {
+                        BaseGestGroup.Group gr = this.GestData.GetGroupFromObject((BaseObject)m_ListViewFrameData.Items[i].Tag);
+                        if (gr != null)
+                            m_ListViewFrameData.Items[i].BackColor = gr.m_GroupColor;
+                        else
+                            m_ListViewFrameData.Items[i].BackColor = m_ListViewFrameData.BackColor;
+                    }
+                }
+                if (lviAtCursor != null)
+                    lviAtCursor.BackColor = Color.Gray;
+            }
+        }
+
+        private void UpdateFrameDataListFromListView()
+        {
+            m_Trame.FrameDatas.Clear();
+            for (int i = 0; i < m_ListViewFrameData.Items.Count; i++)
+            {
+                m_Trame.FrameDatas.Add(m_ListViewFrameData.Items[i].Text);
+            }
+        }
+
+        #endregion
     }
 }

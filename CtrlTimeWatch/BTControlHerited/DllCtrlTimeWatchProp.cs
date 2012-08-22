@@ -98,14 +98,12 @@ namespace CtrlTimeWatch
 
         public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance, BTDoc document)
         {
-            if (SrcSpecificProp.GetType() == typeof(DllCtrlTimeWatchProp))
+            if (SrcSpecificProp is DllCtrlTimeWatchProp)
             {
-                if (!bFromOtherInstance)
-                {
-                    m_strDataHours = ((DllCtrlTimeWatchProp)SrcSpecificProp).m_strDataHours;
-                    m_strDataMinutes = ((DllCtrlTimeWatchProp)SrcSpecificProp).m_strDataMinutes;
-                    m_strDataSecond = ((DllCtrlTimeWatchProp)SrcSpecificProp).m_strDataSecond;
-                }
+                DllCtrlTimeWatchProp SpecProps = SrcSpecificProp as DllCtrlTimeWatchProp;
+                m_strDataHours = BTControl.CheckAndDoAssociateDataCopy(document, SpecProps.m_strDataHours);
+                m_strDataMinutes = BTControl.CheckAndDoAssociateDataCopy(document, SpecProps.m_strDataMinutes);
+                m_strDataSecond = BTControl.CheckAndDoAssociateDataCopy(document, SpecProps.m_strDataSecond);
             }
         }
 
