@@ -207,6 +207,7 @@ namespace CommonLib
                 else if (TYPE_COMM.VIRTUAL.ToString() == Type)
                 {
                     // toujours OK
+                    dtgrRow.Cells[2].Value = "NA";
                 }
                 else
                 {

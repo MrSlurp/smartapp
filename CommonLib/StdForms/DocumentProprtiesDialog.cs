@@ -62,6 +62,11 @@ namespace CommonLib
                 m_Document.MCStyleVisibleInTaskBar = chkShowInTaskBar.Checked;
                 bDataPropChange |= true;
             }
+            if (m_Document.MCTitle != txtMainContainerTitle.Text)
+            {
+                m_Document.MCTitle = txtMainContainerTitle.Text;
+                bDataPropChange |= true;
+            }
 
             if (bDataPropChange)
                 m_Document.Modified = true;
@@ -78,6 +83,7 @@ namespace CommonLib
             edtSizeH.Value = m_Document.MCSize.Height;
             chkShowTitleBar.Checked = m_Document.MCStyleShowTitleBar;
             chkShowInTaskBar.Checked = m_Document.MCStyleVisibleInTaskBar;
+            txtMainContainerTitle.Text = m_Document.MCTitle;
         }
 
         private void btnOK_Click(object sender, EventArgs e)
@@ -108,6 +114,7 @@ namespace CommonLib
         {
             groupPos.Enabled = chkDocumentUseMainContainer.Checked;
             groupStyle.Enabled = chkDocumentUseMainContainer.Checked;
+            txtMainContainerTitle.Enabled = chkDocumentUseMainContainer.Checked;
         }
     }
 }

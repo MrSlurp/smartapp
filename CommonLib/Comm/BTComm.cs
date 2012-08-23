@@ -191,6 +191,7 @@ namespace CommonLib
                     case TYPE_COMM.VIRTUAL:
                         m_Comm = new VirtualComm();
                         ((VirtualComm)m_Comm).OnCommStateChange += new CommOpenedStateChange(ConnectionStateChangeEvent);
+                        m_strDestAdress = ((VirtualComm)m_Comm).ComParam;
                         // aucun paramètres
                         break;
                     case TYPE_COMM.HTTP:

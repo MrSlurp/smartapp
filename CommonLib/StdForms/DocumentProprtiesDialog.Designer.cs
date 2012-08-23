@@ -33,10 +33,9 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.chkDocumentUseMainContainer = new System.Windows.Forms.CheckBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.edtProjectCnx = new System.Windows.Forms.TextBox();
-            this.btnCfgCom = new System.Windows.Forms.Button();
+            this.groupStyle = new System.Windows.Forms.GroupBox();
+            this.chkShowInTaskBar = new System.Windows.Forms.CheckBox();
+            this.chkShowTitleBar = new System.Windows.Forms.CheckBox();
             this.groupPos = new System.Windows.Forms.GroupBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -49,19 +48,22 @@
             this.edtSizeH = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.groupStyle = new System.Windows.Forms.GroupBox();
-            this.chkShowInTaskBar = new System.Windows.Forms.CheckBox();
-            this.chkShowTitleBar = new System.Windows.Forms.CheckBox();
+            this.chkDocumentUseMainContainer = new System.Windows.Forms.CheckBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.edtProjectCnx = new System.Windows.Forms.TextBox();
+            this.btnCfgCom = new System.Windows.Forms.Button();
+            this.txtMainContainerTitle = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.groupStyle.SuspendLayout();
             this.groupPos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.edtPosX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtPosY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtSizeW)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtSizeH)).BeginInit();
-            this.groupStyle.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnCancel
@@ -114,15 +116,219 @@
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.label3);
+            this.groupBox2.Controls.Add(this.txtMainContainerTitle);
             this.groupBox2.Controls.Add(this.groupStyle);
             this.groupBox2.Controls.Add(this.groupPos);
             this.groupBox2.Controls.Add(this.chkDocumentUseMainContainer);
             this.groupBox2.Location = new System.Drawing.Point(9, 74);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(392, 232);
+            this.groupBox2.Size = new System.Drawing.Size(392, 282);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Main container configuration";
+            // 
+            // groupStyle
+            // 
+            this.groupStyle.Controls.Add(this.chkShowInTaskBar);
+            this.groupStyle.Controls.Add(this.chkShowTitleBar);
+            this.groupStyle.Location = new System.Drawing.Point(178, 86);
+            this.groupStyle.Name = "groupStyle";
+            this.groupStyle.Size = new System.Drawing.Size(197, 69);
+            this.groupStyle.TabIndex = 17;
+            this.groupStyle.TabStop = false;
+            this.groupStyle.Text = "Visual style";
+            // 
+            // chkShowInTaskBar
+            // 
+            this.chkShowInTaskBar.AutoSize = true;
+            this.chkShowInTaskBar.Location = new System.Drawing.Point(6, 19);
+            this.chkShowInTaskBar.Name = "chkShowInTaskBar";
+            this.chkShowInTaskBar.Size = new System.Drawing.Size(102, 17);
+            this.chkShowInTaskBar.TabIndex = 14;
+            this.chkShowInTaskBar.Text = "Show in taskbar";
+            this.chkShowInTaskBar.UseVisualStyleBackColor = true;
+            // 
+            // chkShowTitleBar
+            // 
+            this.chkShowTitleBar.AutoSize = true;
+            this.chkShowTitleBar.Location = new System.Drawing.Point(6, 45);
+            this.chkShowTitleBar.Name = "chkShowTitleBar";
+            this.chkShowTitleBar.Size = new System.Drawing.Size(90, 17);
+            this.chkShowTitleBar.TabIndex = 14;
+            this.chkShowTitleBar.Text = "Show title bar";
+            this.chkShowTitleBar.UseVisualStyleBackColor = true;
+            // 
+            // groupPos
+            // 
+            this.groupPos.Controls.Add(this.label9);
+            this.groupPos.Controls.Add(this.label1);
+            this.groupPos.Controls.Add(this.edtPosX);
+            this.groupPos.Controls.Add(this.label2);
+            this.groupPos.Controls.Add(this.edtPosY);
+            this.groupPos.Controls.Add(this.label8);
+            this.groupPos.Controls.Add(this.edtSizeW);
+            this.groupPos.Controls.Add(this.label6);
+            this.groupPos.Controls.Add(this.edtSizeH);
+            this.groupPos.Controls.Add(this.label7);
+            this.groupPos.Controls.Add(this.label5);
+            this.groupPos.Location = new System.Drawing.Point(7, 86);
+            this.groupPos.Name = "groupPos";
+            this.groupPos.Size = new System.Drawing.Size(165, 181);
+            this.groupPos.TabIndex = 16;
+            this.groupPos.TabStop = false;
+            this.groupPos.Text = "Position and size";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(4, 162);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(99, 13);
+            this.label9.TabIndex = 14;
+            this.label9.Text = "-1 means automatic";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(10, 20);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(80, 13);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "Screen position";
+            // 
+            // edtPosX
+            // 
+            this.edtPosX.Location = new System.Drawing.Point(69, 37);
+            this.edtPosX.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.edtPosX.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+            this.edtPosX.Name = "edtPosX";
+            this.edtPosX.Size = new System.Drawing.Size(65, 20);
+            this.edtPosX.TabIndex = 12;
+            this.edtPosX.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(10, 92);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(62, 13);
+            this.label2.TabIndex = 13;
+            this.label2.Text = "Screen size";
+            // 
+            // edtPosY
+            // 
+            this.edtPosY.Location = new System.Drawing.Point(69, 63);
+            this.edtPosY.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.edtPosY.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+            this.edtPosY.Name = "edtPosY";
+            this.edtPosY.Size = new System.Drawing.Size(65, 20);
+            this.edtPosY.TabIndex = 12;
+            this.edtPosY.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(10, 135);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(36, 13);
+            this.label8.TabIndex = 13;
+            this.label8.Text = "height";
+            // 
+            // edtSizeW
+            // 
+            this.edtSizeW.Location = new System.Drawing.Point(69, 108);
+            this.edtSizeW.Maximum = new decimal(new int[] {
+            2000,
+            0,
+            0,
+            0});
+            this.edtSizeW.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+            this.edtSizeW.Name = "edtSizeW";
+            this.edtSizeW.Size = new System.Drawing.Size(65, 20);
+            this.edtSizeW.TabIndex = 12;
+            this.edtSizeW.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(10, 65);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(12, 13);
+            this.label6.TabIndex = 13;
+            this.label6.Text = "y";
+            // 
+            // edtSizeH
+            // 
+            this.edtSizeH.Location = new System.Drawing.Point(69, 133);
+            this.edtSizeH.Maximum = new decimal(new int[] {
+            2000,
+            0,
+            0,
+            0});
+            this.edtSizeH.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+            this.edtSizeH.Name = "edtSizeH";
+            this.edtSizeH.Size = new System.Drawing.Size(65, 20);
+            this.edtSizeH.TabIndex = 12;
+            this.edtSizeH.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(10, 110);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(32, 13);
+            this.label7.TabIndex = 13;
+            this.label7.Text = "width";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(10, 39);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(12, 13);
+            this.label5.TabIndex = 13;
+            this.label5.Text = "x";
             // 
             // chkDocumentUseMainContainer
             // 
@@ -169,207 +375,21 @@
             this.btnCfgCom.UseVisualStyleBackColor = true;
             this.btnCfgCom.Click += new System.EventHandler(this.btnCfgCom_Click);
             // 
-            // groupPos
+            // txtMainContainerTitle
             // 
-            this.groupPos.Controls.Add(this.label9);
-            this.groupPos.Controls.Add(this.label1);
-            this.groupPos.Controls.Add(this.edtPosX);
-            this.groupPos.Controls.Add(this.label2);
-            this.groupPos.Controls.Add(this.edtPosY);
-            this.groupPos.Controls.Add(this.label8);
-            this.groupPos.Controls.Add(this.edtSizeW);
-            this.groupPos.Controls.Add(this.label6);
-            this.groupPos.Controls.Add(this.edtSizeH);
-            this.groupPos.Controls.Add(this.label7);
-            this.groupPos.Controls.Add(this.label5);
-            this.groupPos.Location = new System.Drawing.Point(7, 44);
-            this.groupPos.Name = "groupPos";
-            this.groupPos.Size = new System.Drawing.Size(135, 181);
-            this.groupPos.TabIndex = 16;
-            this.groupPos.TabStop = false;
-            this.groupPos.Text = "Position and size";
+            this.txtMainContainerTitle.Location = new System.Drawing.Point(7, 60);
+            this.txtMainContainerTitle.Name = "txtMainContainerTitle";
+            this.txtMainContainerTitle.Size = new System.Drawing.Size(328, 20);
+            this.txtMainContainerTitle.TabIndex = 18;
             // 
-            // label9
+            // label3
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(4, 162);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(99, 13);
-            this.label9.TabIndex = 14;
-            this.label9.Text = "-1 means automatic";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(10, 20);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(80, 13);
-            this.label1.TabIndex = 13;
-            this.label1.Text = "Screen position";
-            // 
-            // edtPosX
-            // 
-            this.edtPosX.Location = new System.Drawing.Point(48, 37);
-            this.edtPosX.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.edtPosX.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            -2147483648});
-            this.edtPosX.Name = "edtPosX";
-            this.edtPosX.Size = new System.Drawing.Size(65, 20);
-            this.edtPosX.TabIndex = 12;
-            this.edtPosX.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            -2147483648});
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(10, 92);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(62, 13);
-            this.label2.TabIndex = 13;
-            this.label2.Text = "Screen size";
-            // 
-            // edtPosY
-            // 
-            this.edtPosY.Location = new System.Drawing.Point(48, 63);
-            this.edtPosY.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.edtPosY.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            -2147483648});
-            this.edtPosY.Name = "edtPosY";
-            this.edtPosY.Size = new System.Drawing.Size(65, 20);
-            this.edtPosY.TabIndex = 12;
-            this.edtPosY.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            -2147483648});
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(10, 135);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(36, 13);
-            this.label8.TabIndex = 13;
-            this.label8.Text = "height";
-            // 
-            // edtSizeW
-            // 
-            this.edtSizeW.Location = new System.Drawing.Point(48, 108);
-            this.edtSizeW.Maximum = new decimal(new int[] {
-            2000,
-            0,
-            0,
-            0});
-            this.edtSizeW.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            -2147483648});
-            this.edtSizeW.Name = "edtSizeW";
-            this.edtSizeW.Size = new System.Drawing.Size(65, 20);
-            this.edtSizeW.TabIndex = 12;
-            this.edtSizeW.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            -2147483648});
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(10, 65);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(12, 13);
-            this.label6.TabIndex = 13;
-            this.label6.Text = "y";
-            // 
-            // edtSizeH
-            // 
-            this.edtSizeH.Location = new System.Drawing.Point(48, 133);
-            this.edtSizeH.Maximum = new decimal(new int[] {
-            2000,
-            0,
-            0,
-            0});
-            this.edtSizeH.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            -2147483648});
-            this.edtSizeH.Name = "edtSizeH";
-            this.edtSizeH.Size = new System.Drawing.Size(65, 20);
-            this.edtSizeH.TabIndex = 12;
-            this.edtSizeH.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            -2147483648});
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(10, 110);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(32, 13);
-            this.label7.TabIndex = 13;
-            this.label7.Text = "width";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(10, 39);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(12, 13);
-            this.label5.TabIndex = 13;
-            this.label5.Text = "x";
-            // 
-            // groupStyle
-            // 
-            this.groupStyle.Controls.Add(this.chkShowInTaskBar);
-            this.groupStyle.Controls.Add(this.chkShowTitleBar);
-            this.groupStyle.Location = new System.Drawing.Point(148, 44);
-            this.groupStyle.Name = "groupStyle";
-            this.groupStyle.Size = new System.Drawing.Size(173, 69);
-            this.groupStyle.TabIndex = 17;
-            this.groupStyle.TabStop = false;
-            this.groupStyle.Text = "Visual style";
-            // 
-            // chkShowInTaskBar
-            // 
-            this.chkShowInTaskBar.AutoSize = true;
-            this.chkShowInTaskBar.Location = new System.Drawing.Point(6, 19);
-            this.chkShowInTaskBar.Name = "chkShowInTaskBar";
-            this.chkShowInTaskBar.Size = new System.Drawing.Size(102, 17);
-            this.chkShowInTaskBar.TabIndex = 14;
-            this.chkShowInTaskBar.Text = "Show in taskbar";
-            this.chkShowInTaskBar.UseVisualStyleBackColor = true;
-            // 
-            // chkShowTitleBar
-            // 
-            this.chkShowTitleBar.AutoSize = true;
-            this.chkShowTitleBar.Location = new System.Drawing.Point(6, 45);
-            this.chkShowTitleBar.Name = "chkShowTitleBar";
-            this.chkShowTitleBar.Size = new System.Drawing.Size(90, 17);
-            this.chkShowTitleBar.TabIndex = 14;
-            this.chkShowTitleBar.Text = "Show title bar";
-            this.chkShowTitleBar.UseVisualStyleBackColor = true;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(7, 41);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(96, 13);
+            this.label3.TabIndex = 19;
+            this.label3.Text = "Main container title";
             // 
             // DocumentProprtiesDialog
             // 
@@ -384,22 +404,23 @@
             this.MinimizeBox = false;
             this.Name = "DocumentProprtiesDialog";
             this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Project properties";
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.groupStyle.ResumeLayout(false);
+            this.groupStyle.PerformLayout();
             this.groupPos.ResumeLayout(false);
             this.groupPos.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.edtPosX)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtPosY)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtSizeW)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtSizeH)).EndInit();
-            this.groupStyle.ResumeLayout(false);
-            this.groupStyle.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -430,6 +451,8 @@
         private System.Windows.Forms.GroupBox groupStyle;
         private System.Windows.Forms.CheckBox chkShowInTaskBar;
         private System.Windows.Forms.CheckBox chkShowTitleBar;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox txtMainContainerTitle;
 
     }
 }

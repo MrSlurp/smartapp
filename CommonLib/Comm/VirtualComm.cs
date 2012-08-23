@@ -11,6 +11,7 @@ namespace CommonLib
     {
         #region données membres
         bool m_bIsCommOpenned = false;
+        string m_commParam = "NA";
         #endregion
 
         #region Events
@@ -133,5 +134,11 @@ namespace CommonLib
             return m_bIsCommOpenned;
         }
         #endregion
+
+        public string ComParam
+        {
+            get { return m_commParam; }
+            set { }
+        }
     }
 }

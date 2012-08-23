@@ -51,7 +51,7 @@ namespace CommonLib
         bool m_bUseMainContainer = false;
         protected Point m_MCPosition = new Point(-1, -1);
         protected Size m_MCSize = new Size(-1, -1);
-
+        protected string m_MCTitle = string.Empty;
         protected bool m_bMCShowInTaskBar = true;
         protected bool m_bMCShowTitleBar = true;
         #endregion
@@ -201,7 +201,7 @@ namespace CommonLib
         }
         #endregion
 
-        #region attributs
+        #region attributs du main Container
 
         public bool UseMainContainer
         {
@@ -231,6 +231,12 @@ namespace CommonLib
         {
             get { return m_bMCShowTitleBar; }
             set { m_bMCShowTitleBar = value; }
+        }
+
+        public string MCTitle
+        {
+            get { return m_MCTitle; }
+            set { m_MCTitle = value; }
         }
 
         #endregion
@@ -649,6 +655,7 @@ namespace CommonLib
                         XmlNode AttrPos = node.Attributes.GetNamedItem(XML_CF_ATTRIB.Pos.ToString());
                         XmlNode AttrShowInTaskBar = node.Attributes.GetNamedItem("ShowInTaskBar");
                         XmlNode AttrShowTitleBar = node.Attributes.GetNamedItem("ShowTitleBar");
+                        XmlNode AttrTitle = node.Attributes.GetNamedItem("MCTitle");
                         if (AttrSize != null
                             && AttrPos != null
                             && AttrShowInTaskBar != null
@@ -660,6 +667,11 @@ namespace CommonLib
                             this.MCSize = new Size(int.Parse(TabStrSize[0]), int.Parse(TabStrSize[1]));
                             m_bMCShowInTaskBar = bool.Parse(AttrShowInTaskBar.Value);
                             m_bMCShowTitleBar = bool.Parse(AttrShowTitleBar.Value);
+                            
+                        }
+                        if (AttrTitle != null)
+                        {
+                            this.m_MCTitle = AttrTitle.Value;
                         }
                     }
                 }
@@ -683,14 +695,17 @@ namespace CommonLib
             XmlAttribute AttrPos = XmlDoc.CreateAttribute(XML_CF_ATTRIB.Pos.ToString());
             XmlAttribute AttrShowInTaskBar = XmlDoc.CreateAttribute("ShowInTaskBar");
             XmlAttribute AttrShowTitleBar = XmlDoc.CreateAttribute("ShowTitleBar");
+            XmlAttribute AttrTitle = XmlDoc.CreateAttribute("MCTitle");
             containerNode.Attributes.Append(AttrSize);
             containerNode.Attributes.Append(AttrPos);
             containerNode.Attributes.Append(AttrShowInTaskBar);
             containerNode.Attributes.Append(AttrShowTitleBar);
+            containerNode.Attributes.Append(AttrTitle);
             AttrPos.Value = string.Format("{0},{1}", m_MCPosition.X, m_MCPosition.Y);
             AttrSize.Value = string.Format("{0},{1}", m_MCSize.Width, m_MCSize.Height);
             AttrShowInTaskBar.Value = m_bMCShowInTaskBar.ToString();
             AttrShowTitleBar.Value = m_bMCShowTitleBar.ToString();
+            AttrTitle.Value = m_MCTitle;
             node.AppendChild(projOptNode);
         }
         /// <summary>
@@ -828,6 +843,8 @@ namespace CommonLib
 
                 if (MCSize.Height != -1)
                     m_MainContainer.Height = MCSize.Height;
+
+                m_MainContainer.Text = m_MCTitle;
             }
             // abonnement aux event de com et d'état
             for (int i = (GestScreen.Count -1) ; i >= 0; i--)

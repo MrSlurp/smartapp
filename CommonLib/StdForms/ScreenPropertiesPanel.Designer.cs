@@ -74,7 +74,7 @@ namespace CommonLib
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.m_textBoxTitle.Location = new System.Drawing.Point(0, 16);
             this.m_textBoxTitle.Name = "m_textBoxTitle";
-            this.m_textBoxTitle.Size = new System.Drawing.Size(350, 20);
+            this.m_textBoxTitle.Size = new System.Drawing.Size(383, 20);
             this.m_textBoxTitle.TabIndex = 10;
             // 
             // label4
@@ -95,13 +95,13 @@ namespace CommonLib
             this.m_textBkgndFile.Location = new System.Drawing.Point(0, 59);
             this.m_textBkgndFile.Name = "m_textBkgndFile";
             this.m_textBkgndFile.ReadOnly = true;
-            this.m_textBkgndFile.Size = new System.Drawing.Size(314, 20);
+            this.m_textBkgndFile.Size = new System.Drawing.Size(347, 20);
             this.m_textBkgndFile.TabIndex = 10;
             // 
             // m_btnBrowseBkFile
             // 
             this.m_btnBrowseBkFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_btnBrowseBkFile.Location = new System.Drawing.Point(320, 58);
+            this.m_btnBrowseBkFile.Location = new System.Drawing.Point(353, 58);
             this.m_btnBrowseBkFile.Name = "m_btnBrowseBkFile";
             this.m_btnBrowseBkFile.Size = new System.Drawing.Size(30, 20);
             this.m_btnBrowseBkFile.TabIndex = 11;
@@ -115,7 +115,7 @@ namespace CommonLib
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.m_btnRemoveFile.Location = new System.Drawing.Point(0, 85);
             this.m_btnRemoveFile.Name = "m_btnRemoveFile";
-            this.m_btnRemoveFile.Size = new System.Drawing.Size(314, 23);
+            this.m_btnRemoveFile.Size = new System.Drawing.Size(347, 23);
             this.m_btnRemoveFile.TabIndex = 11;
             this.m_btnRemoveFile.Text = "Remove background image";
             this.m_btnRemoveFile.UseVisualStyleBackColor = true;
@@ -123,7 +123,7 @@ namespace CommonLib
             // 
             // edtPosX
             // 
-            this.edtPosX.Location = new System.Drawing.Point(48, 37);
+            this.edtPosX.Location = new System.Drawing.Point(65, 37);
             this.edtPosX.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -145,7 +145,7 @@ namespace CommonLib
             // 
             // edtPosY
             // 
-            this.edtPosY.Location = new System.Drawing.Point(48, 63);
+            this.edtPosY.Location = new System.Drawing.Point(65, 63);
             this.edtPosY.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -203,7 +203,7 @@ namespace CommonLib
             // 
             // edtSizeW
             // 
-            this.edtSizeW.Location = new System.Drawing.Point(48, 108);
+            this.edtSizeW.Location = new System.Drawing.Point(65, 108);
             this.edtSizeW.Maximum = new decimal(new int[] {
             2000,
             0,
@@ -225,7 +225,7 @@ namespace CommonLib
             // 
             // edtSizeH
             // 
-            this.edtSizeH.Location = new System.Drawing.Point(48, 133);
+            this.edtSizeH.Location = new System.Drawing.Point(65, 133);
             this.edtSizeH.Maximum = new decimal(new int[] {
             2000,
             0,
@@ -287,9 +287,9 @@ namespace CommonLib
             // 
             this.groupBox1.Controls.Add(this.chkShowInTaskBar);
             this.groupBox1.Controls.Add(this.chkShowTitleBar);
-            this.groupBox1.Location = new System.Drawing.Point(141, 117);
+            this.groupBox1.Location = new System.Drawing.Point(163, 117);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(173, 69);
+            this.groupBox1.Size = new System.Drawing.Size(184, 69);
             this.groupBox1.TabIndex = 15;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Visual style";
@@ -309,7 +309,7 @@ namespace CommonLib
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Location = new System.Drawing.Point(0, 117);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(135, 181);
+            this.groupBox2.Size = new System.Drawing.Size(157, 181);
             this.groupBox2.TabIndex = 15;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Positions and size";
@@ -339,7 +339,7 @@ namespace CommonLib
             this.Controls.Add(this.label3);
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "ScreenPropertiesPanel";
-            this.Size = new System.Drawing.Size(350, 301);
+            this.Size = new System.Drawing.Size(383, 308);
             ((System.ComponentModel.ISupportInitialize)(this.edtPosX)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtPosY)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.edtSizeW)).EndInit();
