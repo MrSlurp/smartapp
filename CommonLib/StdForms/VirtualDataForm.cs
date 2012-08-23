@@ -16,6 +16,7 @@ namespace CommonLib
         private bool m_bIsScenRunning = false;
         private GestDataVirtual m_GestVirtualData = null;
         private GestData m_GestData = null;
+        private BTDoc m_Document;
         
         private SaveFileDialog m_CliSavedlg = new SaveFileDialog();
         private OpenFileDialog m_CliOpendlg = new OpenFileDialog();
@@ -26,6 +27,7 @@ namespace CommonLib
         {
             Lang.LangSys.Initialize(this);
             InitializeComponent();
+            m_Document = Document;
             m_PanelScenario.Document = Document;
             m_GestVirtualData = Document.GestDataVirtual;
             m_GestData = Document.GestData;
@@ -57,18 +59,21 @@ namespace CommonLib
                 BaseGestGroup.Group group = m_GestVirtualData.Groups[i];
                 if (!group.IsEmpty && !group.OwnOnlyConstData)
                 {
-                    TabPage GroupTabPage = new TabPage(group.GroupName);
-                    m_tabControlDataPanels.TabPages.Add(GroupTabPage);
-                    GroupTabPage.SuspendLayout();
-                    VirtualDataPanel vdPanel = new VirtualDataPanel(m_GestVirtualData, m_GestData, group.GroupSymbol);
-                    Size tmpSz = GroupTabPage.Size;
-                    tmpSz.Width = tmpSz.Width-5; 
-                    vdPanel.Size = tmpSz;
-                    //vdPanel.Dock = DockStyle.Fill;
-                    vdPanel.Anchor = AnchorStyles.Bottom | AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-                    GroupTabPage.Controls.Add(vdPanel);
-                    GroupTabPage.ResumeLayout();
+                    VirtualDataPanel vdPanel = new VirtualDataPanel(m_Document, m_GestVirtualData, m_GestData, group.GroupSymbol);
                     vdPanel.Initialize();
+                    if (vdPanel.HaveDisplayedData)
+                    {
+                        TabPage GroupTabPage = new TabPage(group.GroupName);
+                        m_tabControlDataPanels.TabPages.Add(GroupTabPage);
+                        GroupTabPage.SuspendLayout();
+                        Size tmpSz = GroupTabPage.Size;
+                        tmpSz.Width = tmpSz.Width - 5;
+                        vdPanel.Size = tmpSz;
+                        //vdPanel.Dock = DockStyle.Fill;
+                        vdPanel.Anchor = AnchorStyles.Bottom | AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+                        GroupTabPage.Controls.Add(vdPanel);
+                        GroupTabPage.ResumeLayout();
+                    }
                 }
             }
             m_tabControlDataPanels.ResumeLayout();

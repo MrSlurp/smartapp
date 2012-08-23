@@ -72,6 +72,7 @@
     <Data strSymbol="ETH_OUT6_I1" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
     <Data strSymbol="ETH_OUT7_I1" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
     <Data strSymbol="ETH_OUT8_I1" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="NEW_DATA_0" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
     <GroupSection>
       <Group strNom="Default group" strSymbol="GROUP_0" bkColor="255, 255, 255">
         <Object strSymbol="TRANSACTION_ID" />
@@ -83,6 +84,14 @@
         <Object strSymbol="BYTE_READ_8_REG" />
         <Object strSymbol="FOLLOWING_19_BYTES" />
         <Object strSymbol="READ_RECIEVE_16_BYTES" />
+        <Object strSymbol="FOLLOWING_23_BYTES" />
+        <Object strSymbol="MODBUS_WRITE_MR" />
+        <Object strSymbol="TCPMB_WRITE_8_REG" />
+        <Object strSymbol="BYTE_COUNT_16_REG" />
+        <Object strSymbol="TCPMB_REG_ADDR_20" />
+        <Object strSymbol="NEW_DATA_0" />
+      </Group>
+      <Group strNom="New Group 0" strSymbol="GROUP_1" bkColor="255, 255, 255">
         <Object strSymbol="ETH_IN1_O1_B16" />
         <Object strSymbol="ETH_IN1_O1_B15" />
         <Object strSymbol="ETH_IN1_O1_B14" />
@@ -106,11 +115,8 @@
         <Object strSymbol="ETH_IN6_O1" />
         <Object strSymbol="ETH_IN7_O1" />
         <Object strSymbol="ETH_IN8_O1" />
-        <Object strSymbol="FOLLOWING_23_BYTES" />
-        <Object strSymbol="MODBUS_WRITE_MR" />
-        <Object strSymbol="TCPMB_WRITE_8_REG" />
-        <Object strSymbol="BYTE_COUNT_16_REG" />
-        <Object strSymbol="TCPMB_REG_ADDR_20" />
+      </Group>
+      <Group strNom="New Group 1" strSymbol="GROUP_2" bkColor="255, 255, 255">
         <Object strSymbol="ETH_OUT1_I1_B16" />
         <Object strSymbol="ETH_OUT1_I1_B15" />
         <Object strSymbol="ETH_OUT1_I1_B14" />

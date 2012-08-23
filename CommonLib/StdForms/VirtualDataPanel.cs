@@ -13,9 +13,13 @@ namespace CommonLib
         GestDataVirtual m_GestVirtualData = null;
         GestData m_GestData = null;
         string m_strSymbolGroup = null;
-        public VirtualDataPanel(GestDataVirtual GestVirtualData, GestData GestData, string strSymbolGroup)
+        BTDoc m_Document = null;
+        private int m_DisplayedDataCount;
+
+        public VirtualDataPanel(BTDoc doc, GestDataVirtual GestVirtualData, GestData GestData, string strSymbolGroup)
         {
             Lang.LangSys.Initialize(this);
+            m_Document = doc;
             InitializeComponent();
             m_GestVirtualData = GestVirtualData;
             m_GestData = GestData;
@@ -28,13 +32,26 @@ namespace CommonLib
             for (int i = 0; i < group.Items.Count; i++)
             {
                 VirtualData vData = (VirtualData)group.Items[i];
-                if (!vData.Symbol.Contains(Cste.STR_SUFFIX_CTRLDATA))
+                bool bDataUsedInFrame = false;
+                for (int j = 0; j < m_Document.GestTrame.Count; j++)
                 {
+                    Trame tr = m_Document.GestTrame[j] as Trame;
+                    if (tr.FrameDatas.Contains(vData.Symbol))
+                        bDataUsedInFrame = true;
+                }
+                if (!vData.Symbol.Contains(Cste.STR_SUFFIX_CTRLDATA) && bDataUsedInFrame && !vData.IsConstant)
+                {
+                    m_DisplayedDataCount++;
                     AddDataToDataGrid(vData);
                     vData.VirtualDataValueChanged += new EventVirtualDataValueChange(VirtualDataValueChange);
                     vData.VirtualDataSaveStateChange += new EventVirtualDataSaveStateChange(VirtualDataSaveStateChange);
                 }
             }
+        }
+
+        public bool HaveDisplayedData
+        {
+            get { return m_DisplayedDataCount > 0; }
         }
 
         protected void AddDataToDataGrid(VirtualData vData)
