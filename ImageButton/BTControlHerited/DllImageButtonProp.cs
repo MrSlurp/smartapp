@@ -200,43 +200,9 @@ namespace ImageButton
         {
             if (TypeApp == TYPE_APP.SMART_CONFIG)
             {
-                switch (Mess)
-                {
-                    case MESSAGE.MESS_ASK_ITEM_DELETE:
-                        if (((MessAskDelete)obj).TypeOfItem == typeof(Data))
-                        {
-                            MessAskDelete MessParam = (MessAskDelete)obj;
-                            string strMess = string.Empty;
-                            if (MessParam.WantDeletetItemSymbol == m_strInputData)
-                            {
-                                strMess = string.Format(DllEntryClass.LangSys.C("Image Button {0} : Input Data will be removed"), PropOwner.Symbol);
-                                MessParam.ListStrReturns.Add(strMess);
-                            }
-                        }
-                        break;
-                    case MESSAGE.MESS_ITEM_DELETED:
-                        if (((MessDeleted)obj).TypeOfItem == typeof(Data))
-                        {
-                            MessDeleted MessParam = (MessDeleted)obj;
-                            if (MessParam.DeletetedItemSymbol == m_strInputData)
-                            {
-                                m_strInputData = string.Empty;
-                            }
-                        }
-                        break;
-                    case MESSAGE.MESS_ITEM_RENAMED:
-                        if (((MessItemRenamed)obj).TypeOfItem == typeof(Data))
-                        {
-                            MessItemRenamed MessParam = (MessItemRenamed)obj;
-                            if (MessParam.OldItemSymbol == m_strInputData)
-                            {
-                                m_strInputData = MessParam.NewItemSymbol;
-                            }
-                        }
-                        break;
-                    default:
-                        break;
-                }
+                BTControl.TraiteMessageDataDelete(Mess, obj, m_strInputData, PropOwner, DllEntryClass.LangSys.C("Image Button {0} : Input Data will be removed"));
+                m_strInputData = BTControl.TraiteMessageDataDeleted(Mess, obj, m_strInputData);
+                m_strInputData = BTControl.TraiteMessageDataRenamed(Mess, obj, m_strInputData);
             }
         }
 

@@ -146,71 +146,19 @@ namespace CtrlDataComp
         {
             if (TypeApp == TYPE_APP.SMART_CONFIG)
             {
-                switch (Mess)
-                {
-                    case MESSAGE.MESS_ASK_ITEM_DELETE:
-                        if (((MessAskDelete)obj).TypeOfItem == typeof(Data))
-                        {
-                            MessAskDelete MessParam = (MessAskDelete)obj;
-                            string strMess = string.Empty;
-                            if (MessParam.WantDeletetItemSymbol == m_sDataA)
-                            {
-                                strMess = string.Format("Data Comparer {0} : Data A will be removed", PropOwner.Symbol);
-                                MessParam.ListStrReturns.Add(strMess);
-                            }
-                            if (MessParam.WantDeletetItemSymbol == m_sDataB)
-                            {
-                                strMess = string.Format("Data Comparer {0} : Data A will be removed", PropOwner.Symbol);
-                                MessParam.ListStrReturns.Add(strMess);
-                            }
-                            if (MessParam.WantDeletetItemSymbol == m_sDataB)
-                            {
-                                strMess = string.Format("Data Comparer {0} : Data A will be removed", PropOwner.Symbol);
-                                MessParam.ListStrReturns.Add(strMess);
-                            }
-                        }
-                        break;
-                    case MESSAGE.MESS_ITEM_DELETED:
-                        if (((MessDeleted)obj).TypeOfItem == typeof(Data))
-                        {
-                            MessDeleted MessParam = (MessDeleted)obj;
-                            if (MessParam.DeletetedItemSymbol == m_sDataA)
-                            {
-                                m_sDataA = string.Empty;
-                            }
-                            if (MessParam.DeletetedItemSymbol == m_sDataB)
-                            {
-                                m_sDataB = string.Empty;
-                            }
-                            if (MessParam.DeletetedItemSymbol == m_sDataC)
-                            {
-                                m_sDataC = string.Empty;
-                            }
-                        }
-                        break;
-                    case MESSAGE.MESS_ITEM_RENAMED:
-                        if (((MessItemRenamed)obj).TypeOfItem == typeof(Data))
-                        {
-                            MessItemRenamed MessParam = (MessItemRenamed)obj;
-                            if (MessParam.OldItemSymbol == m_sDataA)
-                            {
-                                m_sDataA = MessParam.NewItemSymbol;
-                            }
-                            if (MessParam.OldItemSymbol == m_sDataB)
-                            {
-                                m_sDataB = MessParam.NewItemSymbol;
-                            }
-                            if (MessParam.OldItemSymbol == m_sDataC)
-                            {
-                                m_sDataC = MessParam.NewItemSymbol;
-                            }
-                        }
-                        break;
-                    default:
-                        break;
-                }
+                BTControl.TraiteMessageDataDelete(Mess, obj, m_sDataA, PropOwner, DllEntryClass.LangSys.C("Data Comparer {0} : Data A will be removed"));
+                BTControl.TraiteMessageDataDelete(Mess, obj, m_sDataB, PropOwner, DllEntryClass.LangSys.C("Data Comparer {0} : Data B will be removed"));
+                BTControl.TraiteMessageDataDelete(Mess, obj, m_sDataC, PropOwner, DllEntryClass.LangSys.C("Data Comparer {0} : Data C will be removed"));
+
+                m_sDataA = BTControl.TraiteMessageDataDeleted(Mess, obj, m_sDataA);
+                m_sDataB = BTControl.TraiteMessageDataDeleted(Mess, obj, m_sDataB);
+                m_sDataC = BTControl.TraiteMessageDataDeleted(Mess, obj, m_sDataC);
+
+                m_sDataA = BTControl.TraiteMessageDataRenamed(Mess, obj, m_sDataA);
+                m_sDataB = BTControl.TraiteMessageDataRenamed(Mess, obj, m_sDataB);
+                m_sDataC = BTControl.TraiteMessageDataRenamed(Mess, obj, m_sDataC);
+
             }
         }
-
     }
 }

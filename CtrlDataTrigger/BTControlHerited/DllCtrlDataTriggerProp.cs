@@ -180,56 +180,13 @@ namespace CtrlDataTrigger
         {
             if (TypeApp == TYPE_APP.SMART_CONFIG)
             {
-                switch (Mess)
-                {
-                    case MESSAGE.MESS_ASK_ITEM_DELETE:
-                        if (((MessAskDelete)obj).TypeOfItem == typeof(Data))
-                        {
-                            MessAskDelete MessParam = (MessAskDelete)obj;
-                            string strMess = string.Empty;
-                            if (MessParam.WantDeletetItemSymbol == m_strDataOffToOn)
-                            {
-                                strMess = string.Format(DllEntryClass.LangSys.C("Data Trigger {0} : Off to On Data will be removed"), PropOwner.Symbol);
-                                MessParam.ListStrReturns.Add(strMess);
-                            }
-                            if (MessParam.WantDeletetItemSymbol == m_strDataOnToOff)
-                            {
-                                strMess = string.Format(DllEntryClass.LangSys.C("Data Trigger {0} : On to Off Data will be removed"), PropOwner.Symbol);
-                                MessParam.ListStrReturns.Add(strMess);
-                            }
-                        }
-                        break;
-                    case MESSAGE.MESS_ITEM_DELETED:
-                        if (((MessDeleted)obj).TypeOfItem == typeof(Data))
-                        {
-                            MessDeleted MessParam = (MessDeleted)obj;
-                            if (MessParam.DeletetedItemSymbol == m_strDataOffToOn)
-                            {
-                                m_strDataOffToOn = string.Empty;
-                            }
-                            if (MessParam.DeletetedItemSymbol == m_strDataOnToOff)
-                            {
-                                m_strDataOnToOff = string.Empty;
-                            }
-                        }
-                        break;
-                    case MESSAGE.MESS_ITEM_RENAMED:
-                        if (((MessItemRenamed)obj).TypeOfItem == typeof(Data))
-                        {
-                            MessItemRenamed MessParam = (MessItemRenamed)obj;
-                            if (MessParam.OldItemSymbol == m_strDataOffToOn)
-                            {
-                                m_strDataOffToOn = MessParam.NewItemSymbol;
-                            }
-                            if (MessParam.OldItemSymbol == m_strDataOnToOff)
-                            {
-                                m_strDataOnToOff = MessParam.NewItemSymbol;
-                            }
-                        }
-                        break;
-                    default:
-                        break;
-                }
+                BTControl.TraiteMessageDataDelete(Mess, obj, m_strDataOffToOn, PropOwner, DllEntryClass.LangSys.C("Data Trigger {0} : Off to On Data will be removed"));
+                BTControl.TraiteMessageDataDelete(Mess, obj, m_strDataOnToOff, PropOwner, DllEntryClass.LangSys.C("Data Trigger {0} : Off to On Data will be removed"));
+
+                m_strDataOffToOn = BTControl.TraiteMessageDataDeleted(Mess, obj, m_strDataOffToOn);
+                m_strDataOnToOff = BTControl.TraiteMessageDataDeleted(Mess, obj, m_strDataOnToOff);
+                m_strDataOffToOn = BTControl.TraiteMessageDataRenamed(Mess, obj, m_strDataOffToOn);
+                m_strDataOnToOff = BTControl.TraiteMessageDataRenamed(Mess, obj, m_strDataOnToOff);
             }
         }
     }

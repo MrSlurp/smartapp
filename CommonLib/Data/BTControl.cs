@@ -602,49 +602,9 @@ namespace CommonLib
         {
             // dans le cas du control, il faut tester si l'objet supprimée/renomé ne serai
             // pas (par le plus grand des hasard) la donnée associée
-            switch (Mess)
-            {
-                // message de requête sur les conséquence d'une supression
-                case MESSAGE.MESS_ASK_ITEM_DELETE:
-                    if (((MessAskDelete)obj).TypeOfItem == typeof(Data))
-                    {
-                        if (((MessAskDelete)obj).WantDeletetItemSymbol == m_strAssociateData)
-                        {
-                            string strMess = string.Format(Lang.LangSys.C("Control {0} associate data removed"), Symbol);
-                            ((MessAskDelete)obj).ListStrReturns.Add(strMess);
-                        }
-                    }
-                    break;
-                // message de supression
-                case MESSAGE.MESS_ITEM_DELETED:
-                    if (((MessDeleted)obj).TypeOfItem == typeof(Data))
-                    {
-                        if (((MessDeleted)obj).DeletetedItemSymbol == m_strAssociateData)
-                        {
-                            m_strAssociateData = "";
-                        }
-                    }
-                    break;
-                // message de renomage
-                case MESSAGE.MESS_ITEM_RENAMED:
-                    if (((MessItemRenamed)obj).TypeOfItem == typeof(Data))
-                    {
-                        if (((MessItemRenamed)obj).OldItemSymbol == m_strAssociateData)
-                        {
-                            m_strAssociateData = ((MessItemRenamed)obj).NewItemSymbol;
-                        }
-                    }
-                    break;
-                case MESSAGE.MESS_UPDATE_FROM_DATA:
-                    UpdateFromData();
-                    break;
-                case MESSAGE.MESS_PRE_PARSE:
-                    if (this.m_ScriptContainer["EvtScript"].Length != 0)
-                        this.m_iQuickScriptID = m_Executer.PreParseScript(this.m_ScriptContainer["EvtScript"]);    
-                    break;
-                default:
-                    break;
-            }
+            TraiteMessageDataDelete(Mess, obj, m_strAssociateData, this, Lang.LangSys.C("Control {0} associate data removed"));
+            m_strAssociateData = TraiteMessageDataDeleted(Mess, obj, m_strAssociateData);
+            m_strAssociateData = TraiteMessageDataRenamed(Mess, obj, m_strAssociateData);
             // mais l'objet peux aussi être utilisé dans le script
             ScriptTraiteMessage(this, Mess, this.m_ScriptContainer, obj);
         }
@@ -671,6 +631,12 @@ namespace CommonLib
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="doc"></param>
+        /// <param name="srcCtrl"></param>
+        /// <param name="destCtrl"></param>
         public static void CheckAndDoScriptCopy(BTDoc doc, ItemScriptsConainter srcCtrl, ItemScriptsConainter destCtrl)
         {
             foreach (string scriptName in srcCtrl.ScriptKeys)
@@ -691,6 +657,12 @@ namespace CommonLib
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="doc"></param>
+        /// <param name="strSrcDataSymbol"></param>
+        /// <returns></returns>
         public static string CheckAndDoAssociateDataCopy(BTDoc doc, string strSrcDataSymbol)
         {
             if (doc.GestData.GetFromSymbol(strSrcDataSymbol) != null)
@@ -700,6 +672,78 @@ namespace CommonLib
             return string.Empty;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Mess"></param>
+        /// <param name="obj"></param>
+        /// <param name="associateData"></param>
+        /// <param name="InfoFormatString"></param>
+        public static void TraiteMessageDataDelete(MESSAGE Mess, object obj, string associateData, BaseObject sender, string InfoFormatString)
+        {
+            if (Mess == MESSAGE.MESS_ASK_ITEM_DELETE)
+            {
+                MessAskDelete messageInfo = obj as MessAskDelete;
+                if (messageInfo.TypeOfItem == typeof(Data))
+                {
+                    if (messageInfo.WantDeletetItemSymbol == associateData)
+                    {
+                        string strMess = string.Format(InfoFormatString, sender.Symbol);
+                        messageInfo.ListStrReturns.Add(strMess);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Mess"></param>
+        /// <param name="obj"></param>
+        /// <param name="associateData"></param>
+        /// <returns></returns>
+        public static string TraiteMessageDataDeleted(MESSAGE Mess, object obj, string associateData)
+        {
+            if (Mess == MESSAGE.MESS_ITEM_DELETED)
+            {
+                MessDeleted messageInfo = obj as MessDeleted;
+                if (messageInfo.TypeOfItem == typeof(Data))
+                {
+                    if (messageInfo.DeletetedItemSymbol == associateData)
+                    {
+                        return string.Empty;
+                    }
+                }
+            }
+            return associateData;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Mess"></param>
+        /// <param name="obj"></param>
+        /// <param name="associateData"></param>
+        /// <returns></returns>
+        public static string TraiteMessageDataRenamed(MESSAGE Mess, object obj, string associateData)
+        {
+            if (Mess == MESSAGE.MESS_ITEM_RENAMED)
+            {
+                MessItemRenamed messageInfo = obj as MessItemRenamed;
+                if (messageInfo.TypeOfItem == typeof(Data))
+                {
+                    if (messageInfo.OldItemSymbol == associateData)
+                    {
+                        return messageInfo.NewItemSymbol;
+                    }
+                }
+            }
+            return associateData;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public override void NotifyPropertiesChanged()
         {
             m_IControl.Refresh();

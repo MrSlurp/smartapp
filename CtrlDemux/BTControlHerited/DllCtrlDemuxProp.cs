@@ -125,77 +125,13 @@ namespace CtrlDemux
         {
             if (TypeApp == TYPE_APP.SMART_CONFIG)
             {
-                switch (Mess)
+                BTControl.TraiteMessageDataDelete(Mess, obj, m_strAdressData, PropOwner, DllEntryClass.LangSys.C("Demux {0} : Adresse Data will be removed"));
+                BTControl.TraiteMessageDataDelete(Mess, obj, m_strValueData, PropOwner, DllEntryClass.LangSys.C("Demux {0} : Value Data will be removed"));
+                for (int i = 0; i < m_ListDemuxData.Count; i++)
                 {
-                    case MESSAGE.MESS_ASK_ITEM_DELETE:
-                        if (((MessAskDelete)obj).TypeOfItem == typeof(Data))
-                        {
-                            MessAskDelete MessParam = (MessAskDelete)obj;
-                            string strMess = string.Empty;
-                            if (MessParam.WantDeletetItemSymbol == m_strAdressData)
-                            {
-                                strMess = string.Format(DllEntryClass.LangSys.C("Demux {0} : Adresse Data will be removed"), PropOwner.Symbol);
-                                MessParam.ListStrReturns.Add(strMess);
-                            }
-                            if (MessParam.WantDeletetItemSymbol == m_strValueData)
-                            {
-                                strMess = string.Format(DllEntryClass.LangSys.C("Demux {0} : Value Data will be removed"), PropOwner.Symbol);
-                                MessParam.ListStrReturns.Add(strMess);
-                            }
-                            for (int i = 0; i < m_ListDemuxData.Count; i++)
-                            {
-                                if (m_ListDemuxData[i] == MessParam.WantDeletetItemSymbol)
-                                {
-                                    strMess = string.Format(DllEntryClass.LangSys.C("Demux {0} : Ouput Data will be removed"), PropOwner.Symbol);
-                                    MessParam.ListStrReturns.Add(strMess);
-                                }
-                            }
-                        }
-                        break;
-                    case MESSAGE.MESS_ITEM_DELETED:
-                        if (((MessDeleted)obj).TypeOfItem == typeof(Data))
-                        {
-                            MessDeleted MessParam = (MessDeleted)obj;
-                            if (MessParam.DeletetedItemSymbol == m_strAdressData)
-                            {
-                                m_strAdressData = string.Empty;
-                            }
-                            if (MessParam.DeletetedItemSymbol == m_strValueData)
-                            {
-                                m_strValueData = string.Empty;
-                            }
-                            for (int i = 0; i < m_ListDemuxData.Count; i++)
-                            {
-                                if (m_ListDemuxData[i] == MessParam.DeletetedItemSymbol)
-                                {
-                                    m_ListDemuxData.RemoveAt(i);
-                                }
-                            }
-                        }
-                        break;
-                    case MESSAGE.MESS_ITEM_RENAMED:
-                        if (((MessItemRenamed)obj).TypeOfItem == typeof(Data))
-                        {
-                            MessItemRenamed MessParam = (MessItemRenamed)obj;
-                            if (MessParam.OldItemSymbol == m_strAdressData)
-                            {
-                                m_strAdressData = MessParam.NewItemSymbol;
-                            }
-                            if (MessParam.OldItemSymbol == m_strValueData)
-                            {
-                                m_strValueData = MessParam.NewItemSymbol;
-                            }
-                            for (int i = 0; i < m_ListDemuxData.Count; i++)
-                            {
-                                if (m_ListDemuxData[i] == MessParam.OldItemSymbol)
-                                {
-                                    m_ListDemuxData[i] = MessParam.NewItemSymbol;
-                                }
-                            }
-                        }
-                        break;
-                    default:
-                        break;
+                    BTControl.TraiteMessageDataDelete(Mess, obj, m_ListDemuxData[i], PropOwner, DllEntryClass.LangSys.C("Demux {0} : Ouput Data will be removed"));
+                    m_ListDemuxData[i] = BTControl.TraiteMessageDataDeleted(Mess, obj, m_ListDemuxData[i]);
+                    m_ListDemuxData[i] = BTControl.TraiteMessageDataRenamed(Mess, obj, m_ListDemuxData[i]);
                 }
             }
         }		

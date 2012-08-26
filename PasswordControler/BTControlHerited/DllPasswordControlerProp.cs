@@ -77,58 +77,10 @@ namespace PasswordControler
         /// MessAskDelete / MessDeleted / MessItemRenamed)</param>
         /// <param name="TypeApp">Type de l'application courante (SmartConfig / SmartCommand)</param>
         /// <param name="PropOwner">control propriétaire des propriété spécifique</param>
+        /*
         public override void TraiteMessage(MESSAGE Mess, object obj, TYPE_APP TypeApp, BTControl PropOwner)
         {
-            if (TypeApp == TYPE_APP.SMART_CONFIG)
-            {
-                switch (Mess)
-                {
-                    case MESSAGE.MESS_ASK_ITEM_DELETE:
-                        // exemple de traitement de la demande de supression d'une donnée
-                        // m_strDataOffToOn est le symbol d'une donnée
-                        /*
-                        if (((MessAskDelete)obj).TypeOfItem == typeof(Data))
-                        {
-                            if (MessParam.WantDeletetItemSymbol == m_strDataOffToOn)
-                            {
-                                strMess = string.Format("Data Trigger {0} : Data \"Off to On\" will be removed", PropOwner.Symbol);
-                                MessParam.ListStrReturns.Add(strMess);
-                            }
-                        }
-                         * */
-                        break;
-                    case MESSAGE.MESS_ITEM_DELETED:
-                        // exemple de traitement de la supression d'une donnée
-                        // m_strDataOffToOn est le symbol d'une donnée
-                        /*
-                        if (((MessDeleted)obj).TypeOfItem == typeof(Data))
-                        {
-                            MessDeleted MessParam = (MessDeleted)obj;
-                            if (MessParam.DeletetedItemSymbol == m_strDataOffToOn)
-                            {
-                                m_strDataOffToOn = string.Empty;
-                            }
-                        }
-                         * */
-                        break;
-                    case MESSAGE.MESS_ITEM_RENAMED:
-                        // exemple de traitement du renommage d'une donnée
-                        // m_strDataOffToOn est le symbol d'une donnée
-                        /*
-                        if (((MessItemRenamed)obj).TypeOfItem == typeof(Data))
-                        {
-                            MessItemRenamed MessParam = (MessItemRenamed)obj;
-                            if (MessParam.OldItemSymbol == m_strDataOffToOn)
-                            {
-                                m_strDataOffToOn = MessParam.NewItemSymbol;
-                            }
-                        }*/
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
-
+            base.TraiteMessage(Mess, obj, TypeApp, PropOwner);
+        }*/
     }
 }
