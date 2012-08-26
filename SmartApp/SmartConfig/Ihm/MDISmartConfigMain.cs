@@ -233,7 +233,7 @@ namespace SmartApp.Ihm
         /// affiche une message box à l'utilisateur demandant la sauvegarde 
         /// si la solution à été modifiée
         /// </summary>
-        private void SolutionAskUserToSaveIfIsModified()
+        private bool SolutionAskUserToSaveIfIsModified()
         {
             if (m_GestSolution != null)
             {
@@ -244,13 +244,15 @@ namespace SmartApp.Ihm
                     {
                         SolutionSave(false);
                         UpdateTitle();
+                        return true;
                     }
                     if (res == DialogResult.Cancel)
                     {
-                        return;
+                        return false;
                     }
                 }
             }
+            return true;
         }
 
         /// <summary>
@@ -402,10 +404,12 @@ namespace SmartApp.Ihm
             }
             else
             {
-                SolutionAskUserToSaveIfIsModified();
-                SolutionClose();
-                SolutionOpen(filename);
-                m_mruStripMenu.SetFirstFile(number);
+                if (SolutionAskUserToSaveIfIsModified())
+                {
+                    SolutionClose();
+                    SolutionOpen(filename);
+                    m_mruStripMenu.SetFirstFile(number);
+                }
             }
         }
         #endregion
@@ -876,9 +880,11 @@ namespace SmartApp.Ihm
 
         private void menuItemOpenSolution_Click(object sender, EventArgs e)
         {
-            SolutionAskUserToSaveIfIsModified();
-            SolutionClose();
-            this.SolutionOpen(null);
+            if (SolutionAskUserToSaveIfIsModified())
+            {
+                SolutionClose();
+                this.SolutionOpen(null);
+            }
         }
 
         private void menuItemAddProj_emptyProject_Click(object sender, EventArgs e)
@@ -934,9 +940,11 @@ namespace SmartApp.Ihm
 
         private void toolBarItemOpenSolution_Click(object sender, EventArgs e)
         {
-            SolutionAskUserToSaveIfIsModified();
-            SolutionClose();
-            SolutionOpen(null);
+            if (SolutionAskUserToSaveIfIsModified())
+            {
+                SolutionClose();
+                SolutionOpen(null);
+            }
         }
 
         private void toolBarItemSaveAll_Click(object sender, EventArgs e)

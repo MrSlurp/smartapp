@@ -1086,6 +1086,9 @@
     <Content Include="SmartAppSln.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="postUpdateCopy.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="ToDo.txt" />
   </ItemGroup>
   <ItemGroup>

@@ -283,7 +283,7 @@ namespace CommonLib
                 case DATA_SIZE.DATA_SIZE_1B:
                     m_numUDMax.Maximum = 1;
                     m_numUDMax.Minimum = 0;
-                    m_numUDMax.Maximum = 1;
+                    m_numUDMin.Maximum = 1;
                     m_numUDMin.Minimum = 0;
                     m_numUDDefault.Maximum = 1;
                     m_numUDDefault.Minimum = 0;
@@ -294,7 +294,7 @@ namespace CommonLib
                 case DATA_SIZE.DATA_SIZE_2B:
                     m_numUDMax.Maximum = 3;
                     m_numUDMax.Minimum = 0;
-                    m_numUDMax.Maximum = 3;
+                    m_numUDMin.Maximum = 3;
                     m_numUDMin.Minimum = 0;
                     m_numUDDefault.Maximum = 3;
                     m_numUDDefault.Minimum = 0;
@@ -305,7 +305,7 @@ namespace CommonLib
                 case DATA_SIZE.DATA_SIZE_4B:
                     m_numUDMax.Maximum = 15;
                     m_numUDMax.Minimum = 0;
-                    m_numUDMax.Maximum = 15;
+                    m_numUDMin.Maximum = 15;
                     m_numUDMin.Minimum = 0;
                     m_numUDDefault.Maximum = 15;
                     m_numUDDefault.Minimum = 0;
@@ -316,7 +316,7 @@ namespace CommonLib
                 case DATA_SIZE.DATA_SIZE_8B:
                     m_numUDMax.Maximum = 255;
                     m_numUDMax.Minimum = 0;
-                    m_numUDMax.Maximum = 255;
+                    m_numUDMin.Maximum = 255;
                     m_numUDMin.Minimum = 0;
                     m_numUDDefault.Maximum = 255;
                     m_numUDDefault.Minimum = 0;
@@ -327,7 +327,7 @@ namespace CommonLib
                 case DATA_SIZE.DATA_SIZE_16B:
                     m_numUDMax.Maximum = 32767;
                     m_numUDMax.Minimum = -32768;
-                    m_numUDMax.Maximum = 32767;
+                    m_numUDMin.Maximum = 32767;
                     m_numUDMin.Minimum = -32768;
                     m_numUDDefault.Maximum = 32767;
                     m_numUDDefault.Minimum = -32768;
@@ -338,7 +338,7 @@ namespace CommonLib
                 case DATA_SIZE.DATA_SIZE_16BU:
                     m_numUDMax.Maximum = 0xFFFF;
                     m_numUDMax.Minimum = 0;
-                    m_numUDMax.Maximum = 0xFFFF;
+                    m_numUDMin.Maximum = 0xFFFF;
                     m_numUDMin.Minimum = 0;
                     m_numUDDefault.Maximum = 0xFFFF;
                     m_numUDDefault.Minimum = 0;
@@ -348,7 +348,7 @@ namespace CommonLib
                 case DATA_SIZE.DATA_SIZE_32B:
                     m_numUDMax.Maximum = int.MaxValue;
                     m_numUDMax.Minimum = int.MinValue;
-                    m_numUDMax.Maximum = int.MaxValue;
+                    m_numUDMin.Maximum = int.MaxValue;
                     m_numUDMin.Minimum = int.MinValue;
                     m_numUDDefault.Maximum = int.MaxValue;
                     m_numUDDefault.Minimum = int.MinValue;

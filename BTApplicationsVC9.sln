@@ -43,6 +43,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CtrlCnxManager", "CtrlCnxMa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CtrlDataComp", "CtrlDataComp\CtrlDataComp.csproj", "{355EAEA7-3E28-40C6-8086-817ACDE4F1FD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartAppUpdater", "SmartAppUpdater\SmartAppUpdater.csproj", "{A3DF3670-EF60-48AD-A28D-3DABE0655844}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		BuildLang|Any CPU = BuildLang|Any CPU
@@ -587,6 +589,31 @@ Global
 		{355EAEA7-3E28-40C6-8086-817ACDE4F1FD}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{355EAEA7-3E28-40C6-8086-817ACDE4F1FD}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{355EAEA7-3E28-40C6-8086-817ACDE4F1FD}.Release|Win32.ActiveCfg = Release|Any CPU
+		{A3DF3670-EF60-48AD-A28D-3DABE0655844}.BuildLang|Any CPU.ActiveCfg = Release|Any CPU
+		{A3DF3670-EF60-48AD-A28D-3DABE0655844}.BuildLang|Any CPU.Build.0 = Release|Any CPU
+		{A3DF3670-EF60-48AD-A28D-3DABE0655844}.BuildLang|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{A3DF3670-EF60-48AD-A28D-3DABE0655844}.BuildLang|Mixed Platforms.Build.0 = Release|Any CPU
+		{A3DF3670-EF60-48AD-A28D-3DABE0655844}.BuildLang|Win32.ActiveCfg = Release|Any CPU
+		{A3DF3670-EF60-48AD-A28D-3DABE0655844}.Debug Cmd|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3DF3670-EF60-48AD-A28D-3DABE0655844}.Debug Cmd|Any CPU.Build.0 = Debug|Any CPU
+		{A3DF3670-EF60-48AD-A28D-3DABE0655844}.Debug Cmd|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{A3DF3670-EF60-48AD-A28D-3DABE0655844}.Debug Cmd|Mixed Platforms.Build.0 = Debug|Any CPU
+		{A3DF3670-EF60-48AD-A28D-3DABE0655844}.Debug Cmd|Win32.ActiveCfg = Debug|Any CPU
+		{A3DF3670-EF60-48AD-A28D-3DABE0655844}.Debug Test|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3DF3670-EF60-48AD-A28D-3DABE0655844}.Debug Test|Any CPU.Build.0 = Debug|Any CPU
+		{A3DF3670-EF60-48AD-A28D-3DABE0655844}.Debug Test|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{A3DF3670-EF60-48AD-A28D-3DABE0655844}.Debug Test|Mixed Platforms.Build.0 = Debug|Any CPU
+		{A3DF3670-EF60-48AD-A28D-3DABE0655844}.Debug Test|Win32.ActiveCfg = Debug|Any CPU
+		{A3DF3670-EF60-48AD-A28D-3DABE0655844}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3DF3670-EF60-48AD-A28D-3DABE0655844}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3DF3670-EF60-48AD-A28D-3DABE0655844}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{A3DF3670-EF60-48AD-A28D-3DABE0655844}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{A3DF3670-EF60-48AD-A28D-3DABE0655844}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{A3DF3670-EF60-48AD-A28D-3DABE0655844}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3DF3670-EF60-48AD-A28D-3DABE0655844}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3DF3670-EF60-48AD-A28D-3DABE0655844}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{A3DF3670-EF60-48AD-A28D-3DABE0655844}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{A3DF3670-EF60-48AD-A28D-3DABE0655844}.Release|Win32.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
