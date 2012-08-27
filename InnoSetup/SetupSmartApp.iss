@@ -3,35 +3,12 @@
 #include "scripts\products\winversion.iss"
 #include "scripts\products\fileversion.iss"
 
-//#include "scripts\products\iis.iss"
-
-//#include "scripts\products\kb835732.iss"
-//#include "scripts\products\kb886903.iss"
-//#include "scripts\products\kb928366.iss"
-
 #include "scripts\products\msi20.iss"
 #include "scripts\products\msi31.iss"
-//#include "scripts\products\ie6.iss"
-
-//#include "scripts\products\dotnetfx11.iss"
-//#include "scripts\products\dotnetfx11lp.iss"
-//#include "scripts\products\dotnetfx11sp1.iss"
 
 #include "scripts\products\dotnetfx20.iss"
-//#include "scripts\products\dotnetfx20lp.iss"
 #include "scripts\products\dotnetfx20sp1.iss"
-//#include "scripts\products\dotnetfx20sp1lp.iss"
 #include "scripts\products\dotnetfx20sp2.iss"
-//#include "scripts\products\dotnetfx20sp2lp.iss"
-
-//#include "scripts\products\dotnetfx35.iss"
-//#include "scripts\products\dotnetfx35lp.iss"
-//#include "scripts\products\dotnetfx35sp1.iss"
-//#include "scripts\products\dotnetfx35sp1lp.iss"
-
-//#include "scripts\products\mdac28.iss"
-//#include "scripts\products\jet4sp8.iss"
-//#include "scripts\products\sql2005express.iss"
 
 [CustomMessages]
 win2000sp3_title=Windows 2000 Service Pack 3
@@ -69,32 +46,40 @@ Name: "french"; MessagesFile: "compiler:Languages\French.isl" ; LicenseFile:"Lic
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
+[Dirs]
+Name: "{app}" ; Permissions : everyone-modify
+
+
 [Files]
 ; exe principal de l'application
-Source: "..\Prod\Release\SmartApp.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Prod\Release\SmartApp.exe"; DestDir: "{app}"; Flags: ignoreversion ; Permissions : users-modify
+; exe updater l'application
+Source: "..\Prod\Release\SmartAppUpdater.exe"; DestDir: "{app}"; Flags: ignoreversion ; Permissions : users-modify
+; batch d'update final
+Source: "..\Prod\Release\postUpdateCopy.bat"; DestDir: "{app}"; Flags: ignoreversion ; Permissions : users-modify
 ; plugins + zegraph
-Source: "..\Prod\Release\*.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Prod\Release\*.dll"; DestDir: "{app}"; Flags: ignoreversion ; Permissions : users-modify
 ; fichier de documentation de zedgraph
 Source: "..\Prod\Release\*.xml"; DestDir: "{app}"; Permissions : everyone-modify
 ; librairie d'image pour les fond de plan
-Source: "..\Prod\Release\ImgLib\*"; DestDir: "{app}\ImgLib"; Flags: recursesubdirs createallsubdirs ; Permissions : everyone-modify
+Source: "..\Prod\Release\ImgLib\*"; DestDir: "{app}\ImgLib"; Flags: recursesubdirs createallsubdirs ; Permissions : users-modify
 ; images ressources de l'application
-Source: "..\Prod\Release\Res\*"; DestDir: "{app}\Res"; Flags: recursesubdirs createallsubdirs ; Permissions : everyone-modify
+Source: "..\Prod\Release\Res\*"; DestDir: "{app}\Res"; Flags: recursesubdirs createallsubdirs ; Permissions : users-modify
 ; fichier de langues
 Source: "..\Prod\Release\Lang\*.po"; DestDir: "{app}\Lang"; Permissions : everyone-modify
 ; fichier icone principal
-Source: "..\Prod\Release\SmartApp.ico"; DestDir: "{app}";
+Source: "..\Prod\Release\SmartApp.ico"; DestDir: "{app}"; Permissions : users-modify 
 ; fichier icone secondaire
-Source: "..\Prod\Release\SmartAppSln.ico"; DestDir: "{app}";
+Source: "..\Prod\Release\SmartAppSln.ico"; DestDir: "{app}"; Permissions : users-modify
 ; fichier de configuration de l'application
-Source: "ressources\EN.SmartApp.exe.config"; DestDir: "{app}"; DestName:"SmartApp.exe.config"; Languages: english; Flags: onlyifdoesntexist uninsneveruninstall ; Permissions : everyone-modify
-Source: "ressources\FR.SmartApp.exe.config"; DestDir: "{app}"; DestName:"SmartApp.exe.config"; Languages: french; Flags: onlyifdoesntexist uninsneveruninstall ; Permissions : everyone-modify
+Source: "ressources\EN.SmartApp.exe.config"; DestDir: "{app}"; DestName:"SmartApp.exe.config"; Languages: english; Flags: onlyifdoesntexist uninsneveruninstall ; Permissions : users-modify
+Source: "ressources\FR.SmartApp.exe.config"; DestDir: "{app}"; DestName:"SmartApp.exe.config"; Languages: french; Flags: onlyifdoesntexist uninsneveruninstall ; Permissions : users-modify
 ; fichier de fournitures
-Source: "fournitures\*.saf"; DestDir: "{app}\exemples"; Flags: recursesubdirs createallsubdirs ; Permissions : everyone-modify
-Source: "fournitures\*.slt"; DestDir: "{app}\exemples"; Flags: recursesubdirs createallsubdirs ; Permissions : everyone-modify
-Source: "fournitures\*.pm3"; DestDir: "{app}\exemples"; Flags: recursesubdirs createallsubdirs ; Permissions : everyone-modify
-Source: "fournitures\*.bmp"; DestDir: "{app}\exemples"; Flags: onlyifdoesntexist uninsneveruninstall ; Permissions : everyone-modify
-Source: "fournitures\*.ini"; DestDir: "{app}"; Flags: onlyifdoesntexist uninsneveruninstall ; Permissions : everyone-modify
+Source: "fournitures\*.saf"; DestDir: "{app}\exemples"; Flags: recursesubdirs createallsubdirs ; Permissions : users-modify
+Source: "fournitures\*.slt"; DestDir: "{app}\exemples"; Flags: recursesubdirs createallsubdirs ; Permissions : users-modify
+Source: "fournitures\*.pm3"; DestDir: "{app}\exemples"; Flags: recursesubdirs createallsubdirs ; Permissions : users-modify
+Source: "fournitures\*.bmp"; DestDir: "{app}\exemples"; Flags: onlyifdoesntexist uninsneveruninstall ; Permissions : users-modify
+Source: "fournitures\*.ini"; DestDir: "{app}"; Flags: onlyifdoesntexist uninsneveruninstall ; Permissions : users-modify
 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
@@ -102,11 +87,14 @@ Source: "fournitures\*.ini"; DestDir: "{app}"; Flags: onlyifdoesntexist uninsnev
 [Registry]
 Root: HKCR; Subkey: ".saf"; ValueType: string; ValueName: ""; ValueData: "smartapp"; Flags: uninsdeletevalue
 Root: HKCR; Subkey: ".saf\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\SmartApp.ico"
-Root: HKCR; Subkey: ".slt"; ValueType: string; ValueName: ""; ValueData: "smartapp"; Flags: uninsdeletevalue
+Root: HKCR; Subkey: ".slt"; ValueType: string; ValueName: ""; ValueData: "smartappslt"; Flags: uninsdeletevalue
 Root: HKCR; Subkey: ".slt\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\SmartAppSln.ico"
 Root: HKCR; Subkey: "smartapp"; ValueType: string; ValueName: ""; ValueData: "Smart App files"; Flags: uninsdeletekey
-Root: HKCR; Subkey: "smartapp\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\SmartAppSln.ico"
+Root: HKCR; Subkey: "smartapp\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\SmartApp.ico"
 Root: HKCR; Subkey: "smartapp\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\SmartApp.exe"" ""%1"""
+Root: HKCR; Subkey: "smartappslt"; ValueType: string; ValueName: ""; ValueData: "Smart App solution file"; Flags: uninsdeletekey
+Root: HKCR; Subkey: "smartappslt\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\SmartAppSln.ico"
+Root: HKCR; Subkey: "smartappslt\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\SmartApp.exe"" ""%1"""
 
 [Icons]
 Name: "{group}\Smart Config V3"; Filename: "{app}\SmartApp.exe"; WorkingDir: "{app}"

@@ -84,10 +84,9 @@ namespace SmartApp
             // attention, cette ligne est toujours appelé, mais dans la création du singleton de la fenêtre principale
             // car les membres étant statiques, il provoquent la création de la fenêtre pendant le chargement même de l'application
             Application.SetCompatibleTextRenderingDefault(false);
-            
-            Traces.Initialize(Application.StartupPath, 
-                              "TraceSmartApp.txt", 
-                              (TracesLevel)SmartApp.Properties.Settings.Default.LogLevel, 
+            Traces.Initialize(Application.StartupPath,
+                              "TraceSmartApp.txt",
+                              (TracesLevel)SmartApp.Properties.Settings.Default.LogLevel,
                               (TraceCat)Convert.ToInt32(SmartApp.Properties.Settings.Default.LogCat, 16),
                               SmartApp.Properties.Settings.Default.LogToFile
                               );
@@ -119,7 +118,6 @@ namespace SmartApp
                     Application.Run(m_CommandApp);
                     break;
             }
-            
         }
     }
 }

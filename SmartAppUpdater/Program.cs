@@ -39,10 +39,11 @@ namespace SmartAppUpdater
                 StringCollection filesToUpdate = CheckUpdates(arguments);
                 DownloadFiles(arguments, filesToUpdate);
                 Console.ReadKey();
+                StartBatchCopy();
             }
         }
 
-        public void StartBatchCopy()
+        public static void StartBatchCopy()
         {
             ProcessStartInfo psi = new ProcessStartInfo();
             psi.FileName = "postUpdateCopy.bat";
@@ -59,6 +60,7 @@ namespace SmartAppUpdater
         {
             WebClient wc = new WebClient();
             bool bFileDownloadOK = false;
+            Console.WriteLine("Recherche des mises à jour");
             try
             {
                 string downloadURL = FileUrl + VersionInfoFile;
@@ -70,8 +72,8 @@ namespace SmartAppUpdater
             }
             catch (Exception e)
             {
-                Console.WriteLine(string.Format("Erreur de récupération du fichier ({0})", e.Message));
-                Console.WriteLine(string.Format("Mise a jour interrompue ({0})", e.Message));
+                Console.WriteLine(string.Format("Erreur de récupération du fichier d'information des version ({0})", e.Message));
+                Console.WriteLine("Mise a jour interrompue");
             }
             finally
             {
@@ -139,7 +141,6 @@ namespace SmartAppUpdater
                 catch (Exception e)
                 {
                     Console.WriteLine(string.Format("Erreur de détéction des version ({0})", e.Message));
-
                 }
             }
             return null;
