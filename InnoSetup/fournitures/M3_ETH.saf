@@ -8,7 +8,7 @@
     <CommParam>192.168.0.99:502</CommParam>
   </Comm>
   <ProjOptions>
-    <MainContainer IsUsed="False" size="-1,-1" Pos="-1,-1" ShowInTaskBar="True" ShowTitleBar="True" />
+    <MainContainer IsUsed="False" size="-1,-1" Pos="-1,-1" ShowInTaskBar="True" ShowTitleBar="True" MCTitle="" />
   </ProjOptions>
   <PluginsGlobals />
   <DataSection>
@@ -144,7 +144,7 @@
   <ScreenSection>
     <Screen strSymbol="MAIN_SCREEN" strNom="" Text="">
       <ControlList>
-        <Control strSymbol="NEW_CTRL_0" strNom="" Type="UP_DOWN" AssociateData="ETH_OUT7_I1" ScreenEvent="False" Pos="90,77" size="56,20" Text="" ReadOnly="False">
+        <Control strSymbol="NEW_CTRL_0" strNom="" Type="UP_DOWN" AssociateData="ETH_OUT7_I1" ScreenEvent="False" Pos="90,76" size="56,20" Text="" ReadOnly="False">
           <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
           <EventScript />
         </Control>

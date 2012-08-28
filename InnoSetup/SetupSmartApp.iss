@@ -48,7 +48,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 
 [Dirs]
 Name: "{app}" ; Permissions : everyone-modify
-
+Name: "{app}\tmpUpdate" ; Permissions : everyone-modify
 
 [Files]
 ; exe principal de l'application
@@ -99,6 +99,7 @@ Root: HKCR; Subkey: "smartappslt\shell\open\command"; ValueType: string; ValueNa
 [Icons]
 Name: "{group}\Smart Config V3"; Filename: "{app}\SmartApp.exe"; WorkingDir: "{app}"
 Name: "{group}\Smart Command V3"; Filename: "{app}\SmartApp.exe"; WorkingDir: "{app}"; Parameters: "-cmd"
+Name: "{group}\Smart App Updater"; Filename: "{app}\SmartAppUpdater.exe"; WorkingDir: "{app}"
 Name: "{group}\{cm:UninstallProgram,Smart Application V3}"; Filename: "{uninstallexe}"
 Name: "{commondesktop}\Smart Config V3"; Filename: "{app}\SmartApp.exe"; WorkingDir: "{app}"; Tasks: desktopicon
 Name: "{commondesktop}\Smart Command V3"; Filename: "{app}\SmartApp.exe"; WorkingDir: "{app}"; Tasks: desktopicon ;Parameters: "-cmd" 

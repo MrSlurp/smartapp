@@ -97,7 +97,7 @@
             this.Name = "BasePropertiesDialog";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Properties";
             this.Deactivate += new System.EventHandler(this.BasePropertiesDialog_Leave);
             this.Activated += new System.EventHandler(this.BasePropertiesDialog_Enter);

@@ -90,6 +90,7 @@ namespace CommonLib
                 BTDoc openedDoc = new BTDoc(m_TypeApp);
                 if (openedDoc.ReadConfigDocument(strFilePath, m_TypeApp, m_GestDLL))
                 {
+                    openedDoc.BuildStatFileInfo();
                     this.Add(strFilePath, openedDoc);
                     Modified = true;
                     openedDoc.OnDocumentModified += new DocumentModifiedEvent(OnDocumentModified);

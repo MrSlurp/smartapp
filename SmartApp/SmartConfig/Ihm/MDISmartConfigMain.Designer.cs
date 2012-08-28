@@ -40,6 +40,7 @@ namespace SmartApp.Ihm
             this.menuItemAddProj_M3ETHWiz = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemAddProj_Z2SLWiz = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemAddProj_Z2ETHWiz = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItemaddBridge = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemCloseSolution = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.menuItemSave = new System.Windows.Forms.ToolStripMenuItem();
@@ -68,6 +69,7 @@ namespace SmartApp.Ihm
             this.menuTools = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemOptions = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemJumpToCmd = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItemCheckForUpdates = new System.Windows.Forms.ToolStripMenuItem();
             this.menuView = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemViewHideToolbar = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemViewHideStatusBar = new System.Windows.Forms.ToolStripMenuItem();
@@ -102,7 +104,6 @@ namespace SmartApp.Ihm
             this.lblToolsView = new System.Windows.Forms.Label();
             this.toolsPanel = new System.Windows.Forms.Panel();
             this.btnHideShowRightPanel = new System.Windows.Forms.Button();
-            this.menuItemaddBridge = new System.Windows.Forms.ToolStripMenuItem();
             this.m_menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.m_toolStrip.SuspendLayout();
@@ -228,6 +229,14 @@ namespace SmartApp.Ihm
             this.menuItemAddProj_Z2ETHWiz.Size = new System.Drawing.Size(210, 22);
             this.menuItemAddProj_Z2ETHWiz.Text = "Z2 SR3NET Project Wizard";
             this.menuItemAddProj_Z2ETHWiz.Click += new System.EventHandler(this.menuItemAddProj_Z2ETHWiz_Click);
+            // 
+            // menuItemaddBridge
+            // 
+            this.menuItemaddBridge.Name = "menuItemaddBridge";
+            this.menuItemaddBridge.Size = new System.Drawing.Size(196, 22);
+            this.menuItemaddBridge.Text = "Add bridge to solution";
+            this.menuItemaddBridge.Visible = false;
+            this.menuItemaddBridge.Click += new System.EventHandler(this.menuItemaddBridge_Click);
             // 
             // menuItemCloseSolution
             // 
@@ -426,7 +435,8 @@ namespace SmartApp.Ihm
             // 
             this.menuTools.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuItemOptions,
-            this.menuItemJumpToCmd});
+            this.menuItemJumpToCmd,
+            this.menuItemCheckForUpdates});
             this.menuTools.Name = "menuTools";
             this.menuTools.Size = new System.Drawing.Size(48, 20);
             this.menuTools.Text = "&Tools";
@@ -437,6 +447,7 @@ namespace SmartApp.Ihm
             this.menuItemOptions.Size = new System.Drawing.Size(227, 22);
             this.menuItemOptions.Text = "&Options";
             this.menuItemOptions.Visible = false;
+            this.menuItemOptions.Click += new System.EventHandler(this.menuItemOptions_Click);
             // 
             // menuItemJumpToCmd
             // 
@@ -446,6 +457,13 @@ namespace SmartApp.Ihm
             this.menuItemJumpToCmd.Size = new System.Drawing.Size(227, 22);
             this.menuItemJumpToCmd.Text = "Jump to SmartCommand";
             this.menuItemJumpToCmd.Click += new System.EventHandler(this.JumpToSmartCommandMenuItemClick);
+            // 
+            // menuItemCheckForUpdates
+            // 
+            this.menuItemCheckForUpdates.Name = "menuItemCheckForUpdates";
+            this.menuItemCheckForUpdates.Size = new System.Drawing.Size(227, 22);
+            this.menuItemCheckForUpdates.Text = "Check for updates";
+            this.menuItemCheckForUpdates.Click += new System.EventHandler(this.menuItemCheckForUpdates_Click);
             // 
             // menuView
             // 
@@ -766,14 +784,6 @@ namespace SmartApp.Ihm
             this.btnHideShowRightPanel.UseVisualStyleBackColor = true;
             this.btnHideShowRightPanel.Click += new System.EventHandler(this.btnHideShowRightPanel_Click);
             // 
-            // menuItemaddBridge
-            // 
-            this.menuItemaddBridge.Name = "menuItemaddBridge";
-            this.menuItemaddBridge.Size = new System.Drawing.Size(196, 22);
-            this.menuItemaddBridge.Text = "Add bridge to solution";
-            this.menuItemaddBridge.Visible = false;
-            this.menuItemaddBridge.Click += new System.EventHandler(this.menuItemaddBridge_Click);
-            // 
             // MDISmartConfigMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -879,6 +889,7 @@ namespace SmartApp.Ihm
         private System.Windows.Forms.Panel toolsPanel;
         private System.Windows.Forms.Button btnHideShowRightPanel;
         private System.Windows.Forms.ToolStripMenuItem menuItemaddBridge;
+        private System.Windows.Forms.ToolStripMenuItem menuItemCheckForUpdates;
     }
 }
 

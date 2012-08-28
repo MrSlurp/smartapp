@@ -318,6 +318,11 @@ namespace SmartApp.Ihm
                 UpdateTitle();
                 UpdateFileMenu();
             }
+            if (MDISmartConfigMain.GlobalPropDialog != null)
+            {
+                m_PropDialog.Location = m_FrmOpt.GetFormPos(m_PropDialog);
+                m_PropDialog.Size = m_FrmOpt.GetFormSize(m_PropDialog);
+            }
         }
 
         void GestSolution_OnDocClosed(BaseDoc doc)
@@ -382,6 +387,12 @@ namespace SmartApp.Ihm
         {
             SolutionAskUserToSaveIfIsModified();
             this.SolutionClose();
+            if (MDISmartConfigMain.GlobalPropDialog != null)
+            {
+                m_FrmOpt.SetFormPos(m_PropDialog);
+                m_FrmOpt.SetFormSize(m_PropDialog);
+                m_FrmOpt.Save();
+            }
             this.Close();
         }
         #endregion
@@ -567,6 +578,14 @@ namespace SmartApp.Ihm
         private void OnFormClosing(object sender, FormClosingEventArgs e)
         {
             SolutionAskUserToSaveIfIsModified();
+            SolutionClose();
+            if (MDISmartConfigMain.GlobalPropDialog != null)
+            {
+                m_FrmOpt.SetFormPos(m_PropDialog);
+                m_FrmOpt.SetFormSize(m_PropDialog);
+                m_FrmOpt.Save();
+            }
+
             m_mruStripMenu.SaveToFile();
         }
 
@@ -1041,6 +1060,25 @@ namespace SmartApp.Ihm
                     newDoc.Modified = false;
                 }
             }
+
+        }
+
+        private void menuItemCheckForUpdates_Click(object sender, EventArgs e)
+        {
+            if (this.SolutionAskUserToSaveIfIsModified())
+            {
+                MessageBox.Show(Program.LangSys.C("All SmartApp instances must be closed before lauching update process"), 
+                                Program.LangSys.C("Warning"),MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                System.Diagnostics.Process proc = new System.Diagnostics.Process();
+                string Arguments = "-Lang " + SmartApp.Properties.Settings.Default.Lang;
+                proc.StartInfo = new System.Diagnostics.ProcessStartInfo(Application.StartupPath + Path.DirectorySeparatorChar + "SmartAppUpdater.exe", Arguments);
+                proc.Start();
+                this.ExitSmartConfig();
+            }
+        }
+
+        private void menuItemOptions_Click(object sender, EventArgs e)
+        {
 
         }
     }

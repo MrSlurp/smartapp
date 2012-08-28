@@ -894,6 +894,9 @@ namespace CommonLib
             return true;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void CloseDocumentForCommand()
         {
             if (m_FormList.Count != 0)
@@ -913,25 +916,40 @@ namespace CommonLib
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void BuildStatFileInfo()
         {
             int iNbData = m_GestData.Count;
             int iNbScreen = m_GestScreen.Count;
             int iMoyItemPersScreen = 0;
+            int iScreenItemMoyScriptLines = 0;
+            int iNbItemWithScript = 0;
             for (int i = 0; i < m_GestScreen.Count; i++)
             {
                 BTScreen scr = m_GestScreen[i] as BTScreen;
                 iMoyItemPersScreen += scr.Controls.Count;
+                for(int j = 0; j< scr.Controls.Count; j++)
+                {
+                    BTControl ctrl = scr.Controls[j] as BTControl;
+                    foreach (string key in ctrl.ItemScripts.ScriptKeys)
+                    {
+                        iScreenItemMoyScriptLines += ctrl.ItemScripts[key].Length;
+                    }
+                    iNbItemWithScript++;
+                }
             }
+            iScreenItemMoyScriptLines = iScreenItemMoyScriptLines / iNbItemWithScript;
             iMoyItemPersScreen = iMoyItemPersScreen / iNbScreen;
 
             int iNbTimer = m_GestTimer.Count;
             int iNbFunction = m_GestFunction.Count;
             int iNbLogger = m_GestLogger.Count;
 
-            int iFunctionMoyScriptLines;
-            int iNbTotalScriptCount;
-            int iFunctionMaxScriptLines;
+            int iFunctionMoyScriptLines = 0;
+            int iNbTotalScriptCount = 0;
+            int iFunctionMaxScriptLines = 0;
             for (int i = 0; i < m_GestFunction.Count; i++)
             {
                 Function item = m_GestFunction[i] as Function;
@@ -949,10 +967,7 @@ namespace CommonLib
             }
             iFunctionMoyScriptLines = iFunctionMoyScriptLines / iNbTotalScriptCount;
 
-            int iScreenItemMoyScriptLines;
-            int iScreenItemMaxScriptLines;
-
-            string commType = m_Comm.CommType;
+            string commType = m_Comm.CommType.ToString();
         }
     }
 }
