@@ -21,6 +21,7 @@ namespace SmartAppUpdater
         public UpdaterMainForm()
         {
             InitializeComponent();
+            Program.LangSys.Initialize(this);
         }
 
         protected void AddStatusLine(string message)
@@ -132,9 +133,9 @@ namespace SmartAppUpdater
                 }
                 if (listAssemblyToDownload.Count > 0)
                 {
-                    AddStatusLine(Program.LangSys.C(
-                        string.Format("Total : {0} file will be downloaded",
-                        listAssemblyToDownload.Count)) + ENDL);
+                    AddStatusLine(string.Format(
+                        Program.LangSys.C("Total : {0} file will be downloaded"),
+                        listAssemblyToDownload.Count) + ENDL);
                     return listAssemblyToDownload;
                 }
             }
@@ -157,9 +158,9 @@ namespace SmartAppUpdater
             {
                 foreach (string file in FilesToUpdate)
                 {
-                    AddStatusLine(Program.LangSys.C(
-                        string.Format("Downloading file {0}",
-                        file)) + ENDL);
+                    AddStatusLine(string.Format(
+                        Program.LangSys.C("Downloading file {0}"),
+                        file) + ENDL);
 
                     WebClient wc = new WebClient();
                     try

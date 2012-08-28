@@ -57,6 +57,12 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Lang\EN.SmartAppUpdater.po">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Lang\FR.SmartAppUpdater.po">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="postUpdateCopy.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -46,16 +46,13 @@ namespace SmartAppUpdater
                 GenerateVersionFile();
                 return;
             }
-
-            LangSys.Initialize(Cste.STR_DEV_LANG, "EN", "SmartAppUpdater");
+            string curLang = "EN";
+            int langArgIndex = arguments.IndexOf("-Lang");
+            if (langArgIndex != -1 && arguments.Count > langArgIndex + 1)
+                curLang = arguments[langArgIndex + 1];
+            LangSys.Initialize(Cste.STR_DEV_LANG, curLang, "SmartAppUpdater");
             Form mainForm = new UpdaterMainForm();
             Application.Run(mainForm);
-
-            /*
-                StringCollection filesToUpdate = CheckUpdates(arguments);
-                DownloadFiles(arguments, filesToUpdate);
-                Console.ReadKey();
-            }*/
         }
 
         public static void StartBatchCopy()
@@ -73,26 +70,25 @@ namespace SmartAppUpdater
         static void GenerateVersionFile()
         {
             string strAppDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName);
-            StringCollection AssemblyList = new StringCollection();
-            AssemblyList.AddRange(Directory.GetFiles(strAppDir, "*.*", SearchOption.TopDirectoryOnly));
-            //AssemblyList.AddRange(Directory.GetFiles(strAppDir, "*.exe", SearchOption.TopDirectoryOnly));
+            StringCollection FileList = new StringCollection();
+            FileList.AddRange(Directory.GetFiles(strAppDir, "*.*", SearchOption.TopDirectoryOnly));
 
             XmlDocument versionFile = new XmlDocument();
             versionFile.LoadXml("<root/>");
 
-            for (int i = 0; i < AssemblyList.Count; i++)
+            for (int i = 0; i < FileList.Count; i++)
             {
-                if ((AssemblyList[i].EndsWith(".dll") || AssemblyList[i].EndsWith(".exe")) && !AssemblyList[i].EndsWith(".vshost.exe"))
+                if ((FileList[i].EndsWith(".dll") || FileList[i].EndsWith(".exe")) && !FileList[i].EndsWith(".vshost.exe"))
                 {
                     try
                     {
-                        Assembly assembly = Assembly.LoadFrom(AssemblyList[i]);
+                        Assembly assembly = Assembly.LoadFrom(FileList[i]);
                         Version asmVer = assembly.GetName().Version;
                         XmlNode assemblyNode = versionFile.CreateElement("assemblyInfo");
                         XmlAttribute attrName = versionFile.CreateAttribute("fileName");
                         XmlAttribute attrVersion = versionFile.CreateAttribute("lastVersion");
                         attrVersion.Value = asmVer.ToString();
-                        attrName.Value = Path.GetFileName(AssemblyList[i]);
+                        attrName.Value = Path.GetFileName(FileList[i]);
                         assemblyNode.Attributes.Append(attrName);
                         assemblyNode.Attributes.Append(attrVersion);
                         versionFile.DocumentElement.AppendChild(assemblyNode);
@@ -100,7 +96,7 @@ namespace SmartAppUpdater
                     }
                     catch (Exception)
                     {
-                        Console.WriteLine("Impossible de charger la version du fichier " + AssemblyList[i]);
+                        Console.WriteLine("Impossible de charger la version du fichier " + FileList[i]);
                     }
                 }
             }
