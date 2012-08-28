@@ -912,5 +912,47 @@ namespace CommonLib
             }
 
         }
+
+        public void BuildStatFileInfo()
+        {
+            int iNbData = m_GestData.Count;
+            int iNbScreen = m_GestScreen.Count;
+            int iMoyItemPersScreen = 0;
+            for (int i = 0; i < m_GestScreen.Count; i++)
+            {
+                BTScreen scr = m_GestScreen[i] as BTScreen;
+                iMoyItemPersScreen += scr.Controls.Count;
+            }
+            iMoyItemPersScreen = iMoyItemPersScreen / iNbScreen;
+
+            int iNbTimer = m_GestTimer.Count;
+            int iNbFunction = m_GestFunction.Count;
+            int iNbLogger = m_GestLogger.Count;
+
+            int iFunctionMoyScriptLines;
+            int iNbTotalScriptCount;
+            int iFunctionMaxScriptLines;
+            for (int i = 0; i < m_GestFunction.Count; i++)
+            {
+                Function item = m_GestFunction[i] as Function;
+                if (item.ItemScripts.Count > 0)
+                {
+                    foreach (string key in item.ItemScripts.ScriptKeys)
+                    {
+                        if (iFunctionMaxScriptLines < item.ItemScripts[key].Length)
+                            iFunctionMaxScriptLines = item.ItemScripts[key].Length;
+
+                        iFunctionMoyScriptLines += item.ItemScripts[key].Length;
+                        iNbTotalScriptCount++;
+                    }
+                }
+            }
+            iFunctionMoyScriptLines = iFunctionMoyScriptLines / iNbTotalScriptCount;
+
+            int iScreenItemMoyScriptLines;
+            int iScreenItemMaxScriptLines;
+
+            string commType = m_Comm.CommType;
+        }
     }
 }

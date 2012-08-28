@@ -7,40 +7,55 @@ using System.Reflection;
 using System.Windows.Forms;
 using System.Collections.Specialized;
 using System.Diagnostics;
+using CommonLib;
 
 namespace SmartAppUpdater
 {
     class Program
     {
-        private const string BetaFileUrl = "http://www.smartappsoftware.net/smartapp/autoupdateB/";
-        private const string FileUrl = "http://www.smartappsoftware.net/smartapp/autoupdate/";
-        private const string VersionInfoFile = "lastversioninfo.xml";
+        public const string BetaFileUrl = "http://www.smartappsoftware.net/smartapp/autoupdateB/";
+        public const string FileUrl = "http://www.smartappsoftware.net/smartapp/autoupdate/";
+        public const string VersionInfoFile = "lastversioninfo.xml";
+
+#if BUILD_LANG
+#if TEST_LANG
+        static Lang m_SingLangSys = new Lang(true, true);
+#else
+        static Lang m_SingLangSys = new Lang(true, false);
+#endif
+#else
+        static Lang m_SingLangSys = new Lang();
+#endif
+        public static Lang LangSys
+        {
+            get { return m_SingLangSys; }
+        }
 
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="args"></param>
+        [STAThread]
         static void Main(string[] args)
         {
-            if (!Directory.Exists(Application.StartupPath + "tmpUpdate"))
-            {
-                Directory.CreateDirectory(Application.StartupPath + Path.DirectorySeparatorChar + "tmpUpdate");
-            }
-
             StringCollection arguments = new StringCollection();
             arguments.AddRange(args);
             if (arguments.Contains("-GenerateVersFile"))
             {
-                GenerateVersionFile(arguments);
+                GenerateVersionFile();
+                return;
             }
-            else
-            {
+
+            LangSys.Initialize(Cste.STR_DEV_LANG, "EN", "SmartAppUpdater");
+            Form mainForm = new UpdaterMainForm();
+            Application.Run(mainForm);
+
+            /*
                 StringCollection filesToUpdate = CheckUpdates(arguments);
                 DownloadFiles(arguments, filesToUpdate);
                 Console.ReadKey();
-                StartBatchCopy();
-            }
+            }*/
         }
 
         public static void StartBatchCopy()
@@ -52,105 +67,10 @@ namespace SmartAppUpdater
         }
 
         /// <summary>
-        /// 
+        /// génération automatique du fichier de version des assembly
         /// </summary>
         /// <param name="arguments"></param>
-        /// <returns></returns>
-        private static StringCollection CheckUpdates(StringCollection arguments)
-        {
-            WebClient wc = new WebClient();
-            bool bFileDownloadOK = false;
-            Console.WriteLine("Recherche des mises à jour");
-            try
-            {
-                string downloadURL = FileUrl + VersionInfoFile;
-                if (arguments.Contains("-B"))
-                    downloadURL = BetaFileUrl + VersionInfoFile;
-                string localFile = Application.StartupPath + Path.DirectorySeparatorChar + "tmpUpdate" + Path.DirectorySeparatorChar + VersionInfoFile;
-                wc.DownloadFile(downloadURL, localFile);
-                bFileDownloadOK = true;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(string.Format("Erreur de récupération du fichier d'information des version ({0})", e.Message));
-                Console.WriteLine("Mise a jour interrompue");
-            }
-            finally
-            {
-                wc.Dispose();
-            }
-
-            if (bFileDownloadOK)
-            {
-                try
-                {
-                    XmlDocument versionFile = new XmlDocument();
-                    string localFile = Application.StartupPath + Path.DirectorySeparatorChar + "tmpUpdate" + Path.DirectorySeparatorChar + VersionInfoFile;
-                    versionFile.Load(localFile);
-
-                    XmlNode rootNode = versionFile.DocumentElement;
-                    StringCollection listAssemblyToDownload = new StringCollection();
-                    foreach (XmlNode node in rootNode.ChildNodes)
-                    {
-                        if (node.Name == "assemblyInfo")
-                        {
-                            XmlNode attrName = node.Attributes.GetNamedItem("fileName");
-                            // il faut déjà trouver si l'assembly est présent
-                            bool bLocalAssemblyExists = false;
-                            string localAssemblyVersion = string.Empty;
-                            try
-                            {
-                                Assembly asm = Assembly.LoadFrom(Application.StartupPath + Path.DirectorySeparatorChar + attrName.Value);
-                                Version asmVer = asm.GetName().Version;
-                                localAssemblyVersion = asmVer.ToString();
-                                bLocalAssemblyExists = true;
-                            }
-                            catch (Exception /*asmEx*/)
-                            {
-                            }
-                            if (bLocalAssemblyExists)
-                            {
-                                XmlNode attrVersion = node.Attributes.GetNamedItem("lastVersion");
-                                string versionString = attrVersion.Value;
-                                string[] remoteVersionIndices = versionString.Split('.');
-                                string[] localVersionIndices = localAssemblyVersion.Split('.');
-                                for (int i = 0; i < remoteVersionIndices.Length; i++)
-                                {
-                                    int iRemoteIndice = int.Parse(remoteVersionIndices[i]);
-                                    int iLocalIndice = int.Parse(localVersionIndices[i]);
-                                    if (iRemoteIndice > iLocalIndice)
-                                    {
-                                        listAssemblyToDownload.Add(attrName.Value);
-                                        break;
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                // nouvel assembly à récupérer
-                                listAssemblyToDownload.Add(attrName.Value);
-                            }
-                        }
-                    }
-                    if (listAssemblyToDownload.Count > 0)
-                    {
-                        Console.WriteLine(string.Format("Il y a {0} fichier(s) à mettre à jour", listAssemblyToDownload.Count));
-                        return listAssemblyToDownload;
-                    }
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(string.Format("Erreur de détéction des version ({0})", e.Message));
-                }
-            }
-            return null;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="arguments"></param>
-        static void GenerateVersionFile(StringCollection arguments)
+        static void GenerateVersionFile()
         {
             string strAppDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetModules()[0].FullyQualifiedName);
             StringCollection AssemblyList = new StringCollection();
@@ -185,37 +105,6 @@ namespace SmartAppUpdater
                 }
             }
             versionFile.Save("lastversioninfo.xml");
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="arguments"></param>
-        /// <param name="FilesToUpdate"></param>
-        static public void DownloadFiles(StringCollection arguments, StringCollection FilesToUpdate)
-        {
-            if (FilesToUpdate != null)
-            {
-                foreach (string file in FilesToUpdate)
-                {
-                    WebClient wc = new WebClient();
-                    try
-                    {
-                        string downloadURL = FileUrl + file;
-                        if (arguments.Contains("-B"))
-                            downloadURL = BetaFileUrl + file;
-
-                        wc.DownloadFile(downloadURL, Application.StartupPath + Path.DirectorySeparatorChar + "tmpUpdate" + Path.DirectorySeparatorChar + file);
-                        Console.WriteLine("Fichier téléchargé : " + file);
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine("erreur telechargement fichier : " + file);
-                        Console.WriteLine(e.Message);
-
-                    }
-                }
-            }
         }
     }
 }

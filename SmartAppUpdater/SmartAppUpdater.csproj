@@ -6,7 +6,7 @@
     <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{A3DF3670-EF60-48AD-A28D-3DABE0655844}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SmartAppUpdater</RootNamespace>
     <AssemblyName>SmartAppUpdater</AssemblyName>
@@ -14,6 +14,7 @@
     <FileAlignment>512</FileAlignment>
     <StartupObject>
     </StartupObject>
+    <RunPostBuildEvent>Always</RunPostBuildEvent>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -35,12 +36,21 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssemmblyFileUpdater.cs" />
+    <Compile Include="FileDownloader.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UpdaterMainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UpdaterMainForm.Designer.cs">
+      <DependentUpon>UpdaterMainForm.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="local_lastversioninfo.xml">
@@ -51,6 +61,17 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CommonLib\CommonLibVC9.csproj">
+      <Project>{3EFBC5AC-5842-4DE5-85C2-507E24AEC46F}</Project>
+      <Name>CommonLibVC9</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="UpdaterMainForm.resx">
+      <DependentUpon>UpdaterMainForm.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -60,6 +81,7 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>$(TargetPath) -GenerateVersFile</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>
