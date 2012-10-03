@@ -264,6 +264,8 @@ namespace CommonLib
                                                string.Format("Executing func {0}", QuickScript[i].m_Arguments[0].Symbol));
                         if (Id != 0) //un ID a 0 signifie que le script est vide
                             InternalExecuteScript(Id);
+                        else
+                            System.Diagnostics.Debug.Assert(false);
                         break;
                     case SCR_OBJECT.LOGIC:
                         QuickExecuteLogic(QuickScript[i]);

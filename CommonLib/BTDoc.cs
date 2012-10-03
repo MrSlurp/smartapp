@@ -940,8 +940,10 @@ namespace CommonLib
                     iNbItemWithScript++;
                 }
             }
-            iScreenItemMoyScriptLines = iScreenItemMoyScriptLines / iNbItemWithScript;
-            iMoyItemPersScreen = iMoyItemPersScreen / iNbScreen;
+            if (iNbItemWithScript != 0)
+                iScreenItemMoyScriptLines = iScreenItemMoyScriptLines / iNbItemWithScript;
+            if (iNbScreen != 0)
+                iMoyItemPersScreen = iMoyItemPersScreen / iNbScreen;
 
             int iNbTimer = m_GestTimer.Count;
             int iNbFunction = m_GestFunction.Count;
@@ -965,7 +967,8 @@ namespace CommonLib
                     }
                 }
             }
-            iFunctionMoyScriptLines = iFunctionMoyScriptLines / iNbTotalScriptCount;
+            if (iNbTotalScriptCount != 0)
+                iFunctionMoyScriptLines = iFunctionMoyScriptLines / iNbTotalScriptCount;
 
             string commType = m_Comm.CommType.ToString();
         }

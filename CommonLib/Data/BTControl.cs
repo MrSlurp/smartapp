@@ -606,6 +606,16 @@ namespace CommonLib
             m_strAssociateData = TraiteMessageDataDeleted(Mess, obj, m_strAssociateData);
             m_strAssociateData = TraiteMessageDataRenamed(Mess, obj, m_strAssociateData);
             // mais l'objet peux aussi être utilisé dans le script
+            switch (Mess)
+            {
+                case MESSAGE.MESS_PRE_PARSE:
+                    if (this.m_ScriptContainer["EvtScript"].Length != 0)
+                        this.m_iQuickScriptID = m_Executer.PreParseScript(this.m_ScriptContainer["EvtScript"]);
+                    break;
+                default :
+                    break;
+            }
+
             ScriptTraiteMessage(this, Mess, this.m_ScriptContainer, obj);
         }
 
