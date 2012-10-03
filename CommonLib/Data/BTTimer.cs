@@ -16,6 +16,7 @@ namespace CommonLib
         int m_iPeriod = 1000;
 
         private bool m_bAutoStart = true;
+
         #endregion
 
         #region donnée spécifiques aux fonctionement en mode Command

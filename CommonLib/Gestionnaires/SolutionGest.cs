@@ -87,18 +87,40 @@ namespace CommonLib
         {
             if (!this.ContainsKey(strFilePath))
             {
-                BTDoc openedDoc = new BTDoc(m_TypeApp);
-                if (openedDoc.ReadConfigDocument(strFilePath, m_TypeApp, m_GestDLL))
+                if (Path.GetExtension(strFilePath) == ".saf")
                 {
-                    openedDoc.BuildStatFileInfo();
-                    this.Add(strFilePath, openedDoc);
-                    Modified = true;
-                    openedDoc.OnDocumentModified += new DocumentModifiedEvent(OnDocumentModified);
-                    if (OnDocOpened != null)
+                    BTDoc openedDoc = new BTDoc(m_TypeApp);
+                    if (openedDoc.ReadConfigDocument(strFilePath, m_TypeApp, m_GestDLL))
                     {
-                        OnDocOpened(openedDoc);
+                        //openedDoc.BuildStatInfo(); 
+                        this.Add(strFilePath, openedDoc);
+                        Modified = true;
+                        openedDoc.OnDocumentModified += new DocumentModifiedEvent(OnDocumentModified);
+                        if (OnDocOpened != null)
+                        {
+                            OnDocOpened(openedDoc);
+                        }
+                        return openedDoc;
                     }
-                    return openedDoc;
+                    else
+                        return null;
+                }
+                else if (Path.GetExtension(strFilePath) == ".sab")
+                {
+                    BridgeDoc openedDoc = new BridgeDoc(m_TypeApp, this);
+                    if (openedDoc.ReadIn(strFilePath))
+                    {
+                        this.Add(strFilePath, openedDoc);
+                        Modified = true;
+                        openedDoc.OnDocumentModified += new DocumentModifiedEvent(OnDocumentModified);
+                        if (OnDocOpened != null)
+                        {
+                            OnDocOpened(openedDoc);
+                        }
+                        return openedDoc;
+                    }
+                    else
+                        return null;
                 }
                 else
                     return null;
@@ -121,12 +143,37 @@ namespace CommonLib
                 this.Add(doc.FileName, doc);
                 Modified = true;
                 doc.OnDocumentModified += new DocumentModifiedEvent(OnDocumentModified);
+                if (doc is BTDoc)
+                {
+                    BTDoc btdoc = doc as BTDoc;
+                    btdoc.EndMessageTreat += new MessageTreat(Doc_EndMessageTreat);
+                }
                 if (OnDocOpened != null)
                 {
                     OnDocOpened(doc);
                 }
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="Mess"></param>
+        /// <param name="Param"></param>
+        /// <param name="TypeApp"></param>
+        void Doc_EndMessageTreat(BTDoc sender, MESSAGE Mess, object Param, TYPE_APP TypeApp)
+        {
+            foreach (BaseDoc doc in this.Values)
+            {
+                if (doc is BridgeDoc)
+                {
+                    BridgeDoc brdoc = doc as BridgeDoc;
+                    brdoc.TraiteMessage(sender, Mess, Param, TypeApp);
+                }
+            }
+        }
+
 
         /// <summary>
         /// 
@@ -311,9 +358,7 @@ namespace CommonLib
         {
             foreach (BaseDoc doc in this.Values)
             {
-                if (doc is BTDoc)
-                    ((BTDoc)doc).WriteConfigDocument(true);
-
+                doc.WriteConfigDocument(true);
                 doc.Modified = false;
             }
         }

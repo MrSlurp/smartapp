@@ -82,6 +82,7 @@
     <Compile Include="ConfigForms\TwoColorProperties.Designer.cs">
       <DependentUpon>TwoColorProperties.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataBridgeInfo.cs" />
     <Compile Include="Data\BaseObject.cs" />
     <Compile Include="BTDoc.cs" />
     <Compile Include="Data\BasePluginBTControl.cs" />

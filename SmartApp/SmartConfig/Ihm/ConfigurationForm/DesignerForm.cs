@@ -129,6 +129,7 @@ namespace SmartApp.Ihm
             if (m_InteractiveControlContainer.SelectionCount >= 1)
             {
                 m_PropDialog.Document = m_Document;
+                m_PropDialog.CurrentScreen = this.CurrentScreen;
                 m_PropDialog.ConfiguredItem = m_InteractiveControlContainer.FirstSelected.SourceBTControl;
                 m_PropDialog.Initialize();
             }

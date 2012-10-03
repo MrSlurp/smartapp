@@ -21,6 +21,7 @@ namespace CommonLib
     public delegate void DocumentModifiedEvent();
     public delegate void RunStateChangeEvent(BTDoc doc);
     public delegate void DocComStateChange(BTDoc doc);
+    public delegate void MessageTreat(BTDoc sender, MESSAGE Mess, object Param, TYPE_APP TypeApp);
     /// <summary>
     /// 
     /// </summary>
@@ -68,6 +69,8 @@ namespace CommonLib
         public event NeedRefreshHMI UpdateDocumentFrame;
         public event DocComStateChange OnCommStateChange;
         public event RunStateChangeEvent OnRunStateChange;
+        public event MessageTreat BeforeMessageTreat;
+        public event MessageTreat EndMessageTreat;
         #endregion
 
         #region donnée spécifiques aux fonctionement en mode Command
@@ -329,6 +332,8 @@ namespace CommonLib
         /// <param name="TypeApp">type d'application </param>
         public void TraiteMessage(MESSAGE Mess, object Param, TYPE_APP TypeApp)
         {
+            if (BeforeMessageTreat != null)
+                BeforeMessageTreat(this, Mess, Param, TypeApp);
             switch (Mess)
             {
                 // les message suivant sont rerouté vers tout les objets
@@ -365,15 +370,6 @@ namespace CommonLib
                         Modified = true;
                     }
                     break;
-                // ce message n'as pas a être transféré
-                case MESSAGE.MESS_CHANGE: 
-                    Modified = true;
-                    break;
-                case MESSAGE.MESS_UPDATE_FROM_DATA:
-                    // le message sera transféré du gestionaire, vers les ecrans, 
-                    // puis des ecrans vers les gestionaires de control, et donc vers les controles
-                    GestScreen.TraiteMessage(Mess, Param, TypeApp);
-                    break;
                 case MESSAGE.MESS_PRE_PARSE:
                     if (!m_Executer.PreParsedDone)
                     {
@@ -384,6 +380,8 @@ namespace CommonLib
                     }
                     break;
             }
+            if (EndMessageTreat != null)
+                EndMessageTreat(this, Mess, Param, TypeApp);
         }
         #endregion
 
@@ -919,7 +917,7 @@ namespace CommonLib
         /// <summary>
         /// 
         /// </summary>
-        public void BuildStatFileInfo()
+        public void BuildStatInfo()
         {
             int iNbData = m_GestData.Count;
             int iNbScreen = m_GestScreen.Count;

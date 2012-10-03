@@ -21,14 +21,6 @@ namespace CommonLib
         // message notifiant le renomage (symbol) d'un objet
         MESS_ITEM_RENAMED,
 
-        // message indiquant que des paramètres ont changés
-        // utilisé pr mettre ajour le modified flag
-        MESS_CHANGE,
-
-        // Message spécifique a SmartCommand
-        // demande la mise a jour des controls en fonction de la donnée associée
-        MESS_UPDATE_FROM_DATA,
-
         // message run mode Commande
         MESS_CMD_RUN,
 

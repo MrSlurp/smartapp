@@ -1049,12 +1049,13 @@ namespace SmartApp.Ihm
             if (m_GestSolution != null)
             {
                 ProjectNameForm projNameFrm = new ProjectNameForm();
+                projNameFrm.IsBridgeDoc = true;
                 DialogResult dlgRes = projNameFrm.ShowDialog();
                 if (dlgRes == DialogResult.OK)
                 {
                     string bridgeName = Path.GetFileName(projNameFrm.ProjectName);
                     string projectPath = Path.GetDirectoryName(m_GestSolution.FilePath) + Path.DirectorySeparatorChar + bridgeName;
-                    BridgeDoc newDoc = new BridgeDoc(Program.TypeApp);
+                    BridgeDoc newDoc = new BridgeDoc(Program.TypeApp, m_GestSolution);
                     newDoc.WriteOut(projectPath, false);
                     m_GestSolution.AddDocument(newDoc);
                     newDoc.Modified = false;

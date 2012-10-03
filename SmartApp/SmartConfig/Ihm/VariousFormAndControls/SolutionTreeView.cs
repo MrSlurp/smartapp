@@ -24,6 +24,7 @@ namespace SmartApp
         ContextMenuStrip m_CtxMenuObject = new ContextMenuStrip();
         ContextMenuStrip m_CtxMenuTrame = new ContextMenuStrip();
         ContextMenuStrip m_CtxMenuBridge = new ContextMenuStrip();
+        ContextMenuStrip m_CtxMenuBridgeItem = new ContextMenuStrip();
         //ContextMenuStrip m_CtxMenuStrip = new ContextMenuStrip();
         class DocumentElementNode
         {
@@ -81,7 +82,6 @@ namespace SmartApp
             }
             m_PropDialog = MDISmartConfigMain.GlobalPropDialog;
             m_PropDialog.ObjectPropertiesChanged += new EventHandler(OnPropertiesDlgObjChangedNotified);
-
             InitContextMenu();
         }
 
@@ -116,7 +116,10 @@ namespace SmartApp
             m_CtxMenuBridge.Items.Add(item);
             item = new ToolStripMenuItem(Program.LangSys.C("Configure Bridge"));
             item.Click += new EventHandler(CtxMenuBridgeProperties_Click);
-            m_CtxMenuBridge.Items.Add(item);
+            m_CtxMenuBridgeItem.Items.Add(item);
+            item = new ToolStripMenuItem(Program.LangSys.C("Delete"));
+            item.Click += new EventHandler(CtxMenuObjectDelete_Click);
+            m_CtxMenuBridgeItem.Items.Add(item);
 
             // menu pour un gestionnaire de group
             item = new ToolStripMenuItem(Program.LangSys.C("Manage group"));
@@ -184,11 +187,6 @@ namespace SmartApp
                 {
                     this.ContextMenuStrip = m_CtxMenuSolution;
                 }
-                // un objet quelconque
-                else if (selNode.Tag is BaseObject)
-                {
-                    this.ContextMenuStrip = m_CtxMenuObject;
-                }
                 // un groupe
                 else if (selNode.Tag is BaseGestGroup.Group)
                 {
@@ -220,6 +218,16 @@ namespace SmartApp
                 {
                     this.ContextMenuStrip = m_CtxMenuGest;
                     m_PropDialog.ConfiguredItem = null;
+                }
+                else if (selNode.Tag is DataBridgeInfo)
+                {
+                    this.ContextMenuStrip = m_CtxMenuBridgeItem;
+                    m_PropDialog.ConfiguredItem = null;
+                }
+                // un objet quelconque
+                else if (selNode.Tag is BaseObject)
+                {
+                    this.ContextMenuStrip = m_CtxMenuObject;
                 }
                 else
                 {
@@ -645,6 +653,8 @@ namespace SmartApp
             doc.OnDocumentModified += new DocumentModifiedEvent(OnDocumentModified);
             docNode.DocNode.Expand();
             m_SolutionNode.Expand();
+            m_chkViewTips.Checked = true;
+            m_chkViewTips.Checked = false;
         }
 
         /// <summary>
@@ -684,6 +694,11 @@ namespace SmartApp
                 AddBaseGestNode(docName, doc.GestFunction, Program.LangSys.C("Functions"), "Function");
                 AddBaseGestNode(docName, doc.GestLogger, Program.LangSys.C("Loggers"), "Logger");
             }
+            if (docElem.Document is BridgeDoc)
+            {
+                BridgeDoc doc = docElem.Document as BridgeDoc;
+                this.AddBridgeNode(docName, Program.LangSys.C("Data bridge"), "IO");
+            }
         }
 
         void SolutionNameChanged()
@@ -714,6 +729,26 @@ namespace SmartApp
                 AddGestGroupContent(GestNode, gest as BaseGestGroup, imageKey);
             else
                 AddBaseGestContent(GestNode, gest, imageKey);
+        }
+
+        public void AddBridgeNode(string docName, string Label, string imageKey)
+        {
+            DocumentElementNode docElem = m_ListDocument[docName];
+            BridgeDoc doc = docElem.Document as BridgeDoc;
+            for (int i = 0; i < doc.DocumentBridges.Count; i++)
+            {
+                BaseObject item = doc.DocumentBridges[i];
+                if (item.IsUserVisible)
+                {
+                    TreeNode ItemNode = new TreeNode(item.Symbol);
+                    ItemNode.ImageKey = imageKey;
+                    ItemNode.StateImageKey = imageKey;
+                    ItemNode.SelectedImageKey = imageKey;
+                    ItemNode.Tag = item;
+                    ItemNode.ToolTipText = GetToolTipFromTag(item);
+                    docElem.DocNode.Nodes.Add(ItemNode);
+                }
+            }
         }
 
         /// <summary>

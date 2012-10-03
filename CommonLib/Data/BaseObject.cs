@@ -67,7 +67,7 @@ namespace CommonLib
         /// <summary>
         /// identifiant quickscript utilisé par les objets scriptables
         /// </summary>
-        protected int m_iQuickScriptID;
+        protected int m_iQuickScriptID = -1;
         #endregion
 
         #region events
@@ -137,7 +137,6 @@ namespace CommonLib
             get { return true; }
             set {  }
         }
-
 
         public int QuickScriptID
         {
@@ -237,7 +236,7 @@ namespace CommonLib
         /// <param name="Mess">Type de message</param>
         /// <param name="obj">objet contenant les paramètres du messages</param>
         /// <param name="TypeApp">Type d'application courante</param>
-        public abstract void TraiteMessage(MESSAGE Mess, object obj, TYPE_APP TypeApp);
+        public virtual void TraiteMessage(MESSAGE Mess, object obj, TYPE_APP TypeApp) {}
 
         /// <summary>
         /// effectue l'envoie d'un message vers les objet s'étant enregistré comme récépeteur (i.e. les gestionnaires)

@@ -89,6 +89,11 @@ namespace CommonLib
         public static Bitmap TreeViewIOIcon;
         public static Icon TreeViewSolutionIcon;
         public static Bitmap TreeViewBridgeIcon;
+
+        public static Bitmap SimpleArrowDown;
+        public static Bitmap SimpleArrowUp;
+        public static Bitmap SimpleArrowLeft;
+        public static Bitmap SimpleArrowRight;
 		
 		public static void InitializeBitmap()
 		{
@@ -156,6 +161,11 @@ namespace CommonLib
             TreeViewIOIcon = NewBmpTrPath(strAppDir + "\\Res\\icon_io.png");
             TreeViewSolutionIcon = NewIcoTrPath(strAppDir + "\\SmartAppSln.ico");
             TreeViewBridgeIcon = NewBmpTrPath(strAppDir + "\\Res\\icon_bridge.png"); ;
+
+            SimpleArrowDown =  NewBmpTrPath(strAppDir + "\\Res\\arrow-down.png"); ;
+            SimpleArrowUp = NewBmpTrPath(strAppDir + "\\Res\\arrow-up.png"); ;
+            SimpleArrowLeft = NewBmpTrPath(strAppDir + "\\Res\\arrow-left.png"); ;
+            SimpleArrowRight = NewBmpTrPath(strAppDir + "\\Res\\arrow-right.png"); ;
         }
 
         public static Bitmap NewBmpTrPath(string path)

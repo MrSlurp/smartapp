@@ -11,6 +11,14 @@ namespace SmartApp.Ihm
 {
     public partial class ProjectNameForm : Form
     {
+        bool m_bIsBridgeDoc = false;
+
+        public bool IsBridgeDoc
+        {
+            get { return m_bIsBridgeDoc; }
+            set { m_bIsBridgeDoc = value; }
+        }
+
         public ProjectNameForm()
         {
             InitializeComponent();
@@ -19,7 +27,7 @@ namespace SmartApp.Ihm
 
         public string ProjectName
         {
-            get { return textBox1.Text + ".saf"; }
+            get { return textBox1.Text + (m_bIsBridgeDoc? ".sab" : ".saf"); }
         }
 
         private void btnOK_Click(object sender, EventArgs e)

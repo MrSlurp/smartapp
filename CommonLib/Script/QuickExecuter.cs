@@ -26,6 +26,7 @@ namespace CommonLib
     }
 
     public delegate void FrameRecievedDelegate(Trame frame);
+    public delegate void ScriptExecuted(int quickID);
 
     public class QuickExecuter
     {
@@ -53,6 +54,8 @@ namespace CommonLib
         //private event ScriptAddedToExecute EvScriptToExecute;
         public event AddLogEventDelegate EventAddLogEvent;
         public event FrameRecievedDelegate EventFrameRecieved;
+
+        public event ScriptExecuted EventScriptExecuted;
         #endregion
 
         #region cosntructeur / destructeur
@@ -182,7 +185,6 @@ namespace CommonLib
                 while (m_PileScriptsToExecute.Count != 0 && !m_bStopRequested)
                 {
                     // on prend le script sans l'enlever afin de savoir qu'il n'est pas encore executé
-                    //m_QueueMutex.WaitOne();
                     Object thisLock = new Object();
                     int QuickId = 0;
                     lock (thisLock)
@@ -195,11 +197,14 @@ namespace CommonLib
                     InternalExecuteScript(QuickId);
                     // il est éxécuté, on l'enlève de la liste.
                     m_PileScriptsToExecute.Dequeue();
-                    //m_QueueMutex.ReleaseMutex();
+
+                    if (EventScriptExecuted != null)
+                        EventScriptExecuted(QuickId);
+                    
                     Thread.Sleep(20);
                 }
                 theChrono.EndMeasure("ScriptExecuter");
-                Thread.Sleep(50);
+                Thread.Sleep(30);
             } while (!m_bStopRequested);
             m_bStopRequested = false;
         }
