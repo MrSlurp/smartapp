@@ -8,7 +8,7 @@
     <CommParam>192.168.0.99:502</CommParam>
   </Comm>
   <ProjOptions>
-    <MainContainer IsUsed="False" size="-1,-1" Pos="-1,-1" ShowInTaskBar="True" ShowTitleBar="True" MCTitle="" />
+    <MainContainer IsUsed="False" size="-1,-1" Pos="-1,-1" ShowInTaskBar="True" ShowTitleBar="True" />
   </ProjOptions>
   <PluginsGlobals />
   <DataSection>
@@ -124,7 +124,7 @@
     <Data strSymbol="SLOUT_3_I8" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
     <Data strSymbol="SLOUT_3_READ_RET_CTRLDATA" strNom="" Min="0" Max="255" DefVal="0" size="8" Constant="False" />
     <GroupSection>
-      <Group strNom="Default group" strSymbol="GROUP_0" bkColor="255, 255, 255">
+      <Group strNom="Groupe par défaut" strSymbol="GROUP_0" bkColor="255, 255, 255">
         <Object strSymbol="ASCII_COMMA" />
         <Object strSymbol="M3_SLAVE_ADDR" />
         <Object strSymbol="M3_MODBUS_READ" />

@@ -8,7 +8,7 @@
     <CommParam>192.168.0.99:502</CommParam>
   </Comm>
   <ProjOptions>
-    <MainContainer IsUsed="False" size="-1,-1" Pos="-1,-1" ShowInTaskBar="True" ShowTitleBar="True" MCTitle="" />
+    <MainContainer IsUsed="False" size="-1,-1" Pos="-1,-1" ShowInTaskBar="True" ShowTitleBar="True" />
   </ProjOptions>
   <PluginsGlobals />
   <DataSection>
@@ -73,7 +73,7 @@
     <Data strSymbol="ETH_OUT7_I1" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
     <Data strSymbol="ETH_OUT8_I1" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
     <GroupSection>
-      <Group strNom="Default group" strSymbol="GROUP_0" bkColor="255, 255, 255">
+      <Group strNom="Groupe par défaut" strSymbol="GROUP_0" bkColor="255, 255, 255">
         <Object strSymbol="TRANSACTION_ID" />
         <Object strSymbol="PROTOCO_ID" />
         <Object strSymbol="FOLLOWING_6_BYTES" />
@@ -248,6 +248,10 @@
           <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
           <EventScript />
         </Control>
+        <DllControl strSymbol="NEW_CTRL_26" strNom="" DllID="110" AssociateData="ETH_IN1_O1_B16" ScreenEvent="False" Pos="202,181" size="90,95" Text="" ReadOnly="False" AciveBitmap="$ExePath$\ImgLib\Diodes\amber-on-064.png" InactiveBitmap="$ExePath$\ImgLib\Diodes\amber-off-064.png">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+          <EventScript />
+        </DllControl>
       </ControlList>
       <InitScript>
         <Line>FUNCTIONS.READ_ETH_IN()</Line>
