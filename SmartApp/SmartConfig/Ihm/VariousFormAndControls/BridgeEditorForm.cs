@@ -13,18 +13,48 @@ namespace SmartApp
 {
     public partial class BridgeEditorForm : Form
     {
-        public SolutionGest m_Solution;
+        protected SolutionGest m_Solution;
+        protected DataBridgeInfo m_BridgeInfo;
 
-        //List<string> m_listProjects = new List<string>();
-        //SortedList<string, List<string>> m_listProjToDatas = new SortedList<string, List<string>>();
+        /// <summary>
+        /// 
+        /// </summary>
+        public SolutionGest Solution
+        {
+            get { return m_Solution; }
+            set 
+            { 
+                m_Solution = value;
+                if (m_Solution != null)
+                {
+                    InitProjectList(cboSourceProj);
+                    InitProjectList(cboTargetProj);
+                    UpdateControlsStates();
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public DataBridgeInfo BridgeInfo
+        {
+            get { return m_BridgeInfo; }
+            set 
+            { 
+                m_BridgeInfo = value;
+                if (m_BridgeInfo != null)
+                    InitFromBridgeInfo();
+
+            }
+        }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="Solution"></param>
-        public BridgeEditorForm(SolutionGest Solution)
+        public BridgeEditorForm()
         {
-            m_Solution = Solution;
             InitializeComponent();
             Program.LangSys.Initialize(this);
             btnAddDstData.Image = Resources.SimpleArrowLeft;
@@ -37,10 +67,69 @@ namespace SmartApp
             btnUpDstData.Image = Resources.SimpleArrowUp;
             btnUpSrcData.Image = Resources.SimpleArrowUp;
 
-            InitProjectList(cboSourceProj);
-            InitProjectList(cboTargetProj);
+            //InitProjectList(cboSourceProj);
+            //InitProjectList(cboTargetProj);
             UpdateControlsStates();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected void InitFromBridgeInfo()
+        {
+            if (m_BridgeInfo == null)
+                return;
+
+            numBridgePeriod.Value = m_BridgeInfo.ExecTimerPeriod;
+            for (int i = 0; i< cboSourceProj.Items.Count; i++)
+            {
+                if (cboSourceProj.GetItemText(cboSourceProj.Items[i]) == m_BridgeInfo.SrcDoc)
+                    cboSourceProj.SelectedIndex = i;
+            }
+
+            for (int i = 0; i < cboTargetProj.Items.Count; i++)
+            {
+                if (cboTargetProj.GetItemText(cboTargetProj.Items[i]) == m_BridgeInfo.DstDoc)
+                    cboTargetProj.SelectedIndex = i;
+            }
+
+            foreach (string symbol in m_BridgeInfo.SrcDataList)
+            {
+                lstViewBridge.Items.Add(symbol).SubItems.Add(string.Empty);
+            }
+            foreach (string symbol in m_BridgeInfo.DstDataList)
+            {
+                bool bEmptyItemFound = false;
+                foreach (ListViewItem lviBri in lstViewBridge.Items)
+                {
+                    if (string.IsNullOrEmpty(lviBri.SubItems[1].Text))
+                    {
+                        lviBri.SubItems[1].Text = symbol;
+                        bEmptyItemFound = true;
+                        break;
+                    }
+                }
+                if (!bEmptyItemFound)
+                    lstViewBridge.Items.Add(string.Empty).SubItems.Add(symbol);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected void SaveToBridgeInfo()
+        {
+            m_BridgeInfo.SrcDoc = cboSourceProj.SelectedText;
+            m_BridgeInfo.DstDoc = cboTargetProj.SelectedText;
+            m_BridgeInfo.SrcDataList.Clear();
+            m_BridgeInfo.DstDataList.Clear();
+            foreach (ListViewItem lvi in lstViewBridge.Items)
+            {
+                m_BridgeInfo.SrcDataList.Add(lvi.SubItems[0].Text);
+                m_BridgeInfo.SrcDataList.Add(lvi.SubItems.Count >1? lvi.SubItems[1].Text : string.Empty);
+            }
+        }
+
 
         /// <summary>
         /// met a jour l'état des différents en éléments en fonction des sélection courantes
@@ -130,6 +219,12 @@ namespace SmartApp
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="lvDataList"></param>
+        /// <param name="cboProj"></param>
+        /// <param name="cboGroup"></param>
         protected void InitProjDataList(ListView lvDataList, ComboBox cboProj, ComboBox cboGroup)
         {
             // aucun projet seléctionné, on sort
@@ -175,6 +270,7 @@ namespace SmartApp
             }
         }
 
+        #region combo selected index change
         private void cboSourceProj_SelectedIndexChanged(object sender, EventArgs e)
         {
             InitProjectGroupsList(cboSourceGrpFilter, cboSourceProj);
@@ -196,7 +292,14 @@ namespace SmartApp
         {
             InitProjDataList(lstViewTargetDatas, cboTargetProj, cboTargetGrpFilter);
         }
+        #endregion
 
+        #region Add/remove datas
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAddRemSrcData_Click(object sender, EventArgs e)
         {
             if (sender == btnAddSrcData)
@@ -227,6 +330,11 @@ namespace SmartApp
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAddRemDstData_Click(object sender, EventArgs e)
         {
             if (sender == btnAddDstData)
@@ -256,7 +364,13 @@ namespace SmartApp
 
             }
         }
+        #endregion
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnUpDownSrcData_Click(object sender, EventArgs e)
         {
             if (sender == btnUpSrcData)
@@ -269,6 +383,11 @@ namespace SmartApp
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnUpDownDstData_Click(object sender, EventArgs e)
         {
             if (sender == btnUpDstData)
@@ -279,6 +398,16 @@ namespace SmartApp
             {
 
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnOK_Click(object sender, EventArgs e)
+        {
+            this.SaveToBridgeInfo();
         }
     }
 }

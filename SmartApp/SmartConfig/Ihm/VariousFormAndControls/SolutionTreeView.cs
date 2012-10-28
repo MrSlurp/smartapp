@@ -337,8 +337,13 @@ namespace SmartApp
         void CtxMenuBridgeProperties_Click(object sender, EventArgs e)
         {
             TreeNode selNode = SelectedNode;
-            DocumentElementNode elem = selNode.Tag as DocumentElementNode;
-            BridgeEditorForm brideDlg = new BridgeEditorForm(m_GestSolution);
+            DataBridgeInfo bri = selNode.Tag as DataBridgeInfo;
+            //DocumentElementNode elem = selNode.Tag as DocumentElementNode;
+            BridgeEditorForm brideDlg = new BridgeEditorForm()
+                {
+                    Solution = m_GestSolution,
+                    BridgeInfo = bri,
+                };
             brideDlg.ShowDialog();
             //DocumentProprtiesDialog projectPropDialog = new DocumentProprtiesDialog();
             //DocumentProprtiesDialog CfgPage = new DocumentProprtiesDialog();

@@ -292,7 +292,7 @@ namespace CommonLib
             for (int i = 0 ; i< Lines.Length; i++)
             {
                 m_iCurLine = i;
-                if (Lines[i].Length > 0 && !string.IsNullOrEmpty(Lines[i]))
+                if (!string.IsNullOrEmpty(Lines[i]) && Lines[i].Length > 0)
                 {
                     string Line = Lines[i];
                     string[] strTab = Line.Split(ParseExecGlobals.TOKEN_SEPARATOR);

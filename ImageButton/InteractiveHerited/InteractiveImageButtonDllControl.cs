@@ -54,6 +54,7 @@ namespace ImageButton
 
             InitializeComponent();
             this.imageButtonDispCtrl1.Enabled = false;
+            imageButtonDispCtrl1.Paint += new PaintEventHandler(imageButtonDispCtrl1_Paint);
         }
 
         /// <summary>
@@ -159,8 +160,14 @@ namespace ImageButton
 
         protected override void OnPaint(PaintEventArgs e)
         {
+            // met a jour les attributs du bouton standard pour l'image de fond et le style
             SelfPaint(e.Graphics, this);
-            // dessine l'étoile représentant la présence d'une donnée associée
+            //Comme on utilise un controle standard inclu dans l'interactive control, on capte son évènement de dessin et c'est sur
+            // lui qu'on effectue les dessins de la présence de donnée associée
+        }
+
+        void imageButtonDispCtrl1_Paint(object sender, PaintEventArgs e)
+        {
             ControlPainter.DrawPresenceAssociateData(e.Graphics, this);
             // existe une version ou il est possible de passer le paramètre indquant l'affichage de 
             // l'étoile dont le prototype est le suivant

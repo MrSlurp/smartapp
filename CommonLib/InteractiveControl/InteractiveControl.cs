@@ -622,8 +622,13 @@ namespace CommonLib
             TreeNode DropedItem = (TreeNode)e.Data.GetData(typeof(TreeNode));
             if (DropedItem != null)
             {
-                if (DropedItem.Tag is Data &&
-                    this.ControlType != InteractiveControlType.Text)
+                bool bAllowAssocDataDrop = true;
+                ISpecificControl spec = this as ISpecificControl;
+                if (spec!= null)
+                {
+                    bAllowAssocDataDrop = spec.StdPropEnabling.m_bEditAssociateDataEnabled;
+                }
+                if (DropedItem.Tag is Data && bAllowAssocDataDrop)
                 {
                     e.Effect = DragDropEffects.All;
                     return;

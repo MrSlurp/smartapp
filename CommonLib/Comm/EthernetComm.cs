@@ -515,7 +515,7 @@ namespace CommonLib
                     ConnectionStateEvent(this, eClientConnectionSate.Connected);
                 }
             }
-            catch
+            catch (Exception e)
             {
                 m_bOpen = false;
                 ConnectionStateEvent(this, eClientConnectionSate.Error);

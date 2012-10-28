@@ -405,18 +405,8 @@ namespace SmartApp.Ihm.Designer
                     e.Graphics.DrawLines(penDotPurple, ptRepere1600par1200);
                     strHelpText = "1600 x 1200";
                     e.Graphics.DrawString(strHelpText, SystemFonts.DefaultFont, Brushes.Purple, new Point(800, 1188));
-                    if (m_SizeCustomLines.Width != -1 && m_SizeCustomLines.Height != -1)
-                    {
-                        penDotCustom.DashStyle = DashStyle.Dot;
-                        Point[] ptRepereCustom = new Point[3] {  new Point(0, m_SizeCustomLines.Height), 
-                                                                      new Point(m_SizeCustomLines.Width, m_SizeCustomLines.Height), 
-                                                                      new Point(m_SizeCustomLines.Width, 0) };
-                        e.Graphics.DrawLines(penDotCustom, ptRepereCustom);
-                        strHelpText = string.Format("{0} x {1}", m_SizeCustomLines.Width, m_SizeCustomLines.Height);
-                        e.Graphics.DrawString(strHelpText, SystemFonts.DefaultFont, Brushes.Orange, new Point(m_SizeCustomLines.Width / 2, m_SizeCustomLines.Height - 12));
-                    }
                     penGrille.DashStyle = DashStyle.DashDot;
-                    for (int i = m_GridSpacing; m_GridSpacing > 0 &&  i < this.Width; i += m_GridSpacing)
+                    for (int i = m_GridSpacing; m_GridSpacing > 0 && i < this.Width; i += m_GridSpacing)
                     {
                         Point[] ptRepereGrid = new Point[] {  new Point(i, 0), 
                                                                new Point(i, this.Height) };
@@ -427,6 +417,16 @@ namespace SmartApp.Ihm.Designer
                         Point[] ptRepereGrid2 = new Point[] {  new Point(0, i), 
                                                                new Point(this.Width, i) };
                         e.Graphics.DrawLines(penGrille, ptRepereGrid2);
+                    }
+                    if (m_SizeCustomLines.Width != -1 && m_SizeCustomLines.Height != -1)
+                    {
+                        penDotCustom.DashStyle = DashStyle.Dot;
+                        Point[] ptRepereCustom = new Point[3] {  new Point(0, m_SizeCustomLines.Height), 
+                                                                      new Point(m_SizeCustomLines.Width, m_SizeCustomLines.Height), 
+                                                                      new Point(m_SizeCustomLines.Width, 0) };
+                        e.Graphics.DrawLines(penDotCustom, ptRepereCustom);
+                        strHelpText = string.Format("{0} x {1}", m_SizeCustomLines.Width, m_SizeCustomLines.Height);
+                        e.Graphics.DrawString(strHelpText, SystemFonts.DefaultFont, Brushes.Orange, new Point(m_SizeCustomLines.Width / 2, m_SizeCustomLines.Height - 12));
                     }
                 }
             }
