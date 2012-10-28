@@ -62,10 +62,8 @@ namespace SmartApp
             btnAddSrcData.Image = Resources.SimpleArrowRight;
             btnRemSrcData.Image = Resources.SimpleArrowLeft;
 
-            btnDownDstData.Image = Resources.SimpleArrowDown;
-            btnDownSrcData.Image = Resources.SimpleArrowDown;
-            btnUpDstData.Image = Resources.SimpleArrowUp;
-            btnUpSrcData.Image = Resources.SimpleArrowUp;
+            btnDownData.Image = Resources.SimpleArrowDown;
+            btnUpData.Image = Resources.SimpleArrowUp;
 
             //InitProjectList(cboSourceProj);
             //InitProjectList(cboTargetProj);
@@ -93,24 +91,29 @@ namespace SmartApp
                     cboTargetProj.SelectedIndex = i;
             }
 
+            for (int i = 0; i < cboPostFunc.Items.Count; i++)
+            {
+                if (cboPostFunc.GetItemText(cboPostFunc.Items[i]) == m_BridgeInfo.PostExecFunction)
+                    cboPostFunc.SelectedIndex = i;
+            }
             foreach (string symbol in m_BridgeInfo.SrcDataList)
             {
-                lstViewBridge.Items.Add(symbol).SubItems.Add(string.Empty);
+                gridViewBridge.Rows.Add(symbol, string.Empty);
             }
             foreach (string symbol in m_BridgeInfo.DstDataList)
             {
                 bool bEmptyItemFound = false;
-                foreach (ListViewItem lviBri in lstViewBridge.Items)
+                foreach (DataGridViewRow row in gridViewBridge.Rows)
                 {
-                    if (string.IsNullOrEmpty(lviBri.SubItems[1].Text))
+                    if (string.IsNullOrEmpty(row.Cells[1].Value.ToString()))
                     {
-                        lviBri.SubItems[1].Text = symbol;
+                        row.Cells[1].Value = symbol;
                         bEmptyItemFound = true;
                         break;
                     }
                 }
                 if (!bEmptyItemFound)
-                    lstViewBridge.Items.Add(string.Empty).SubItems.Add(symbol);
+                    gridViewBridge.Rows.Add(string.Empty, symbol);
             }
         }
 
@@ -119,15 +122,23 @@ namespace SmartApp
         /// </summary>
         protected void SaveToBridgeInfo()
         {
-            m_BridgeInfo.SrcDoc = cboSourceProj.SelectedText;
-            m_BridgeInfo.DstDoc = cboTargetProj.SelectedText;
+            CComboData objSrcProj = cboSourceProj.SelectedItem as CComboData;
+            CComboData objDstProj = cboSourceProj.SelectedItem as CComboData;
+            if (objSrcProj != null)
+                m_BridgeInfo.SrcDoc = objSrcProj.DisplayedString;
+
+            if (objDstProj != null)
+                m_BridgeInfo.DstDoc = objDstProj.DisplayedString;
+
             m_BridgeInfo.SrcDataList.Clear();
             m_BridgeInfo.DstDataList.Clear();
-            foreach (ListViewItem lvi in lstViewBridge.Items)
+            foreach (DataGridViewRow row in gridViewBridge.Rows)
             {
-                m_BridgeInfo.SrcDataList.Add(lvi.SubItems[0].Text);
-                m_BridgeInfo.SrcDataList.Add(lvi.SubItems.Count >1? lvi.SubItems[1].Text : string.Empty);
+                m_BridgeInfo.SrcDataList.Add(row.Cells[0].Value.ToString());
+                m_BridgeInfo.DstDataList.Add(row.Cells.Count > 1 ? row.Cells[0].Value.ToString() : string.Empty);
             }
+            CComboData objPostFunc = cboPostFunc.SelectedItem as CComboData;
+            m_BridgeInfo.PostExecFunction = objPostFunc.DisplayedString;
         }
 
 
@@ -140,22 +151,17 @@ namespace SmartApp
             cboSourceGrpFilter.Enabled = bSrcItemEnabled;
             lstViewSourceDatas.Enabled = bSrcItemEnabled;
             btnAddSrcData.Enabled = bSrcItemEnabled;
-            btnRemSrcData.Enabled = bSrcItemEnabled;
-            btnDownSrcData.Enabled = bSrcItemEnabled;
-            btnUpSrcData.Enabled = bSrcItemEnabled;
             bool bDstItemEnabled = cboTargetProj.SelectedValue != null;
             cboTargetGrpFilter.Enabled = bDstItemEnabled;
             lstViewTargetDatas.Enabled = bDstItemEnabled;
+            cboPostFunc.Enabled = bDstItemEnabled;
             btnAddDstData.Enabled = bDstItemEnabled;
-            btnRemDstData.Enabled = bDstItemEnabled;
-            btnDownDstData.Enabled = bDstItemEnabled;
-            btnUpDstData.Enabled = bDstItemEnabled;
             if (!bDstItemEnabled || !bDstItemEnabled)
-                lstViewBridge.Enabled = false;
+                gridViewBridge.Enabled = false;
             else
-                lstViewBridge.Enabled = true;
+                gridViewBridge.Enabled = true;
 
-            if (lstViewBridge.Items.Count > 0)
+            if (gridViewBridge.Rows.Count > 0)
             {
                 cboSourceProj.Enabled = false;
                 cboTargetProj.Enabled = false;
@@ -165,6 +171,29 @@ namespace SmartApp
                 cboSourceProj.Enabled = true;
                 cboTargetProj.Enabled = true;
             }
+
+            bool bCellsSelectedInSources = false;
+            bool bCellsSelectedInDest = false;
+            bool bFirstRowSelected = false;
+            bool bLastRowSelected = false;
+            foreach (DataGridViewCell cell in gridViewBridge.SelectedCells)
+            {
+                if (cell.ColumnIndex == 0)
+                    bCellsSelectedInSources = true;
+                if (cell.ColumnIndex == 1)
+                    bCellsSelectedInDest = true;
+
+                if (cell.RowIndex == 0)
+                    bFirstRowSelected = true;
+                if (cell.RowIndex == gridViewBridge.Rows.Count - 1)
+                    bLastRowSelected = true;
+
+            }
+
+            btnRemSrcData.Enabled = bCellsSelectedInSources;
+            btnDownData.Enabled = (bCellsSelectedInSources || bCellsSelectedInDest) && !bLastRowSelected;
+            btnUpData.Enabled = (bCellsSelectedInSources || bCellsSelectedInDest) && !bFirstRowSelected;
+            btnRemDstData.Enabled = bCellsSelectedInDest;
         }
 
         /// <summary>
@@ -188,6 +217,28 @@ namespace SmartApp
             cboProjList.DataSource = listItem;
             if (cboProjList.Items.Count != 0)
                 cboProjList.SelectedIndex = 0;
+        }
+
+        protected void InitCboPostScript(ComboBox cboProjList)
+        {
+            cboPostFunc.DataSource = null;
+            if (cboProjList.SelectedValue == null)
+                return;
+
+            List<CComboData> listItem = new List<CComboData>();
+            listItem.Add(new CComboData(Program.LangSys.C("none"), null));
+            BTDoc document = cboProjList.SelectedValue as BTDoc;
+            if (document != null)
+            {
+                for (int i = 0; i < document.GestFunction.Count; i++)
+                {
+                    BaseObject obj = document.GestFunction[i];
+                    listItem.Add(new CComboData(obj.Symbol, obj));
+                }
+            }
+            cboPostFunc.ValueMember = "Object";
+            cboPostFunc.DisplayMember = "DisplayedString";
+            cboPostFunc.DataSource = listItem;
         }
 
         /// <summary>
@@ -280,6 +331,7 @@ namespace SmartApp
         private void cboTargetProj_SelectedIndexChanged(object sender, EventArgs e)
         {
             InitProjectGroupsList(cboTargetGrpFilter, cboTargetProj);
+            InitCboPostScript(cboTargetProj);
             UpdateControlsStates();
         }
 
@@ -309,24 +361,28 @@ namespace SmartApp
                     // si on a un item avec la source vide, on comble d'abord le vide
                     // sinon on ajoute un item
                     bool bEmptyItemFound = false;
-                    foreach (ListViewItem lviBri in lstViewBridge.Items)
+                    foreach (DataGridViewRow row in gridViewBridge.Rows)
                     {
-                        if (lviBri.Text == string.Empty)
+                        if (row.Cells[0].Value.ToString() == string.Empty)
                         {
-                            lviBri.Text = lviSrc.Text;
+                            row.Cells[0].Value = lviSrc.Text;
                             bEmptyItemFound = true;
                             break;
                         }
                     }
                     if (!bEmptyItemFound)
                     {
-                        lstViewBridge.Items.Add(lviSrc.Text).SubItems.Add(string.Empty);
+                        gridViewBridge.Rows.Add(lviSrc.Text, string.Empty);
                     }
                 }
             }
             else if (sender == btnRemSrcData)
             {
-
+                foreach (DataGridViewCell cell in gridViewBridge.SelectedCells)
+                {
+                    cell.Value = string.Empty;
+                }
+                CleanBridgeEmptyLine();
             }
         }
 
@@ -344,42 +400,46 @@ namespace SmartApp
                     // si on a un item avec la source vide, on comble d'abord le vide
                     // sinon on ajoute un item
                     bool bEmptyItemFound = false;
-                    foreach (ListViewItem lviBri in lstViewBridge.Items)
+                    foreach (DataGridViewRow row in gridViewBridge.Rows)
                     {
-                        if (lviBri.SubItems[1].Text == string.Empty)
+                        if (row.Cells[1].Value.ToString() == string.Empty)
                         {
-                            lviBri.SubItems[1].Text = lviSrc.Text;
+                            row.Cells[1].Value = lviSrc.Text;
                             bEmptyItemFound = true;
                             break;
                         }
                     }
                     if (!bEmptyItemFound)
                     {
-                        lstViewBridge.Items.Add(string.Empty).SubItems.Add(lviSrc.Text);
+                        gridViewBridge.Rows.Add(string.Empty, lviSrc.Text);
                     }
                 }
             }
             else if (sender == btnRemDstData)
             {
-
+                foreach (DataGridViewCell cell in gridViewBridge.SelectedCells)
+                {
+                    cell.Value = string.Empty;
+                }
+                CleanBridgeEmptyLine();
             }
         }
         #endregion
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnUpDownSrcData_Click(object sender, EventArgs e)
+        protected void CleanBridgeEmptyLine()
         {
-            if (sender == btnUpSrcData)
+            List<DataGridViewRow> rowsToDel = new List<DataGridViewRow>();
+            foreach (DataGridViewRow row in gridViewBridge.Rows)
             {
-
+                if (string.IsNullOrEmpty(row.Cells[0].Value.ToString())
+                    && string.IsNullOrEmpty(row.Cells[1].Value.ToString()) )
+                {
+                    rowsToDel.Add(row);
+                }
             }
-            else if (sender == btnDownSrcData)
+            foreach (DataGridViewRow r in rowsToDel)
             {
-
+                gridViewBridge.Rows.Remove(r);
             }
         }
 
@@ -388,15 +448,29 @@ namespace SmartApp
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnUpDownDstData_Click(object sender, EventArgs e)
+        private void btnUpDownData_Click(object sender, EventArgs e)
         {
-            if (sender == btnUpDstData)
+            DataGridViewCell cell = gridViewBridge.SelectedCells.Count > 0 ? gridViewBridge.SelectedCells[0] : null;
+            if (sender == btnUpData)
             {
-
+                if (cell != null && (cell.RowIndex - 1) >= 0)
+                {
+                    string selCellValue = cell.Value.ToString();
+                    string replacedCellValue = gridViewBridge.Rows[cell.RowIndex - 1].Cells[cell.ColumnIndex].Value.ToString();
+                    gridViewBridge.Rows[cell.RowIndex - 1].Cells[cell.ColumnIndex].Value = selCellValue;
+                    cell.Value = replacedCellValue;
+                    gridViewBridge.Rows[cell.RowIndex - 1].Cells[cell.ColumnIndex].Selected = true; ;
+                }
             }
-            else if (sender == btnDownDstData)
+            else if (sender == btnDownData)
             {
-
+                if (cell != null && (cell.RowIndex + 1) <= gridViewBridge.Rows.Count - 1)
+                {
+                    string selCellValue = cell.Value.ToString();
+                    string replacedCellValue = gridViewBridge.Rows[cell.RowIndex + 1].Cells[cell.ColumnIndex].Value.ToString();
+                    gridViewBridge.Rows[cell.RowIndex + 1].Cells[cell.ColumnIndex].Value = selCellValue;
+                    cell.Value = replacedCellValue;
+                    gridViewBridge.Rows[cell.RowIndex + 1].Cells[cell.ColumnIndex].Selected = true;                }
             }
         }
 
@@ -408,6 +482,11 @@ namespace SmartApp
         private void btnOK_Click(object sender, EventArgs e)
         {
             this.SaveToBridgeInfo();
+        }
+
+        private void gridViewBridge_SelectionChanged(object sender, EventArgs e)
+        {
+            UpdateControlsStates();
         }
     }
 }

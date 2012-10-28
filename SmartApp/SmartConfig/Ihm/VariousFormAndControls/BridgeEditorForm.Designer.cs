@@ -30,19 +30,14 @@
         {
             this.numBridgePeriod = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnUpDstData = new System.Windows.Forms.Button();
-            this.btnDownDstData = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.cboSourceProj = new System.Windows.Forms.ComboBox();
             this.cboTargetProj = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.lstViewBridge = new System.Windows.Forms.ListView();
-            this.colSrcDatas = new System.Windows.Forms.ColumnHeader();
-            this.colDstData = new System.Windows.Forms.ColumnHeader();
-            this.btnUpSrcData = new System.Windows.Forms.Button();
-            this.btnDownSrcData = new System.Windows.Forms.Button();
+            this.btnUpData = new System.Windows.Forms.Button();
+            this.btnDownData = new System.Windows.Forms.Button();
             this.btnAddDstData = new System.Windows.Forms.Button();
             this.btnRemDstData = new System.Windows.Forms.Button();
             this.btnAddSrcData = new System.Windows.Forms.Button();
@@ -59,7 +54,13 @@
             this.cboTargetGrpFilter = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.gridViewBridge = new System.Windows.Forms.DataGridView();
+            this.colSrcData = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colDstDatas = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cboPostFunc = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numBridgePeriod)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewBridge)).BeginInit();
             this.SuspendLayout();
             // 
             // numBridgePeriod
@@ -93,28 +94,11 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Bridge period";
             // 
-            // btnUpDstData
-            // 
-            this.btnUpDstData.Location = new System.Drawing.Point(520, 460);
-            this.btnUpDstData.Name = "btnUpDstData";
-            this.btnUpDstData.Size = new System.Drawing.Size(33, 30);
-            this.btnUpDstData.TabIndex = 3;
-            this.btnUpDstData.UseVisualStyleBackColor = true;
-            this.btnUpDstData.Click += new System.EventHandler(this.btnUpDownDstData_Click);
-            // 
-            // btnDownDstData
-            // 
-            this.btnDownDstData.Location = new System.Drawing.Point(559, 460);
-            this.btnDownDstData.Name = "btnDownDstData";
-            this.btnDownDstData.Size = new System.Drawing.Size(33, 30);
-            this.btnDownDstData.TabIndex = 3;
-            this.btnDownDstData.UseVisualStyleBackColor = true;
-            this.btnDownDstData.Click += new System.EventHandler(this.btnUpDownDstData_Click);
-            // 
             // btnOK
             // 
+            this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(358, 500);
+            this.btnOK.Location = new System.Drawing.Point(358, 526);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 4;
@@ -124,8 +108,9 @@
             // 
             // btnCancel
             // 
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(478, 500);
+            this.btnCancel.Location = new System.Drawing.Point(478, 526);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 5;
@@ -170,47 +155,23 @@
             this.label3.TabIndex = 8;
             this.label3.Text = "Target project";
             // 
-            // lstViewBridge
+            // btnUpData
             // 
-            this.lstViewBridge.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.colSrcDatas,
-            this.colDstData});
-            this.lstViewBridge.GridLines = true;
-            this.lstViewBridge.HideSelection = false;
-            this.lstViewBridge.Location = new System.Drawing.Point(271, 69);
-            this.lstViewBridge.Name = "lstViewBridge";
-            this.lstViewBridge.Size = new System.Drawing.Size(387, 385);
-            this.lstViewBridge.TabIndex = 9;
-            this.lstViewBridge.UseCompatibleStateImageBehavior = false;
-            this.lstViewBridge.View = System.Windows.Forms.View.Details;
+            this.btnUpData.Location = new System.Drawing.Point(420, 460);
+            this.btnUpData.Name = "btnUpData";
+            this.btnUpData.Size = new System.Drawing.Size(33, 30);
+            this.btnUpData.TabIndex = 3;
+            this.btnUpData.UseVisualStyleBackColor = true;
+            this.btnUpData.Click += new System.EventHandler(this.btnUpDownData_Click);
             // 
-            // colSrcDatas
+            // btnDownData
             // 
-            this.colSrcDatas.Text = "Source Datas";
-            this.colSrcDatas.Width = 180;
-            // 
-            // colDstData
-            // 
-            this.colDstData.Text = "Target datas";
-            this.colDstData.Width = 180;
-            // 
-            // btnUpSrcData
-            // 
-            this.btnUpSrcData.Location = new System.Drawing.Point(324, 460);
-            this.btnUpSrcData.Name = "btnUpSrcData";
-            this.btnUpSrcData.Size = new System.Drawing.Size(33, 30);
-            this.btnUpSrcData.TabIndex = 3;
-            this.btnUpSrcData.UseVisualStyleBackColor = true;
-            this.btnUpSrcData.Click += new System.EventHandler(this.btnUpDownSrcData_Click);
-            // 
-            // btnDownSrcData
-            // 
-            this.btnDownSrcData.Location = new System.Drawing.Point(363, 460);
-            this.btnDownSrcData.Name = "btnDownSrcData";
-            this.btnDownSrcData.Size = new System.Drawing.Size(33, 30);
-            this.btnDownSrcData.TabIndex = 3;
-            this.btnDownSrcData.UseVisualStyleBackColor = true;
-            this.btnDownSrcData.Click += new System.EventHandler(this.btnUpDownSrcData_Click);
+            this.btnDownData.Location = new System.Drawing.Point(459, 460);
+            this.btnDownData.Name = "btnDownData";
+            this.btnDownData.Size = new System.Drawing.Size(33, 30);
+            this.btnDownData.TabIndex = 3;
+            this.btnDownData.UseVisualStyleBackColor = true;
+            this.btnDownData.Click += new System.EventHandler(this.btnUpDownData_Click);
             // 
             // btnAddDstData
             // 
@@ -354,20 +315,72 @@
             this.label7.TabIndex = 11;
             this.label7.Text = "Target project datas";
             // 
+            // gridViewBridge
+            // 
+            this.gridViewBridge.AllowUserToAddRows = false;
+            this.gridViewBridge.AllowUserToDeleteRows = false;
+            this.gridViewBridge.AllowUserToResizeRows = false;
+            this.gridViewBridge.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridViewBridge.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colSrcData,
+            this.colDstDatas});
+            this.gridViewBridge.Location = new System.Drawing.Point(271, 69);
+            this.gridViewBridge.MultiSelect = false;
+            this.gridViewBridge.Name = "gridViewBridge";
+            this.gridViewBridge.ReadOnly = true;
+            this.gridViewBridge.RowHeadersVisible = false;
+            this.gridViewBridge.Size = new System.Drawing.Size(385, 385);
+            this.gridViewBridge.TabIndex = 12;
+            this.gridViewBridge.SelectionChanged += new System.EventHandler(this.gridViewBridge_SelectionChanged);
+            // 
+            // colSrcData
+            // 
+            this.colSrcData.HeaderText = "Source Datas";
+            this.colSrcData.Name = "colSrcData";
+            this.colSrcData.ReadOnly = true;
+            this.colSrcData.Width = 180;
+            // 
+            // colDstDatas
+            // 
+            this.colDstDatas.HeaderText = "Target Datas";
+            this.colDstDatas.Name = "colDstDatas";
+            this.colDstDatas.ReadOnly = true;
+            this.colDstDatas.Width = 180;
+            // 
+            // cboPostFunc
+            // 
+            this.cboPostFunc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboPostFunc.FormattingEnabled = true;
+            this.cboPostFunc.Location = new System.Drawing.Point(701, 506);
+            this.cboPostFunc.Name = "cboPostFunc";
+            this.cboPostFunc.Size = new System.Drawing.Size(210, 21);
+            this.cboPostFunc.TabIndex = 13;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(701, 490);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(135, 13);
+            this.label8.TabIndex = 14;
+            this.label8.Text = "Post bridge executed script";
+            // 
             // BridgeEditorForm
             // 
             this.AcceptButton = this.btnOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(928, 535);
+            this.ClientSize = new System.Drawing.Size(928, 559);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.cboPostFunc);
+            this.Controls.Add(this.gridViewBridge);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.lstViewTargetDatas);
             this.Controls.Add(this.lstViewSourceDatas);
-            this.Controls.Add(this.lstViewBridge);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.cboTargetGrpFilter);
@@ -376,14 +389,12 @@
             this.Controls.Add(this.cboSourceProj);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
-            this.Controls.Add(this.btnDownSrcData);
-            this.Controls.Add(this.btnUpSrcData);
+            this.Controls.Add(this.btnDownData);
+            this.Controls.Add(this.btnUpData);
             this.Controls.Add(this.btnRemSrcData);
             this.Controls.Add(this.btnRemDstData);
             this.Controls.Add(this.btnAddSrcData);
             this.Controls.Add(this.btnAddDstData);
-            this.Controls.Add(this.btnDownDstData);
-            this.Controls.Add(this.btnUpDstData);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.numBridgePeriod);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -391,6 +402,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "BridgeEditorForm";
             ((System.ComponentModel.ISupportInitialize)(this.numBridgePeriod)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridViewBridge)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -400,19 +412,14 @@
 
         private System.Windows.Forms.NumericUpDown numBridgePeriod;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnUpDstData;
-        private System.Windows.Forms.Button btnDownDstData;
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.ComboBox cboSourceProj;
         private System.Windows.Forms.ComboBox cboTargetProj;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ListView lstViewBridge;
-        private System.Windows.Forms.ColumnHeader colSrcDatas;
-        private System.Windows.Forms.ColumnHeader colDstData;
-        private System.Windows.Forms.Button btnUpSrcData;
-        private System.Windows.Forms.Button btnDownSrcData;
+        private System.Windows.Forms.Button btnUpData;
+        private System.Windows.Forms.Button btnDownData;
         private System.Windows.Forms.Button btnAddDstData;
         private System.Windows.Forms.Button btnRemDstData;
         private System.Windows.Forms.Button btnAddSrcData;
@@ -429,5 +436,10 @@
         private System.Windows.Forms.ComboBox cboTargetGrpFilter;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.DataGridView gridViewBridge;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colSrcData;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colDstDatas;
+        private System.Windows.Forms.ComboBox cboPostFunc;
+        private System.Windows.Forms.Label label8;
     }
 }
