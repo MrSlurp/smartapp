@@ -370,6 +370,7 @@ namespace CommonLib
                     string strTemp = strTab[iTokenIndex];
                     strTemp = strTemp.Trim(')');
                     strTemp = strTemp.Trim('(');
+                    strTemp = strTemp.Trim(' ');
 
                     string strTok = strTemp;
                     strTok = strTok.Trim();

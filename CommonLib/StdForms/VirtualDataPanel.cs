@@ -68,13 +68,21 @@ namespace CommonLib
 
         protected void VirtualDataValueChange(VirtualData vData)
         {
-            for (int i = 0; i < m_dataGrid.Rows.Count; i++)
+            if (this.InvokeRequired)
             {
-                string RowDataSymbol = (string)m_dataGrid.Rows[i].Cells[0].Value;
-                if (RowDataSymbol == vData.Symbol)
+                EventVirtualDataValueChange d = new EventVirtualDataValueChange(VirtualDataValueChange);
+                this.Invoke(d, vData);
+            }
+            else
+            {
+                for (int i = 0; i < m_dataGrid.Rows.Count; i++)
                 {
-                    m_dataGrid.Rows[i].Cells["Value"].Value = vData.Value.ToString();
-                    return;
+                    string RowDataSymbol = (string)m_dataGrid.Rows[i].Cells[0].Value;
+                    if (RowDataSymbol == vData.Symbol)
+                    {
+                        m_dataGrid.Rows[i].Cells["Value"].Value = vData.Value.ToString();
+                        return;
+                    }
                 }
             }
         }

@@ -273,6 +273,11 @@ namespace CommonLib
             return LogAdd(TracesLevel.Debug, cat, sMessage1);
         }
 
+        public static bool LogAddCritical(TraceCat cat, string sMessage1)
+        {
+            return LogAdd(TracesLevel.Critical, cat, sMessage1);
+        }
+
         public static bool LogAddDebug(TraceCat cat,string sMessage1, string sMessage2)
         {
             return LogAdd(TracesLevel.Debug, cat, sMessage1, sMessage2);
