@@ -205,6 +205,9 @@ namespace CommonLib
         /// <return>Liste des chaines correspondantes au type de token</return>
         public StringCollection GetAutoCompletStringListAtPos(string Line, int Pos, out bool IsParameter)
         {
+            IsParameter = false;
+            if (Line.Trim(' ').StartsWith("//"))
+                return null;
             TOKEN_TYPE CurTokenType = GetTokenTypeAtPos(Line, Pos, out IsParameter);
             StringCollection AutoCompleteStrings = new StringCollection();
             switch (CurTokenType)
@@ -292,9 +295,9 @@ namespace CommonLib
             for (int i = 0 ; i< Lines.Length; i++)
             {
                 m_iCurLine = i;
-                if (!string.IsNullOrEmpty(Lines[i]) && Lines[i].Length > 0)
+                string Line = Lines[i].Trim(' ');
+                if (!string.IsNullOrEmpty(Line) && Line.Length > 0 && !Line.StartsWith("//"))
                 {
-                    string Line = Lines[i];
                     string[] strTab = Line.Split(ParseExecGlobals.TOKEN_SEPARATOR);
                     if (strTab.Length > 0)
                     {

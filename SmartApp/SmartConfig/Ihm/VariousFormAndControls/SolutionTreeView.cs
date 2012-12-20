@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Diagnostics;
 using CommonLib;
 using SmartApp.Ihm;
+using SmartApp.Wizards;
 
 namespace SmartApp
 {
@@ -128,6 +129,11 @@ namespace SmartApp
             item = new ToolStripMenuItem(Program.LangSys.C("Add item"));
             item.Click += new EventHandler(CtxMenuObjectNew_Click);
             m_CtxMenuGestGroups.Items.Add(item);
+#if DEBUG 
+            item = new ToolStripMenuItem(Program.LangSys.C("Start Split/Join data wizard"));
+            item.Click += new EventHandler(CtxMenuSplitJoinWizard_Click);
+            m_CtxMenuGestGroups.Items.Add(item);
+#endif
 
             // menu pour un gestionnaire standard
             item = new ToolStripMenuItem(Program.LangSys.C("Add item"));
@@ -260,7 +266,7 @@ namespace SmartApp
             TreeNode selNode = this.SelectedNode;
             if (selNode != null)
             {
-                if (selNode.Tag is BaseObject && !(selNode.Tag is BTScreen))
+                if (selNode.Tag is BaseObject && !(selNode.Tag is BTScreen) && !(selNode.Tag is DataBridgeInfo))
                 {
                     CtxMenuObjectProperties_Click(this, e);
                 }
@@ -268,6 +274,17 @@ namespace SmartApp
                 {
                     BTScreen scr = selNode.Tag as BTScreen;
                     m_GestSolution.OpenScreenEditor(scr.Symbol, GetDocFromParentNode(selNode) as BTDoc);
+                }
+                else if (selNode.Tag is BaseObject && selNode.Tag is DataBridgeInfo)
+                {
+                    DataBridgeInfo bri = selNode.Tag as DataBridgeInfo;
+                    //DocumentElementNode elem = selNode.Tag as DocumentElementNode;
+                    BridgeEditorForm brideDlg = new BridgeEditorForm()
+                    {
+                        Solution = m_GestSolution,
+                        BridgeInfo = bri,
+                    };
+                    brideDlg.ShowDialog();
                 }
             }
         }
@@ -418,6 +435,21 @@ namespace SmartApp
                 doc.Modified = true;
                 this.SelectedNode = newNode;
                 OnMouseDoubleClick(null);
+            }
+        }
+
+        void CtxMenuSplitJoinWizard_Click(object sender, EventArgs e)
+        {
+            TreeNode selNode = this.SelectedNode;
+            if (selNode.Tag is BaseGestGroup.Group)
+            {
+                // le noeud parent possède un tag qui est le gestionnaire
+                BTDoc doc = this.GetDocFromParentNode(selNode) as BTDoc;
+                SplitJoinWizardForm sjWizard = new SplitJoinWizardForm(doc);
+                if (sjWizard.ShowDialog() == DialogResult.OK)
+                {
+
+                }
             }
         }
 

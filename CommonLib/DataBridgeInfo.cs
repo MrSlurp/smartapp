@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 using System.Text;
 using System.Xml;
 using System.Windows.Forms;
+using System.IO;
 
 namespace CommonLib
 {
@@ -188,10 +189,14 @@ namespace CommonLib
         public bool FinalizeRead(SolutionGest solGest)
         {
             // on récupère d'abord les documents
-            if (solGest.ContainsKey(m_SrcDoc))
-                m_SrcDocObj = solGest[m_SrcDoc] as BTDoc;
-            if (solGest.ContainsKey(m_DstDoc))
-                m_DstDocObj = solGest[m_DstDoc] as BTDoc;
+            foreach (string key in solGest.Keys)
+            {
+                string projName = Path.GetFileNameWithoutExtension(key);
+                if (projName == m_SrcDoc)
+                    m_SrcDocObj = solGest[key] as BTDoc;
+                if (projName == m_DstDoc)
+                    m_DstDocObj = solGest[key] as BTDoc;
+            }
 
             if (m_DstDocObj == null || m_SrcDocObj == null)
                 return false;
@@ -234,7 +239,7 @@ namespace CommonLib
             }
             if (!string.IsNullOrEmpty(m_sPostExecFunction))
             {
-                BaseObject objFunction = m_SrcDocObj.GestFunction.GetFromSymbol(m_sPostExecFunction);
+                BaseObject objFunction = m_DstDocObj.GestFunction.GetFromSymbol(m_sPostExecFunction);
                 m_postExecFunction = objFunction as Function;
             }
             return true;
@@ -268,11 +273,11 @@ namespace CommonLib
                     break;
                 case MESSAGE.MESS_PRE_PARSE:
                     // à ce stade le pré parse est normamement déjà fait dans les projet classiques
-                    if (m_TriggerScriptObject.QuickScriptID != -1)
+                    if (m_TriggerScriptObject != null && m_TriggerScriptObject.QuickScriptID != -1)
                     {
                         m_TriggerQuickId = m_TriggerScriptObject.QuickScriptID;
                     }
-                    if (m_postExecFunction.QuickScriptID != -1)
+                    if (m_postExecFunction != null && m_postExecFunction.QuickScriptID != -1)
                     {
                         m_PostExecQuickId = m_postExecFunction.QuickScriptID;
                     }
@@ -313,7 +318,8 @@ namespace CommonLib
                         m_DstObjDataList[i].Value = m_SrcObjDataList[i].Value;
                 }
             }
-            m_DstDocObj.Executer.ExecuteScript(m_PostExecQuickId);
+            if (m_PostExecQuickId != 0)
+                m_DstDocObj.Executer.ExecuteScript(m_PostExecQuickId);
         }
         #endregion
 

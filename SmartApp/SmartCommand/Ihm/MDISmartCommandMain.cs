@@ -190,7 +190,7 @@ namespace SmartApp
         /// handler d'event du changement de status run d'un document
         /// </summary>
         /// <param name="document"></param>
-        void OnDocument_RunStateChange(BTDoc document)
+        void OnDocument_RunStateChange(BaseDoc document)
         {
             if (this.InvokeRequired)
             {
@@ -207,15 +207,19 @@ namespace SmartApp
         /// Met a jour la grid view avec le status actuel de la com du document
         /// </summary>
         /// <param name="doc"></param>
-        protected void AsyncComStateUpdater(BTDoc doc)
+        protected void AsyncComStateUpdater(BaseDoc doc)
         {
             foreach (DataGridViewRow row in dataGridMonitor.Rows)
             {
                 if (row.Tag == doc)
                 {
                     Image img = Resources.CxnOff;
-                    if (doc.Communication.IsOpen)
-                        img = Resources.CxnOn;
+                    if (doc is BTDoc)
+                    {
+                        BTDoc currentDoc = doc as BTDoc;
+                        if (currentDoc.Communication.IsOpen)
+                            img = Resources.CxnOn;
+                    }
                     DataGridViewImageCell projectCnxStatuxCell = row.Cells[this.colProjCnxStatus.Name] as DataGridViewImageCell;
                     projectCnxStatuxCell.Value = img;
                    
@@ -228,7 +232,7 @@ namespace SmartApp
         /// Met a jour la grid view avec le status actuel du "run" du document
         /// </summary>
         /// <param name="doc"></param>
-        protected void AsyncRunStateUpdater(BTDoc doc)
+        protected void AsyncRunStateUpdater(BaseDoc doc)
         {
             foreach (DataGridViewRow row in dataGridMonitor.Rows)
             {
@@ -260,6 +264,18 @@ namespace SmartApp
                         doc.TraiteMessage(MESSAGE.MESS_CMD_STOP, null, Program.TypeApp);
                     if (doc.Communication.IsOpen)
                         doc.Communication.CloseComm();
+                }
+            }
+            foreach (DataGridViewRow row in dataGridMonitor.Rows)
+            {
+                if (row.Tag is BridgeDoc)
+                {
+                    BridgeDoc doc = row.Tag as BridgeDoc;
+                    if (doc.IsRunning)
+                    {
+                        // pas de sender pour le message start ou stop
+                        doc.TraiteMessage(null, MESSAGE.MESS_CMD_STOP, null, Program.TypeApp);
+                    }
                 }
             }
             // petit attente d'une seconde en forçant le traitement
@@ -414,6 +430,24 @@ namespace SmartApp
 
                 }
             }
+            if (baseDoc is BridgeDoc)
+            {
+                BridgeDoc doc = baseDoc as BridgeDoc;
+                if (doc.FinalizeRead())
+                {
+                    //doc.OnCommStateChange += new DocComStateChange(OnDocument_CommStateChange);
+                    doc.OnRunStateChange += new RunStateChangeEvent(OnDocument_RunStateChange);
+                    doc.EventAddLogEvent += new AddLogEventDelegate(AddLogEvent);
+                    AddDocToMonitorList(doc);
+                }
+                else
+                {
+                    Traces.LogAddDebug(TraceCat.SmartCommand, "MDICommand", "Erreur lors du FinalizeRead()");
+                    MessageBox.Show(Program.LangSys.C("Can't initialize run mode datas. Please contact support"),
+                                    Program.LangSys.C("Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                }
+            }
         }
 
         /// <summary>
@@ -441,21 +475,36 @@ namespace SmartApp
             if (e.ColumnIndex == colBtnConnectStart.Index)
             {
                 DataGridViewRow row = dataGridMonitor.Rows[e.RowIndex];
-                BTDoc doc = row.Tag as BTDoc;
-                if (doc.Communication.IsOpen && doc.IsRunning)
+                if (row.Tag is BTDoc)
                 {
-                    doc.TraiteMessage(MESSAGE.MESS_CMD_STOP, null, Program.TypeApp);
-                    doc.Communication.CloseComm();
-                }
-                else
-                {
-                    if (!doc.Communication.IsOpen)
+                    BTDoc doc = row.Tag as BTDoc;
+                    if (doc.Communication.IsOpen && doc.IsRunning)
                     {
-                        doc.OpenDocumentComm();
+                        doc.TraiteMessage(MESSAGE.MESS_CMD_STOP, null, Program.TypeApp);
+                        doc.Communication.CloseComm();
                     }
-                    if (doc.Communication.IsOpen && !doc.IsRunning)
+                    else
                     {
-                        doc.TraiteMessage(MESSAGE.MESS_CMD_RUN, null, Program.TypeApp);
+                        if (!doc.Communication.IsOpen)
+                        {
+                            doc.OpenDocumentComm();
+                        }
+                        if (doc.Communication.IsOpen && !doc.IsRunning)
+                        {
+                            doc.TraiteMessage(MESSAGE.MESS_CMD_RUN, null, Program.TypeApp);
+                        }
+                    }
+                }
+                else if(row.Tag is BridgeDoc)
+                {
+                    BridgeDoc doc = row.Tag as BridgeDoc;
+                    if (doc.IsRunning)
+                    {
+                        doc.TraiteMessage(null, MESSAGE.MESS_CMD_STOP, null, Program.TypeApp);
+                    }
+                    else
+                    {
+                        doc.TraiteMessage(null, MESSAGE.MESS_CMD_RUN, null, Program.TypeApp);
                     }
                 }
             }
@@ -482,6 +531,25 @@ namespace SmartApp
                         if (doc.Communication.IsOpen && !doc.IsRunning)
                         {
                             doc.TraiteMessage(MESSAGE.MESS_CMD_RUN, null, Program.TypeApp);
+                        }
+                    }
+                }
+            }
+            // on fait les pont sur une deuxième passe
+            foreach (BaseDoc baseDoc in m_GestSolution.Values)
+            {
+                if (baseDoc is BridgeDoc)
+                {
+                    BridgeDoc doc = baseDoc as BridgeDoc;
+                    if (doc.IsRunning)
+                    {
+                        doc.TraiteMessage(null, MESSAGE.MESS_CMD_STOP, null, Program.TypeApp);
+                    }
+                    else
+                    {
+                        if (!doc.IsRunning)
+                        {
+                            doc.TraiteMessage(null, MESSAGE.MESS_CMD_RUN, null, Program.TypeApp);
                         }
                     }
                 }
@@ -513,6 +581,24 @@ namespace SmartApp
             DataGridViewButtonCell projectBtnRunStartCell = docRow.Cells[this.colBtnConnectStart.Name] as DataGridViewButtonCell;
             //projectBtnRunStartCell.
             projectBtnRunStartCell.Value = Program.LangSys.C("Connect / Start");
+        }
+
+        void AddDocToMonitorList(BridgeDoc doc)
+        {
+            int indexRow = dataGridMonitor.Rows.Add(1);
+            DataGridViewRow docRow = dataGridMonitor.Rows[indexRow];
+            docRow.Tag = doc;
+            DataGridViewTextBoxCell projectNameCell = docRow.Cells[this.colProjName.Name] as DataGridViewTextBoxCell;
+            projectNameCell.Value = Path.GetFileNameWithoutExtension(doc.FileName);
+            DataGridViewImageCell projectCnxStatuxCell = docRow.Cells[this.colProjCnxStatus.Name] as DataGridViewImageCell;
+            projectCnxStatuxCell.ImageLayout = DataGridViewImageCellLayout.Normal;
+            projectCnxStatuxCell.Value = Resources.CxnOff;
+            DataGridViewImageCell projectRunStatuxCell = docRow.Cells[this.colRunStatus.Name] as DataGridViewImageCell;
+            projectRunStatuxCell.Value = Resources.CxnOff;
+            projectRunStatuxCell.ImageLayout = DataGridViewImageCellLayout.Normal;
+            DataGridViewButtonCell projectBtnRunStartCell = docRow.Cells[this.colBtnConnectStart.Name] as DataGridViewButtonCell;
+            //projectBtnRunStartCell.
+            projectBtnRunStartCell.Value = Program.LangSys.C("Start");
         }
 
         /// <summary>

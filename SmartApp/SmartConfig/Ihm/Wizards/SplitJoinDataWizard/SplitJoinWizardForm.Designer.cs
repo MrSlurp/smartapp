@@ -1,4 +1,4 @@
-﻿namespace SmartApp.SmartConfig.Ihm.Wizards.SplitJoinDataWizard
+﻿namespace SmartApp.Wizards
 {
     partial class SplitJoinWizardForm
     {
@@ -42,6 +42,7 @@
             this.btnNext.TabIndex = 13;
             this.btnNext.Text = "button2";
             this.btnNext.UseVisualStyleBackColor = true;
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
             // btnPrev
             // 
@@ -52,6 +53,7 @@
             this.btnPrev.TabIndex = 12;
             this.btnPrev.Text = "button1";
             this.btnPrev.UseVisualStyleBackColor = true;
+            this.btnPrev.Click += new System.EventHandler(this.btnPrev_Click);
             // 
             // btnCancel
             // 

@@ -218,16 +218,9 @@ namespace CommonLib
             //WaitForm.Parent = Program.CurrentMainForm;
             WaitForm.Show();
             Application.DoEvents();
-            if (m_Comm.OpenComm())
-            {
-                WaitForm.Close();
-                return true;
-            }
-            else
-            {
-                WaitForm.Close();
-                return false;
-            }
+            bool bRet = m_Comm.OpenComm();
+            WaitForm.Close();
+            return bRet;
         }
 
         /// <summary>

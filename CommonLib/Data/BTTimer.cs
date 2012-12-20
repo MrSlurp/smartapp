@@ -21,7 +21,7 @@ namespace CommonLib
 
         #region donnée spécifiques aux fonctionement en mode Command
         // objet Timer utilisé en mode Command
-        Timer m_Timer = new Timer();
+        System.Timers.Timer m_Timer = new System.Timers.Timer();
         bool m_bTimerEnabled = false;
         // executer de script du document
         protected QuickExecuter m_Executer = null;
@@ -178,7 +178,7 @@ namespace CommonLib
             // initialisation de l'objet Timer
             this.m_Executer = Doc.Executer;
             m_Timer.Interval = this.m_iPeriod;
-            m_Timer.Tick += new EventHandler(OnTimerTick);
+            m_Timer.Elapsed += new System.Timers.ElapsedEventHandler(OnTimerTick);
             return true;
         }
 
@@ -247,7 +247,7 @@ namespace CommonLib
         /// </summary>
         /// <param name="sender">timer ayant levé l'évènement</param>
         /// <param name="e">argument de l'event</param>
-        private void OnTimerTick(object sender, EventArgs e)
+        private void OnTimerTick(object sender, System.Timers.ElapsedEventArgs e)
         {
             if (m_bTimerEnabled)
             {

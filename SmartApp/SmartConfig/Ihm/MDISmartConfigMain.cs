@@ -87,7 +87,6 @@ namespace SmartApp.Ihm
             if (LaunchArgParser.DevMode)
             {
                 menuItemTraceConfig.Visible = true;
-                menuItemaddBridge.Visible = true;
                 menuItemOpenDebugConsole.Visible = true;
             }
             CentralizedFileDlg.InitImgFileDialog(Application.StartupPath);

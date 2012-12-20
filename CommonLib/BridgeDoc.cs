@@ -102,12 +102,14 @@ namespace CommonLib
         /// <summary>
         /// 
         /// </summary>
-        public void FinalizeRead()
+        public bool FinalizeRead()
         {
+            bool bRet = true;
             foreach (DataBridgeInfo bridgeInfo in m_ListDataBridge)
             {
-                bridgeInfo.FinalizeRead(m_solution);
+                bRet &= bridgeInfo.FinalizeRead(m_solution);
             }
+            return bRet;
         }
 
         /// <summary>
@@ -120,6 +122,10 @@ namespace CommonLib
         {
             foreach (DataBridgeInfo bridgeInfo in m_ListDataBridge)
             {
+                if (Mess == MESSAGE.MESS_CMD_RUN)
+                {
+                    bridgeInfo.TraiteMessage(sender, MESSAGE.MESS_PRE_PARSE, Param, TypeApp);
+                }
                 bridgeInfo.TraiteMessage(sender, Mess, Param, TypeApp);
             }
             switch (Mess)

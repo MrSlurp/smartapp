@@ -19,7 +19,6 @@ namespace CommonLib
 {
     public delegate void NeedRefreshHMI(MessNeedUpdate Mess);
     public delegate void DocumentModifiedEvent();
-    public delegate void RunStateChangeEvent(BTDoc doc);
     public delegate void DocComStateChange(BTDoc doc);
     public delegate void MessageTreat(BTDoc sender, MESSAGE Mess, object Param, TYPE_APP TypeApp);
     /// <summary>
@@ -68,7 +67,6 @@ namespace CommonLib
         #region Events
         public event NeedRefreshHMI UpdateDocumentFrame;
         public event DocComStateChange OnCommStateChange;
-        public event RunStateChangeEvent OnRunStateChange;
         public event MessageTreat BeforeMessageTreat;
         public event MessageTreat EndMessageTreat;
         #endregion
@@ -96,8 +94,7 @@ namespace CommonLib
                 if (value != prevValue)
                 {
                     UpdateRunState();
-                    if (OnRunStateChange != null)
-                        OnRunStateChange(this);
+                    NotifyRunStateChange();
                 }
             }
         }

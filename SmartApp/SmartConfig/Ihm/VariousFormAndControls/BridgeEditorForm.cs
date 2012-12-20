@@ -123,7 +123,7 @@ namespace SmartApp
         protected void SaveToBridgeInfo()
         {
             CComboData objSrcProj = cboSourceProj.SelectedItem as CComboData;
-            CComboData objDstProj = cboSourceProj.SelectedItem as CComboData;
+            CComboData objDstProj = cboTargetProj.SelectedItem as CComboData;
             if (objSrcProj != null)
                 m_BridgeInfo.SrcDoc = objSrcProj.DisplayedString;
 
@@ -135,7 +135,7 @@ namespace SmartApp
             foreach (DataGridViewRow row in gridViewBridge.Rows)
             {
                 m_BridgeInfo.SrcDataList.Add(row.Cells[0].Value.ToString());
-                m_BridgeInfo.DstDataList.Add(row.Cells.Count > 1 ? row.Cells[0].Value.ToString() : string.Empty);
+                m_BridgeInfo.DstDataList.Add(row.Cells.Count > 1 ? row.Cells[1].Value.ToString() : string.Empty);
             }
             CComboData objPostFunc = cboPostFunc.SelectedItem as CComboData;
             m_BridgeInfo.PostExecFunction = objPostFunc.DisplayedString;
@@ -470,7 +470,8 @@ namespace SmartApp
                     string replacedCellValue = gridViewBridge.Rows[cell.RowIndex + 1].Cells[cell.ColumnIndex].Value.ToString();
                     gridViewBridge.Rows[cell.RowIndex + 1].Cells[cell.ColumnIndex].Value = selCellValue;
                     cell.Value = replacedCellValue;
-                    gridViewBridge.Rows[cell.RowIndex + 1].Cells[cell.ColumnIndex].Selected = true;                }
+                    gridViewBridge.Rows[cell.RowIndex + 1].Cells[cell.ColumnIndex].Selected = true;
+                }
             }
         }
 

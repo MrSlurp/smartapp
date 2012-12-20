@@ -4,6 +4,8 @@ using System.Text;
 
 namespace CommonLib
 {
+    public delegate void RunStateChangeEvent(BaseDoc doc);
+
     public class BaseDoc
     {
         protected string m_strfileFullName;
@@ -15,6 +17,7 @@ namespace CommonLib
 
         public event AddLogEventDelegate EventAddLogEvent;
         public event DocumentModifiedEvent OnDocumentModified;
+        public event RunStateChangeEvent OnRunStateChange;
 
         public BaseDoc(TYPE_APP typeApp)
         {
@@ -35,6 +38,12 @@ namespace CommonLib
         public bool IsRunning
         {
             get { return m_bModeRun; }
+        }
+
+        public void NotifyRunStateChange()
+        {
+            if (OnRunStateChange != null)
+                OnRunStateChange(this);
         }
 
         /// <summary>

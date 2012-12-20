@@ -235,7 +235,6 @@ namespace SmartApp.Ihm
             this.menuItemaddBridge.Name = "menuItemaddBridge";
             this.menuItemaddBridge.Size = new System.Drawing.Size(194, 22);
             this.menuItemaddBridge.Text = "Add bridge to solution";
-            this.menuItemaddBridge.Visible = false;
             this.menuItemaddBridge.Click += new System.EventHandler(this.menuItemaddBridge_Click);
             // 
             // menuItemCloseSolution

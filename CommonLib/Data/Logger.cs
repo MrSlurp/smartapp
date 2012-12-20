@@ -47,7 +47,7 @@ namespace CommonLib
 
         #region donnée spécifiques aux fonctionement en mode Command
         // timer executant périodiquement les logs
-        Timer m_Timer = new Timer();
+        System.Timers.Timer m_Timer = new System.Timers.Timer();
         // indique si le timer est actif
         bool m_bTimerActive = false;
         // chemin ou crée le fichier
@@ -361,7 +361,7 @@ namespace CommonLib
             }
             m_UsedFileName = m_strFileName; 
             m_Timer.Interval = this.m_iPeriod;
-            m_Timer.Tick += new EventHandler(OnTimerTick);
+            m_Timer.Elapsed += new System.Timers.ElapsedEventHandler(OnTimerTick);
             m_strLogFilePath = Doc.LogFilePath;
             return true;
         }
@@ -701,7 +701,7 @@ namespace CommonLib
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnTimerTick(object sender, EventArgs e)
+        private void OnTimerTick(object sender, System.Timers.ElapsedEventArgs e)
         {
             m_Timer.Stop();
             LogData();

@@ -603,43 +603,51 @@ namespace CommonLib
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnListViewFrameDataDragEnter(object sender, DragEventArgs e)
         {
-            TreeNode DropedItem = (TreeNode)e.Data.GetData(typeof(TreeNode));
-            if (DropedItem != null)
+            TreeNode DropItem = e.Data.GetData(typeof(TreeNode)) as TreeNode;
+            Data DropItemDt = e.Data.GetData(typeof(Data)) as Data;
+            if ((DropItem != null && DropItem.Tag is Data) || DropItemDt != null)
             {
-                if (DropedItem.Tag is Data)
+                Data dt = DropItem == null ? DropItemDt : DropItem.Tag as Data;
+                if (m_Trame != null && dt != null)
                 {
-                    Data dt = DropedItem.Tag as Data;
-                    if (m_Trame != null && dt != null)
+                    bool bFind = false;
+                    for (int i = 0; i < m_ListViewFrameData.Items.Count; i++)
                     {
-                        bool bFind = false;
-                        for (int i = 0; i < m_ListViewFrameData.Items.Count; i++)
+                        if (m_ListViewFrameData.Items[i].Text == dt.Symbol)
                         {
-                            if (m_ListViewFrameData.Items[i].Text == dt.Symbol)
-                            {
-                                bFind = true;
-                                break;
-                            }
+                            bFind = true;
+                            break;
                         }
+                    }
 
-                        if (bFind)
-                        {
-                            e.Effect = DragDropEffects.Move;
-                        }
-                        else
-                        {
-                            e.Effect = DragDropEffects.Copy;
-                        }
+                    if (bFind)
+                    {
+                        e.Effect = DragDropEffects.Move;
                     }
                     else
                     {
-                        e.Effect = DragDropEffects.None;
+                        e.Effect = DragDropEffects.Copy;
                     }
+                }
+                else
+                {
+                    e.Effect = DragDropEffects.None;
                 }
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnListViewFrameDataItemDrag(object sender, ItemDragEventArgs e)
         {
             try
@@ -653,67 +661,71 @@ namespace CommonLib
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnListViewFrameDataDragDrop(object sender, DragEventArgs e)
         {
-            TreeNode DropedItem = (TreeNode)e.Data.GetData(typeof(TreeNode));
-            if (DropedItem != null)
+            TreeNode DropItem = e.Data.GetData(typeof(TreeNode)) as TreeNode;
+            Data DropItemDt = e.Data.GetData(typeof(Data)) as Data;
+            if ((DropItem != null && DropItem.Tag is Data) || DropItemDt != null)
             {
-                if (DropedItem.Tag is Data)
+                Data dt = DropItem == null ? DropItemDt : DropItem.Tag as Data;
+                bool bFind = false;
+                ListViewItem LvFoundItem = null;
+                for (int i = 0; i < m_ListViewFrameData.Items.Count; i++)
                 {
-                    Data dt = DropedItem.Tag as Data;
-                    bool bFind = false;
-                    ListViewItem LvFoundItem = null;
-                    for (int i = 0; i < m_ListViewFrameData.Items.Count; i++)
+                    if (m_ListViewFrameData.Items[i].Text == dt.Symbol)
                     {
-                        if (m_ListViewFrameData.Items[i].Text == dt.Symbol)
-                        {
-                            bFind = true;
-                            LvFoundItem = m_ListViewFrameData.Items[i];
-                            break;
-                        }
+                        bFind = true;
+                        LvFoundItem = m_ListViewFrameData.Items[i];
+                        break;
                     }
+                }
 
-                    if (bFind)
+                if (bFind)
+                {
+                    Point prCurInListView = m_ListViewFrameData.PointToClient(new Point(e.X, e.Y));
+                    ListViewItem lviAtCursor = m_ListViewFrameData.GetItemAt(prCurInListView.X, prCurInListView.Y);
+                    if (lviAtCursor != LvFoundItem)
                     {
-                        Point prCurInListView = m_ListViewFrameData.PointToClient(new Point(e.X, e.Y));
-                        ListViewItem lviAtCursor = m_ListViewFrameData.GetItemAt(prCurInListView.X, prCurInListView.Y);
-                        if (lviAtCursor != LvFoundItem)
-                        {
-                            m_ListViewFrameData.Items.Remove(LvFoundItem);
-                            if (lviAtCursor != null)
-                                m_ListViewFrameData.Items.Insert(lviAtCursor.Index, LvFoundItem);
-                            else
-                                m_ListViewFrameData.Items.Add(LvFoundItem);
-
-                            m_bCurFrameDataListChanged = true;
-                        }
-                    }
-                    else
-                    {
-                        Point prCurInListView = m_ListViewFrameData.PointToClient(new Point(e.X, e.Y));
-                        ListViewItem lviAtCursor = m_ListViewFrameData.GetItemAt(prCurInListView.X, prCurInListView.Y);
-
-                        ListViewItem lviData = new ListViewItem(dt.Symbol);
-                        lviData.Tag = DropedItem;
-                        lviData.SubItems.Add(dt.SizeInBits.ToString());
-                        lviData.SubItems.Add(dt.IsConstant.ToString());
-                        lviData.SubItems.Add(dt.DefaultValue.ToString());
-
+                        m_ListViewFrameData.Items.Remove(LvFoundItem);
                         if (lviAtCursor != null)
-                            m_ListViewFrameData.Items.Insert(lviAtCursor.Index, lviData);
+                            m_ListViewFrameData.Items.Insert(lviAtCursor.Index, LvFoundItem);
                         else
-                            m_ListViewFrameData.Items.Add(lviData);
+                            m_ListViewFrameData.Items.Add(LvFoundItem);
 
                         m_bCurFrameDataListChanged = true;
                     }
+                }
+                else
+                {
+                    Point prCurInListView = m_ListViewFrameData.PointToClient(new Point(e.X, e.Y));
+                    ListViewItem lviAtCursor = m_ListViewFrameData.GetItemAt(prCurInListView.X, prCurInListView.Y);
+
+                    ListViewItem lviData = new ListViewItem(dt.Symbol);
+                    lviData.Tag = dt;
+                    lviData.SubItems.Add(dt.SizeInBits.ToString());
+                    lviData.SubItems.Add(dt.IsConstant.ToString());
+                    lviData.SubItems.Add(dt.DefaultValue.ToString());
+
+                    if (lviAtCursor != null)
+                        m_ListViewFrameData.Items.Insert(lviAtCursor.Index, lviData);
+                    else
+                        m_ListViewFrameData.Items.Add(lviData);
+
+                    m_bCurFrameDataListChanged = true;
                 }
             }
         }
 
         private void OnListViewFrameDataDragOver(object sender, DragEventArgs e)
         {
-            Data DropItem = (Data)e.Data.GetData(typeof(Data));
-            if (DropItem != null)
+            TreeNode DropItem = e.Data.GetData(typeof(TreeNode)) as TreeNode;
+            Data DropItemDt = e.Data.GetData(typeof(Data)) as Data;
+            if ((DropItem != null && DropItem.Tag is Data) || DropItemDt != null)
             {
                 Point prCurInListView = m_ListViewFrameData.PointToClient(new Point(e.X, e.Y));
                 ListViewItem lviAtCursor = m_ListViewFrameData.GetItemAt(prCurInListView.X, prCurInListView.Y);

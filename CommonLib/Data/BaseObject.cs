@@ -269,7 +269,6 @@ namespace CommonLib
         {
             foreach (string ScriptType in Scripts.ScriptKeys)
             {
-
                 switch (Mess)
                 {
                     case MESSAGE.MESS_ASK_ITEM_DELETE:
@@ -282,14 +281,18 @@ namespace CommonLib
                             || ((MessAskDelete)obj).TypeOfItem == typeof(BTScreen)
                             )
                         {
-                            MessAskDelete MessParam = (MessAskDelete)obj;
+                            MessAskDelete MessParam = obj as MessAskDelete;
                             for (int i = 0; i < Scripts[ScriptType].Length; i++)
                             {
+                                if (string.IsNullOrEmpty(Scripts[ScriptType][i]))
+                                    continue;
+
                                 string stritem = "";
                                 stritem = ScriptParser.GetLineToken(Scripts[ScriptType][i], ScriptParser.INDEX_TOKEN_SYMBOL);
 
                                 if (stritem == MessParam.WantDeletetItemSymbol
-                                    || (((MessAskDelete)obj).TypeOfItem == typeof(Data) && !string.IsNullOrEmpty(Scripts[ScriptType][i])
+                                    ||
+                                    (MessParam.TypeOfItem == typeof(Data)
                                     && Scripts[ScriptType][i].Contains(MessParam.WantDeletetItemSymbol))
                                     )
                                 {

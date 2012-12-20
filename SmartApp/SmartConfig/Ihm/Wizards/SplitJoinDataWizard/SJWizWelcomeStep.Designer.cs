@@ -1,4 +1,4 @@
-﻿namespace SmartApp.SmartConfig.Ihm.Wizards.SplitJoinDataWizard
+﻿namespace SmartApp.Wizards
 {
     partial class SJWizWelcomeStep
     {
@@ -28,32 +28,35 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SJWizWelcomeStep));
+            this.lblWelcome = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // label1
+            // lblWelcome
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(84, 63);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "label1";
+            this.lblWelcome.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblWelcome.Location = new System.Drawing.Point(3, 0);
+            this.lblWelcome.Name = "lblWelcome";
+            this.lblWelcome.Size = new System.Drawing.Size(404, 104);
+            this.lblWelcome.TabIndex = 1;
+            this.lblWelcome.Text = resources.GetString("lblWelcome.Text");
+            this.lblWelcome.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // SJWizWelcomeStep
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblWelcome);
             this.Name = "SJWizWelcomeStep";
-            this.Size = new System.Drawing.Size(202, 185);
+            this.Size = new System.Drawing.Size(410, 252);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblWelcome;
+
     }
 }

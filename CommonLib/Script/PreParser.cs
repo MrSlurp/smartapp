@@ -55,11 +55,14 @@ namespace CommonLib
             {
                 if (!string.IsNullOrEmpty(script[i]))
                     retPreParsedScript.Add(PreParseLine(script[i]));
+                string line = script[i].Trim(' ');
+                if (!string.IsNullOrEmpty(line) && !line.StartsWith("//"))
+                    retPreParsedScript.Add(PreParseLine(line));
             }
             return retPreParsedScript.Count != 0 ? retPreParsedScript : null;
         }
 
-        public PreParsedLine PreParseLine(string Line)
+        private PreParsedLine PreParseLine(string Line)
         {
             PreParsedLine retPreParsedLine = new PreParsedLine();
             string[] strTab = Line.Split(ParseExecGlobals.TOKEN_SEPARATOR);
@@ -502,9 +505,6 @@ namespace CommonLib
                 string strTempParam = Params[i].Trim();
                 if (!ScriptParser.IsNumericValue(strTempParam))
                 {
-                    Data dt = m_Document.GestData.QuickGetFromSymbol(strTempParam) as Data;
-                    if (dt == null)
-                        Traces.LogAddCritical(TraceCat.Parser, string.Format("Error while searching for parameter data {0}, not found", strTempParam));
                     retDatas[i] = (Data)m_Document.GestData.QuickGetFromSymbol(strTempParam);
                 }
                 else
