@@ -153,6 +153,7 @@ namespace CommonLib
                 Id = ++m_iQuickIdCounter;
                 m_DictioQuickScripts.Add(Id, preParsedScript);
             }
+            System.Diagnostics.Debug.Assert(Id != -1);
             return Id;
         }
 

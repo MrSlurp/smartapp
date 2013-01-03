@@ -73,6 +73,10 @@
     <Data strSymbol="ETH_OUT7_I1" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
     <Data strSymbol="ETH_OUT8_I1" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
     <Data strSymbol="NEW_DATA_0" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="NEW_DATA_1" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="NEW_DATA_2" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="NEW_DATA_3" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="NEW_DATA_4" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
     <GroupSection>
       <Group strNom="Default group" strSymbol="GROUP_0" bkColor="255, 255, 255">
         <Object strSymbol="TRANSACTION_ID" />
@@ -90,6 +94,10 @@
         <Object strSymbol="BYTE_COUNT_16_REG" />
         <Object strSymbol="TCPMB_REG_ADDR_20" />
         <Object strSymbol="NEW_DATA_0" />
+        <Object strSymbol="NEW_DATA_1" />
+        <Object strSymbol="NEW_DATA_2" />
+        <Object strSymbol="NEW_DATA_3" />
+        <Object strSymbol="NEW_DATA_4" />
       </Group>
       <Group strNom="New Group 0" strSymbol="GROUP_1" bkColor="255, 255, 255">
         <Object strSymbol="ETH_IN1_O1_B16" />
@@ -337,6 +345,28 @@
           <Font FontName="Microsoft Sans Serif" FontAttrib="Bold" FontSize="18" Color="0, 0, 0" />
           <EventScript />
         </Control>
+        <DllControl strSymbol="NEW_CTRL_1" strNom="" DllID="220" AssociateData="" ScreenEvent="False" Pos="30,105" size="130,30" Text="" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+          <TIMEWATCHPARAM HoursData="NEW_DATA_1" MinutesData="NEW_DATA_2" SecondsData="NEW_DATA_3" />
+          <EventScript />
+        </DllControl>
+        <DllControl strSymbol="NEW_CTRL_2" strNom="" DllID="160" AssociateData="NEW_DATA_1" ScreenEvent="False" Pos="187,50" size="130,30" Text="" ReadOnly="False" DigitColor="173, 255, 47" DigitBackColor="0, 0, 0" Format=":F0">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+          <EventScript />
+        </DllControl>
+        <DllControl strSymbol="NEW_CTRL_3" strNom="" DllID="160" AssociateData="NEW_DATA_2" ScreenEvent="False" Pos="187,97" size="130,30" Text="" ReadOnly="False" DigitColor="173, 255, 47" DigitBackColor="0, 0, 0" Format=":F0">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+          <EventScript />
+        </DllControl>
+        <DllControl strSymbol="NEW_CTRL_4" strNom="" DllID="160" AssociateData="NEW_DATA_3" ScreenEvent="False" Pos="191,144" size="130,30" Text="" ReadOnly="False" DigitColor="173, 255, 47" DigitBackColor="0, 0, 0" Format=":F0">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+          <EventScript />
+        </DllControl>
+        <DllControl strSymbol="NEW_CTRL_5" strNom="" DllID="290" AssociateData="NEW_DATA_4" ScreenEvent="False" Pos="37,222" size="70,30" Text="" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+          <CompParam CompMode="5" DataA="14" DataB="NEW_DATA_2" DataC="16" />
+          <EventScript />
+        </DllControl>
       </ControlList>
       <InitScript />
       <EventScript />

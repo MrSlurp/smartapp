@@ -220,6 +220,10 @@ namespace SmartApp
                         if (currentDoc.Communication.IsOpen)
                             img = Resources.CxnOn;
                     }
+                    else if (doc is BridgeDoc)
+                    {
+                        img = doc.IsRunning ? Resources.CxnOn : Resources.CxnOff;
+                    }
                     DataGridViewImageCell projectCnxStatuxCell = row.Cells[this.colProjCnxStatus.Name] as DataGridViewImageCell;
                     projectCnxStatuxCell.Value = img;
                    
@@ -275,6 +279,7 @@ namespace SmartApp
                     {
                         // pas de sender pour le message start ou stop
                         doc.TraiteMessage(null, MESSAGE.MESS_CMD_STOP, null, Program.TypeApp);
+                        AsyncComStateUpdater(doc);
                     }
                 }
             }
@@ -501,10 +506,12 @@ namespace SmartApp
                     if (doc.IsRunning)
                     {
                         doc.TraiteMessage(null, MESSAGE.MESS_CMD_STOP, null, Program.TypeApp);
+                        AsyncComStateUpdater(doc);
                     }
                     else
                     {
                         doc.TraiteMessage(null, MESSAGE.MESS_CMD_RUN, null, Program.TypeApp);
+                        AsyncComStateUpdater(doc);
                     }
                 }
             }
@@ -544,12 +551,14 @@ namespace SmartApp
                     if (doc.IsRunning)
                     {
                         doc.TraiteMessage(null, MESSAGE.MESS_CMD_STOP, null, Program.TypeApp);
+                        AsyncComStateUpdater(doc);
                     }
                     else
                     {
                         if (!doc.IsRunning)
                         {
                             doc.TraiteMessage(null, MESSAGE.MESS_CMD_RUN, null, Program.TypeApp);
+                            AsyncComStateUpdater(doc);
                         }
                     }
                 }

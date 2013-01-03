@@ -258,45 +258,67 @@ namespace CommonLib
                 }
                 else if (curNode.Name == NODE_PROJECT_LIST)
                 {
+                    // d'abord les supervision
                     foreach (XmlNode NodeProj in curNode.ChildNodes)
                     {
                         XmlAttribute attr = NodeProj.Attributes[ATTR_VALUE];
                         string cheminProj = attr.Value;
+                        string cheminProjExt = Path.GetExtension(cheminProj);
+                        if (cheminProjExt.EndsWith(".sab"))
+                            continue;
+
                         cheminProj = m_PathTranslator.RelativePathToAbsolute(cheminProj);
                         cheminProj = PathTranslator.LinuxVsWindowsPathUse(cheminProj);
-                        //bool KeepGhostProject = true;
-                        if (!File.Exists(cheminProj))
-                        {
-                            DialogResult dlgRes = MessageBox.Show(string.Format(Lang.LangSys.C("Unable to open file {0}, this project will be removed from solution"),cheminProj),
-                                                                  Lang.LangSys.C("Error"),
-                                                                  MessageBoxButtons.OK,
-                                                                  MessageBoxIcon.Error);
-                            /*if (dlgRes == DialogResult.Yes)
-                            {
-                                KeepGhostProject = true; 
-                            }*/
-                        }
-                        else if (this.OpenDocument(cheminProj) == null)
-                        {
-                            DialogResult dlgRes = MessageBox.Show(string.Format(Lang.LangSys.C("File {0}, is corrupted. this project will be removed from solution"), cheminProj),
-                                                                  Lang.LangSys.C("Error"),
-                                                                  MessageBoxButtons.OK,
-                                                                  MessageBoxIcon.Error);
-                            /*if (dlgRes == DialogResult.Yes)
-                            {
-                                KeepGhostProject = true; 
-                            }*/
-                        }
-                        /*
-                        if (KeepGhostProject)
-                        {
-                            // TODO ENVOYER LE GHOST
-                        }*/
+                        CheckAndOpenDoc(cheminProj);
+                    }
+                    // puis les bridges
+                    foreach (XmlNode NodeProj in curNode.ChildNodes)
+                    {
+                        XmlAttribute attr = NodeProj.Attributes[ATTR_VALUE];
+                        string cheminProj = attr.Value;
+                        string cheminProjExt = Path.GetExtension(cheminProj);
+                        if (cheminProjExt.EndsWith(".saf"))
+                            continue;
+                        cheminProj = m_PathTranslator.RelativePathToAbsolute(cheminProj);
+                        cheminProj = PathTranslator.LinuxVsWindowsPathUse(cheminProj);
+                        CheckAndOpenDoc(cheminProj);
                     }
                 }
             }
             Modified = false;
             return true;
+        }
+
+        private void CheckAndOpenDoc(string path)
+        {
+            //bool KeepGhostProject = true;
+            if (!File.Exists(path))
+            {
+                DialogResult dlgRes = MessageBox.Show(string.Format(Lang.LangSys.C("Unable to open file {0}, this project will be removed from solution"), path),
+                                                      Lang.LangSys.C("Error"),
+                                                      MessageBoxButtons.OK,
+                                                      MessageBoxIcon.Error);
+                /*if (dlgRes == DialogResult.Yes)
+                {
+                    KeepGhostProject = true; 
+                }*/
+            }
+            else if (this.OpenDocument(path) == null)
+            {
+                DialogResult dlgRes = MessageBox.Show(string.Format(Lang.LangSys.C("File {0}, is corrupted. this project will be removed from solution"), path),
+                                                      Lang.LangSys.C("Error"),
+                                                      MessageBoxButtons.OK,
+                                                      MessageBoxIcon.Error);
+                /*if (dlgRes == DialogResult.Yes)
+                {
+                    KeepGhostProject = true; 
+                }*/
+            }
+            /*
+            if (KeepGhostProject)
+            {
+                // TODO ENVOYER LE GHOST
+            }*/        
         }
 
         /// <summary>

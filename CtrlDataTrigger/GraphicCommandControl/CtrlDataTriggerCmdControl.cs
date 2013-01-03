@@ -66,7 +66,7 @@ namespace CtrlDataTrigger
                 DllCtrlDataTriggerProp prop = (DllCtrlDataTriggerProp)m_SpecificProp;
                 if (prop.BehaveLikeTrigger == false)
                 {
-                    if (this.m_ScriptContainer["EvtScript"].Length != 0)
+                    if (this.m_ScriptContainer["EvtScript"] != null && this.m_ScriptContainer["EvtScript"].Length != 0)
                     {
                         m_Executer.ExecuteScript(this.m_iQuickScriptID);
                     }

@@ -254,7 +254,8 @@ namespace CommonLib
                 m_Timer.Stop();
 
                 CommonLib.PerfChrono theChrono = new PerfChrono();
-                m_Executer.ExecuteScript(this.m_iQuickScriptID);
+                if (this.ItemScripts["TimerScript"].Length != 0)
+                    m_Executer.ExecuteScript(this.m_iQuickScriptID);
                 theChrono.EndMeasure("InstanceName = " + this.Symbol);
                 m_Timer.Start();
             }

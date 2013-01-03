@@ -38,9 +38,17 @@ namespace CommonLib
         public bool IsRunning
         {
             get { return m_bModeRun; }
+            protected set 
+            {
+                if (m_bModeRun != value)
+                {
+                    m_bModeRun = value;
+                    NotifyRunStateChange();
+                }
+            }
         }
 
-        public void NotifyRunStateChange()
+        protected void NotifyRunStateChange()
         {
             if (OnRunStateChange != null)
                 OnRunStateChange(this);

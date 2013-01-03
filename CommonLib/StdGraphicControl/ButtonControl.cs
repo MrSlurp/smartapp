@@ -58,7 +58,7 @@ namespace CommonLib
                 else
                  m_AssociateData.Value = 1;
             }
-            if (this.m_ScriptContainer["EvtScript"].Length != 0)
+            if (this.m_ScriptContainer["EvtScript"] != null && this.m_ScriptContainer["EvtScript"].Length != 0)
             {
                 m_Executer.ExecuteScript(this.m_iQuickScriptID);
             }

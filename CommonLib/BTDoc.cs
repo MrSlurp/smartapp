@@ -89,10 +89,9 @@ namespace CommonLib
             get { return m_bModeRun; }
             set
             {
-                bool prevValue = m_bModeRun;
-                m_bModeRun = value;
-                if (value != prevValue)
+                if (value != m_bModeRun)
                 {
+                    m_bModeRun = value;
                     UpdateRunState();
                     NotifyRunStateChange();
                 }
@@ -756,6 +755,7 @@ namespace CommonLib
             if (m_Comm.IsOpen && m_Comm.CommType == TYPE_COMM.VIRTUAL)
             {
                 m_virtualDataForm = new VirtualDataForm(this);
+                m_virtualDataForm.Text += " - " + Path.GetFileNameWithoutExtension(this.FileName);
                 m_virtualDataForm.Show();
                 m_virtualDataForm.BringToFront();
             }

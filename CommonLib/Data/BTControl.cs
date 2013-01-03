@@ -638,7 +638,7 @@ namespace CommonLib
             switch (Mess)
             {
                 case MESSAGE.MESS_PRE_PARSE:
-                    if (this.m_ScriptContainer["EvtScript"].Length != 0)
+                    if (this.m_ScriptContainer["EvtScript"] != null &&  this.m_ScriptContainer["EvtScript"].Length != 0)
                         this.m_iQuickScriptID = m_Executer.PreParseScript(this.m_ScriptContainer["EvtScript"]);
                     break;
                 default :

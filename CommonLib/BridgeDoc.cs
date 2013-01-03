@@ -176,7 +176,11 @@ namespace CommonLib
                 case MESSAGE.MESS_ITEM_DELETED:
                 case MESSAGE.MESS_ITEM_RENAMED:
                 case MESSAGE.MESS_CMD_RUN:
+                    this.IsRunning = true;
+                    break;
                 case MESSAGE.MESS_CMD_STOP:
+                    this.IsRunning = false;
+                    break;
                 case MESSAGE.MESS_PRE_PARSE:
                     break;
             }
