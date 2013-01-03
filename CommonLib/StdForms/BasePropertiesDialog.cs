@@ -22,6 +22,8 @@ namespace CommonLib
         public event EventHandler ObjectPropertiesChanged;
 
         BTScreen m_CurrentScreen;
+
+        int m_iPageIndexMemory = 0;
         /// <summary>
         /// 
         /// </summary>
@@ -71,6 +73,12 @@ namespace CommonLib
         /// </summary>
         public void Initialize()
         {
+            // on fait la mémo que si on a plus d'une page
+            if (this.tabControl1.TabPages.Count > 1)
+                m_iPageIndexMemory = this.tabControl1.SelectedIndex;
+            else
+                m_iPageIndexMemory = -1;
+
             m_listPropsPanels.Clear();
             m_listTitle.Clear();
             tabControl1.SuspendLayout();
@@ -144,18 +152,9 @@ namespace CommonLib
                             {
                                 m_listPropsPanels[i].ConfiguredItemGest = m_CurrentScreen.Controls;
                             }
-                            //System.Diagnostics.Debug.Assert(false); // TODO
-                            //m_listPropsPanels[i].ConfiguredItemGest = m_Document.GestScreen.GetFromsymbol(screenSymb).GestControl;
-                            // ici il faut savoir dans quel écran on se trouve
                         }
-
                         AddPropertyTab(m_listTitle[i], m_listPropsPanels[i]);
                         m_listPropsPanels[i].ObjectToPanel();
-                    }
-                    //
-                    if (this.tabControl1.TabPages.Count >= 2)
-                    {
-                        this.tabControl1.SelectedIndex = 1;
                     }
                 }
             }
@@ -169,6 +168,8 @@ namespace CommonLib
             }
             tabControl1.ResumeLayout();
             tabControl1.Visible = true;
+            if (m_iPageIndexMemory != -1 && m_iPageIndexMemory < tabControl1.TabPages.Count)
+                tabControl1.SelectedIndex = m_iPageIndexMemory;
         }
 
         private void AddPropertyTab(string title, IObjectPropertyPanel panel)

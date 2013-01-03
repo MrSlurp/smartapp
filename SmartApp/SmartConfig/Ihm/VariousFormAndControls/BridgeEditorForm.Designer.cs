@@ -59,13 +59,16 @@
             this.colDstDatas = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cboPostFunc = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.txtSymbol = new CommonLib.SymbolTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.numBridgePeriod)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridViewBridge)).BeginInit();
             this.SuspendLayout();
             // 
             // numBridgePeriod
             // 
-            this.numBridgePeriod.Location = new System.Drawing.Point(16, 19);
+            this.numBridgePeriod.Location = new System.Drawing.Point(701, 23);
             this.numBridgePeriod.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -88,7 +91,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 3);
+            this.label1.Location = new System.Drawing.Point(698, 7);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(69, 13);
             this.label1.TabIndex = 1;
@@ -365,6 +368,31 @@
             this.label8.TabIndex = 14;
             this.label8.Text = "Post bridge executed script";
             // 
+            // label9
+            // 
+            this.label9.Location = new System.Drawing.Point(271, 25);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(385, 41);
+            this.label9.TabIndex = 15;
+            this.label9.Text = "At each bridge period, values from source datas are copied to targets datas. Note" +
+                " that it can trigger scripted events in target supervision.";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(12, 7);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(72, 13);
+            this.label10.TabIndex = 1;
+            this.label10.Text = "Bridge symbol";
+            // 
+            // txtSymbol
+            // 
+            this.txtSymbol.Location = new System.Drawing.Point(16, 24);
+            this.txtSymbol.Name = "txtSymbol";
+            this.txtSymbol.Size = new System.Drawing.Size(210, 20);
+            this.txtSymbol.TabIndex = 16;
+            // 
             // BridgeEditorForm
             // 
             this.AcceptButton = this.btnOK;
@@ -372,6 +400,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(928, 559);
+            this.Controls.Add(this.txtSymbol);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.cboPostFunc);
             this.Controls.Add(this.gridViewBridge);
@@ -395,6 +425,7 @@
             this.Controls.Add(this.btnRemDstData);
             this.Controls.Add(this.btnAddSrcData);
             this.Controls.Add(this.btnAddDstData);
+            this.Controls.Add(this.label10);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.numBridgePeriod);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -441,5 +472,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colDstDatas;
         private System.Windows.Forms.ComboBox cboPostFunc;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
+        private CommonLib.SymbolTextBox txtSymbol;
     }
 }

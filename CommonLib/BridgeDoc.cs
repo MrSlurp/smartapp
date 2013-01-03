@@ -32,6 +32,47 @@ namespace CommonLib
             get { return m_ListDataBridge; }
         }
 
+        public DataBridgeInfo CreateNewBridge()
+        {
+            string strNewBrdigeSymbol = string.Empty;
+            for (int i = 0; i < Int32.MaxValue; i++)
+            {
+                strNewBrdigeSymbol = string.Format("BRIDGE_{0}", i);
+                bool bNameExists = false;
+                foreach (DataBridgeInfo br in m_ListDataBridge)
+                {
+                    if (strNewBrdigeSymbol == br.Symbol)
+                    {
+                        bNameExists = true;
+                        break;
+                    }
+                }
+                if (!bNameExists)
+                    break;
+            }
+            DataBridgeInfo bgInfo = new DataBridgeInfo();
+            bgInfo.Symbol = strNewBrdigeSymbol;
+            m_ListDataBridge.Add(bgInfo);
+            return bgInfo;
+        }
+
+        public void DeleteBridge(string symbol)
+        {
+            DataBridgeInfo brInfo = null;
+            foreach (DataBridgeInfo br in m_ListDataBridge)
+            {
+                if (symbol == br.Symbol)
+                {
+                    brInfo = br;
+                    break;
+                }
+            }
+            if (brInfo != null)
+            {
+                m_ListDataBridge.Remove(brInfo);
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>

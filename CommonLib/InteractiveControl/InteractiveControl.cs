@@ -467,6 +467,8 @@ namespace CommonLib
                     System.Diagnostics.Debug.Assert(false);
                     break;
             }
+            if (this.m_SrcBTControl != null)
+                this.m_SrcBTControl.CleanScriptFromType();
             UpdateResizeBtnsVisibility();
         }
 

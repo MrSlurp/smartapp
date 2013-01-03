@@ -269,8 +269,16 @@ namespace CommonLib
             {
                 SelectedText = SelectedText.Split('(')[1];
                 if (SelectedText.Contains(","))
+                {
                     SelectedText = SelectedText.Split(',')[1];
+                    if (SelectedText.Contains(")"))
+                    {
+                        SelectedText = SelectedText.Split(')')[0];
+                    }
+                    
+                }
             }
+            SelectedText = SelectedText.Trim();
             m_EditScript.SelectionLength = 0;
             m_EditScript.SelectionStart = posCarret;
 

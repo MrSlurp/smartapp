@@ -373,16 +373,57 @@ namespace CommonLib
                     string strTemp = strTab[iTokenIndex];
                     strTemp = strTemp.Trim(')');
                     strTemp = strTemp.Trim('(');
-                    strTemp = strTemp.Trim(' ');
-
-                    string strTok = strTemp;
-                    strTok = strTok.Trim();
-
-                    return strTok;
+                    return strTemp.Trim();
                 }
             }
             return "";
 
+        }
+
+        /// <summary>
+        /// renvoie la liste des token d'un ligne de script
+        /// </summary>
+        /// <param name="line">ligne à analyser</param>
+        /// <returns>liste des tokens de la ligne</returns>
+        static public StringCollection GetAllTokens(string line)
+        {
+            StringCollection result = null;
+            if (!string.IsNullOrEmpty(line) && !line.StartsWith("//"))
+            {
+                // on vire les espaces
+                line = CleanScriptLine(line);
+                // on remplace la parenthèse ouvrante par une virgule
+                line = line.Replace('(', ',');
+                // on remplace les point par une virgule
+                line = line.Replace('.', ',');
+                // on vire la parenthèse fermante
+                line = line.Replace(")","");
+                // normalement on se retrouve avec une suite de mot séparés par des virgules
+                // on fini par splitter sur les virgules
+                string[] strTab = line.Split(',');
+                result = new StringCollection();
+                result.AddRange(strTab);
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// nettoie une ligne de script en supprimant tout ce qui se trouve après la parenthèse fermante
+        /// et en supprimant les espaces
+        /// </summary>
+        /// <param name="line">ligne de script à nettoyer</param>
+        /// <returns>ligne de script "propre"</returns>
+        public static string CleanScriptLine(string line)
+        {
+            if (!string.IsNullOrEmpty(line))
+            {
+                string res = line;
+                int posEndParenthese = res.LastIndexOf(')');
+                if (posEndParenthese != -1 && (posEndParenthese + 1) < res.Length)
+                    res = res.Remove(posEndParenthese + 1);
+                return res.Replace(" ", "");
+            }
+            return string.Empty;
         }
 
         /// <summary>
@@ -630,20 +671,6 @@ namespace CommonLib
                 {
                     return false;
                 }
-                /*
-                TrimEndParenthese(ref strTemp);
-                string strFunc = strTemp;
-                strFunc = strFunc.Trim();*/
-
-                /*
-                if (m_Document.GestFunction.GetFromSymbol(strFunc) == null)
-                {
-                    string strErr = string.Format("Invalid Function symbol {0}", strFunc);
-                    ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
-                    ErrorList.Add(Err);
-                    return false;
-                }*/
-
                 return true;
             }
             else

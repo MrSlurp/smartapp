@@ -78,6 +78,7 @@ namespace SmartApp
             if (m_BridgeInfo == null)
                 return;
 
+            txtSymbol.Text = m_BridgeInfo.Symbol;
             numBridgePeriod.Value = m_BridgeInfo.ExecTimerPeriod;
             for (int i = 0; i< cboSourceProj.Items.Count; i++)
             {
@@ -122,6 +123,7 @@ namespace SmartApp
         /// </summary>
         protected void SaveToBridgeInfo()
         {
+            m_BridgeInfo.Symbol = txtSymbol.Text;
             CComboData objSrcProj = cboSourceProj.SelectedItem as CComboData;
             CComboData objDstProj = cboTargetProj.SelectedItem as CComboData;
             if (objSrcProj != null)

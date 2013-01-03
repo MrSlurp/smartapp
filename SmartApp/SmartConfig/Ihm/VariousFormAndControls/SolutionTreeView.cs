@@ -115,11 +115,15 @@ namespace SmartApp
             item = new ToolStripMenuItem(Program.LangSys.C("Remove bridge from solution"));
             item.Click += new EventHandler(CtxMenuRemoveProj_Click);
             m_CtxMenuBridge.Items.Add(item);
-            item = new ToolStripMenuItem(Program.LangSys.C("Configure Bridge"));
+            item = new ToolStripMenuItem(Program.LangSys.C("Add bridge"));
+            item.Click += new EventHandler(CtxMenuAddBridge_Click);
+            m_CtxMenuBridge.Items.Add(item);
+
+            item = new ToolStripMenuItem(Program.LangSys.C("Configure bridge"));
             item.Click += new EventHandler(CtxMenuBridgeProperties_Click);
             m_CtxMenuBridgeItem.Items.Add(item);
-            item = new ToolStripMenuItem(Program.LangSys.C("Delete"));
-            item.Click += new EventHandler(CtxMenuObjectDelete_Click);
+            item = new ToolStripMenuItem(Program.LangSys.C("Delete bridge"));
+            item.Click += new EventHandler(CtxMenuObjectDeleteBridge_Click);
             m_CtxMenuBridgeItem.Items.Add(item);
 
             // menu pour un gestionnaire de group
@@ -361,11 +365,10 @@ namespace SmartApp
                     Solution = m_GestSolution,
                     BridgeInfo = bri,
                 };
-            brideDlg.ShowDialog();
-            //DocumentProprtiesDialog projectPropDialog = new DocumentProprtiesDialog();
-            //DocumentProprtiesDialog CfgPage = new DocumentProprtiesDialog();
-            //CfgPage.Document = elem.Document as BTDoc;
-            //CfgPage.ShowDialog();
+            if (brideDlg.ShowDialog() == DialogResult.OK)
+            {
+                selNode.Text = bri.Symbol;
+            }
         }
 
         /// <summary>
@@ -438,6 +441,35 @@ namespace SmartApp
             }
         }
 
+        void CtxMenuAddBridge_Click(object sender, EventArgs e)
+        {
+            TreeNode selNode = this.SelectedNode;
+            if (selNode.Tag is DocumentElementNode)
+            {
+                DocumentElementNode docNode = selNode.Tag as DocumentElementNode;
+                if (docNode.Document is BridgeDoc)
+                {
+                    BridgeDoc bridge = docNode.Document as BridgeDoc;
+                    DataBridgeInfo bgInfo = bridge.CreateNewBridge();
+                    this.AddBridgeElemNode(selNode, bgInfo, "IO");
+                }
+            }
+        }
+
+        void CtxMenuObjectDeleteBridge_Click(object sender, EventArgs e)
+        {
+            TreeNode selNode = this.SelectedNode;
+            if (selNode.Tag is DataBridgeInfo)
+            {
+                BaseDoc docNode = GetDocFromParentNode(selNode);
+                if (docNode is BridgeDoc)
+                {
+                    ((BridgeDoc)docNode).DeleteBridge(selNode.Text);
+                    selNode.Remove();
+                }
+            }
+        }
+
         void CtxMenuSplitJoinWizard_Click(object sender, EventArgs e)
         {
             TreeNode selNode = this.SelectedNode;
@@ -473,8 +505,10 @@ namespace SmartApp
 
             if (bobj != null && objGest != null)
             {
-                selNode.Remove();
-                objGest.RemoveObj(bobj);
+                if (objGest.RemoveObj(bobj))
+                {
+                    selNode.Remove();
+                }
             }
         }
 
@@ -734,7 +768,7 @@ namespace SmartApp
             if (docElem.Document is BridgeDoc)
             {
                 BridgeDoc doc = docElem.Document as BridgeDoc;
-                this.AddBridgeNode(docName, Program.LangSys.C("Data bridge"), "IO");
+                this.AddBridgeNodes(docName, "IO");
             }
         }
 
@@ -768,24 +802,27 @@ namespace SmartApp
                 AddBaseGestContent(GestNode, gest, imageKey);
         }
 
-        public void AddBridgeNode(string docName, string Label, string imageKey)
+        public void AddBridgeNodes(string docName, string imageKey)
         {
             DocumentElementNode docElem = m_ListDocument[docName];
             BridgeDoc doc = docElem.Document as BridgeDoc;
             for (int i = 0; i < doc.DocumentBridges.Count; i++)
             {
                 BaseObject item = doc.DocumentBridges[i];
-                if (item.IsUserVisible)
-                {
-                    TreeNode ItemNode = new TreeNode(item.Symbol);
-                    ItemNode.ImageKey = imageKey;
-                    ItemNode.StateImageKey = imageKey;
-                    ItemNode.SelectedImageKey = imageKey;
-                    ItemNode.Tag = item;
-                    ItemNode.ToolTipText = GetToolTipFromTag(item);
-                    docElem.DocNode.Nodes.Add(ItemNode);
-                }
+                AddBridgeElemNode(docElem.DocNode, item as DataBridgeInfo, imageKey);
             }
+        }
+
+        public void AddBridgeElemNode(TreeNode parentNode, DataBridgeInfo bridge, string imageKey)
+        {
+            TreeNode ItemNode = new TreeNode(bridge.Symbol);
+            ItemNode.ImageKey = imageKey;
+            ItemNode.StateImageKey = imageKey;
+            ItemNode.SelectedImageKey = imageKey;
+            ItemNode.Tag = bridge;
+            ItemNode.ToolTipText = GetToolTipFromTag(bridge);
+            parentNode.Nodes.Add(ItemNode);
+
         }
 
         /// <summary>

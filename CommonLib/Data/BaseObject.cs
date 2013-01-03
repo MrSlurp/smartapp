@@ -15,6 +15,7 @@ using System.Text;
 using System.Xml;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 namespace CommonLib
 {
@@ -46,6 +47,11 @@ namespace CommonLib
         public ICollection ScriptKeys
         {
             get { return m_mapScripts.Keys; }
+        }
+
+        public void ClearAll()
+        {
+            m_mapScripts.Clear();
         }
     }
 
@@ -289,11 +295,12 @@ namespace CommonLib
 
                                 string stritem = "";
                                 stritem = ScriptParser.GetLineToken(Scripts[ScriptType][i], ScriptParser.INDEX_TOKEN_SYMBOL);
+                                StringCollection allLineItems = ScriptParser.GetAllTokens(Scripts[ScriptType][i]);
 
                                 if (stritem == MessParam.WantDeletetItemSymbol
                                     ||
                                     (MessParam.TypeOfItem == typeof(Data)
-                                    && Scripts[ScriptType][i].Contains(MessParam.WantDeletetItemSymbol))
+                                    && allLineItems.Contains(MessParam.WantDeletetItemSymbol))
                                     )
                                 {
                                     Type tp = Sender.GetType();
@@ -350,7 +357,8 @@ namespace CommonLib
                             MessDeleted MessParam = (MessDeleted)obj;
                             for (int i = Scripts[ScriptType].Length - 1; i >= 0; i--)
                             {
-                                if (!string.IsNullOrEmpty(Scripts[ScriptType][i]) && Scripts[ScriptType][i].Contains(MessParam.DeletetedItemSymbol))
+                                StringCollection allLineItems = ScriptParser.GetAllTokens(Scripts[ScriptType][i]);
+                                if (!string.IsNullOrEmpty(Scripts[ScriptType][i]) && allLineItems.Contains(MessParam.DeletetedItemSymbol))
                                 {
                                     Scripts[ScriptType][i] = string.Empty;
                                 }
@@ -375,7 +383,9 @@ namespace CommonLib
                                     string stritem = ScriptParser.GetLineToken(Scripts[ScriptType][i], ScriptParser.INDEX_TOKEN_SYMBOL);
                                     if (stritem == MessParam.OldItemSymbol)
                                     {
-                                        Scripts[ScriptType][i] = Scripts[ScriptType][i].Replace(MessParam.OldItemSymbol, MessParam.NewItemSymbol);
+                                        string pattern = @"\b" + MessParam.OldItemSymbol + @"\b";
+                                        Scripts[ScriptType][i] = Regex.Replace(Scripts[ScriptType][i], pattern, MessParam.NewItemSymbol);
+                                        //Scripts[ScriptType][i] = Scripts[ScriptType][i].Replace(MessParam.OldItemSymbol, MessParam.NewItemSymbol);
                                     }
                                 }
                             }
@@ -385,9 +395,12 @@ namespace CommonLib
                             MessItemRenamed MessParam = (MessItemRenamed)obj;
                             for (int i = 0; i < Scripts[ScriptType].Length; i++)
                             {
-                                if (!string.IsNullOrEmpty(Scripts[ScriptType][i]) && Scripts[ScriptType][i].Contains(MessParam.OldItemSymbol))
+                                StringCollection allLineItems = ScriptParser.GetAllTokens(Scripts[ScriptType][i]);
+                                if (!string.IsNullOrEmpty(Scripts[ScriptType][i]) && allLineItems.Contains(MessParam.OldItemSymbol))
                                 {
-                                    Scripts[ScriptType][i] = Scripts[ScriptType][i].Replace(MessParam.OldItemSymbol, MessParam.NewItemSymbol);
+                                    string pattern = @"\b" + MessParam.OldItemSymbol + @"\b";
+                                    Scripts[ScriptType][i] = Regex.Replace(Scripts[ScriptType][i], pattern, MessParam.NewItemSymbol);
+                                    //Scripts[ScriptType][i] = Scripts[ScriptType][i].Replace(MessParam.OldItemSymbol, MessParam.NewItemSymbol);
                                 }
                             }
                         }

@@ -385,7 +385,7 @@ namespace CommonLib
                     ctrl.Location = this.m_panelPlaceSpec.Location;
                     m_CurrentSpecificControlPropPanel = ctrl;
                     m_CurrentSpecificControlPropPanel.Parent = this;
-                    //m_CurrentSpecificControlPropPanel.Width = this.Width/2;
+                    //m_CurrentSpecificControlPropPanel.Width = this.Width-20;
                     //m_CurrentSpecificControlPropPanel.Height = this.Height - ctrl.Location.X -10;
                     m_CurrentSpecificControlPropPanel.AutoScroll = true;
                     m_CurrentSpecificControlPropPanel.Visible = true;

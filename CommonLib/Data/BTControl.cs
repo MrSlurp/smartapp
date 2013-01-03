@@ -54,6 +54,7 @@ namespace CommonLib
             m_IControl.SourceBTControl = this;
             m_ScriptContainer["EvtScript"] = new string[1];
             m_Document = document;
+            CleanScriptFromType();
         }
 
         /// <summary>
@@ -68,6 +69,7 @@ namespace CommonLib
             if (m_IControl != null)
                 m_IControl.SourceBTControl = this;
             m_ScriptContainer["EvtScript"] = new string[1];
+            CleanScriptFromType();
         }
 
         /// <summary>
@@ -315,12 +317,15 @@ namespace CommonLib
                     break;
                 case CONTROL_TYPE.SLIDER:
                     m_IControl.ControlType = InteractiveControlType.Slider;
+                    this.m_ScriptContainer.ClearAll();
                     break;
                 case CONTROL_TYPE.STATIC:
                     m_IControl.ControlType = InteractiveControlType.Text;
+                    this.m_ScriptContainer.ClearAll();
                     break;
                 case CONTROL_TYPE.UP_DOWN:
                     m_IControl.ControlType = InteractiveControlType.NumericUpDown;
+                    this.m_ScriptContainer.ClearAll();
                     break;
                 case CONTROL_TYPE.SPECIFIC:
                     System.Diagnostics.Debug.Assert(false);
@@ -332,7 +337,30 @@ namespace CommonLib
             }
             ReadInCommonBTControl(Node);
             ReadScript(Node);
+            CleanScriptFromType();
             return true;
+        }
+
+        // c'est très sale et j'aime pas mais faut le temps que je trouve mieux
+        public void CleanScriptFromType()
+        {
+            switch (m_IControl.ControlType)
+            {
+                case InteractiveControlType.Slider:
+                case InteractiveControlType.Text:
+                case InteractiveControlType.NumericUpDown:
+                    this.m_ScriptContainer.ClearAll();
+                    break;
+                case InteractiveControlType.Button:
+                case InteractiveControlType.CheckBox:
+                case InteractiveControlType.Combo:
+                case InteractiveControlType.SpecificControl:
+                case InteractiveControlType.DllControl:
+                    break;
+                default:
+                    System.Diagnostics.Debug.Assert(false);
+                    break;
+            }
         }
 
         /// <summary>
@@ -531,7 +559,6 @@ namespace CommonLib
                                 && Node.ChildNodes[ch].ChildNodes[i].FirstChild != null)
                             {
                                 listScriptLines.Add(Node.ChildNodes[ch].ChildNodes[i].FirstChild.Value);
-                                
                             }
                         }
                         m_ScriptContainer["EvtScript"] = listScriptLines.ToArray();
@@ -549,6 +576,8 @@ namespace CommonLib
         protected void WriteScript(XmlDocument XmlDoc, XmlNode NodeControl)
         {
             XmlNode XmlEventScript = XmlDoc.CreateElement(XML_CF_TAG.EventScript.ToString());
+            if (m_ScriptContainer.Count == 0)
+                return;
             for (int i = 0; i < m_ScriptContainer["EvtScript"].Length; i++)
             {
                 if (!string.IsNullOrEmpty(m_ScriptContainer["EvtScript"][i]))
