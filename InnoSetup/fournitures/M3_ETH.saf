@@ -1,14 +1,14 @@
 <Root>
   <FileHeader>
     <FileVersion Indice="3" />
-    <SoftVersion Indice="3.1.0.0" />
+    <SoftVersion Indice="3.2.0.0" />
   </FileHeader>
   <Comm>
     <CommType>ETHERNET</CommType>
     <CommParam>192.168.0.99:502</CommParam>
   </Comm>
   <ProjOptions>
-    <MainContainer IsUsed="False" size="-1,-1" Pos="-1,-1" ShowInTaskBar="True" ShowTitleBar="True" />
+    <MainContainer IsUsed="False" size="-1,-1" Pos="-1,-1" ShowInTaskBar="True" ShowTitleBar="True" MCTitle="" />
   </ProjOptions>
   <PluginsGlobals />
   <DataSection>
@@ -146,27 +146,21 @@
       <ControlList>
         <Control strSymbol="NEW_CTRL_0" strNom="" Type="UP_DOWN" AssociateData="ETH_OUT7_I1" ScreenEvent="False" Pos="90,76" size="56,20" Text="" ReadOnly="False">
           <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
-          <EventScript />
         </Control>
         <Control strSymbol="NEW_CTRL_1" strNom="" Type="UP_DOWN" AssociateData="ETH_OUT6_I1" ScreenEvent="False" Pos="90,101" size="56,20" Text="Numeric Up/Down" ReadOnly="False">
           <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
-          <EventScript />
         </Control>
         <Control strSymbol="NEW_CTRL_2" strNom="" Type="UP_DOWN" AssociateData="ETH_OUT5_I1" ScreenEvent="False" Pos="90,125" size="56,20" Text="Numeric Up/Down" ReadOnly="False">
           <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
-          <EventScript />
         </Control>
         <Control strSymbol="NEW_CTRL_3" strNom="" Type="UP_DOWN" AssociateData="ETH_OUT4_I1" ScreenEvent="False" Pos="90,149" size="56,20" Text="Numeric Up/Down" ReadOnly="False">
           <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
-          <EventScript />
         </Control>
         <Control strSymbol="NEW_CTRL_4" strNom="" Type="UP_DOWN" AssociateData="ETH_OUT3_I1" ScreenEvent="False" Pos="90,173" size="56,20" Text="Numeric Up/Down" ReadOnly="False">
           <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
-          <EventScript />
         </Control>
         <Control strSymbol="NEW_CTRL_5" strNom="" Type="UP_DOWN" AssociateData="ETH_OUT2_I1" ScreenEvent="False" Pos="90,197" size="56,20" Text="" ReadOnly="False">
           <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
-          <EventScript />
         </Control>
         <Control strSymbol="NEW_CTRL_6" strNom="" Type="CHECK" AssociateData="ETH_OUT1_I1_B10" ScreenEvent="False" Pos="28,224" size="41,20" Text="IA" ReadOnly="False">
           <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
@@ -256,7 +250,9 @@
       <InitScript>
         <Line>FUNCTIONS.READ_ETH_IN()</Line>
       </InitScript>
-      <EventScript />
+      <EventScript>
+        <Line>FUNCTIONS.WRITE_ETH_IN()</Line>
+      </EventScript>
       <ImagePath>D:\dev\PBG-RefonteIHM\InnoSetup\fournitures\M3XD26.bmp</ImagePath>
       <ScreenAttribs size="-1,-1" Pos="-1,-1" ShowInTaskBar="True" ShowTitleBar="True" />
     </Screen>

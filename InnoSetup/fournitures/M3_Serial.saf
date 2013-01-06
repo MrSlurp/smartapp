@@ -1,14 +1,14 @@
 <Root>
   <FileHeader>
     <FileVersion Indice="3" />
-    <SoftVersion Indice="3.1.0.0" />
+    <SoftVersion Indice="3.2.0.0" />
   </FileHeader>
   <Comm>
     <CommType>ETHERNET</CommType>
     <CommParam>192.168.0.99:502</CommParam>
   </Comm>
   <ProjOptions>
-    <MainContainer IsUsed="False" size="-1,-1" Pos="-1,-1" ShowInTaskBar="True" ShowTitleBar="True" />
+    <MainContainer IsUsed="False" size="-1,-1" Pos="-1,-1" ShowInTaskBar="True" ShowTitleBar="True" MCTitle="" />
   </ProjOptions>
   <PluginsGlobals />
   <DataSection>
@@ -336,33 +336,29 @@
         </Control>
         <Control strSymbol="NEW_CTRL_20" strNom="" Type="UP_DOWN" AssociateData="SLOUT_1_I2" ScreenEvent="False" Pos="87,201" size="56,20" Text="" ReadOnly="False">
           <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
-          <EventScript />
         </Control>
         <Control strSymbol="NEW_CTRL_21" strNom="" Type="UP_DOWN" AssociateData="SLOUT_1_I3" ScreenEvent="False" Pos="87,177" size="56,20" Text="Numeric Up/Down" ReadOnly="False">
           <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
-          <EventScript />
         </Control>
         <Control strSymbol="NEW_CTRL_22" strNom="" Type="UP_DOWN" AssociateData="SLOUT_1_I4" ScreenEvent="False" Pos="87,153" size="56,20" Text="Numeric Up/Down" ReadOnly="False">
           <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
-          <EventScript />
         </Control>
         <Control strSymbol="NEW_CTRL_23" strNom="" Type="UP_DOWN" AssociateData="SLOUT_1_I5" ScreenEvent="False" Pos="87,129" size="56,20" Text="Numeric Up/Down" ReadOnly="False">
           <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
-          <EventScript />
         </Control>
         <Control strSymbol="NEW_CTRL_24" strNom="" Type="UP_DOWN" AssociateData="SLOUT_1_I6" ScreenEvent="False" Pos="87,105" size="56,20" Text="Numeric Up/Down" ReadOnly="False">
           <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
-          <EventScript />
         </Control>
         <Control strSymbol="NEW_CTRL_25" strNom="" Type="UP_DOWN" AssociateData="SLOUT_1_I7" ScreenEvent="False" Pos="87,81" size="56,20" Text="" ReadOnly="False">
           <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
-          <EventScript />
         </Control>
       </ControlList>
       <InitScript>
         <Line>FUNCTIONS.READ_SL_IN()</Line>
       </InitScript>
-      <EventScript />
+      <EventScript>
+        <Line>FUNCTIONS.WRITE_SL_IN()</Line>
+      </EventScript>
       <ImagePath>D:\dev\PBG-RefonteIHM\InnoSetup\fournitures\M3XD26.bmp</ImagePath>
       <ScreenAttribs size="-1,-1" Pos="-1,-1" ShowInTaskBar="True" ShowTitleBar="True" />
     </Screen>
