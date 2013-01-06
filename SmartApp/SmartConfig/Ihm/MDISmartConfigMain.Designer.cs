@@ -707,7 +707,7 @@ namespace SmartApp.Ihm
             this.solutionPanel.Dock = System.Windows.Forms.DockStyle.Left;
             this.solutionPanel.Location = new System.Drawing.Point(0, 49);
             this.solutionPanel.Name = "solutionPanel";
-            this.solutionPanel.Size = new System.Drawing.Size(240, 692);
+            this.solutionPanel.Size = new System.Drawing.Size(251, 692);
             this.solutionPanel.TabIndex = 9;
             // 
             // btnHideShowSolution
@@ -738,7 +738,7 @@ namespace SmartApp.Ihm
             this.solutionTreeView.Indent = 16;
             this.solutionTreeView.Location = new System.Drawing.Point(3, 33);
             this.solutionTreeView.Name = "solutionTreeView";
-            this.solutionTreeView.Size = new System.Drawing.Size(230, 652);
+            this.solutionTreeView.Size = new System.Drawing.Size(241, 652);
             this.solutionTreeView.SolutionGest = null;
             this.solutionTreeView.TabIndex = 0;
             // 

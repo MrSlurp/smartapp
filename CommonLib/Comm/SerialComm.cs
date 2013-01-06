@@ -23,10 +23,6 @@ namespace CommonLib
         List<byte[]> m_MessageList = new List<byte[]>();
         #endregion
 
-        #region Events
-        public event CommOpenedStateChange OnCommStateChange;
-        #endregion
-
         #region cosntructeurs
         /// <summary>
         /// constructeur de la classe
@@ -140,9 +136,7 @@ namespace CommonLib
 
             if (m_PortSerie.IsOpen)
             {
-                if (OnCommStateChange != null)
-                    OnCommStateChange();
-
+                NotifyComStateChange();
                 return true;
             }
             else
@@ -157,8 +151,7 @@ namespace CommonLib
         {
             m_PortSerie.Close();
             System.Threading.Thread.Sleep(50);
-            if (OnCommStateChange != null)
-                OnCommStateChange();
+            NotifyComStateChange();
 
             return true;
         }
@@ -457,8 +450,8 @@ namespace CommonLib
                 m_PortSerie.DiscardOutBuffer();
             }
 
-            if (m_PortSerie.IsOpen == false && OnCommStateChange != null)
-                OnCommStateChange();
+            if (m_PortSerie.IsOpen == false)
+                NotifyComStateChange();
 
         }
         #endregion

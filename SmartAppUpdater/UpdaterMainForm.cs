@@ -111,6 +111,14 @@ namespace SmartAppUpdater
                                 if (iRemoteIndice > iLocalIndice)
                                 {
                                     listAssemblyToDownload.Add(attrName.Value);
+                                    string assemblyName = Path.GetFileNameWithoutExtension(attrName.Value);
+                                    // si un assembly à une mise a jour, on prends les fichier de langue qui vont avec
+                                    if (assemblyName != "ZedGraph")
+                                    {
+                                        // le jour ou j'aurai d'autres langues, faudra trouver mieux
+                                        listAssemblyToDownload.Add("EN." + assemblyName + ".po");
+                                        listAssemblyToDownload.Add("FR." + assemblyName + ".po");
+                                    }
                                     AddStatusLine(string.Format(
                                         Program.LangSys.C("Component {0} must be updated (local version = {1}, server version = {2})"),
                                         attrName.Value, 
@@ -165,9 +173,13 @@ namespace SmartAppUpdater
                     WebClient wc = new WebClient();
                     try
                     {
-                        string downloadURL = Program.FileUrl + file;
+                        string langDir = string.Empty;
+                        if (Path.GetExtension(file) == ".po")
+                            langDir = "Lang/";
+
+                        string downloadURL = Program.FileUrl + langDir + file;
                         if (checkBox1.Checked)
-                            downloadURL = Program.BetaFileUrl + file;
+                            downloadURL = Program.BetaFileUrl + langDir + file;
 
                         wc.DownloadFile(downloadURL, Application.StartupPath + Path.DirectorySeparatorChar + "tmpUpdate" + Path.DirectorySeparatorChar + file);
                         AddStatusLine(Program.LangSys.C("Done") + ENDL);

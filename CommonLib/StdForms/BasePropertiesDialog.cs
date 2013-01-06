@@ -13,6 +13,7 @@ namespace CommonLib
     {
         BTDoc m_Document = null;
         BaseObject m_baseObjectItem = null;
+        BaseObject m_baseObjectItemMem = null;
 
         StandardObjectPropPanel m_stdPropPanel = new StandardObjectPropPanel();
 
@@ -73,30 +74,49 @@ namespace CommonLib
         /// </summary>
         public void Initialize()
         {
+            bool bSkipPageRebuild = false;
+            if (m_baseObjectItem == null || m_baseObjectItemMem != m_baseObjectItem)
+            {
+                // on évite le rebuild complet si c'est le même objet, ou si il est du même type
+                if (m_baseObjectItemMem != null &&
+                    m_baseObjectItem != null && 
+                    m_baseObjectItemMem.GetType() == m_baseObjectItem.GetType())
+                    bSkipPageRebuild = true;
+
+                m_baseObjectItemMem = m_baseObjectItem;
+            }
+            else
+            {
+                bSkipPageRebuild = true;
+                Traces.LogAddDebug(TraceCat.SmartConfig, "Config page rebuild skipped");
+            }
             // on fait la mémo que si on a plus d'une page
             if (this.tabControl1.TabPages.Count > 1)
                 m_iPageIndexMemory = this.tabControl1.SelectedIndex;
             else
                 m_iPageIndexMemory = -1;
 
-            m_listPropsPanels.Clear();
-            m_listTitle.Clear();
-            tabControl1.SuspendLayout();
-            tabControl1.Visible = false;
-            tabControl1.TabPages.Clear();
-            m_listPropsPanels.Add(m_stdPropPanel);
-            m_listTitle.Add(Lang.LangSys.C("Symbol & Description"));
-            if (m_baseObjectItem != null)
+            if (!bSkipPageRebuild)
             {
-                m_stdPropPanel.Enabled = true;
-                this.Text = Lang.LangSys.C("Properties of ") + m_baseObjectItem.Symbol;
-                if (m_baseObjectItem != null && m_Document != null)
+                // on reconstruit l'ensemble des pages parce que le type d'objet à changé
+                m_listPropsPanels.Clear();
+                m_listTitle.Clear();
+                tabControl1.SuspendLayout();
+                tabControl1.Visible = false;
+                tabControl1.TabPages.Clear();
+                // d'abord le panel de base
+                m_listPropsPanels.Add(m_stdPropPanel);
+                m_listTitle.Add(Lang.LangSys.C("Symbol & Description"));
+
+                if (m_baseObjectItem != null)
                 {
+                    // si il y a un panneau de configuration standard sur l'objet, on l'ajoute
                     if (m_baseObjectItem.StdConfigPanel != null)
                     {
                         m_listPropsPanels.Add(m_baseObjectItem.StdConfigPanel as IObjectPropertyPanel);
                         m_listTitle.Add(Lang.LangSys.C("Properties"));
                     }
+                    // on fait la liste de tout les script et on ajoute un onglet par script
                     if (m_baseObjectItem is IScriptable)
                     {
                         IScriptable obj = m_baseObjectItem as IScriptable;
@@ -117,45 +137,59 @@ namespace CommonLib
                             m_listTitle.Add(Lang.LangSys.C(scriptType));
                         }
                     }
-
+                    // on finir par toues les ajouter 
                     for (int i = 0; i < m_listPropsPanels.Count; i++)
                     {
-                        m_listPropsPanels[i].Document = this.Document;
-                        m_listPropsPanels[i].ConfiguredItem = m_baseObjectItem;
-                        if (m_baseObjectItem is Data)
-                        {
-                            m_listPropsPanels[i].ConfiguredItemGest = m_Document.GestData;
-                        }
-                        else if (m_baseObjectItem is BTScreen)
-                        {
-                            m_listPropsPanels[i].ConfiguredItemGest = m_Document.GestScreen;
-                        }
-                        else if (m_baseObjectItem is Function)
-                        {
-                            m_listPropsPanels[i].ConfiguredItemGest = m_Document.GestFunction;
-                        }
-                        else if (m_baseObjectItem is BTTimer)
-                        {
-                            m_listPropsPanels[i].ConfiguredItemGest = m_Document.GestTimer;
-                        }
-                        else if (m_baseObjectItem is Trame)
-                        {
-                            m_listPropsPanels[i].ConfiguredItemGest = m_Document.GestTrame;
-                        }
-                        else if (m_baseObjectItem is Logger)
-                        {
-                            m_listPropsPanels[i].ConfiguredItemGest = m_Document.GestLogger;
-                        }
-                        else if (m_baseObjectItem is BTControl)
-                        {
-                            if (m_CurrentScreen != null)
-                            {
-                                m_listPropsPanels[i].ConfiguredItemGest = m_CurrentScreen.Controls;
-                            }
-                        }
                         AddPropertyTab(m_listTitle[i], m_listPropsPanels[i]);
-                        m_listPropsPanels[i].ObjectToPanel();
                     }
+                }
+                else
+                {
+                    // l'objet est null, donc la selection est vide, on met juste le panel de base
+                    AddPropertyTab(m_listTitle[0], m_listPropsPanels[0]);
+                }
+            }
+            // on fait le parcours de tout les onglet pour les initialiser
+            if (m_baseObjectItem != null && m_Document != null)
+            {
+                m_stdPropPanel.Enabled = true;
+                this.Text = Lang.LangSys.C("Properties of ") + m_baseObjectItem.Symbol;
+                for (int i = 0; i < m_listPropsPanels.Count; i++)
+                {
+                    m_listPropsPanels[i].Document = this.Document;
+                    m_listPropsPanels[i].ConfiguredItem = m_baseObjectItem;
+                    if (m_baseObjectItem is Data)
+                    {
+                        m_listPropsPanels[i].ConfiguredItemGest = m_Document.GestData;
+                    }
+                    else if (m_baseObjectItem is BTScreen)
+                    {
+                        m_listPropsPanels[i].ConfiguredItemGest = m_Document.GestScreen;
+                    }
+                    else if (m_baseObjectItem is Function)
+                    {
+                        m_listPropsPanels[i].ConfiguredItemGest = m_Document.GestFunction;
+                    }
+                    else if (m_baseObjectItem is BTTimer)
+                    {
+                        m_listPropsPanels[i].ConfiguredItemGest = m_Document.GestTimer;
+                    }
+                    else if (m_baseObjectItem is Trame)
+                    {
+                        m_listPropsPanels[i].ConfiguredItemGest = m_Document.GestTrame;
+                    }
+                    else if (m_baseObjectItem is Logger)
+                    {
+                        m_listPropsPanels[i].ConfiguredItemGest = m_Document.GestLogger;
+                    }
+                    else if (m_baseObjectItem is BTControl)
+                    {
+                        if (m_CurrentScreen != null)
+                        {
+                            m_listPropsPanels[i].ConfiguredItemGest = m_CurrentScreen.Controls;
+                        }
+                    }
+                    m_listPropsPanels[i].ObjectToPanel();
                 }
             }
             else
@@ -163,9 +197,8 @@ namespace CommonLib
                 this.Text = Lang.LangSys.C("Selection is empty");
                 m_stdPropPanel.Enabled = false;
                 m_stdPropPanel.ConfiguredItem = null;
-                m_stdPropPanel.ObjectToPanel();
-                AddPropertyTab(m_listTitle[0], m_listPropsPanels[0]);
             }
+
             tabControl1.ResumeLayout();
             tabControl1.Visible = true;
             if (m_iPageIndexMemory != -1 && m_iPageIndexMemory < tabControl1.TabPages.Count)

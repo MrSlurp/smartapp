@@ -387,7 +387,7 @@ namespace CommonLib
         /// <returns>liste des tokens de la ligne</returns>
         static public StringCollection GetAllTokens(string line)
         {
-            StringCollection result = null;
+            StringCollection result = new StringCollection();
             if (!string.IsNullOrEmpty(line) && !line.StartsWith("//"))
             {
                 // on vire les espaces
@@ -401,9 +401,9 @@ namespace CommonLib
                 // normalement on se retrouve avec une suite de mot séparés par des virgules
                 // on fini par splitter sur les virgules
                 string[] strTab = line.Split(',');
-                result = new StringCollection();
                 result.AddRange(strTab);
             }
+
             return result;
         }
 

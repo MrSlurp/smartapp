@@ -85,13 +85,13 @@ namespace CommonLib
         public BTComm()
         {
             // init par défaut
-            m_TypeComm = TYPE_COMM.ETHERNET;
-            m_strDestAdress = "192.168.0.99:502";
-            m_Comm = new EthernetComm();
+            m_TypeComm = TYPE_COMM.VIRTUAL;
+            m_strDestAdress = "NA";
+            m_Comm = new VirtualComm();
             m_Comm.EventAddLogEvent += new AddLogEventDelegate(AddLogEvent);
-            ((EthernetComm)m_Comm).IpAddr = "192.168.0.99";
-            ((EthernetComm)m_Comm).Port = 502;
-            ((EthernetComm)m_Comm).OnCommStateChange += new CommOpenedStateChange(ConnectionStateChangeEvent);
+            //((EthernetComm)m_Comm).IpAddr = "192.168.0.99";
+            //((EthernetComm)m_Comm).Port = 502;
+            //((EthernetComm)m_Comm).OnCommStateChange += new CommOpenedStateChange(ConnectionStateChangeEvent);
 
             m_TimerRecieveTimeout = new System.Windows.Forms.Timer();
             m_TimerRecieveTimeout.Interval = 5000;
@@ -165,20 +165,25 @@ namespace CommonLib
                     return false;
 
                 m_TypeComm = CommType;
+                if (m_Comm != null)
+                {
+                    m_Comm.EventAddLogEvent -= AddLogEvent;
+                    m_Comm.OnCommStateChange -= ConnectionStateChangeEvent;
+                }
 
                 switch (m_TypeComm)
                 {
                     case TYPE_COMM.SERIAL:
                         m_Comm = new SerialComm();
                         m_Comm.EventAddLogEvent += new AddLogEventDelegate(AddLogEvent);
-                        ((SerialComm)m_Comm).OnCommStateChange += new CommOpenedStateChange(ConnectionStateChangeEvent);
+                        m_Comm.OnCommStateChange += new CommOpenedStateChange(ConnectionStateChangeEvent);
                         m_strDestAdress = strParam;
                         ((SerialComm)m_Comm).ComPort = m_strDestAdress;
                         break;
                     case TYPE_COMM.ETHERNET:
                         m_Comm = new EthernetComm();
                         m_Comm.EventAddLogEvent += new AddLogEventDelegate(AddLogEvent);
-                        ((EthernetComm)m_Comm).OnCommStateChange += new CommOpenedStateChange(ConnectionStateChangeEvent);
+                        m_Comm.OnCommStateChange += new CommOpenedStateChange(ConnectionStateChangeEvent);
                         m_strDestAdress = strParam;
                         string[] strs = strParam.Split(':');
                         if (strs.Length != 2)
@@ -190,7 +195,7 @@ namespace CommonLib
                         break;
                     case TYPE_COMM.VIRTUAL:
                         m_Comm = new VirtualComm();
-                        ((VirtualComm)m_Comm).OnCommStateChange += new CommOpenedStateChange(ConnectionStateChangeEvent);
+                        m_Comm.OnCommStateChange += new CommOpenedStateChange(ConnectionStateChangeEvent);
                         m_strDestAdress = ((VirtualComm)m_Comm).ComParam;
                         // aucun paramètres
                         break;

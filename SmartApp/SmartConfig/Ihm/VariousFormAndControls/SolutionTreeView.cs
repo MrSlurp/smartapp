@@ -847,6 +847,8 @@ namespace SmartApp
                 {
                     if (item.IsUserVisible)
                     {
+                        BaseObject bo = gest.GetFromSymbol(item.Symbol);
+                        System.Diagnostics.Debug.Assert(bo == item);
                         TreeNode ItemNode = new TreeNode(item.Symbol);
                         ItemNode.Tag = item;
                         ItemNode.ImageKey = imageKey;

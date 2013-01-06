@@ -14,9 +14,6 @@ namespace CommonLib
         string m_commParam = "NA";
         #endregion
 
-        #region Events
-        public event CommOpenedStateChange OnCommStateChange;
-        #endregion
 
         #region cosntructeur
         /// <summary>
@@ -108,8 +105,7 @@ namespace CommonLib
         public override bool OpenComm()
         {
             m_bIsCommOpenned = true;
-            if (OnCommStateChange != null)
-                OnCommStateChange();
+            NotifyComStateChange();
             return true;
         }
 
@@ -120,8 +116,7 @@ namespace CommonLib
         public override bool CloseComm()
         {
             m_bIsCommOpenned = false;
-            if (OnCommStateChange != null)
-                OnCommStateChange();
+            NotifyComStateChange();
             return true;
         }
 

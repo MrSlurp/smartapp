@@ -44,6 +44,7 @@ namespace SmartApp
             this.toolBarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.forceCnxMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.indexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -60,6 +61,8 @@ namespace SmartApp
             this.colBtnConnectStart = new System.Windows.Forms.DataGridViewButtonColumn();
             this.m_trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.appEventLogPanel = new SmartApp.AppEventLogPanel();
+            this.forceCnxVirtualMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.restoreCnxMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridMonitor)).BeginInit();
@@ -157,14 +160,15 @@ namespace SmartApp
             this.toolBarToolStripMenuItem.CheckOnClick = true;
             this.toolBarToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.toolBarToolStripMenuItem.Name = "toolBarToolStripMenuItem";
-            this.toolBarToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.toolBarToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.toolBarToolStripMenuItem.Text = "&Toolbar";
             this.toolBarToolStripMenuItem.Click += new System.EventHandler(this.ToolBarToolStripMenuItem_Click);
             // 
             // toolsMenu
             // 
             this.toolsMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.optionsToolStripMenuItem});
+            this.optionsToolStripMenuItem,
+            this.forceCnxMenuItem});
             this.toolsMenu.Name = "toolsMenu";
             this.toolsMenu.Size = new System.Drawing.Size(44, 20);
             this.toolsMenu.Text = "&Tools";
@@ -172,9 +176,18 @@ namespace SmartApp
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.optionsToolStripMenuItem.Text = "&Options";
             this.optionsToolStripMenuItem.Click += new System.EventHandler(this.menuItemOptions_Click);
+            // 
+            // forceCnxMenuItem
+            // 
+            this.forceCnxMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.forceCnxVirtualMenuItem,
+            this.restoreCnxMenuItem});
+            this.forceCnxMenuItem.Name = "forceCnxMenuItem";
+            this.forceCnxMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.forceCnxMenuItem.Text = "Force all connexions to";
             // 
             // helpMenu
             // 
@@ -302,6 +315,20 @@ namespace SmartApp
             this.appEventLogPanel.Size = new System.Drawing.Size(496, 200);
             this.appEventLogPanel.TabIndex = 5;
             // 
+            // forceCnxVirtualMenuItem
+            // 
+            this.forceCnxVirtualMenuItem.Name = "forceCnxVirtualMenuItem";
+            this.forceCnxVirtualMenuItem.Size = new System.Drawing.Size(183, 22);
+            this.forceCnxVirtualMenuItem.Text = "VIRTUAL";
+            this.forceCnxVirtualMenuItem.Click += new System.EventHandler(this.forceCnxVirtualMenuItem_Click);
+            // 
+            // restoreCnxMenuItem
+            // 
+            this.restoreCnxMenuItem.Name = "restoreCnxMenuItem";
+            this.restoreCnxMenuItem.Size = new System.Drawing.Size(183, 22);
+            this.restoreCnxMenuItem.Text = "Restore connections";
+            this.restoreCnxMenuItem.Click += new System.EventHandler(this.restoreCnxMenuItem_Click);
+            // 
             // MDISmartCommandMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -360,6 +387,9 @@ namespace SmartApp
         private System.Windows.Forms.DataGridViewButtonColumn colBtnConnectStart;
         private AppEventLogPanel appEventLogPanel;
         private System.Windows.Forms.NotifyIcon m_trayIcon;
+        private System.Windows.Forms.ToolStripMenuItem forceCnxMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem forceCnxVirtualMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem restoreCnxMenuItem;
     }
 }
 

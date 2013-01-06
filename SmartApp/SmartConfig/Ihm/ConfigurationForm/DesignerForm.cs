@@ -389,7 +389,7 @@ namespace SmartApp.Ihm
                 {
                     m_PropDialog.Show(Program.CurrentMainForm);
                 }
-                m_PropDialog.BringToFront();
+                //m_PropDialog.BringToFront();
             }
         }
 

@@ -36,6 +36,8 @@ namespace CommonLib
             if (m_Ctrl == null)
             {
                 m_Ctrl = new Label();
+                ((Label)m_Ctrl).UseMnemonic = false;
+                ((Label)m_Ctrl).AutoEllipsis = true;
                 m_Ctrl.Location = m_RectControl.Location;
                 m_Ctrl.Name = m_strSymbol;
                 m_Ctrl.Size = m_RectControl.Size;

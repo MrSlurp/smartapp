@@ -93,6 +93,17 @@ namespace CommonLib
         /// <param name="FrameHeader"></param>
         /// <returns></returns>
         public abstract bool TestFrame(int FrameLenght, byte[] FrameHeader);
+
+        #region Events
+        public event CommOpenedStateChange OnCommStateChange;
+        #endregion
+
+        protected void NotifyComStateChange()
+        {
+            if (OnCommStateChange != null)
+                OnCommStateChange();
+        }
+
         #endregion
 
         #region Attributs

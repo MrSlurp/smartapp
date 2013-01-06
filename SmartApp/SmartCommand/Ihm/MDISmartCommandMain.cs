@@ -238,8 +238,14 @@ namespace SmartApp
         /// <param name="doc"></param>
         protected void AsyncRunStateUpdater(BaseDoc doc)
         {
+            bool bAtLeastOneActiveProject = false;
             foreach (DataGridViewRow row in dataGridMonitor.Rows)
             {
+                if (row.Tag is BaseDoc)
+                {
+                    if (((BaseDoc)row.Tag).IsRunning)
+                        bAtLeastOneActiveProject |= true;
+                }
                 if (row.Tag == doc)
                 {
                     Image img = Resources.CxnOff;
@@ -250,6 +256,7 @@ namespace SmartApp
                     break;
                 }
             }
+            forceCnxMenuItem.Enabled = !bAtLeastOneActiveProject;
         }
 
         #endregion
@@ -702,6 +709,38 @@ namespace SmartApp
                 m_bHideMonAfterPrjStart = optForm.HideMonitorAfterPrjStart;
             }
         }
+
+        private void forceCnxVirtualMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in dataGridMonitor.Rows)
+            {
+                if (row.Tag is BTDoc)
+                {
+                    BTDoc doc = row.Tag as BTDoc;
+                    if (!doc.IsRunning && !doc.Communication.IsOpen)
+                    {
+                        doc.SwitchComType(true);
+                    }
+                }
+            }
+        }
+
+        private void restoreCnxMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in dataGridMonitor.Rows)
+            {
+                if (row.Tag is BTDoc)
+                {
+                    BTDoc doc = row.Tag as BTDoc;
+                    if (!doc.IsRunning && !doc.Communication.IsOpen)
+                    {
+                        doc.SwitchComType(false);
+                    }
+                }
+            }
+
+        }
+
         #endregion
 
         #region handler du menu ?
@@ -833,6 +872,7 @@ namespace SmartApp
             m_TraceConsole.Show();
         }
         #endregion
+
 
     }
 }

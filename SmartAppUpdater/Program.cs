@@ -59,6 +59,7 @@ namespace SmartAppUpdater
         {
             ProcessStartInfo psi = new ProcessStartInfo();
             psi.FileName = "postUpdateCopy.bat";
+            psi.Arguments = " > updatelog.txt";
             psi.UseShellExecute = true;
             Process copyProcess = Process.Start(psi);
         }

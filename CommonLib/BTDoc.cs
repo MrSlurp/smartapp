@@ -58,6 +58,7 @@ namespace CommonLib
 
         #region données membres en mode SmartCommand
         protected BTComm m_Comm = new BTComm();
+        protected BTComm m_CommMemmory;
         protected string m_strLogFilePath;
         // Liste des pages "utilisateur" ==> une par BTScreen présent dans chaque document
         private List<DynamicPanelForm> m_FormList;
@@ -742,6 +743,30 @@ namespace CommonLib
         public void CloseDocumentComm()
         {
             m_Comm.CloseComm();
+        }
+
+        public void SwitchComType(bool bVirtual)
+        {
+            if (bVirtual && m_Comm.CommType != TYPE_COMM.VIRTUAL)
+            {
+                if (m_CommMemmory == null)
+                    m_CommMemmory = m_Comm;
+
+                m_Comm = new BTComm();
+                m_Comm.SetCommTypeAndParam(TYPE_COMM.VIRTUAL, "NA");
+                m_Comm.OnCommStateChange += new CommOpenedStateChange(this.CommeStateChangeEvent);
+                m_Comm.EventAddLogEvent += new AddLogEventDelegate(AddLogEvent);
+            }
+            else 
+            {
+                if (m_CommMemmory != null)
+                {
+                    this.DetachCommEventHandler(this.CommeStateChangeEvent);
+                    m_Comm.EventAddLogEvent -= AddLogEvent;
+                    m_Comm = m_CommMemmory;
+                    m_CommMemmory = null;
+                }
+            }
         }
 
         /// <summary>

@@ -31,10 +31,6 @@ namespace CommonLib
         List<byte[]> m_MessageList = new List<byte[]>();
         #endregion
 
-        #region Events
-        public event CommOpenedStateChange OnCommStateChange;
-        #endregion
-
         #region constructeurs
         /// <summary>
         /// constructeur par défaut
@@ -308,8 +304,7 @@ namespace CommonLib
                 LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, strmess); 
                 AddLogEvent(log);
             }
-            if (OnCommStateChange != null)
-                OnCommStateChange();
+            NotifyComStateChange();
         }
         #endregion
     }
