@@ -14,10 +14,10 @@ REM forfiles /p "%CD%\tmpUpdate\Lang" /C "cmd /c copy @path %CD%\Lang\@file"
 REM forfiles /p "%CD%\tmpUpdate\Lang" /C "cmd /c del @path"
 
 @echo on
-xcopy /Y "%CD%\tmpUpdate\*.exe" %CD%
-xcopy /Y "%CD%\tmpUpdate\*.dll" %CD%
-xcopy /Y "%CD%\tmpUpdate\*.xml" %CD%
-xcopy /Y "%CD%\tmpUpdate\*.po" %CD%\Lang
+xcopy /Y "%CD%\tmpUpdate\*.exe" "%CD%"
+xcopy /Y "%CD%\tmpUpdate\*.dll" "%CD%"
+xcopy /Y "%CD%\tmpUpdate\*.xml" "%CD%"
+xcopy /Y "%CD%\tmpUpdate\*.po" "%CD%\Lang"
 
 @echo off
 del /s /q "%CD%\tmpUpdate\*.exe"
