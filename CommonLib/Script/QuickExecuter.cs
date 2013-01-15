@@ -146,14 +146,13 @@ namespace CommonLib
         /// <returns></returns>
         public int PreParseScript(string[] script)
         {
-            int Id = 0;
+            int Id = -1;
             List<PreParsedLine> preParsedScript = m_PreParser.PreParseScript(script);
             if (preParsedScript != null)
             {
                 Id = ++m_iQuickIdCounter;
                 m_DictioQuickScripts.Add(Id, preParsedScript);
             }
-            System.Diagnostics.Debug.Assert(Id != -1);
             return Id;
         }
 
@@ -186,21 +185,32 @@ namespace CommonLib
                 while (m_PileScriptsToExecute.Count != 0 && !m_bStopRequested)
                 {
                     // on prend le script sans l'enlever afin de savoir qu'il n'est pas encore executé
-                    Object thisLock = new Object();
                     int QuickId = 0;
-                    lock (thisLock)
+                    try
                     {
-                        QuickId = m_PileScriptsToExecute.Peek();
+                        lock (this)
+                        {
+                            QuickId = m_PileScriptsToExecute.Peek();
+                            if (QuickId != 0)
+                            {
+                                InternalExecuteScript(QuickId);
+                                // il est éxécuté, on l'enlève de la liste.
+                                m_PileScriptsToExecute.Dequeue();
+
+                                if (EventScriptExecuted != null)
+                                    EventScriptExecuted(QuickId);
+                            }
+                            else
+                            {
+                                Traces.LogAddCritical(TraceCat.Executer, string.Format("un quickId 0 est sortie de la FIFO"));
+                            }
+                        }
                     }
-                    //if (m_bIsWaiting)
-                    //    System.Diagnostics.Debug.Assert(false, "appel en trop");
-
-                    InternalExecuteScript(QuickId);
-                    // il est éxécuté, on l'enlève de la liste.
-                    m_PileScriptsToExecute.Dequeue();
-
-                    if (EventScriptExecuted != null)
-                        EventScriptExecuted(QuickId);
+                    catch (Exception ex)
+                    {
+                        LogEvent evt = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format(Lang.LangSys.C("Error in execution motor {0}", ex.Message)));
+                        AddLogEvent(evt);
+                    }
                     
                     Thread.Sleep(20);
                 }
@@ -216,17 +226,13 @@ namespace CommonLib
         /// <param name="QuickID"></param>
         public void ExecuteScript(int QuickID)
         {
+            //System.Diagnostics.Debug.Assert(QuickID != 0);
             if (m_DictioQuickScripts.ContainsKey(QuickID))
             {
-                Object thisLock = new Object();
-                lock (thisLock)
+                lock (this)
                 {
-                    // Critical code section
                     m_PileScriptsToExecute.Enqueue(QuickID);
                 } 
-                //m_QueueMutex.ReleaseMutex();
-                //if (EvScriptToExecute != null)
-                    //EvScriptToExecute();
             }
 #if DEBUG
             else
@@ -247,6 +253,12 @@ namespace CommonLib
         /// <param name="QuickID"></param>
         internal void InternalExecuteScript(int QuickID)
         {
+            if (!m_DictioQuickScripts.ContainsKey(QuickID))
+            {
+                LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format(Lang.LangSys.C("Unknown script id {0}"), QuickID));
+                AddLogEvent(log);
+                return;
+            }
             List<PreParsedLine> QuickScript = m_DictioQuickScripts[QuickID];
             for (int i = 0; i < QuickScript.Count; i++)
             {

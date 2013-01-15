@@ -21,6 +21,7 @@ namespace CommonLib
     public delegate void DocumentModifiedEvent();
     public delegate void DocComStateChange(BTDoc doc);
     public delegate void MessageTreat(BTDoc sender, MESSAGE Mess, object Param, TYPE_APP TypeApp);
+    public delegate void VirtualDataFormOpenClose(BTDoc sender, VirtualDataForm form, bool bOpen);
     /// <summary>
     /// 
     /// </summary>
@@ -70,6 +71,7 @@ namespace CommonLib
         public event DocComStateChange OnCommStateChange;
         public event MessageTreat BeforeMessageTreat;
         public event MessageTreat EndMessageTreat;
+        public event VirtualDataFormOpenClose VirtualDataFormStateChanged;
         #endregion
 
         #region donnée spécifiques aux fonctionement en mode Command
@@ -781,15 +783,23 @@ namespace CommonLib
             {
                 m_virtualDataForm = new VirtualDataForm(this);
                 m_virtualDataForm.Text += " - " + Path.GetFileNameWithoutExtension(this.FileName);
-                m_virtualDataForm.Show();
-                m_virtualDataForm.BringToFront();
+                if (VirtualDataFormStateChanged != null)
+                {
+                    VirtualDataFormStateChanged(this, m_virtualDataForm, true);
+                    //m_virtualDataForm.Show();
+                    //m_virtualDataForm.BringToFront();
+                }
             }
             else
             {
                 if (m_virtualDataForm != null)
                 {
-                    m_virtualDataForm.Close();
-                    m_virtualDataForm = null;
+                    if (VirtualDataFormStateChanged != null)
+                    {
+                        VirtualDataFormStateChanged(this, m_virtualDataForm, false);
+                        //m_virtualDataForm.Close();
+                        //m_virtualDataForm = null;
+                    }
                 }
             }
             if (!m_Comm.IsOpen && this.IsRunning)

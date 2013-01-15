@@ -30,6 +30,7 @@ namespace SmartApp
         protected MruStripMenuInline m_mruStripMenu;
         //
         SolutionGest m_GestSolution;
+        VirtualCnxContainer m_VirtualDataFormContainter;
 
         protected bool m_bAutoStartProjOnOpen = false;
         protected bool m_bHideMonAfterPrjStart = false;
@@ -427,6 +428,7 @@ namespace SmartApp
                         doc.OnCommStateChange += new DocComStateChange(OnDocument_CommStateChange);
                         doc.OnRunStateChange += new RunStateChangeEvent(OnDocument_RunStateChange);
                         doc.EventAddLogEvent += new AddLogEventDelegate(AddLogEvent);
+                        doc.VirtualDataFormStateChanged += new VirtualDataFormOpenClose(doc_VirtualDataFormStateChanged);
                         AddDocToMonitorList(doc);
                     }
                     else
@@ -459,6 +461,36 @@ namespace SmartApp
                                     Program.LangSys.C("Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 }
+            }
+        }
+
+        void doc_VirtualDataFormStateChanged(BTDoc sender, VirtualDataForm form, bool bOpen)
+        {
+            if (m_VirtualDataFormContainter == null)
+            {
+                m_VirtualDataFormContainter = new VirtualCnxContainer();
+            }
+            if (form != null)
+            {
+                if (bOpen)
+                {
+                    form.MdiParent = m_VirtualDataFormContainter;
+                    form.Show();
+                }
+                else
+                {
+                    form.MdiParent = null;
+                    form.Close();
+                }
+            }
+            if (m_VirtualDataFormContainter.MdiChildren.Length == 0)
+            {
+                m_VirtualDataFormContainter.Close();
+                m_VirtualDataFormContainter = null;
+            }
+            else
+            {
+                m_VirtualDataFormContainter.Show();
             }
         }
 
