@@ -10,6 +10,14 @@ namespace SmartApp
 {
     public partial class VirtualCnxContainer : Form
     {
+        private bool m_bDisableCloseProtection = false;
+
+        public bool DisableCloseProtection
+        {
+            get { return m_bDisableCloseProtection; }
+            set { m_bDisableCloseProtection = value; }
+        }
+
         public VirtualCnxContainer()
         {
             InitializeComponent();
@@ -37,7 +45,7 @@ namespace SmartApp
 
         private void VirtualCnxContainer_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (e.CloseReason == CloseReason.UserClosing)
+            if (e.CloseReason == CloseReason.UserClosing && !m_bDisableCloseProtection)
             {
                 e.Cancel = true;
                 this.WindowState = FormWindowState.Minimized;

@@ -53,9 +53,7 @@ namespace CommonLib
             List<PreParsedLine> retPreParsedScript = new List<PreParsedLine>();
             for (int i = 0; i < script.Length; i++)
             {
-                if (!string.IsNullOrEmpty(script[i]))
-                    retPreParsedScript.Add(PreParseLine(script[i]));
-                string line = script[i].Trim(' ');
+                string line = script[i].Replace(" ", "");
                 if (!string.IsNullOrEmpty(line) && !line.StartsWith("//"))
                     retPreParsedScript.Add(PreParseLine(line));
             }

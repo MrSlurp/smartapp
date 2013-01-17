@@ -464,33 +464,42 @@ namespace SmartApp
             }
         }
 
+        
         void doc_VirtualDataFormStateChanged(BTDoc sender, VirtualDataForm form, bool bOpen)
         {
-            if (m_VirtualDataFormContainter == null)
+            if (this.InvokeRequired)
             {
-                m_VirtualDataFormContainter = new VirtualCnxContainer();
-            }
-            if (form != null)
-            {
-                if (bOpen)
-                {
-                    form.MdiParent = m_VirtualDataFormContainter;
-                    form.Show();
-                }
-                else
-                {
-                    form.MdiParent = null;
-                    form.Close();
-                }
-            }
-            if (m_VirtualDataFormContainter.MdiChildren.Length == 0)
-            {
-                m_VirtualDataFormContainter.Close();
-                m_VirtualDataFormContainter = null;
+                this.BeginInvoke(new VirtualDataFormOpenClose(doc_VirtualDataFormStateChanged), sender, form, bOpen);
             }
             else
             {
-                m_VirtualDataFormContainter.Show();
+                if (m_VirtualDataFormContainter == null)
+                {
+                    m_VirtualDataFormContainter = new VirtualCnxContainer();
+                }
+                if (form != null)
+                {
+                    if (bOpen)
+                    {
+                        form.MdiParent = m_VirtualDataFormContainter;
+                        form.Show();
+                    }
+                    else
+                    {
+                        form.MdiParent = null;
+                        form.Close();
+                    }
+                }
+                if (m_VirtualDataFormContainter.MdiChildren.Length == 0)
+                {
+                    m_VirtualDataFormContainter.DisableCloseProtection = true;
+                    m_VirtualDataFormContainter.Close();
+                    m_VirtualDataFormContainter = null;
+                }
+                else
+                {
+                    m_VirtualDataFormContainter.Show();
+                }
             }
         }
 

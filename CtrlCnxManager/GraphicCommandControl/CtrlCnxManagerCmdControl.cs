@@ -13,7 +13,7 @@ namespace CtrlCnxManager
     /// </summary>
     internal class CtrlCnxManagerCmdControl : BTDllCtrlCnxManagerControl
     {
-        Timer m_watchdogTimer = new Timer();
+        System.Timers.Timer m_watchdogTimer = new System.Timers.Timer();
         BTDoc m_Doc;
         DateTime m_DisconnectionTime;
         Timer m_RestartDelayTimer = new Timer();
@@ -24,10 +24,10 @@ namespace CtrlCnxManager
             : base(document)
         {
             m_watchdogTimer.Interval = 10000;
-            m_watchdogTimer.Tick += new EventHandler(m_watchdogTimer_Tick);
+            m_watchdogTimer.Elapsed += new System.Timers.ElapsedEventHandler(m_watchdogTimer_Tick);
         }
 
-        void m_watchdogTimer_Tick(object sender, EventArgs e)
+        void m_watchdogTimer_Tick(object sender, System.Timers.ElapsedEventArgs e)
         {
             DllCtrlCnxManagerProp SpecProps =  this.SpecificProp as DllCtrlCnxManagerProp;
             if (m_Doc != null && SpecProps != null)
@@ -46,7 +46,14 @@ namespace CtrlCnxManager
                 // celui est co
                 if (!m_Doc.IsRunning && m_Doc.Communication.IsOpen)
                 {
-                    m_Doc.TraiteMessage(MESSAGE.MESS_CMD_RUN, null, TYPE_APP.SMART_COMMAND);
+                    if (this.m_Ctrl.InvokeRequired)
+                    {
+                        this.m_Ctrl.BeginInvoke(new EventHandler(SendStartCommand), this, null);
+                    }
+                    else
+                    {
+                        SendStartCommand(this, null);
+                    }
                 }
                 TimeSpan tsDelta = (DateTime.Now - m_DisconnectionTime);
                 if (m_DisconnectionTime != DateTime.MinValue && tsDelta.Minutes >= SpecProps.RetryCnxPeriod)
@@ -56,6 +63,10 @@ namespace CtrlCnxManager
             }
         }
 
+        private void SendStartCommand(object sender, EventArgs e)
+        {
+            m_Doc.TraiteMessage(MESSAGE.MESS_CMD_RUN, null, TYPE_APP.SMART_COMMAND);
+        }
         /// <summary>
         /// Constructeur de l'objet graphique affiché dans les écrans de supervision
         /// </summary>
@@ -125,7 +136,7 @@ namespace CtrlCnxManager
                 {
                     // message de requête sur les conséquence d'une supression
                     case MESSAGE.MESS_CMD_STOP:
-                        if (m_watchdogTimer.Enabled == false)
+                        if (m_watchdogTimer.Enabled == false && m_Ctrl != null && !m_Ctrl.IsDisposed)
                             m_watchdogTimer.Start(); // et oui il n'est jamais arrêté
                             // et sa première mise en marche correspond à l'arret de la supervision suite à une coupure de connexion
 

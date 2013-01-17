@@ -191,24 +191,24 @@ namespace CommonLib
                         lock (this)
                         {
                             QuickId = m_PileScriptsToExecute.Peek();
-                            if (QuickId != 0)
-                            {
-                                InternalExecuteScript(QuickId);
-                                // il est éxécuté, on l'enlève de la liste.
-                                m_PileScriptsToExecute.Dequeue();
+                        }
+                        if (QuickId != 0)
+                        {
+                            InternalExecuteScript(QuickId);
+                            // il est éxécuté, on l'enlève de la liste.
+                            m_PileScriptsToExecute.Dequeue();
 
-                                if (EventScriptExecuted != null)
-                                    EventScriptExecuted(QuickId);
-                            }
-                            else
-                            {
-                                Traces.LogAddCritical(TraceCat.Executer, string.Format("un quickId 0 est sortie de la FIFO"));
-                            }
+                            if (EventScriptExecuted != null)
+                                EventScriptExecuted(QuickId);
+                        }
+                        else
+                        {
+                            Traces.LogAddCritical(TraceCat.Executer, string.Format("un quickId 0 est sortie de la FIFO"));
                         }
                     }
                     catch (Exception ex)
                     {
-                        LogEvent evt = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format(Lang.LangSys.C("Error in execution motor {0}", ex.Message)));
+                        LogEvent evt = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format(Lang.LangSys.C("Error in execution motor {0}"), ex.Message));
                         AddLogEvent(evt);
                     }
                     

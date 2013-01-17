@@ -610,16 +610,19 @@ namespace CommonLib
                 try
                 {
                     // si il y a une image, on la charge
-                    PathTranslator.CheckFileExistOrThrow(strImageFullPath);
-                    Bitmap imgBack = new Bitmap(strImageFullPath);
-                    imgBack.MakeTransparent(Cste.TransparencyColor);
-                    // ets i besoin on réajuste la taille du panel
-                    if (imgBack.Width > m_DynamicPanel.Width)
-                        m_DynamicPanel.Width = imgBack.Width;
-                    if (imgBack.Height > m_DynamicPanel.Height)
-                        m_DynamicPanel.Height = imgBack.Height;
+                    if (!string.IsNullOrEmpty(strImageFullPath))
+                    {
+                        PathTranslator.CheckFileExistOrThrow(strImageFullPath);
+                        Bitmap imgBack = new Bitmap(strImageFullPath);
+                        imgBack.MakeTransparent(Cste.TransparencyColor);
+                        // ets i besoin on réajuste la taille du panel
+                        if (imgBack.Width > m_DynamicPanel.Width)
+                            m_DynamicPanel.Width = imgBack.Width;
+                        if (imgBack.Height > m_DynamicPanel.Height)
+                            m_DynamicPanel.Height = imgBack.Height;
 
-                    m_DynamicPanel.BackgroundImage = imgBack;
+                        m_DynamicPanel.BackgroundImage = imgBack;
+                    }
                 }
                 catch (Exception)
                 {
