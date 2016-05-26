@@ -20,23 +20,56 @@ namespace ScreenItemLocker
             lstScreen_SelectedIndexChanged(null, null);
         }
 
+        #region validation des données
+        /// <summary>
+        /// Accesseur de validité des propriétés
+        /// renvoie true si les propriété sont valides, sinon false
+        /// </summary>
+        public override bool IsObjectPropertiesValid
+        {
+            get
+            {
+                return true;
+            }
+        }
+
+        /// <summary>
+        /// validitation des propriétés
+        /// </summary>
+        /// <returns>true si les propriété sont valides, sinon false</returns>
+        public override bool ValidateProperties()
+        {
+            return true;
+        }
+
         public void PanelToObject()
         {
             m_Props.ListItemSymbol.Clear();
+            ((DllScreenItemLockerProp)m_Control.SpecificProp).ListItemSymbol.Clear();
             for (int i = 0; i < lstSelected.Items.Count; i++)
             {
                 m_Props.ListItemSymbol.Add(lstSelected.Items[i].ToString());
+                ((DllScreenItemLockerProp)m_Control.SpecificProp).ListItemSymbol.Add(lstSelected.Items[i].ToString());
             }
-            m_Control.SpecificProp.CopyParametersFrom(m_Props, false, this.Document);
+            //m_Control.SpecificProp.CopyParametersFrom(m_Props, false, this.Document);
             Document.Modified = true;
         }
 
         public void ObjectToPanel()
         {
-            m_Props.CopyParametersFrom(m_Control.SpecificProp, false, this.Document);
+            m_Props.ListItemSymbol.Clear();
+            for (int i = 0; i < ((DllScreenItemLockerProp)m_Control.SpecificProp).ListItemSymbol.Count; i++)
+            {
+                m_Props.ListItemSymbol.Add(((DllScreenItemLockerProp)m_Control.SpecificProp).ListItemSymbol[i]);
+            }
+            //m_Props.CopyParametersFrom(m_Control.SpecificProp, false, this.Document);
             InitCurrentSelectionList();
             InitScreenItemList();
         }
+
+
+        #endregion
+
 
         /// <summary>
         /// 

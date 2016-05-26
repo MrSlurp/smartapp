@@ -80,7 +80,7 @@ namespace SmartApp
         [STAThread]
         static void Main(string[] strArgsList)
         {
-            Application.EnableVisualStyles();
+            //Application.EnableVisualStyles();
             // attention, cette ligne est toujours appelé, mais dans la création du singleton de la fenêtre principale
             // car les membres étant statiques, il provoquent la création de la fenêtre pendant le chargement même de l'application
             Application.SetCompatibleTextRenderingDefault(false);

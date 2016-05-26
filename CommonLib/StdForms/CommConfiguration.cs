@@ -197,12 +197,14 @@ namespace CommonLib
                         strErr = Lang.LangSys.C("Invalid com port");
                         return false;
 					}
-
+#if LINUX
+#else
                     if (!Param.StartsWith("COM"))
                     {
                         strErr = Lang.LangSys.C("Invalid Serial port");
                         return false;
                     }
+#endif
                 }
                 else if (TYPE_COMM.VIRTUAL.ToString() == Type)
                 {

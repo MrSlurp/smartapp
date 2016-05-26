@@ -1,7 +1,7 @@
 <Root>
   <FileHeader>
     <FileVersion Indice="3" />
-    <SoftVersion Indice="3.2.0.0" />
+    <SoftVersion Indice="3.2.0.2" />
   </FileHeader>
   <Comm>
     <CommType>ETHERNET</CommType>

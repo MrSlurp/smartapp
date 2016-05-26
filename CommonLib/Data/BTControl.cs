@@ -426,7 +426,14 @@ namespace CommonLib
                     XmlNode fontAttrib = fontNode.Attributes.GetNamedItem(XML_CF_ATTRIB.FontAttrib.ToString());
                     XmlNode fontSize = fontNode.Attributes.GetNamedItem(XML_CF_ATTRIB.FontSize.ToString());
                     XmlNode fontColor = fontNode.Attributes.GetNamedItem(XML_CF_ATTRIB.Color.ToString());
-                    this.TextFont = new Font(fontName.Value, float.Parse(fontSize.Value), (FontStyle)Enum.Parse(typeof(FontStyle), fontAttrib.Value));
+                    try
+                    {
+                        this.TextFont = new Font(fontName.Value, float.Parse(fontSize.Value), (FontStyle)Enum.Parse(typeof(FontStyle), fontAttrib.Value));
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Error while reading font (control {0})", this.Symbol);
+                    }
                     if (fontColor != null)
                         this.TextColor = ColorTranslate.StringToColor(fontColor.Value);
                 }

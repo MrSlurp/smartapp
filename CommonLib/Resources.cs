@@ -99,19 +99,19 @@ namespace CommonLib
 		{
             string strAppDir = Path.GetDirectoryName(Application.ExecutablePath);
             AppIcon = NewIcoTrPath(strAppDir + "\\SmartApp.ico");
-            AlignLeft = NewBmpTrPath(strAppDir + "\\Res\\ToolBar\\AlignLeft.bmp");
-            AlignTop = NewBmpTrPath(strAppDir + "\\Res\\ToolBar\\AlignTop.bmp");
-            ArrangeAcross = NewBmpTrPath(strAppDir + "\\Res\\ToolBar\\ArrangeAcross.bmp");
-            ArrangeDown = NewBmpTrPath(strAppDir + "\\Res\\ToolBar\\ArrangeDown.bmp");
+            AlignLeft = NewBmpTrPath(strAppDir + "\\Res\\Toolbar\\AlignLeft.bmp");
+            AlignTop = NewBmpTrPath(strAppDir + "\\Res\\Toolbar\\AlignTop.bmp");
+            ArrangeAcross = NewBmpTrPath(strAppDir + "\\Res\\Toolbar\\ArrangeAcross.bmp");
+            ArrangeDown = NewBmpTrPath(strAppDir + "\\Res\\Toolbar\\ArrangeDown.bmp");
             BottomBtn = NewBmpTrPath(strAppDir + "\\Res\\DownBtn.bmp");
             BottomLeftBtn = NewBmpTrPath(strAppDir + "\\Res\\BottomLeftBtn.bmp");
             BottomRightBtn = NewBmpTrPath(strAppDir + "\\Res\\BottomRightBtn.bmp");
             CheckBox = NewBmpTrPath(strAppDir + "\\Res\\CheckBox.bmp");
             DropBtn = NewBmpTrPath(strAppDir + "\\Res\\DropBtn.bmp");
             LeftBtn = NewBmpTrPath(strAppDir + "\\Res\\LeftBtn.bmp");
-            MakeSameBoth = NewBmpTrPath(strAppDir + "\\Res\\ToolBar\\MakeSameBoth.bmp");
-            MakeSameHeight = NewBmpTrPath(strAppDir + "\\Res\\ToolBar\\MakeSameHeight.bmp");
-            MakeSameWidth = NewBmpTrPath(strAppDir + "\\Res\\ToolBar\\MakeSameWidth.bmp");
+            MakeSameBoth = NewBmpTrPath(strAppDir + "\\Res\\Toolbar\\MakeSameBoth.bmp");
+            MakeSameHeight = NewBmpTrPath(strAppDir + "\\Res\\Toolbar\\MakeSameHeight.bmp");
+            MakeSameWidth = NewBmpTrPath(strAppDir + "\\Res\\Toolbar\\MakeSameWidth.bmp");
             PresAssData = NewBmpTrPath(strAppDir + "\\Res\\PresAssData.bmp");
             RightBtn = NewBmpTrPath(strAppDir + "\\Res\\RightBtn.bmp");
             SliderBar = NewBmpTrPath(strAppDir + "\\Res\\SliderBar.bmp");
@@ -170,12 +170,28 @@ namespace CommonLib
 
         public static Bitmap NewBmpTrPath(string path)
         {
-            return new Bitmap(PathTranslator.LinuxVsWindowsPathUse(path));
+            try
+            {
+                return new Bitmap(PathTranslator.LinuxVsWindowsPathUse(path));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(string.Format("Error while loading res named {0}", path));
+            }
+            return null;
         }
 
         public static Icon NewIcoTrPath(string path)
         {
-            return new Icon(PathTranslator.LinuxVsWindowsPathUse(path));
+            try
+            {
+                return new Icon(PathTranslator.LinuxVsWindowsPathUse(path));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(string.Format("Error while loading res named {0}", path));
+            }
+            return null;
         }
     }
 }
