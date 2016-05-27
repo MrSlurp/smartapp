@@ -48,31 +48,19 @@ namespace CommonLib
 
         public List<PreParsedLine> PreParseScript(string[] script)
         {
-            if (script.Length == 0)
+            if (script == null || script.Length == 0)
                 return null;
             List<PreParsedLine> retPreParsedScript = new List<PreParsedLine>();
             for (int i = 0; i < script.Length; i++)
-            {            
-                retPreParsedScript.Add(PreParseLine(script[i]));
+            {
+                string line = script[i].Replace(" ", "");
+                if (!string.IsNullOrEmpty(line) && !line.StartsWith("//"))
+                    retPreParsedScript.Add(PreParseLine(line));
             }
-            return retPreParsedScript;
+            return retPreParsedScript.Count != 0 ? retPreParsedScript : null;
         }
 
-        public List<PreParsedLine> PreParseScript(StringCollection script)
-        {
-            if (script.Count == 0)
-                return null;
-            List<PreParsedLine> retPreParsedScript = new List<PreParsedLine>();
-            for (int i = 0; i < script.Count; i++)
-            {   
-                PreParsedLine ppLine = PreParseLine(script[i]);
-                if (ppLine != null)         
-                    retPreParsedScript.Add(ppLine);
-            }
-            return retPreParsedScript;
-        }
-
-        public PreParsedLine PreParseLine(string Line)
+        private PreParsedLine PreParseLine(string Line)
         {
             PreParsedLine retPreParsedLine = new PreParsedLine();
             string[] strTab = Line.Split(ParseExecGlobals.TOKEN_SEPARATOR);
@@ -103,6 +91,9 @@ namespace CommonLib
                         break;
                     case SCR_OBJECT.SCREEN:
                         PreParseScreen(ref retPreParsedLine, Line);
+                        break;
+                    case SCR_OBJECT.SYSTEM:
+                        PreParseSystem(ref retPreParsedLine, Line);
                         break;
                     case SCR_OBJECT.INVALID:
                     default:
@@ -179,10 +170,54 @@ namespace CommonLib
         public void PreParseFunction(ref PreParsedLine retPreParsedLine, string line)
         {
             string[] strTab = line.Split(ParseExecGlobals.TOKEN_SEPARATOR);
-            string FunctionSymb = strTab[1];
+            string FunctionSymb = strTab[1].Trim();
             ScriptParser.TrimEndParenthese(ref FunctionSymb);
+            FunctionSymb = FunctionSymb.Trim();
             Function func = (Function)m_Document.GestFunction.QuickGetFromSymbol(FunctionSymb);
             retPreParsedLine.m_Arguments = new BaseObject[1] {func};
+        }
+
+        public void PreParseSystem(ref PreParsedLine retPreParsedLine, string line)
+        {
+            // dans le cas des fonction système, il peut y avoir des points entre les parenthèses
+            string[] strTab = line.Split(ParseExecGlobals.TOKEN_SEPARATOR);
+            if (strTab.Length >= 2)
+            {
+                string strTempFull = strTab[1];
+                int posOpenParenthese = 0;
+                int posCloseParenthese = 0;
+                ScriptParser.GetParenthesePos(strTempFull, ref posOpenParenthese, ref posCloseParenthese);
+                string MathFunc = strTempFull;
+                MathFunc = MathFunc.Remove(posOpenParenthese);
+                MathFunc = MathFunc.Trim();
+
+                SYSTEM_FUNC SecondTokenType = SYSTEM_FUNC.INVALID;
+                try
+                {
+                    SecondTokenType = (SYSTEM_FUNC)Enum.Parse(typeof(SYSTEM_FUNC), MathFunc);
+                }
+                catch (Exception)
+                {
+                    Traces.LogAddDebug(TraceCat.Parser, "Erreur parsing system func");
+                    return;
+                }
+                if (SecondTokenType != SYSTEM_FUNC.INVALID)
+                {
+                    string[] strParamList = null;
+                    ScriptParser.GetArgsAsString(line, ref strParamList);
+                    retPreParsedLine.m_objArguments = new string[strParamList.Length];
+                    for (int i = 0; i < strParamList.Length; i++)
+                    {
+                        ((string[])retPreParsedLine.m_objArguments)[i] = strParamList[i].Trim();
+                    }
+                    switch (SecondTokenType)
+                    {
+                        case SYSTEM_FUNC.SHELL_EXEC:
+                            retPreParsedLine.m_FunctionToExec = ALL_FUNC.SYSTEM_SHELL_EXEC;
+                            break;
+                    }
+                }
+            }
         }
     
         public void PreParseTimers(ref PreParsedLine retPreParsedLine, string line)
@@ -269,6 +304,33 @@ namespace CommonLib
                             break;
                         case MATHS_FUNC.DIV:
                             retPreParsedLine.m_FunctionToExec = ALL_FUNC.MATHS_DIV;
+                            break;
+                        case MATHS_FUNC.COS:
+                            retPreParsedLine.m_FunctionToExec = ALL_FUNC.MATHS_COS;
+                            break;
+                        case MATHS_FUNC.SIN:
+                            retPreParsedLine.m_FunctionToExec = ALL_FUNC.MATHS_SIN;
+                            break;
+                        case MATHS_FUNC.TAN:
+                            retPreParsedLine.m_FunctionToExec = ALL_FUNC.MATHS_TAN;
+                            break;
+                        case MATHS_FUNC.SQRT:
+                            retPreParsedLine.m_FunctionToExec = ALL_FUNC.MATHS_SQRT;
+                            break;
+                        case MATHS_FUNC.POW:
+                            retPreParsedLine.m_FunctionToExec = ALL_FUNC.MATHS_POW;
+                            break;
+                        case MATHS_FUNC.LN:
+                            retPreParsedLine.m_FunctionToExec = ALL_FUNC.MATHS_LN;
+                            break;
+                        case MATHS_FUNC.LOG:
+                            retPreParsedLine.m_FunctionToExec = ALL_FUNC.MATHS_LOG;
+                            break;
+                        case MATHS_FUNC.SET:
+                            retPreParsedLine.m_FunctionToExec = ALL_FUNC.MATHS_SET;
+                            break;
+                        case MATHS_FUNC.MOD:
+                            retPreParsedLine.m_FunctionToExec = ALL_FUNC.MATHS_MOD;
                             break;
                     }
                 }
@@ -361,6 +423,12 @@ namespace CommonLib
                 retPreParsedLine.m_Arguments = new BaseObject[1] {m_Document.GestScreen.QuickGetFromSymbol(strScreen)};  
                 switch (SecondTokenType)
                 {
+                    case SCREEN_FUNC.SHOW:
+                        retPreParsedLine.m_FunctionToExec = ALL_FUNC.SCREEN_SHOW;
+                        break;
+                    case SCREEN_FUNC.HIDE:
+                        retPreParsedLine.m_FunctionToExec = ALL_FUNC.SCREEN_HIDE;
+                        break;
                     case SCREEN_FUNC.SHOW_ON_TOP:
                         retPreParsedLine.m_FunctionToExec = ALL_FUNC.SCREEN_SHOW_ON_TOP;
                         break;

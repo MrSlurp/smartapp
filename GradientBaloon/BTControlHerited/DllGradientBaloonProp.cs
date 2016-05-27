@@ -14,18 +14,20 @@ namespace GradientBaloon
         // ajouter ici les données membres des propriété
 
         // ajouter ici les accesseur vers les données membres des propriété
+        public DllGradientBaloonProp(ItemScriptsConainter scriptContainter) : base(scriptContainter) { }
 
-        public override bool ReadIn(System.Xml.XmlNode Node)
+
+        public override bool ReadIn(XmlNode Node, BTDoc document)
         {
             return true;
         }
 
-        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
+        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node, BTDoc document)
         {
             return true;
         }
 
-        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance)
+        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance, BTDoc document)
         {
         }
 

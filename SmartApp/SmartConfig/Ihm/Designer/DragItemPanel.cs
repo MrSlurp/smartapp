@@ -78,7 +78,7 @@ namespace SmartApp.Ihm.Designer
                         Size sz = Dll.ToolWindSize;
                         InteractiveControl newICtrl = Dll.CreateInteractiveControl();
                         newICtrl.AllowDrop = true;
-                        newICtrl.Location = new System.Drawing.Point(3, DownPos);
+                        newICtrl.Location = new System.Drawing.Point(15, DownPos);
                         newICtrl.Name = Dll.DefaultControlName;
                         newICtrl.Selected = false;
                         newICtrl.Size = sz;

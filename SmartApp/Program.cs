@@ -80,14 +80,13 @@ namespace SmartApp
         [STAThread]
         static void Main(string[] strArgsList)
         {
-            Application.EnableVisualStyles();
+            //Application.EnableVisualStyles();
             // attention, cette ligne est toujours appelé, mais dans la création du singleton de la fenêtre principale
             // car les membres étant statiques, il provoquent la création de la fenêtre pendant le chargement même de l'application
             Application.SetCompatibleTextRenderingDefault(false);
-            
-            Traces.Initialize(Application.StartupPath, 
-                              "TraceSmartApp.txt", 
-                              (TracesLevel)SmartApp.Properties.Settings.Default.LogLevel, 
+            Traces.Initialize(Application.StartupPath,
+                              "TraceSmartApp.txt",
+                              (TracesLevel)SmartApp.Properties.Settings.Default.LogLevel,
                               (TraceCat)Convert.ToInt32(SmartApp.Properties.Settings.Default.LogCat, 16),
                               SmartApp.Properties.Settings.Default.LogToFile
                               );
@@ -104,22 +103,21 @@ namespace SmartApp
                 case TYPE_APP.SMART_CONFIG:
                     m_TypeApp = TYPE_APP.SMART_CONFIG;
                     if (LaunchArgParser.File != null)
-                        m_ConfigApp = new MDISmartConfigMain(LaunchArgParser.File);
+                        m_CurrentMainForm = m_ConfigApp = new MDISmartConfigMain(LaunchArgParser.File);
                     else
-                        m_ConfigApp = new MDISmartConfigMain();
+                        m_CurrentMainForm = m_ConfigApp = new MDISmartConfigMain();
                     Application.Run(m_ConfigApp);
                     break;
                 case TYPE_APP.SMART_COMMAND:
                     m_TypeApp = TYPE_APP.SMART_COMMAND;
                     if (LaunchArgParser.File != null)
-                        m_CommandApp = new MDISmartCommandMain(LaunchArgParser.File);
+                        m_CurrentMainForm = m_CommandApp = new MDISmartCommandMain(LaunchArgParser.File);
                     else
-                        m_CommandApp = new MDISmartCommandMain();
+                        m_CurrentMainForm = m_CommandApp = new MDISmartCommandMain();
 
                     Application.Run(m_CommandApp);
                     break;
             }
-            
         }
     }
 }

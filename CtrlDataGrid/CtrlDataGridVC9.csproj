@@ -74,23 +74,17 @@
   <ItemGroup>
     <Compile Include="BTControlHerited\BTDllCtrlDataGridControl.cs" />
     <Compile Include="BTControlHerited\DllCtrlDataGridProp.cs" />
-    <Compile Include="ConfigForm\CtrlDataGridProperties.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ConfigForm\CtrlDataGridProperties.Designer.cs">
-      <DependentUpon>CtrlDataGridProperties.cs</DependentUpon>
-    </Compile>
     <Compile Include="ConfigForm\DataParam.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ConfigForm\DataParam.Designer.cs">
       <DependentUpon>DataParam.cs</DependentUpon>
     </Compile>
-    <Compile Include="ConfigForm\DataGridConfigForm.cs">
-      <SubType>Form</SubType>
+    <Compile Include="ConfigForm\CtrlDataGridProperties.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ConfigForm\DataGridConfigForm.Designer.cs">
-      <DependentUpon>DataGridConfigForm.cs</DependentUpon>
+    <Compile Include="ConfigForm\CtrlDataGridProperties.Designer.cs">
+      <DependentUpon>CtrlDataGridProperties.cs</DependentUpon>
     </Compile>
     <Compile Include="DllEntryClass.cs" />
     <Compile Include="GraphicCommandControl\CtrlDataGridCmdControl.cs">
@@ -109,10 +103,6 @@
     <EmbeddedResource Include="ConfigForm\CtrlDataGridProperties.resx">
       <SubType>Designer</SubType>
       <DependentUpon>CtrlDataGridProperties.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ConfigForm\DataGridConfigForm.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>DataGridConfigForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ConfigForm\DataParam.resx">
       <DependentUpon>DataParam.cs</DependentUpon>

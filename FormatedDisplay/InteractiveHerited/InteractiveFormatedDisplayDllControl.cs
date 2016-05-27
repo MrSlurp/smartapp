@@ -13,7 +13,7 @@ namespace FormatedDisplay
 {
     public partial class InteractiveFormatedDisplayDllControl : InteractiveControl, ISpecificControl
     {
-        UserControl m_SpecificPropPanel = new FormatedDisplayProperties();
+        static UserControl m_SpecificPropPanel = new FormatedDisplayProperties();
         StandardPropEnabling m_stdPropEnabling = new StandardPropEnabling();
         SpecificGraphicProp m_SpecGraphicProp = new SpecificGraphicProp();
 

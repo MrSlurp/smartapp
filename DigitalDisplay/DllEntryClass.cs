@@ -61,18 +61,18 @@ namespace DigitalDisplay
             }
         }
 
-        public BTControl CreateBTControl()
+        public BTControl CreateBTControl(BTDoc document)
         {
-            return new BTDllDigitalDisplayControl();
+            return new BTDllDigitalDisplayControl(document);
         }
 
-        public BTControl CreateBTControl(InteractiveControl iCtrl)
+        public BTControl CreateBTControl(BTDoc document, InteractiveControl iCtrl)
         {
-            return new BTDllDigitalDisplayControl(iCtrl);
+            return new BTDllDigitalDisplayControl(document, iCtrl);
         }
-        public BTControl CreateCommandBTControl()
+        public BTControl CreateCommandBTControl(BTDoc document)
         {
-            return new DigitalDisplayCmdControl();
+            return new DigitalDisplayCmdControl(document);
         }
 
         public InteractiveControl CreateInteractiveControl()

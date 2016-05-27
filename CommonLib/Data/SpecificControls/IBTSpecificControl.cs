@@ -17,7 +17,7 @@ namespace CommonLib
         /// </summary>
         /// <param name="Node">Noeud du control contenu dans le fichier XML</param>
         /// <returns>le BTcontrol spécifique ou null</returns>
-        public static BTControl ParseAndCreateSpecificControl(XmlNode Node)
+        public static BTControl ParseAndCreateSpecificControl(XmlNode Node, BTDoc document)
         {
             BTControl newControl = null;
             XmlNode AttrType = Node.Attributes.GetNamedItem(XML_CF_ATTRIB.SpecificType.ToString());
@@ -37,10 +37,10 @@ namespace CommonLib
             switch (TypeId)
             {
                 case SPECIFIC_TYPE.FILLED_RECT:
-                    newControl = new BTFilledRectControl();
+                    newControl = new BTFilledRectControl(document);
                     break;
                 case SPECIFIC_TYPE.FILLED_ELLIPSE:
-                    newControl = new BTFilledEllipseControl();
+                    newControl = new BTFilledEllipseControl(document);
                     break;
                 case SPECIFIC_TYPE.NULL:
                 default:

@@ -14,7 +14,8 @@ namespace GradientBaloon
         // Description:
         // Return: /
         //*****************************************************************************************************
-        public GradientBaloonCmdControl()
+        public GradientBaloonCmdControl(BTDoc document)
+            : base(document)
         {
 
         }

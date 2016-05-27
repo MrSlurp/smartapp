@@ -31,9 +31,10 @@ namespace SmartApp
             this.m_btnBrowse = new System.Windows.Forms.Button();
             this.m_textLogDir = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.m_checkSaveComParam = new System.Windows.Forms.CheckBox();
+            this.m_checkAutoStartProjOnOpen = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.m_checkHideMonitorOnStart = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // m_btnBrowse
@@ -66,20 +67,20 @@ namespace SmartApp
             this.label1.TabIndex = 14;
             this.label1.Text = "Log file directory";
             // 
-            // m_checkSaveComParam
+            // m_checkAutoStartProjOnOpen
             // 
-            this.m_checkSaveComParam.AutoSize = true;
-            this.m_checkSaveComParam.Location = new System.Drawing.Point(10, 68);
-            this.m_checkSaveComParam.Name = "m_checkSaveComParam";
-            this.m_checkSaveComParam.Size = new System.Drawing.Size(221, 17);
-            this.m_checkSaveComParam.TabIndex = 15;
-            this.m_checkSaveComParam.Text = "Save Connection parameters for each file";
-            this.m_checkSaveComParam.UseVisualStyleBackColor = true;
+            this.m_checkAutoStartProjOnOpen.AutoSize = true;
+            this.m_checkAutoStartProjOnOpen.Location = new System.Drawing.Point(10, 64);
+            this.m_checkAutoStartProjOnOpen.Name = "m_checkAutoStartProjOnOpen";
+            this.m_checkAutoStartProjOnOpen.Size = new System.Drawing.Size(267, 17);
+            this.m_checkAutoStartProjOnOpen.TabIndex = 15;
+            this.m_checkAutoStartProjOnOpen.Text = "Automatically start supervision after project opening";
+            this.m_checkAutoStartProjOnOpen.UseVisualStyleBackColor = true;
             // 
             // button1
             // 
             this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.button1.Location = new System.Drawing.Point(10, 96);
+            this.button1.Location = new System.Drawing.Point(12, 117);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 16;
@@ -89,12 +90,22 @@ namespace SmartApp
             // button2
             // 
             this.button2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.button2.Location = new System.Drawing.Point(91, 96);
+            this.button2.Location = new System.Drawing.Point(93, 117);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 16;
             this.button2.Text = "Cancel";
             this.button2.UseVisualStyleBackColor = true;
+            // 
+            // m_checkHideMonitorOnStart
+            // 
+            this.m_checkHideMonitorOnStart.AutoSize = true;
+            this.m_checkHideMonitorOnStart.Location = new System.Drawing.Point(10, 87);
+            this.m_checkHideMonitorOnStart.Name = "m_checkHideMonitorOnStart";
+            this.m_checkHideMonitorOnStart.Size = new System.Drawing.Size(167, 17);
+            this.m_checkHideMonitorOnStart.TabIndex = 15;
+            this.m_checkHideMonitorOnStart.Text = "Hide monitor after project start";
+            this.m_checkHideMonitorOnStart.UseVisualStyleBackColor = true;
             // 
             // OptionForm
             // 
@@ -102,10 +113,11 @@ namespace SmartApp
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.button2;
-            this.ClientSize = new System.Drawing.Size(390, 131);
+            this.ClientSize = new System.Drawing.Size(390, 152);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.m_checkSaveComParam);
+            this.Controls.Add(this.m_checkHideMonitorOnStart);
+            this.Controls.Add(this.m_checkAutoStartProjOnOpen);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.m_btnBrowse);
             this.Controls.Add(this.m_textLogDir);
@@ -121,8 +133,9 @@ namespace SmartApp
         private System.Windows.Forms.Button m_btnBrowse;
         private System.Windows.Forms.TextBox m_textLogDir;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.CheckBox m_checkSaveComParam;
+        private System.Windows.Forms.CheckBox m_checkAutoStartProjOnOpen;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.CheckBox m_checkHideMonitorOnStart;
     }
 }

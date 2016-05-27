@@ -64,7 +64,8 @@ namespace CtrlDataGrid
         /// <summary>
         /// Constructeur de la classe
         /// </summary>
-        public CtrlDataGridCmdControl()
+        public CtrlDataGridCmdControl(BTDoc document)
+            : base(document)
         {
 
         }

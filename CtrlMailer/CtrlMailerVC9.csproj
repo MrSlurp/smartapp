@@ -87,12 +87,6 @@
     <Compile Include="ConfigForm\CtrlMailerProperties.Designer.cs">
       <DependentUpon>CtrlMailerProperties.cs</DependentUpon>
     </Compile>
-    <Compile Include="ConfigForm\MailEditionForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ConfigForm\MailEditionForm.Designer.cs">
-      <DependentUpon>MailEditionForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="DllEntryClass.cs" />
     <Compile Include="GraphicCommandControl\CtrlMailerCmdControl.cs">
       <SubType>UserControl</SubType>
@@ -137,10 +131,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ConfigForm\CtrlMailerProperties.resx">
       <DependentUpon>CtrlMailerProperties.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ConfigForm\MailEditionForm.resx">
-      <DependentUpon>MailEditionForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

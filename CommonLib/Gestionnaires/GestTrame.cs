@@ -17,6 +17,14 @@ namespace CommonLib
     public class GestTrame : BaseGest
     {
         #region fonction "utilitaires"
+        public override BaseObject AddNewObject(BTDoc document)
+        {
+            Trame dat = new Trame();
+            dat.Symbol = GetNextDefaultSymbol();
+            this.AddObj(dat);
+            return dat;
+        }
+
         /// <summary>
         /// renvoie le prochain symbol libre pour une nouvelle donnée
         /// </summary>
@@ -42,7 +50,7 @@ namespace CommonLib
         /// <param name="Node">Noeud Xml de l'objet</param>
         /// <param name="TypeApp">type d'application courante</param>
         /// <returns>true si la lecture s'est bien passé</returns>
-        public override bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
+        public override bool ReadIn(XmlNode Node, BTDoc document)
         {
             for (int i = 0; i < Node.ChildNodes.Count; i++)
             {
@@ -53,7 +61,7 @@ namespace CommonLib
                 Trame NewTrame = new Trame();
                 if (NewTrame != null)
                 {
-                    if (!NewTrame.ReadIn(ChildNode, TypeApp))
+                    if (!NewTrame.ReadIn(ChildNode, document))
                         return false;
 
                     this.AddObj(NewTrame);
@@ -68,17 +76,17 @@ namespace CommonLib
         /// <param name="XmlDoc">Document XML courant</param>
         /// <param name="Node">Noeud parent du controle dans le document</param>
         /// <returns>true si l'écriture s'est déroulée avec succès</returns>
-        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
+        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node, BTDoc document)
         {
             for (int i = 0; i < this.m_ListObject.Count; i++)
             {
                 Trame Tr = (Trame)m_ListObject[i];
 
                 XmlNode XmlTrame = XmlDoc.CreateElement(XML_CF_TAG.Trame.ToString());
-                Tr.WriteOut(XmlDoc, XmlTrame);
+                Tr.WriteOut(XmlDoc, XmlTrame, document);
                 Node.AppendChild(XmlTrame);
             }
-            base.WriteOut(XmlDoc, Node);
+            base.WriteOut(XmlDoc, Node, document);
             return true;
         }
         #endregion

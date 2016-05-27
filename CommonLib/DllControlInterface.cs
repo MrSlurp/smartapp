@@ -11,9 +11,9 @@ namespace CommonLib
     {
         uint DllID { get; }
         string CurrentLang { get; set;}
-        BTControl CreateBTControl();
-        BTControl CreateBTControl(InteractiveControl iCtrl);
-        BTControl CreateCommandBTControl();
+        BTControl CreateBTControl(BTDoc document);
+        BTControl CreateBTControl(BTDoc document, InteractiveControl iCtrl);
+        BTControl CreateCommandBTControl(BTDoc document);
         InteractiveControl CreateInteractiveControl();
         string DefaultControlName { get;}
         //UserControl SpecificPropPanel { get;}

@@ -61,18 +61,18 @@ namespace CtrlDemux
             }
         }
 
-        public BTControl CreateBTControl()
+        public BTControl CreateBTControl(BTDoc document)
         {
-            return new BTDllCtrlDemuxControl();
+            return new BTDllCtrlDemuxControl(document);
         }
 
-        public BTControl CreateBTControl(InteractiveControl iCtrl)
+        public BTControl CreateBTControl(BTDoc document, InteractiveControl iCtrl)
         {
-            return new BTDllCtrlDemuxControl(iCtrl);
+            return new BTDllCtrlDemuxControl(document, iCtrl);
         }
-        public BTControl CreateCommandBTControl()
+        public BTControl CreateCommandBTControl(BTDoc document)
         {
-            return new CtrlDemuxCmdControl();
+            return new CtrlDemuxCmdControl(document);
         }
 
         public InteractiveControl CreateInteractiveControl()

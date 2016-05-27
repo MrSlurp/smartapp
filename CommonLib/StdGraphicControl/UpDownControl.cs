@@ -21,7 +21,8 @@ namespace CommonLib
         // Description:
         // Return: /
         //*****************************************************************************************************
-        public UpDownControl()
+        public UpDownControl(BTDoc document)
+            : base(document)
         {
         }
 

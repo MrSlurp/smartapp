@@ -1,4 +1,4 @@
-﻿namespace SmartApp.SmartConfig.Ihm.Wizards.SplitJoinDataWizard
+﻿namespace SmartApp.Wizards
 {
     partial class SJWizPreviewChange
     {

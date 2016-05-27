@@ -17,7 +17,7 @@ namespace ScreenItemLocker
     public partial class InteractiveScreenItemLockerDllControl : InteractiveControl, ISpecificControl
     {
         // panneau des propriété de l'objet
-        UserControl m_SpecificPropPanel = new ScreenItemLockerProperties();
+        static UserControl m_SpecificPropPanel = new ScreenItemLockerProperties();
         // proriétés d'activation des paramètres standard des controls
         StandardPropEnabling m_stdPropEnabling = new StandardPropEnabling();
         // propriété de comportement de l'objet dans le designer

@@ -13,7 +13,7 @@ namespace CtrlDataTrigger
 {
     public partial class InteractiveCtrlDataTriggerDllControl : InteractiveControl, ISpecificControl
     {
-        UserControl m_SpecificPropPanel = new CtrlDataTriggerProperties();
+        static UserControl m_SpecificPropPanel = new CtrlDataTriggerProperties();
         StandardPropEnabling m_stdPropEnabling = new StandardPropEnabling();
         SpecificGraphicProp m_SpecGraphicProp = new SpecificGraphicProp();
 
@@ -33,7 +33,7 @@ namespace CtrlDataTrigger
             m_stdPropEnabling.m_bcheckScreenEventChecked = false;
             m_stdPropEnabling.m_bEditAssociateDataEnabled = true;
             m_stdPropEnabling.m_bEditTextEnabled = false;
-            m_stdPropEnabling.m_bCtrlEventScriptEnabled = false;
+            m_stdPropEnabling.m_bCtrlEventScriptEnabled = true;
 
             // modifiez ici les valeur afin que le control ai la taille min souhaité et ses possibilité de redimensionnement
             m_SpecGraphicProp.m_bcanResizeWidth = false;

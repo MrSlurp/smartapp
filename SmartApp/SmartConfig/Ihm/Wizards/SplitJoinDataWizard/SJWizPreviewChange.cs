@@ -6,13 +6,29 @@ using System.Data;
 using System.Text;
 using System.Windows.Forms;
 
-namespace SmartApp.SmartConfig.Ihm.Wizards.SplitJoinDataWizard
+namespace SmartApp.Wizards
 {
-    public partial class SJWizPreviewChange : UserControl
+    public partial class SJWizPreviewChange : UserControl, ISJWizForm
     {
         public SJWizPreviewChange()
         {
             InitializeComponent();
         }
+
+        SJDataWizardManager m_Manager;
+        public SJDataWizardManager SJManager
+        { get { return m_Manager; } set { m_Manager = value; } }
+
+        public bool AllowGoNext { get { return true; } }
+
+        public void HmiToData()
+        {
+
+        }
+
+        public void DataToHmi()
+        {
+        }
+
     }
 }

@@ -1,25 +1,25 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
 using System.Windows.Forms;
 
 namespace CommonLib
 {
-    public static class PathTranslator
+    public class PathTranslator
     {
         public const string DOC_KEY = "$DocPath$";
         public const string EXE_KEY = "$ExePath$";
-        static string m_BTDocPath = "";
+        public const string SOL_KEY = "$SolPath$";
+        string m_BTDocPath = "";
 
         /// <summary>
         /// accesseur du chemin du document, valide dès qu'un document est ouvert
         /// </summary>
-        public static string BTDocPath
+        public string BTDocPath
         {
-            get
-            { return m_BTDocPath; }
-            set
-            { m_BTDocPath = value; }
+            get { return m_BTDocPath; }
+            set { m_BTDocPath = value; }
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace CommonLib
         /// </summary>
         /// <param name="CheminCompletFichier">chemin du fichier</param>
         /// <returns>chemin relatif du fichier</returns>
-        public static string AbsolutePathToRelative(string CheminCompletFichier)
+        public string AbsolutePathToRelative(string CheminCompletFichier)
         {
             if (!String.IsNullOrEmpty(CheminCompletFichier))
             {
@@ -59,7 +59,7 @@ namespace CommonLib
         /// </summary>
         /// <param name="CheminRelatifFichier">chemin relatif du fichier</param>
         /// <returns>chemin complet du fichier</returns>
-        public static string RelativePathToAbsolute(string CheminRelatifFichier)
+        public string RelativePathToAbsolute(string CheminRelatifFichier)
         {
             string strRet = string.Empty;
             strRet = CheminRelatifFichier;
@@ -104,6 +104,14 @@ namespace CommonLib
 #else
             return strPath;
 #endif
+        }
+
+        public static void CheckFileExistOrThrow(string strFilePath)
+        {
+            if (File.Exists(strFilePath))
+                return;
+            else
+                throw new Exception("File doesnot exists");
         }
 
     }

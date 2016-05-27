@@ -13,7 +13,7 @@ namespace DigitalDisplay
 {
     public partial class InteractiveDigitalDisplayDllControl : InteractiveControl, ISpecificControl
     {
-        UserControl m_SpecificPropPanel = new DigitalDisplayProperties();
+        static UserControl m_SpecificPropPanel = new DigitalDisplayProperties();
         StandardPropEnabling m_stdPropEnabling = new StandardPropEnabling();
         SpecificGraphicProp m_SpecGraphicProp = new SpecificGraphicProp();
 

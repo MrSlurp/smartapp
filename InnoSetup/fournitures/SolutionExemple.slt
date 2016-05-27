@@ -1,0 +1,8 @@
+<Solution>
+  <FileVersion Value="1" />
+  <ProjectList>
+    <ProjectList Value="$DocPath$\M3_ETH.saf" />
+    <ProjectList Value="$DocPath$\M3_Serial.saf" />
+    <ProjectList Value="$DocPath$\test.sab" />
+  </ProjectList>
+</Solution>

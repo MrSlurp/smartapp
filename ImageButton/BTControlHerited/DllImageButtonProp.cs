@@ -27,6 +27,9 @@ namespace ImageButton
         private const string NOM_ATTRIB_BORDER_SIZE = "BorderSize";
         private const string NOM_ATTRIB_INTPUT_DATA = "InputData";
 
+
+        public DllImageButtonProp(ItemScriptsConainter scriptContainter) : base(scriptContainter) { }
+
         // ajouter ici les accesseur vers les données membres des propriété
         public string ReleasedImage
         {
@@ -86,7 +89,7 @@ namespace ImageButton
         /// </summary>
         /// <param name="Node">noeud du control a qui appartiens les propriété </param>
         /// <returns>true en cas de succès de la lecture</returns>
-        public override bool ReadIn(XmlNode Node)
+        public override bool ReadIn(XmlNode Node, BTDoc document)
         {
             if (Node.FirstChild != null)
             {
@@ -129,7 +132,7 @@ namespace ImageButton
         /// <param name="XmlDoc">Document XML</param>
         /// <param name="Node">noeud du control a qui appartiens les propriété</param>
         /// <returns>true en cas de succès de l'écriture</returns>
-        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
+        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node, BTDoc document)
         {
             XmlNode ItemProp = XmlDoc.CreateElement(NOM_NOEUD_PROP);
             XmlAttribute AttrRel = XmlDoc.CreateAttribute(NOM_ATTRIB_REL);
@@ -138,8 +141,8 @@ namespace ImageButton
             XmlAttribute AttrStyle = XmlDoc.CreateAttribute(NOM_ATTRIB_STYLE);
             XmlAttribute AttrBorderSize = XmlDoc.CreateAttribute(NOM_ATTRIB_BORDER_SIZE);
             XmlAttribute AttrInputData = XmlDoc.CreateAttribute(NOM_ATTRIB_INTPUT_DATA);
-            AttrRel.Value = PathTranslator.AbsolutePathToRelative(ReleasedImage);
-            AttrPre.Value = PathTranslator.AbsolutePathToRelative(PressedImage);
+            AttrRel.Value = document.PathTr.AbsolutePathToRelative(ReleasedImage);
+            AttrPre.Value = document.PathTr.AbsolutePathToRelative(PressedImage);
             Attrbistable.Value = m_bIsBistable.ToString();
             AttrStyle.Value = m_Style.ToString();
             AttrBorderSize.Value = m_BorderSize.ToString();
@@ -158,19 +161,19 @@ namespace ImageButton
         /// Recopie les paramètres d'un control source du même type vers les paramètres courants
         /// </summary>
         /// <param name="SrcSpecificProp">Paramètres sources</param>
-        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance)
+        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance, BTDoc document)
         {
-            DllImageButtonProp SrcProp = (DllImageButtonProp)SrcSpecificProp;
-            if (bFromOtherInstance)
+            if (SrcSpecificProp is DllImageButtonProp)
             {
+                DllImageButtonProp SrcProp = SrcSpecificProp as DllImageButtonProp;
                 if (File.Exists(PathTranslator.LinuxVsWindowsPathUse(
-                                PathTranslator.RelativePathToAbsolute(
+                                document.PathTr.RelativePathToAbsolute(
                                 SrcProp.ReleasedImage))))
                 {
                     ReleasedImage = SrcProp.ReleasedImage;
                 }
                 if (File.Exists(PathTranslator.LinuxVsWindowsPathUse(
-                                PathTranslator.RelativePathToAbsolute(
+                                document.PathTr.RelativePathToAbsolute(
                                 SrcProp.PressedImage))))
                 {
                     PressedImage = SrcProp.PressedImage;
@@ -178,15 +181,6 @@ namespace ImageButton
                 m_bIsBistable = SrcProp.m_bIsBistable;
                 m_Style = SrcProp.m_Style;
                 m_BorderSize = SrcProp.m_BorderSize;
-            }
-            else
-            {
-                ReleasedImage = SrcProp.ReleasedImage;
-                PressedImage = SrcProp.PressedImage;
-                m_bIsBistable = SrcProp.m_bIsBistable;
-                m_Style = SrcProp.m_Style;
-                m_BorderSize = SrcProp.m_BorderSize;
-                m_strInputData = SrcProp.m_strInputData;
             }
         }
 
@@ -206,43 +200,9 @@ namespace ImageButton
         {
             if (TypeApp == TYPE_APP.SMART_CONFIG)
             {
-                switch (Mess)
-                {
-                    case MESSAGE.MESS_ASK_ITEM_DELETE:
-                        if (((MessAskDelete)obj).TypeOfItem == typeof(Data))
-                        {
-                            MessAskDelete MessParam = (MessAskDelete)obj;
-                            string strMess = string.Empty;
-                            if (MessParam.WantDeletetItemSymbol == m_strInputData)
-                            {
-                                strMess = string.Format(DllEntryClass.LangSys.C("Image Button {0} : Input Data will be removed"), PropOwner.Symbol);
-                                MessParam.ListStrReturns.Add(strMess);
-                            }
-                        }
-                        break;
-                    case MESSAGE.MESS_ITEM_DELETED:
-                        if (((MessDeleted)obj).TypeOfItem == typeof(Data))
-                        {
-                            MessDeleted MessParam = (MessDeleted)obj;
-                            if (MessParam.DeletetedItemSymbol == m_strInputData)
-                            {
-                                m_strInputData = string.Empty;
-                            }
-                        }
-                        break;
-                    case MESSAGE.MESS_ITEM_RENAMED:
-                        if (((MessItemRenamed)obj).TypeOfItem == typeof(Data))
-                        {
-                            MessItemRenamed MessParam = (MessItemRenamed)obj;
-                            if (MessParam.OldItemSymbol == m_strInputData)
-                            {
-                                m_strInputData = MessParam.NewItemSymbol;
-                            }
-                        }
-                        break;
-                    default:
-                        break;
-                }
+                BTControl.TraiteMessageDataDelete(Mess, obj, m_strInputData, PropOwner, DllEntryClass.LangSys.C("Image Button {0} : Input Data will be removed"));
+                m_strInputData = BTControl.TraiteMessageDataDeleted(Mess, obj, m_strInputData);
+                m_strInputData = BTControl.TraiteMessageDataRenamed(Mess, obj, m_strInputData);
             }
         }
 

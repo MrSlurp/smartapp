@@ -10,19 +10,19 @@ namespace FourBitmap
 {
     internal class FourBitmapCmdControl : BTDllFourBitmapControl
     {
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        public FourBitmapCmdControl()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="document"></param>
+        public FourBitmapCmdControl(BTDoc document)
+            : base(document)
         {
 
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
         public override void CreateControl()
         {
             if (m_Ctrl == null)
@@ -33,10 +33,11 @@ namespace FourBitmap
                 m_Ctrl.Size = m_RectControl.Size;
                 m_Ctrl.BackColor = Color.Transparent;
 
-                string strImageFullPath = PathTranslator.RelativePathToAbsolute(((DllFourBitmapProp)this.m_SpecificProp).NomFichier0);
+                string strImageFullPath = m_Document.PathTr.RelativePathToAbsolute(((DllFourBitmapProp)this.m_SpecificProp).NomFichier0);
                 strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
                 try
                 {
+                    PathTranslator.CheckFileExistOrThrow(strImageFullPath);
                     ((FourBitmapDispCtrl)m_Ctrl).Bmp0 = new Bitmap(strImageFullPath);
                 }
                 catch (Exception)
@@ -45,10 +46,11 @@ namespace FourBitmap
                     AddLogEvent(log);
                 }
 
-                strImageFullPath = PathTranslator.RelativePathToAbsolute(((DllFourBitmapProp)this.m_SpecificProp).NomFichier1);
+                strImageFullPath = m_Document.PathTr.RelativePathToAbsolute(((DllFourBitmapProp)this.m_SpecificProp).NomFichier1);
                 strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
                 try
                 {
+                    PathTranslator.CheckFileExistOrThrow(strImageFullPath);
                     ((FourBitmapDispCtrl)m_Ctrl).Bmp1 = new Bitmap(strImageFullPath);
                 }
                 catch (Exception)
@@ -60,10 +62,11 @@ namespace FourBitmap
                     }
                 }
 
-                strImageFullPath = PathTranslator.RelativePathToAbsolute(((DllFourBitmapProp)this.m_SpecificProp).NomFichier2);
+                strImageFullPath = m_Document.PathTr.RelativePathToAbsolute(((DllFourBitmapProp)this.m_SpecificProp).NomFichier2);
                 strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
                 try
                 {
+                    PathTranslator.CheckFileExistOrThrow(strImageFullPath);
                     ((FourBitmapDispCtrl)m_Ctrl).Bmp2 = new Bitmap(strImageFullPath);
                 }
                 catch (Exception)
@@ -75,10 +78,11 @@ namespace FourBitmap
                     }
                 }
 
-                strImageFullPath = PathTranslator.RelativePathToAbsolute(((DllFourBitmapProp)this.m_SpecificProp).NomFichier3);
+                strImageFullPath = m_Document.PathTr.RelativePathToAbsolute(((DllFourBitmapProp)this.m_SpecificProp).NomFichier3);
                 strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
                 try
                 {
+                    PathTranslator.CheckFileExistOrThrow(strImageFullPath);
                     ((FourBitmapDispCtrl)m_Ctrl).Bmp3 = new Bitmap(strImageFullPath);
                 }
                 catch (Exception)

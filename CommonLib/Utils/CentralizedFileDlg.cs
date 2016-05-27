@@ -14,6 +14,16 @@ namespace CommonLib
         private static OpenFileDialog m_usrFileDialog = new OpenFileDialog();
         private static OpenFileDialog m_prjoFileDialog = new OpenFileDialog();
         private static SaveFileDialog m_prjsFileDialog = new SaveFileDialog();
+        private static OpenFileDialog m_soloFileDialog = new OpenFileDialog();
+        private static SaveFileDialog m_solsFileDialog = new SaveFileDialog();
+
+        private static string m_ActiveProjectPath = string.Empty;
+
+        public static string ActiveProjectPath
+        {
+            get { return m_ActiveProjectPath; }
+            set { m_ActiveProjectPath = value; }
+        }
 
         #region ofd d'image/sons
         /// <summary>
@@ -42,8 +52,8 @@ namespace CommonLib
                     fd.InitialDirectory = Application.StartupPath;
                     break;
                 case BrowseFileBtn.BrowseFrom.Project:
-                    if (!string.IsNullOrEmpty(PathTranslator.BTDocPath))
-                        fd.InitialDirectory = PathTranslator.BTDocPath;
+                    if (!string.IsNullOrEmpty(m_ActiveProjectPath))
+                        fd.InitialDirectory = m_ActiveProjectPath;
                     else
                         fd.InitialDirectory = Application.StartupPath;
                     break;
@@ -223,5 +233,78 @@ namespace CommonLib
             }
         }
         #endregion
+
+        /// <summary>
+        /// initialise la boite de dialogue des fichier projets avec comme
+        /// répertoire par défaut le chemin passé en paramètre
+        /// </summary>
+        /// <param name="initDir"></param>
+        public static void InitSolFileDialog(string initDir)
+        {
+            m_soloFileDialog.Filter = Lang.LangSys.C("SmartApp Solution (*.slt)|*.slt");
+            m_soloFileDialog.InitialDirectory = initDir;
+            m_soloFileDialog.CustomPlaces.Clear();
+            m_soloFileDialog.CustomPlaces.Add(new FileDialogCustomPlace(Application.StartupPath));
+            m_solsFileDialog.Filter = Lang.LangSys.C("SmartApp Solution (*.slt)|*.slt");
+            m_solsFileDialog.InitialDirectory = initDir;
+            m_solsFileDialog.CustomPlaces.Clear();
+            m_solsFileDialog.CustomPlaces.Add(new FileDialogCustomPlace(Application.StartupPath));
+        }
+
+        // <summary>
+        /// affiche la boite de dialogue de sélection de projet et si l'utilisateur valide avec OK
+        /// mémorise le dernier chemin utilisé et le mémorise comme chemin pour la prochaine ouverture
+        /// </summary>
+        /// <returns>la réponse de l'utilisateur à la boite de dialogue</returns>
+        public static DialogResult ShowOpenSolFileDilaog()
+        {
+            DialogResult dlgRes = m_soloFileDialog.ShowDialog();
+            if (dlgRes == DialogResult.OK)
+            {
+                string path = Path.GetDirectoryName(m_soloFileDialog.FileName);
+                m_soloFileDialog.InitialDirectory = path;
+                m_solsFileDialog.InitialDirectory = path;
+            }
+            return dlgRes;
+        }
+
+        // <summary>
+        /// affiche la boite de dialogue de sélection de projet et si l'utilisateur valide avec OK
+        /// mémorise le dernier chemin utilisé et le mémorise comme chemin pour la prochaine ouverture
+        /// </summary>
+        /// <returns>la réponse de l'utilisateur à la boite de dialogue</returns>
+        public static DialogResult ShowSaveSolFileDilaog()
+        {
+            DialogResult dlgRes = m_solsFileDialog.ShowDialog();
+            if (dlgRes == DialogResult.OK)
+            {
+                string path = Path.GetDirectoryName(m_solsFileDialog.FileName);
+                m_solsFileDialog.InitialDirectory = path;
+                m_soloFileDialog.InitialDirectory = path;
+            }
+            return dlgRes;
+        }
+
+        /// <summary>
+        /// renvoie le chemin de l'image sélectionné.
+        /// </summary>
+        public static string SolOpenFileName
+        {
+            get
+            {
+                return m_soloFileDialog.FileName;
+            }
+        }
+
+        /// <summary>
+        /// renvoie le chemin de l'image sélectionné.
+        /// </summary>
+        public static string SolSaveFileName
+        {
+            get
+            {
+                return m_solsFileDialog.FileName;
+            }
+        }
     }
 }

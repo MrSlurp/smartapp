@@ -20,11 +20,12 @@ namespace CommonLib
     {
         private ArrayList m_ArrayComboValue;
         private string[] m_ListStrValues;
+        private bool m_bLockControlEvent = false;
 
         /// <summary>
         /// constructeur
         /// </summary>
-        public ComboControl()
+        public ComboControl(BTDoc document) : base(document)
         {
             m_ArrayComboValue = new ArrayList();
             m_ListStrValues = new string[Cste.MAX_COMBO_ITEMS];
@@ -75,16 +76,15 @@ namespace CommonLib
         /// <param name="Args"></param>
         public override void OnControlEvent(Object Sender, EventArgs Args)
         {
+            if (m_bLockControlEvent)
+                return;
+
             if (m_AssociateData != null)
                 m_AssociateData.Value = ((ComboBox)m_Ctrl).SelectedIndex;
 
-            if (m_ScriptLines.Count != 0)
+            if (this.m_ScriptContainer["EvtScript"] != null && this.m_ScriptContainer["EvtScript"].Length != 0)
             {
-#if !QUICK_MOTOR
-                m_Executer.ExecuteScript(this.ScriptLines);
-#else
                 m_Executer.ExecuteScript(this.m_iQuickScriptID);
-#endif
             }
 
             if (m_bUseScreenEvent)
@@ -100,10 +100,12 @@ namespace CommonLib
         {
             if (m_AssociateData != null && m_Ctrl != null)
             {
-                if (m_AssociateData.Value < ((ComboBox)m_Ctrl).Items.Count)
+                m_bLockControlEvent = true;
+                if (m_AssociateData.Value >= 0 && m_AssociateData.Value < ((ComboBox)m_Ctrl).Items.Count)
                     ((ComboBox)m_Ctrl).SelectedIndex = m_AssociateData.Value;
                 else if (((ComboBox)m_Ctrl).Items.Count > 0)
                     ((ComboBox)m_Ctrl).SelectedIndex = 0;
+                m_bLockControlEvent = false;
             }
         }
 

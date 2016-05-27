@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml;
+using System.Windows.Forms;
 
 namespace CommonLib
 {
@@ -34,6 +35,9 @@ namespace CommonLib
         private bool m_bIsUserVisible = true;
 
         protected bool m_bIsSaturationNotified = false;
+
+        private static Control m_singStdConfigPanel;
+
         #endregion
 
         #region Events
@@ -333,7 +337,7 @@ namespace CommonLib
         /// obtient ou assigne si la valeur est visible à l'utilisateur
         /// (les données de controle des protocoles ne sont pas visibles)
         /// </summary>
-        public bool IsUserVisible
+        public override bool IsUserVisible
         {
             get
             {
@@ -344,6 +348,19 @@ namespace CommonLib
                 m_bIsUserVisible = value;
             }
         }
+
+        public override Control StdConfigPanel
+        {
+            get
+            {
+                if (m_singStdConfigPanel == null)
+                {
+                    m_singStdConfigPanel = new DataPropertiesPanel();
+                }
+                return m_singStdConfigPanel;
+            }
+        }
+
         #endregion
 
         #region ReadIn / WriteOut
@@ -353,9 +370,9 @@ namespace CommonLib
         /// <param name="Node">Noeud Xml de l'objet</param>
         /// <param name="TypeApp">type d'application courante</param>
         /// <returns>true si la lecture s'est bien passé</returns>
-        public override bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
+        public override bool ReadIn(XmlNode Node, BTDoc document)
         {
-            if (!base.ReadIn(Node, TypeApp))
+            if (!base.ReadIn(Node, document))
                 return false;
             // on lit les propriété de l'objet
             XmlNode AttrMin = Node.Attributes.GetNamedItem(XML_CF_ATTRIB.Min.ToString());
@@ -387,9 +404,9 @@ namespace CommonLib
         /// <param name="XmlDoc">Document XML courant</param>
         /// <param name="Node">Noeud parent du controle dans le document</param>
         /// <returns>true si l'écriture s'est déroulée avec succès</returns>
-        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
+        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node, BTDoc document)
         {
-            base.WriteOut(XmlDoc, Node);
+            base.WriteOut(XmlDoc, Node, document);
             // on écrit les propriété de l'objet
             XmlAttribute AttrMin = XmlDoc.CreateAttribute(XML_CF_ATTRIB.Min.ToString());
             XmlAttribute AttrMax = XmlDoc.CreateAttribute(XML_CF_ATTRIB.Max.ToString());
@@ -451,6 +468,20 @@ namespace CommonLib
             // il n'utilise personne donc rien a mettre a jour
         }
         #endregion
+
+        public override string GetToolTipText()
+        {
+            string returnedText = base.GetToolTipText();
+            returnedText = Lang.LangSys.C("Size : ") + this.SizeInBits.ToString() + Lang.LangSys.C("bit(s)")+"\n";
+            returnedText += Lang.LangSys.C("Min : ") + this.Minimum + "\n";
+            returnedText += Lang.LangSys.C("Max : ") + this.Maximum + "\n";
+            returnedText += Lang.LangSys.C("Default : ") + this.DefaultValue + "\n";
+            if (IsConstant)
+                returnedText += Lang.LangSys.C("Constant") + "\n";
+
+            returnedText += "\n";
+            return returnedText;
+        }
 
     }
 }

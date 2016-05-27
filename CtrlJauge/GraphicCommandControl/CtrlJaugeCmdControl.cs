@@ -14,7 +14,8 @@ namespace CtrlJauge
         // Description:
         // Return: /
         //*****************************************************************************************************
-        public CtrlJaugeCmdControl()
+        public CtrlJaugeCmdControl(BTDoc document)
+            : base(document)
         {
 
         }

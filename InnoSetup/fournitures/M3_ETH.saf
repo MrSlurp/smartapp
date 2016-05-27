@@ -1,0 +1,430 @@
+<Root>
+  <FileHeader>
+    <FileVersion Indice="3" />
+    <SoftVersion Indice="3.2.0.2" />
+  </FileHeader>
+  <Comm>
+    <CommType>ETHERNET</CommType>
+    <CommParam>192.168.0.99:502</CommParam>
+  </Comm>
+  <ProjOptions>
+    <MainContainer IsUsed="False" size="-1,-1" Pos="-1,-1" ShowInTaskBar="True" ShowTitleBar="True" MCTitle="" />
+  </ProjOptions>
+  <PluginsGlobals />
+  <DataSection>
+    <Data strSymbol="TRANSACTION_ID" strNom="" Min="-32768" Max="32767" DefVal="1" size="16" Constant="True" />
+    <Data strSymbol="PROTOCO_ID" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="True" />
+    <Data strSymbol="FOLLOWING_6_BYTES" strNom="" Min="-32768" Max="32767" DefVal="6" size="16" Constant="True" />
+    <Data strSymbol="MODBUS_SLAVE_ADDR" strNom="" Min="0" Max="255" DefVal="1" size="8" Constant="True" />
+    <Data strSymbol="MODBUS_READ_REG" strNom="" Min="0" Max="255" DefVal="3" size="8" Constant="True" />
+    <Data strSymbol="TCPMB_REG_ADDR_12" strNom="" Min="-32768" Max="32767" DefVal="12" size="16" Constant="True" />
+    <Data strSymbol="BYTE_READ_8_REG" strNom="" Min="-32768" Max="32767" DefVal="8" size="16" Constant="True" />
+    <Data strSymbol="FOLLOWING_19_BYTES" strNom="" Min="-32768" Max="32767" DefVal="19" size="16" Constant="True" />
+    <Data strSymbol="READ_RECIEVE_16_BYTES" strNom="" Min="0" Max="255" DefVal="16" size="8" Constant="True" />
+    <Data strSymbol="ETH_IN1_O1_B16" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="ETH_IN1_O1_B15" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="ETH_IN1_O1_B14" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="ETH_IN1_O1_B13" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="ETH_IN1_O1_B12" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="ETH_IN1_O1_B11" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="ETH_IN1_O1_B10" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="ETH_IN1_O1_B9" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="ETH_IN1_O1_B8" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="ETH_IN1_O1_B7" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="ETH_IN1_O1_B6" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="ETH_IN1_O1_B5" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="ETH_IN1_O1_B4" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="ETH_IN1_O1_B3" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="ETH_IN1_O1_B2" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="ETH_IN1_O1_B1" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="ETH_IN2_O1" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="ETH_IN3_O1" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="ETH_IN4_O1" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="ETH_IN5_O1" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="ETH_IN6_O1" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="ETH_IN7_O1" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="ETH_IN8_O1" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="FOLLOWING_23_BYTES" strNom="" Min="-32768" Max="32767" DefVal="23" size="16" Constant="True" />
+    <Data strSymbol="MODBUS_WRITE_MR" strNom="" Min="0" Max="255" DefVal="16" size="8" Constant="True" />
+    <Data strSymbol="TCPMB_WRITE_8_REG" strNom="" Min="-32768" Max="32767" DefVal="8" size="16" Constant="True" />
+    <Data strSymbol="BYTE_COUNT_16_REG" strNom="" Min="0" Max="255" DefVal="16" size="8" Constant="True" />
+    <Data strSymbol="TCPMB_REG_ADDR_20" strNom="" Min="-32768" Max="32767" DefVal="20" size="16" Constant="True" />
+    <Data strSymbol="ETH_OUT1_I1_B16" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="ETH_OUT1_I1_B15" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="ETH_OUT1_I1_B14" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="ETH_OUT1_I1_B13" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="ETH_OUT1_I1_B12" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="ETH_OUT1_I1_B11" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="ETH_OUT1_I1_B10" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="ETH_OUT1_I1_B9" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="ETH_OUT1_I1_B8" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="ETH_OUT1_I1_B7" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="ETH_OUT1_I1_B6" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="ETH_OUT1_I1_B5" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="ETH_OUT1_I1_B4" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="ETH_OUT1_I1_B3" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="ETH_OUT1_I1_B2" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="ETH_OUT1_I1_B1" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="ETH_OUT2_I1" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="ETH_OUT3_I1" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="ETH_OUT4_I1" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="ETH_OUT5_I1" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="ETH_OUT6_I1" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="ETH_OUT7_I1" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="ETH_OUT8_I1" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <GroupSection>
+      <Group strNom="Groupe par défaut" strSymbol="GROUP_0" bkColor="255, 255, 255">
+        <Object strSymbol="TRANSACTION_ID" />
+        <Object strSymbol="PROTOCO_ID" />
+        <Object strSymbol="FOLLOWING_6_BYTES" />
+        <Object strSymbol="MODBUS_SLAVE_ADDR" />
+        <Object strSymbol="MODBUS_READ_REG" />
+        <Object strSymbol="TCPMB_REG_ADDR_12" />
+        <Object strSymbol="BYTE_READ_8_REG" />
+        <Object strSymbol="FOLLOWING_19_BYTES" />
+        <Object strSymbol="READ_RECIEVE_16_BYTES" />
+        <Object strSymbol="FOLLOWING_23_BYTES" />
+        <Object strSymbol="MODBUS_WRITE_MR" />
+        <Object strSymbol="TCPMB_WRITE_8_REG" />
+        <Object strSymbol="BYTE_COUNT_16_REG" />
+        <Object strSymbol="TCPMB_REG_ADDR_20" />
+      </Group>
+      <Group strNom="Controller Inputs" strSymbol="GROUP_1" bkColor="170, 254, 95">
+        <Object strSymbol="ETH_IN1_O1_B16" />
+        <Object strSymbol="ETH_IN1_O1_B15" />
+        <Object strSymbol="ETH_IN1_O1_B14" />
+        <Object strSymbol="ETH_IN1_O1_B13" />
+        <Object strSymbol="ETH_IN1_O1_B12" />
+        <Object strSymbol="ETH_IN1_O1_B11" />
+        <Object strSymbol="ETH_IN1_O1_B10" />
+        <Object strSymbol="ETH_IN1_O1_B9" />
+        <Object strSymbol="ETH_IN1_O1_B8" />
+        <Object strSymbol="ETH_IN1_O1_B7" />
+        <Object strSymbol="ETH_IN1_O1_B6" />
+        <Object strSymbol="ETH_IN1_O1_B5" />
+        <Object strSymbol="ETH_IN1_O1_B4" />
+        <Object strSymbol="ETH_IN1_O1_B3" />
+        <Object strSymbol="ETH_IN1_O1_B2" />
+        <Object strSymbol="ETH_IN1_O1_B1" />
+        <Object strSymbol="ETH_IN2_O1" />
+        <Object strSymbol="ETH_IN3_O1" />
+        <Object strSymbol="ETH_IN4_O1" />
+        <Object strSymbol="ETH_IN5_O1" />
+        <Object strSymbol="ETH_IN6_O1" />
+        <Object strSymbol="ETH_IN7_O1" />
+        <Object strSymbol="ETH_IN8_O1" />
+      </Group>
+      <Group strNom="Controller Outputs" strSymbol="GROUP_2" bkColor="255, 149, 149">
+        <Object strSymbol="ETH_OUT1_I1_B16" />
+        <Object strSymbol="ETH_OUT1_I1_B15" />
+        <Object strSymbol="ETH_OUT1_I1_B14" />
+        <Object strSymbol="ETH_OUT1_I1_B13" />
+        <Object strSymbol="ETH_OUT1_I1_B12" />
+        <Object strSymbol="ETH_OUT1_I1_B11" />
+        <Object strSymbol="ETH_OUT1_I1_B10" />
+        <Object strSymbol="ETH_OUT1_I1_B9" />
+        <Object strSymbol="ETH_OUT1_I1_B8" />
+        <Object strSymbol="ETH_OUT1_I1_B7" />
+        <Object strSymbol="ETH_OUT1_I1_B6" />
+        <Object strSymbol="ETH_OUT1_I1_B5" />
+        <Object strSymbol="ETH_OUT1_I1_B4" />
+        <Object strSymbol="ETH_OUT1_I1_B3" />
+        <Object strSymbol="ETH_OUT1_I1_B2" />
+        <Object strSymbol="ETH_OUT1_I1_B1" />
+        <Object strSymbol="ETH_OUT2_I1" />
+        <Object strSymbol="ETH_OUT3_I1" />
+        <Object strSymbol="ETH_OUT4_I1" />
+        <Object strSymbol="ETH_OUT5_I1" />
+        <Object strSymbol="ETH_OUT6_I1" />
+        <Object strSymbol="ETH_OUT7_I1" />
+        <Object strSymbol="ETH_OUT8_I1" />
+      </Group>
+    </GroupSection>
+  </DataSection>
+  <ScreenSection>
+    <Screen strSymbol="MAIN_SCREEN" strNom="" Text="">
+      <ControlList>
+        <Control strSymbol="NEW_CTRL_0" strNom="" Type="UP_DOWN" AssociateData="ETH_OUT7_I1" ScreenEvent="False" Pos="90,76" size="56,20" Text="" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+        </Control>
+        <Control strSymbol="NEW_CTRL_1" strNom="" Type="UP_DOWN" AssociateData="ETH_OUT6_I1" ScreenEvent="False" Pos="90,101" size="56,20" Text="Numeric Up/Down" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+        </Control>
+        <Control strSymbol="NEW_CTRL_2" strNom="" Type="UP_DOWN" AssociateData="ETH_OUT5_I1" ScreenEvent="False" Pos="90,125" size="56,20" Text="Numeric Up/Down" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+        </Control>
+        <Control strSymbol="NEW_CTRL_3" strNom="" Type="UP_DOWN" AssociateData="ETH_OUT4_I1" ScreenEvent="False" Pos="90,149" size="56,20" Text="Numeric Up/Down" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+        </Control>
+        <Control strSymbol="NEW_CTRL_4" strNom="" Type="UP_DOWN" AssociateData="ETH_OUT3_I1" ScreenEvent="False" Pos="90,173" size="56,20" Text="Numeric Up/Down" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+        </Control>
+        <Control strSymbol="NEW_CTRL_5" strNom="" Type="UP_DOWN" AssociateData="ETH_OUT2_I1" ScreenEvent="False" Pos="90,197" size="56,20" Text="" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+        </Control>
+        <Control strSymbol="NEW_CTRL_6" strNom="" Type="CHECK" AssociateData="ETH_OUT1_I1_B10" ScreenEvent="False" Pos="28,224" size="41,20" Text="IA" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+          <EventScript />
+        </Control>
+        <Control strSymbol="NEW_CTRL_7" strNom="" Type="CHECK" AssociateData="ETH_OUT1_I1_B9" ScreenEvent="False" Pos="28,247" size="41,20" Text="I9" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+          <EventScript />
+        </Control>
+        <Control strSymbol="NEW_CTRL_8" strNom="" Type="CHECK" AssociateData="ETH_OUT1_I1_B8" ScreenEvent="False" Pos="28,270" size="41,20" Text="I8" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+          <EventScript />
+        </Control>
+        <Control strSymbol="NEW_CTRL_9" strNom="" Type="CHECK" AssociateData="ETH_OUT1_I1_B7" ScreenEvent="False" Pos="28,293" size="41,20" Text="I7" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+          <EventScript />
+        </Control>
+        <Control strSymbol="NEW_CTRL_10" strNom="" Type="CHECK" AssociateData="ETH_OUT1_I1_B6" ScreenEvent="False" Pos="28,316" size="41,20" Text="I6" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+          <EventScript />
+        </Control>
+        <Control strSymbol="NEW_CTRL_11" strNom="" Type="CHECK" AssociateData="ETH_OUT1_I1_B5" ScreenEvent="False" Pos="28,339" size="41,20" Text="I5" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+          <EventScript />
+        </Control>
+        <Control strSymbol="NEW_CTRL_12" strNom="" Type="CHECK" AssociateData="ETH_OUT1_I1_B4" ScreenEvent="False" Pos="28,362" size="41,20" Text="I4" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+          <EventScript />
+        </Control>
+        <Control strSymbol="NEW_CTRL_13" strNom="" Type="CHECK" AssociateData="ETH_OUT1_I1_B3" ScreenEvent="False" Pos="28,385" size="41,20" Text="I3" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+          <EventScript />
+        </Control>
+        <Control strSymbol="NEW_CTRL_14" strNom="" Type="CHECK" AssociateData="ETH_OUT1_I1_B2" ScreenEvent="False" Pos="28,408" size="41,20" Text="I2" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+          <EventScript />
+        </Control>
+        <Control strSymbol="NEW_CTRL_15" strNom="" Type="CHECK" AssociateData="ETH_OUT1_I1_B1" ScreenEvent="False" Pos="28,431" size="41,20" Text="I1" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+          <EventScript />
+        </Control>
+        <Control strSymbol="NEW_CTRL_16" strNom="" Type="CHECK" AssociateData="ETH_IN1_O1_B10" ScreenEvent="True" Pos="485,13" size="44,20" Text="OA" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+          <EventScript />
+        </Control>
+        <Control strSymbol="NEW_CTRL_17" strNom="" Type="CHECK" AssociateData="ETH_IN1_O1_B9" ScreenEvent="True" Pos="485,35" size="44,20" Text="O9" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+          <EventScript />
+        </Control>
+        <Control strSymbol="NEW_CTRL_18" strNom="" Type="CHECK" AssociateData="ETH_IN1_O1_B8" ScreenEvent="True" Pos="485,61" size="44,20" Text="O8" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+          <EventScript />
+        </Control>
+        <Control strSymbol="NEW_CTRL_19" strNom="" Type="CHECK" AssociateData="ETH_IN1_O1_B7" ScreenEvent="True" Pos="485,125" size="44,20" Text="O7" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+          <EventScript />
+        </Control>
+        <Control strSymbol="NEW_CTRL_20" strNom="" Type="CHECK" AssociateData="ETH_IN1_O1_B6" ScreenEvent="True" Pos="485,189" size="44,20" Text="O6" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+          <EventScript />
+        </Control>
+        <Control strSymbol="NEW_CTRL_21" strNom="" Type="CHECK" AssociateData="ETH_IN1_O1_B5" ScreenEvent="True" Pos="485,253" size="44,20" Text="O5" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+          <EventScript />
+        </Control>
+        <Control strSymbol="NEW_CTRL_22" strNom="" Type="CHECK" AssociateData="ETH_IN1_O1_B4" ScreenEvent="True" Pos="485,317" size="44,20" Text="O4" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+          <EventScript />
+        </Control>
+        <Control strSymbol="NEW_CTRL_23" strNom="" Type="CHECK" AssociateData="ETH_IN1_O1_B3" ScreenEvent="True" Pos="485,381" size="44,20" Text="O3" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+          <EventScript />
+        </Control>
+        <Control strSymbol="NEW_CTRL_24" strNom="" Type="CHECK" AssociateData="ETH_IN1_O1_B2" ScreenEvent="True" Pos="485,445" size="44,20" Text="O2" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+          <EventScript />
+        </Control>
+        <Control strSymbol="NEW_CTRL_25" strNom="" Type="CHECK" AssociateData="ETH_IN1_O1_B1" ScreenEvent="True" Pos="485,509" size="44,20" Text="O1" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+          <EventScript />
+        </Control>
+        <DllControl strSymbol="NEW_CTRL_26" strNom="" DllID="110" AssociateData="ETH_IN1_O1_B16" ScreenEvent="False" Pos="202,181" size="90,95" Text="" ReadOnly="False" AciveBitmap="$ExePath$\ImgLib\Diodes\amber-on-064.png" InactiveBitmap="$ExePath$\ImgLib\Diodes\amber-off-064.png">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+          <EventScript />
+        </DllControl>
+      </ControlList>
+      <InitScript>
+        <Line>FUNCTIONS.READ_ETH_IN()</Line>
+      </InitScript>
+      <EventScript>
+        <Line>FUNCTIONS.WRITE_ETH_IN()</Line>
+      </EventScript>
+      <ImagePath>D:\dev\PBG-RefonteIHM\InnoSetup\fournitures\M3XD26.bmp</ImagePath>
+      <ScreenAttribs size="-1,-1" Pos="-1,-1" ShowInTaskBar="True" ShowTitleBar="True" />
+    </Screen>
+  </ScreenSection>
+  <TrameSection>
+    <Trame strSymbol="XN05_READ8REG_FROM_ETH_IN1" strNom="Auto generated TCP Modbus frame">
+      <DataList>
+        <Data strSymbol="TRANSACTION_ID" />
+        <Data strSymbol="PROTOCO_ID" />
+        <Data strSymbol="FOLLOWING_6_BYTES" />
+        <Data strSymbol="MODBUS_SLAVE_ADDR" />
+        <Data strSymbol="MODBUS_READ_REG" />
+        <Data strSymbol="TCPMB_REG_ADDR_12" />
+        <Data strSymbol="BYTE_READ_8_REG" />
+      </DataList>
+      <ControlData Type="NONE" From="0" To="0" />
+      <DataConvert Type="NONE" From="0" To="0" />
+    </Trame>
+    <Trame strSymbol="XN05_READ8REG_FROM_ETH_IN1_RET" strNom="Auto generated TCP Modbus frame">
+      <DataList>
+        <Data strSymbol="TRANSACTION_ID" />
+        <Data strSymbol="PROTOCO_ID" />
+        <Data strSymbol="FOLLOWING_19_BYTES" />
+        <Data strSymbol="MODBUS_SLAVE_ADDR" />
+        <Data strSymbol="MODBUS_READ_REG" />
+        <Data strSymbol="READ_RECIEVE_16_BYTES" />
+        <Data strSymbol="ETH_IN1_O1_B16" />
+        <Data strSymbol="ETH_IN1_O1_B15" />
+        <Data strSymbol="ETH_IN1_O1_B14" />
+        <Data strSymbol="ETH_IN1_O1_B13" />
+        <Data strSymbol="ETH_IN1_O1_B12" />
+        <Data strSymbol="ETH_IN1_O1_B11" />
+        <Data strSymbol="ETH_IN1_O1_B10" />
+        <Data strSymbol="ETH_IN1_O1_B9" />
+        <Data strSymbol="ETH_IN1_O1_B8" />
+        <Data strSymbol="ETH_IN1_O1_B7" />
+        <Data strSymbol="ETH_IN1_O1_B6" />
+        <Data strSymbol="ETH_IN1_O1_B5" />
+        <Data strSymbol="ETH_IN1_O1_B4" />
+        <Data strSymbol="ETH_IN1_O1_B3" />
+        <Data strSymbol="ETH_IN1_O1_B2" />
+        <Data strSymbol="ETH_IN1_O1_B1" />
+        <Data strSymbol="ETH_IN2_O1" />
+        <Data strSymbol="ETH_IN3_O1" />
+        <Data strSymbol="ETH_IN4_O1" />
+        <Data strSymbol="ETH_IN5_O1" />
+        <Data strSymbol="ETH_IN6_O1" />
+        <Data strSymbol="ETH_IN7_O1" />
+        <Data strSymbol="ETH_IN8_O1" />
+      </DataList>
+      <ControlData Type="NONE" From="0" To="0" />
+      <DataConvert Type="NONE" From="0" To="0" />
+    </Trame>
+    <Trame strSymbol="XN05_WRITE8REG_FROM_ETH_IN1" strNom="Auto generated TCP Modbus frame">
+      <DataList>
+        <Data strSymbol="TRANSACTION_ID" />
+        <Data strSymbol="PROTOCO_ID" />
+        <Data strSymbol="FOLLOWING_23_BYTES" />
+        <Data strSymbol="MODBUS_SLAVE_ADDR" />
+        <Data strSymbol="MODBUS_WRITE_MR" />
+        <Data strSymbol="TCPMB_REG_ADDR_12" />
+        <Data strSymbol="TCPMB_WRITE_8_REG" />
+        <Data strSymbol="BYTE_COUNT_16_REG" />
+        <Data strSymbol="ETH_IN1_O1_B16" />
+        <Data strSymbol="ETH_IN1_O1_B15" />
+        <Data strSymbol="ETH_IN1_O1_B14" />
+        <Data strSymbol="ETH_IN1_O1_B13" />
+        <Data strSymbol="ETH_IN1_O1_B12" />
+        <Data strSymbol="ETH_IN1_O1_B11" />
+        <Data strSymbol="ETH_IN1_O1_B10" />
+        <Data strSymbol="ETH_IN1_O1_B9" />
+        <Data strSymbol="ETH_IN1_O1_B8" />
+        <Data strSymbol="ETH_IN1_O1_B7" />
+        <Data strSymbol="ETH_IN1_O1_B6" />
+        <Data strSymbol="ETH_IN1_O1_B5" />
+        <Data strSymbol="ETH_IN1_O1_B4" />
+        <Data strSymbol="ETH_IN1_O1_B3" />
+        <Data strSymbol="ETH_IN1_O1_B2" />
+        <Data strSymbol="ETH_IN1_O1_B1" />
+        <Data strSymbol="ETH_IN2_O1" />
+        <Data strSymbol="ETH_IN3_O1" />
+        <Data strSymbol="ETH_IN4_O1" />
+        <Data strSymbol="ETH_IN5_O1" />
+        <Data strSymbol="ETH_IN6_O1" />
+        <Data strSymbol="ETH_IN7_O1" />
+        <Data strSymbol="ETH_IN8_O1" />
+      </DataList>
+      <ControlData Type="NONE" From="0" To="0" />
+      <DataConvert Type="NONE" From="0" To="0" />
+    </Trame>
+    <Trame strSymbol="XN05_WRITE8REG_FROM_ETH_IN1_RET" strNom="Auto generated TCP Modbus frame">
+      <DataList>
+        <Data strSymbol="TRANSACTION_ID" />
+        <Data strSymbol="PROTOCO_ID" />
+        <Data strSymbol="FOLLOWING_6_BYTES" />
+        <Data strSymbol="MODBUS_SLAVE_ADDR" />
+        <Data strSymbol="MODBUS_WRITE_MR" />
+        <Data strSymbol="TCPMB_REG_ADDR_12" />
+        <Data strSymbol="TCPMB_WRITE_8_REG" />
+      </DataList>
+      <ControlData Type="NONE" From="0" To="0" />
+      <DataConvert Type="NONE" From="0" To="0" />
+    </Trame>
+    <Trame strSymbol="XN05_READ8REG_FROM_ETH_OUT1" strNom="Auto generated TCP Modbus frame">
+      <DataList>
+        <Data strSymbol="TRANSACTION_ID" />
+        <Data strSymbol="PROTOCO_ID" />
+        <Data strSymbol="FOLLOWING_6_BYTES" />
+        <Data strSymbol="MODBUS_SLAVE_ADDR" />
+        <Data strSymbol="MODBUS_READ_REG" />
+        <Data strSymbol="TCPMB_REG_ADDR_20" />
+        <Data strSymbol="BYTE_READ_8_REG" />
+      </DataList>
+      <ControlData Type="NONE" From="0" To="0" />
+      <DataConvert Type="NONE" From="0" To="0" />
+    </Trame>
+    <Trame strSymbol="XN05_READ8REG_FROM_ETH_OUT1_RET" strNom="Auto generated TCP Modbus frame">
+      <DataList>
+        <Data strSymbol="TRANSACTION_ID" />
+        <Data strSymbol="PROTOCO_ID" />
+        <Data strSymbol="FOLLOWING_19_BYTES" />
+        <Data strSymbol="MODBUS_SLAVE_ADDR" />
+        <Data strSymbol="MODBUS_READ_REG" />
+        <Data strSymbol="READ_RECIEVE_16_BYTES" />
+        <Data strSymbol="ETH_OUT1_I1_B16" />
+        <Data strSymbol="ETH_OUT1_I1_B15" />
+        <Data strSymbol="ETH_OUT1_I1_B14" />
+        <Data strSymbol="ETH_OUT1_I1_B13" />
+        <Data strSymbol="ETH_OUT1_I1_B12" />
+        <Data strSymbol="ETH_OUT1_I1_B11" />
+        <Data strSymbol="ETH_OUT1_I1_B10" />
+        <Data strSymbol="ETH_OUT1_I1_B9" />
+        <Data strSymbol="ETH_OUT1_I1_B8" />
+        <Data strSymbol="ETH_OUT1_I1_B7" />
+        <Data strSymbol="ETH_OUT1_I1_B6" />
+        <Data strSymbol="ETH_OUT1_I1_B5" />
+        <Data strSymbol="ETH_OUT1_I1_B4" />
+        <Data strSymbol="ETH_OUT1_I1_B3" />
+        <Data strSymbol="ETH_OUT1_I1_B2" />
+        <Data strSymbol="ETH_OUT1_I1_B1" />
+        <Data strSymbol="ETH_OUT2_I1" />
+        <Data strSymbol="ETH_OUT3_I1" />
+        <Data strSymbol="ETH_OUT4_I1" />
+        <Data strSymbol="ETH_OUT5_I1" />
+        <Data strSymbol="ETH_OUT6_I1" />
+        <Data strSymbol="ETH_OUT7_I1" />
+        <Data strSymbol="ETH_OUT8_I1" />
+      </DataList>
+      <ControlData Type="NONE" From="0" To="0" />
+      <DataConvert Type="NONE" From="0" To="0" />
+    </Trame>
+  </TrameSection>
+  <Program>
+    <FunctionSection>
+      <Function strSymbol="READ_ETH_IN" strNom="">
+        <Line>FRAMES.XN05_READ8REG_FROM_ETH_IN1.SEND()</Line>
+        <Line>FRAMES.XN05_READ8REG_FROM_ETH_IN1_RET.RECEIVE()</Line>
+      </Function>
+      <Function strSymbol="WRITE_ETH_IN" strNom="">
+        <Line>FRAMES.XN05_WRITE8REG_FROM_ETH_IN1.SEND()</Line>
+        <Line>FRAMES.XN05_WRITE8REG_FROM_ETH_IN1_RET.RECEIVE()</Line>
+      </Function>
+      <Function strSymbol="READ_ETH_OUT" strNom="">
+        <Line>FRAMES.XN05_READ8REG_FROM_ETH_OUT1.SEND()</Line>
+        <Line>FRAMES.XN05_READ8REG_FROM_ETH_OUT1_RET.RECEIVE()</Line>
+      </Function>
+    </FunctionSection>
+    <TimerSection>
+      <Timer strSymbol="REFRESH_OUT" strNom="" Period="500" AutoStart="True">
+        <Line>FUNCTIONS.READ_ETH_OUT()</Line>
+      </Timer>
+    </TimerSection>
+    <LoggerSection />
+  </Program>
+</Root>

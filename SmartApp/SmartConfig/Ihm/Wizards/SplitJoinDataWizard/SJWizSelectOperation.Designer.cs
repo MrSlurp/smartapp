@@ -1,4 +1,4 @@
-﻿namespace SmartApp.SmartConfig.Ihm.Wizards.SplitJoinDataWizard
+﻿namespace SmartApp.Wizards
 {
     partial class SJWizSelectOperation
     {
@@ -51,6 +51,7 @@
             this.radioButton1.TabStop = true;
             this.radioButton1.Text = "Split one data in two";
             this.radioButton1.UseVisualStyleBackColor = true;
+            this.radioButton1.Click += new System.EventHandler(this.SelectedOperation_Changed);
             // 
             // radioButton2
             // 
@@ -62,6 +63,7 @@
             this.radioButton2.TabStop = true;
             this.radioButton2.Text = "Split one data in four";
             this.radioButton2.UseVisualStyleBackColor = true;
+            this.radioButton2.Click += new System.EventHandler(this.SelectedOperation_Changed);
             // 
             // radioButton3
             // 
@@ -73,6 +75,7 @@
             this.radioButton3.TabStop = true;
             this.radioButton3.Text = "Split one data in sixteen";
             this.radioButton3.UseVisualStyleBackColor = true;
+            this.radioButton3.Click += new System.EventHandler(this.SelectedOperation_Changed);
             // 
             // radioButton4
             // 
@@ -84,6 +87,7 @@
             this.radioButton4.TabStop = true;
             this.radioButton4.Text = "Join two datas in one";
             this.radioButton4.UseVisualStyleBackColor = true;
+            this.radioButton4.Click += new System.EventHandler(this.SelectedOperation_Changed);
             // 
             // radioButton5
             // 
@@ -95,6 +99,7 @@
             this.radioButton5.TabStop = true;
             this.radioButton5.Text = "Join four datas in one";
             this.radioButton5.UseVisualStyleBackColor = true;
+            this.radioButton5.Click += new System.EventHandler(this.SelectedOperation_Changed);
             // 
             // radioButton6
             // 
@@ -106,9 +111,12 @@
             this.radioButton6.TabStop = true;
             this.radioButton6.Text = "Join sixteen datas in one";
             this.radioButton6.UseVisualStyleBackColor = true;
+            this.radioButton6.Click += new System.EventHandler(this.SelectedOperation_Changed);
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.radioButton1);
             this.groupBox1.Controls.Add(this.radioButton6);
             this.groupBox1.Controls.Add(this.radioButton2);
@@ -117,7 +125,7 @@
             this.groupBox1.Controls.Add(this.radioButton4);
             this.groupBox1.Location = new System.Drawing.Point(3, 61);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(299, 164);
+            this.groupBox1.Size = new System.Drawing.Size(380, 164);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Select what you want to do";

@@ -61,18 +61,18 @@ namespace PasswordControler
             }
         }
 
-        public BTControl CreateBTControl()
+        public BTControl CreateBTControl(BTDoc document)
         {
-            return new BTDllPasswordControlerControl();
+            return new BTDllPasswordControlerControl(document);
         }
 
-        public BTControl CreateBTControl(InteractiveControl iCtrl)
+        public BTControl CreateBTControl(BTDoc document, InteractiveControl iCtrl)
         {
-            return new BTDllPasswordControlerControl(iCtrl);
+            return new BTDllPasswordControlerControl(document, iCtrl);
         }
-        public BTControl CreateCommandBTControl()
+        public BTControl CreateCommandBTControl(BTDoc document)
         {
-            return new PasswordControlerCmdControl();
+            return new PasswordControlerCmdControl(document);
         }
 
         public InteractiveControl CreateInteractiveControl()

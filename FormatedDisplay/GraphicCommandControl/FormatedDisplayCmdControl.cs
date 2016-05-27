@@ -14,7 +14,8 @@ namespace FormatedDisplay
         // Description:
         // Return: /
         //*****************************************************************************************************
-        public FormatedDisplayCmdControl()
+        public FormatedDisplayCmdControl(BTDoc document)
+            : base(document)
         {
 
         }

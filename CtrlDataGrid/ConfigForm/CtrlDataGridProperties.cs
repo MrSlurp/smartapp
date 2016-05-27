@@ -1,67 +1,126 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Data;
+using System.Drawing;
 using System.Text;
-using System.IO;
 using System.Windows.Forms;
 using CommonLib;
 
 namespace CtrlDataGrid
 {
-    internal partial class CtrlDataGridProperties : UserControl, ISpecificPanel
+    public partial class CtrlDataGridProperties : BaseControlPropertiesPanel, ISpecificPanel
     {
-        // controle dont on édite les propriété
-        BTControl m_Control = null;
-        // document courant
-        private BTDoc m_Document = null;
 
-        #region events
-        public event ControlPropertiesChange ControlPropertiesChanged;
-        #endregion
+        struct DispLogAsso
+        {
+            public SAVE_PERIOD DispPeriod;
+            public LOG_PERIOD[] LogPeriods;
 
-        /// <summary>
-        /// Constructeur de la classe
-        /// </summary>
+            public DispLogAsso(SAVE_PERIOD Disp, LOG_PERIOD[] LogPer)
+            {
+                DispPeriod = Disp;
+                LogPeriods = LogPer;
+            }
+        }
+
+        DllCtrlDataGridProp m_Props = new DllCtrlDataGridProp(null);
+
+        DataParam[] m_ListData = new DataParam[DllCtrlDataGridProp.NB_DATA];
+
+        CComboData[] m_CboDataDispPeriod;
+        CComboData[] m_CboDataLogPeriod;
+
+        DispLogAsso[] m_DispLogAsso =
+        {
+            new DispLogAsso(SAVE_PERIOD.SAVE_5_min, new LOG_PERIOD[] 
+                                                     {LOG_PERIOD.LOG_1_sec, LOG_PERIOD.LOG_10_sec,  
+                                                      LOG_PERIOD.LOG_30_sec}),
+            new DispLogAsso(SAVE_PERIOD.SAVE_10_min, new LOG_PERIOD[] 
+                                                     {LOG_PERIOD.LOG_1_sec, LOG_PERIOD.LOG_10_sec,  
+                                                      LOG_PERIOD.LOG_30_sec}),
+            new DispLogAsso(SAVE_PERIOD.SAVE_15_min, new LOG_PERIOD[] 
+                                                     {LOG_PERIOD.LOG_1_sec, LOG_PERIOD.LOG_10_sec,  
+                                                      LOG_PERIOD.LOG_30_sec, LOG_PERIOD.LOG_1_min}),
+            new DispLogAsso(SAVE_PERIOD.SAVE_1_h,    new LOG_PERIOD[] 
+                                                     {LOG_PERIOD.LOG_1_sec,  LOG_PERIOD.LOG_10_sec, 
+                                                      LOG_PERIOD.LOG_30_sec, LOG_PERIOD.LOG_1_min, 
+                                                      LOG_PERIOD.LOG_2_min}),
+            new DispLogAsso(SAVE_PERIOD.SAVE_2_h,    new LOG_PERIOD[] 
+                                                     {LOG_PERIOD.LOG_1_sec,  LOG_PERIOD.LOG_10_sec,  
+                                                      LOG_PERIOD.LOG_30_sec, LOG_PERIOD.LOG_1_min, 
+                                                      LOG_PERIOD.LOG_2_min}),
+            new DispLogAsso(SAVE_PERIOD.SAVE_6_h,    new LOG_PERIOD[] 
+                                                     {LOG_PERIOD.LOG_10_sec, LOG_PERIOD.LOG_30_sec, 
+                                                      LOG_PERIOD.LOG_1_min,  LOG_PERIOD.LOG_2_min, 
+                                                      LOG_PERIOD.LOG_5_min,  LOG_PERIOD.LOG_10_min}),
+            new DispLogAsso(SAVE_PERIOD.SAVE_12_h,   new LOG_PERIOD[] 
+                                                     {LOG_PERIOD.LOG_10_sec, LOG_PERIOD.LOG_30_sec, 
+                                                      LOG_PERIOD.LOG_1_min,  LOG_PERIOD.LOG_2_min, 
+                                                      LOG_PERIOD.LOG_5_min,  LOG_PERIOD.LOG_10_min})/*,
+            
+            new DispLogAsso(SAVE_PERIOD.SAVE_1_j,    new LOG_PERIOD[] 
+                                                     {LOG_PERIOD.LOG_10_sec, LOG_PERIOD.LOG_30_sec, 
+                                                      LOG_PERIOD.LOG_1_min,  LOG_PERIOD.LOG_2_min, 
+                                                      LOG_PERIOD.LOG_5_min,  LOG_PERIOD.LOG_10_min,}),
+            new DispLogAsso(SAVE_PERIOD.SAVE_2_j,    new LOG_PERIOD[] 
+                                                     {LOG_PERIOD.LOG_30_sec, LOG_PERIOD.LOG_1_min,
+                                                      LOG_PERIOD.LOG_2_min,  LOG_PERIOD.LOG_5_min,   
+                                                      LOG_PERIOD.LOG_10_min}),
+            new DispLogAsso(SAVE_PERIOD.SAVE_4_j,    new LOG_PERIOD[] 
+                                                     {LOG_PERIOD.LOG_30_sec, LOG_PERIOD.LOG_1_min,
+                                                      LOG_PERIOD.LOG_2_min,  LOG_PERIOD.LOG_5_min,   
+                                                      LOG_PERIOD.LOG_10_min}),
+            new DispLogAsso(SAVE_PERIOD.SAVE_7_j,    new LOG_PERIOD[] 
+                                                     {LOG_PERIOD.LOG_1_min, LOG_PERIOD.LOG_2_min, 
+                                                      LOG_PERIOD.LOG_5_min, LOG_PERIOD.LOG_10_min})*/
+        };
+
         public CtrlDataGridProperties()
         {
             DllEntryClass.LangSys.Initialize(this);
             InitializeComponent();
+
+            Point BasePos = new Point(0, 0);
+            for (int i = 0; i < DllCtrlDataGridProp.NB_DATA; i++)
+            {
+                m_ListData[i] = new DataParam();
+                m_ListData[i].Location = BasePos;
+                BasePos.Y += m_ListData[i].Size.Height + 8;
+                m_ListData[i].Name = string.Format("DataParam{0}", i);
+                m_ListData[i].DataIndex = i;
+                m_ListData[i].Doc = this.Document;
+                this.uscPanelCurveCfg.Controls.Add(m_ListData[i]);
+            }
+
+            m_CboDataDispPeriod = new CComboData[7];
+            m_CboDataDispPeriod[0] = new CComboData(DllEntryClass.LangSys.C("5 minutes"), SAVE_PERIOD.SAVE_5_min);
+            m_CboDataDispPeriod[1] = new CComboData(DllEntryClass.LangSys.C("10 minutes"), SAVE_PERIOD.SAVE_10_min);
+            m_CboDataDispPeriod[2] = new CComboData(DllEntryClass.LangSys.C("15 minutes"), SAVE_PERIOD.SAVE_15_min);
+            m_CboDataDispPeriod[3] = new CComboData(DllEntryClass.LangSys.C("1 hour"), SAVE_PERIOD.SAVE_1_h);
+            m_CboDataDispPeriod[4] = new CComboData(DllEntryClass.LangSys.C("2 hours"), SAVE_PERIOD.SAVE_2_h);
+            m_CboDataDispPeriod[5] = new CComboData(DllEntryClass.LangSys.C("6 hours"), SAVE_PERIOD.SAVE_6_h);
+            m_CboDataDispPeriod[6] = new CComboData(DllEntryClass.LangSys.C("12 hours"), SAVE_PERIOD.SAVE_12_h);
+
+            m_CboDataLogPeriod = new CComboData[8];
+            m_CboDataLogPeriod[0] = new CComboData(DllEntryClass.LangSys.C("1 sec"), LOG_PERIOD.LOG_1_sec);
+            m_CboDataLogPeriod[1] = new CComboData(DllEntryClass.LangSys.C("10 sec"), LOG_PERIOD.LOG_10_sec);
+            m_CboDataLogPeriod[2] = new CComboData(DllEntryClass.LangSys.C("30 sec"), LOG_PERIOD.LOG_30_sec);
+            m_CboDataLogPeriod[3] = new CComboData(DllEntryClass.LangSys.C("1 minute"), LOG_PERIOD.LOG_1_min);
+            m_CboDataLogPeriod[4] = new CComboData(DllEntryClass.LangSys.C("2 minutes"), LOG_PERIOD.LOG_2_min);
+            m_CboDataLogPeriod[5] = new CComboData(DllEntryClass.LangSys.C("5 minutes"), LOG_PERIOD.LOG_5_min);
+            m_CboDataLogPeriod[6] = new CComboData(DllEntryClass.LangSys.C("10 minutes"), LOG_PERIOD.LOG_10_min);
+            m_CboDataLogPeriod[7] = new CComboData(DllEntryClass.LangSys.C("15 minutes"), LOG_PERIOD.LOG_10_min);
+
+            // pour la combo des périodes, on peux directement assigner la liste complète
+            cboDispPeriod.ValueMember = "Object";
+            cboDispPeriod.DisplayMember = "DisplayedString";
+            cboDispPeriod.DataSource = m_CboDataDispPeriod;
+            cboDispPeriod.SelectedIndex = 0;
         }
 
-        /// <summary>
-        /// Accesseur du control
-        /// </summary>
-        public BTControl BTControl
-        {
-            get
-            {
-                return m_Control;
-            }
-            set
-            {
-                if (value != null && value.SpecificProp.GetType() == typeof(DllCtrlDataGridProp))
-                    m_Control = value;
-                else
-                    m_Control = null;
-                if (m_Control != null)
-                {
-                    this.Enabled = true;
-                    // assignez ici les valeur des propriété spécifiques du control
-                }
-                else
-                {
-                    this.Enabled = false;
-                    // mettez ici les valeur par défaut pour le panel de propriété spécifiques
-                }
-            }
-        }
-
-        /// <summary>
-        /// Accesseur du document
-        /// </summary>
-        public BTDoc Doc
+        #region attributs
+        public override BTDoc Document
         {
             get
             {
@@ -70,62 +129,106 @@ namespace CtrlDataGrid
             set
             {
                 m_Document = value;
+                for (int i = 0; i < DllCtrlDataGridProp.NB_DATA; i++)
+                {
+                    m_ListData[i].Doc = m_Document;
+                }
+
             }
         }
 
-        #region validation des données
-        /// <summary>
-        /// Accesseur de validité des propriétés
-        /// renvoie true si les propriété sont valides, sinon false
-        /// </summary>
-        public bool IsDataValuesValid
+        public DllCtrlDataGridProp Props
         {
             get
             {
-                if (this.BTControl == null)
-                    return true;
-
-                return true;
+                for (int i = 0; i < DllCtrlDataGridProp.NB_DATA; i++)
+                {
+                    m_Props.SetSymbol(i, m_ListData[i].DataSymbol);
+                    m_Props.SetAlias(i, m_ListData[i].Alias);
+                }
+                m_Props.SavePeriod = (SAVE_PERIOD)cboDispPeriod.SelectedValue;
+                m_Props.LogPeriod = (LOG_PERIOD)cboLogPeriod.SelectedValue;
+                return m_Props;
             }
-        }
-
-        /// <summary>
-        /// validitation des propriétés
-        /// </summary>
-        /// <returns>true si les propriété sont valides, sinon false</returns>
-        public bool ValidateValues()
-        {
-            if (this.BTControl == null)
-                return true;
-
-            bool bDataPropChange = false;
-
-            // testez ici si les paramètres ont changé en les comparant avec ceux contenu dans les propriété
-            // spécifiques du BTControl
-            // si c'est le cas, assignez bDataPropChange à true;
-
-            if (bDataPropChange)
+            set
             {
-                Doc.Modified = true;
-                m_Control.IControl.Refresh();
+                if (value != null)
+                {
+                    m_Props.CopyParametersFrom(value, false, this.Document);
+                    for (int i = 0; i < DllCtrlDataGridProp.NB_DATA; i++)
+                    {
+                        m_ListData[i].DataSymbol = m_Props.GetSymbol(i);
+                        m_ListData[i].Alias = m_Props.GetAlias(i);
+                    }
+                    cboDispPeriod.SelectedValue = m_Props.SavePeriod;
+                    UpdateLogPeriodFromDisp();
+                }
+                else
+                {
+                    for (int i = 0; i < DllCtrlDataGridProp.NB_DATA; i++)
+                    {
+                        m_ListData[i].DataSymbol = "";
+                        m_ListData[i].Alias = "";
+                    }
+                    cboDispPeriod.SelectedIndex = 0;
+                    UpdateLogPeriodFromDisp();
+                }
             }
-            if (bDataPropChange && ControlPropertiesChanged != null)
-                ControlPropertiesChanged(m_Control);
-            return true;
         }
+
+        public void PanelToObject()
+        {
+            DllCtrlDataGridProp itemprops = m_Control.SpecificProp as DllCtrlDataGridProp;
+            itemprops.CopyParametersFrom(Props, false, this.Document);
+            Document.Modified = true;
+        }
+
+        public void ObjectToPanel()
+        {
+            DllCtrlDataGridProp itemprops = m_Control.SpecificProp as DllCtrlDataGridProp;
+            this.Props = itemprops;
+            //Props.CopyParametersFrom(itemprops, false);
+        }
+
         #endregion
 
-        private void btncfg_Click(object sender, EventArgs e)
+        private void UpdateLogPeriodFromDisp()
         {
-            DataGridConfigForm CfgForm = new DataGridConfigForm();
-            CfgForm.Doc = this.Doc;
-            CfgForm.Props = (DllCtrlDataGridProp)this.BTControl.SpecificProp;
-
-            if (CfgForm.ShowDialog() == DialogResult.OK)
+            CComboData[] TempListCbo = null;
+            bool bCurValueInList = false;
+            SAVE_PERIOD SelDisp = (SAVE_PERIOD)cboDispPeriod.SelectedValue;
+            // on parcour la liste des associations
+            for (int iDisp = 0; iDisp < m_DispLogAsso.Length; iDisp++)
             {
-                // si OK on recopie les param
-                this.BTControl.SpecificProp.CopyParametersFrom(CfgForm.Props, false);
+                // si on est sur l'assoc de la valeur de Disp courante
+                if (m_DispLogAsso[iDisp].DispPeriod == SelDisp)
+                {
+                    // on parcour la list de LogPeriod Disponibles
+                    TempListCbo = new CComboData[m_DispLogAsso[iDisp].LogPeriods.Length];
+                    for (int iLog = 0; iLog < m_DispLogAsso[iDisp].LogPeriods.Length; iLog++)
+                    {
+                        //on recherche dans la liste des item de combo ceux qu'on peux ajouter
+                        for (int i = 0; i < m_CboDataLogPeriod.Length; i++)
+                        {
+                            if ((int)m_CboDataLogPeriod[i].Object == (int)m_DispLogAsso[iDisp].LogPeriods[iLog])
+                            {
+                                TempListCbo[iLog] = m_CboDataLogPeriod[i];
+                                if ((LOG_PERIOD)m_CboDataLogPeriod[i].Object == m_Props.LogPeriod)
+                                    bCurValueInList = true;
+                                break;
+                            }
+                        }
+                    }
+                    break;
+                }
             }
+            cboLogPeriod.ValueMember = "Object";
+            cboLogPeriod.DisplayMember = "DisplayedString";
+            cboLogPeriod.DataSource = TempListCbo;
+            if (bCurValueInList)
+                cboLogPeriod.SelectedValue = m_Props.LogPeriod;
+            else
+                cboLogPeriod.SelectedIndex = 0;
         }
     }
 }

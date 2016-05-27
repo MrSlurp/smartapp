@@ -88,7 +88,9 @@ namespace CommonLib
         #region Delegates & events
         public delegate bool InteractiveMove(InteractiveControl ctrl, ref Size szMove);
         public event InteractiveMove OnMouve;
-        public delegate void AssociateDataDropedEvent(InteractiveControl iCtrl);
+        public delegate void InteractiveEndMove();
+        public event InteractiveEndMove EndMouve;
+        public delegate bool AssociateDataDropedEvent(InteractiveControl iCtrl, string strDataSymbol, bool bDone);
         public event AssociateDataDropedEvent AsscociateDataDroped;
         #endregion
 
@@ -216,6 +218,16 @@ namespace CommonLib
             {
                 return 0;
             }
+        }
+
+        public bool CanResizeWidth
+        {
+            get { return canResizeWidth; }
+        }
+
+        public bool CanResizeHeight
+        {
+            get { return canResizeHeight; }
         }
 
         #endregion
@@ -397,6 +409,10 @@ namespace CommonLib
                 if (resizeButton[i] != null)
                     resizeButton[i].ShowControl(IsSelected);
             }
+            if (this.EndMouve != null)
+            {
+                EndMouve();
+            }
         }
 
         /// <summary>
@@ -451,6 +467,8 @@ namespace CommonLib
                     System.Diagnostics.Debug.Assert(false);
                     break;
             }
+            if (this.m_SrcBTControl != null)
+                this.m_SrcBTControl.CleanScriptFromType();
             UpdateResizeBtnsVisibility();
         }
 
@@ -603,11 +621,22 @@ namespace CommonLib
         /// <param name="e">arguments de l'évènement</param>
         private void InteractiveControl_DragOver(object sender, DragEventArgs e)
         {
-            Data DropedItem = (Data)e.Data.GetData(typeof(Data));
-            if (DropedItem != null && this.ControlType != InteractiveControlType.Text)
-                e.Effect = DragDropEffects.All;
-            else
-                e.Effect = DragDropEffects.None;
+            TreeNode DropedItem = (TreeNode)e.Data.GetData(typeof(TreeNode));
+            if (DropedItem != null)
+            {
+                bool bAllowAssocDataDrop = true;
+                ISpecificControl spec = this as ISpecificControl;
+                if (spec!= null)
+                {
+                    bAllowAssocDataDrop = spec.StdPropEnabling.m_bEditAssociateDataEnabled;
+                }
+                if (DropedItem.Tag is Data && bAllowAssocDataDrop)
+                {
+                    e.Effect = DragDropEffects.All;
+                    return;
+                }
+            }
+            e.Effect = DragDropEffects.None;
         }
 
         /// <summary>
@@ -627,16 +656,36 @@ namespace CommonLib
         /// <param name="e">arguments de l'évènement</param>
         private void InteractiveControl_DragDrop(object sender, DragEventArgs e)
         {
-            Data DropedItem = (Data)e.Data.GetData(typeof(Data));
+            TreeNode DropedItem = (TreeNode)e.Data.GetData(typeof(TreeNode));
             if (DropedItem != null)
             {
-                if (this.ControlType != InteractiveControlType.Text)
+                if (DropedItem.Tag is Data)
                 {
-                    m_SrcBTControl.AssociateData = DropedItem.Symbol;
                     if (AsscociateDataDroped != null)
-                        AsscociateDataDroped(this);
+                    {
+                        Data dt = DropedItem.Tag as Data;
+                        if (AsscociateDataDroped(this, dt.Symbol, false))
+                        {
+                            m_SrcBTControl.AssociateData = dt.Symbol;
+                            AsscociateDataDroped(this, dt.Symbol, true);
+                            this.Refresh();
+                        }
+                    }
                 }
             }
+        }
+
+        protected override void OnMove(EventArgs e)
+        {
+            foreach (ResizeButton button in resizeButton)
+            {
+                if (button != null)
+                {
+                    if (button.Visible)
+                        button.ShowControl(false);
+                }
+            }
+            base.OnMove(e);
         }
 
         /// <summary>

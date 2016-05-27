@@ -62,18 +62,18 @@ namespace CtrlTimeWatch
             }
         }
 
-        public BTControl CreateBTControl()
+        public BTControl CreateBTControl(BTDoc document)
         {
-            return new BTDllCtrlTimeWatchControl();
+            return new BTDllCtrlTimeWatchControl(document);
         }
 
-        public BTControl CreateBTControl(InteractiveControl iCtrl)
+        public BTControl CreateBTControl(BTDoc document, InteractiveControl iCtrl)
         {
-            return new BTDllCtrlTimeWatchControl(iCtrl);
+            return new BTDllCtrlTimeWatchControl(document, iCtrl);
         }
-        public BTControl CreateCommandBTControl()
+        public BTControl CreateCommandBTControl(BTDoc document)
         {
-            return new CtrlTimeWatchCmdControl();
+            return new CtrlTimeWatchCmdControl(document);
         }
 
         public InteractiveControl CreateInteractiveControl()

@@ -54,18 +54,18 @@ namespace CtrlSerpentin
             }
         }
 
-        public BTControl CreateBTControl()
+        public BTControl CreateBTControl(BTDoc document)
         {
-            return new BTSerpentinControl();
+            return new BTSerpentinControl(document);
         }
 
-        public BTControl CreateBTControl(InteractiveControl iCtrl)
+        public BTControl CreateBTControl(BTDoc document, InteractiveControl iCtrl)
         {
-            return new BTSerpentinControl(iCtrl);
+            return new BTSerpentinControl(document, iCtrl);
         }
-        public BTControl CreateCommandBTControl()
+        public BTControl CreateCommandBTControl(BTDoc document)
         {
-            return new SerpentinControl();
+            return new SerpentinControl(document);
         }
 
         public InteractiveControl CreateInteractiveControl()

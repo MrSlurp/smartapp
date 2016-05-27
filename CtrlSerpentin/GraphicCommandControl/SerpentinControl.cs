@@ -14,7 +14,8 @@ namespace CtrlSerpentin
         // Description:
         // Return: /
         //*****************************************************************************************************
-        public SerpentinControl()
+        public SerpentinControl(BTDoc document)
+            : base(document)
         {
 
         }

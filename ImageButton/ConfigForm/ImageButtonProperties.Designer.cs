@@ -53,8 +53,7 @@
             // 
             // m_btnImg2
             // 
-            this.m_btnImg2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_btnImg2.Location = new System.Drawing.Point(224, 61);
+            this.m_btnImg2.Location = new System.Drawing.Point(266, 61);
             this.m_btnImg2.Name = "m_btnImg2";
             this.m_btnImg2.Size = new System.Drawing.Size(34, 20);
             this.m_btnImg2.TabIndex = 4;
@@ -64,8 +63,7 @@
             // 
             // m_btnImg1
             // 
-            this.m_btnImg1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_btnImg1.Location = new System.Drawing.Point(224, 20);
+            this.m_btnImg1.Location = new System.Drawing.Point(266, 20);
             this.m_btnImg1.Name = "m_btnImg1";
             this.m_btnImg1.Size = new System.Drawing.Size(34, 20);
             this.m_btnImg1.TabIndex = 3;
@@ -75,23 +73,21 @@
             // 
             // m_txtBoxImg2
             // 
-            this.m_txtBoxImg2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
             this.m_txtBoxImg2.Location = new System.Drawing.Point(10, 61);
             this.m_txtBoxImg2.Name = "m_txtBoxImg2";
             this.m_txtBoxImg2.ReadOnly = true;
-            this.m_txtBoxImg2.Size = new System.Drawing.Size(208, 20);
+            this.m_txtBoxImg2.Size = new System.Drawing.Size(250, 20);
             this.m_txtBoxImg2.TabIndex = 7;
+            this.m_txtBoxImg2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.m_txtBoxImg2_KeyDown);
             // 
             // m_txtBoxImg1
             // 
-            this.m_txtBoxImg1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
             this.m_txtBoxImg1.Location = new System.Drawing.Point(10, 20);
             this.m_txtBoxImg1.Name = "m_txtBoxImg1";
             this.m_txtBoxImg1.ReadOnly = true;
-            this.m_txtBoxImg1.Size = new System.Drawing.Size(208, 20);
+            this.m_txtBoxImg1.Size = new System.Drawing.Size(250, 20);
             this.m_txtBoxImg1.TabIndex = 8;
+            this.m_txtBoxImg1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.m_txtBoxImg1_KeyDown);
             // 
             // label1
             // 
@@ -133,7 +129,7 @@
             // btnPickInput
             // 
             this.btnPickInput.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPickInput.Location = new System.Drawing.Point(202, 180);
+            this.btnPickInput.Location = new System.Drawing.Point(306, 180);
             this.btnPickInput.Name = "btnPickInput";
             this.btnPickInput.Size = new System.Drawing.Size(58, 23);
             this.btnPickInput.TabIndex = 13;
@@ -148,7 +144,7 @@
             this.edtInputData.Location = new System.Drawing.Point(4, 182);
             this.edtInputData.Name = "edtInputData";
             this.edtInputData.ReadOnly = true;
-            this.edtInputData.Size = new System.Drawing.Size(192, 20);
+            this.edtInputData.Size = new System.Drawing.Size(296, 20);
             this.edtInputData.TabIndex = 12;
             // 
             // label4
@@ -177,7 +173,7 @@
             this.Controls.Add(this.m_txtBoxImg1);
             this.Controls.Add(this.label1);
             this.Name = "ImageButtonProperties";
-            this.Size = new System.Drawing.Size(263, 210);
+            this.Size = new System.Drawing.Size(367, 210);
             this.ResumeLayout(false);
             this.PerformLayout();
 

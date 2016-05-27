@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{5A8BD31D-5E4E-4891-9351-DD3119CB6BC9}</ProjectGuid>
     <OutputType>WinExe</OutputType>
@@ -34,6 +34,8 @@
     <ApplicationVersion>2.0.0.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>SmartAppKey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -55,7 +57,8 @@
     <IntermediatePath>..\obj\Release\</IntermediatePath>
     <IntermediateOuputPath>..\obj\Release\</IntermediateOuputPath>
     <BaseIntermediateOutputPath>..\obj\Release\</BaseIntermediateOutputPath>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DefineConstants>
+    </DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -93,7 +96,6 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -131,29 +133,17 @@
       <DependentUpon>PreferencesForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
-    <Compile Include="SmartCommand\AppEventLog\AppEventLogForm.cs">
-      <SubType>Form</SubType>
+    <Compile Include="SmartCommand\AppEventLog\AppEventLogPanel.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="SmartCommand\AppEventLog\AppEventLogForm.Designer.cs">
-      <DependentUpon>AppEventLogForm.cs</DependentUpon>
+    <Compile Include="SmartCommand\AppEventLog\AppEventLogPanel.Designer.cs">
+      <DependentUpon>AppEventLogPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Common\Controls Personnalisables\Gauge.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Common\Controls Personnalisables\Gauge.Designer.cs">
       <DependentUpon>Gauge.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SmartCommand\Ihm\CommConfiguration.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SmartCommand\Ihm\CommConfiguration.Designer.cs">
-      <DependentUpon>CommConfiguration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SmartCommand\Ihm\DynamicPanelForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SmartCommand\Ihm\DynamicPanelForm.Designer.cs">
-      <DependentUpon>DynamicPanelForm.cs</DependentUpon>
     </Compile>
     <Compile Include="SmartCommand\Ihm\MDISmartCommandMain.cs">
       <SubType>Form</SubType>
@@ -173,46 +163,17 @@
     <Compile Include="SmartCommand\Ihm\VariableForm.Designer.cs">
       <DependentUpon>VariableForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="SmartCommand\Ihm\VirtualDataForm.cs">
+    <Compile Include="SmartCommand\Ihm\VirtualCnxContainer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SmartCommand\Ihm\VirtualDataForm.Designer.cs">
-      <DependentUpon>VirtualDataForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SmartCommand\Ihm\VirtualDataPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="SmartCommand\Ihm\VirtualDataPanel.Designer.cs">
-      <DependentUpon>VirtualDataPanel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SmartCommand\Ihm\ScenarioPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="SmartCommand\Ihm\ScenarioPanel.Designer.cs">
-      <DependentUpon>ScenarioPanel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SmartCommand\Ihm\WaitOpenCommForm.cs">
-    </Compile>
-    <Compile Include="SmartCommand\Ihm\WaitOpenCommForm.Designer.cs">
-      <DependentUpon>WaitOpenCommForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\ConfigurationForm\DataForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\ConfigurationForm\DataForm.Designer.cs">
-      <DependentUpon>DataForm.cs</DependentUpon>
+    <Compile Include="SmartCommand\Ihm\VirtualCnxContainer.Designer.cs">
+      <DependentUpon>VirtualCnxContainer.cs</DependentUpon>
     </Compile>
     <Compile Include="SmartConfig\Ihm\ConfigurationForm\DesignerForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SmartConfig\Ihm\ConfigurationForm\DesignerForm.Designer.cs">
       <DependentUpon>DesignerForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\ConfigurationForm\FrameForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\ConfigurationForm\FrameForm.Designer.cs">
-      <DependentUpon>FrameForm.cs</DependentUpon>
     </Compile>
     <Compile Include="SmartConfig\Ihm\ControlConfig\GaugeConfig.cs">
       <SubType>Form</SubType>
@@ -241,89 +202,11 @@
     <Compile Include="SmartConfig\Ihm\MDISmartConfigMain.Designer.cs">
       <DependentUpon>MDISmartConfigMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\FramePropertiesControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\FramePropertiesControl.Designer.cs">
-      <DependentUpon>FramePropertiesControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\LoggerPropertiesControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\LoggerPropertiesControl.Designer.cs">
-      <DependentUpon>LoggerPropertiesControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\ScreenItemPropertiesControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\ScreenItemPropertiesControl.Designer.cs">
-      <DependentUpon>ScreenItemPropertiesControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\ConfigurationForm\ProgramForm.cs">
+    <Compile Include="SmartConfig\Ihm\VariousFormAndControls\BridgeEditorForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SmartConfig\Ihm\ConfigurationForm\ProgramForm.Designer.cs">
-      <DependentUpon>ProgramForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\DataPropertiesControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\DataPropertiesControl.Designer.cs">
-      <DependentUpon>DataPropertiesControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\ScreenPropertiesControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\ScreenPropertiesControl.Designer.cs">
-      <DependentUpon>ScreenPropertiesControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\Designer\ScreenPropPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\Designer\ScreenPropPanel.Designer.cs">
-      <DependentUpon>ScreenPropPanel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\FunctionPropertiesControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\FunctionPropertiesControl.Designer.cs">
-      <DependentUpon>FunctionPropertiesControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\TimerPropertiesControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\TimerPropertiesControl.Designer.cs">
-      <DependentUpon>TimerPropertiesControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\SpecificProperties\TwoColorProperties.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\ObjectPropertiesControls\SpecificProperties\TwoColorProperties.Designer.cs">
-      <DependentUpon>TwoColorProperties.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\ProgItemPanels\FunctionPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\ProgItemPanels\FunctionPanel.Designer.cs">
-      <DependentUpon>FunctionPanel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\ProgItemPanels\LoggerPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\ProgItemPanels\LoggerPanel.Designer.cs">
-      <DependentUpon>LoggerPanel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\ProgItemPanels\TimerPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\ProgItemPanels\TimerPanel.Designer.cs">
-      <DependentUpon>TimerPanel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\VariousFormAndControls\SymbolTextBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SmartConfig\Ihm\VariousFormAndControls\SymbolTextBox.Designer.cs">
-      <DependentUpon>SymbolTextBox.cs</DependentUpon>
+    <Compile Include="SmartConfig\Ihm\VariousFormAndControls\BridgeEditorForm.Designer.cs">
+      <DependentUpon>BridgeEditorForm.cs</DependentUpon>
     </Compile>
     <Compile Include="SmartConfig\Ihm\VariousFormAndControls\ManageGroupForm.cs">
       <SubType>Form</SubType>
@@ -349,17 +232,9 @@
       <SubType>Designer</SubType>
       <DependentUpon>PreferencesForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SmartCommand\AppEventLog\AppEventLogForm.resx">
+    <EmbeddedResource Include="SmartCommand\AppEventLog\AppEventLogPanel.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>AppEventLogForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SmartCommand\Ihm\CommConfiguration.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>CommConfiguration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SmartCommand\Ihm\DynamicPanelForm.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>DynamicPanelForm.cs</DependentUpon>
+      <DependentUpon>AppEventLogPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SmartCommand\Ihm\MDISmartCommandMain.resx">
       <SubType>Designer</SubType>
@@ -369,41 +244,16 @@
       <SubType>Designer</SubType>
       <DependentUpon>OptionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SmartCommand\Ihm\ScenarioPanel.resx">
-      <DependentUpon>ScenarioPanel.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="SmartCommand\Ihm\VariableForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>VariableForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SmartCommand\Ihm\VirtualDataForm.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>VirtualDataForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SmartCommand\Ihm\VirtualDataPanel.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>VirtualDataPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SmartCommand\Ihm\WaitOpenCommForm.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>WaitOpenCommForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SmartConfig\Ihm\ConfigurationForm\DataForm.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>DataForm.cs</DependentUpon>
+    <EmbeddedResource Include="SmartCommand\Ihm\VirtualCnxContainer.resx">
+      <DependentUpon>VirtualCnxContainer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SmartConfig\Ihm\ConfigurationForm\DesignerForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>DesignerForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SmartConfig\Ihm\ConfigurationForm\FrameForm.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>FrameForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SmartConfig\Ihm\ConfigurationForm\ProgramForm.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>ProgramForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SmartConfig\Ihm\Designer\DragItemPanel.resx">
       <SubType>Designer</SubType>
@@ -417,53 +267,9 @@
       <SubType>Designer</SubType>
       <DependentUpon>MDISmartConfigMain.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SmartConfig\Ihm\ObjectPropertiesControls\SpecificProperties\TwoColorProperties.resx">
+    <EmbeddedResource Include="SmartConfig\Ihm\VariousFormAndControls\BridgeEditorForm.resx">
+      <DependentUpon>BridgeEditorForm.cs</DependentUpon>
       <SubType>Designer</SubType>
-      <DependentUpon>TwoColorProperties.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SmartConfig\Ihm\ObjectPropertiesControls\FramePropertiesControl.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>FramePropertiesControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SmartConfig\Ihm\ObjectPropertiesControls\FunctionPropertiesControl.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>FunctionPropertiesControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SmartConfig\Ihm\ObjectPropertiesControls\LoggerPropertiesControl.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>LoggerPropertiesControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SmartConfig\Ihm\ObjectPropertiesControls\ScreenItemPropertiesControl.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>ScreenItemPropertiesControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SmartConfig\Ihm\ObjectPropertiesControls\DataPropertiesControl.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>DataPropertiesControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SmartConfig\Ihm\ObjectPropertiesControls\ScreenPropertiesControl.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>ScreenPropertiesControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SmartConfig\Ihm\Designer\ScreenPropPanel.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>ScreenPropPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SmartConfig\Ihm\ObjectPropertiesControls\TimerPropertiesControl.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>TimerPropertiesControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SmartConfig\Ihm\ProgItemPanels\FunctionPanel.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>FunctionPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SmartConfig\Ihm\ProgItemPanels\LoggerPanel.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>LoggerPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SmartConfig\Ihm\ProgItemPanels\TimerPanel.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>TimerPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SmartConfig\Ihm\VariousFormAndControls\ManageGroupForm.resx">
       <SubType>Designer</SubType>
@@ -472,6 +278,10 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SmartConfig\Ihm\VariousFormAndControls\ProjectNameForm.resx">
+      <DependentUpon>ProjectNameForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SmartConfig\Ihm\Wizards\M3Z2GenericWizPanels\M3XN05AdditionalOptions.resx">
@@ -504,21 +314,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SmartConfig\Ihm\Wizards\SplitJoinDataWizard\SJWizNewDataName.resx">
       <DependentUpon>SJWizNewDataName.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SmartConfig\Ihm\Wizards\SplitJoinDataWizard\SJWizPreviewChange.resx">
       <DependentUpon>SJWizPreviewChange.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SmartConfig\Ihm\Wizards\SplitJoinDataWizard\SJWizSelectOperation.resx">
       <DependentUpon>SJWizSelectOperation.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SmartConfig\Ihm\Wizards\SplitJoinDataWizard\SJWizWelcomeStep.resx">
       <DependentUpon>SJWizWelcomeStep.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SmartConfig\Ihm\Wizards\SplitJoinDataWizard\SplitJoinWizardForm.resx">
       <DependentUpon>SplitJoinWizardForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SmartConfig\Ihm\Wizards\SplitJoinDataWizard\SJWizSelectDataStep.resx">
       <DependentUpon>SJWizSelectDataStep.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SmartConfig\Ihm\Wizards\TCPModbusWizard\WizardTcpModbusForm.resx">
       <DependentUpon>WizardTcpModbusForm.cs</DependentUpon>
@@ -545,6 +361,15 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\VariousFormAndControls\ProjectNameForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\VariousFormAndControls\ProjectNameForm.Designer.cs">
+      <DependentUpon>ProjectNameForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SmartConfig\Ihm\VariousFormAndControls\SolutionTreeView.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\BaseM3Z2ProjectCreator.cs" />
     <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\Zelio\Z2SR3NETBlocConfig.cs" />
@@ -609,6 +434,7 @@
     <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\ProjectWizardDefines.cs" />
     <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\SLBlocConfig.cs" />
     <Compile Include="SmartConfig\Ihm\Wizards\BaseWizard\Millenium\SLM3ProjectCreator.cs" />
+    <Compile Include="SmartConfig\Ihm\Wizards\SplitJoinDataWizard\SJDataWizardManager.cs" />
     <Compile Include="SmartConfig\Ihm\Wizards\SplitJoinDataWizard\SJWizNewDataName.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -1117,10 +943,46 @@
     <Content Include="ImgLib\Voyant\VoyantVertOn.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Res\arrow-down.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Res\arrow-left.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Res\arrow-right.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Res\arrow-up.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Res\CxnOn.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Res\CxnOff.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Res\green-on-016.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Res\icon_bridge.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Res\icon_frame.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Res\icon_function.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Res\icon_group.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Res\icon_io.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Res\icon_logger.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Res\icon_timer.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Res\PresAssData.bmp">
@@ -1156,6 +1018,13 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="app.config" />
+    <None Include="SmartAppKey.snk" />
+    <Content Include="Res\icon_screen.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Res\red-on-016.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Res\WizRes\EthType_Split16.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -1227,6 +1096,9 @@
     </Content>
     <Content Include="Res\WizRes\Z2SL_wiz.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SmartAppSln.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ToDo.txt" />
   </ItemGroup>

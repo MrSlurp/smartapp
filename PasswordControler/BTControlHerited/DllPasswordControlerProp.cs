@@ -15,6 +15,8 @@ namespace PasswordControler
         string m_PasswordHash = string.Empty;
         private const string NOM_ATTIB_0 = "Hash";
 
+        public DllPasswordControlerProp(ItemScriptsConainter scriptContainter) : base(scriptContainter) { }
+
         // ajouter ici les accesseur vers les données membres des propriété
         public string PasswordHash
         {
@@ -27,7 +29,7 @@ namespace PasswordControler
         /// </summary>
         /// <param name="Node">noeud du control a qui appartiens les propriété </param>
         /// <returns>true en cas de succès de la lecture</returns>
-        public override bool ReadIn(XmlNode Node)
+        public override bool ReadIn(XmlNode Node, BTDoc document)
         {
             XmlNode Attr0 = Node.Attributes.GetNamedItem(NOM_ATTIB_0);
             if (Attr0 == null )
@@ -42,10 +44,10 @@ namespace PasswordControler
         /// <param name="XmlDoc">Document XML</param>
         /// <param name="Node">noeud du control a qui appartiens les propriété</param>
         /// <returns>true en cas de succès de l'écriture</returns>
-        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
+        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node, BTDoc document)
         {
             XmlAttribute Attr0 = XmlDoc.CreateAttribute(NOM_ATTIB_0);
-            Attr0.Value = PathTranslator.AbsolutePathToRelative(PasswordHash);
+            Attr0.Value = document.PathTr.AbsolutePathToRelative(PasswordHash);
             Node.Attributes.Append(Attr0);
             return true;
         }
@@ -54,13 +56,12 @@ namespace PasswordControler
         /// Recopie les paramètres d'un control source du même type vers les paramètres courants
         /// </summary>
         /// <param name="SrcSpecificProp">Paramètres sources</param>
-        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance)
+        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance, BTDoc document)
         {
-            DllPasswordControlerProp SrcProp = (DllPasswordControlerProp)SrcSpecificProp;
-            this.PasswordHash = SrcProp.PasswordHash;
-            if (bFromOtherInstance)
+            if (SrcSpecificProp is DllPasswordControlerProp)
             {
-                //rien a copier
+                DllPasswordControlerProp SrcProp = SrcSpecificProp as DllPasswordControlerProp;
+                this.PasswordHash = SrcProp.PasswordHash;
             }
         }
 
@@ -76,58 +77,10 @@ namespace PasswordControler
         /// MessAskDelete / MessDeleted / MessItemRenamed)</param>
         /// <param name="TypeApp">Type de l'application courante (SmartConfig / SmartCommand)</param>
         /// <param name="PropOwner">control propriétaire des propriété spécifique</param>
+        /*
         public override void TraiteMessage(MESSAGE Mess, object obj, TYPE_APP TypeApp, BTControl PropOwner)
         {
-            if (TypeApp == TYPE_APP.SMART_CONFIG)
-            {
-                switch (Mess)
-                {
-                    case MESSAGE.MESS_ASK_ITEM_DELETE:
-                        // exemple de traitement de la demande de supression d'une donnée
-                        // m_strDataOffToOn est le symbol d'une donnée
-                        /*
-                        if (((MessAskDelete)obj).TypeOfItem == typeof(Data))
-                        {
-                            if (MessParam.WantDeletetItemSymbol == m_strDataOffToOn)
-                            {
-                                strMess = string.Format("Data Trigger {0} : Data \"Off to On\" will be removed", PropOwner.Symbol);
-                                MessParam.ListStrReturns.Add(strMess);
-                            }
-                        }
-                         * */
-                        break;
-                    case MESSAGE.MESS_ITEM_DELETED:
-                        // exemple de traitement de la supression d'une donnée
-                        // m_strDataOffToOn est le symbol d'une donnée
-                        /*
-                        if (((MessDeleted)obj).TypeOfItem == typeof(Data))
-                        {
-                            MessDeleted MessParam = (MessDeleted)obj;
-                            if (MessParam.DeletetedItemSymbol == m_strDataOffToOn)
-                            {
-                                m_strDataOffToOn = string.Empty;
-                            }
-                        }
-                         * */
-                        break;
-                    case MESSAGE.MESS_ITEM_RENAMED:
-                        // exemple de traitement du renommage d'une donnée
-                        // m_strDataOffToOn est le symbol d'une donnée
-                        /*
-                        if (((MessItemRenamed)obj).TypeOfItem == typeof(Data))
-                        {
-                            MessItemRenamed MessParam = (MessItemRenamed)obj;
-                            if (MessParam.OldItemSymbol == m_strDataOffToOn)
-                            {
-                                m_strDataOffToOn = MessParam.NewItemSymbol;
-                            }
-                        }*/
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
-
+            base.TraiteMessage(Mess, obj, TypeApp, PropOwner);
+        }*/
     }
 }

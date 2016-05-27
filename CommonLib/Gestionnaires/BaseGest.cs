@@ -16,7 +16,7 @@ using System.Windows.Forms;
 
 namespace CommonLib
 {
-    public class BaseGest : Object
+    public abstract class BaseGest : Object
     {
         #region constantes
         // divers constantes pour les symbols par défaut
@@ -195,7 +195,7 @@ namespace CommonLib
         /// <param name="Node">Noeud Xml de l'objet</param>
         /// <param name="TypeApp">type d'application courante</param>
         /// <returns>true si la lecture s'est bien passé</returns>
-        public virtual bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
+        public virtual bool ReadIn(XmlNode Node, BTDoc document)
         {
             return true;
         }
@@ -207,7 +207,7 @@ namespace CommonLib
         /// <param name="XmlDoc">Document XML courant</param>
         /// <param name="Node">Noeud parent du controle dans le document</param>
         /// <returns>true si l'écriture s'est déroulée avec succès</returns>
-        public virtual bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
+        public virtual bool WriteOut(XmlDocument XmlDoc, XmlNode Node, BTDoc document)
         {
             return true;
         }
@@ -240,10 +240,9 @@ namespace CommonLib
         /// crée, cette fonction virtuelle réalise ceci dans les classes filles.
         /// </summary>
         /// <returns>le symbol du prochain objet de base qui sera créé</returns>
-        public virtual string GetNextDefaultSymbol()
-        {
-            return "";
-        }
+        public abstract string GetNextDefaultSymbol();
+
+        public abstract BaseObject AddNewObject(BTDoc document);
         #endregion
 
         #region Gestion des AppMessages

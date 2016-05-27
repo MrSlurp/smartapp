@@ -61,18 +61,18 @@ namespace CtrlDataTrigger
             }
         }
 
-        public BTControl CreateBTControl()
+        public BTControl CreateBTControl(BTDoc document)
         {
-            return new BTDllCtrlDataTriggerControl();
+            return new BTDllCtrlDataTriggerControl(document);
         }
 
-        public BTControl CreateBTControl(InteractiveControl iCtrl)
+        public BTControl CreateBTControl(BTDoc document, InteractiveControl iCtrl)
         {
-            return new BTDllCtrlDataTriggerControl(iCtrl);
+            return new BTDllCtrlDataTriggerControl(document, iCtrl);
         }
-        public BTControl CreateCommandBTControl()
+        public BTControl CreateCommandBTControl(BTDoc document)
         {
-            return new CtrlDataTriggerCmdControl();
+            return new CtrlDataTriggerCmdControl(document);
         }
 
         public InteractiveControl CreateInteractiveControl()

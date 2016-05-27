@@ -60,18 +60,18 @@ namespace GradientBaloon
             }
         }
 
-        public BTControl CreateBTControl()
+        public BTControl CreateBTControl(BTDoc document)
         {
-            return new BTDllGradientBaloonControl();
+            return new BTDllGradientBaloonControl(document);
         }
 
-        public BTControl CreateBTControl(InteractiveControl iCtrl)
+        public BTControl CreateBTControl(BTDoc document, InteractiveControl iCtrl)
         {
-            return new BTDllGradientBaloonControl(iCtrl);
+            return new BTDllGradientBaloonControl(document, iCtrl);
         }
-        public BTControl CreateCommandBTControl()
+        public BTControl CreateCommandBTControl(BTDoc document)
         {
-            return new GradientBaloonCmdControl();
+            return new GradientBaloonCmdControl(document);
         }
 
         public InteractiveControl CreateInteractiveControl()

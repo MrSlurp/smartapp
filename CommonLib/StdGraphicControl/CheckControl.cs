@@ -22,7 +22,7 @@ namespace CommonLib
         // Description:
         // Return: /
         //*****************************************************************************************************
-        public CheckControl()
+        public CheckControl(BTDoc document) : base(document)
         {
 
         }
@@ -65,13 +65,9 @@ namespace CommonLib
                 else
                     m_AssociateData.Value = 0;
             }
-            if (m_ScriptLines.Count != 0)
+            if (m_ScriptContainer["EvtScript"].Length!= 0)
             {
-#if !QUICK_MOTOR
-                m_Executer.ExecuteScript(this.ScriptLines);
-#else
                 m_Executer.ExecuteScript(this.m_iQuickScriptID);
-#endif
             }
 
             if (m_bUseScreenEvent)

@@ -22,7 +22,8 @@ namespace CtrlTimeWatch
         /// <summary>
         /// Constructeur de la classe
         /// </summary>
-        public CtrlTimeWatchCmdControl()
+        public CtrlTimeWatchCmdControl(BTDoc document)
+            : base(document)
         {
             m_RefreshTimer.Interval = 1000;
             m_RefreshTimer.Tick += new EventHandler(RefreshTimerTick);
@@ -150,10 +151,6 @@ namespace CtrlTimeWatch
                         // traitez ici le passage en mode run du control si nécessaire
                         m_RefreshTimer.Start();
                         break;
-#if QUICK_MOTOR
-                    case MESSAGE.MESS_PRE_PARSE:
-                        break;
-#endif
                     case MESSAGE.MESS_PRE_PARSE:
                     default:
                         break;

@@ -13,7 +13,7 @@ namespace CtrlJauge
 {
     public partial class InteractiveCtrlJaugeDllControl : InteractiveControl, ISpecificControl
     {
-        UserControl m_SpecificPropPanel = new CtrlJaugeProperties();
+        static UserControl m_SpecificPropPanel = new CtrlJaugeProperties();
         StandardPropEnabling m_stdPropEnabling = new StandardPropEnabling();
         SpecificGraphicProp m_SpecGraphicProp = new SpecificGraphicProp();
 

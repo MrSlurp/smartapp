@@ -12,7 +12,7 @@ namespace CtrlSerpentin
 {
     public partial class InteractiveSerpentin : InteractiveControl, ISpecificControl
     {
-        UserControl m_SpecificPropPanel = new TwoColorProperties();
+        static UserControl m_SpecificPropPanel = new TwoColorProperties();
         StandardPropEnabling m_stdPropEnabling = new StandardPropEnabling();
         SpecificGraphicProp m_SpecGraphicProp = new SpecificGraphicProp();
 

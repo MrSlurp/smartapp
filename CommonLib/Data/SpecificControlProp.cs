@@ -12,13 +12,20 @@ namespace CommonLib
     /// </summary>
     public abstract class SpecificControlProp
     {
-        #region méthodes abstraites de la classe
+        protected ItemScriptsConainter m_scriptContainer;
+
+        public SpecificControlProp(ItemScriptsConainter scriptContainter)
+        {
+            m_scriptContainer = scriptContainter;
+        }
+
+        #region ReadIn writeOut
         /// <summary>
         /// fonction de lecture des propriété spécifiques
         /// </summary>
         /// <param name="Node">Noeud du control</param>
         /// <returns>true si la lecture c'est bien passé, sinon false</returns>
-        public abstract bool ReadIn(XmlNode Node);
+        public abstract bool ReadIn(XmlNode Node, BTDoc document);
 
         /// <summary>
         /// fonction d'écriture des propriété spécifiques
@@ -26,13 +33,13 @@ namespace CommonLib
         /// <param name="XmlDoc">Document Xml</param>
         /// <param name="Node">Noeud du control</param>
         /// <returns>true si l'écriture c'est bien passé</returns>
-        public abstract bool WriteOut(XmlDocument XmlDoc, XmlNode Node);
+        public abstract bool WriteOut(XmlDocument XmlDoc, XmlNode Node, BTDoc document);
 
         /// <summary>
         /// copy les paramètres spécifiques à l'identique
         /// </summary>
         /// <param name="SrcSpecificProp">paramètres sources</param>
-        public abstract void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance);
+        public abstract void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance, BTDoc document);
         #endregion
 
         #region methodes utiles pour la lecture et l'ecriture de script
@@ -42,24 +49,27 @@ namespace CommonLib
         /// <param name="Script">contiens le script à la sortie</param>
         /// <param name="Node">neud de l'objet (control) courant</param>
         /// <param name="strNameScriptSection">nom du noeud contenant le script</param>
-        protected void ReadScript(ref StringCollection Script, XmlNode Node, string strNameScriptSection)
+        protected void ReadScript(out string[] Script, XmlNode Node, string strNameScriptSection)
         {
             // on lit le script si il y en a un
+            Script = new string[1];
             if (Node.FirstChild != null)
             {
                 for (int ch = 0; ch < Node.ChildNodes.Count; ch++)
                 {
                     if (Node.ChildNodes[ch].Name == strNameScriptSection)
                     {
+                        List<string> scriptLines = new List<string>();
                         for (int i = 0; i < Node.ChildNodes[ch].ChildNodes.Count; i++)
                         {
                             if (Node.ChildNodes[ch].ChildNodes[i].Name == XML_CF_TAG.Line.ToString()
                                 && Node.ChildNodes[ch].ChildNodes[i].FirstChild != null)
                             {
-
-                                Script.Add(Node.ChildNodes[ch].ChildNodes[i].FirstChild.Value);
+                                scriptLines.Add(Node.ChildNodes[ch].ChildNodes[i].FirstChild.Value);
+                                
                             }
                         }
+                        Script = scriptLines.ToArray();
                         break;
                     }
                 }
@@ -73,10 +83,10 @@ namespace CommonLib
         /// <param name="XmlDoc">document XML</param>
         /// <param name="NodeControl">noeud du controle</param>
         /// <param name="strNameScriptSection">nom du noeud ou sera stocké le script</param>
-        protected void WriteScript(StringCollection Script, XmlDocument XmlDoc, XmlNode NodeControl, string strNameScriptSection)
+        protected void WriteScript(string[] Script, XmlDocument XmlDoc, XmlNode NodeControl, string strNameScriptSection)
         {
             XmlNode XmlEventScript = XmlDoc.CreateElement(strNameScriptSection);
-            for (int i = 0; i < Script.Count; i++)
+            for (int i = 0; i < Script.Length; i++)
             {
                 XmlNode NodeLine = XmlDoc.CreateElement(XML_CF_TAG.Line.ToString());
                 XmlNode NodeText = XmlDoc.CreateTextNode(Script[i]);
@@ -93,12 +103,12 @@ namespace CommonLib
         /// </summary>
         /// <param name="DestScript">script de destination</param>
         /// <param name="SrcScript">script source</param>
-        protected void CopyScript(ref StringCollection DestScript, StringCollection SrcScript)
+        protected void CopyScript(out string[] DestScript, string[] SrcScript)
         {
-            DestScript.Clear();
-            for (int i = 0; i < SrcScript.Count; i++)
+            DestScript = new string[SrcScript.Length];
+            for (int i = 0; i < SrcScript.Length; i++)
             {
-                DestScript.Add(SrcScript[i]);
+                DestScript[i] = SrcScript[i];
             }
         }
         #endregion
@@ -117,6 +127,7 @@ namespace CommonLib
         #endregion
 
         #region Méthode de tratement des messages pour les objets scriptables
+        /*
         /// <summary>
         /// traite les message dans les scripts de l'objet
         /// </summary>
@@ -209,7 +220,7 @@ namespace CommonLib
                 default:
                     break;
             }
-        }
+        }*/
         #endregion
         
         /// <summary>
@@ -234,6 +245,8 @@ namespace CommonLib
         private Color m_ColorInactive = Color.Black;
         private Color m_ColorActive = Color.Blue;
         #endregion
+
+        public TwoColorProp(ItemScriptsConainter scriptContainter) : base(scriptContainter) { }
 
         #region attributs
         /// <summary>
@@ -273,7 +286,7 @@ namespace CommonLib
         /// </summary>
         /// <param name="Node">Noeud du control</param>
         /// <returns>true si la lecture c'est bien passé, sinon false</returns>
-        public override bool ReadIn(XmlNode Node)
+        public override bool ReadIn(XmlNode Node, BTDoc document)
         {
             XmlNode AttrActiveColor = Node.Attributes.GetNamedItem(XML_CF_ATTRIB.ActiveColor.ToString());
             XmlNode AttrInactiveColor = Node.Attributes.GetNamedItem(XML_CF_ATTRIB.InactiveColor.ToString());
@@ -300,7 +313,7 @@ namespace CommonLib
         /// <param name="XmlDoc">Document Xml</param>
         /// <param name="Node">Noeud du control</param>
         /// <returns>true si l'écriture c'est bien passé</returns>
-        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
+        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node, BTDoc document)
         {
             XmlAttribute AttrActColor = XmlDoc.CreateAttribute(XML_CF_ATTRIB.ActiveColor.ToString());
             XmlAttribute AttrInactColor = XmlDoc.CreateAttribute(XML_CF_ATTRIB.InactiveColor.ToString());
@@ -317,7 +330,7 @@ namespace CommonLib
         /// copie les paramètre des propriété spécifiques passé en paramètre
         /// </summary>
         /// <param name="SrcSpecificProp">propriété sources</param>
-        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance)
+        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance, BTDoc document)
         {
             ColorInactive = ((TwoColorProp)SrcSpecificProp).ColorInactive;
             ColorActive = ((TwoColorProp)SrcSpecificProp).ColorActive;

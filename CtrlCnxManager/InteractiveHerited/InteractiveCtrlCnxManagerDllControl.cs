@@ -17,7 +17,7 @@ namespace CtrlCnxManager
     public partial class InteractiveCtrlCnxManagerDllControl : InteractiveControl, ISpecificControl
     {
         // panneau des propriété de l'objet
-        UserControl m_SpecificPropPanel = new CtrlCnxManagerProperties();
+        static UserControl m_SpecificPropPanel = new CtrlCnxManagerProperties();
         // proriétés d'activation des paramètres standard des controls
         StandardPropEnabling m_stdPropEnabling = new StandardPropEnabling();
         // propriété de comportement de l'objet dans le designer

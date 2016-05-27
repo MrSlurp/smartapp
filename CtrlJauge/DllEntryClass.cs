@@ -60,18 +60,18 @@ namespace CtrlJauge
             }
         }
 
-        public BTControl CreateBTControl()
+        public BTControl CreateBTControl(BTDoc document)
         {
-            return new BTDllCtrlJaugeControl();
+            return new BTDllCtrlJaugeControl(document);
         }
 
-        public BTControl CreateBTControl(InteractiveControl iCtrl)
+        public BTControl CreateBTControl(BTDoc document, InteractiveControl iCtrl)
         {
-            return new BTDllCtrlJaugeControl(iCtrl);
+            return new BTDllCtrlJaugeControl(document, iCtrl);
         }
-        public BTControl CreateCommandBTControl()
+        public BTControl CreateCommandBTControl(BTDoc document)
         {
-            return new CtrlJaugeCmdControl();
+            return new CtrlJaugeCmdControl(document);
         }
 
         public InteractiveControl CreateInteractiveControl()

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
@@ -19,7 +20,8 @@ namespace SoundPlayer
         /// <summary>
         /// Constructeur de la classe
         /// </summary>
-        public SoundPlayerCmdControl()
+        public SoundPlayerCmdControl(BTDoc document) 
+            : base(document)
         {
 
         }
@@ -47,8 +49,21 @@ namespace SoundPlayer
                 // par exemple la liaison du click souris à un handler d'event
                 //m_Ctrl.Click += new System.EventHandler(this.OnControlEvent);
                 DllSoundPlayerProp props = this.SpecificProp as DllSoundPlayerProp;
-                m_soundPlayer.SoundLocation = props.SoundFile;
-                m_soundPlayer.Load();
+                string strFullPath = this.Document.PathTr.RelativePathToAbsolute(props.SoundFile);
+                strFullPath = PathTranslator.LinuxVsWindowsPathUse(strFullPath);
+                if (File.Exists(strFullPath))
+                {
+                    try
+                    {
+                        m_soundPlayer.SoundLocation = strFullPath;
+                        m_soundPlayer.Load();
+                    }
+                    catch (Exception)
+                    {
+                        LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format(DllEntryClass.LangSys.C("Control {0} Failed to load file {1}"), Symbol, m_soundPlayer.SoundLocation));
+                        AddLogEvent(log);
+                    }
+                }
             }
         }
 
@@ -105,7 +120,8 @@ namespace SoundPlayer
                         // traitez ici le passage en mode stop du control si nécessaire
                         break;
                     case MESSAGE.MESS_CMD_RUN:
-                        m_iPreviousDataValue = m_AssociateData.Value;
+                        if (m_AssociateData != null)
+                            m_iPreviousDataValue = m_AssociateData.Value;
                         // traitez ici le passage en mode run du control si nécessaire
                         break;
                     default:
@@ -116,7 +132,15 @@ namespace SoundPlayer
 
         private void DoPlaySound()
         {
-            m_soundPlayer.Play();
+            try
+            {
+                m_soundPlayer.Play();
+            }
+            catch (Exception)
+            {
+                LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format(DllEntryClass.LangSys.C("SoundPlayer {0} Failed to play file {1}"), Symbol, m_soundPlayer.SoundLocation));
+                AddLogEvent(log);
+            }
         }
     }
 

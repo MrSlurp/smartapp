@@ -8,7 +8,6 @@ using System.Data;
 using System.Text;
 using System.Xml;
 using System.Windows.Forms;
-using Microsoft.VisualBasic.Devices;
 using CommonLib;
 
 namespace SmartApp.Ihm.Designer
@@ -40,7 +39,7 @@ namespace SmartApp.Ihm.Designer
     // - des alignements a gauche ou en haut
     // - des mises aux meme dimension des éléments séléctionnés
     //*****************************************************************************************************
-    public partial class InteractiveControlContainer : UserControl
+    public partial class InteractiveControlContainer : UserControl, ILangNonTranslatable
     {
         private const string CLIP_FORMAT = "SmartAppCtrlList";
         DataFormats.Format InternalFormat = DataFormats.GetFormat(CLIP_FORMAT);
@@ -51,6 +50,10 @@ namespace SmartApp.Ihm.Designer
         private Point m_ptMouseDown;
         private Bitmap m_BmpBackImage = null;
         private bool m_bDrawGuides = true;
+        private Size m_SizeCustomLines = new Size(-1,-1);
+        public BTDoc m_Document;
+
+        private int m_GridSpacing = 20;
         #endregion
 
         #region Events
@@ -58,19 +61,25 @@ namespace SmartApp.Ihm.Designer
         public event SelectionChangeEvent SelectionChange;
         public event IControlAddedEvent EventControlAdded;
         public event IControlRemovedEvent EventControlRemoved;
-        public event CanChangeSelectionEvent EventCanChangeSelection;
         public event ControlDoubleClicked EventControlDblClick;
-        public event ControlsPosChanged EventControlPosChanged;
         public event IControlBringToTop EventControlBringToTop;
 
         #endregion 
 
         #region attributs
+        public int GridSpacing
+        {
+            get { return m_GridSpacing; }
+            set
+            {
+                m_GridSpacing = value;
+                this.Refresh();
+            }
+        }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
         public int SelectionCount
         {
             get
@@ -79,10 +88,9 @@ namespace SmartApp.Ihm.Designer
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
         public InteractiveControl FirstSelected
         {
             get
@@ -94,10 +102,9 @@ namespace SmartApp.Ihm.Designer
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
         public Bitmap ScreenBckImage
         {
             get
@@ -111,20 +118,18 @@ namespace SmartApp.Ihm.Designer
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
         public void ClearSelection()
         {
             m_ListSelection.Clear();
             this.Update();
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
         public SelectionAbilitiesValues SelectionAbilities
         {
             get
@@ -160,13 +165,18 @@ namespace SmartApp.Ihm.Designer
                 return Abilities;
             }
         }
+
+        public Size CustomLineSize
+        {
+            get { return m_SizeCustomLines; }
+            set { m_SizeCustomLines = value; }
+        }
         #endregion
 
         #region constructeur
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
         public InteractiveControlContainer()
         {
             m_ListSelection = new ArrayList();
@@ -177,36 +187,46 @@ namespace SmartApp.Ihm.Designer
 
         #region Handler d'évènements
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Ctrl"></param>
+        /// <param name="szMove"></param>
+        /// <returns></returns>
         private bool InsideControlMouve(InteractiveControl Ctrl, ref Size szMove)
         {
             TraiteMove(Ctrl, szMove);
-            if (EventControlPosChanged != null)
-                EventControlPosChanged();
             return true;
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
+        private void InsideControlEndMouve()
+        {
+            if (m_Document != null)
+            {
+                m_Document.Modified = true; ;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="e"></param>
         private void InsideControlMouseDownHandler(object obj, MouseEventArgs e)
         {
             TraiteSelection(obj, e);
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="e"></param>
         private void TraiteSelection(object obj, MouseEventArgs e)
         {
-            if (EventCanChangeSelection != null && !EventCanChangeSelection())
-                return;
-
             // on convertis en point écran
             Point ptMouse = ((Control)obj).PointToScreen(e.Location);
             // puis en point client pour this
@@ -245,10 +265,11 @@ namespace SmartApp.Ihm.Designer
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Ctrl"></param>
+        /// <param name="szMove"></param>
         public void TraiteMove(Control Ctrl, Size szMove)
         {
             // rectangle représentant la séléction
@@ -306,15 +327,12 @@ namespace SmartApp.Ihm.Designer
 
         #region overrides
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnMouseClick(MouseEventArgs e)
         {
-            if (EventCanChangeSelection != null && !EventCanChangeSelection())
-                return;
-
             for (int i = 0; i < m_ListSelection.Count; i++)
             {
                 ((IInteractive)m_ListSelection[i]).Selected = false;
@@ -326,10 +344,10 @@ namespace SmartApp.Ihm.Designer
             base.OnMouseClick(e);
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnMouseDown(MouseEventArgs e)
         {
             base.OnMouseDown(e);
@@ -338,10 +356,10 @@ namespace SmartApp.Ihm.Designer
             m_ptMouseDown = e.Location;
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
@@ -357,40 +375,67 @@ namespace SmartApp.Ihm.Designer
             // dessin des lignes "helpers"
             if (m_bDrawGuides)
             {
-                Pen penDotRed = new Pen(Color.Red);
-                penDotRed.DashStyle = DashStyle.Dot;
-                Point[] ptRepere1280par1024 = new Point[3] { new Point(0, 1024), new Point(1280, 1024), new Point(1280, 0) };
-                e.Graphics.DrawLines(penDotRed, ptRepere1280par1024);
-                string strHelpText = "1280 x 1024";
-                e.Graphics.DrawString(strHelpText, SystemFonts.DefaultFont, Brushes.Red, new Point(640, 1024));
+                using (Pen penDotRed = new Pen(Color.Red))
+                using (Pen penDotBlue = new Pen(Color.Blue))
+                using (Pen penDotGreen = new Pen(Color.Green))
+                using (Pen penDotPurple = new Pen(Color.Purple))
+                using (Pen penDotCustom = new Pen(Color.Orange))
+                using (Pen penGrille = new Pen(Color.Gray))
+                {
+                    penDotRed.DashStyle = DashStyle.Dot;
+                    Point[] ptRepere1280par1024 = new Point[3] { new Point(0, 1024), new Point(1280, 1024), new Point(1280, 0) };
+                    e.Graphics.DrawLines(penDotRed, ptRepere1280par1024);
+                    string strHelpText = "1280 x 1024";
+                    e.Graphics.DrawString(strHelpText, SystemFonts.DefaultFont, Brushes.Red, new Point(640, 1024));
 
-                Pen penDotBlue = new Pen(Color.Blue);
-                penDotBlue.DashStyle = DashStyle.Dot;
-                Point[] ptRepere1024par768 = new Point[3] { new Point(0, 768), new Point(1024, 768), new Point(1024, 0) };
-                e.Graphics.DrawLines(penDotBlue, ptRepere1024par768);
-                strHelpText = "1024 x 768";
-                e.Graphics.DrawString(strHelpText, SystemFonts.DefaultFont, Brushes.Blue, new Point(512, 768));
+                    penDotBlue.DashStyle = DashStyle.Dot;
+                    Point[] ptRepere1024par768 = new Point[3] { new Point(0, 768), new Point(1024, 768), new Point(1024, 0) };
+                    e.Graphics.DrawLines(penDotBlue, ptRepere1024par768);
+                    strHelpText = "1024 x 768";
+                    e.Graphics.DrawString(strHelpText, SystemFonts.DefaultFont, Brushes.Blue, new Point(512, 768));
 
-                Pen penDotGreen = new Pen(Color.Green);
-                penDotGreen.DashStyle = DashStyle.Dot;
-                Point[] ptRepere1680par1050 = new Point[3] { new Point(0, 1050), new Point(1680, 1050), new Point(1680, 0) };
-                e.Graphics.DrawLines(penDotGreen, ptRepere1680par1050);
-                strHelpText = "1680 x 1050";
-                e.Graphics.DrawString(strHelpText, SystemFonts.DefaultFont, Brushes.Green, new Point(840, 1050));
+                    penDotGreen.DashStyle = DashStyle.Dot;
+                    Point[] ptRepere1680par1050 = new Point[3] { new Point(0, 1050), new Point(1680, 1050), new Point(1680, 0) };
+                    e.Graphics.DrawLines(penDotGreen, ptRepere1680par1050);
+                    strHelpText = "1680 x 1050";
+                    e.Graphics.DrawString(strHelpText, SystemFonts.DefaultFont, Brushes.Green, new Point(840, 1050));
 
-                Pen penDotPurple = new Pen(Color.Purple);
-                penDotPurple.DashStyle = DashStyle.Dot;
-                Point[] ptRepere1600par1200 = new Point[3] { new Point(0, 1200), new Point(1600, 1200), new Point(1600, 0) };
-                e.Graphics.DrawLines(penDotPurple, ptRepere1600par1200);
-                strHelpText = "1600 x 1200";
-                e.Graphics.DrawString(strHelpText, SystemFonts.DefaultFont, Brushes.Purple, new Point(800, 1188));
+                    penDotPurple.DashStyle = DashStyle.Dot;
+                    Point[] ptRepere1600par1200 = new Point[3] { new Point(0, 1200), new Point(1600, 1200), new Point(1600, 0) };
+                    e.Graphics.DrawLines(penDotPurple, ptRepere1600par1200);
+                    strHelpText = "1600 x 1200";
+                    e.Graphics.DrawString(strHelpText, SystemFonts.DefaultFont, Brushes.Purple, new Point(800, 1188));
+                    penGrille.DashStyle = DashStyle.DashDot;
+                    for (int i = m_GridSpacing; m_GridSpacing > 0 && i < this.Width; i += m_GridSpacing)
+                    {
+                        Point[] ptRepereGrid = new Point[] {  new Point(i, 0), 
+                                                               new Point(i, this.Height) };
+                        e.Graphics.DrawLines(penGrille, ptRepereGrid);
+                    }
+                    for (int i = m_GridSpacing; m_GridSpacing > 0 && i < this.Height; i += m_GridSpacing)
+                    {
+                        Point[] ptRepereGrid2 = new Point[] {  new Point(0, i), 
+                                                               new Point(this.Width, i) };
+                        e.Graphics.DrawLines(penGrille, ptRepereGrid2);
+                    }
+                    if (m_SizeCustomLines.Width != -1 && m_SizeCustomLines.Height != -1)
+                    {
+                        penDotCustom.DashStyle = DashStyle.Dot;
+                        Point[] ptRepereCustom = new Point[3] {  new Point(0, m_SizeCustomLines.Height), 
+                                                                      new Point(m_SizeCustomLines.Width, m_SizeCustomLines.Height), 
+                                                                      new Point(m_SizeCustomLines.Width, 0) };
+                        e.Graphics.DrawLines(penDotCustom, ptRepereCustom);
+                        strHelpText = string.Format("{0} x {1}", m_SizeCustomLines.Width, m_SizeCustomLines.Height);
+                        e.Graphics.DrawString(strHelpText, SystemFonts.DefaultFont, Brushes.Orange, new Point(m_SizeCustomLines.Width / 2, m_SizeCustomLines.Height - 12));
+                    }
+                }
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnMouseMove(MouseEventArgs e)
         {
             base.OnMouseMove(e);
@@ -415,10 +460,10 @@ namespace SmartApp.Ihm.Designer
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnMouseUp(MouseEventArgs e)
         {
             base.OnMouseUp(e);
@@ -454,56 +499,76 @@ namespace SmartApp.Ihm.Designer
             m_bMouseDown = false;
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnControlAdded(ControlEventArgs e)
         {
             base.OnControlAdded(e);
             // losrqu'un control est ajouté, les handlers suivants sont automatiquement ajoutés
             if (DropableItems.AllowedItem(e.Control.GetType()))
             {
-                if (!((InteractiveControl)e.Control).Initialized)
-                {
-                    e.Control.MouseDown += new MouseEventHandler(InsideControlMouseDownHandler);
-                    ((InteractiveControl)e.Control).OnMouve += new InteractiveControl.InteractiveMove(InsideControlMouve);
-                    e.Control.KeyDown += new KeyEventHandler(OnControlKeydown);
-                    e.Control.DoubleClick += new EventHandler(OnControlDoubleClick);
-                    ((InteractiveControl)e.Control).AsscociateDataDroped += new InteractiveControl.AssociateDataDropedEvent(ICtrlDataAssigned);
-                    //e.Control.KeyPress += new KeyPressEventHandler(OnArrowKeyPress);
-                    //e.Control.KeyDown += new KeyEventHandler(OnArrowKeyPress);
-                }
+                e.Control.MouseDown += new MouseEventHandler(InsideControlMouseDownHandler);
+                ((InteractiveControl)e.Control).OnMouve += new InteractiveControl.InteractiveMove(InsideControlMouve);
+                ((InteractiveControl)e.Control).EndMouve += new InteractiveControl.InteractiveEndMove(InsideControlEndMouve);
+                e.Control.KeyDown += new KeyEventHandler(OnControlKeydown);
+                e.Control.DoubleClick += new EventHandler(OnControlDoubleClick);
+                ((InteractiveControl)e.Control).AsscociateDataDroped += new InteractiveControl.AssociateDataDropedEvent(ICtrlDataAssigned);
                 // au moment ou il est initialisé, il deviens possible de le redimensionner ou de le déplacer
                 // donc c'est uniquement lors qu'il est ajouté au container qu'il deviens complètement fonctionel
                 ((InteractiveControl)e.Control).InitInteractiveControl();
             }
         }
 
-        private void ICtrlDataAssigned(InteractiveControl iCtrl)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="iCtrl"></param>
+        /// <param name="dataSymbol"></param>
+        /// <returns></returns>
+        private bool ICtrlDataAssigned(InteractiveControl iCtrl, string dataSymbol, bool bDone)
         {
-            for (int i = 0; i < m_ListSelection.Count; i++)
+            if (m_Document.GestData.GetFromSymbol(dataSymbol) == null && !bDone)
             {
-                ((IInteractive)m_ListSelection[i]).Selected = false;
+                string strErr = string.Format(Program.LangSys.C("This data ({0}) does not exists in this document"), dataSymbol);
+                MessageBox.Show(strErr, Program.LangSys.C("Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
             }
-            // et on séléctionne l'objet posé 
-            m_ListSelection.Clear();
-            m_ListSelection.Add(iCtrl);
-            iCtrl.Selected = true;
-            iCtrl.Focus();
-            if (SelectionChange != null)
-                SelectionChange();
-            if (EventControlDblClick != null)
-                EventControlDblClick();
-
+            if (bDone)
+            {
+                for (int i = 0; i < m_ListSelection.Count; i++)
+                {
+                    ((IInteractive)m_ListSelection[i]).Selected = false;
+                }
+                // et on séléctionne l'objet posé 
+                m_ListSelection.Clear();
+                m_ListSelection.Add(iCtrl);
+                iCtrl.Selected = true;
+                iCtrl.Focus();
+                if (SelectionChange != null)
+                    SelectionChange();
+            }
+            return true;
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnControlRemoved(ControlEventArgs e)
         {
+
+            if (e.Control is InteractiveControl)
+            {
+                e.Control.MouseDown -= InsideControlMouseDownHandler;
+                ((InteractiveControl)e.Control).OnMouve -= InsideControlMouve;
+                ((InteractiveControl)e.Control).EndMouve -= InsideControlEndMouve;
+                e.Control.KeyDown -= OnControlKeydown;
+                e.Control.DoubleClick -= OnControlDoubleClick;
+                ((InteractiveControl)e.Control).AsscociateDataDroped -= ICtrlDataAssigned;
+            }
+
             base.OnControlRemoved(e);
             if (DropableItems.AllowedItem(e.Control.GetType()))
             {
@@ -518,14 +583,13 @@ namespace SmartApp.Ihm.Designer
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
         protected void RemoveSelectedControls()
+        {
+            while (m_ListSelection.Count > 0)
             {
-            while (m_ListSelection.Count >0)
-                {
                 if (this.Controls.Contains((Control)m_ListSelection[0]))
                 {
                     InteractiveControl iControl = (InteractiveControl)m_ListSelection[0];
@@ -541,10 +605,12 @@ namespace SmartApp.Ihm.Designer
 
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <param name="keyData"></param>
+        /// <returns></returns>
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             const int WM_KEYDOWN = 0x100;
@@ -559,6 +625,10 @@ namespace SmartApp.Ihm.Designer
             
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
         protected void TraiteArrowKeys(Keys e)
         {
             if ((e & Keys.Control) == 0)
@@ -616,6 +686,9 @@ namespace SmartApp.Ihm.Designer
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void TreatCopy()
         {
             // copier
@@ -635,10 +708,13 @@ namespace SmartApp.Ihm.Designer
             {
                 return;
             }
-            ctrlGest.WriteOutForClipBoard(clipDoc, clipDoc.DocumentElement);
+            ctrlGest.WriteOutForClipBoard(clipDoc, clipDoc.DocumentElement, m_Document);
             Clipboard.SetData(InternalFormat.Name, clipDoc.OuterXml);
         }
     
+        /// <summary>
+        /// 
+        /// </summary>
         public void TreatPaste()
         {
             // coller
@@ -668,7 +744,7 @@ namespace SmartApp.Ihm.Designer
                         Pid = int.Parse(AttrPid.Value);
                     } 
                     Traces.LogAddDebug(TraceCat.SmartConfig, "Paste en cours avec LoadXml OK");
-                    if (ctrlGest.ReadInForClipBoard(clipDoc.DocumentElement, Program.DllGest))
+                    if (ctrlGest.ReadInForClipBoard(clipDoc.DocumentElement, Program.DllGest, this.m_Document))
                     {
                         List<InteractiveControl> ListSrc = new List<InteractiveControl>();
                         List<InteractiveControl> ListNew = new List<InteractiveControl>();
@@ -689,10 +765,11 @@ namespace SmartApp.Ihm.Designer
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void OnControlKeydown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Delete
@@ -703,10 +780,11 @@ namespace SmartApp.Ihm.Designer
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void OnControlDoubleClick(object sender, EventArgs e)
         {
             if (EventControlDblClick != null)
@@ -716,10 +794,11 @@ namespace SmartApp.Ihm.Designer
         #endregion
 
         #region gestion du drag drop
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnDragEnter(object sender, DragEventArgs e)
         {
             InteractiveControl DropedItem = DropableItems.GetDropableItem(e);
@@ -729,10 +808,11 @@ namespace SmartApp.Ihm.Designer
                 e.Effect = DragDropEffects.None;
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnDragDrop(object sender, DragEventArgs e)
         {
             // on récupère les données de l'objet dropé en correspondance avec ce qu'on veux
@@ -751,6 +831,13 @@ namespace SmartApp.Ihm.Designer
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ListNew"></param>
+        /// <param name="ListSrc"></param>
+        /// <param name="PtMouse"></param>
+        /// <param name="bFromOtherInstance"></param>
         private void InsertDropedItems(List<InteractiveControl> ListNew, List<InteractiveControl> ListSrc, Point PtMouse, bool bFromOtherInstance)
         {
             //bool bFirstItemDone = false;
@@ -852,10 +939,9 @@ namespace SmartApp.Ihm.Designer
         #endregion
 
         #region fonctions de layout
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
         public void AlignSelectionLeft()
         {
             if (m_ListSelection.Count > 1)
@@ -871,10 +957,9 @@ namespace SmartApp.Ihm.Designer
             Refresh();
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
         public void AlignSelectionTop()
         {
             if (m_ListSelection.Count > 1)
@@ -890,6 +975,9 @@ namespace SmartApp.Ihm.Designer
             Refresh();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void LayoutBringToFront()
         {
             if (m_ListSelection.Count >= 1)
@@ -905,10 +993,9 @@ namespace SmartApp.Ihm.Designer
             Refresh();
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
         public void MakeSelectionSameWidth()
         {
             if (m_ListSelection.Count > 1)
@@ -917,17 +1004,19 @@ namespace SmartApp.Ihm.Designer
                 int ctrlwidth = FirstCtrl.Width;
                 for (int i = 1; i < m_ListSelection.Count; i++)
                 {
-                    ((IInteractive)m_ListSelection[i]).Width = ctrlwidth;
-                    ((IInteractive)m_ListSelection[i]).UpdateSelectionLocation();
+                    if (((InteractiveControl)m_ListSelection[i]).CanResizeWidth)
+                    {
+                        ((IInteractive)m_ListSelection[i]).Width = ctrlwidth;
+                        ((IInteractive)m_ListSelection[i]).UpdateSelectionLocation();
+                    }
                 }
             }
             Refresh();
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
         public void MakeSelectionSameHeight()
         {
             if (m_ListSelection.Count > 1)
@@ -936,17 +1025,19 @@ namespace SmartApp.Ihm.Designer
                 int ctrlHeight = FirstCtrl.Height;
                 for (int i = 1; i < m_ListSelection.Count; i++)
                 {
-                    ((IInteractive)m_ListSelection[i]).Height = ctrlHeight;
-                    ((IInteractive)m_ListSelection[i]).UpdateSelectionLocation();
+                    if (((InteractiveControl)m_ListSelection[i]).CanResizeHeight)
+                    {
+                        ((IInteractive)m_ListSelection[i]).Height = ctrlHeight;
+                        ((IInteractive)m_ListSelection[i]).UpdateSelectionLocation();
+                    }
                 }
             }
             Refresh();
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
         public void MakeSelectionSameSize()
         {
             if (m_ListSelection.Count > 1)
@@ -956,18 +1047,23 @@ namespace SmartApp.Ihm.Designer
                 int ctrlwidth = FirstCtrl.Width;
                 for (int i = 1; i < m_ListSelection.Count; i++)
                 {
-                    ((IInteractive)m_ListSelection[i]).Width = ctrlwidth;
-                    ((IInteractive)m_ListSelection[i]).Height = ctrlHeight;
+                    if (((InteractiveControl)m_ListSelection[i]).CanResizeWidth)
+                    {
+                        ((IInteractive)m_ListSelection[i]).Width = ctrlwidth;
+                    }
+                    if (((InteractiveControl)m_ListSelection[i]).CanResizeHeight)
+                    {
+                        ((IInteractive)m_ListSelection[i]).Height = ctrlHeight;
+                    }
                     ((IInteractive)m_ListSelection[i]).UpdateSelectionLocation();
                 }
             }
             Refresh();
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
         public void ArrangeItemsAcross()
         {
             if (m_ListSelection.Count > 1)
@@ -1032,10 +1128,10 @@ namespace SmartApp.Ihm.Designer
             }
             Refresh();
         }
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
+
+        /// <summary>
+        /// 
+        /// </summary>
         public void ArrangeItemsDown()
         {
             if (m_ListSelection.Count > 1)
@@ -1103,11 +1199,19 @@ namespace SmartApp.Ihm.Designer
 
         #endregion
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="activeControl"></param>
+        /// <returns></returns>
         protected override Point ScrollToControl(Control activeControl)
         {
             return Point.Empty;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void SaveAsBitmap()
         {
             SaveFileDialog dlg = new SaveFileDialog();
@@ -1165,6 +1269,9 @@ namespace SmartApp.Ihm.Designer
         }
 
         #region Sizes
+        /// <summary>
+        /// 
+        /// </summary>
         public void SizeCtrlsPlusW()
         {
             if (m_ListSelection.Count >= 1)
@@ -1180,6 +1287,10 @@ namespace SmartApp.Ihm.Designer
             }
             Refresh();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public void SizeCtrlsMinusW()
         {
             if (m_ListSelection.Count >= 1)
@@ -1195,6 +1306,10 @@ namespace SmartApp.Ihm.Designer
             }
             Refresh();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public void SizeCtrlsPlusH()
         {
             if (m_ListSelection.Count >= 1)
@@ -1210,6 +1325,10 @@ namespace SmartApp.Ihm.Designer
             }
             Refresh();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public void SizeCtrlsMinusH()
         {
             if (m_ListSelection.Count >= 1)

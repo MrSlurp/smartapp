@@ -13,7 +13,7 @@ namespace CtrlTwoBitmap
 {
     public partial class InteractiveTwoBitmap : InteractiveControl, ISpecificControl
     {
-        UserControl m_SpecificPropPanel = new TwoBitmapProperties();
+        static UserControl m_SpecificPropPanel = new TwoBitmapProperties();
         StandardPropEnabling m_stdPropEnabling = new StandardPropEnabling();
         SpecificGraphicProp m_SpecGraphicProp = new SpecificGraphicProp();
 
@@ -90,16 +90,21 @@ namespace CtrlTwoBitmap
             {
                 try
                 {
-                    if (((TwoBitmapProp)this.SourceBTControl.SpecificProp).NomFichierInactif != m_strImgInactive)
+                    TwoBitmapProp specProps = this.SourceBTControl.SpecificProp as TwoBitmapProp;
+                    if (!string.IsNullOrEmpty(specProps.NomFichierInactif))
                     {
-                        m_strImgInactive = PathTranslator.RelativePathToAbsolute(((TwoBitmapProp)this.SourceBTControl.SpecificProp).NomFichierInactif);
-                        m_strImgInactive = PathTranslator.LinuxVsWindowsPathUse(m_strImgInactive);
-                        string strImageFullPath = m_strImgInactive;
-                        m_BmpInact = new Bitmap(strImageFullPath);
-                        m_BmpInact.MakeTransparent(Color.Magenta);
+                        if (specProps.NomFichierInactif != m_strImgInactive)
+                        {
+                            m_strImgInactive = SourceBTControl.Document.PathTr.RelativePathToAbsolute(((TwoBitmapProp)this.SourceBTControl.SpecificProp).NomFichierInactif);
+                            m_strImgInactive = PathTranslator.LinuxVsWindowsPathUse(m_strImgInactive);
+                            string strImageFullPath = m_strImgInactive;
+                            PathTranslator.CheckFileExistOrThrow(strImageFullPath);
+                            m_BmpInact = new Bitmap(strImageFullPath);
+                            m_BmpInact.MakeTransparent(Color.Magenta);
+                        }
+                        gr.DrawImage(m_BmpInact, new Rectangle(new Point(0, 0), this.Size));
+                        return;
                     }
-                    gr.DrawImage(m_BmpInact, new Rectangle(new Point(0, 0), this.Size));
-                    return;
                 }
                 catch (Exception )
                 {

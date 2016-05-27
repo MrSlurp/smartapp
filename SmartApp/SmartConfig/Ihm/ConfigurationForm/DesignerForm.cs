@@ -17,14 +17,13 @@ namespace SmartApp.Ihm
         #region données membres
         private BTDoc m_Document = null;
         private BTScreen m_Currentscreen = null;
-        private DragItemPanel m_panelToolDragItem;
+        BasePropertiesDialog m_PropDialog;//= new BasePropertiesDialog();
         #endregion
 
         #region attributs de la classe
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
+        /// <summary>
+        /// 
+        /// </summary>
         public BTDoc Doc
         {
             get
@@ -34,17 +33,13 @@ namespace SmartApp.Ihm
             set
             {
                 m_Document = value;
-                m_PanelScreenListAndProp.Doc = m_Document;
-                m_PanelControlProperties.Doc = m_Document;
-                m_PanelScreenInitScript.Title = Program.LangSys.C("Screen Init Script");
-                m_PanelScreenInitScript.Doc = m_Document;
-                m_PanelScreenEventScript.Title = Program.LangSys.C("Screen Event Script");
-                m_PanelScreenEventScript.Doc = m_Document;
-                m_PanelCtrlEventScript.Title = Program.LangSys.C("Control Event Script");
-                m_PanelCtrlEventScript.Doc = m_Document;
+                m_InteractiveControlContainer.m_Document = m_Document;
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public GestScreen GestScreen
         {
             get
@@ -53,10 +48,9 @@ namespace SmartApp.Ihm
             }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
+        /// <summary>
+        /// 
+        /// </summary>
         public GestData GestData
         {
             get
@@ -64,16 +58,36 @@ namespace SmartApp.Ihm
                 return m_Document.GestData;
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public BTScreen CurrentScreen
+        {
+            get { return m_Currentscreen; }
+            set
+            {
+                if (m_Currentscreen != null)
+                {
+                    m_Currentscreen.PropertiesChanged -= ScreenPropsChanged;
+                }
+                m_Currentscreen = value;
+                if (m_Currentscreen != null)
+                {
+                    m_Currentscreen.PropertiesChanged += ScreenPropsChanged;
+                }
+                SelectedScreenChange();
+            }
+        }
         #endregion
 
         #region constructeurs et inits
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
+        /// <summary>
+        /// 
+        /// </summary>
         public DesignerForm()
         {
-            //Program.LangSys.Initialize(this);
+            Program.LangSys.Initialize(this);
             InitializeComponent();
             m_toolBtnAlignLeft.Image = Resources.AlignLeft;
             m_toolBtnAlignTop.Image = Resources.AlignTop;
@@ -83,100 +97,54 @@ namespace SmartApp.Ihm
             m_toolBtnMSWidth.Image = Resources.MakeSameWidth;
             m_toolBtnMSSize.Image = Resources.MakeSameBoth;
 
-            // ce code est déporté de InitializeComponent() 
-            // car ca pose un problème dans le designer
-            m_tabCTrlConfig.SuspendLayout();
-            m_panelToolDragItem = new DragItemPanel();
-            // 
-            // m_panelToolDragItem
-            // 
-            m_panelToolDragItem.AutoScroll = true;
-            m_panelToolDragItem.BackColor = System.Drawing.Color.Transparent;
-            m_panelToolDragItem.Dock = System.Windows.Forms.DockStyle.Fill;
-            m_panelToolDragItem.Location = new System.Drawing.Point(3, 3);
-            m_panelToolDragItem.Margin = new System.Windows.Forms.Padding(0);
-            m_panelToolDragItem.Name = "m_panelToolDragItem";
-            m_panelToolDragItem.Size = new System.Drawing.Size(275, 531);
-            m_panelToolDragItem.TabIndex = 1;
-
-            m_TabTools.Controls.Add(this.m_panelToolDragItem);
-            m_tabCTrlConfig.ResumeLayout(false);
             // fin de code déporté de suspend layout
-
             m_InteractiveControlContainer.SelectionChange += new SelectionChangeEvent(OnScreenDesignerSelectionChange);
             m_InteractiveControlContainer.EventControlAdded += new IControlAddedEvent(this.OnDesignerControAdded);
             m_InteractiveControlContainer.EventControlRemoved += new IControlRemovedEvent(this.OnDesignerControRemoved);
             m_InteractiveControlContainer.EventControlBringToTop += new IControlBringToTop(this.OnDesignerControBringTop);
-            m_InteractiveControlContainer.EventCanChangeSelection += new CanChangeSelectionEvent(this.OnControlContainerAskChangeSelection);
             m_InteractiveControlContainer.EventControlDblClick += new ControlDoubleClicked(this.OnControlDblClick);
-            m_InteractiveControlContainer.EventControlPosChanged += new ControlsPosChanged(ControlPosChanged);
             m_InteractiveControlContainer.AllowDrop = false;
+
+            m_PropDialog = MDISmartConfigMain.GlobalPropDialog;
             OnScreenDesignerSelectionChange();
-            this.m_PanelScreenListAndProp.SelectedScreenChange += new ScreenPropertiesChange(this.OnSelectedScreenChange);
         }
 
-        void SubInitComponent()
-        {
-
-        }
-
-        void ControlPosChanged()
-        {
-            m_Document.Modified = true;
-        }
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
+        /// <summary>
+        /// 
+        /// </summary>
         public void Initialize()
         {
-            m_PanelScreenListAndProp.Initialize();
-            OnSelectedScreenChange(null);
-            UpdateOptionPanel();
+            SelectedScreenChange();
             m_InteractiveControlContainer.ClearSelection();
         }
         #endregion
 
         #region event handlers
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
+        /// <summary>
+        /// 
+        /// </summary>
         private void OnScreenDesignerSelectionChange()
         {
             UpdateLayoutToolBarButtons();
-            UpdateOptionPanel();
+            if (m_InteractiveControlContainer.SelectionCount >= 1)
+            {
+                m_PropDialog.Document = m_Document;
+                m_PropDialog.CurrentScreen = this.CurrentScreen;
+                m_PropDialog.ConfiguredItem = m_InteractiveControlContainer.FirstSelected.SourceBTControl;
+                m_PropDialog.Initialize();
+            }
+            else
+            {
+                m_PropDialog.ConfiguredItem = null;
+            }
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
-        private void OnFormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (e.CloseReason == CloseReason.UserClosing)
-            {
-                if (m_PanelControlProperties.IsDataValuesValid)
-                {
-                    this.WindowState = FormWindowState.Minimized;
-                }
-                e.Cancel = true;
-            }
-            else if (e.CloseReason == CloseReason.MdiFormClosing)
-            {
-                if (!m_PanelControlProperties.IsDataValuesValid)
-                    e.Cancel = true;
-            }
-        }
         #endregion
 
         #region fonctions d'update de l'IHM
-        //*****************************************************************************************************
-        // Description: met a jour l'état des boutons de la tool bar de mise en forme en fonction de la selection
-        // du designer (InteractiveControlContainer)
-        // Return: /
-        //*****************************************************************************************************      
+        /// <summary>
+        /// 
+        /// </summary>
         private void UpdateLayoutToolBarButtons()
         {
             if (m_InteractiveControlContainer.SelectionCount <= 1)
@@ -233,84 +201,6 @@ namespace SmartApp.Ihm
             }
         }
 
-        //*****************************************************************************************************
-        // Description: affiche le panel correspondant au premier objet selectionné si la selection ne contiens
-        // qu'un seul objet
-        // Return: /
-        //*****************************************************************************************************      
-        private void UpdateOptionPanel()
-        {
-            UpdateScriptFromControlType();
-            if (m_InteractiveControlContainer.SelectionCount == 0)
-            {
-                m_PanelControlProperties.Enabled = false;
-                if (m_PanelControlProperties.BTControl != null)
-                    m_PanelControlProperties.BTControl = null;
-            }
-            else if (m_InteractiveControlContainer.SelectionCount ==1)
-            {
-                m_PanelControlProperties.Enabled = true;
-                if (m_PanelControlProperties.BTControl != m_InteractiveControlContainer.FirstSelected.SourceBTControl)
-                    m_PanelControlProperties.BTControl = m_InteractiveControlContainer.FirstSelected.SourceBTControl;
-            }
-            else
-            {
-                m_PanelControlProperties.Enabled = false;
-            }
-            
-        }
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        protected void UpdateScriptFromControlType()
-        {
-
-            BTControl ctrl = null;
-            if (m_InteractiveControlContainer.FirstSelected != null)
-                ctrl = m_InteractiveControlContainer.FirstSelected.SourceBTControl;
-
-            if (ctrl == null)
-            {
-                m_PanelCtrlEventScript.ScriptableItem = null;
-                return;
-            }
-
-            switch (ctrl.IControl.ControlType)
-            {
-                case InteractiveControlType.Button:
-                case InteractiveControlType.CheckBox:
-                case InteractiveControlType.Combo:
-                    m_PanelCtrlEventScript.ScriptableItem = ctrl;
-                    break;
-                case InteractiveControlType.Text:
-                case InteractiveControlType.NumericUpDown:
-                case InteractiveControlType.Slider:
-                    m_PanelCtrlEventScript.ScriptableItem = null;
-                    break;
-                case InteractiveControlType.SpecificControl:
-                    if (((ISpecificControl)ctrl.IControl).StdPropEnabling.m_bCtrlEventScriptEnabled)
-                        m_PanelCtrlEventScript.ScriptableItem = ctrl;
-                    else
-                        m_PanelCtrlEventScript.ScriptableItem = null;
-                    break;
-                case InteractiveControlType.DllControl:
-                    if (((ISpecificControl)ctrl.IControl).StdPropEnabling.m_bCtrlEventScriptEnabled)
-                        m_PanelCtrlEventScript.ScriptableItem = ctrl;
-                    else
-                        m_PanelCtrlEventScript.ScriptableItem = null;
-                    break;
-                default:
-                    System.Diagnostics.Debug.Assert(false);
-                    break;
-            }
-            if (m_InteractiveControlContainer.SelectionCount > 1)
-            {
-                m_PanelCtrlEventScript.Enabled = false;
-            }
-
-        }
         #endregion
 
         #region Event de la tool bar de layout
@@ -361,41 +251,44 @@ namespace SmartApp.Ihm
         #endregion
 
         #region fonctions de gestion du transfert des données Designer => objet && objet ==> designer
-        //*****************************************************************************************************
-        // Description: appelé lorsque l'écran séléctionné a changé
-        // Return: /
-        //*****************************************************************************************************      
-        public void OnSelectedScreenChange(BTScreen Scr)
+        protected void ScreenPropsChanged(BaseObject bobj)
         {
-            m_Currentscreen = Scr;
+            SelectedScreenChange();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected void SelectedScreenChange()
+        {
+            m_PropDialog.Document = m_Document;
+            m_PropDialog.CurrentScreen = m_Currentscreen;
+            m_PropDialog.ConfiguredItem = m_Currentscreen;
+            m_PropDialog.Initialize();
             if (m_Currentscreen == null)
             {
                 // si il n'y a pas d'écran selectionné
                 // on ne peux pas droper dans le designer
-                this.m_PanelControlProperties.GestControl = null;
                 m_InteractiveControlContainer.AllowDrop = false;
                 m_InteractiveControlContainer.ScreenBckImage = null;
-                m_PanelScreenInitScript.InitScriptableItem = null;
-                m_PanelScreenEventScript.ScriptableItem = null;
-                m_PanelCtrlEventScript.ScriptableItem = null;
                 m_LabelSelectedScreen.Text = Program.LangSys.C("No selection");
                 toolbtnScreenToBitmap.Enabled = false;
                 tsbtn_copy.Enabled = false;
                 tsbtn_paste.Enabled = false;
                 UpdateDesignerFromScreen(null);
+                m_InteractiveControlContainer.CustomLineSize = new Size(-1,-1);
                 return;
             }
-            m_LabelSelectedScreen.Text = Scr.Symbol;
-            m_PanelScreenInitScript.InitScriptableItem = m_Currentscreen;
-            m_PanelScreenEventScript.ScriptableItem = m_Currentscreen;
+            string strFileName = Path.GetFileNameWithoutExtension(m_Document.FileName);
+            m_LabelSelectedScreen.Text = m_Currentscreen.Symbol + " @ " + strFileName;
             m_InteractiveControlContainer.AllowDrop = true;
             toolbtnScreenToBitmap.Enabled = true;
             tsbtn_copy.Enabled = true;
             tsbtn_paste.Enabled = true;
-
+            m_InteractiveControlContainer.CustomLineSize = m_Currentscreen.ScreenSize;
             try
             {
-                string chemincomplet = PathTranslator.RelativePathToAbsolute(m_Currentscreen.BackPictureFile);
+                string chemincomplet = m_Document.PathTr.RelativePathToAbsolute(m_Currentscreen.BackPictureFile);
                 chemincomplet = PathTranslator.LinuxVsWindowsPathUse(chemincomplet);
                 if (!string.IsNullOrEmpty(chemincomplet)
                     && File.Exists(chemincomplet))
@@ -416,14 +309,13 @@ namespace SmartApp.Ihm
             }
             // on met a jour le designer avec l'écran séléctionné
             UpdateDesignerFromScreen(m_Currentscreen);
-            this.m_PanelControlProperties.GestControl = m_Currentscreen.Controls;
-            UpdateOptionPanel();
+            m_InteractiveControlContainer.Refresh();
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Scr"></param>
         private void UpdateDesignerFromScreen(BTScreen Scr)
         {
             m_InteractiveControlContainer.Controls.Clear();
@@ -437,11 +329,13 @@ namespace SmartApp.Ihm
             }
         }
 
-        //*****************************************************************************************************
-        // Description: appelé lorsqu'on ajoute manuellement un control au designer
-        // ajoute le control dans la liste des controls de l'écran
-        // Return: /
-        //*****************************************************************************************************      
+        /// <summary>
+        /// appelé lorsqu'on ajoute manuellement un control au designer
+        /// ajoute le control dans la liste des controls de l'écran
+        /// </summary>
+        /// <param name="ctrl"></param>
+        /// <param name="SrcBtControl"></param>
+        /// <param name="bFromOtherInstance"></param>
         private void OnDesignerControAdded(InteractiveControl ctrl, BTControl SrcBtControl,bool bFromOtherInstance)
         {
             if (m_Currentscreen == null)
@@ -449,13 +343,13 @@ namespace SmartApp.Ihm
 
             BTControl NewCtrl = null;
             if (ctrl.IsDllControl)
-                NewCtrl = Program.DllGest[ctrl.DllControlID].CreateBTControl(ctrl);
+                NewCtrl = Program.DllGest[ctrl.DllControlID].CreateBTControl(m_Document, ctrl);
             else
-                NewCtrl = BTControl.CreateNewBTControl(ctrl);
+                NewCtrl = BTControl.CreateNewBTControl(ctrl, m_Document);
 
             if (SrcBtControl != null )
             {
-                NewCtrl.CopyParametersFrom(SrcBtControl, bFromOtherInstance);
+                NewCtrl.CopyParametersFrom(SrcBtControl, bFromOtherInstance, m_Document);
             }
 
             NewCtrl.Symbol = m_Currentscreen.Controls.GetNextDefaultSymbol();
@@ -464,10 +358,10 @@ namespace SmartApp.Ihm
             m_Document.Modified = true;
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ctrl"></param>
         private void OnDesignerControRemoved(InteractiveControl ctrl)
         {
             if (m_Currentscreen == null)
@@ -481,69 +375,62 @@ namespace SmartApp.Ihm
             m_Document.Modified = true;
         }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
-        private bool OnControlContainerAskChangeSelection()
-        {
-            return m_PanelControlProperties.IsDataValuesValid;
-        }
 
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
+        /// <summary>
+        /// 
+        /// </summary>
         private void OnControlDblClick()
         {
-            m_tabCTrlConfig.SelectedIndex = 2; // TODO constante pour la page des controls
-        }
-
-        #endregion
-
-        #region fonctions "helpers"
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************      
-        /*
-        public BTControl FindControlFromIControl(InteractiveControl iCtrl)
-        {
-            if (m_Currentscreen != null)
+            if (m_PropDialog.ConfiguredItem != null)
             {
-                for (int i = 0; i < m_Currentscreen.Controls.Count; i++)
+                m_PropDialog.Document = m_Document;
+                m_PropDialog.Initialize();
+                if (!m_PropDialog.Visible)
                 {
-                    BTControl Ctrl = (BTControl)m_Currentscreen.Controls[i];
-                    if (Ctrl.IControl == iCtrl)
-                        return Ctrl;
+                    m_PropDialog.Show(Program.CurrentMainForm);
                 }
+                //m_PropDialog.BringToFront();
             }
-            return null;
         }
-         * */
+
         #endregion
-
-        private void OnDesignerKeyDown(object sender, KeyEventArgs e)
-        {
-        }
-
+ 
         #region arrange functions
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void m_toolBtnArrangeAcross_Click(object sender, EventArgs e)
         {
             m_InteractiveControlContainer.ArrangeItemsAcross();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void m_toolBtnArrangeDown_Click(object sender, EventArgs e)
         {
             m_InteractiveControlContainer.ArrangeItemsDown();
         }
         #endregion
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void m_toolBtnBringToFront_Click(object sender, EventArgs e)
         {
             m_InteractiveControlContainer.LayoutBringToFront();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ctrl"></param>
         private void OnDesignerControBringTop(InteractiveControl ctrl)
         {
             if (m_Currentscreen != null)
@@ -552,27 +439,52 @@ namespace SmartApp.Ihm
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void toolbtnScreenToBitmap_Click(object sender, EventArgs e)
         {
             m_InteractiveControlContainer.SaveAsBitmap();
         }
 
         #region size functions
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tsbtn_increaseWidth_Click(object sender, EventArgs e)
         {
             m_InteractiveControlContainer.SizeCtrlsPlusW();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tsbtn_decreaseWidth_Click(object sender, EventArgs e)
         {
             m_InteractiveControlContainer.SizeCtrlsMinusW();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tsbtn_increaseHeight_Click(object sender, EventArgs e)
         {
             m_InteractiveControlContainer.SizeCtrlsPlusH();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tsbtn_decreaseHeight_Click(object sender, EventArgs e)
         {
             m_InteractiveControlContainer.SizeCtrlsMinusH();
@@ -580,39 +492,96 @@ namespace SmartApp.Ihm
         #endregion
 
         #region move functions
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tsbtn_moveLeft_Click(object sender, EventArgs e)
         {
             Size szMove = new Size(-1, 0);
             m_InteractiveControlContainer.TraiteMove(null, szMove);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tsbtn_moveRight_Click(object sender, EventArgs e)
         {
             Size szMove = new Size(1, 0);
             m_InteractiveControlContainer.TraiteMove(null, szMove);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tsbtn_moveUp_Click(object sender, EventArgs e)
         {
             Size szMove = new Size(0, -1);
             m_InteractiveControlContainer.TraiteMove(null, szMove);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tsbtn_moveDown_Click(object sender, EventArgs e)
         {
             Size szMove = new Size(0, 1);
             m_InteractiveControlContainer.TraiteMove(null, szMove);
         }
-    
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tsbtn_copy_click(object sender, EventArgs e)
         {
             m_InteractiveControlContainer.TreatCopy();            
         }
-    
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tsbtn_paste_click(object sender, EventArgs e)
         {
             m_InteractiveControlContainer.TreatPaste();            
         }
         #endregion
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DesignerForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            m_InteractiveControlContainer.Controls.Clear();
+            m_Currentscreen.PropertiesChanged -= this.ScreenPropsChanged;
+        }
+
+        private void tsMenuGrid_Click(object sender, EventArgs e)
+        {
+            if (sender == tsMenuGridOff)
+            {
+                m_InteractiveControlContainer.GridSpacing = 0;
+            }
+            else if (sender == tsMenuGrid20)
+            {
+                m_InteractiveControlContainer.GridSpacing = 20;
+            }
+            else if (sender == tsMenuGrid40)
+            {
+                m_InteractiveControlContainer.GridSpacing = 40;
+            }
+        }
     }
 }

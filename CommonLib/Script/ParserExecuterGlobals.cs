@@ -27,7 +27,9 @@ namespace CommonLib
         SCREEN,
         SCREEN_FUNC,
         LOGIC,
-        LOGIC_FUNC
+        LOGIC_FUNC,
+        SYSTEM,
+        SYSTEM_FUNC
     }
 
     /// <summary>
@@ -42,7 +44,8 @@ namespace CommonLib
         TIMERS,
         MATHS,
         SCREEN,
-        LOGIC
+        LOGIC,
+        SYSTEM
     }
 
     /// <summary>
@@ -88,6 +91,15 @@ namespace CommonLib
         SUB,
         MUL,
         DIV,
+        COS,
+        SIN,
+        TAN,
+        SQRT,
+        POW,
+        LN,
+        LOG,
+        SET,
+        MOD,
     }
 
     /// <summary>
@@ -112,6 +124,14 @@ namespace CommonLib
         INVALID,
         SHOW_ON_TOP,
         SCREEN_SHOT,
+        HIDE,
+        SHOW,
+    }
+
+    public enum SYSTEM_FUNC
+    {
+        INVALID,
+        SHELL_EXEC,
     }
 
     public enum ALL_FUNC
@@ -130,6 +150,15 @@ namespace CommonLib
         MATHS_SUB,
         MATHS_MUL,
         MATHS_DIV,
+        MATHS_COS,
+        MATHS_SIN,
+        MATHS_TAN,
+        MATHS_SQRT,
+        MATHS_POW,
+        MATHS_LN,
+        MATHS_LOG,
+        MATHS_SET,
+        MATHS_MOD,
         LOGIC_NOT,
         LOGIC_AND,
         LOGIC_OR,
@@ -137,7 +166,10 @@ namespace CommonLib
         LOGIC_NOR,
         LOGIC_XOR,
         SCREEN_SHOW_ON_TOP,
+        SCREEN_HIDE,
+        SCREEN_SHOW,
         SCREEN_SCREEN_SHOT,
+        SYSTEM_SHELL_EXEC
     }
 
     /// <summary>

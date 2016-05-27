@@ -10,87 +10,17 @@ using CommonLib;
 
 namespace CtrlTwoBitmap
 {
-    public partial class TwoBitmapProperties : UserControl , ISpecificPanel
+    public partial class TwoBitmapProperties : BaseControlPropertiesPanel, ISpecificPanel
     {
-        BTControl m_Control = null;
-        private BTDoc m_Document = null;
-
-        #region events
-        public event ControlPropertiesChange ControlPropertiesChanged;
-        #endregion        
-
         public TwoBitmapProperties()
         {
             DllEntryClass.LangSys.Initialize(this);
             InitializeComponent();
         }
 
-
-        public BTControl BTControl
-        {
-            get
-            {
-                return m_Control;
-            }
-            set
-            {
-                if (value != null && value.SpecificProp.GetType() == typeof(TwoBitmapProp))
-                    m_Control = value;
-                else
-                    m_Control = null;
-                if (m_Control != null)
-                {
-                    this.Enabled = true;
-                    m_txtBoxImg1.Text = ((TwoBitmapProp)m_Control.SpecificProp).NomFichierInactif;
-                    m_txtBoxImg2.Text = ((TwoBitmapProp)m_Control.SpecificProp).NomFichierActif;
-                }
-                else
-                {
-                    this.Enabled = false;
-                    m_txtBoxImg1.Text = "";
-                    m_txtBoxImg2.Text = "";
-                }
-            }
-        }
-
-        public BTDoc Doc
-        {
-            get
-            {
-                return m_Document;
-            }
-            set
-            {
-                m_Document = value;
-            }
-        }
-
         #region validation des données
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        public bool IsDataValuesValid
+        public void PanelToObject()
         {
-            get
-            {
-                if (this.BTControl == null)
-                    return true;
-
-                return true;
-            }
-        }
-
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        public bool ValidateValues()
-        {
-            if (this.BTControl == null)
-                return true;
-
             bool bDataPropChange = false;
             if (m_txtBoxImg1.Text != ((TwoBitmapProp)m_Control.SpecificProp).NomFichierInactif)
                 bDataPropChange = true;
@@ -102,12 +32,14 @@ namespace CtrlTwoBitmap
             {
                 ((TwoBitmapProp)m_Control.SpecificProp).NomFichierInactif = m_txtBoxImg1.Text;
                 ((TwoBitmapProp)m_Control.SpecificProp).NomFichierActif = m_txtBoxImg2.Text;
-                Doc.Modified = true;
-                m_Control.IControl.Refresh();
+                Document.Modified = true;
             }
-            if (bDataPropChange && ControlPropertiesChanged != null)
-                ControlPropertiesChanged(m_Control);
-            return true;
+        }
+
+        public void ObjectToPanel()
+        {
+            m_txtBoxImg1.Text = ((TwoBitmapProp)m_Control.SpecificProp).NomFichierInactif;
+            m_txtBoxImg2.Text = ((TwoBitmapProp)m_Control.SpecificProp).NomFichierActif;
         }
         #endregion
 
@@ -118,7 +50,7 @@ namespace CtrlTwoBitmap
             {
 
                 m_txtBoxImg1.Text = PathTranslator.LinuxVsWindowsPathStore(
-                                    PathTranslator.AbsolutePathToRelative(CentralizedFileDlg.ImgFileName));
+                                    Document.PathTr.AbsolutePathToRelative(CentralizedFileDlg.ImgFileName));
             }
 
         }
@@ -129,7 +61,7 @@ namespace CtrlTwoBitmap
             if (dlgRes == DialogResult.OK)
             {
                 m_txtBoxImg2.Text = PathTranslator.LinuxVsWindowsPathStore(
-                                    PathTranslator.AbsolutePathToRelative(CentralizedFileDlg.ImgFileName));
+                                    Document.PathTr.AbsolutePathToRelative(CentralizedFileDlg.ImgFileName));
             }
         }
     }

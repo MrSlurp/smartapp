@@ -13,6 +13,7 @@ using System.Collections.Specialized;
 using System.Text;
 using System.Drawing;
 using System.Xml;
+using System.Windows.Forms;
 
 namespace CommonLib
 {
@@ -22,9 +23,11 @@ namespace CommonLib
     /// </summary>
     public partial class BTControl : BaseObject, IScriptable
     {
+        private static Control m_singStdConfigPanel;
+
         #region Déclaration des données de la classe
         // control affiché dans le designer d'ecrans
-        protected InteractiveControl m_IControl = new InteractiveControl();
+        protected InteractiveControl m_IControl;
         // symbol de la donnée associée au control
         protected string m_strAssociateData;
         // indique si le control utilise l'évènement d'écran
@@ -32,10 +35,12 @@ namespace CommonLib
         // indique si le control est read only
         protected bool m_bIsReadOnly = false;
         // collection de string qui contiennent le script a executer
-        protected StringCollection m_ScriptLines = new StringCollection();
+        protected ItemScriptsConainter m_ScriptContainer = new ItemScriptsConainter();
 
         protected Font m_TextFont = new Font(SystemFonts.DefaultFont, FontStyle.Regular);
         protected Color m_TextColor = Color.Black;
+
+        protected BTDoc m_Document;
 
         #endregion
 
@@ -43,10 +48,13 @@ namespace CommonLib
         /// <summary>
         /// constructeur par défaut
         /// </summary>
-        public BTControl()
+        public BTControl(BTDoc document)
         {
             m_IControl = new InteractiveControl();
             m_IControl.SourceBTControl = this;
+            m_ScriptContainer["EvtScript"] = new string[1];
+            m_Document = document;
+            CleanScriptFromType();
         }
 
         /// <summary>
@@ -54,11 +62,14 @@ namespace CommonLib
         /// ce constructeur permet d'associé l'objet graphique lors qu'il est droppé dans le designer
         /// </summary>
         /// <param name="Ctrl">objet interactif posé dans la surface de dessin</param>
-        protected BTControl(InteractiveControl Ctrl)
+        protected BTControl(BTDoc document, InteractiveControl Ctrl)
         {
+            m_Document = document;
             m_IControl = Ctrl;
             if (m_IControl != null)
                 m_IControl.SourceBTControl = this;
+            m_ScriptContainer["EvtScript"] = new string[1];
+            CleanScriptFromType();
         }
 
         /// <summary>
@@ -67,7 +78,7 @@ namespace CommonLib
         /// </summary>
         /// <param name="Ctrl">objet interactif posé dans la surface de dessin</param>
         /// <returns>l'objet BT control crée</returns>
-        public static BTControl CreateNewBTControl(InteractiveControl Ctrl)
+        public static BTControl CreateNewBTControl(InteractiveControl Ctrl, BTDoc document)
         {
             BTControl newControl = null;
             switch (Ctrl.ControlType)
@@ -75,11 +86,11 @@ namespace CommonLib
                 case InteractiveControlType.SpecificControl:
                     if (Ctrl.GetType() == typeof(TwoColorFilledRect))
                     {
-                        newControl = new BTFilledRectControl(Ctrl);
+                        newControl = new BTFilledRectControl(document, Ctrl);
                     }
                     else if (Ctrl.GetType() == typeof(TwoColorFilledEllipse))
                     {
-                        newControl = new BTFilledEllipseControl(Ctrl);
+                        newControl = new BTFilledEllipseControl(document, Ctrl);
                     }
                     else
                     {
@@ -87,7 +98,7 @@ namespace CommonLib
                     }
                     break;
                 default:
-                    newControl = new BTControl(Ctrl);
+                    newControl = new BTControl(document, Ctrl);
                     break;
             }
             return newControl;
@@ -95,6 +106,10 @@ namespace CommonLib
         #endregion
 
         #region attributs
+        public BTDoc Document
+        {
+            get { return m_Document; }
+        }
 
         /// <summary>
         /// en lecture seul, renvoie la référence vers l'objet graphique utilisé dans le designer
@@ -207,25 +222,11 @@ namespace CommonLib
         /// <summary>
         /// obtient ou assigne le script du controle
         /// </summary>
-        public string[] ScriptLines
+        public ItemScriptsConainter ItemScripts
         {
             get
             {
-                string[] TabLines = new string[m_ScriptLines.Count];
-                for (int i = 0; i < m_ScriptLines.Count; i++)
-                {
-                    TabLines[i] = m_ScriptLines[i];
-                }
-                return TabLines;
-            }
-            set
-            {
-                m_ScriptLines.Clear();
-                for (int i = 0; i < value.Length; i++)
-                {
-                    m_ScriptLines.Add(value[i]);
-                }
-
+                return m_ScriptContainer;
             }
         }
 
@@ -257,6 +258,19 @@ namespace CommonLib
             }
         }
 
+        public override Control StdConfigPanel
+        {
+            get 
+            {
+                if (m_singStdConfigPanel == null)
+                {
+                    m_singStdConfigPanel = new ScreenItemStdPropertiesPanel();
+                }
+                return m_singStdConfigPanel; 
+            }
+        }
+
+
         #endregion
 
         #region ReadIn / WriteOut
@@ -266,9 +280,9 @@ namespace CommonLib
         /// <param name="Node">Noeud Xml de l'objet</param>
         /// <param name="TypeApp">type d'application courante</param>
         /// <returns>true si la lecture s'est bien passé</returns>
-        public override bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
+        public override bool ReadIn(XmlNode Node, BTDoc document)
         {
-            if (!base.ReadIn(Node, TypeApp))
+            if (!base.ReadIn(Node, document))
                 return false;
             // attribut Type (type de control) cette valeur n'est pas directement stocké dans l'objet
             // mais dans l'objet graphique associé
@@ -303,12 +317,15 @@ namespace CommonLib
                     break;
                 case CONTROL_TYPE.SLIDER:
                     m_IControl.ControlType = InteractiveControlType.Slider;
+                    this.m_ScriptContainer.ClearAll();
                     break;
                 case CONTROL_TYPE.STATIC:
                     m_IControl.ControlType = InteractiveControlType.Text;
+                    this.m_ScriptContainer.ClearAll();
                     break;
                 case CONTROL_TYPE.UP_DOWN:
                     m_IControl.ControlType = InteractiveControlType.NumericUpDown;
+                    this.m_ScriptContainer.ClearAll();
                     break;
                 case CONTROL_TYPE.SPECIFIC:
                     System.Diagnostics.Debug.Assert(false);
@@ -320,7 +337,30 @@ namespace CommonLib
             }
             ReadInCommonBTControl(Node);
             ReadScript(Node);
+            CleanScriptFromType();
             return true;
+        }
+
+        // c'est très sale et j'aime pas mais faut le temps que je trouve mieux
+        public void CleanScriptFromType()
+        {
+            switch (m_IControl.ControlType)
+            {
+                case InteractiveControlType.Slider:
+                case InteractiveControlType.Text:
+                case InteractiveControlType.NumericUpDown:
+                    this.m_ScriptContainer.ClearAll();
+                    break;
+                case InteractiveControlType.Button:
+                case InteractiveControlType.CheckBox:
+                case InteractiveControlType.Combo:
+                case InteractiveControlType.SpecificControl:
+                case InteractiveControlType.DllControl:
+                    break;
+                default:
+                    System.Diagnostics.Debug.Assert(false);
+                    break;
+            }
         }
 
         /// <summary>
@@ -386,7 +426,14 @@ namespace CommonLib
                     XmlNode fontAttrib = fontNode.Attributes.GetNamedItem(XML_CF_ATTRIB.FontAttrib.ToString());
                     XmlNode fontSize = fontNode.Attributes.GetNamedItem(XML_CF_ATTRIB.FontSize.ToString());
                     XmlNode fontColor = fontNode.Attributes.GetNamedItem(XML_CF_ATTRIB.Color.ToString());
-                    this.TextFont = new Font(fontName.Value, float.Parse(fontSize.Value), (FontStyle)Enum.Parse(typeof(FontStyle), fontAttrib.Value));
+                    try
+                    {
+                        this.TextFont = new Font(fontName.Value, float.Parse(fontSize.Value), (FontStyle)Enum.Parse(typeof(FontStyle), fontAttrib.Value));
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Error while reading font (control {0})", this.Symbol);
+                    }
                     if (fontColor != null)
                         this.TextColor = ColorTranslate.StringToColor(fontColor.Value);
                 }
@@ -426,11 +473,11 @@ namespace CommonLib
         /// <param name="XmlDoc">Document XML courant</param>
         /// <param name="Node">Noeud parent du controle dans le document</param>
         /// <returns>true si l'écriture s'est déroulée avec succès</returns>
-        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
+        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node, BTDoc document)
         {
             XmlNode NodeControl = XmlDoc.CreateElement(XML_CF_TAG.Control.ToString());
             Node.AppendChild(NodeControl);
-            base.WriteOut(XmlDoc, NodeControl);
+            base.WriteOut(XmlDoc, NodeControl, document);
             // on écrit les différents attributs du control
             XmlAttribute AttrType = XmlDoc.CreateAttribute(XML_CF_ATTRIB.Type.ToString());
             switch (m_IControl.ControlType)
@@ -512,15 +559,16 @@ namespace CommonLib
                 {
                     if (Node.ChildNodes[ch].Name == XML_CF_TAG.EventScript.ToString())
                     {
+                        List<string> listScriptLines = new List<string>();
                         for (int i = 0; i < Node.ChildNodes[ch].ChildNodes.Count; i++)
                         {
                             if (Node.ChildNodes[ch].ChildNodes[i].Name == XML_CF_TAG.Line.ToString()
                                 && Node.ChildNodes[ch].ChildNodes[i].FirstChild != null)
                             {
-
-                                m_ScriptLines.Add(Node.ChildNodes[ch].ChildNodes[i].FirstChild.Value);
+                                listScriptLines.Add(Node.ChildNodes[ch].ChildNodes[i].FirstChild.Value);
                             }
                         }
+                        m_ScriptContainer["EvtScript"] = listScriptLines.ToArray();
                         break;
                     }
                 }
@@ -535,12 +583,17 @@ namespace CommonLib
         protected void WriteScript(XmlDocument XmlDoc, XmlNode NodeControl)
         {
             XmlNode XmlEventScript = XmlDoc.CreateElement(XML_CF_TAG.EventScript.ToString());
-            for (int i = 0; i < m_ScriptLines.Count; i++)
+            if (m_ScriptContainer.Count == 0)
+                return;
+            for (int i = 0; i < m_ScriptContainer["EvtScript"].Length; i++)
             {
-                XmlNode NodeLine = XmlDoc.CreateElement(XML_CF_TAG.Line.ToString());
-                XmlNode NodeText = XmlDoc.CreateTextNode(m_ScriptLines[i]);
-                NodeLine.AppendChild(NodeText);
-                XmlEventScript.AppendChild(NodeLine);
+                if (!string.IsNullOrEmpty(m_ScriptContainer["EvtScript"][i]))
+                {
+                    XmlNode NodeLine = XmlDoc.CreateElement(XML_CF_TAG.Line.ToString());
+                    XmlNode NodeText = XmlDoc.CreateTextNode(m_ScriptContainer["EvtScript"][i]);
+                    NodeLine.AppendChild(NodeText);
+                    XmlEventScript.AppendChild(NodeLine);
+                }
             }
             NodeControl.AppendChild(XmlEventScript);
         }
@@ -585,53 +638,21 @@ namespace CommonLib
         {
             // dans le cas du control, il faut tester si l'objet supprimée/renomé ne serai
             // pas (par le plus grand des hasard) la donnée associée
+            TraiteMessageDataDelete(Mess, obj, m_strAssociateData, this, Lang.LangSys.C("Control {0} associate data removed"));
+            m_strAssociateData = TraiteMessageDataDeleted(Mess, obj, m_strAssociateData);
+            m_strAssociateData = TraiteMessageDataRenamed(Mess, obj, m_strAssociateData);
+            // mais l'objet peux aussi être utilisé dans le script
             switch (Mess)
             {
-                // message de requête sur les conséquence d'une supression
-                case MESSAGE.MESS_ASK_ITEM_DELETE:
-                    if (((MessAskDelete)obj).TypeOfItem == typeof(Data))
-                    {
-                        if (((MessAskDelete)obj).WantDeletetItemSymbol == m_strAssociateData)
-                        {
-                            string strMess = string.Format(Lang.LangSys.C("Control {0} associate data removed"), Symbol);
-                            ((MessAskDelete)obj).ListStrReturns.Add(strMess);
-                        }
-                    }
-                    break;
-                // message de supression
-                case MESSAGE.MESS_ITEM_DELETED:
-                    if (((MessDeleted)obj).TypeOfItem == typeof(Data))
-                    {
-                        if (((MessDeleted)obj).DeletetedItemSymbol == m_strAssociateData)
-                        {
-                            m_strAssociateData = "";
-                        }
-                    }
-                    break;
-                // message de renomage
-                case MESSAGE.MESS_ITEM_RENAMED:
-                    if (((MessItemRenamed)obj).TypeOfItem == typeof(Data))
-                    {
-                        if (((MessItemRenamed)obj).OldItemSymbol == m_strAssociateData)
-                        {
-                            m_strAssociateData = ((MessItemRenamed)obj).NewItemSymbol;
-                        }
-                    }
-                    break;
-                case MESSAGE.MESS_UPDATE_FROM_DATA:
-                    UpdateFromData();
-                    break;
-#if QUICK_MOTOR
                 case MESSAGE.MESS_PRE_PARSE:
-                    if (this.ScriptLines.Length != 0)
-                        this.m_iQuickScriptID = m_Executer.PreParseScript((IScriptable) this);    
+                    if (this.m_ScriptContainer["EvtScript"] != null &&  this.m_ScriptContainer["EvtScript"].Length != 0)
+                        this.m_iQuickScriptID = m_Executer.PreParseScript(this.m_ScriptContainer["EvtScript"]);
                     break;
-#endif
-                default:
+                default :
                     break;
             }
-            // mais l'objet peux aussi être utilisé dans le script
-            ScriptTraiteMessage(this, Mess, m_ScriptLines, obj);
+
+            ScriptTraiteMessage(this, Mess, this.m_ScriptContainer, obj);
         }
 
 
@@ -643,23 +664,138 @@ namespace CommonLib
         /// </summary>
         /// <param name="SrcBtControl"></param>
         /// <param name="bFromOtherInstance"></param>
-        public void CopyParametersFrom(BTControl SrcBtControl, bool bFromOtherInstance)
+        public void CopyParametersFrom(BTControl SrcBtControl, bool bFromOtherInstance, BTDoc document)
         {
-            if (!bFromOtherInstance)
-            {
-                m_strAssociateData = SrcBtControl.m_strAssociateData;
-                
-                this.ScriptLines = SrcBtControl.ScriptLines;
-            }
-
+            m_strAssociateData = CheckAndDoAssociateDataCopy(document, SrcBtControl.m_strAssociateData);
+            CheckAndDoScriptCopy(document, SrcBtControl.ItemScripts, this.ItemScripts);
             m_bUseScreenEvent = SrcBtControl.m_bUseScreenEvent;
             this.TextFont = SrcBtControl.TextFont;
             this.TextColor = SrcBtControl.TextColor;
             if (SpecificProp != null && SrcBtControl.SpecificProp != null)
             {
-                SpecificProp.CopyParametersFrom(SrcBtControl.SpecificProp, bFromOtherInstance);
+                SpecificProp.CopyParametersFrom(SrcBtControl.SpecificProp, bFromOtherInstance, document);
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="doc"></param>
+        /// <param name="srcCtrl"></param>
+        /// <param name="destCtrl"></param>
+        public static void CheckAndDoScriptCopy(BTDoc doc, ItemScriptsConainter srcCtrl, ItemScriptsConainter destCtrl)
+        {
+            foreach (string scriptName in srcCtrl.ScriptKeys)
+            {
+                ScriptParser Parser = new ScriptParser();
+                Parser.Document = doc;
+                List<ScriptParserError> errList = new List<ScriptParserError>();
+                Parser.ParseScript(srcCtrl[scriptName], errList);
+                if (errList.Count == 0)
+                {
+                    string[] scriptcopy = new string[srcCtrl[scriptName].Length];
+                    for (int i = 0; i < scriptcopy.Length; i++)
+                    {
+                        scriptcopy[i] = srcCtrl[scriptName][i];
+                    }
+                    destCtrl[scriptName] = scriptcopy;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="doc"></param>
+        /// <param name="strSrcDataSymbol"></param>
+        /// <returns></returns>
+        public static string CheckAndDoAssociateDataCopy(BTDoc doc, string strSrcDataSymbol)
+        {
+            if (doc.GestData.GetFromSymbol(strSrcDataSymbol) != null)
+            {
+                return strSrcDataSymbol;
+            }
+            return string.Empty;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Mess"></param>
+        /// <param name="obj"></param>
+        /// <param name="associateData"></param>
+        /// <param name="InfoFormatString"></param>
+        public static void TraiteMessageDataDelete(MESSAGE Mess, object obj, string associateData, BaseObject sender, string InfoFormatString)
+        {
+            if (Mess == MESSAGE.MESS_ASK_ITEM_DELETE)
+            {
+                MessAskDelete messageInfo = obj as MessAskDelete;
+                if (messageInfo.TypeOfItem == typeof(Data))
+                {
+                    if (messageInfo.WantDeletetItemSymbol == associateData)
+                    {
+                        string strMess = string.Format(InfoFormatString, sender.Symbol);
+                        messageInfo.ListStrReturns.Add(strMess);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Mess"></param>
+        /// <param name="obj"></param>
+        /// <param name="associateData"></param>
+        /// <returns></returns>
+        public static string TraiteMessageDataDeleted(MESSAGE Mess, object obj, string associateData)
+        {
+            if (Mess == MESSAGE.MESS_ITEM_DELETED)
+            {
+                MessDeleted messageInfo = obj as MessDeleted;
+                if (messageInfo.TypeOfItem == typeof(Data))
+                {
+                    if (messageInfo.DeletetedItemSymbol == associateData)
+                    {
+                        return string.Empty;
+                    }
+                }
+            }
+            return associateData;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Mess"></param>
+        /// <param name="obj"></param>
+        /// <param name="associateData"></param>
+        /// <returns></returns>
+        public static string TraiteMessageDataRenamed(MESSAGE Mess, object obj, string associateData)
+        {
+            if (Mess == MESSAGE.MESS_ITEM_RENAMED)
+            {
+                MessItemRenamed messageInfo = obj as MessItemRenamed;
+                if (messageInfo.TypeOfItem == typeof(Data))
+                {
+                    if (messageInfo.OldItemSymbol == associateData)
+                    {
+                        return messageInfo.NewItemSymbol;
+                    }
+                }
+            }
+            return associateData;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public override void NotifyPropertiesChanged()
+        {
+            m_IControl.Refresh();
+            base.NotifyPropertiesChanged();
+        }
+
         #endregion
     }
 }

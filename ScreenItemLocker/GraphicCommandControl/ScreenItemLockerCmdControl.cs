@@ -17,7 +17,8 @@ namespace ScreenItemLocker
         /// <summary>
         /// Constructeur de la classe
         /// </summary>
-        public ScreenItemLockerCmdControl()
+        public ScreenItemLockerCmdControl(BTDoc document)
+            : base(document)
         {
 
         }

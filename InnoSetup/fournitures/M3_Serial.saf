@@ -1,0 +1,789 @@
+<Root>
+  <FileHeader>
+    <FileVersion Indice="3" />
+    <SoftVersion Indice="3.2.0.2" />
+  </FileHeader>
+  <Comm>
+    <CommType>ETHERNET</CommType>
+    <CommParam>192.168.0.99:502</CommParam>
+  </Comm>
+  <ProjOptions>
+    <MainContainer IsUsed="False" size="-1,-1" Pos="-1,-1" ShowInTaskBar="True" ShowTitleBar="True" MCTitle="" />
+  </ProjOptions>
+  <PluginsGlobals />
+  <DataSection>
+    <Data strSymbol="ASCII_COMMA" strNom="" Min="0" Max="255" DefVal="58" size="8" Constant="True" />
+    <Data strSymbol="M3_SLAVE_ADDR" strNom="" Min="0" Max="255" DefVal="4" size="8" Constant="True" />
+    <Data strSymbol="M3_MODBUS_READ" strNom="" Min="0" Max="255" DefVal="3" size="8" Constant="True" />
+    <Data strSymbol="M3_DEST_ADDR_PART1" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="True" />
+    <Data strSymbol="M3_DEST_ADDR_PART2" strNom="" Min="0" Max="255" DefVal="255" size="8" Constant="True" />
+    <Data strSymbol="M3_REGISTER_0_ADDR" strNom="" Min="0" Max="255" DefVal="0" size="8" Constant="True" />
+    <Data strSymbol="SIZE_WRITE_8_REG" strNom="" Min="0" Max="255" DefVal="16" size="8" Constant="True" />
+    <Data strSymbol="SLIN_1_READ_CTRLDATA" strNom="" Min="0" Max="255" DefVal="0" size="8" Constant="False" />
+    <Data strSymbol="M3_END_OF_FRAME1" strNom="" Min="0" Max="255" DefVal="13" size="8" Constant="True" />
+    <Data strSymbol="M3_END_OF_FRAME2" strNom="" Min="0" Max="255" DefVal="10" size="8" Constant="True" />
+    <Data strSymbol="SLIN_1_O1_B16" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="SLIN_1_O1_B15" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="SLIN_1_O1_B14" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="SLIN_1_O1_B13" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="SLIN_1_O1_B12" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="SLIN_1_O1_B11" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="SLIN_1_O1_B10" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="SLIN_1_O1_B9" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="SLIN_1_O1_B8" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="SLIN_1_O1_B7" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="SLIN_1_O1_B6" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="SLIN_1_O1_B5" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="SLIN_1_O1_B4" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="SLIN_1_O1_B3" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="SLIN_1_O1_B2" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="SLIN_1_O1_B1" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="SLIN_1_O2" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="SLIN_1_O3" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="SLIN_1_O4" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="SLIN_1_O5" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="SLIN_1_O6" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="SLIN_1_O7" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="SLIN_1_O8" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="SLIN_1_READ_RET_CTRLDATA" strNom="" Min="0" Max="255" DefVal="0" size="8" Constant="False" />
+    <Data strSymbol="M3_MODBUS_WRITE_MR" strNom="" Min="0" Max="255" DefVal="16" size="8" Constant="True" />
+    <Data strSymbol="SLIN_1_WRITE_CTRLDATA" strNom="" Min="0" Max="255" DefVal="0" size="8" Constant="False" />
+    <Data strSymbol="SLIN_1_WRITE_RET_CTRLDATA" strNom="" Min="0" Max="255" DefVal="0" size="8" Constant="False" />
+    <Data strSymbol="M3_REGISTER_8_ADDR" strNom="" Min="0" Max="255" DefVal="8" size="8" Constant="True" />
+    <Data strSymbol="SLIN_2_READ_CTRLDATA" strNom="" Min="0" Max="255" DefVal="0" size="8" Constant="False" />
+    <Data strSymbol="SLIN_2_O1" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="SLIN_2_O2" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="SLIN_2_O3" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="SLIN_2_O4" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="SLIN_2_O5" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="SLIN_2_O6" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="SLIN_2_O7" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="SLIN_2_O8" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="SLIN_2_READ_RET_CTRLDATA" strNom="" Min="0" Max="255" DefVal="0" size="8" Constant="False" />
+    <Data strSymbol="SLIN_2_WRITE_CTRLDATA" strNom="" Min="0" Max="255" DefVal="0" size="8" Constant="False" />
+    <Data strSymbol="SLIN_2_WRITE_RET_CTRLDATA" strNom="" Min="0" Max="255" DefVal="0" size="8" Constant="False" />
+    <Data strSymbol="M3_REGISTER_16_ADDR" strNom="" Min="0" Max="255" DefVal="16" size="8" Constant="True" />
+    <Data strSymbol="SLIN_3_READ_CTRLDATA" strNom="" Min="0" Max="255" DefVal="0" size="8" Constant="False" />
+    <Data strSymbol="SLIN_3_O1" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="SLIN_3_O2" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="SLIN_3_O3" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="SLIN_3_O4" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="SLIN_3_O5" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="SLIN_3_O6" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="SLIN_3_O7" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="SLIN_3_O8" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="SLIN_3_READ_RET_CTRLDATA" strNom="" Min="0" Max="255" DefVal="0" size="8" Constant="False" />
+    <Data strSymbol="SLIN_3_WRITE_CTRLDATA" strNom="" Min="0" Max="255" DefVal="0" size="8" Constant="False" />
+    <Data strSymbol="SLIN_3_WRITE_RET_CTRLDATA" strNom="" Min="0" Max="255" DefVal="0" size="8" Constant="False" />
+    <Data strSymbol="M3_REGISTER_24_ADDR" strNom="" Min="0" Max="255" DefVal="24" size="8" Constant="True" />
+    <Data strSymbol="SLOUT_1_READ_CTRLDATA" strNom="" Min="0" Max="255" DefVal="0" size="8" Constant="False" />
+    <Data strSymbol="SLOUT_1_I1_B16" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="SLOUT_1_I1_B15" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="SLOUT_1_I1_B14" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="SLOUT_1_I1_B13" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="SLOUT_1_I1_B12" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="SLOUT_1_I1_B11" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="SLOUT_1_I1_B10" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="SLOUT_1_I1_B9" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="SLOUT_1_I1_B8" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="SLOUT_1_I1_B7" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="SLOUT_1_I1_B6" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="SLOUT_1_I1_B5" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="SLOUT_1_I1_B4" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="SLOUT_1_I1_B3" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="SLOUT_1_I1_B2" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="SLOUT_1_I1_B1" strNom="" Min="0" Max="1" DefVal="0" size="1" Constant="False" />
+    <Data strSymbol="SLOUT_1_I2" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="SLOUT_1_I3" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="SLOUT_1_I4" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="SLOUT_1_I5" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="SLOUT_1_I6" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="SLOUT_1_I7" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="SLOUT_1_I8" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="SLOUT_1_READ_RET_CTRLDATA" strNom="" Min="0" Max="255" DefVal="0" size="8" Constant="False" />
+    <Data strSymbol="M3_REGISTER_32_ADDR" strNom="" Min="0" Max="255" DefVal="32" size="8" Constant="True" />
+    <Data strSymbol="SLOUT_2_READ_CTRLDATA" strNom="" Min="0" Max="255" DefVal="0" size="8" Constant="False" />
+    <Data strSymbol="SLOUT_2_I1" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="SLOUT_2_I2" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="SLOUT_2_I3" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="SLOUT_2_I4" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="SLOUT_2_I5" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="SLOUT_2_I6" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="SLOUT_2_I7" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="SLOUT_2_I8" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="SLOUT_2_READ_RET_CTRLDATA" strNom="" Min="0" Max="255" DefVal="0" size="8" Constant="False" />
+    <Data strSymbol="M3_REGISTER_40_ADDR" strNom="" Min="0" Max="255" DefVal="40" size="8" Constant="True" />
+    <Data strSymbol="SLOUT_3_READ_CTRLDATA" strNom="" Min="0" Max="255" DefVal="0" size="8" Constant="False" />
+    <Data strSymbol="SLOUT_3_I1" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="SLOUT_3_I2" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="SLOUT_3_I3" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="SLOUT_3_I4" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="SLOUT_3_I5" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="SLOUT_3_I6" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="SLOUT_3_I7" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="SLOUT_3_I8" strNom="" Min="-32768" Max="32767" DefVal="0" size="16" Constant="False" />
+    <Data strSymbol="SLOUT_3_READ_RET_CTRLDATA" strNom="" Min="0" Max="255" DefVal="0" size="8" Constant="False" />
+    <GroupSection>
+      <Group strNom="Groupe par défaut" strSymbol="GROUP_0" bkColor="255, 255, 255">
+        <Object strSymbol="ASCII_COMMA" />
+        <Object strSymbol="M3_SLAVE_ADDR" />
+        <Object strSymbol="M3_MODBUS_READ" />
+        <Object strSymbol="M3_DEST_ADDR_PART1" />
+        <Object strSymbol="M3_DEST_ADDR_PART2" />
+        <Object strSymbol="M3_REGISTER_0_ADDR" />
+        <Object strSymbol="SIZE_WRITE_8_REG" />
+        <Object strSymbol="SLIN_1_READ_CTRLDATA" />
+        <Object strSymbol="M3_END_OF_FRAME1" />
+        <Object strSymbol="M3_END_OF_FRAME2" />
+        <Object strSymbol="SLIN_1_READ_RET_CTRLDATA" />
+        <Object strSymbol="M3_MODBUS_WRITE_MR" />
+        <Object strSymbol="SLIN_1_WRITE_CTRLDATA" />
+        <Object strSymbol="SLIN_1_WRITE_RET_CTRLDATA" />
+        <Object strSymbol="M3_REGISTER_8_ADDR" />
+        <Object strSymbol="SLIN_2_READ_CTRLDATA" />
+        <Object strSymbol="SLIN_2_READ_RET_CTRLDATA" />
+        <Object strSymbol="SLIN_2_WRITE_CTRLDATA" />
+        <Object strSymbol="SLIN_2_WRITE_RET_CTRLDATA" />
+        <Object strSymbol="M3_REGISTER_16_ADDR" />
+        <Object strSymbol="SLIN_3_READ_CTRLDATA" />
+        <Object strSymbol="SLIN_3_READ_RET_CTRLDATA" />
+        <Object strSymbol="SLIN_3_WRITE_CTRLDATA" />
+        <Object strSymbol="SLIN_3_WRITE_RET_CTRLDATA" />
+        <Object strSymbol="M3_REGISTER_24_ADDR" />
+        <Object strSymbol="SLOUT_1_READ_CTRLDATA" />
+        <Object strSymbol="SLOUT_1_READ_RET_CTRLDATA" />
+        <Object strSymbol="M3_REGISTER_32_ADDR" />
+        <Object strSymbol="SLOUT_2_READ_CTRLDATA" />
+        <Object strSymbol="SLOUT_2_READ_RET_CTRLDATA" />
+        <Object strSymbol="M3_REGISTER_40_ADDR" />
+        <Object strSymbol="SLOUT_3_READ_CTRLDATA" />
+        <Object strSymbol="SLOUT_3_READ_RET_CTRLDATA" />
+      </Group>
+      <Group strNom="SL IN 1" strSymbol="GROUP_1" bkColor="255, 255, 255">
+        <Object strSymbol="SLIN_1_O1_B16" />
+        <Object strSymbol="SLIN_1_O1_B15" />
+        <Object strSymbol="SLIN_1_O1_B14" />
+        <Object strSymbol="SLIN_1_O1_B13" />
+        <Object strSymbol="SLIN_1_O1_B12" />
+        <Object strSymbol="SLIN_1_O1_B11" />
+        <Object strSymbol="SLIN_1_O1_B10" />
+        <Object strSymbol="SLIN_1_O1_B9" />
+        <Object strSymbol="SLIN_1_O1_B8" />
+        <Object strSymbol="SLIN_1_O1_B7" />
+        <Object strSymbol="SLIN_1_O1_B6" />
+        <Object strSymbol="SLIN_1_O1_B5" />
+        <Object strSymbol="SLIN_1_O1_B4" />
+        <Object strSymbol="SLIN_1_O1_B3" />
+        <Object strSymbol="SLIN_1_O1_B2" />
+        <Object strSymbol="SLIN_1_O1_B1" />
+        <Object strSymbol="SLIN_1_O2" />
+        <Object strSymbol="SLIN_1_O3" />
+        <Object strSymbol="SLIN_1_O4" />
+        <Object strSymbol="SLIN_1_O5" />
+        <Object strSymbol="SLIN_1_O6" />
+        <Object strSymbol="SLIN_1_O7" />
+        <Object strSymbol="SLIN_1_O8" />
+      </Group>
+      <Group strNom="SL IN 2" strSymbol="GROUP_2" bkColor="255, 255, 255">
+        <Object strSymbol="SLIN_2_O1" />
+        <Object strSymbol="SLIN_2_O2" />
+        <Object strSymbol="SLIN_2_O3" />
+        <Object strSymbol="SLIN_2_O4" />
+        <Object strSymbol="SLIN_2_O5" />
+        <Object strSymbol="SLIN_2_O6" />
+        <Object strSymbol="SLIN_2_O7" />
+        <Object strSymbol="SLIN_2_O8" />
+      </Group>
+      <Group strNom="SL IN 3" strSymbol="GROUP_3" bkColor="255, 255, 255">
+        <Object strSymbol="SLIN_3_O1" />
+        <Object strSymbol="SLIN_3_O2" />
+        <Object strSymbol="SLIN_3_O3" />
+        <Object strSymbol="SLIN_3_O4" />
+        <Object strSymbol="SLIN_3_O5" />
+        <Object strSymbol="SLIN_3_O6" />
+        <Object strSymbol="SLIN_3_O7" />
+        <Object strSymbol="SLIN_3_O8" />
+      </Group>
+      <Group strNom="SL OUT 1" strSymbol="GROUP_4" bkColor="255, 255, 255">
+        <Object strSymbol="SLOUT_1_I1_B16" />
+        <Object strSymbol="SLOUT_1_I1_B15" />
+        <Object strSymbol="SLOUT_1_I1_B14" />
+        <Object strSymbol="SLOUT_1_I1_B13" />
+        <Object strSymbol="SLOUT_1_I1_B12" />
+        <Object strSymbol="SLOUT_1_I1_B11" />
+        <Object strSymbol="SLOUT_1_I1_B10" />
+        <Object strSymbol="SLOUT_1_I1_B9" />
+        <Object strSymbol="SLOUT_1_I1_B8" />
+        <Object strSymbol="SLOUT_1_I1_B7" />
+        <Object strSymbol="SLOUT_1_I1_B6" />
+        <Object strSymbol="SLOUT_1_I1_B5" />
+        <Object strSymbol="SLOUT_1_I1_B4" />
+        <Object strSymbol="SLOUT_1_I1_B3" />
+        <Object strSymbol="SLOUT_1_I1_B2" />
+        <Object strSymbol="SLOUT_1_I1_B1" />
+        <Object strSymbol="SLOUT_1_I2" />
+        <Object strSymbol="SLOUT_1_I3" />
+        <Object strSymbol="SLOUT_1_I4" />
+        <Object strSymbol="SLOUT_1_I5" />
+        <Object strSymbol="SLOUT_1_I6" />
+        <Object strSymbol="SLOUT_1_I7" />
+        <Object strSymbol="SLOUT_1_I8" />
+      </Group>
+      <Group strNom="SL OUT 2" strSymbol="GROUP_5" bkColor="255, 255, 255">
+        <Object strSymbol="SLOUT_2_I1" />
+        <Object strSymbol="SLOUT_2_I2" />
+        <Object strSymbol="SLOUT_2_I3" />
+        <Object strSymbol="SLOUT_2_I4" />
+        <Object strSymbol="SLOUT_2_I5" />
+        <Object strSymbol="SLOUT_2_I6" />
+        <Object strSymbol="SLOUT_2_I7" />
+        <Object strSymbol="SLOUT_2_I8" />
+      </Group>
+      <Group strNom="SL OUT 3" strSymbol="GROUP_6" bkColor="255, 255, 255">
+        <Object strSymbol="SLOUT_3_I1" />
+        <Object strSymbol="SLOUT_3_I2" />
+        <Object strSymbol="SLOUT_3_I3" />
+        <Object strSymbol="SLOUT_3_I4" />
+        <Object strSymbol="SLOUT_3_I5" />
+        <Object strSymbol="SLOUT_3_I6" />
+        <Object strSymbol="SLOUT_3_I7" />
+        <Object strSymbol="SLOUT_3_I8" />
+      </Group>
+    </GroupSection>
+  </DataSection>
+  <ScreenSection>
+    <Screen strSymbol="MAIN_SCREEN" strNom="" Text="">
+      <ControlList>
+        <Control strSymbol="NEW_CTRL_0" strNom="" Type="CHECK" AssociateData="SLIN_1_O1_B1" ScreenEvent="True" Pos="482,513" size="44,20" Text="O1" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+          <EventScript />
+        </Control>
+        <Control strSymbol="NEW_CTRL_1" strNom="" Type="CHECK" AssociateData="SLIN_1_O1_B2" ScreenEvent="True" Pos="482,449" size="44,20" Text="O2" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+          <EventScript />
+        </Control>
+        <Control strSymbol="NEW_CTRL_2" strNom="" Type="CHECK" AssociateData="SLIN_1_O1_B3" ScreenEvent="True" Pos="482,385" size="44,20" Text="O3" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+          <EventScript />
+        </Control>
+        <Control strSymbol="NEW_CTRL_3" strNom="" Type="CHECK" AssociateData="SLIN_1_O1_B4" ScreenEvent="True" Pos="482,321" size="44,20" Text="O4" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+          <EventScript />
+        </Control>
+        <Control strSymbol="NEW_CTRL_4" strNom="" Type="CHECK" AssociateData="SLIN_1_O1_B5" ScreenEvent="True" Pos="482,257" size="44,20" Text="O5" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+          <EventScript />
+        </Control>
+        <Control strSymbol="NEW_CTRL_5" strNom="" Type="CHECK" AssociateData="SLIN_1_O1_B6" ScreenEvent="True" Pos="482,193" size="44,20" Text="O6" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+          <EventScript />
+        </Control>
+        <Control strSymbol="NEW_CTRL_6" strNom="" Type="CHECK" AssociateData="SLIN_1_O1_B7" ScreenEvent="True" Pos="482,129" size="44,20" Text="O7" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+          <EventScript />
+        </Control>
+        <Control strSymbol="NEW_CTRL_7" strNom="" Type="CHECK" AssociateData="SLIN_1_O1_B8" ScreenEvent="True" Pos="482,65" size="44,20" Text="O8" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+          <EventScript />
+        </Control>
+        <Control strSymbol="NEW_CTRL_8" strNom="" Type="CHECK" AssociateData="SLIN_1_O1_B9" ScreenEvent="True" Pos="482,39" size="44,20" Text="O9" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+          <EventScript />
+        </Control>
+        <Control strSymbol="NEW_CTRL_9" strNom="" Type="CHECK" AssociateData="SLIN_1_O1_B10" ScreenEvent="True" Pos="482,17" size="44,20" Text="OA" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+          <EventScript />
+        </Control>
+        <Control strSymbol="NEW_CTRL_10" strNom="" Type="CHECK" AssociateData="SLOUT_1_I1_B1" ScreenEvent="False" Pos="25,435" size="41,20" Text="I1" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+          <EventScript />
+        </Control>
+        <Control strSymbol="NEW_CTRL_11" strNom="" Type="CHECK" AssociateData="SLOUT_1_I1_B2" ScreenEvent="False" Pos="25,412" size="41,20" Text="I2" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+          <EventScript />
+        </Control>
+        <Control strSymbol="NEW_CTRL_12" strNom="" Type="CHECK" AssociateData="SLOUT_1_I1_B3" ScreenEvent="False" Pos="25,389" size="41,20" Text="I3" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+          <EventScript />
+        </Control>
+        <Control strSymbol="NEW_CTRL_13" strNom="" Type="CHECK" AssociateData="SLOUT_1_I1_B4" ScreenEvent="False" Pos="25,366" size="41,20" Text="I4" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+          <EventScript />
+        </Control>
+        <Control strSymbol="NEW_CTRL_14" strNom="" Type="CHECK" AssociateData="SLOUT_1_I1_B5" ScreenEvent="False" Pos="25,343" size="41,20" Text="I5" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+          <EventScript />
+        </Control>
+        <Control strSymbol="NEW_CTRL_15" strNom="" Type="CHECK" AssociateData="SLOUT_1_I1_B6" ScreenEvent="False" Pos="25,320" size="41,20" Text="I6" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+          <EventScript />
+        </Control>
+        <Control strSymbol="NEW_CTRL_16" strNom="" Type="CHECK" AssociateData="SLOUT_1_I1_B7" ScreenEvent="False" Pos="25,297" size="41,20" Text="I7" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+          <EventScript />
+        </Control>
+        <Control strSymbol="NEW_CTRL_17" strNom="" Type="CHECK" AssociateData="SLOUT_1_I1_B8" ScreenEvent="False" Pos="25,274" size="41,20" Text="I8" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+          <EventScript />
+        </Control>
+        <Control strSymbol="NEW_CTRL_18" strNom="" Type="CHECK" AssociateData="SLOUT_1_I1_B9" ScreenEvent="False" Pos="25,251" size="41,20" Text="I9" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+          <EventScript />
+        </Control>
+        <Control strSymbol="NEW_CTRL_19" strNom="" Type="CHECK" AssociateData="SLOUT_1_I1_B10" ScreenEvent="False" Pos="25,228" size="41,20" Text="IA" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+          <EventScript />
+        </Control>
+        <Control strSymbol="NEW_CTRL_20" strNom="" Type="UP_DOWN" AssociateData="SLOUT_1_I2" ScreenEvent="False" Pos="87,201" size="56,20" Text="" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+        </Control>
+        <Control strSymbol="NEW_CTRL_21" strNom="" Type="UP_DOWN" AssociateData="SLOUT_1_I3" ScreenEvent="False" Pos="87,177" size="56,20" Text="Numeric Up/Down" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+        </Control>
+        <Control strSymbol="NEW_CTRL_22" strNom="" Type="UP_DOWN" AssociateData="SLOUT_1_I4" ScreenEvent="False" Pos="87,153" size="56,20" Text="Numeric Up/Down" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+        </Control>
+        <Control strSymbol="NEW_CTRL_23" strNom="" Type="UP_DOWN" AssociateData="SLOUT_1_I5" ScreenEvent="False" Pos="87,129" size="56,20" Text="Numeric Up/Down" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+        </Control>
+        <Control strSymbol="NEW_CTRL_24" strNom="" Type="UP_DOWN" AssociateData="SLOUT_1_I6" ScreenEvent="False" Pos="87,105" size="56,20" Text="Numeric Up/Down" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+        </Control>
+        <Control strSymbol="NEW_CTRL_25" strNom="" Type="UP_DOWN" AssociateData="SLOUT_1_I7" ScreenEvent="False" Pos="87,81" size="56,20" Text="" ReadOnly="False">
+          <Font FontName="Microsoft Sans Serif" FontAttrib="Regular" FontSize="8,25" Color="0, 0, 0" />
+        </Control>
+      </ControlList>
+      <InitScript>
+        <Line>FUNCTIONS.READ_SL_IN()</Line>
+      </InitScript>
+      <EventScript>
+        <Line>FUNCTIONS.WRITE_SL_IN()</Line>
+      </EventScript>
+      <ImagePath>D:\dev\PBG-RefonteIHM\InnoSetup\fournitures\M3XD26.bmp</ImagePath>
+      <ScreenAttribs size="-1,-1" Pos="-1,-1" ShowInTaskBar="True" ShowTitleBar="True" />
+    </Screen>
+  </ScreenSection>
+  <TrameSection>
+    <Trame strSymbol="SLIN_1_READ" strNom="Auto generated M3 frame">
+      <DataList>
+        <Data strSymbol="ASCII_COMMA" />
+        <Data strSymbol="M3_SLAVE_ADDR" />
+        <Data strSymbol="M3_MODBUS_READ" />
+        <Data strSymbol="M3_DEST_ADDR_PART1" />
+        <Data strSymbol="M3_DEST_ADDR_PART2" />
+        <Data strSymbol="M3_REGISTER_0_ADDR" />
+        <Data strSymbol="SIZE_WRITE_8_REG" />
+        <Data strSymbol="SLIN_1_READ_CTRLDATA" />
+        <Data strSymbol="M3_END_OF_FRAME1" />
+        <Data strSymbol="M3_END_OF_FRAME2" />
+      </DataList>
+      <ControlData Type="SUM_COMPL_P1" From="1" To="6" />
+      <DataConvert Type="ASCII" From="1" To="7" />
+    </Trame>
+    <Trame strSymbol="SLIN_1_READ_RET" strNom="Auto generated M3 frame">
+      <DataList>
+        <Data strSymbol="ASCII_COMMA" />
+        <Data strSymbol="M3_SLAVE_ADDR" />
+        <Data strSymbol="M3_MODBUS_READ" />
+        <Data strSymbol="SIZE_WRITE_8_REG" />
+        <Data strSymbol="SLIN_1_O1_B16" />
+        <Data strSymbol="SLIN_1_O1_B15" />
+        <Data strSymbol="SLIN_1_O1_B14" />
+        <Data strSymbol="SLIN_1_O1_B13" />
+        <Data strSymbol="SLIN_1_O1_B12" />
+        <Data strSymbol="SLIN_1_O1_B11" />
+        <Data strSymbol="SLIN_1_O1_B10" />
+        <Data strSymbol="SLIN_1_O1_B9" />
+        <Data strSymbol="SLIN_1_O1_B8" />
+        <Data strSymbol="SLIN_1_O1_B7" />
+        <Data strSymbol="SLIN_1_O1_B6" />
+        <Data strSymbol="SLIN_1_O1_B5" />
+        <Data strSymbol="SLIN_1_O1_B4" />
+        <Data strSymbol="SLIN_1_O1_B3" />
+        <Data strSymbol="SLIN_1_O1_B2" />
+        <Data strSymbol="SLIN_1_O1_B1" />
+        <Data strSymbol="SLIN_1_O2" />
+        <Data strSymbol="SLIN_1_O3" />
+        <Data strSymbol="SLIN_1_O4" />
+        <Data strSymbol="SLIN_1_O5" />
+        <Data strSymbol="SLIN_1_O6" />
+        <Data strSymbol="SLIN_1_O7" />
+        <Data strSymbol="SLIN_1_O8" />
+        <Data strSymbol="SLIN_1_READ_RET_CTRLDATA" />
+        <Data strSymbol="M3_END_OF_FRAME1" />
+        <Data strSymbol="M3_END_OF_FRAME2" />
+      </DataList>
+      <ControlData Type="SUM_COMPL_P1" From="1" To="26" />
+      <DataConvert Type="ASCII" From="1" To="27" />
+    </Trame>
+    <Trame strSymbol="SLIN_1_WRITE" strNom="Auto generated M3 frame">
+      <DataList>
+        <Data strSymbol="ASCII_COMMA" />
+        <Data strSymbol="M3_SLAVE_ADDR" />
+        <Data strSymbol="M3_MODBUS_WRITE_MR" />
+        <Data strSymbol="M3_DEST_ADDR_PART1" />
+        <Data strSymbol="M3_DEST_ADDR_PART2" />
+        <Data strSymbol="M3_REGISTER_0_ADDR" />
+        <Data strSymbol="SIZE_WRITE_8_REG" />
+        <Data strSymbol="SLIN_1_O1_B16" />
+        <Data strSymbol="SLIN_1_O1_B15" />
+        <Data strSymbol="SLIN_1_O1_B14" />
+        <Data strSymbol="SLIN_1_O1_B13" />
+        <Data strSymbol="SLIN_1_O1_B12" />
+        <Data strSymbol="SLIN_1_O1_B11" />
+        <Data strSymbol="SLIN_1_O1_B10" />
+        <Data strSymbol="SLIN_1_O1_B9" />
+        <Data strSymbol="SLIN_1_O1_B8" />
+        <Data strSymbol="SLIN_1_O1_B7" />
+        <Data strSymbol="SLIN_1_O1_B6" />
+        <Data strSymbol="SLIN_1_O1_B5" />
+        <Data strSymbol="SLIN_1_O1_B4" />
+        <Data strSymbol="SLIN_1_O1_B3" />
+        <Data strSymbol="SLIN_1_O1_B2" />
+        <Data strSymbol="SLIN_1_O1_B1" />
+        <Data strSymbol="SLIN_1_O2" />
+        <Data strSymbol="SLIN_1_O3" />
+        <Data strSymbol="SLIN_1_O4" />
+        <Data strSymbol="SLIN_1_O5" />
+        <Data strSymbol="SLIN_1_O6" />
+        <Data strSymbol="SLIN_1_O7" />
+        <Data strSymbol="SLIN_1_O8" />
+        <Data strSymbol="SLIN_1_WRITE_CTRLDATA" />
+        <Data strSymbol="M3_END_OF_FRAME1" />
+        <Data strSymbol="M3_END_OF_FRAME2" />
+      </DataList>
+      <ControlData Type="SUM_COMPL_P1" From="1" To="29" />
+      <DataConvert Type="ASCII" From="1" To="30" />
+    </Trame>
+    <Trame strSymbol="SLIN_1_WRITE_RET" strNom="Auto generated M3 frame">
+      <DataList>
+        <Data strSymbol="ASCII_COMMA" />
+        <Data strSymbol="M3_SLAVE_ADDR" />
+        <Data strSymbol="M3_MODBUS_WRITE_MR" />
+        <Data strSymbol="M3_DEST_ADDR_PART1" />
+        <Data strSymbol="M3_DEST_ADDR_PART2" />
+        <Data strSymbol="M3_REGISTER_0_ADDR" />
+        <Data strSymbol="SIZE_WRITE_8_REG" />
+        <Data strSymbol="SLIN_1_WRITE_RET_CTRLDATA" />
+        <Data strSymbol="M3_END_OF_FRAME1" />
+        <Data strSymbol="M3_END_OF_FRAME2" />
+      </DataList>
+      <ControlData Type="SUM_COMPL_P1" From="1" To="6" />
+      <DataConvert Type="ASCII" From="1" To="7" />
+    </Trame>
+    <Trame strSymbol="SLIN_2_READ" strNom="Auto generated M3 frame">
+      <DataList>
+        <Data strSymbol="ASCII_COMMA" />
+        <Data strSymbol="M3_SLAVE_ADDR" />
+        <Data strSymbol="M3_MODBUS_READ" />
+        <Data strSymbol="M3_DEST_ADDR_PART1" />
+        <Data strSymbol="M3_DEST_ADDR_PART2" />
+        <Data strSymbol="M3_REGISTER_8_ADDR" />
+        <Data strSymbol="SIZE_WRITE_8_REG" />
+        <Data strSymbol="SLIN_2_READ_CTRLDATA" />
+        <Data strSymbol="M3_END_OF_FRAME1" />
+        <Data strSymbol="M3_END_OF_FRAME2" />
+      </DataList>
+      <ControlData Type="SUM_COMPL_P1" From="1" To="6" />
+      <DataConvert Type="ASCII" From="1" To="7" />
+    </Trame>
+    <Trame strSymbol="SLIN_2_READ_RET" strNom="Auto generated M3 frame">
+      <DataList>
+        <Data strSymbol="ASCII_COMMA" />
+        <Data strSymbol="M3_SLAVE_ADDR" />
+        <Data strSymbol="M3_MODBUS_READ" />
+        <Data strSymbol="SIZE_WRITE_8_REG" />
+        <Data strSymbol="SLIN_2_O1" />
+        <Data strSymbol="SLIN_2_O2" />
+        <Data strSymbol="SLIN_2_O3" />
+        <Data strSymbol="SLIN_2_O4" />
+        <Data strSymbol="SLIN_2_O5" />
+        <Data strSymbol="SLIN_2_O6" />
+        <Data strSymbol="SLIN_2_O7" />
+        <Data strSymbol="SLIN_2_O8" />
+        <Data strSymbol="SLIN_2_READ_RET_CTRLDATA" />
+        <Data strSymbol="M3_END_OF_FRAME1" />
+        <Data strSymbol="M3_END_OF_FRAME2" />
+      </DataList>
+      <ControlData Type="SUM_COMPL_P1" From="1" To="11" />
+      <DataConvert Type="ASCII" From="1" To="12" />
+    </Trame>
+    <Trame strSymbol="SLIN_2_WRITE" strNom="Auto generated M3 frame">
+      <DataList>
+        <Data strSymbol="ASCII_COMMA" />
+        <Data strSymbol="M3_SLAVE_ADDR" />
+        <Data strSymbol="M3_MODBUS_WRITE_MR" />
+        <Data strSymbol="M3_DEST_ADDR_PART1" />
+        <Data strSymbol="M3_DEST_ADDR_PART2" />
+        <Data strSymbol="M3_REGISTER_8_ADDR" />
+        <Data strSymbol="SIZE_WRITE_8_REG" />
+        <Data strSymbol="SLIN_2_O1" />
+        <Data strSymbol="SLIN_2_O2" />
+        <Data strSymbol="SLIN_2_O3" />
+        <Data strSymbol="SLIN_2_O4" />
+        <Data strSymbol="SLIN_2_O5" />
+        <Data strSymbol="SLIN_2_O6" />
+        <Data strSymbol="SLIN_2_O7" />
+        <Data strSymbol="SLIN_2_O8" />
+        <Data strSymbol="SLIN_2_WRITE_CTRLDATA" />
+        <Data strSymbol="M3_END_OF_FRAME1" />
+        <Data strSymbol="M3_END_OF_FRAME2" />
+      </DataList>
+      <ControlData Type="SUM_COMPL_P1" From="1" To="14" />
+      <DataConvert Type="ASCII" From="1" To="15" />
+    </Trame>
+    <Trame strSymbol="SLIN_2_WRITE_RET" strNom="Auto generated M3 frame">
+      <DataList>
+        <Data strSymbol="ASCII_COMMA" />
+        <Data strSymbol="M3_SLAVE_ADDR" />
+        <Data strSymbol="M3_MODBUS_WRITE_MR" />
+        <Data strSymbol="M3_DEST_ADDR_PART1" />
+        <Data strSymbol="M3_DEST_ADDR_PART2" />
+        <Data strSymbol="M3_REGISTER_8_ADDR" />
+        <Data strSymbol="SIZE_WRITE_8_REG" />
+        <Data strSymbol="SLIN_2_WRITE_RET_CTRLDATA" />
+        <Data strSymbol="M3_END_OF_FRAME1" />
+        <Data strSymbol="M3_END_OF_FRAME2" />
+      </DataList>
+      <ControlData Type="SUM_COMPL_P1" From="1" To="6" />
+      <DataConvert Type="ASCII" From="1" To="7" />
+    </Trame>
+    <Trame strSymbol="SLIN_3_READ" strNom="Auto generated M3 frame">
+      <DataList>
+        <Data strSymbol="ASCII_COMMA" />
+        <Data strSymbol="M3_SLAVE_ADDR" />
+        <Data strSymbol="M3_MODBUS_READ" />
+        <Data strSymbol="M3_DEST_ADDR_PART1" />
+        <Data strSymbol="M3_DEST_ADDR_PART2" />
+        <Data strSymbol="M3_REGISTER_16_ADDR" />
+        <Data strSymbol="SIZE_WRITE_8_REG" />
+        <Data strSymbol="SLIN_3_READ_CTRLDATA" />
+        <Data strSymbol="M3_END_OF_FRAME1" />
+        <Data strSymbol="M3_END_OF_FRAME2" />
+      </DataList>
+      <ControlData Type="SUM_COMPL_P1" From="1" To="6" />
+      <DataConvert Type="ASCII" From="1" To="7" />
+    </Trame>
+    <Trame strSymbol="SLIN_3_READ_RET" strNom="Auto generated M3 frame">
+      <DataList>
+        <Data strSymbol="ASCII_COMMA" />
+        <Data strSymbol="M3_SLAVE_ADDR" />
+        <Data strSymbol="M3_MODBUS_READ" />
+        <Data strSymbol="SIZE_WRITE_8_REG" />
+        <Data strSymbol="SLIN_3_O1" />
+        <Data strSymbol="SLIN_3_O2" />
+        <Data strSymbol="SLIN_3_O3" />
+        <Data strSymbol="SLIN_3_O4" />
+        <Data strSymbol="SLIN_3_O5" />
+        <Data strSymbol="SLIN_3_O6" />
+        <Data strSymbol="SLIN_3_O7" />
+        <Data strSymbol="SLIN_3_O8" />
+        <Data strSymbol="SLIN_3_READ_RET_CTRLDATA" />
+        <Data strSymbol="M3_END_OF_FRAME1" />
+        <Data strSymbol="M3_END_OF_FRAME2" />
+      </DataList>
+      <ControlData Type="SUM_COMPL_P1" From="1" To="11" />
+      <DataConvert Type="ASCII" From="1" To="12" />
+    </Trame>
+    <Trame strSymbol="SLIN_3_WRITE" strNom="Auto generated M3 frame">
+      <DataList>
+        <Data strSymbol="ASCII_COMMA" />
+        <Data strSymbol="M3_SLAVE_ADDR" />
+        <Data strSymbol="M3_MODBUS_WRITE_MR" />
+        <Data strSymbol="M3_DEST_ADDR_PART1" />
+        <Data strSymbol="M3_DEST_ADDR_PART2" />
+        <Data strSymbol="M3_REGISTER_16_ADDR" />
+        <Data strSymbol="SIZE_WRITE_8_REG" />
+        <Data strSymbol="SLIN_3_O1" />
+        <Data strSymbol="SLIN_3_O2" />
+        <Data strSymbol="SLIN_3_O3" />
+        <Data strSymbol="SLIN_3_O4" />
+        <Data strSymbol="SLIN_3_O5" />
+        <Data strSymbol="SLIN_3_O6" />
+        <Data strSymbol="SLIN_3_O7" />
+        <Data strSymbol="SLIN_3_O8" />
+        <Data strSymbol="SLIN_3_WRITE_CTRLDATA" />
+        <Data strSymbol="M3_END_OF_FRAME1" />
+        <Data strSymbol="M3_END_OF_FRAME2" />
+      </DataList>
+      <ControlData Type="SUM_COMPL_P1" From="1" To="14" />
+      <DataConvert Type="ASCII" From="1" To="15" />
+    </Trame>
+    <Trame strSymbol="SLIN_3_WRITE_RET" strNom="Auto generated M3 frame">
+      <DataList>
+        <Data strSymbol="ASCII_COMMA" />
+        <Data strSymbol="M3_SLAVE_ADDR" />
+        <Data strSymbol="M3_MODBUS_WRITE_MR" />
+        <Data strSymbol="M3_DEST_ADDR_PART1" />
+        <Data strSymbol="M3_DEST_ADDR_PART2" />
+        <Data strSymbol="M3_REGISTER_16_ADDR" />
+        <Data strSymbol="SIZE_WRITE_8_REG" />
+        <Data strSymbol="SLIN_3_WRITE_RET_CTRLDATA" />
+        <Data strSymbol="M3_END_OF_FRAME1" />
+        <Data strSymbol="M3_END_OF_FRAME2" />
+      </DataList>
+      <ControlData Type="SUM_COMPL_P1" From="1" To="6" />
+      <DataConvert Type="ASCII" From="1" To="7" />
+    </Trame>
+    <Trame strSymbol="SLOUT_1_READ" strNom="Auto generated M3 frame">
+      <DataList>
+        <Data strSymbol="ASCII_COMMA" />
+        <Data strSymbol="M3_SLAVE_ADDR" />
+        <Data strSymbol="M3_MODBUS_READ" />
+        <Data strSymbol="M3_DEST_ADDR_PART1" />
+        <Data strSymbol="M3_DEST_ADDR_PART2" />
+        <Data strSymbol="M3_REGISTER_24_ADDR" />
+        <Data strSymbol="SIZE_WRITE_8_REG" />
+        <Data strSymbol="SLOUT_1_READ_CTRLDATA" />
+        <Data strSymbol="M3_END_OF_FRAME1" />
+        <Data strSymbol="M3_END_OF_FRAME2" />
+      </DataList>
+      <ControlData Type="SUM_COMPL_P1" From="1" To="6" />
+      <DataConvert Type="ASCII" From="1" To="7" />
+    </Trame>
+    <Trame strSymbol="SLOUT_1_READ_RET" strNom="Auto generated M3 frame">
+      <DataList>
+        <Data strSymbol="ASCII_COMMA" />
+        <Data strSymbol="M3_SLAVE_ADDR" />
+        <Data strSymbol="M3_MODBUS_READ" />
+        <Data strSymbol="SIZE_WRITE_8_REG" />
+        <Data strSymbol="SLOUT_1_I1_B16" />
+        <Data strSymbol="SLOUT_1_I1_B15" />
+        <Data strSymbol="SLOUT_1_I1_B14" />
+        <Data strSymbol="SLOUT_1_I1_B13" />
+        <Data strSymbol="SLOUT_1_I1_B12" />
+        <Data strSymbol="SLOUT_1_I1_B11" />
+        <Data strSymbol="SLOUT_1_I1_B10" />
+        <Data strSymbol="SLOUT_1_I1_B9" />
+        <Data strSymbol="SLOUT_1_I1_B8" />
+        <Data strSymbol="SLOUT_1_I1_B7" />
+        <Data strSymbol="SLOUT_1_I1_B6" />
+        <Data strSymbol="SLOUT_1_I1_B5" />
+        <Data strSymbol="SLOUT_1_I1_B4" />
+        <Data strSymbol="SLOUT_1_I1_B3" />
+        <Data strSymbol="SLOUT_1_I1_B2" />
+        <Data strSymbol="SLOUT_1_I1_B1" />
+        <Data strSymbol="SLOUT_1_I2" />
+        <Data strSymbol="SLOUT_1_I3" />
+        <Data strSymbol="SLOUT_1_I4" />
+        <Data strSymbol="SLOUT_1_I5" />
+        <Data strSymbol="SLOUT_1_I6" />
+        <Data strSymbol="SLOUT_1_I7" />
+        <Data strSymbol="SLOUT_1_I8" />
+        <Data strSymbol="SLOUT_1_READ_RET_CTRLDATA" />
+        <Data strSymbol="M3_END_OF_FRAME1" />
+        <Data strSymbol="M3_END_OF_FRAME2" />
+      </DataList>
+      <ControlData Type="SUM_COMPL_P1" From="1" To="26" />
+      <DataConvert Type="ASCII" From="1" To="27" />
+    </Trame>
+    <Trame strSymbol="SLOUT_2_READ" strNom="Auto generated M3 frame">
+      <DataList>
+        <Data strSymbol="ASCII_COMMA" />
+        <Data strSymbol="M3_SLAVE_ADDR" />
+        <Data strSymbol="M3_MODBUS_READ" />
+        <Data strSymbol="M3_DEST_ADDR_PART1" />
+        <Data strSymbol="M3_DEST_ADDR_PART2" />
+        <Data strSymbol="M3_REGISTER_32_ADDR" />
+        <Data strSymbol="SIZE_WRITE_8_REG" />
+        <Data strSymbol="SLOUT_2_READ_CTRLDATA" />
+        <Data strSymbol="M3_END_OF_FRAME1" />
+        <Data strSymbol="M3_END_OF_FRAME2" />
+      </DataList>
+      <ControlData Type="SUM_COMPL_P1" From="1" To="6" />
+      <DataConvert Type="ASCII" From="1" To="7" />
+    </Trame>
+    <Trame strSymbol="SLOUT_2_READ_RET" strNom="Auto generated M3 frame">
+      <DataList>
+        <Data strSymbol="ASCII_COMMA" />
+        <Data strSymbol="M3_SLAVE_ADDR" />
+        <Data strSymbol="M3_MODBUS_READ" />
+        <Data strSymbol="SIZE_WRITE_8_REG" />
+        <Data strSymbol="SLOUT_2_I1" />
+        <Data strSymbol="SLOUT_2_I2" />
+        <Data strSymbol="SLOUT_2_I3" />
+        <Data strSymbol="SLOUT_2_I4" />
+        <Data strSymbol="SLOUT_2_I5" />
+        <Data strSymbol="SLOUT_2_I6" />
+        <Data strSymbol="SLOUT_2_I7" />
+        <Data strSymbol="SLOUT_2_I8" />
+        <Data strSymbol="SLOUT_2_READ_RET_CTRLDATA" />
+        <Data strSymbol="M3_END_OF_FRAME1" />
+        <Data strSymbol="M3_END_OF_FRAME2" />
+      </DataList>
+      <ControlData Type="SUM_COMPL_P1" From="1" To="11" />
+      <DataConvert Type="ASCII" From="1" To="12" />
+    </Trame>
+    <Trame strSymbol="SLOUT_3_READ" strNom="Auto generated M3 frame">
+      <DataList>
+        <Data strSymbol="ASCII_COMMA" />
+        <Data strSymbol="M3_SLAVE_ADDR" />
+        <Data strSymbol="M3_MODBUS_READ" />
+        <Data strSymbol="M3_DEST_ADDR_PART1" />
+        <Data strSymbol="M3_DEST_ADDR_PART2" />
+        <Data strSymbol="M3_REGISTER_40_ADDR" />
+        <Data strSymbol="SIZE_WRITE_8_REG" />
+        <Data strSymbol="SLOUT_3_READ_CTRLDATA" />
+        <Data strSymbol="M3_END_OF_FRAME1" />
+        <Data strSymbol="M3_END_OF_FRAME2" />
+      </DataList>
+      <ControlData Type="SUM_COMPL_P1" From="1" To="6" />
+      <DataConvert Type="ASCII" From="1" To="7" />
+    </Trame>
+    <Trame strSymbol="SLOUT_3_READ_RET" strNom="Auto generated M3 frame">
+      <DataList>
+        <Data strSymbol="ASCII_COMMA" />
+        <Data strSymbol="M3_SLAVE_ADDR" />
+        <Data strSymbol="M3_MODBUS_READ" />
+        <Data strSymbol="SIZE_WRITE_8_REG" />
+        <Data strSymbol="SLOUT_3_I1" />
+        <Data strSymbol="SLOUT_3_I2" />
+        <Data strSymbol="SLOUT_3_I3" />
+        <Data strSymbol="SLOUT_3_I4" />
+        <Data strSymbol="SLOUT_3_I5" />
+        <Data strSymbol="SLOUT_3_I6" />
+        <Data strSymbol="SLOUT_3_I7" />
+        <Data strSymbol="SLOUT_3_I8" />
+        <Data strSymbol="SLOUT_3_READ_RET_CTRLDATA" />
+        <Data strSymbol="M3_END_OF_FRAME1" />
+        <Data strSymbol="M3_END_OF_FRAME2" />
+      </DataList>
+      <ControlData Type="SUM_COMPL_P1" From="1" To="11" />
+      <DataConvert Type="ASCII" From="1" To="12" />
+    </Trame>
+  </TrameSection>
+  <Program>
+    <FunctionSection>
+      <Function strSymbol="READ_SL_IN" strNom="">
+        <Line>FRAMES.SLIN_1_READ.SEND()</Line>
+        <Line>FRAMES.SLIN_1_READ_RET.RECEIVE()</Line>
+        <Line>FRAMES.SLIN_2_READ.SEND()</Line>
+        <Line>FRAMES.SLIN_2_READ_RET.RECEIVE()</Line>
+        <Line>FRAMES.SLIN_3_READ.SEND()</Line>
+        <Line>FRAMES.SLIN_3_READ_RET.RECEIVE()</Line>
+      </Function>
+      <Function strSymbol="WRITE_SL_IN" strNom="">
+        <Line>FRAMES.SLIN_1_WRITE.SEND()</Line>
+        <Line>FRAMES.SLIN_1_WRITE_RET.RECEIVE()</Line>
+        <Line>FRAMES.SLIN_2_WRITE.SEND()</Line>
+        <Line>FRAMES.SLIN_2_WRITE_RET.RECEIVE()</Line>
+        <Line>FRAMES.SLIN_3_WRITE.SEND()</Line>
+        <Line>FRAMES.SLIN_3_WRITE_RET.RECEIVE()</Line>
+      </Function>
+      <Function strSymbol="READ_SL_OUT" strNom="">
+        <Line>FRAMES.SLOUT_1_READ.SEND()</Line>
+        <Line>FRAMES.SLOUT_1_READ_RET.RECEIVE()</Line>
+        <Line>FRAMES.SLOUT_2_READ.SEND()</Line>
+        <Line>FRAMES.SLOUT_2_READ_RET.RECEIVE()</Line>
+        <Line>FRAMES.SLOUT_3_READ.SEND()</Line>
+        <Line>FRAMES.SLOUT_3_READ_RET.RECEIVE()</Line>
+      </Function>
+    </FunctionSection>
+    <TimerSection>
+      <Timer strSymbol="REFRESH_OUT" strNom="" Period="1000" AutoStart="True">
+        <Line>FUNCTIONS.READ_SL_OUT()</Line>
+      </Timer>
+    </TimerSection>
+    <LoggerSection />
+  </Program>
+</Root>

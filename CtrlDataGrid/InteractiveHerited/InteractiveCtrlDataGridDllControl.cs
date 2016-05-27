@@ -17,7 +17,7 @@ namespace CtrlDataGrid
     public partial class InteractiveCtrlDataGridDllControl : InteractiveControl, ISpecificControl
     {
         // panneau des propriété de l'objet
-        UserControl m_SpecificPropPanel = new CtrlDataGridProperties();
+        static UserControl m_SpecificPropPanel = new CtrlDataGridProperties();
         // proriétés d'activation des paramètres standard des controls
         StandardPropEnabling m_stdPropEnabling = new StandardPropEnabling();
         // propriété de comportement de l'objet dans le designer

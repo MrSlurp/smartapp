@@ -20,6 +20,8 @@ namespace FourBitmap
         private const string NOM_ATTIB_2 = "Bitmap2";
         private const string NOM_ATTIB_3 = "Bitmap3";
 
+        public DllFourBitmapProp(ItemScriptsConainter scriptContainter) : base(scriptContainter) { }
+
         public string NomFichier0
         {
             get
@@ -68,7 +70,7 @@ namespace FourBitmap
             }
         }
 
-        public override bool ReadIn(System.Xml.XmlNode Node)
+        public override bool ReadIn(XmlNode Node, BTDoc document)
         {
             XmlNode Attr0 = Node.Attributes.GetNamedItem(NOM_ATTIB_0);
             XmlNode Attr1 = Node.Attributes.GetNamedItem(NOM_ATTIB_1);
@@ -87,16 +89,16 @@ namespace FourBitmap
             return true;
         }
 
-        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
+        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node, BTDoc document)
         {
             XmlAttribute Attr0 = XmlDoc.CreateAttribute(NOM_ATTIB_0);
             XmlAttribute Attr1 = XmlDoc.CreateAttribute(NOM_ATTIB_1);
             XmlAttribute Attr2 = XmlDoc.CreateAttribute(NOM_ATTIB_2);
             XmlAttribute Attr3 = XmlDoc.CreateAttribute(NOM_ATTIB_3);
-            Attr0.Value = PathTranslator.AbsolutePathToRelative(NomFichier0);
-            Attr1.Value = PathTranslator.AbsolutePathToRelative(NomFichier1);
-            Attr2.Value = PathTranslator.AbsolutePathToRelative(NomFichier2);
-            Attr3.Value = PathTranslator.AbsolutePathToRelative(NomFichier3);
+            Attr0.Value = document.PathTr.AbsolutePathToRelative(NomFichier0);
+            Attr1.Value = document.PathTr.AbsolutePathToRelative(NomFichier1);
+            Attr2.Value = document.PathTr.AbsolutePathToRelative(NomFichier2);
+            Attr3.Value = document.PathTr.AbsolutePathToRelative(NomFichier3);
             Node.Attributes.Append(Attr0);
             Node.Attributes.Append(Attr1);
             Node.Attributes.Append(Attr2);
@@ -104,44 +106,32 @@ namespace FourBitmap
             return true;
         }
 
-        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance)
+        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance, BTDoc document)
         {
-            if (bFromOtherInstance)
-            {
-                if (File.Exists(PathTranslator.LinuxVsWindowsPathUse(
-                                PathTranslator.RelativePathToAbsolute(
-                                ((DllFourBitmapProp)SrcSpecificProp).NomFichier0))))
-                {
-                    NomFichier0 = ((DllFourBitmapProp)SrcSpecificProp).NomFichier0;
-                }
-                if (File.Exists(PathTranslator.LinuxVsWindowsPathUse(
-                                PathTranslator.RelativePathToAbsolute(
-                                ((DllFourBitmapProp)SrcSpecificProp).NomFichier1))))
-                {
-                    NomFichier1 = ((DllFourBitmapProp)SrcSpecificProp).NomFichier1;
-                }
-                if (File.Exists(PathTranslator.LinuxVsWindowsPathUse(
-                                PathTranslator.RelativePathToAbsolute(
-                                ((DllFourBitmapProp)SrcSpecificProp).NomFichier2))))
-                {
-                    NomFichier2 = ((DllFourBitmapProp)SrcSpecificProp).NomFichier2;
-                }
-                if (File.Exists(PathTranslator.LinuxVsWindowsPathUse(
-                                PathTranslator.RelativePathToAbsolute(
-                                ((DllFourBitmapProp)SrcSpecificProp).NomFichier3))))
-                {
-                    NomFichier3 = ((DllFourBitmapProp)SrcSpecificProp).NomFichier3;
-                }
-            }
-            else
+            if (File.Exists(PathTranslator.LinuxVsWindowsPathUse(
+                            document.PathTr.RelativePathToAbsolute(
+                            ((DllFourBitmapProp)SrcSpecificProp).NomFichier0))))
             {
                 NomFichier0 = ((DllFourBitmapProp)SrcSpecificProp).NomFichier0;
+            }
+            if (File.Exists(PathTranslator.LinuxVsWindowsPathUse(
+                            document.PathTr.RelativePathToAbsolute(
+                            ((DllFourBitmapProp)SrcSpecificProp).NomFichier1))))
+            {
                 NomFichier1 = ((DllFourBitmapProp)SrcSpecificProp).NomFichier1;
+            }
+            if (File.Exists(PathTranslator.LinuxVsWindowsPathUse(
+                            document.PathTr.RelativePathToAbsolute(
+                            ((DllFourBitmapProp)SrcSpecificProp).NomFichier2))))
+            {
                 NomFichier2 = ((DllFourBitmapProp)SrcSpecificProp).NomFichier2;
+            }
+            if (File.Exists(PathTranslator.LinuxVsWindowsPathUse(
+                            document.PathTr.RelativePathToAbsolute(
+                            ((DllFourBitmapProp)SrcSpecificProp).NomFichier3))))
+            {
                 NomFichier3 = ((DllFourBitmapProp)SrcSpecificProp).NomFichier3;
-
             }
         }
-
     }
 }

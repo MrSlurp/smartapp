@@ -8,6 +8,14 @@ namespace CommonLib
     public class GestLogger : BaseGest
     {
         #region fonction "utilitaires"
+        public override BaseObject AddNewObject(BTDoc document)
+        {
+            Logger dat = new Logger();
+            dat.Symbol = GetNextDefaultSymbol();
+            this.AddObj(dat);
+            return dat;
+        }
+
         /// <summary>
         /// renvoie le prochain symbol libre pour une nouvelle donnée
         /// </summary>
@@ -33,7 +41,7 @@ namespace CommonLib
         /// <param name="Node">Noeud Xml de l'objet</param>
         /// <param name="TypeApp">type d'application courante</param>
         /// <returns>true si la lecture s'est bien passé</returns>
-        public override bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
+        public override bool ReadIn(XmlNode Node, BTDoc document)
         {
             XmlNode NodeLoggerSection = null;
             for (int i = 0; i < Node.ChildNodes.Count; i++)
@@ -53,7 +61,7 @@ namespace CommonLib
                 Logger NewLogger = new Logger();
                 if (NewLogger != null)
                 {
-                    if (!NewLogger.ReadIn(ChildNode, TypeApp))
+                    if (!NewLogger.ReadIn(ChildNode, document))
                         return false;
 
                     this.AddObj(NewLogger);
@@ -68,7 +76,7 @@ namespace CommonLib
         /// <param name="XmlDoc">Document XML courant</param>
         /// <param name="Node">Noeud parent du controle dans le document</param>
         /// <returns>true si l'écriture s'est déroulée avec succès</returns>
-        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
+        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node, BTDoc document)
         {
             XmlNode NodeLoggerSection = XmlDoc.CreateElement(XML_CF_TAG.LoggerSection.ToString());
             Node.AppendChild(NodeLoggerSection);
@@ -77,7 +85,7 @@ namespace CommonLib
                 Logger dt = (Logger)m_ListObject[i];
 
                 XmlNode XmlLogger = XmlDoc.CreateElement(XML_CF_TAG.Logger.ToString());
-                dt.WriteOut(XmlDoc, XmlLogger);
+                dt.WriteOut(XmlDoc, XmlLogger,document);
                 NodeLoggerSection.AppendChild(XmlLogger);
             }
             return true;

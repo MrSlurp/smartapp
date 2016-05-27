@@ -56,7 +56,7 @@ namespace SmartApp.Ihm.Designer
             // 
             this.m_ToolDragItemBtn.AllowDrop = true;
             this.m_ToolDragItemBtn.ControlType = CommonLib.InteractiveControlType.Button;
-            this.m_ToolDragItemBtn.Location = new System.Drawing.Point(3, 28);
+            this.m_ToolDragItemBtn.Location = new System.Drawing.Point(15, 28);
             this.m_ToolDragItemBtn.Name = "m_ToolDragItemBtn";
             this.m_ToolDragItemBtn.Selected = false;
             this.m_ToolDragItemBtn.Size = new System.Drawing.Size(132, 20);
@@ -68,7 +68,7 @@ namespace SmartApp.Ihm.Designer
             // 
             this.m_ToolDragItemCheckBox.AllowDrop = true;
             this.m_ToolDragItemCheckBox.ControlType = CommonLib.InteractiveControlType.CheckBox;
-            this.m_ToolDragItemCheckBox.Location = new System.Drawing.Point(3, 54);
+            this.m_ToolDragItemCheckBox.Location = new System.Drawing.Point(15, 54);
             this.m_ToolDragItemCheckBox.Name = "m_ToolDragItemCheckBox";
             this.m_ToolDragItemCheckBox.Selected = false;
             this.m_ToolDragItemCheckBox.Size = new System.Drawing.Size(132, 20);
@@ -80,7 +80,7 @@ namespace SmartApp.Ihm.Designer
             // 
             this.m_ToolDragItemSlider.AllowDrop = true;
             this.m_ToolDragItemSlider.ControlType = CommonLib.InteractiveControlType.Slider;
-            this.m_ToolDragItemSlider.Location = new System.Drawing.Point(3, 80);
+            this.m_ToolDragItemSlider.Location = new System.Drawing.Point(15, 80);
             this.m_ToolDragItemSlider.Name = "m_ToolDragItemSlider";
             this.m_ToolDragItemSlider.Selected = false;
             this.m_ToolDragItemSlider.Size = new System.Drawing.Size(132, 40);
@@ -92,7 +92,7 @@ namespace SmartApp.Ihm.Designer
             // 
             this.m_ToolDragItemNumUpDown.AllowDrop = true;
             this.m_ToolDragItemNumUpDown.ControlType = CommonLib.InteractiveControlType.NumericUpDown;
-            this.m_ToolDragItemNumUpDown.Location = new System.Drawing.Point(3, 126);
+            this.m_ToolDragItemNumUpDown.Location = new System.Drawing.Point(15, 126);
             this.m_ToolDragItemNumUpDown.Name = "m_ToolDragItemNumUpDown";
             this.m_ToolDragItemNumUpDown.Selected = false;
             this.m_ToolDragItemNumUpDown.Size = new System.Drawing.Size(132, 20);
@@ -104,7 +104,7 @@ namespace SmartApp.Ihm.Designer
             // 
             this.m_ToolDragItemText.AllowDrop = true;
             this.m_ToolDragItemText.ControlType = CommonLib.InteractiveControlType.Text;
-            this.m_ToolDragItemText.Location = new System.Drawing.Point(3, 152);
+            this.m_ToolDragItemText.Location = new System.Drawing.Point(15, 152);
             this.m_ToolDragItemText.Name = "m_ToolDragItemText";
             this.m_ToolDragItemText.Selected = false;
             this.m_ToolDragItemText.Size = new System.Drawing.Size(132, 20);
@@ -116,7 +116,7 @@ namespace SmartApp.Ihm.Designer
             // 
             this.m_ToolDragItemcombo.AllowDrop = true;
             this.m_ToolDragItemcombo.ControlType = CommonLib.InteractiveControlType.Combo;
-            this.m_ToolDragItemcombo.Location = new System.Drawing.Point(3, 178);
+            this.m_ToolDragItemcombo.Location = new System.Drawing.Point(15, 178);
             this.m_ToolDragItemcombo.Name = "m_ToolDragItemcombo";
             this.m_ToolDragItemcombo.Selected = false;
             this.m_ToolDragItemcombo.Size = new System.Drawing.Size(132, 20);
@@ -128,7 +128,7 @@ namespace SmartApp.Ihm.Designer
             // 
             this.m_ToolDragItemFilledRect.AllowDrop = true;
             this.m_ToolDragItemFilledRect.ControlType = CommonLib.InteractiveControlType.SpecificControl;
-            this.m_ToolDragItemFilledRect.Location = new System.Drawing.Point(3, 201);
+            this.m_ToolDragItemFilledRect.Location = new System.Drawing.Point(15, 201);
             this.m_ToolDragItemFilledRect.Name = "m_ToolDragItemFilledRect";
             this.m_ToolDragItemFilledRect.Selected = false;
             this.m_ToolDragItemFilledRect.Size = new System.Drawing.Size(132, 20);
@@ -140,7 +140,7 @@ namespace SmartApp.Ihm.Designer
             // 
             this.m_ToolDragItemFilledEllipse.AllowDrop = true;
             this.m_ToolDragItemFilledEllipse.ControlType = CommonLib.InteractiveControlType.SpecificControl;
-            this.m_ToolDragItemFilledEllipse.Location = new System.Drawing.Point(3, 224);
+            this.m_ToolDragItemFilledEllipse.Location = new System.Drawing.Point(15, 224);
             this.m_ToolDragItemFilledEllipse.Name = "m_ToolDragItemFilledEllipse";
             this.m_ToolDragItemFilledEllipse.Selected = false;
             this.m_ToolDragItemFilledEllipse.Size = new System.Drawing.Size(100, 40);

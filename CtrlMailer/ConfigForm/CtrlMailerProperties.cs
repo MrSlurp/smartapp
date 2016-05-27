@@ -1,136 +1,81 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Data;
+using System.Drawing;
 using System.Text;
-using System.IO;
 using System.Windows.Forms;
 using CommonLib;
 
 namespace CtrlMailer
 {
-    internal partial class CtrlMailerProperties : UserControl, ISpecificPanel
+    public partial class CtrlMailerProperties : BaseControlPropertiesPanel, ISpecificPanel
     {
-        // controle dont on édite les propriété
-        BTControl m_Control = null;
-        // document courant
-        private BTDoc m_Document = null;
+        DllCtrlMailerProp m_Props = new DllCtrlMailerProp(null);
 
-        #region events
-        public event ControlPropertiesChange ControlPropertiesChanged;
-        #endregion
+        public DllCtrlMailerProp Props
+        {
+            get 
+            {
+                return m_Props; 
+            }
+            set
+            { 
+                m_Props = value;
+            }
+        }
 
-        /// <summary>
-        /// Constructeur de la classe
-        /// </summary>
         public CtrlMailerProperties()
         {
             DllEntryClass.LangSys.Initialize(this);
             InitializeComponent();
+            updateSMTPInfo();
         }
 
-        /// <summary>
-        /// Accesseur du control
-        /// </summary>
-        public BTControl BTControl
+        private void updateSMTPInfo()
         {
-            get
-            {
-                return m_Control;
-            }
-            set
-            {
-                if (value != null && value.SpecificProp.GetType() == typeof(DllCtrlMailerProp))
-                    m_Control = value;
-                else
-                    m_Control = null;
-                if (m_Control != null)
-                {
-                    this.Enabled = true;
-                    // assignez ici les valeur des propriété spécifiques du control
-                }
-                else
-                {
-                    this.Enabled = false;
-                    // mettez ici les valeur par défaut pour le panel de propriété spécifiques
-                }
-            }
+            lblHost.Text = DllEntryClass.SMTP_Param.SMTP_host;
+            lblPort.Text = DllEntryClass.SMTP_Param.SMTP_port.ToString();
+            lblSSL.Text = DllEntryClass.SMTP_Param.useSSL == true ? DllEntryClass.LangSys.C("Yes") : DllEntryClass.LangSys.C("No");
+            edtFrom.Text = DllEntryClass.SMTP_Param.userMail;
         }
 
-        /// <summary>
-        /// Accesseur du document
-        /// </summary>
-        public BTDoc Doc
-        {
-            get
-            {
-                return m_Document;
-            }
-            set
-            {
-                m_Document = value;
-            }
-        }
-
-        #region validation des données
-        /// <summary>
-        /// Accesseur de validité des propriétés
-        /// renvoie true si les propriété sont valides, sinon false
-        /// </summary>
-        public bool IsDataValuesValid
-        {
-            get
-            {
-                if (this.BTControl == null)
-                    return true;
-
-                return true;
-            }
-        }
-
-        /// <summary>
-        /// validitation des propriétés
-        /// </summary>
-        /// <returns>true si les propriété sont valides, sinon false</returns>
-        public bool ValidateValues()
-        {
-            if (this.BTControl == null)
-                return true;
-
-            bool bDataPropChange = false;
-
-            // testez ici si les paramètres ont changé en les comparant avec ceux contenu dans les propriété
-            // spécifiques du BTControl
-            // si c'est le cas, assignez bDataPropChange à true;
-
-            if (bDataPropChange)
-            {
-                Doc.Modified = true;
-                m_Control.IControl.Refresh();
-            }
-            if (bDataPropChange && ControlPropertiesChanged != null)
-                ControlPropertiesChanged(m_Control);
-            return true;
-        }
-        #endregion
-
-        private void btnCfgMail_Click(object sender, EventArgs e)
-        {
-            MailEditionForm form = new MailEditionForm();
-            form.Doc = this.Doc;
-            form.Props = (DllCtrlMailerProp)this.BTControl.SpecificProp;
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                Doc.Modified = true;
-                this.BTControl.SpecificProp.CopyParametersFrom(form.Props, false);
-            }
-        }
-
-        private void btnCfgSMTP_Click(object sender, EventArgs e)
+        private void btnCnfSMTP_Click(object sender, EventArgs e)
         {
             ConfigSMTP form = new ConfigSMTP();
-            form.ShowDialog();
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                updateSMTPInfo();
+            }
+        }
+
+        private void btnInsertData_Click(object sender, EventArgs e)
+        {
+            int posCarret = edtBody.SelectionStart;
+            PickDataForm PickData = new PickDataForm();
+            PickData.Document = this.Document;
+            if (PickData.ShowDialog() == DialogResult.OK)
+            {
+                if (PickData.SelectedData != null)
+                    edtBody.SelectedText = "<DATA." + PickData.SelectedData.Symbol + ">";
+            }
+        }
+
+        public void PanelToObject()
+        {
+            m_Props.ListToMail = this.edtTo.Text;
+            m_Props.MailSubject = this.edtSubject.Text;
+            m_Props.MailBody = this.edtBody.Text;
+            m_Control.SpecificProp.CopyParametersFrom(m_Props, false, Document);
+            Document.Modified = true;
+        }
+
+        public void ObjectToPanel()
+        {
+            m_Props.CopyParametersFrom(m_Control.SpecificProp, false, Document);
+            this.edtTo.Text = m_Props.ListToMail;
+            this.edtSubject.Text = m_Props.MailSubject;
+            this.edtBody.Text = m_Props.MailBody;
         }
     }
 }

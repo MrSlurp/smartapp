@@ -46,7 +46,7 @@ namespace CommonLib
             // il faut rechercher les controls à la mano
             for (int index = 0; index < ctrl.Count; index++)
             {
-                if (ctrl[index] is DynamicPanel)
+                if (ctrl[index] is DynamicPanel || ctrl[index] is ILangNonTranslatable)
                     continue;
 #if !PocketPC
                 if (
@@ -125,7 +125,8 @@ namespace CommonLib
                 }
                 if (ctrl[index] is ToolStripDropDownItem)
                 {
-                    Update_Controls(((ToolStripDropDownItem)ctrl[index]).DropDownItems);
+                    if (((ToolStripDropDownItem)ctrl[index]).DropDownItems.Count > 0)
+                        Update_Controls(((ToolStripDropDownItem)ctrl[index]).DropDownItems);
                 }
 
             }

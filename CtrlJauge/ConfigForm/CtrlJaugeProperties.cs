@@ -10,94 +10,14 @@ using CommonLib;
 
 namespace CtrlJauge
 {
-    public partial class CtrlJaugeProperties : UserControl, ISpecificPanel
+    public partial class CtrlJaugeProperties : BaseControlPropertiesPanel, ISpecificPanel
     {
-        BTControl m_Control = null;
-        private BTDoc m_Document = null;
-
         private eOrientationJauge m_Orientation = eOrientationJauge.eHorizontaleDG;
-
-        #region events
-        public event ControlPropertiesChange ControlPropertiesChanged;
-        #endregion
 
         public CtrlJaugeProperties()
         {
             DllEntryClass.LangSys.Initialize(this);
             InitializeComponent();
-        }
-
-        public BTControl BTControl
-        {
-            get
-            {
-                return m_Control;
-            }
-            set
-            {
-                if (value != null && value.SpecificProp.GetType() == typeof(DllCtrlJaugeProp))
-                    m_Control = value;
-                else
-                    m_Control = null;
-                if (m_Control != null)
-                {
-                    this.Enabled = true;
-                    m_Orientation = CtrlProp.Orientation;
-                    switch (m_Orientation)
-                    {
-                        case eOrientationJauge.eHorizontaleDG:
-                            m_rdBtn0.Checked = true;
-                            m_rdBtn1.Checked = false;
-                            m_rdBtn2.Checked = false;
-                            m_rdBtn3.Checked = false;
-                            break;
-                        case eOrientationJauge.eHorizontaleGD:
-                            m_rdBtn0.Checked = false;
-                            m_rdBtn1.Checked = true;
-                            m_rdBtn2.Checked = false;
-                            m_rdBtn3.Checked = false;
-                            break;
-                        case eOrientationJauge.eVerticaleTB:
-                            m_rdBtn0.Checked = false;
-                            m_rdBtn1.Checked = false;
-                            m_rdBtn2.Checked = false;
-                            m_rdBtn3.Checked = true;
-                            break;
-                        case eOrientationJauge.eVerticaleBT:
-                            m_rdBtn0.Checked = false;
-                            m_rdBtn1.Checked = false;
-                            m_rdBtn2.Checked = true;
-                            m_rdBtn3.Checked = false;
-                            break;
-                        default:
-                            break;
-                    }
-                    m_TextMinColor.BackColor = CtrlProp.ColorMin;
-                    m_TextMaxColor.BackColor = CtrlProp.ColorMax;
-                }
-                else
-                {
-                    this.Enabled = false;
-                    m_rdBtn0.Checked = true;
-                    m_rdBtn1.Checked = false;
-                    m_rdBtn2.Checked = false;
-                    m_rdBtn3.Checked = false;
-                    m_TextMinColor.BackColor = Color.Blue;
-                    m_TextMaxColor.BackColor = Color.White;
-                }
-            }
-        }
-
-        public BTDoc Doc
-        {
-            get
-            {
-                return m_Document;
-            }
-            set
-            {
-                m_Document = value;
-            }
         }
 
         private DllCtrlJaugeProp CtrlProp
@@ -107,31 +27,9 @@ namespace CtrlJauge
         }
 
         #region validation des données
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        public bool IsDataValuesValid
+
+        public void PanelToObject()
         {
-            get
-            {
-                if (this.BTControl == null)
-                    return true;
-
-                return true;
-            }
-        }
-
-
-        //*****************************************************************************************************
-        // Description:
-        // Return: /
-        //*****************************************************************************************************
-        public bool ValidateValues()
-        {
-            if (this.BTControl == null)
-                return true;
-
             bool bDataPropChange = false;
 
             // testez ici si les paramètres ont changé en les comparant avec ceux contenu dans les propriété
@@ -150,14 +48,61 @@ namespace CtrlJauge
             {
                 ((DllCtrlJaugeProp)m_Control.SpecificProp).ColorMin = m_TextMinColor.BackColor;
                 ((DllCtrlJaugeProp)m_Control.SpecificProp).ColorMax = m_TextMaxColor.BackColor;
-                ((DllCtrlJaugeProp)m_Control.SpecificProp).Orientation= m_Orientation;
-                Doc.Modified = true;
-                m_Control.IControl.Refresh();
+                ((DllCtrlJaugeProp)m_Control.SpecificProp).Orientation = m_Orientation;
+                Document.Modified = true;
             }
-            if (bDataPropChange && ControlPropertiesChanged != null)
-                ControlPropertiesChanged(m_Control);
-            return true;
         }
+
+        public void ObjectToPanel()
+        {
+            if (m_Control != null)
+            {
+                this.Enabled = true;
+                m_Orientation = CtrlProp.Orientation;
+                switch (m_Orientation)
+                {
+                    case eOrientationJauge.eHorizontaleDG:
+                        m_rdBtn0.Checked = true;
+                        m_rdBtn1.Checked = false;
+                        m_rdBtn2.Checked = false;
+                        m_rdBtn3.Checked = false;
+                        break;
+                    case eOrientationJauge.eHorizontaleGD:
+                        m_rdBtn0.Checked = false;
+                        m_rdBtn1.Checked = true;
+                        m_rdBtn2.Checked = false;
+                        m_rdBtn3.Checked = false;
+                        break;
+                    case eOrientationJauge.eVerticaleTB:
+                        m_rdBtn0.Checked = false;
+                        m_rdBtn1.Checked = false;
+                        m_rdBtn2.Checked = false;
+                        m_rdBtn3.Checked = true;
+                        break;
+                    case eOrientationJauge.eVerticaleBT:
+                        m_rdBtn0.Checked = false;
+                        m_rdBtn1.Checked = false;
+                        m_rdBtn2.Checked = true;
+                        m_rdBtn3.Checked = false;
+                        break;
+                    default:
+                        break;
+                }
+                m_TextMinColor.BackColor = CtrlProp.ColorMin;
+                m_TextMaxColor.BackColor = CtrlProp.ColorMax;
+            }
+            else
+            {
+                this.Enabled = false;
+                m_rdBtn0.Checked = true;
+                m_rdBtn1.Checked = false;
+                m_rdBtn2.Checked = false;
+                m_rdBtn3.Checked = false;
+                m_TextMinColor.BackColor = Color.Blue;
+                m_TextMaxColor.BackColor = Color.White;
+            }
+        }
+
         #endregion
 
         private void m_rdBtn_CheckedChanged(object sender, EventArgs e)

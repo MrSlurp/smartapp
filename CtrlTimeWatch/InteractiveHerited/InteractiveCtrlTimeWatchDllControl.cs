@@ -17,7 +17,7 @@ namespace CtrlTimeWatch
     public partial class InteractiveCtrlTimeWatchDllControl : InteractiveControl, ISpecificControl
     {
         // panneau des propriété de l'objet
-        UserControl m_SpecificPropPanel = new CtrlTimeWatchProperties();
+        static UserControl m_SpecificPropPanel = new CtrlTimeWatchProperties();
         // proriétés d'activation des paramètres standard des controls
         StandardPropEnabling m_stdPropEnabling = new StandardPropEnabling();
         // propriété de comportement de l'objet dans le designer
@@ -40,7 +40,7 @@ namespace CtrlTimeWatch
             m_stdPropEnabling.m_bcheckReadOnlyEnabled = false;
             m_stdPropEnabling.m_bcheckScreenEventEnabled = false;
             m_stdPropEnabling.m_bcheckScreenEventChecked = false;
-            m_stdPropEnabling.m_bEditAssociateDataEnabled = true;
+            m_stdPropEnabling.m_bEditAssociateDataEnabled = false;
             m_stdPropEnabling.m_bEditTextEnabled = false;
             m_stdPropEnabling.m_bCtrlEventScriptEnabled = false;
 

@@ -12,7 +12,9 @@ namespace CtrlDataGrid
     #region enums
     public enum SAVE_PERIOD
     {
+        SAVE_5_min = 15,
         SAVE_10_min = 10,
+        SAVE_15_min = 15,
         SAVE_1_h = 60,
         SAVE_2_h = 120,
         SAVE_6_h = 360,
@@ -28,6 +30,7 @@ namespace CtrlDataGrid
         LOG_2_min = 120,
         LOG_5_min = 300,
         LOG_10_min = 600,
+        LOG_15_min = 900,
     }
     #endregion
 
@@ -45,6 +48,8 @@ namespace CtrlDataGrid
         LOG_PERIOD m_LoggingPeriod = LOG_PERIOD.LOG_1_min;
         string[] ListDataSymbol = new string[NB_DATA];
         string[] ListDataAlias = new string[NB_DATA];
+
+        public DllCtrlDataGridProp(ItemScriptsConainter scriptContainter) : base(scriptContainter) { }
 
         // ajouter ici les accesseur vers les données membres des propriété
         #region attributs
@@ -100,7 +105,7 @@ namespace CtrlDataGrid
         /// </summary>
         /// <param name="Node">noeud du control a qui appartiens les propriété </param>
         /// <returns>true en cas de succès de la lecture</returns>
-        public override bool ReadIn(XmlNode Node)
+        public override bool ReadIn(XmlNode Node, BTDoc document)
         {
             int NodeGraphItemCount = 0;
             if (Node.FirstChild != null)
@@ -136,7 +141,7 @@ namespace CtrlDataGrid
         /// <param name="XmlDoc">Document XML</param>
         /// <param name="Node">noeud du control a qui appartiens les propriété</param>
         /// <returns>true en cas de succès de l'écriture</returns>
-        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
+        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node, BTDoc document)
         {
             for (int i = 0; i < NB_DATA; i++)
             {
@@ -165,21 +170,19 @@ namespace CtrlDataGrid
         /// Recopie les paramètres d'un control source du même type vers les paramètres courants
         /// </summary>
         /// <param name="SrcSpecificProp">Paramètres sources</param>
-        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance)
+        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance, BTDoc document)
         {
-            DllCtrlDataGridProp SrcProp = (DllCtrlDataGridProp)SrcSpecificProp;
-            if (!bFromOtherInstance)
+            if (SrcSpecificProp is DllCtrlDataGridProp)
             {
-                if (SrcSpecificProp.GetType() == typeof(DllCtrlDataGridProp))
+                DllCtrlDataGridProp SpecProp = SrcSpecificProp as DllCtrlDataGridProp;
+                for (int i = 0; i < NB_DATA; i++)
                 {
-                    for (int i = 0; i < NB_DATA; i++)
-                    {
-                        ListDataSymbol[i] = ((DllCtrlDataGridProp)SrcSpecificProp).ListDataSymbol[i];
-                        ListDataAlias[i] = ((DllCtrlDataGridProp)SrcSpecificProp).ListDataAlias[i];
-                    }
-                    m_SavePeriod = ((DllCtrlDataGridProp)SrcSpecificProp).m_SavePeriod;
-                    m_LoggingPeriod = ((DllCtrlDataGridProp)SrcSpecificProp).m_LoggingPeriod;
+                    ListDataSymbol[i] = BTControl.CheckAndDoAssociateDataCopy(document, SpecProp.ListDataSymbol[i]);
+                    if (!string.IsNullOrEmpty(ListDataSymbol[i]))
+                        ListDataAlias[i] = SpecProp.ListDataAlias[i];
                 }
+                m_SavePeriod = SpecProp.m_SavePeriod;
+                m_LoggingPeriod = SpecProp.m_LoggingPeriod;
             }
         }
 
@@ -199,53 +202,13 @@ namespace CtrlDataGrid
         {
             if (TypeApp == TYPE_APP.SMART_CONFIG)
             {
-                switch (Mess)
+                for (int i = 0; i < NB_DATA; i++)
                 {
-                    case MESSAGE.MESS_ASK_ITEM_DELETE:
-                        if (((MessAskDelete)obj).TypeOfItem == typeof(Data))
-                        {
-                            MessAskDelete MessParam = (MessAskDelete)obj;
-                            for (int i = 0; i < NB_DATA; i++)
-                            {
-                                if (ListDataSymbol[i] == MessParam.WantDeletetItemSymbol)
-                                {
-                                    string strMess = string.Format(DllEntryClass.LangSys.C("DataGrid {0} will lost data"), PropOwner.Symbol);
-                                    MessParam.ListStrReturns.Add(strMess);
-                                }
-                            }
-                        }
-                        break;
-                    case MESSAGE.MESS_ITEM_DELETED:
-                        if (((MessDeleted)obj).TypeOfItem == typeof(Data))
-                        {
-                            MessDeleted MessParam = (MessDeleted)obj;
-                            for (int i = 0; i < NB_DATA; i++)
-                            {
-                                if (ListDataSymbol[i] == MessParam.DeletetedItemSymbol)
-                                {
-                                    ListDataSymbol[i] = string.Empty;
-                                }
-                            }
-                        }
-                        break;
-                    case MESSAGE.MESS_ITEM_RENAMED:
-                        if (((MessItemRenamed)obj).TypeOfItem == typeof(Data))
-                        {
-                            MessItemRenamed MessParam = (MessItemRenamed)obj;
-                            for (int i = 0; i < NB_DATA; i++)
-                            {
-                                if (ListDataSymbol[i] == MessParam.OldItemSymbol)
-                                {
-                                    ListDataSymbol[i] = MessParam.NewItemSymbol;
-                                }
-                            }
-                        }
-                        break;
-                    default:
-                        break;
+                    BTControl.TraiteMessageDataDelete(Mess, obj, ListDataSymbol[i], PropOwner, DllEntryClass.LangSys.C("DataGrid {0} will lost data"));
+                    ListDataSymbol[i] = BTControl.TraiteMessageDataDeleted(Mess, obj, ListDataSymbol[i]);
+                    ListDataSymbol[i] = BTControl.TraiteMessageDataRenamed(Mess, obj, ListDataSymbol[i]);
                 }
             }
         }
-
     }
 }

@@ -13,13 +13,7 @@ using System.Drawing;
 namespace CommonLib
 {
     #region delegate pour les évènement de changement de propriété des objets divers
-    public delegate void DataPropertiesChange(Data Obj);
-    public delegate void ScreenPropertiesChange(BTScreen Obj);
-    public delegate void ControlPropertiesChange(BTControl Obj);
-    public delegate void TramePropertiesChange(Trame Trame);
-    public delegate void FunctionPropertiesChange(Function Function);
-    public delegate void TimerPropertiesChange(BTTimer Timer);
-    public delegate void LoggerPropertiesChange(Logger Logger);
+    public delegate void BaseObjectPropertiesChangedEvent(BaseObject Obj);
 
     public delegate void AddLogEventDelegate(LogEvent Event);
     #endregion
@@ -63,7 +57,8 @@ namespace CommonLib
         public const string STR_FILE_DESC_HEADER_OPT = "Options";
         //public const string STR_FILE_DESC_LANG = "Lang";
         public const string STR_FILE_DESC_LOGDIR = "LogDir";
-        public const string STR_FILE_DESC_SAVE_PREF_COMM = "SaveComm";
+        public const string STR_FILE_DESC_AUTO_START = "Autostart";
+        public const string STR_FILE_DESC_HIDE_MON = "HideMonitor";
         public static Color TransparencyColor = Color.FromArgb(255, 0, 255);
 
         public const string STR_DEV_LANG = "EN";
@@ -103,11 +98,14 @@ namespace CommonLib
         SoftVersion,
         Comm,
         CommType,
+        ProjOptions,
+        MainContainer,
         CommParam,
         DataSection,
         Data,
         ScreenSection,
         Screen,
+        ScreenAttribs,
         ControlList,
         InitScript,
         EventScript,

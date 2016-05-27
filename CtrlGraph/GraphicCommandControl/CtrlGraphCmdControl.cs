@@ -24,6 +24,7 @@ namespace CtrlGraph
         private ArrayList m_ListRefDatas = new ArrayList();
         private StringCollection m_ListAliases = new StringCollection();
         private List<Color> m_ListCr = new List<Color>();
+        private List<int> m_ListDiv = new List<int>();
 
         // indique si le timer est actif
         bool m_bTimerActive = false;
@@ -63,6 +64,14 @@ namespace CtrlGraph
             }
         }
 
+        public List<int> Divisors
+        {
+            get
+            {
+                return m_ListDiv;
+            }
+        }
+
         public override bool DisabledOnStop
         {
             get
@@ -75,7 +84,8 @@ namespace CtrlGraph
         // Description:
         // Return: /
         //*****************************************************************************************************
-        public CtrlGraphCmdControl()
+        public CtrlGraphCmdControl(BTDoc document)
+            : base(document)
         {
 
         }
@@ -143,6 +153,7 @@ namespace CtrlGraph
                 m_ListRefDatas.Add(Dat);
                 m_ListAliases.Add(Props.GetAlias(i));
                 m_ListCr.Add(Props.GetColor(i));
+                m_ListDiv.Add(Props.GetDataDivisor(i));
             }
             m_Timer.Interval = (int)Props.LogPeriod * 1000;
             m_Timer.Tick += new EventHandler(OnTimerTick);
@@ -213,7 +224,7 @@ namespace CtrlGraph
         // ajouter ici les données membres du control affiché
         ZedGraphControl m_ZedGraphCtrl = null;
         CtrlGraphCmdControl m_SourceCtrl = null;
-
+        bool m_bInitDone = false;
         /// <summary>
         /// 
         /// </summary>
@@ -484,6 +495,8 @@ namespace CtrlGraph
         /// </summary>
         public void InitGraphs()
         {
+            if (m_bInitDone)
+                return;
             GraphPane myPane = m_ZedGraphCtrl.GraphPane;
             DllCtrlGraphProp specProps = (DllCtrlGraphProp)m_SourceCtrl.SpecificProp;
             myPane.Title.Text = specProps.GraphTitle;
@@ -500,6 +513,7 @@ namespace CtrlGraph
                 curve.Tag = Data;
             }
             myPane.XAxis.Type = AxisType.Date;
+            m_bInitDone = true;
         }
 
         public void DataLogNotify()
@@ -520,7 +534,10 @@ namespace CtrlGraph
 
                 // Time is measured in seconds
                 double X = new XDate(DateTime.Now);
-                list.Add(X, ((Data)curve.Tag).Value);
+                if (m_SourceCtrl.Divisors[i] != 0)
+                    list.Add(X, (double) ((Data)curve.Tag).Value / m_SourceCtrl.Divisors[i]);
+                else
+                    list.Add(X, ((Data)curve.Tag).Value);
             }
 
             Scale xScale = m_ZedGraphCtrl.GraphPane.XAxis.Scale;

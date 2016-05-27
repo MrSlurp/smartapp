@@ -8,6 +8,14 @@ namespace CommonLib
     public class GestFunction : BaseGest
     {
         #region fonction "utilitaires"
+        public override BaseObject AddNewObject(BTDoc document)
+        {
+            Function dat = new Function();
+            dat.Symbol = GetNextDefaultSymbol();
+            this.AddObj(dat);
+            return dat;
+        }
+
         /// <summary>
         /// renvoie le prochain symbol libre pour une nouvelle donnée
         /// </summary>
@@ -33,7 +41,7 @@ namespace CommonLib
         /// <param name="Node">Noeud Xml de l'objet</param>
         /// <param name="TypeApp">type d'application courante</param>
         /// <returns>true si la lecture s'est bien passé</returns>
-        public override bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
+        public override bool ReadIn(XmlNode Node, BTDoc document)
         {
             XmlNode NodeFunctionSection = null;
             for (int i = 0; i < Node.ChildNodes.Count; i++)
@@ -53,7 +61,7 @@ namespace CommonLib
                 Function NewFunc = new Function();
                 if (NewFunc != null)
                 {
-                    if (!NewFunc.ReadIn(ChildNode, TypeApp))
+                    if (!NewFunc.ReadIn(ChildNode, document))
                         return false;
 
                     this.AddObj(NewFunc);
@@ -68,7 +76,7 @@ namespace CommonLib
         /// <param name="XmlDoc">Document XML courant</param>
         /// <param name="Node">Noeud parent du controle dans le document</param>
         /// <returns>true si l'écriture s'est déroulée avec succès</returns>
-        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
+        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node, BTDoc document)
         {
             XmlNode NodeFuncSection = XmlDoc.CreateElement(XML_CF_TAG.FunctionSection.ToString());
             Node.AppendChild(NodeFuncSection);
@@ -77,7 +85,7 @@ namespace CommonLib
                 Function dt = (Function)m_ListObject[i];
 
                 XmlNode XmlFunc = XmlDoc.CreateElement(XML_CF_TAG.Function.ToString());
-                dt.WriteOut(XmlDoc, XmlFunc);
+                dt.WriteOut(XmlDoc, XmlFunc, document);
                 NodeFuncSection.AppendChild(XmlFunc);
             }
             return true;

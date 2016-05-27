@@ -25,7 +25,8 @@ namespace CtrlDemux
         // Description:
         // Return: /
         //*****************************************************************************************************
-        public CtrlDemuxCmdControl()
+        public CtrlDemuxCmdControl(BTDoc document)
+            : base(document)
         {
 
         }
@@ -61,7 +62,7 @@ namespace CtrlDemux
         {
             if (DemuxParemtersOK)
             {
-                if (AdressData.Value < m_ListRefDatas.Count)
+                if (AdressData.Value >= 0 && AdressData.Value < m_ListRefDatas.Count)
                 {
                     ((Data)m_ListRefDatas[AdressData.Value]).Value = ValueData.Value;
                 }
@@ -131,10 +132,13 @@ namespace CtrlDemux
 
         void  Executer_EventFrameRecieved(Trame frame)
         {
-            if (frame.FrameDatas.Contains(ValueData.Symbol) &&
-                frame.FrameDatas.Contains(AdressData.Symbol))
+            if (ValueData != null && AdressData != null)
             {
-                UpdateFromData();
+                if (frame.FrameDatas.Contains(ValueData.Symbol) &&
+                    frame.FrameDatas.Contains(AdressData.Symbol))
+                {
+                    UpdateFromData();
+                }
             }
         }
 

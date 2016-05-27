@@ -8,6 +8,14 @@ namespace CommonLib
     public class GestTimer : BaseGest
     {
         #region fonction "utilitaires"
+        public override BaseObject AddNewObject(BTDoc document)
+        {
+            BTTimer dat = new BTTimer();
+            dat.Symbol = GetNextDefaultSymbol();
+            this.AddObj(dat);
+            return dat;
+        }
+
         /// <summary>
         /// renvoie le prochain symbol libre pour une nouvelle donnée
         /// </summary>
@@ -33,7 +41,7 @@ namespace CommonLib
         /// <param name="Node">Noeud Xml de l'objet</param>
         /// <param name="TypeApp">type d'application courante</param>
         /// <returns>true si la lecture s'est bien passé</returns>
-        public override bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
+        public override bool ReadIn(XmlNode Node, BTDoc document)
         {
             XmlNode NodeTimerSection = null;
             for (int i = 0; i < Node.ChildNodes.Count; i++)
@@ -53,7 +61,7 @@ namespace CommonLib
                 BTTimer NewTimer = new BTTimer();
                 if (NewTimer != null)
                 {
-                    if (!NewTimer.ReadIn(ChildNode, TypeApp))
+                    if (!NewTimer.ReadIn(ChildNode, document))
                         return false;
 
                     this.AddObj(NewTimer);
@@ -68,7 +76,7 @@ namespace CommonLib
         /// <param name="XmlDoc">Document XML courant</param>
         /// <param name="Node">Noeud parent du controle dans le document</param>
         /// <returns>true si l'écriture s'est déroulée avec succès</returns>
-        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
+        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node, BTDoc document)
         {
             XmlNode NodeTimerSection = XmlDoc.CreateElement(XML_CF_TAG.TimerSection.ToString());
             Node.AppendChild(NodeTimerSection);
@@ -77,7 +85,7 @@ namespace CommonLib
                 BTTimer dt = (BTTimer)m_ListObject[i];
 
                 XmlNode XmlTimer = XmlDoc.CreateElement(XML_CF_TAG.Timer.ToString());
-                dt.WriteOut(XmlDoc, XmlTimer);
+                dt.WriteOut(XmlDoc, XmlTimer, document);
                 NodeTimerSection.AppendChild(XmlTimer);
             }
             return true;

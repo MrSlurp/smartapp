@@ -11,6 +11,7 @@ namespace CommonLib
         TextBox _output = null;
         StringBuilder m_Builder = new StringBuilder(2000);
  
+        delegate void WriteText(string value);
         public TextBoxStreamWriter(TextBox output)
         {
             _output = output;
@@ -22,9 +23,23 @@ namespace CommonLib
             m_Builder = m_Builder.Append(value);
             if (value == '\n')
             {
-                _output.AppendText(m_Builder.ToString()); // When character data is written, append it to the text box.
-                m_Builder = new StringBuilder(2000);
+                if (_output.InvokeRequired)
+                {
+                    WriteText d = new WriteText(InvokedWriteString);
+                    _output.Invoke(d, m_Builder.ToString());
+                    m_Builder = new StringBuilder(2000);
+                }
+                else
+                {
+                    _output.AppendText(m_Builder.ToString()); // When character data is written, append it to the text box.
+                    m_Builder = new StringBuilder(2000);
+                }
             }
+        }
+
+        private void InvokedWriteString(string value)
+        {
+            _output.AppendText(value); // When character data is written, append it to the text box.
         }
  
         public override Encoding Encoding

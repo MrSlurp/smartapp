@@ -49,6 +49,7 @@ namespace FourBitmap
             this.m_txtBoxImg1.ReadOnly = true;
             this.m_txtBoxImg1.Size = new System.Drawing.Size(163, 20);
             this.m_txtBoxImg1.TabIndex = 7;
+            this.m_txtBoxImg1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.m_txtBoxImgn_KeyDown);
             // 
             // label2
             // 
@@ -76,6 +77,7 @@ namespace FourBitmap
             this.m_txtBoxImg0.ReadOnly = true;
             this.m_txtBoxImg0.Size = new System.Drawing.Size(163, 20);
             this.m_txtBoxImg0.TabIndex = 8;
+            this.m_txtBoxImg0.KeyDown += new System.Windows.Forms.KeyEventHandler(this.m_txtBoxImgn_KeyDown);
             // 
             // label1
             // 
@@ -103,6 +105,7 @@ namespace FourBitmap
             this.m_txtBoxImg3.ReadOnly = true;
             this.m_txtBoxImg3.Size = new System.Drawing.Size(163, 20);
             this.m_txtBoxImg3.TabIndex = 13;
+            this.m_txtBoxImg3.KeyDown += new System.Windows.Forms.KeyEventHandler(this.m_txtBoxImgn_KeyDown);
             // 
             // label3
             // 
@@ -130,6 +133,7 @@ namespace FourBitmap
             this.m_txtBoxImg2.ReadOnly = true;
             this.m_txtBoxImg2.Size = new System.Drawing.Size(163, 20);
             this.m_txtBoxImg2.TabIndex = 14;
+            this.m_txtBoxImg2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.m_txtBoxImgn_KeyDown);
             // 
             // label4
             // 

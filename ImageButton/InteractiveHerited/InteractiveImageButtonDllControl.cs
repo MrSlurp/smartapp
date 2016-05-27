@@ -17,7 +17,7 @@ namespace ImageButton
     public partial class InteractiveImageButtonDllControl : InteractiveControl, ISpecificControl
     {
         // panneau des propriété de l'objet
-        UserControl m_SpecificPropPanel = new ImageButtonProperties();
+        static UserControl m_SpecificPropPanel = new ImageButtonProperties();
         // proriétés d'activation des paramètres standard des controls
         StandardPropEnabling m_stdPropEnabling = new StandardPropEnabling();
         // propriété de comportement de l'objet dans le designer
@@ -30,9 +30,6 @@ namespace ImageButton
         public InteractiveImageButtonDllControl()
         {
             // initialisation du panneau des propriété spécifiques
-            m_SpecificPropPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            m_SpecificPropPanel.AutoSize = true;
             m_SpecificPropPanel.Name = "DllControlPropPanel";
             m_SpecificPropPanel.Text = "";
 
@@ -57,6 +54,7 @@ namespace ImageButton
 
             InitializeComponent();
             this.imageButtonDispCtrl1.Enabled = false;
+            imageButtonDispCtrl1.Paint += new PaintEventHandler(imageButtonDispCtrl1_Paint);
         }
 
         /// <summary>
@@ -125,7 +123,7 @@ namespace ImageButton
                     if (SpecProps.ReleasedImage != m_strReleasedImage)
                     {
                         m_strReleasedImage = SpecProps.ReleasedImage;
-                        string sReleasedImage = PathTranslator.RelativePathToAbsolute(m_strReleasedImage);
+                        string sReleasedImage = SourceBTControl.Document.PathTr.RelativePathToAbsolute(m_strReleasedImage);
                         sReleasedImage = PathTranslator.LinuxVsWindowsPathUse(sReleasedImage);
                         Bitmap bmp = new Bitmap(sReleasedImage);
                         bmp.MakeTransparent(Color.Magenta);
@@ -162,8 +160,14 @@ namespace ImageButton
 
         protected override void OnPaint(PaintEventArgs e)
         {
+            // met a jour les attributs du bouton standard pour l'image de fond et le style
             SelfPaint(e.Graphics, this);
-            // dessine l'étoile représentant la présence d'une donnée associée
+            //Comme on utilise un controle standard inclu dans l'interactive control, on capte son évènement de dessin et c'est sur
+            // lui qu'on effectue les dessins de la présence de donnée associée
+        }
+
+        void imageButtonDispCtrl1_Paint(object sender, PaintEventArgs e)
+        {
             ControlPainter.DrawPresenceAssociateData(e.Graphics, this);
             // existe une version ou il est possible de passer le paramètre indquant l'affichage de 
             // l'étoile dont le prototype est le suivant

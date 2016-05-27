@@ -265,6 +265,9 @@ namespace CommonLib
         /// <returns>Texte localisé</returns>
         public string C(string FilePath,string DevText)
         {
+            if (string.IsNullOrEmpty(DevText))
+                return string.Empty;
+
             string FileName;
             if (string.IsNullOrEmpty(m_CurrentAssembly))
                 FileName = Path.Combine(FilePath, mCurrentLangage + ".po");
@@ -306,7 +309,10 @@ namespace CommonLib
                             if (mInformOfMissingItem)
                                 return (DevText + MSG_MISSING);
                             else
+                            {
+                                Traces.LogAddDebug(TraceCat.Lang, string.Format("Fichier {0}, missing DevText {1}", Path.GetFileName(FileName), DevText));
                                 return DevText;
+                            }
                         }
                     }
                     // ensuite on test si a la chaine dans le fichier par défaut
@@ -559,12 +565,11 @@ namespace CommonLib
                 Directory.CreateDirectory(Path.GetDirectoryName(FileName));
             }
 
-            if (!CheckExistInDictionnary(FileName,DevText))
+            if (!CheckExistInDictionnary(FileName,DevText) && !string.IsNullOrEmpty(DevText))
             {
                 // la chaine n'existe pas dans le fichier
                 using (FileStream fsw = new FileStream(FileName, FileMode.Append, FileAccess.Write, FileShare.Read))
                 {
-    
                     StreamWriter sw = new StreamWriter(fsw, System.Text.Encoding.Unicode);
                     //ecriture du message
                     sw.WriteLine();

@@ -62,18 +62,18 @@ namespace CtrlCnxManager
             }
         }
 
-        public BTControl CreateBTControl()
+        public BTControl CreateBTControl(BTDoc document)
         {
-            return new BTDllCtrlCnxManagerControl();
+            return new BTDllCtrlCnxManagerControl(document);
         }
 
-        public BTControl CreateBTControl(InteractiveControl iCtrl)
+        public BTControl CreateBTControl(BTDoc document, InteractiveControl iCtrl)
         {
-            return new BTDllCtrlCnxManagerControl(iCtrl);
+            return new BTDllCtrlCnxManagerControl(document, iCtrl);
         }
-        public BTControl CreateCommandBTControl()
+        public BTControl CreateCommandBTControl(BTDoc document)
         {
-            return new CtrlCnxManagerCmdControl();
+            return new CtrlCnxManagerCmdControl(document);
         }
 
         public InteractiveControl CreateInteractiveControl()

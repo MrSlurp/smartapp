@@ -79,24 +79,39 @@ namespace CommonLib
 		public static Bitmap CxnOff;
         public static Bitmap Empty;
         public static Icon AppIcon;
+
+        public static Bitmap TreeViewScreenIcon;
+        public static Bitmap TreeViewGroupIcon;
+        public static Bitmap TreeViewTimerIcon;
+        public static Bitmap TreeViewFrameIcon;
+        public static Bitmap TreeViewFunctionIcon;
+        public static Bitmap TreeViewLoggerIcon;
+        public static Bitmap TreeViewIOIcon;
+        public static Icon TreeViewSolutionIcon;
+        public static Bitmap TreeViewBridgeIcon;
+
+        public static Bitmap SimpleArrowDown;
+        public static Bitmap SimpleArrowUp;
+        public static Bitmap SimpleArrowLeft;
+        public static Bitmap SimpleArrowRight;
 		
 		public static void InitializeBitmap()
 		{
             string strAppDir = Path.GetDirectoryName(Application.ExecutablePath);
             AppIcon = NewIcoTrPath(strAppDir + "\\SmartApp.ico");
-            AlignLeft = NewBmpTrPath(strAppDir + "\\Res\\ToolBar\\AlignLeft.bmp");
-            AlignTop = NewBmpTrPath(strAppDir + "\\Res\\ToolBar\\AlignTop.bmp");
-            ArrangeAcross = NewBmpTrPath(strAppDir + "\\Res\\ToolBar\\ArrangeAcross.bmp");
-            ArrangeDown = NewBmpTrPath(strAppDir + "\\Res\\ToolBar\\ArrangeDown.bmp");
+            AlignLeft = NewBmpTrPath(strAppDir + "\\Res\\Toolbar\\AlignLeft.bmp");
+            AlignTop = NewBmpTrPath(strAppDir + "\\Res\\Toolbar\\AlignTop.bmp");
+            ArrangeAcross = NewBmpTrPath(strAppDir + "\\Res\\Toolbar\\ArrangeAcross.bmp");
+            ArrangeDown = NewBmpTrPath(strAppDir + "\\Res\\Toolbar\\ArrangeDown.bmp");
             BottomBtn = NewBmpTrPath(strAppDir + "\\Res\\DownBtn.bmp");
             BottomLeftBtn = NewBmpTrPath(strAppDir + "\\Res\\BottomLeftBtn.bmp");
             BottomRightBtn = NewBmpTrPath(strAppDir + "\\Res\\BottomRightBtn.bmp");
             CheckBox = NewBmpTrPath(strAppDir + "\\Res\\CheckBox.bmp");
             DropBtn = NewBmpTrPath(strAppDir + "\\Res\\DropBtn.bmp");
             LeftBtn = NewBmpTrPath(strAppDir + "\\Res\\LeftBtn.bmp");
-            MakeSameBoth = NewBmpTrPath(strAppDir + "\\Res\\ToolBar\\MakeSameBoth.bmp");
-            MakeSameHeight = NewBmpTrPath(strAppDir + "\\Res\\ToolBar\\MakeSameHeight.bmp");
-            MakeSameWidth = NewBmpTrPath(strAppDir + "\\Res\\ToolBar\\MakeSameWidth.bmp");
+            MakeSameBoth = NewBmpTrPath(strAppDir + "\\Res\\Toolbar\\MakeSameBoth.bmp");
+            MakeSameHeight = NewBmpTrPath(strAppDir + "\\Res\\Toolbar\\MakeSameHeight.bmp");
+            MakeSameWidth = NewBmpTrPath(strAppDir + "\\Res\\Toolbar\\MakeSameWidth.bmp");
             PresAssData = NewBmpTrPath(strAppDir + "\\Res\\PresAssData.bmp");
             RightBtn = NewBmpTrPath(strAppDir + "\\Res\\RightBtn.bmp");
             SliderBar = NewBmpTrPath(strAppDir + "\\Res\\SliderBar.bmp");
@@ -115,8 +130,8 @@ namespace CommonLib
 
             move = NewBmpTrPath(strAppDir + "\\Res\\move.bmp");
 
-            CxnOn = NewBmpTrPath(strAppDir + "\\Res\\CxnOn.bmp");
-            CxnOff = NewBmpTrPath(strAppDir + "\\Res\\CxnOff.bmp");
+            CxnOn = NewBmpTrPath(strAppDir + "\\Res\\green-on-016.png");
+            CxnOff = NewBmpTrPath(strAppDir + "\\Res\\red-on-016.png");
             Empty = NewBmpTrPath(strAppDir + "\\Res\\EmptyImg.bmp");
 
             WizardSLProject = NewBmpTrPath(strAppDir + "\\Res\\WizRes\\M3SL_wiz.png");
@@ -136,16 +151,47 @@ namespace CommonLib
             TypeSplit16_ETH_OUT = NewBmpTrPath(strAppDir + "\\Res\\WizRes\\EthType_Split16O.png");
             TypeSplit4_ETH_OUT = NewBmpTrPath(strAppDir + "\\Res\\WizRes\\EthType_Split4O.png");
             TypeSplit2_ETH_OUT = NewBmpTrPath(strAppDir + "\\Res\\WizRes\\EthType_Split2O.png");
+
+            TreeViewScreenIcon = NewBmpTrPath(strAppDir + "\\Res\\icon_screen.png");
+            TreeViewGroupIcon = NewBmpTrPath(strAppDir + "\\Res\\icon_group.png");
+            TreeViewTimerIcon = NewBmpTrPath(strAppDir + "\\Res\\icon_timer.png");
+            TreeViewFrameIcon = NewBmpTrPath(strAppDir + "\\Res\\icon_frame.png");
+            TreeViewFunctionIcon = NewBmpTrPath(strAppDir + "\\Res\\icon_function.png");
+            TreeViewLoggerIcon = NewBmpTrPath(strAppDir + "\\Res\\icon_logger.png");
+            TreeViewIOIcon = NewBmpTrPath(strAppDir + "\\Res\\icon_io.png");
+            TreeViewSolutionIcon = NewIcoTrPath(strAppDir + "\\SmartAppSln.ico");
+            TreeViewBridgeIcon = NewBmpTrPath(strAppDir + "\\Res\\icon_bridge.png"); ;
+
+            SimpleArrowDown =  NewBmpTrPath(strAppDir + "\\Res\\arrow-down.png"); ;
+            SimpleArrowUp = NewBmpTrPath(strAppDir + "\\Res\\arrow-up.png"); ;
+            SimpleArrowLeft = NewBmpTrPath(strAppDir + "\\Res\\arrow-left.png"); ;
+            SimpleArrowRight = NewBmpTrPath(strAppDir + "\\Res\\arrow-right.png"); ;
         }
 
         public static Bitmap NewBmpTrPath(string path)
         {
-            return new Bitmap(PathTranslator.LinuxVsWindowsPathUse(path));
+            try
+            {
+                return new Bitmap(PathTranslator.LinuxVsWindowsPathUse(path));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(string.Format("Error while loading res named {0}", path));
+            }
+            return null;
         }
 
         public static Icon NewIcoTrPath(string path)
         {
-            return new Icon(PathTranslator.LinuxVsWindowsPathUse(path));
+            try
+            {
+                return new Icon(PathTranslator.LinuxVsWindowsPathUse(path));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(string.Format("Error while loading res named {0}", path));
+            }
+            return null;
         }
     }
 }

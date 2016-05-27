@@ -17,7 +17,7 @@ namespace SoundPlayer
     public partial class InteractiveSoundPlayerDllControl : InteractiveControl, ISpecificControl
     {
         // panneau des propriété de l'objet
-        UserControl m_SpecificPropPanel = new SoundPlayerProperties();
+        static UserControl m_SpecificPropPanel = new SoundPlayerProperties();
         // proriétés d'activation des paramètres standard des controls
         StandardPropEnabling m_stdPropEnabling = new StandardPropEnabling();
         // propriété de comportement de l'objet dans le designer

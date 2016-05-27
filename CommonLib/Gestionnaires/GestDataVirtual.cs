@@ -23,7 +23,7 @@ namespace CommonLib
         /// <param name="Node">Noeud Xml de l'objet</param>
         /// <param name="TypeApp">type d'application courante</param>
         /// <returns>true si la lecture s'est bien passé</returns>
-        public override bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
+        public override bool ReadIn(XmlNode Node, BTDoc document)
         {
             for (int i = 0; i < Node.ChildNodes.Count; i++)
             {
@@ -34,13 +34,13 @@ namespace CommonLib
                 VirtualData NewData = new VirtualData();
                 if (NewData != null)
                 {
-                    if (!NewData.ReadIn(ChildNode, TypeApp))
+                    if (!NewData.ReadIn(ChildNode, document))
                         return false;
                     NewData.UpdateUserVisibility();
                     this.AddObj(NewData);
                 }
             }
-            if (!ReadGestGroup(Node, TypeApp))
+            if (!ReadGestGroup(Node, document.TypeApp))
                 return false;
 
             return true;
@@ -83,7 +83,7 @@ namespace CommonLib
         /// <param name="XmlDoc"></param>
         /// <param name="Node"></param>
         /// <returns></returns>
-        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
+        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node, BTDoc document)
         {
             // le gestionaire virtuel n'a pas le droit de se sauvegarder normalement
             return false;

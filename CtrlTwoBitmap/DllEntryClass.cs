@@ -59,18 +59,18 @@ namespace CtrlTwoBitmap
             }
         }
 
-        public BTControl CreateBTControl()
+        public BTControl CreateBTControl(BTDoc document)
         {
-            return new BTTwoBitmapControl();
+            return new BTTwoBitmapControl(document);
         }
 
-        public BTControl CreateBTControl(InteractiveControl iCtrl)
+        public BTControl CreateBTControl(BTDoc document, InteractiveControl iCtrl)
         {
-            return new BTTwoBitmapControl(iCtrl);
+            return new BTTwoBitmapControl(document, iCtrl);
         }
-        public BTControl CreateCommandBTControl()
+        public BTControl CreateCommandBTControl(BTDoc document)
         {
-            return new TwoBitmapControl();
+            return new TwoBitmapControl(document);
         }
 
         public InteractiveControl CreateInteractiveControl()

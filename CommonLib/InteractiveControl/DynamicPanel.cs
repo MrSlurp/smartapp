@@ -27,7 +27,7 @@ namespace CommonLib
     /// </summary>
     public partial class DynamicPanel : UserControl
     {
-        public delegate void SetMeToTopEvent(Form MyParent);
+        public delegate void SetMeToTopEvent();
         public delegate void SetToTopEvent();
         
         List<Control> m_ListToDrawManually = new List<Control>();
@@ -173,7 +173,7 @@ namespace CommonLib
                 }
                 else
                 {
-                    SetMeToTop(this.Parent as Form);
+                    SetMeToTop();
                 }
             }
         }

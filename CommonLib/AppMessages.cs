@@ -21,14 +21,6 @@ namespace CommonLib
         // message notifiant le renomage (symbol) d'un objet
         MESS_ITEM_RENAMED,
 
-        // message indiquant que des paramètres ont changés
-        // utilisé pr mettre ajour le modified flag
-        MESS_CHANGE,
-
-        // Message spécifique a SmartCommand
-        // demande la mise a jour des controls en fonction de la donnée associée
-        MESS_UPDATE_FROM_DATA,
-
         // message run mode Commande
         MESS_CMD_RUN,
 
@@ -123,28 +115,11 @@ namespace CommonLib
     //*****************************************************************************************************
     public class MessNeedUpdate : BaseMessage
     {
-        public bool bUpdateDataForm;
-        public bool bUpdateFrameForm;
         public bool bUpdateScreenForm;
-        public bool bUpdateProgramForm;
 
         public MessNeedUpdate(BaseMessage mess)
         {
             if (mess.TypeOfItem == typeof(CommonLib.Data))
-            {
-                bUpdateFrameForm = true;
-                bUpdateScreenForm = true;
-                bUpdateProgramForm = true;
-            }
-            if (mess.TypeOfItem == typeof(CommonLib.Trame))
-            {
-                bUpdateScreenForm = true;
-                bUpdateProgramForm = true;
-            }
-            if (mess.TypeOfItem == typeof(CommonLib.Logger)
-                || mess.TypeOfItem == typeof(CommonLib.Function)
-                || mess.TypeOfItem == typeof(CommonLib.BTTimer)
-                )
             {
                 bUpdateScreenForm = true;
             }

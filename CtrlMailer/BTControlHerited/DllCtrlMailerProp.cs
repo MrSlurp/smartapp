@@ -23,6 +23,8 @@ namespace CtrlMailer
         string m_MailSubject;
         string m_MailBody;
 
+        public DllCtrlMailerProp(ItemScriptsConainter scriptContainter) : base(scriptContainter) { }
+
         // ajouter ici les accesseur vers les données membres des propriété
         public string ListToMail
         {
@@ -48,7 +50,7 @@ namespace CtrlMailer
         /// </summary>
         /// <param name="Node">noeud du control a qui appartiens les propriété </param>
         /// <returns>true en cas de succès de la lecture</returns>
-        public override bool ReadIn(XmlNode Node)
+        public override bool ReadIn(XmlNode Node, BTDoc document)
         {
             for (int iChild = 0; iChild < Node.ChildNodes.Count; iChild ++)
             {
@@ -91,7 +93,7 @@ namespace CtrlMailer
         /// <param name="XmlDoc">Document XML</param>
         /// <param name="Node">noeud du control a qui appartiens les propriété</param>
         /// <returns>true en cas de succès de l'écriture</returns>
-        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
+        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node, BTDoc document)
         {
             XmlNode ParamNode = XmlDoc.CreateElement(Tag_Section);
             XmlNode MailToNode = XmlDoc.CreateElement(Tag_MailTo);
@@ -111,12 +113,15 @@ namespace CtrlMailer
         /// Recopie les paramètres d'un control source du même type vers les paramètres courants
         /// </summary>
         /// <param name="SrcSpecificProp">Paramètres sources</param>
-        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance)
+        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance, BTDoc document)
         {
-            DllCtrlMailerProp SrcProp = (DllCtrlMailerProp)SrcSpecificProp;
-            m_ListToMail = SrcProp.m_ListToMail;
-            m_MailSubject = SrcProp.m_MailSubject;
-            m_MailBody = SrcProp.m_MailBody;
+            if (SrcSpecificProp is DllCtrlMailerProp)
+            {
+                DllCtrlMailerProp SrcProp = SrcSpecificProp as DllCtrlMailerProp;
+                m_ListToMail = SrcProp.m_ListToMail;
+                m_MailSubject = SrcProp.m_MailSubject;
+                m_MailBody = SrcProp.m_MailBody;
+            }
         }
 
         /// <summary>

@@ -14,7 +14,7 @@ namespace CtrlGraph
 {
     public partial class InteractiveCtrlGraphDllControl : InteractiveControl, ISpecificControl
     {
-        UserControl m_SpecificPropPanel = new CtrlGraphProperties();
+        static UserControl m_SpecificPropPanel = new CtrlGraphProperties();
         StandardPropEnabling m_stdPropEnabling = new StandardPropEnabling();
         SpecificGraphicProp m_SpecGraphicProp = new SpecificGraphicProp();
 

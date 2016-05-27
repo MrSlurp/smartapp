@@ -26,6 +26,7 @@ namespace CommonLib
     }
 
     public delegate void FrameRecievedDelegate(Trame frame);
+    public delegate void ScriptExecuted(int quickID);
 
     public class QuickExecuter
     {
@@ -53,6 +54,8 @@ namespace CommonLib
         //private event ScriptAddedToExecute EvScriptToExecute;
         public event AddLogEventDelegate EventAddLogEvent;
         public event FrameRecievedDelegate EventFrameRecieved;
+
+        public event ScriptExecuted EventScriptExecuted;
         #endregion
 
         #region cosntructeur / destructeur
@@ -139,28 +142,11 @@ namespace CommonLib
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="scriptable"></param>
-        /// <returns></returns>
-        public int PreParseScript(IScriptable scriptable)
-        {
-            int Id = 0;
-            List<PreParsedLine> preParsedScript = m_PreParser.PreParseScript(scriptable.ScriptLines);
-            if (preParsedScript != null)
-            {
-                Id = ++m_iQuickIdCounter;
-                m_DictioQuickScripts.Add(Id, preParsedScript);
-            }
-            return Id;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="script"></param>
         /// <returns></returns>
-        public int PreParseScript(String[] script)
+        public int PreParseScript(string[] script)
         {
-            int Id = 0;
+            int Id = -1;
             List<PreParsedLine> preParsedScript = m_PreParser.PreParseScript(script);
             if (preParsedScript != null)
             {
@@ -170,22 +156,6 @@ namespace CommonLib
             return Id;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="scriptable"></param>
-        /// <returns></returns>
-        public int PreParseScript(IInitScriptable scriptable)
-        {
-            int Id = 0;
-            List<PreParsedLine> preParsedScript = m_PreParser.PreParseScript(scriptable.InitScriptLines);
-            if (preParsedScript != null)
-            {
-                Id = ++m_iQuickIdCounter;
-                m_DictioQuickScripts.Add(Id, preParsedScript);
-            }
-            return Id;
-        }
         #endregion
 
         #region attributs
@@ -215,24 +185,37 @@ namespace CommonLib
                 while (m_PileScriptsToExecute.Count != 0 && !m_bStopRequested)
                 {
                     // on prend le script sans l'enlever afin de savoir qu'il n'est pas encore executé
-                    //m_QueueMutex.WaitOne();
-                    Object thisLock = new Object();
                     int QuickId = 0;
-                    lock (thisLock)
+                    try
                     {
-                        QuickId = m_PileScriptsToExecute.Peek();
-                    }
-                    //if (m_bIsWaiting)
-                    //    System.Diagnostics.Debug.Assert(false, "appel en trop");
+                        lock (this)
+                        {
+                            QuickId = m_PileScriptsToExecute.Peek();
+                        }
+                        if (QuickId != 0)
+                        {
+                            InternalExecuteScript(QuickId);
+                            // il est éxécuté, on l'enlève de la liste.
+                            m_PileScriptsToExecute.Dequeue();
 
-                    InternalExecuteScript(QuickId);
-                    // il est éxécuté, on l'enlève de la liste.
-                    m_PileScriptsToExecute.Dequeue();
-                    //m_QueueMutex.ReleaseMutex();
+                            if (EventScriptExecuted != null)
+                                EventScriptExecuted(QuickId);
+                        }
+                        else
+                        {
+                            Traces.LogAddCritical(TraceCat.Executer, string.Format("un quickId 0 est sortie de la FIFO"));
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        LogEvent evt = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format(Lang.LangSys.C("Error in execution motor {0}"), ex.Message));
+                        AddLogEvent(evt);
+                    }
+                    
                     Thread.Sleep(20);
                 }
                 theChrono.EndMeasure("ScriptExecuter");
-                Thread.Sleep(50);
+                Thread.Sleep(30);
             } while (!m_bStopRequested);
             m_bStopRequested = false;
         }
@@ -243,17 +226,13 @@ namespace CommonLib
         /// <param name="QuickID"></param>
         public void ExecuteScript(int QuickID)
         {
+            //System.Diagnostics.Debug.Assert(QuickID != 0);
             if (m_DictioQuickScripts.ContainsKey(QuickID))
             {
-                Object thisLock = new Object();
-                lock (thisLock)
+                lock (this)
                 {
-                    // Critical code section
                     m_PileScriptsToExecute.Enqueue(QuickID);
                 } 
-                //m_QueueMutex.ReleaseMutex();
-                //if (EvScriptToExecute != null)
-                    //EvScriptToExecute();
             }
 #if DEBUG
             else
@@ -274,6 +253,12 @@ namespace CommonLib
         /// <param name="QuickID"></param>
         internal void InternalExecuteScript(int QuickID)
         {
+            if (!m_DictioQuickScripts.ContainsKey(QuickID))
+            {
+                LogEvent log = new LogEvent(LOG_EVENT_TYPE.WARNING, string.Format(Lang.LangSys.C("Unknown script id {0}"), QuickID));
+                AddLogEvent(log);
+                return;
+            }
             List<PreParsedLine> QuickScript = m_DictioQuickScripts[QuickID];
             for (int i = 0; i < QuickScript.Count; i++)
             {
@@ -282,8 +267,10 @@ namespace CommonLib
                 {
                     case SCR_OBJECT.FRAMES:
                     case SCR_OBJECT.TIMERS:
-                    case SCR_OBJECT.SCREEN:
                         QuickExecuteFunc(QuickScript[i]);
+                        break;
+                    case SCR_OBJECT.SCREEN:
+                        QuickExecuteScreen(QuickScript[i]);
                         break;
                     case SCR_OBJECT.LOGGERS:
                         QuickExecuteLogger(QuickScript[i]);
@@ -295,12 +282,17 @@ namespace CommonLib
                                                string.Format("Executing func {0}", QuickScript[i].m_Arguments[0].Symbol));
                         if (Id != 0) //un ID a 0 signifie que le script est vide
                             InternalExecuteScript(Id);
+                        else
+                            System.Diagnostics.Debug.Assert(false);
                         break;
                     case SCR_OBJECT.LOGIC:
                         QuickExecuteLogic(QuickScript[i]);
                         break;
                     case SCR_OBJECT.MATHS:
                         QuickExecuteMaths(QuickScript[i]);
+                        break;
+                    case SCR_OBJECT.SYSTEM:
+                        QuickExecuteSystem(QuickScript[i]);
                         break;
                     case SCR_OBJECT.INVALID:
                     default:
@@ -336,18 +328,6 @@ namespace CommonLib
                                            string.Format("timer.STOP {0}", QuickScript.m_Arguments[0].Symbol));
                     ((BTTimer)QuickScript.m_Arguments[0]).StopTimer();
                     break;
-                case ALL_FUNC.SCREEN_SHOW_ON_TOP:
-                    if (Traces.IsDebugAndCatOK(TraceCat.ExecuteScreen))
-                        Traces.LogAddDebug(TraceCat.ExecuteScreen,
-                                           string.Format("Screen.SHOW_ON_TOP {0}", QuickScript.m_Arguments[0].Symbol));
-                    ((BTScreen)QuickScript.m_Arguments[0]).ShowScreenToTop();
-                    break;
-                case ALL_FUNC.SCREEN_SCREEN_SHOT:
-                    if (Traces.IsDebugAndCatOK(TraceCat.ExecuteScreen))
-                        Traces.LogAddDebug(TraceCat.ExecuteScreen,
-                                           string.Format("Screen.SCREEN_SNAPSHOT {0}", QuickScript.m_Arguments[0].Symbol));
-                    ((BTScreen)QuickScript.m_Arguments[0]).TakeScreenShot("");
-                    break;
             }
         }
         #endregion
@@ -363,10 +343,10 @@ namespace CommonLib
                 Traces.LogAddDebug(TraceCat.ExecuteFrame, string.Format("Send frame {0}", tr.Symbol));
 
             Byte[] buffer = tr.CreateTrameToSend(false);
-            if (m_Document.m_Comm.IsOpen)
+            if (m_Document.Communication.IsOpen)
             {
-                if (m_Document.m_Comm.CommType == TYPE_COMM.VIRTUAL)
-                    m_Document.m_Comm.SendData(tr, m_Document.GestData, m_Document.GestDataVirtual);
+                if (m_Document.Communication.CommType == TYPE_COMM.VIRTUAL)
+                    m_Document.Communication.SendData(tr, m_Document.GestData, m_Document.GestDataVirtual);
                 else
                 {
                     string strmess = string.Format(Lang.LangSys.C("Frame {0} sent"), tr.Symbol);
@@ -379,7 +359,7 @@ namespace CommonLib
                         }
                         Traces.LogAddDebug(TraceCat.ExecuteFrame, string.Format("Frame datas {0}", strSendData));
                     }
-                    m_Document.m_Comm.SendData(buffer);
+                    m_Document.Communication.SendData(buffer);
                 }
             }
             else
@@ -398,11 +378,11 @@ namespace CommonLib
             if (Traces.IsDebugAndCatOK(TraceCat.ExecuteFrame))
                 Traces.LogAddDebug(TraceCat.ExecuteFrame, string.Format("Recieve frame {0}", TrameToRecieve.Symbol));
 
-            if (m_Document.m_Comm.IsOpen)
+            if (m_Document.Communication.IsOpen)
             {
                 byte[] FrameHeader = TrameToRecieve.FrameHeader;
                 int ConvertedSize = TrameToRecieve.GetConvertedTrameSizeInByte();
-                if (!m_Document.m_Comm.WaitTrameRecieved(ConvertedSize, FrameHeader))
+                if (!m_Document.Communication.WaitTrameRecieved(ConvertedSize, FrameHeader))
                 {
                     //indiquer qu'une trame n'a pas été recu
                     // et demander a l'utilisateur si il souhaite continuer l'execution des actions
@@ -424,10 +404,10 @@ namespace CommonLib
                     return;
                 }
                 byte[] buffer = null;
-                if (m_Document.m_Comm.CommType == TYPE_COMM.VIRTUAL)
-                    buffer = m_Document.m_Comm.GetRecievedData(ConvertedSize, TrameToRecieve);
+                if (m_Document.Communication.CommType == TYPE_COMM.VIRTUAL)
+                    buffer = m_Document.Communication.GetRecievedData(ConvertedSize, TrameToRecieve);
                 else
-                    buffer = m_Document.m_Comm.GetRecievedData(ConvertedSize, FrameHeader);
+                    buffer = m_Document.Communication.GetRecievedData(ConvertedSize, FrameHeader);
 
                 if (buffer == null || !TrameToRecieve.TreatRecieveTrame(buffer))
                 {
@@ -456,7 +436,7 @@ namespace CommonLib
         {
             Data ResultData = (Data)QuickScript.m_Arguments[0];
             Data Operator1Data = (Data)QuickScript.m_Arguments[1];
-            Data Operator2Data = (Data)QuickScript.m_Arguments[2];
+            Data Operator2Data = QuickScript.m_Arguments.Length >=3 ? (Data)QuickScript.m_Arguments[2] : null;
             switch (QuickScript.m_FunctionToExec)
             {
                 case ALL_FUNC.MATHS_ADD:
@@ -470,6 +450,33 @@ namespace CommonLib
                     break;
                 case ALL_FUNC.MATHS_SUB:
                     ExecuteMathSub(ResultData, Operator1Data, Operator2Data);
+                    break;
+                case ALL_FUNC.MATHS_COS:
+                    ExecuteMathCos(ResultData, Operator1Data);
+                    break;
+                case ALL_FUNC.MATHS_SIN:
+                    ExecuteMathSin(ResultData, Operator1Data);
+                    break;
+                case ALL_FUNC.MATHS_TAN:
+                    ExecuteMathTan(ResultData, Operator1Data);
+                    break;
+                case ALL_FUNC.MATHS_SQRT:
+                    ExecuteMathSqrt(ResultData, Operator1Data);
+                    break;
+                case ALL_FUNC.MATHS_POW:
+                    ExecuteMathPow(ResultData, Operator1Data, Operator2Data);
+                    break;
+                case ALL_FUNC.MATHS_LN:
+                    ExecuteMathLn(ResultData, Operator1Data);
+                    break;
+                case ALL_FUNC.MATHS_LOG:
+                    ExecuteMathLog(ResultData, Operator1Data);
+                    break;
+                case ALL_FUNC.MATHS_SET:
+                    ExecuteMathSet(ResultData, Operator1Data);
+                    break;
+                case ALL_FUNC.MATHS_MOD:
+                    ExecuteMathMod(ResultData, Operator1Data, Operator2Data);
                     break;
             }
         }
@@ -545,6 +552,154 @@ namespace CommonLib
                 AddLogEvent(logEvent);
                 if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
                     Traces.LogAddDebug(TraceCat.ExecuteMath, "Math.DIV", "Division by zero");
+                return;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Result">donnée de sortie de l'opération</param>
+        /// <param name="Operator1">premier opérateur de l'opération</param>
+        protected void ExecuteMathSin(Data Result, Data Operator1)
+        {
+            string opsValues = string.Empty;
+            if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
+                opsValues = string.Format("Sin({0})", Operator1.Value);
+            Result.Value = (int)(Math.Sin(Operator1.Value * (Math.PI / 180)) * 100);
+            if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
+                Traces.LogAddDebug(TraceCat.ExecuteMath, "Math.SIN", string.Format("{0} = {1}", Result.Value, opsValues));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Result">donnée de sortie de l'opération</param>
+        /// <param name="Operator1">premier opérateur de l'opération</param>
+        protected void ExecuteMathCos(Data Result, Data Operator1)
+        {
+            string opsValues = string.Empty;
+            if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
+                opsValues = string.Format("Cos({0})", Operator1.Value);
+            Result.Value = (int)(Math.Cos(Operator1.Value * (Math.PI/180)) * 100);
+            if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
+                Traces.LogAddDebug(TraceCat.ExecuteMath, "Math.SIN", string.Format("{0} = {1}", Result.Value, opsValues));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Result">donnée de sortie de l'opération</param>
+        /// <param name="Operator1">premier opérateur de l'opération</param>
+        protected void ExecuteMathTan(Data Result, Data Operator1)
+        {
+            string opsValues = string.Empty;
+            if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
+                opsValues = string.Format("Tan({0})", Operator1.Value);
+            Result.Value = (int)(Math.Tan(Operator1.Value * (Math.PI / 180)) * 100);
+            if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
+                Traces.LogAddDebug(TraceCat.ExecuteMath, "Math.TAN", string.Format("{0} = {1}", Result.Value, opsValues));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Result">donnée de sortie de l'opération</param>
+        /// <param name="Operator1">premier opérateur de l'opération</param>
+        /// <param name="Operator2">second opérateur de l'opération</param>
+        protected void ExecuteMathPow(Data Result, Data Operator1, Data Operator2)
+        {
+            string opsValues = string.Empty;
+            if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
+                opsValues = string.Format("{0} ^ {1}", Operator1.Value, Operator2.Value);
+            Result.Value = (int)(Math.Pow(Operator1.Value, Operator2.Value));
+            if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
+                Traces.LogAddDebug(TraceCat.ExecuteMath, "Math.POW", string.Format("{0} = {1}", Result.Value, opsValues));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Result">donnée de sortie de l'opération</param>
+        /// <param name="Operator1">premier opérateur de l'opération</param>
+        protected void ExecuteMathSqrt(Data Result, Data Operator1)
+        {
+            string opsValues = string.Empty;
+            if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
+                opsValues = string.Format("Sqrt({0})", Operator1.Value);
+            Result.Value = (int)(Math.Sqrt(Operator1.Value));
+            if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
+                Traces.LogAddDebug(TraceCat.ExecuteMath, "Math.SQRT", string.Format("{0} = {1}", Result.Value, opsValues));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Result">donnée de sortie de l'opération</param>
+        /// <param name="Operator1">premier opérateur de l'opération</param>
+        protected void ExecuteMathLn(Data Result, Data Operator1)
+        {
+            string opsValues = string.Empty;
+            if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
+                opsValues = string.Format("Ln({0})", Operator1.Value);
+            Result.Value = (int)(Math.Log(Operator1.Value)*100);
+            if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
+                Traces.LogAddDebug(TraceCat.ExecuteMath, "Math.LN", string.Format("{0} = {1}", Result.Value, opsValues));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Result">donnée de sortie de l'opération</param>
+        /// <param name="Operator1">premier opérateur de l'opération</param>
+        protected void ExecuteMathLog(Data Result, Data Operator1)
+        {
+            string opsValues = string.Empty;
+            if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
+                opsValues = string.Format("Log({0})", Operator1.Value);
+            Result.Value = (int)(Math.Log10(Operator1.Value)*100);
+            if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
+                Traces.LogAddDebug(TraceCat.ExecuteMath, "Math.LOG", string.Format("{0} = {1}", Result.Value, opsValues));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Result">donnée de sortie de l'opération</param>
+        /// <param name="Operator1">premier opérateur de l'opération</param>
+        protected void ExecuteMathSet(Data Result, Data Operator1)
+        {
+            string opsValues = string.Empty;
+            if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
+                opsValues = string.Format("Set({0})", Operator1.Value);
+            Result.Value = Operator1.Value;
+            if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
+                Traces.LogAddDebug(TraceCat.ExecuteMath, "Math.SET", string.Format("{0} = {1}", Result.Value, opsValues));
+        }
+
+        /// <summary>
+        /// exécute un un modulo
+        /// </summary>
+        /// <param name="Result">donnée de sortie de l'opération</param>
+        /// <param name="Operator1">premier opérateur de l'opération</param>
+        /// <param name="Operator2">second opérateur de l'opération</param>
+        internal void ExecuteMathMod(Data Result, Data Operator1, Data Operator2)
+        {
+            if (Operator2.Value != 0)
+            {
+                string opsValues = string.Empty;
+                if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
+                    opsValues = string.Format("{0} % {1}", Operator1.Value, Operator2.Value);
+                Result.Value = Operator1.Value % Operator2.Value;
+                if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
+                    Traces.LogAddDebug(TraceCat.ExecuteMath, "Math.MOD", string.Format("{0} = {1} ", Result.Value, opsValues));
+            }
+            else
+            {
+                LogEvent logEvent = new LogEvent(LOG_EVENT_TYPE.ERROR, string.Format(Lang.LangSys.C("Division by zero forbidden")));
+                AddLogEvent(logEvent);
+                if (Traces.IsDebugAndCatOK(TraceCat.ExecuteMath))
+                    Traces.LogAddDebug(TraceCat.ExecuteMath, "Math.MOD", "Modulo by zero");
                 return;
             }
         }
@@ -766,6 +921,61 @@ namespace CommonLib
                         Traces.LogAddDebug(TraceCat.ExecuteLogger,
                                            string.Format("Logger.NEW_FILE {0}", QuickScript.m_Arguments[0].Symbol));
                     ((Logger)QuickScript.m_Arguments[0]).NewFile();
+                    break;
+            }
+        }
+
+        internal void QuickExecuteScreen(PreParsedLine QuickScript)
+        {
+            switch (QuickScript.m_FunctionToExec)
+            {
+                case ALL_FUNC.SCREEN_HIDE:
+                    if (Traces.IsDebugAndCatOK(TraceCat.ExecuteScreen))
+                        Traces.LogAddDebug(TraceCat.ExecuteScreen,
+                                           string.Format("Screen Show {0}", QuickScript.m_Arguments[0].Symbol));
+                    ((BTScreen)QuickScript.m_Arguments[0]).ExecuteHide();
+                    break;
+                case ALL_FUNC.SCREEN_SHOW:
+                    if (Traces.IsDebugAndCatOK(TraceCat.ExecuteScreen))
+                        Traces.LogAddDebug(TraceCat.ExecuteScreen,
+                                           string.Format("Screen Hide {0}", QuickScript.m_Arguments[0].Symbol));
+                    ((BTScreen)QuickScript.m_Arguments[0]).ExecuteShow();
+                    break;
+                case ALL_FUNC.SCREEN_SHOW_ON_TOP:
+                    if (Traces.IsDebugAndCatOK(TraceCat.ExecuteScreen))
+                        Traces.LogAddDebug(TraceCat.ExecuteScreen,
+                                           string.Format("Screen.SHOW_ON_TOP {0}", QuickScript.m_Arguments[0].Symbol));
+                    ((BTScreen)QuickScript.m_Arguments[0]).ShowScreenToTop();
+                    break;
+                case ALL_FUNC.SCREEN_SCREEN_SHOT:
+                    if (Traces.IsDebugAndCatOK(TraceCat.ExecuteScreen))
+                        Traces.LogAddDebug(TraceCat.ExecuteScreen,
+                                           string.Format("Screen.SCREEN_SNAPSHOT {0}", QuickScript.m_Arguments[0].Symbol));
+                    ((BTScreen)QuickScript.m_Arguments[0]).TakeScreenShot("");
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Execute les fonction mathématiques
+        /// </summary>
+        /// <param name="QuickScript"></param>
+        internal void QuickExecuteSystem(PreParsedLine QuickScript)
+        {
+            string[] args = QuickScript.m_objArguments as string[];
+            if (args == null)
+                return;
+
+            string exeName = args[0];
+            string arguments = string.Empty;
+            for (int i = 1 ; i <args.Length; i++)
+            {
+                arguments += "\"" + args[i] + "\" ";
+            }
+            switch (QuickScript.m_FunctionToExec)
+            {
+                case ALL_FUNC.SYSTEM_SHELL_EXEC:
+                    System.Diagnostics.Process.Start(args[0], arguments);
                     break;
             }
         }

@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{3EFBC5AC-5842-4DE5-85C2-507E24AEC46F}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -14,6 +14,8 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>2.0</OldToolsVersion>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>SmartAppKey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -59,12 +61,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppMessages.cs" />
+    <Compile Include="BaseDoc.cs" />
+    <Compile Include="BridgeDoc.cs" />
     <Compile Include="Comm\BaseComm.cs" />
     <Compile Include="Comm\BTComm.cs" />
     <Compile Include="Comm\EthernetComm.cs" />
     <Compile Include="Comm\HttpComm.cs" />
     <Compile Include="Comm\SerialComm.cs" />
     <Compile Include="Comm\VirtualComm.cs" />
+    <Compile Include="ConfigForms\BaseControlPropertiesPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ConfigForms\BaseObjectPropertiesPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="ConfigForms\ISpecificPanel.cs" />
     <Compile Include="ConfigForms\TwoColorProperties.cs">
       <SubType>UserControl</SubType>
@@ -72,8 +82,10 @@
     <Compile Include="ConfigForms\TwoColorProperties.Designer.cs">
       <DependentUpon>TwoColorProperties.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataBridgeInfo.cs" />
     <Compile Include="Data\BaseObject.cs" />
     <Compile Include="BTDoc.cs" />
+    <Compile Include="Data\BasePluginBTControl.cs" />
     <Compile Include="Data\BTControl.Command.cs" />
     <Compile Include="Data\BTControl.cs" />
     <Compile Include="Data\BTScreen.cs" />
@@ -100,6 +112,7 @@
     <Compile Include="Gestionnaires\GestScreen.cs" />
     <Compile Include="Gestionnaires\GestTimer.cs" />
     <Compile Include="Gestionnaires\GestTrame.cs" />
+    <Compile Include="Gestionnaires\SolutionGest.cs" />
     <Compile Include="InteractiveControl\DropableItems.cs" />
     <Compile Include="InteractiveControl\DynamicPanel.cs">
       <SubType>UserControl</SubType>
@@ -142,28 +155,6 @@
     <Compile Include="LogEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources.cs" />
-    <Compile Include="Script\Executer.cs" />
-    <Compile Include="Script\Executer.Frame.cs">
-      <DependentUpon>Executer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Script\Executer.Function.cs">
-      <DependentUpon>Executer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Script\Executer.Logger.cs">
-      <DependentUpon>Executer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Script\Executer.Logic.cs">
-      <DependentUpon>Executer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Script\Executer.Maths.cs">
-      <DependentUpon>Executer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Script\Executer.Screen.cs">
-      <DependentUpon>Executer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Script\Executer.Timer.cs">
-      <DependentUpon>Executer.cs</DependentUpon>
-    </Compile>
     <Compile Include="Script\Parser.cs" />
     <Compile Include="Script\Parser.Frame.cs">
       <DependentUpon>Parser.cs</DependentUpon>
@@ -195,17 +186,72 @@
     <Compile Include="Script\ScriptControl.designer.cs">
       <DependentUpon>ScriptControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Script\ScriptEditorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Script\ScriptEditorControl.Designer.cs">
+      <DependentUpon>ScriptEditorControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Script\ScriptEditordialog.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Script\ScriptEditordialog.designer.cs">
       <DependentUpon>ScriptEditordialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="StdForms\BasePropertiesDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StdForms\BasePropertiesDialog.Designer.cs">
+      <DependentUpon>BasePropertiesDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="StdForms\ChangeListForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="StdForms\ChangeListForm.Designer.cs">
       <DependentUpon>ChangeListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StdForms\CommConfiguration.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StdForms\CommConfiguration.Designer.cs">
+      <DependentUpon>CommConfiguration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StdForms\DataPropertiesPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="StdForms\DataPropertiesPanel.Designer.cs">
+      <DependentUpon>DataPropertiesPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StdForms\DocumentMainContainer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StdForms\DocumentMainContainer.Designer.cs">
+      <DependentUpon>DocumentMainContainer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StdForms\DocumentProprtiesDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StdForms\DocumentProprtiesDialog.Designer.cs">
+      <DependentUpon>DocumentProprtiesDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StdForms\DynamicPanelForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StdForms\DynamicPanelForm.Designer.cs">
+      <DependentUpon>DynamicPanelForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StdForms\FramePropertiesPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="StdForms\FramePropertiesPanel.Designer.cs">
+      <DependentUpon>FramePropertiesPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StdForms\IObjectPropertyPanel.cs" />
+    <Compile Include="StdForms\LoggerPropertiesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="StdForms\LoggerPropertiesControl.Designer.cs">
+      <DependentUpon>LoggerPropertiesControl.cs</DependentUpon>
     </Compile>
     <Compile Include="StdForms\PickDataForm.cs">
       <SubType>Form</SubType>
@@ -215,6 +261,54 @@
     </Compile>
     <Compile Include="StdForms\BrowseFileBtn.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="StdForms\ScenarioPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="StdForms\ScenarioPanel.Designer.cs">
+      <DependentUpon>ScenarioPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StdForms\ScreenItemStdPropertiesPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="StdForms\ScreenItemStdPropertiesPanel.Designer.cs">
+      <DependentUpon>ScreenItemStdPropertiesPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StdForms\ScreenPropertiesPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="StdForms\ScreenPropertiesPanel.Designer.cs">
+      <DependentUpon>ScreenPropertiesPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StdForms\StandardObjectPropPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="StdForms\StandardObjectPropPanel.Designer.cs">
+      <DependentUpon>StandardObjectPropPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StdForms\SymbolTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="StdForms\SymbolTextBox.Designer.cs">
+      <DependentUpon>SymbolTextBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StdForms\TimerPropertiesPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="StdForms\TimerPropertiesPanel.Designer.cs">
+      <DependentUpon>TimerPropertiesPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StdForms\VirtualDataForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StdForms\VirtualDataForm.Designer.cs">
+      <DependentUpon>VirtualDataForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StdForms\VirtualDataPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="StdForms\VirtualDataPanel.Designer.cs">
+      <DependentUpon>VirtualDataPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="StdForms\WaitOpenCommForm.cs">
       <SubType>Form</SubType>
@@ -278,17 +372,81 @@
       <DependentUpon>ScriptControl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Script\ScriptEditorControl.resx">
+      <DependentUpon>ScriptEditorControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Script\ScriptEditordialog.resx">
       <DependentUpon>ScriptEditordialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StdForms\BasePropertiesDialog.resx">
+      <DependentUpon>BasePropertiesDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="StdForms\ChangeListForm.resx">
       <DependentUpon>ChangeListForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="StdForms\CommConfiguration.resx">
+      <DependentUpon>CommConfiguration.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StdForms\DataPropertiesPanel.resx">
+      <DependentUpon>DataPropertiesPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StdForms\DocumentMainContainer.resx">
+      <DependentUpon>DocumentMainContainer.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StdForms\DocumentProprtiesDialog.resx">
+      <DependentUpon>DocumentProprtiesDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StdForms\DynamicPanelForm.resx">
+      <DependentUpon>DynamicPanelForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StdForms\FramePropertiesPanel.resx">
+      <DependentUpon>FramePropertiesPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StdForms\LoggerPropertiesControl.resx">
+      <DependentUpon>LoggerPropertiesControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="StdForms\PickDataForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>PickDataForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StdForms\ScenarioPanel.resx">
+      <DependentUpon>ScenarioPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StdForms\ScreenItemStdPropertiesPanel.resx">
+      <DependentUpon>ScreenItemStdPropertiesPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StdForms\ScreenPropertiesPanel.resx">
+      <DependentUpon>ScreenPropertiesPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StdForms\StandardObjectPropPanel.resx">
+      <DependentUpon>StandardObjectPropPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StdForms\TimerPropertiesPanel.resx">
+      <DependentUpon>TimerPropertiesPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StdForms\VirtualDataForm.resx">
+      <DependentUpon>VirtualDataForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StdForms\VirtualDataPanel.resx">
+      <DependentUpon>VirtualDataPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="StdForms\WaitOpenCommForm.resx">
       <DependentUpon>WaitOpenCommForm.cs</DependentUpon>
@@ -316,6 +474,7 @@
     <None Include="Lang\FR.default.po">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="SmartAppKey.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -85,13 +85,13 @@ namespace CommonLib
         public BTComm()
         {
             // init par défaut
-            m_TypeComm = TYPE_COMM.ETHERNET;
-            m_strDestAdress = "192.168.0.99:502";
-            m_Comm = new EthernetComm();
+            m_TypeComm = TYPE_COMM.VIRTUAL;
+            m_strDestAdress = "NA";
+            m_Comm = new VirtualComm();
             m_Comm.EventAddLogEvent += new AddLogEventDelegate(AddLogEvent);
-            ((EthernetComm)m_Comm).IpAddr = "192.168.0.99";
-            ((EthernetComm)m_Comm).Port = 502;
-            ((EthernetComm)m_Comm).OnCommStateChange += new CommOpenedStateChange(ConnectionStateChangeEvent);
+            //((EthernetComm)m_Comm).IpAddr = "192.168.0.99";
+            //((EthernetComm)m_Comm).Port = 502;
+            //((EthernetComm)m_Comm).OnCommStateChange += new CommOpenedStateChange(ConnectionStateChangeEvent);
 
             m_TimerRecieveTimeout = new System.Windows.Forms.Timer();
             m_TimerRecieveTimeout.Interval = 5000;
@@ -146,6 +146,10 @@ namespace CommonLib
         #endregion
 
         #region methodes publiques
+        public bool SetCommTypeAndParam()
+        {
+            return SetCommTypeAndParam(m_TypeComm, m_strDestAdress);
+        }
         /// <summary>
         /// permet de définir le type de comm avec ses paramètres
         /// initialise la comm en fontion du type et des paramètres
@@ -161,20 +165,25 @@ namespace CommonLib
                     return false;
 
                 m_TypeComm = CommType;
+                if (m_Comm != null)
+                {
+                    m_Comm.EventAddLogEvent -= AddLogEvent;
+                    m_Comm.OnCommStateChange -= ConnectionStateChangeEvent;
+                }
 
                 switch (m_TypeComm)
                 {
                     case TYPE_COMM.SERIAL:
                         m_Comm = new SerialComm();
                         m_Comm.EventAddLogEvent += new AddLogEventDelegate(AddLogEvent);
-                        ((SerialComm)m_Comm).OnCommStateChange += new CommOpenedStateChange(ConnectionStateChangeEvent);
+                        m_Comm.OnCommStateChange += new CommOpenedStateChange(ConnectionStateChangeEvent);
                         m_strDestAdress = strParam;
                         ((SerialComm)m_Comm).ComPort = m_strDestAdress;
                         break;
                     case TYPE_COMM.ETHERNET:
                         m_Comm = new EthernetComm();
                         m_Comm.EventAddLogEvent += new AddLogEventDelegate(AddLogEvent);
-                        ((EthernetComm)m_Comm).OnCommStateChange += new CommOpenedStateChange(ConnectionStateChangeEvent);
+                        m_Comm.OnCommStateChange += new CommOpenedStateChange(ConnectionStateChangeEvent);
                         m_strDestAdress = strParam;
                         string[] strs = strParam.Split(':');
                         if (strs.Length != 2)
@@ -186,7 +195,8 @@ namespace CommonLib
                         break;
                     case TYPE_COMM.VIRTUAL:
                         m_Comm = new VirtualComm();
-                        ((VirtualComm)m_Comm).OnCommStateChange += new CommOpenedStateChange(ConnectionStateChangeEvent);
+                        m_Comm.OnCommStateChange += new CommOpenedStateChange(ConnectionStateChangeEvent);
+                        m_strDestAdress = ((VirtualComm)m_Comm).ComParam;
                         // aucun paramètres
                         break;
                     case TYPE_COMM.HTTP:
@@ -213,16 +223,9 @@ namespace CommonLib
             //WaitForm.Parent = Program.CurrentMainForm;
             WaitForm.Show();
             Application.DoEvents();
-            if (m_Comm.OpenComm())
-            {
-                WaitForm.Close();
-                return true;
-            }
-            else
-            {
-                WaitForm.Close();
-                return false;
-            }
+            bool bRet = m_Comm.OpenComm();
+            WaitForm.Close();
+            return bRet;
         }
 
         /// <summary>
@@ -365,7 +368,7 @@ namespace CommonLib
         /// <param name="Node">Noeud Xml de l'objet</param>
         /// <param name="TypeApp">type d'application courante</param>
         /// <returns>true si la lecture s'est bien passé</returns>
-        public bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
+        public bool ReadIn(XmlNode Node, BTDoc document)
         {
             for (int i = 0; i < Node.ChildNodes.Count; i++)
             {
@@ -389,6 +392,7 @@ namespace CommonLib
                     break;
                 }
             }
+            SetCommTypeAndParam();
             return true;
         }
 
@@ -398,7 +402,7 @@ namespace CommonLib
         /// <param name="XmlDoc">Document XML courant</param>
         /// <param name="Node">Noeud parent du controle dans le document</param>
         /// <returns>true si l'écriture s'est déroulée avec succès</returns>
-        public virtual bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
+        public virtual bool WriteOut(XmlDocument XmlDoc, XmlNode Node, BTDoc document)
         {
             XmlNode comNode = XmlDoc.CreateElement(XML_CF_TAG.Comm.ToString());
             XmlNode comTypeNode = XmlDoc.CreateElement(XML_CF_TAG.CommType.ToString());

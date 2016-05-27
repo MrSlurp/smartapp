@@ -1,61 +1,9 @@
 /*********************************************/
 				SmartConfig
 /*********************************************/
-erreurs a traiter:
-- Double affichage d'un message d'erreur lorsque la donnée associée n'est pas valide et qu'on clique sur un control
- présent dans le designer
-- mettre la la fenêtre au premier plan si les données ne sont pas valide et qu'on la quitte en cliquant sur une autre fenêtre;
-- passage en mode stop du bouton si la connexion est fermée ==> To test
-options 
-  - Dossier de travaille
- 
-/*********************************************/
+Configurer si les écrans d'une document s'ouvrent dans une fenêtre, ou en tant que fenêtre
+ /*********************************************/
 				SmartCommand
 /*********************************************/
-
-nouveau:
-	- frame watch?	
-	- loguer les trames en cas d'erreur
-		
-Afficher la données associée en tool tip
-
-EVO
-Crée des séparateur graphiques pour les ecrans
-Idées en plus
-MultiDocument pour SmartCmd:
-Une fenêtre qui gère tout les documents avec leur connexion respectives et qui affcihent leurs états
-
-
-passage des tests
-IPRs et Evo
-
-IPR 0001: lors de sa première utilisation, l'auto completion list n'est pas sur fond gris
-OK
-IPR 0002: si la completion liste est visible, l'appuis sur entrée devrai ajouter la ligne selectionnée
-OK
-IPR 0003: lors de l'appuis sur le touche haut, on devrai prendre le focus sur l'auto completion list
-OK
-IPR 0004: crash lors de la supression d'un caractère dans le mot clé
-OK
-IPR 0005: crash lors de l'utilisation de l'auto completion dans le début d'une ligne complète
-OK
-IPR 0006: si on sauvegarde alors que des données n'ont pas été validée (OnValidating()), ces données sont perdues (vu dans fonction, description perdue)
-IPR 0007: après l'édition d'un script, le document n'apparait pas modifié
-OK
-IPR 0008: si le curseur est entre deux points consécutifs, ca écrase le texte après 
-IPR 0009: Cacher l'option read Only pour les controls (a dev plus tard
-OK
-IPR 0009: problèmes divers sur l'auto completion: si on a plusieur lignes, si utilisée au milieu ou au début d'un ligne
-OK
-IPR 0010: il devrait y avoir une option démarrage auto pour les timers et les loggers
-OK == > A tester en édition ==>OK
-
-
-gestion des chemin relatif
-objets utilisant un chemin de fichier dans leurs attributs:
-  - screen
-  - Two bitmap
-  - Four bitmap
-  
-lors de la sauvegarde, si le fichier à été crée mais jamais enregistré, 
-il faut impérativement traduire le chemin avant de l'enregistrer
+Faire que SmartCmd se mette au premier plan aprs le chargement d'un document.
+coder si les écrans d'une document s'ouvrent dans une fenêtre, ou en tant que fenêtre

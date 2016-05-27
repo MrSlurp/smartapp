@@ -16,7 +16,8 @@ namespace PasswordControler
         /// <summary>
         /// Constructeur de la classe
         /// </summary>
-        public PasswordControlerCmdControl()
+        public PasswordControlerCmdControl(BTDoc document)
+            : base(document)
         {
 
         }

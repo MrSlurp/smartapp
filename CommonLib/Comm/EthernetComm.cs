@@ -31,10 +31,6 @@ namespace CommonLib
         List<byte[]> m_MessageList = new List<byte[]>();
         #endregion
 
-        #region Events
-        public event CommOpenedStateChange OnCommStateChange;
-        #endregion
-
         #region constructeurs
         /// <summary>
         /// constructeur par défaut
@@ -248,19 +244,7 @@ namespace CommonLib
         public override bool OpenComm()
         {
             m_TcpClient.Start();
-            if (m_TcpClient.IsOpen)
-            {
-                /*
-                string str = "Connection open";
-                DialogResult dlgRes = MessageBox.Show(str,
-                                    "", MessageBoxButtons.OK,
-                                    MessageBoxIcon.None,
-                                    MessageBoxDefaultButton.Button1);
-                 * */
-                return true;
-            }
-            else
-                return false;
+            return m_TcpClient.IsOpen;
         }
 
         /// <summary>
@@ -286,10 +270,7 @@ namespace CommonLib
         /// <returns>true si elle est ouverte</returns>
         public override bool IsOpen()
         {
-            if (m_TcpClient.IsOpen)
-                return true;
-            else
-                return false;
+            return m_TcpClient.IsOpen;
         }
         #endregion
 
@@ -323,8 +304,7 @@ namespace CommonLib
                 LogEvent log = new LogEvent(LOG_EVENT_TYPE.ERROR, strmess); 
                 AddLogEvent(log);
             }
-            if (OnCommStateChange != null)
-                OnCommStateChange();
+            NotifyComStateChange();
         }
         #endregion
     }
@@ -358,6 +338,7 @@ namespace CommonLib
         //private Thread th = null;
         private Thread m_readThread = null;
         private Socket ClientSocket = null;
+        IAsyncResult m_AsyncResult = null;
 
         #endregion
 
@@ -430,26 +411,17 @@ namespace CommonLib
         #endregion
 
         #region méthodes publiques
-        //*****************************************************************************************************
-        // Description: 
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
         public void Start()
         {
-            // pour lancer l'ouverture de la connexion en tant que thread
-            /*
-            th = new Thread(new ThreadStart(StartClient));
-            th.Name = "StartClient " + m_UniqueID;
-            th.Priority = ThreadPriority.Normal;
-            th.Start();
-            */
             StartClient();
         }
 
-        //*****************************************************************************************************
-        // Description: 
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
         public void Stop()
         {
             try
@@ -473,10 +445,10 @@ namespace CommonLib
             Thread.Sleep(100);
         }
 
-        //*****************************************************************************************************
-        // Description: 
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="datas"></param>
         public void SendData(byte[] datas)
         {
             try
@@ -491,21 +463,21 @@ namespace CommonLib
         #endregion
 
         #region LES METHODES LIEES AUX THREADS
-
-        //*****************************************************************************************************
-        // Description: 
-        // Return: /
-        //*****************************************************************************************************
+        /// <summary>
+        /// 
+        /// </summary>
         private void StartClient()
         {
             IPAddress ipa = IPAddress.Parse(m_Ip);
             IPEndPoint ipEnd = new IPEndPoint(ipa, m_Port);
-            ClientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            this.ClientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             try
             {
-                ClientSocket.Connect(ipEnd);
-                if (ClientSocket.Connected == true)
+                m_AsyncResult = this.ClientSocket.BeginConnect(ipEnd, null, null);
+                bool success = m_AsyncResult.AsyncWaitHandle.WaitOne(5000, true);
+                if (success && this.ClientSocket.Connected == true)
                 {
+                    m_AsyncResult = null;
                     m_bBouclage = true;
                     m_readThread = new Thread(new ThreadStart(ReceiveData));
                     m_readThread.Priority = ThreadPriority.BelowNormal;
@@ -515,7 +487,7 @@ namespace CommonLib
                     ConnectionStateEvent(this, eClientConnectionSate.Connected);
                 }
             }
-            catch
+            catch (Exception e)
             {
                 m_bOpen = false;
                 ConnectionStateEvent(this, eClientConnectionSate.Error);

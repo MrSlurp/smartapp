@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Text;
 using System.Xml;
+using System.Windows.Forms;
 
 namespace CommonLib
 {
@@ -52,6 +53,9 @@ namespace CommonLib
         private byte[] m_FrameHeader;
         // longueur du header de la trame 
         private int m_iHeaderLenght = 0;
+
+        private static Control m_singStdConfigPanel;
+
         #endregion
 
         #region constructeur
@@ -200,6 +204,19 @@ namespace CommonLib
             }
         }
         #endregion
+
+        public override Control StdConfigPanel
+        {
+            get
+            {
+                if (m_singStdConfigPanel == null)
+                {
+                    m_singStdConfigPanel = new FramePropertiesPanel();
+                }
+                return m_singStdConfigPanel;
+            }
+        }
+
         #endregion
 
         #region ReadIn / WriteOut
@@ -209,9 +226,9 @@ namespace CommonLib
         /// <param name="Node">Noeud Xml de l'objet</param>
         /// <param name="TypeApp">type d'application courante</param>
         /// <returns>true si la lecture s'est bien passé</returns>
-        public override bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
+        public override bool ReadIn(XmlNode Node, BTDoc document)
         {
-            base.ReadIn(Node, TypeApp);
+            base.ReadIn(Node, document);
             for (int i = 0; i < Node.ChildNodes.Count; i++)
             {
                 XmlNode ChildNode = Node.ChildNodes[i];
@@ -290,9 +307,9 @@ namespace CommonLib
         /// <param name="XmlDoc">Document XML courant</param>
         /// <param name="Node">Noeud parent du controle dans le document</param>
         /// <returns>true si l'écriture s'est déroulée avec succès</returns>
-        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
+        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node, BTDoc document)
         {
-            base.WriteOut(XmlDoc, Node);
+            base.WriteOut(XmlDoc, Node, document);
             XmlNode NodeDataList = XmlDoc.CreateElement(XML_CF_TAG.DataList.ToString());
             Node.AppendChild(NodeDataList);
             for (int i = 0; i < m_ListStrDatas.Count; i++)

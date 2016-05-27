@@ -3,35 +3,12 @@
 #include "scripts\products\winversion.iss"
 #include "scripts\products\fileversion.iss"
 
-//#include "scripts\products\iis.iss"
-
-//#include "scripts\products\kb835732.iss"
-//#include "scripts\products\kb886903.iss"
-//#include "scripts\products\kb928366.iss"
-
 #include "scripts\products\msi20.iss"
 #include "scripts\products\msi31.iss"
-//#include "scripts\products\ie6.iss"
-
-//#include "scripts\products\dotnetfx11.iss"
-//#include "scripts\products\dotnetfx11lp.iss"
-//#include "scripts\products\dotnetfx11sp1.iss"
 
 #include "scripts\products\dotnetfx20.iss"
-//#include "scripts\products\dotnetfx20lp.iss"
 #include "scripts\products\dotnetfx20sp1.iss"
-//#include "scripts\products\dotnetfx20sp1lp.iss"
 #include "scripts\products\dotnetfx20sp2.iss"
-//#include "scripts\products\dotnetfx20sp2lp.iss"
-
-//#include "scripts\products\dotnetfx35.iss"
-//#include "scripts\products\dotnetfx35lp.iss"
-//#include "scripts\products\dotnetfx35sp1.iss"
-//#include "scripts\products\dotnetfx35sp1lp.iss"
-
-//#include "scripts\products\mdac28.iss"
-//#include "scripts\products\jet4sp8.iss"
-//#include "scripts\products\sql2005express.iss"
 
 [CustomMessages]
 win2000sp3_title=Windows 2000 Service Pack 3
@@ -43,23 +20,23 @@ winxpsp2_title=Windows XP Service Pack 2
 ; Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{2FE97D82-A4DD-4235-A710-9C1A17CAE705}
-AppName=Smart Application
-AppVerName=Smart Application 2.7.2.0
+AppName=Smart Application V3
+AppVerName=Smart Application 3.2.0.2
 AppPublisher=Pascal Bigot
-AppCopyright=Copyright (C) 2007-2010 Pascal Bigot   
+AppCopyright=Copyright (C) 2007-2012 Pascal Bigot   
 AppPublisherURL=http://www.smartappsoftware.net
 AppSupportURL=http://www.smartappsoftware.net
 AppUpdatesURL=http://www.smartappsoftware.net
-AppVersion=2.7.2.0
-DefaultDirName={pf}\M3Tool\Smart Application
-DefaultGroupName=Smart Application
+AppVersion=3.2.0.2
+DefaultDirName={pf}\M3Tool\Smart Application V3
+DefaultGroupName=Smart Application V3
 AllowNoIcons=yes
-OutputBaseFilename=Setup_SmartApp
+OutputBaseFilename=Setup_SmartApp_V3
 Compression=lzma
 SolidCompression=yes
 WizardImageFile=images\SetupLeft.bmp
 WizardSmallImageFile=images\SmartApp.bmp
-SetupIconFile=images\SmartApp.ico 
+SetupIconFile=images\SmartAppSln.ico 
 ChangesAssociations=yes
 
 [Languages]
@@ -69,45 +46,63 @@ Name: "french"; MessagesFile: "compiler:Languages\French.isl" ; LicenseFile:"Lic
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
+[Dirs]
+Name: "{app}" ; Permissions : everyone-modify
+Name: "{app}\tmpUpdate" ; Permissions : everyone-modify
+
 [Files]
 ; exe principal de l'application
-Source: "..\Prod\Release\SmartApp.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Prod\Release\SmartApp.exe"; DestDir: "{app}"; Flags: ignoreversion ; Permissions : users-modify
+; exe updater l'application
+Source: "..\Prod\Release\SmartAppUpdater.exe"; DestDir: "{app}"; Flags: ignoreversion ; Permissions : users-modify
+; batch d'update final
+Source: "..\Prod\Release\postUpdateCopy.bat"; DestDir: "{app}"; Flags: ignoreversion ; Permissions : users-modify
 ; plugins + zegraph
-Source: "..\Prod\Release\*.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Prod\Release\*.dll"; DestDir: "{app}"; Flags: ignoreversion ; Permissions : users-modify
 ; fichier de documentation de zedgraph
-Source: "..\Prod\Release\*.xml"; DestDir: "{app}"; 
+Source: "..\Prod\Release\*.xml"; DestDir: "{app}"; Permissions : everyone-modify
 ; librairie d'image pour les fond de plan
-Source: "..\Prod\Release\ImgLib\*"; DestDir: "{app}\ImgLib"; Flags: recursesubdirs createallsubdirs
+Source: "..\Prod\Release\ImgLib\*"; DestDir: "{app}\ImgLib"; Flags: recursesubdirs createallsubdirs ; Permissions : users-modify
 ; images ressources de l'application
-Source: "..\Prod\Release\Res\*"; DestDir: "{app}\Res"; Flags: recursesubdirs createallsubdirs
+Source: "..\Prod\Release\Res\*"; DestDir: "{app}\Res"; Flags: recursesubdirs createallsubdirs ; Permissions : users-modify
 ; fichier de langues
-Source: "..\Prod\Release\Lang\*.po"; DestDir: "{app}\Lang";
+Source: "..\Prod\Release\Lang\*.po"; DestDir: "{app}\Lang"; Permissions : everyone-modify
 ; fichier icone principal
-Source: "..\Prod\Release\SmartApp.ico"; DestDir: "{app}";
+Source: "..\Prod\Release\SmartApp.ico"; DestDir: "{app}"; Permissions : users-modify 
+; fichier icone secondaire
+Source: "..\Prod\Release\SmartAppSln.ico"; DestDir: "{app}"; Permissions : users-modify
 ; fichier de configuration de l'application
-Source: "ressources\EN.SmartApp.exe.config"; DestDir: "{app}"; DestName:"SmartApp.exe.config"; Languages: english; Flags: onlyifdoesntexist uninsneveruninstall
-Source: "ressources\FR.SmartApp.exe.config"; DestDir: "{app}"; DestName:"SmartApp.exe.config"; Languages: french; Flags: onlyifdoesntexist uninsneveruninstall
+Source: "ressources\EN.SmartApp.exe.config"; DestDir: "{app}"; DestName:"SmartApp.exe.config"; Languages: english; Flags: onlyifdoesntexist uninsneveruninstall ; Permissions : users-modify
+Source: "ressources\FR.SmartApp.exe.config"; DestDir: "{app}"; DestName:"SmartApp.exe.config"; Languages: french; Flags: onlyifdoesntexist uninsneveruninstall ; Permissions : users-modify
 ; fichier de fournitures
-Source: "fournitures\*.saf"; DestDir: "{app}\exemples"; Flags: recursesubdirs createallsubdirs
-Source: "fournitures\*.pm3"; DestDir: "{app}\exemples"; Flags: recursesubdirs createallsubdirs
-Source: "fournitures\*.bmp"; DestDir: "{app}\exemples"; Flags: onlyifdoesntexist uninsneveruninstall
-Source: "fournitures\*.ini"; DestDir: "{app}"; Flags: onlyifdoesntexist uninsneveruninstall
+Source: "fournitures\*.saf"; DestDir: "{app}\exemples"; Flags: recursesubdirs createallsubdirs ; Permissions : users-modify
+Source: "fournitures\*.slt"; DestDir: "{app}\exemples"; Flags: recursesubdirs createallsubdirs ; Permissions : users-modify
+Source: "fournitures\*.pm3"; DestDir: "{app}\exemples"; Flags: recursesubdirs createallsubdirs ; Permissions : users-modify
+Source: "fournitures\*.bmp"; DestDir: "{app}\exemples"; Flags: onlyifdoesntexist uninsneveruninstall ; Permissions : users-modify
+Source: "fournitures\*.ini"; DestDir: "{app}"; Flags: onlyifdoesntexist uninsneveruninstall ; Permissions : users-modify
 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 
 [Registry]
 Root: HKCR; Subkey: ".saf"; ValueType: string; ValueName: ""; ValueData: "smartapp"; Flags: uninsdeletevalue
+Root: HKCR; Subkey: ".saf\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\SmartApp.ico"
+Root: HKCR; Subkey: ".slt"; ValueType: string; ValueName: ""; ValueData: "smartappslt"; Flags: uninsdeletevalue
+Root: HKCR; Subkey: ".slt\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\SmartAppSln.ico"
 Root: HKCR; Subkey: "smartapp"; ValueType: string; ValueName: ""; ValueData: "Smart App files"; Flags: uninsdeletekey
-Root: HKCR; Subkey: "smartapp\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\SmartApp.exe,0"
+Root: HKCR; Subkey: "smartapp\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\SmartApp.ico"
 Root: HKCR; Subkey: "smartapp\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\SmartApp.exe"" ""%1"""
+Root: HKCR; Subkey: "smartappslt"; ValueType: string; ValueName: ""; ValueData: "Smart App solution file"; Flags: uninsdeletekey
+Root: HKCR; Subkey: "smartappslt\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\SmartAppSln.ico"
+Root: HKCR; Subkey: "smartappslt\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\SmartApp.exe"" ""%1"""
 
 [Icons]
-Name: "{group}\Smart Config"; Filename: "{app}\SmartApp.exe"; WorkingDir: "{app}"
-Name: "{group}\Smart Command"; Filename: "{app}\SmartApp.exe"; WorkingDir: "{app}"; Parameters: "-cmd"
-Name: "{group}\{cm:UninstallProgram,Smart Application}"; Filename: "{uninstallexe}"
-Name: "{commondesktop}\Smart Config"; Filename: "{app}\SmartApp.exe"; WorkingDir: "{app}"; Tasks: desktopicon
-Name: "{commondesktop}\Smart Command"; Filename: "{app}\SmartApp.exe"; WorkingDir: "{app}"; Tasks: desktopicon ;Parameters: "-cmd"
+Name: "{group}\Smart Config V3"; Filename: "{app}\SmartApp.exe"; WorkingDir: "{app}"
+Name: "{group}\Smart Command V3"; Filename: "{app}\SmartApp.exe"; WorkingDir: "{app}"; Parameters: "-cmd"
+Name: "{group}\Smart App Updater"; Filename: "{app}\SmartAppUpdater.exe"; WorkingDir: "{app}"
+Name: "{group}\{cm:UninstallProgram,Smart Application V3}"; Filename: "{uninstallexe}"
+Name: "{commondesktop}\Smart Config V3"; Filename: "{app}\SmartApp.exe"; WorkingDir: "{app}"; Tasks: desktopicon
+Name: "{commondesktop}\Smart Command V3"; Filename: "{app}\SmartApp.exe"; WorkingDir: "{app}"; Tasks: desktopicon ;Parameters: "-cmd" 
 
 [Run]
 Filename: "{app}\SmartApp.exe"; Description: "{cm:LaunchProgram,Smart Application}"; Flags: nowait postinstall skipifsilent
@@ -143,8 +138,8 @@ begin
 	
 	//install .netfx 2.0 sp2 if possible; if not sp1 if possible; if not .netfx 2.0
 	//if minwinversion(5, 0) then begin
-		dotnetfx20();
-		//dotnetfx20sp2();
+		//dotnetfx20();
+		dotnetfx20sp2();
 		//dotnetfx20sp2lp();
 	//end else begin
 		//if minwinversion(5, 0) and minwinspversion(5, 0, 4) then begin

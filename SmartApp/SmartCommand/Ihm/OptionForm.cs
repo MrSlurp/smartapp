@@ -28,17 +28,30 @@ namespace SmartApp
             }
         }
 
-        public bool SaveFileComm
+        public bool AutoStartProjOnOpen
         {
             get
             {
-                return m_checkSaveComParam.Checked;
+                return m_checkAutoStartProjOnOpen.Checked;
             }
             set
             {
-                m_checkSaveComParam.Checked = value;
+                m_checkAutoStartProjOnOpen.Checked = value;
             }
         }
+
+        public bool HideMonitorAfterPrjStart
+        {
+            get
+            {
+                return m_checkHideMonitorOnStart.Checked;
+            }
+            set
+            {
+                m_checkHideMonitorOnStart.Checked = value;
+            }
+        }
+
 
         private void m_btnBrowse_Click(object sender, EventArgs e)
         {

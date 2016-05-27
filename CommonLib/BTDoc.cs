@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml;
+using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
 
@@ -18,14 +19,15 @@ namespace CommonLib
 {
     public delegate void NeedRefreshHMI(MessNeedUpdate Mess);
     public delegate void DocumentModifiedEvent();
-    public delegate void RunStateChangeEvent();
+    public delegate void DocComStateChange(BTDoc doc);
+    public delegate void MessageTreat(BTDoc sender, MESSAGE Mess, object Param, TYPE_APP TypeApp);
+    public delegate void VirtualDataFormOpenClose(BTDoc sender, VirtualDataForm form, bool bOpen);
     /// <summary>
     /// 
     /// </summary>
-    public class BTDoc : Object
+    public class BTDoc : BaseDoc
     {
         #region données membres
-        private string m_strfileFullName;
         // Stocke la liste de toutes les données de l'application
         private GestData        m_GestData = new GestData();
         // Stocke la liste de tous les ecrans de l'application
@@ -43,43 +45,40 @@ namespace CommonLib
 
         private DllControlGest m_GestDLL;
 
-        private TYPE_APP m_TypeApp = TYPE_APP.NONE;
-        // indique si le document a été modifié
-        bool m_bModified = false;
+        PathTranslator m_PathTranslator = new PathTranslator();
 
-        bool m_bModeRun = false;
+        VirtualDataForm m_virtualDataForm;
+
+        bool m_bUseMainContainer = false;
+        protected Point m_MCPosition = new Point(-1, -1);
+        protected Size m_MCSize = new Size(-1, -1);
+        protected string m_MCTitle = string.Empty;
+        protected bool m_bMCShowInTaskBar = true;
+        protected bool m_bMCShowTitleBar = true;
         #endregion
 
         #region données membres en mode SmartCommand
-        public BTComm m_Comm = new BTComm();
+        protected BTComm m_Comm = new BTComm();
+        protected BTComm m_CommMemmory;
         protected string m_strLogFilePath;
+        // Liste des pages "utilisateur" ==> une par BTScreen présent dans chaque document
+        private List<DynamicPanelForm> m_FormList;
+        private DocumentMainContainer m_MainContainer;
         #endregion
 
         #region Events
         public event NeedRefreshHMI UpdateDocumentFrame;
-        public event DocumentModifiedEvent OnDocumentModified;
-        public event CommOpenedStateChange OnCommStateChange;
-        public event RunStateChangeEvent OnRunStateChange;
-        public event AddLogEventDelegate EventAddLogEvent;
+        public event DocComStateChange OnCommStateChange;
+        public event MessageTreat BeforeMessageTreat;
+        public event MessageTreat EndMessageTreat;
+        public event VirtualDataFormOpenClose VirtualDataFormStateChanged;
         #endregion
 
         #region donnée spécifiques aux fonctionement en mode Command
-#if !QUICK_MOTOR
-        ScriptExecuter m_Executer = null;
-#else
         QuickExecuter m_Executer = null;  
-#endif
         #endregion
 
-#if !QUICK_MOTOR
-        public ScriptExecuter Executer
-        {
-            get
-            {
-                return m_Executer;
-            }
-        }
-#else
+        #region attributs
         public QuickExecuter Executer
         {
             get
@@ -87,19 +86,18 @@ namespace CommonLib
                 return m_Executer;
             }
         }
-#endif
+
         private bool RunningState
         {
-            get
-            {
-                return m_bModeRun;
-            }
+            get { return m_bModeRun; }
             set
             {
-                bool prevValue = m_bModeRun;
-                m_bModeRun = value;
-                if (value != prevValue && OnRunStateChange != null)
-                    OnRunStateChange();
+                if (value != m_bModeRun)
+                {
+                    m_bModeRun = value;
+                    UpdateRunState();
+                    NotifyRunStateChange();
+                }
             }
         }
         /// <summary>
@@ -145,12 +143,23 @@ namespace CommonLib
             }
         }
 
+        public PathTranslator PathTr
+        {
+            get { return m_PathTranslator; }
+        }
+
+        public BTComm Communication
+        {
+            get { return m_Comm; }
+        }
+        #endregion
+
         #region constructeur
         /// <summary>
         /// Constructeur par défaut
         /// </summary>
         /// <param name="TypeApp">Type d'application courante</param>
-        public BTDoc(TYPE_APP TypeApp)
+        public BTDoc(TYPE_APP TypeApp) : base(TypeApp)
         {
             m_GestData.DoSendMessage += new SendMessage(TraiteMessage);
             m_GestData.EventAddLogEvent += new AddLogEventDelegate(AddLogEvent);
@@ -168,14 +177,9 @@ namespace CommonLib
             m_GestLogger.EventAddLogEvent += new AddLogEventDelegate(AddLogEvent);
             m_Comm.OnCommStateChange += new CommOpenedStateChange(this.CommeStateChangeEvent);
             m_Comm.EventAddLogEvent += new AddLogEventDelegate(AddLogEvent);
-#if !QUICK_MOTOR
-            m_Executer = new ScriptExecuter();
-#else
             m_Executer = new QuickExecuter();            
-#endif
             m_Executer.EventAddLogEvent += new AddLogEventDelegate(AddLogEvent);
             m_Executer.Document = this;
-            m_TypeApp = TypeApp;
         }
 
         /// <summary>
@@ -194,39 +198,47 @@ namespace CommonLib
         {
             if (OnCommStateChange != null)
             {
-                m_Comm.OnCommStateChange -= new CommOpenedStateChange(this.CommeStateChangeEvent);
+                m_Comm.OnCommStateChange -= this.CommeStateChangeEvent;
             }
         }
         #endregion
 
-        #region attributs
-        /// <summary>
-        /// accesseur du nom de fichier
-        /// </summary>
-        public string FileName
+        #region attributs du main Container
+
+        public bool UseMainContainer
         {
-            get
-            {
-                return m_strfileFullName;
-            }
+            get { return m_bUseMainContainer; }
+            set { m_bUseMainContainer = value; }
         }
 
-        /// <summary>
-        /// indique si le document à été modifé depuis sa dernière sauvegarde
-        /// et le notifie si son état est changé
-        /// </summary>
-        public bool Modified
+        public Size MCSize
         {
-            get
-            {
-                return m_bModified;
-            }
-            set
-            {
-                m_bModified = value;
-                if (OnDocumentModified != null)
-                    OnDocumentModified();
-            }
+            get { return m_MCSize; }
+            set { m_MCSize = value; }
+        }
+
+        public Point MCPosition
+        {
+            get { return m_MCPosition; }
+            set { m_MCPosition = value; }
+        }
+
+        public bool MCStyleVisibleInTaskBar
+        {
+            get { return m_bMCShowInTaskBar; }
+            set { m_bMCShowInTaskBar = value; }
+        }
+
+        public bool MCStyleShowTitleBar
+        {
+            get { return m_bMCShowTitleBar; }
+            set { m_bMCShowTitleBar = value; }
+        }
+
+        public string MCTitle
+        {
+            get { return m_MCTitle; }
+            set { m_MCTitle = value; }
         }
 
         #endregion
@@ -319,6 +331,8 @@ namespace CommonLib
         /// <param name="TypeApp">type d'application </param>
         public void TraiteMessage(MESSAGE Mess, object Param, TYPE_APP TypeApp)
         {
+            if (BeforeMessageTreat != null)
+                BeforeMessageTreat(this, Mess, Param, TypeApp);
             switch (Mess)
             {
                 // les message suivant sont rerouté vers tout les objets
@@ -343,6 +357,7 @@ namespace CommonLib
 
                     if (MESSAGE.MESS_CMD_STOP == Mess)
                         RunningState = false;
+
                     if (UpdateDocumentFrame != null
                         && (Mess == MESSAGE.MESS_ITEM_DELETED || Mess == MESSAGE.MESS_ITEM_RENAMED)
                         )
@@ -354,16 +369,6 @@ namespace CommonLib
                         Modified = true;
                     }
                     break;
-                // ce message n'as pas a être transféré
-                case MESSAGE.MESS_CHANGE: 
-                    Modified = true;
-                    break;
-                case MESSAGE.MESS_UPDATE_FROM_DATA:
-                    // le message sera transféré du gestionaire, vers les ecrans, 
-                    // puis des ecrans vers les gestionaires de control, et donc vers les controles
-                    GestScreen.TraiteMessage(Mess, Param, TypeApp);
-                    break;
-#if QUICK_MOTOR
                 case MESSAGE.MESS_PRE_PARSE:
                     if (!m_Executer.PreParsedDone)
                     {
@@ -373,12 +378,13 @@ namespace CommonLib
                         m_Executer.PreParsedDone = true;
                     }
                     break;
-#endif
             }
+            if (EndMessageTreat != null)
+                EndMessageTreat(this, Mess, Param, TypeApp);
         }
         #endregion
 
-        #region lecture et sauvegarde du fichier;
+        #region lecture et sauvegarde du fichier
         /// <summary>
         /// lit le document XML de supervision
         /// </summary>
@@ -390,6 +396,7 @@ namespace CommonLib
         {
             m_GestDLL = GestDll;
             m_strfileFullName = strFullFileName;
+            m_PathTranslator.BTDocPath = Path.GetDirectoryName(strFullFileName);
             XmlDocument XmlDoc = new XmlDocument();
             try
             {
@@ -423,39 +430,40 @@ namespace CommonLib
                 // on charge une par une chaque section
                 switch (Id)
                 {
-#if _SMARTAPP_MULTICO
-                    case XML_CF_TAG.Comm:
-                        m_Comm.ReadIn(RootNode, TypeApp);
+                    case XML_CF_TAG.ProjOptions:
+                        ReadProjectOptions(Node);
                         break;
-#endif
+                    case XML_CF_TAG.Comm:
+                        m_Comm.ReadIn(RootNode, this);
+                        break;
                     case XML_CF_TAG.PluginsGlobals:
                         m_GestDLL.ReadInPluginsGlobals(Node);
                         break;
                     case XML_CF_TAG.DataSection:
-                        if (!this.GestData.ReadIn(Node, TypeApp))
+                        if (!this.GestData.ReadIn(Node, this))
                             return false;
                         if (TypeApp == TYPE_APP.SMART_COMMAND)
                         {
-                            if (!this.GestDataVirtual.ReadIn(Node, TypeApp))
+                            if (!this.GestDataVirtual.ReadIn(Node, this))
                                 return false;
                         }
                         break;
                     case XML_CF_TAG.TrameSection:
-                        if (!this.GestTrame.ReadIn(Node, TypeApp))
+                        if (!this.GestTrame.ReadIn(Node, this))
                             return false;
                         break;
                     case XML_CF_TAG.ScreenSection:
-                        if (!this.GestScreen.ReadIn(Node, TypeApp, GestDll))
+                        if (!this.GestScreen.ReadIn(Node, this, GestDll))
                             return false;
                         break;
                     case XML_CF_TAG.FileHeader:
-                        if (!this.ReadFileHeader(Node, TypeApp))
+                        if (!this.ReadFileHeader(Node, this.TypeApp))
                             return false;
                         break;
                     case XML_CF_TAG.Program:
-                        if (!this.GestFunction.ReadIn(Node, TypeApp)
-                            || !this.GestTimer.ReadIn(Node, TypeApp)
-                            || !this.GestLogger.ReadIn(Node, TypeApp)
+                        if (!this.GestFunction.ReadIn(Node, this)
+                            || !this.GestTimer.ReadIn(Node, this)
+                            || !this.GestLogger.ReadIn(Node, this)
                             )
                             return false;
                         break;
@@ -501,7 +509,7 @@ namespace CommonLib
                                 if (FileVer < Cste.CUR_FILE_VERSION)
                                 {
                                     if (TypeApp == TYPE_APP.SMART_CONFIG)
-                                        MessageBox.Show(Lang.LangSys.C("This file have been created with an oldest version, if you save this file, you will not be able tio read it with previous version"), 
+                                        MessageBox.Show(Lang.LangSys.C("This file have been created with an oldest version, if you save this file, you will not be able to read it with previous version"), 
                                                         Lang.LangSys.C("Warning"), 
                                                         MessageBoxButtons.OK,
                                                         MessageBoxIcon.Exclamation);
@@ -543,7 +551,7 @@ namespace CommonLib
         /// </summary>
         /// <param name="bShowError">affiche ou non les erreurs</param>
         /// <returns>true si la sauvegarde a reussie</returns>
-        public bool WriteConfigDocument(bool bShowError)
+        public override bool WriteConfigDocument(bool bShowError)
         {
             return WriteConfigDocument(m_strfileFullName, bShowError, m_GestDLL);
         }
@@ -569,30 +577,29 @@ namespace CommonLib
             XmlDoc.LoadXml("<Root></Root>");
             WriteFileHeader(XmlDoc);
 
-#if _SMARTAPP_MULTICO
-            m_Comm.WriteOut(XmlDoc, XmlDoc.DocumentElement);
-#endif
+            m_Comm.WriteOut(XmlDoc, XmlDoc.DocumentElement, this);
+            WriteProjectOptions(XmlDoc, XmlDoc.DocumentElement);
             XmlNode NodePluginsGlobals = XmlDoc.CreateElement(XML_CF_TAG.PluginsGlobals.ToString());
             XmlDoc.DocumentElement.AppendChild(NodePluginsGlobals);
             m_GestDLL.WriteOutPluginsGlobals(XmlDoc, NodePluginsGlobals);
 
             XmlNode NodeDataSection = XmlDoc.CreateElement(XML_CF_TAG.DataSection.ToString());
             XmlDoc.DocumentElement.AppendChild(NodeDataSection);
-            GestData.WriteOut(XmlDoc, NodeDataSection);
+            GestData.WriteOut(XmlDoc, NodeDataSection, this);
 
             XmlNode NodeScreenSection = XmlDoc.CreateElement(XML_CF_TAG.ScreenSection.ToString());
             XmlDoc.DocumentElement.AppendChild(NodeScreenSection);
-            GestScreen.WriteOut(XmlDoc, NodeScreenSection);
+            GestScreen.WriteOut(XmlDoc, NodeScreenSection, this);
 
             XmlNode NodeTrameSection = XmlDoc.CreateElement(XML_CF_TAG.TrameSection.ToString());
             XmlDoc.DocumentElement.AppendChild(NodeTrameSection);
-            GestTrame.WriteOut(XmlDoc, NodeTrameSection);
+            GestTrame.WriteOut(XmlDoc, NodeTrameSection, this);
 
             XmlNode NodeProg = XmlDoc.CreateElement(XML_CF_TAG.Program.ToString());
             XmlDoc.DocumentElement.AppendChild(NodeProg);
-            GestFunction.WriteOut(XmlDoc, NodeProg);
-            GestTimer.WriteOut(XmlDoc, NodeProg);
-            GestLogger.WriteOut(XmlDoc, NodeProg);
+            GestFunction.WriteOut(XmlDoc, NodeProg, this);
+            GestTimer.WriteOut(XmlDoc, NodeProg, this);
+            GestLogger.WriteOut(XmlDoc, NodeProg, this);
 
             try
             {
@@ -628,6 +635,77 @@ namespace CommonLib
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ProjOptNode"></param>
+        private void ReadProjectOptions(XmlNode ProjOptNode)
+        {
+            foreach (XmlNode node in ProjOptNode.ChildNodes)
+            {
+                if (node.Name == XML_CF_TAG.MainContainer.ToString())
+                {
+                    XmlNode attrIsUsed = node.Attributes.GetNamedItem("IsUsed");
+                    if (attrIsUsed != null)
+                    {
+                        m_bUseMainContainer = bool.Parse(attrIsUsed.Value);
+                        XmlNode AttrSize = node.Attributes.GetNamedItem(XML_CF_ATTRIB.size.ToString());
+                        XmlNode AttrPos = node.Attributes.GetNamedItem(XML_CF_ATTRIB.Pos.ToString());
+                        XmlNode AttrShowInTaskBar = node.Attributes.GetNamedItem("ShowInTaskBar");
+                        XmlNode AttrShowTitleBar = node.Attributes.GetNamedItem("ShowTitleBar");
+                        XmlNode AttrTitle = node.Attributes.GetNamedItem("MCTitle");
+                        if (AttrSize != null
+                            && AttrPos != null
+                            && AttrShowInTaskBar != null
+                            && AttrShowTitleBar != null)
+                        {
+                            string[] TabStrPos = AttrPos.Value.Split(',');
+                            string[] TabStrSize = AttrSize.Value.Split(',');
+                            this.MCPosition = new Point(int.Parse(TabStrPos[0]), int.Parse(TabStrPos[1]));
+                            this.MCSize = new Size(int.Parse(TabStrSize[0]), int.Parse(TabStrSize[1]));
+                            m_bMCShowInTaskBar = bool.Parse(AttrShowInTaskBar.Value);
+                            m_bMCShowTitleBar = bool.Parse(AttrShowTitleBar.Value);
+                            
+                        }
+                        if (AttrTitle != null)
+                        {
+                            this.m_MCTitle = AttrTitle.Value;
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="XmlDoc"></param>
+        private void WriteProjectOptions(XmlDocument XmlDoc, XmlNode node)
+        {
+            XmlNode projOptNode = XmlDoc.CreateElement(XML_CF_TAG.ProjOptions.ToString());
+            XmlNode containerNode = XmlDoc.CreateElement(XML_CF_TAG.MainContainer.ToString());
+            projOptNode.AppendChild(containerNode);
+            XmlAttribute usedNode = XmlDoc.CreateAttribute("IsUsed");
+            containerNode.Attributes.Append(usedNode);
+            usedNode.Value = m_bUseMainContainer.ToString();
+
+            XmlAttribute AttrSize = XmlDoc.CreateAttribute(XML_CF_ATTRIB.size.ToString());
+            XmlAttribute AttrPos = XmlDoc.CreateAttribute(XML_CF_ATTRIB.Pos.ToString());
+            XmlAttribute AttrShowInTaskBar = XmlDoc.CreateAttribute("ShowInTaskBar");
+            XmlAttribute AttrShowTitleBar = XmlDoc.CreateAttribute("ShowTitleBar");
+            XmlAttribute AttrTitle = XmlDoc.CreateAttribute("MCTitle");
+            containerNode.Attributes.Append(AttrSize);
+            containerNode.Attributes.Append(AttrPos);
+            containerNode.Attributes.Append(AttrShowInTaskBar);
+            containerNode.Attributes.Append(AttrShowTitleBar);
+            containerNode.Attributes.Append(AttrTitle);
+            AttrPos.Value = string.Format("{0},{1}", m_MCPosition.X, m_MCPosition.Y);
+            AttrSize.Value = string.Format("{0},{1}", m_MCSize.Width, m_MCSize.Height);
+            AttrShowInTaskBar.Value = m_bMCShowInTaskBar.ToString();
+            AttrShowTitleBar.Value = m_bMCShowTitleBar.ToString();
+            AttrTitle.Value = m_MCTitle;
+            node.AppendChild(projOptNode);
+        }
+        /// <summary>
         /// finalise la lecture du document
         /// Cette étape est effectué à la fin de la lecture afin que les objet
         /// puisse établir des références directes sur les autres objets qu'ils utilisent/appel
@@ -654,10 +732,6 @@ namespace CommonLib
 
         #endregion
 
-        public bool IsRunning
-        {
-            get { return m_bModeRun; }
-        }
         /// <summary>
         /// ouvre la connexion du document
         /// </summary>
@@ -673,25 +747,260 @@ namespace CommonLib
             m_Comm.CloseComm();
         }
 
+        public void SwitchComType(bool bVirtual)
+        {
+            if (bVirtual && m_Comm.CommType != TYPE_COMM.VIRTUAL)
+            {
+                if (m_CommMemmory == null)
+                    m_CommMemmory = m_Comm;
+
+                m_Comm = new BTComm();
+                m_Comm.SetCommTypeAndParam(TYPE_COMM.VIRTUAL, "NA");
+                m_Comm.OnCommStateChange += new CommOpenedStateChange(this.CommeStateChangeEvent);
+                m_Comm.EventAddLogEvent += new AddLogEventDelegate(AddLogEvent);
+            }
+            else 
+            {
+                if (m_CommMemmory != null)
+                {
+                    this.DetachCommEventHandler(this.CommeStateChangeEvent);
+                    m_Comm.EventAddLogEvent -= AddLogEvent;
+                    m_Comm = m_CommMemmory;
+                    m_CommMemmory = null;
+                }
+            }
+        }
+
         /// <summary>
         /// appelé lors du changement d'état de la connexion
         /// </summary>
         private void CommeStateChangeEvent()
         {
             if (OnCommStateChange != null)
-                OnCommStateChange();
+                OnCommStateChange(this);
+
+            if (m_Comm.IsOpen && m_Comm.CommType == TYPE_COMM.VIRTUAL)
+            {
+                m_virtualDataForm = new VirtualDataForm(this);
+                m_virtualDataForm.Text += " - " + Path.GetFileNameWithoutExtension(this.FileName);
+                if (VirtualDataFormStateChanged != null)
+                {
+                    VirtualDataFormStateChanged(this, m_virtualDataForm, true);
+                    //m_virtualDataForm.Show();
+                    //m_virtualDataForm.BringToFront();
+                }
+            }
+            else
+            {
+                if (m_virtualDataForm != null)
+                {
+                    if (VirtualDataFormStateChanged != null)
+                    {
+                        VirtualDataFormStateChanged(this, m_virtualDataForm, false);
+                        //m_virtualDataForm.Close();
+                        //m_virtualDataForm = null;
+                    }
+                }
+            }
+            if (!m_Comm.IsOpen && this.IsRunning)
+            {
+                this.TraiteMessage(MESSAGE.MESS_CMD_STOP, null, this.TypeApp);
+            }
         }
 
         /// <summary>
-        /// ajout un message à la fenêtre de log de l'application
+        /// 
         /// </summary>
-        /// <param name="Event">Event à afficher</param>
-        protected void AddLogEvent(LogEvent Event)
+        protected void UpdateRunState()
         {
-            if (EventAddLogEvent != null)
+            if (m_FormList != null)
             {
-                EventAddLogEvent(Event);
+                foreach (DynamicPanelForm frm in m_FormList)
+                {
+                    if (frm.Document == this)
+                    {
+                        frm.DynamicPanelEnabled = this.IsRunning;
+                    }
+                }
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void CloseSupervisionForms()
+        {
+            if (m_FormList != null)
+            {
+                foreach (DynamicPanelForm frm in m_FormList)
+                {
+                    frm.DisableCloseProtection = true;
+                    frm.Close();
+                }
+            }
+            m_FormList.Clear();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Doc"></param>
+        /// <returns></returns>
+        public bool OpenDocumentForCommand()
+        {
+            m_FormList = new List<DynamicPanelForm>();
+            if (this.m_bUseMainContainer)
+            {
+                m_MainContainer = new DocumentMainContainer();
+                m_MainContainer.ShowInTaskbar = this.m_bMCShowInTaskBar;
+                if (!m_bMCShowTitleBar)
+                    m_MainContainer.FormBorderStyle = FormBorderStyle.None;
+
+                if (MCPosition.X != -1)
+                {
+                    m_MainContainer.Left = MCPosition.X;
+                    m_MainContainer.StartPosition = FormStartPosition.Manual;
+                }
+                if (MCPosition.Y != -1)
+                {
+                    m_MainContainer.Top = MCPosition.Y;
+                    m_MainContainer.StartPosition = FormStartPosition.Manual;
+                }
+
+                if (MCSize.Width != -1)
+                    m_MainContainer.Width = MCSize.Width;
+
+                if (MCSize.Height != -1)
+                    m_MainContainer.Height = MCSize.Height;
+
+                m_MainContainer.Text = m_MCTitle;
+            }
+            // abonnement aux event de com et d'état
+            for (int i = (GestScreen.Count -1) ; i >= 0; i--)
+            {
+                BTScreen Scr = this.GestScreen[i] as BTScreen;
+                Scr.Panel.DocumentFileName = this.FileName;
+                DynamicPanelForm Frm = new DynamicPanelForm(Scr.Panel);
+                Scr.Panel.Location = new Point(0, 0);
+                Frm.ClientSize = new Size(Scr.Panel.Width ,
+                                          Scr.Panel.Height);
+
+                Frm.ShowInTaskbar = Scr.StyleVisibleInTaskBar;
+                if (!Scr.StyleShowTitleBar)
+                    Frm.FormBorderStyle = FormBorderStyle.None;
+
+                Frm.Show();
+
+                if (Scr.ScreenPosition.X != -1)
+                {
+                    Frm.Left = Scr.ScreenPosition.X;
+                    Frm.StartPosition = FormStartPosition.Manual;
+                }
+                if (Scr.ScreenPosition.Y != -1)
+                {
+                    Frm.Top = Scr.ScreenPosition.Y;
+                    Frm.StartPosition = FormStartPosition.Manual;
+                }
+
+                if (Scr.ScreenSize.Width != -1)
+                    Frm.Width = Scr.ScreenSize.Width;
+
+                if (Scr.ScreenSize.Height != -1)
+                    Frm.Height = Scr.ScreenSize.Height;
+
+
+                Frm.Document = this;
+                Frm.Text = Scr.Title;
+                if (m_MainContainer != null)
+                    Frm.MdiParent = m_MainContainer;
+                Frm.DynamicPanelEnabled = false;
+                m_FormList.Add(Frm);
+            }
+            if (m_FormList.Count != 0)
+            {
+                if (m_MainContainer != null)
+                    m_MainContainer.Show();
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void CloseDocumentForCommand()
+        {
+            if (m_FormList.Count != 0)
+            {
+                if (m_MainContainer != null)
+                {
+                    m_MainContainer.DisableCloseProtection = true;
+                    m_MainContainer.Close();
+                    CloseSupervisionForms();
+                    return;
+                }
+                else
+                {
+                    CloseSupervisionForms();
+                }
+            }
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void BuildStatInfo()
+        {
+            int iNbData = m_GestData.Count;
+            int iNbScreen = m_GestScreen.Count;
+            int iMoyItemPersScreen = 0;
+            int iScreenItemMoyScriptLines = 0;
+            int iNbItemWithScript = 0;
+            for (int i = 0; i < m_GestScreen.Count; i++)
+            {
+                BTScreen scr = m_GestScreen[i] as BTScreen;
+                iMoyItemPersScreen += scr.Controls.Count;
+                for(int j = 0; j< scr.Controls.Count; j++)
+                {
+                    BTControl ctrl = scr.Controls[j] as BTControl;
+                    foreach (string key in ctrl.ItemScripts.ScriptKeys)
+                    {
+                        iScreenItemMoyScriptLines += ctrl.ItemScripts[key].Length;
+                    }
+                    iNbItemWithScript++;
+                }
+            }
+            if (iNbItemWithScript != 0)
+                iScreenItemMoyScriptLines = iScreenItemMoyScriptLines / iNbItemWithScript;
+            if (iNbScreen != 0)
+                iMoyItemPersScreen = iMoyItemPersScreen / iNbScreen;
+
+            int iNbTimer = m_GestTimer.Count;
+            int iNbFunction = m_GestFunction.Count;
+            int iNbLogger = m_GestLogger.Count;
+
+            int iFunctionMoyScriptLines = 0;
+            int iNbTotalScriptCount = 0;
+            int iFunctionMaxScriptLines = 0;
+            for (int i = 0; i < m_GestFunction.Count; i++)
+            {
+                Function item = m_GestFunction[i] as Function;
+                if (item.ItemScripts.Count > 0)
+                {
+                    foreach (string key in item.ItemScripts.ScriptKeys)
+                    {
+                        if (iFunctionMaxScriptLines < item.ItemScripts[key].Length)
+                            iFunctionMaxScriptLines = item.ItemScripts[key].Length;
+
+                        iFunctionMoyScriptLines += item.ItemScripts[key].Length;
+                        iNbTotalScriptCount++;
+                    }
+                }
+            }
+            if (iNbTotalScriptCount != 0)
+                iFunctionMoyScriptLines = iFunctionMoyScriptLines / iNbTotalScriptCount;
+
+            string commType = m_Comm.CommType.ToString();
         }
     }
 }

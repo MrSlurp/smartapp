@@ -17,7 +17,7 @@ namespace PasswordControler
     public partial class InteractivePasswordControlerDllControl : InteractiveControl, ISpecificControl
     {
         // panneau des propriété de l'objet
-        UserControl m_SpecificPropPanel = new PasswordControlerProperties();
+        static UserControl m_SpecificPropPanel = new PasswordControlerProperties();
         // proriétés d'activation des paramètres standard des controls
         StandardPropEnabling m_stdPropEnabling = new StandardPropEnabling();
         // propriété de comportement de l'objet dans le designer

@@ -182,6 +182,11 @@ namespace CommonLib
                         IsParameter = true;
                     }
                     break;
+                case SCR_OBJECT.SYSTEM:
+                    retTokenType = TOKEN_TYPE.SYSTEM;
+                    if (TokenNumAtPos == 1)
+                        retTokenType = TOKEN_TYPE.SYSTEM_FUNC;
+                    break;
                 case SCR_OBJECT.INVALID:
                 default:
                     break;
@@ -200,6 +205,9 @@ namespace CommonLib
         /// <return>Liste des chaines correspondantes au type de token</return>
         public StringCollection GetAutoCompletStringListAtPos(string Line, int Pos, out bool IsParameter)
         {
+            IsParameter = false;
+            if (Line.Trim(' ').StartsWith("//"))
+                return null;
             TOKEN_TYPE CurTokenType = GetTokenTypeAtPos(Line, Pos, out IsParameter);
             StringCollection AutoCompleteStrings = new StringCollection();
             switch (CurTokenType)
@@ -261,6 +269,9 @@ namespace CommonLib
                 case TOKEN_TYPE.LOGIC_FUNC:
                     AutoCompleteStrings.AddRange(Enum.GetNames(typeof(LOGIC_FUNC)));
                     break;
+                case TOKEN_TYPE.SYSTEM_FUNC:
+                    AutoCompleteStrings.AddRange(Enum.GetNames(typeof(SYSTEM_FUNC)));
+                    break;
                 case TOKEN_TYPE.NULL:
                 default:
                     break;
@@ -284,9 +295,9 @@ namespace CommonLib
             for (int i = 0 ; i< Lines.Length; i++)
             {
                 m_iCurLine = i;
-                if (Lines[i].Length > 0)
+                string Line = Lines[i].Trim(' ');
+                if (!string.IsNullOrEmpty(Line) && Line.Length > 0 && !Line.StartsWith("//"))
                 {
-                    string Line = Lines[i];
                     string[] strTab = Line.Split(ParseExecGlobals.TOKEN_SEPARATOR);
                     if (strTab.Length > 0)
                     {
@@ -319,6 +330,10 @@ namespace CommonLib
                                 if (ParseScreen(Line, ErrorList))
                                     ParseScreenFunction(Line, ErrorList);
                                 break;
+                            case SCR_OBJECT.SYSTEM:
+                                if (ParseSystem(Line, ErrorList))
+                                    ParseSystemFunction(Line, ErrorList);
+                                break;
                             case SCR_OBJECT.INVALID:
                             default:
                                 ScriptParserError Err = new ScriptParserError(Lang.LangSys.C("Unkown keyword"), m_iCurLine, ErrorType.ERROR);
@@ -349,21 +364,66 @@ namespace CommonLib
         /// <return>le jeton voulu ou une chaine vide</return>
         static public string GetLineToken(string line, int iTokenIndex)
         {
-            string[] strTab = line.Split(ParseExecGlobals.TOKEN_SEPARATOR);
-            if (iTokenIndex < strTab.Length)
+            if (!string.IsNullOrEmpty(line))
             {
-                // cas des fonction, il peux y avoir des parenthèses a la fin qu'il faut enlever
-                string strTemp = strTab[iTokenIndex];
-                strTemp = strTemp.Trim(')');
-                strTemp = strTemp.Trim('(');
-
-                string strTok = strTemp;
-                strTok = strTok.Trim();
-
-                return strTok;
+                string[] strTab = line.Split(ParseExecGlobals.TOKEN_SEPARATOR);
+                if (iTokenIndex < strTab.Length)
+                {
+                    // cas des fonction, il peux y avoir des parenthèses a la fin qu'il faut enlever
+                    string strTemp = strTab[iTokenIndex];
+                    strTemp = strTemp.Trim(')');
+                    strTemp = strTemp.Trim('(');
+                    return strTemp.Trim();
+                }
             }
             return "";
 
+        }
+
+        /// <summary>
+        /// renvoie la liste des token d'un ligne de script
+        /// </summary>
+        /// <param name="line">ligne à analyser</param>
+        /// <returns>liste des tokens de la ligne</returns>
+        static public StringCollection GetAllTokens(string line)
+        {
+            StringCollection result = new StringCollection();
+            if (!string.IsNullOrEmpty(line) && !line.StartsWith("//"))
+            {
+                // on vire les espaces
+                line = CleanScriptLine(line);
+                // on remplace la parenthèse ouvrante par une virgule
+                line = line.Replace('(', ',');
+                // on remplace les point par une virgule
+                line = line.Replace('.', ',');
+                // on vire la parenthèse fermante
+                line = line.Replace(")","");
+                // normalement on se retrouve avec une suite de mot séparés par des virgules
+                // on fini par splitter sur les virgules
+                string[] strTab = line.Split(',');
+                result.AddRange(strTab);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// nettoie une ligne de script en supprimant tout ce qui se trouve après la parenthèse fermante
+        /// et en supprimant les espaces
+        /// </summary>
+        /// <param name="line">ligne de script à nettoyer</param>
+        /// <returns>ligne de script "propre"</returns>
+        public static string CleanScriptLine(string line)
+        {
+            if (!string.IsNullOrEmpty(line))
+            {
+                string res = line;
+                int posEndParenthese = res.LastIndexOf(')');
+                if (posEndParenthese != -1 && (posEndParenthese + 1) < res.Length)
+                    res = res.Remove(posEndParenthese + 1);
+                return res.Replace(" ", "");
+            }
+            return string.Empty;
         }
 
         /// <summary>
@@ -593,5 +653,91 @@ namespace CommonLib
             return !HaveError;
         } 
         #endregion
+
+        #region parsing des fonction systeme
+        /// <summary>
+        /// vérifie que la trame utilisé pour les appels aux fonctions system
+        /// </summary>
+        /// <param name="line">ligne de script</param>
+        /// <param name="ErrorList">liste des erreur (sortie)</param>
+        /// <returns>true si le symbol de trame est valide</returns>
+        protected bool ParseSystem(string line, List<ScriptParserError> ErrorList)
+        {
+            string[] strTab = line.Split(ParseExecGlobals.TOKEN_SEPARATOR);
+            if (strTab.Length > 1)
+            {
+                string strTemp = strTab[1];
+                if (!CheckParenthese(line, ErrorList))
+                {
+                    return false;
+                }
+                return true;
+            }
+            else
+            {
+                string strErr = string.Format("Invalid line, missing system function");
+                ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
+                ErrorList.Add(Err);
+            }
+            return false;
+
+        }
+
+        protected void ParseSystemFunction(string line, List<ScriptParserError> ErrorList)
+        {
+            string[] strTab = line.Split(ParseExecGlobals.TOKEN_SEPARATOR);
+            if (strTab.Length > 1)
+            {
+                int posOpenParenthese = -1;
+                int posCloseParenthese = -1;
+                if (!CheckParenthese(line, ErrorList, ref posOpenParenthese, ref posCloseParenthese))
+                    return;
+                string strTemp = strTab[1];
+                string strTempFull = strTemp;
+                GetParenthesePos(strTemp, ref posOpenParenthese, ref posCloseParenthese);
+
+                strTemp = strTemp.Remove(posOpenParenthese);
+                string strScrObject = strTemp;
+                SYSTEM_FUNC SecondTokenType = SYSTEM_FUNC.INVALID;
+                try
+                {
+                    SecondTokenType = (SYSTEM_FUNC)Enum.Parse(typeof(SYSTEM_FUNC), strScrObject);
+                }
+                catch (Exception)
+                {
+                    string strErr = string.Format(Lang.LangSys.C("Invalid system function {0}"), strScrObject);
+                    ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
+                    ErrorList.Add(Err);
+                    return;
+                }
+                string[] strParamList = null;
+                if (!GetArgsAsString(line, ErrorList, ref strParamList))
+                    return;
+
+                switch (SecondTokenType)
+                {
+                    case SYSTEM_FUNC.SHELL_EXEC:
+                        if (strParamList.Length < 1)
+                        {
+                            string strErr = string.Format(Lang.LangSys.C("Invalid line, not enought parameters for system function"));
+                            ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
+                            ErrorList.Add(Err);
+                        }
+                        break;
+                    case SYSTEM_FUNC.INVALID:
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                string strErr = string.Format(Lang.LangSys.C("Invalid line, missing system function"));
+                ScriptParserError Err = new ScriptParserError(strErr, m_iCurLine, ErrorType.ERROR);
+                ErrorList.Add(Err);
+            }
+
+        }
+        #endregion
+
     }
 }

@@ -61,18 +61,18 @@ namespace SoundPlayer
             }
         }
 
-        public BTControl CreateBTControl()
+        public BTControl CreateBTControl(BTDoc document)
         {
-            return new BTDllSoundPlayerControl();
+            return new BTDllSoundPlayerControl(document);
         }
 
-        public BTControl CreateBTControl(InteractiveControl iCtrl)
+        public BTControl CreateBTControl(BTDoc document, InteractiveControl iCtrl)
         {
-            return new BTDllSoundPlayerControl(iCtrl);
+            return new BTDllSoundPlayerControl(document, iCtrl);
         }
-        public BTControl CreateCommandBTControl()
+        public BTControl CreateCommandBTControl(BTDoc document)
         {
-            return new SoundPlayerCmdControl();
+            return new SoundPlayerCmdControl(document);
         }
 
         public InteractiveControl CreateInteractiveControl()

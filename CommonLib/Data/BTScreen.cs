@@ -17,21 +17,31 @@ using System.Drawing;
 
 namespace CommonLib
 {
-    public class BTScreen : BaseObject, IInitScriptable, IScriptable
+    public class BTScreen : BaseObject, IScriptable
     {
         #region Données de la classe
+        delegate void NoArgSimpleDelegate();
+        private static Control m_singStdConfigPanel;
+
         // gestionnaire des control appartenant a l'écran
         private GestControl m_GestControl;
         // titre de l'écran
         private string m_strTitle;
-        // script de l'event de l'ecran
-        private StringCollection m_ScriptLines = new StringCollection();
-        // script d'init de l'écran
-        private StringCollection m_InitScriptLines = new StringCollection();
 
         private int m_iQuickScriptIDIni;
         // fichier image de "background de l'écran"
-        private string m_strBackPictureFile="";
+        private string m_strBackPictureFile= string.Empty;
+
+        protected ItemScriptsConainter m_ScriptContainer = new ItemScriptsConainter();
+
+        BTDoc m_Document;
+
+        protected Point m_screenPosition = new Point(-1, -1);
+        protected Size m_screenSize = new Size(-1, -1);
+
+        protected bool m_bShowInTaskBar = true;
+        protected bool m_bShowTitleBar = true;
+
         #endregion
 
         #region données sépcifiques au fonctionement en mode "Command"
@@ -40,21 +50,21 @@ namespace CommonLib
         // liste des "Control" de l'écran en mode commande
         private List<BTControl> m_ListControls = new List<BTControl>();
         // liens vers l'executer de script
-#if !QUICK_MOTOR
-        protected ScriptExecuter m_Executer = null;
-#else
         protected QuickExecuter m_Executer = null;
-#endif
+
         #endregion
 
         #region constructeur
         /// <summary>
         /// Constructeur par défaut
         /// </summary>
-        public BTScreen()
+        public BTScreen(BTDoc document)
         {
             m_GestControl = new GestControl();
             m_GestControl.DoSendMessage += new SendMessage(this.ObjectSendMessage);
+            m_ScriptContainer["EvtScreen"] = new string[1];
+            m_ScriptContainer["InitScreen"] = new string[1];
+            m_Document = document;
         }
         #endregion
 
@@ -86,52 +96,25 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// obtient ou assigne le script de l'évènement écran
+        /// obtient ou assigne le script du controle
         /// </summary>
-        public string[] ScriptLines
+        public ItemScriptsConainter ItemScripts
         {
             get
             {
-                string[] TabLines = new string[m_ScriptLines.Count];
-                for (int i = 0; i < m_ScriptLines.Count; i++)
-                {
-                    TabLines[i] = m_ScriptLines[i];
-                }
-                return TabLines;
-            }
-            set
-            {
-                m_ScriptLines.Clear();
-                for (int i = 0; i < value.Length; i++)
-                {
-                    m_ScriptLines.Add(value[i]);
-                }
-
+                return m_ScriptContainer;
             }
         }
 
-        /// <summary>
-        /// obtient ou assigne le script d'init de l'écran
-        /// </summary>
-        public string[] InitScriptLines
+        public override Control StdConfigPanel
         {
             get
             {
-                string[] TabLines = new string[m_InitScriptLines.Count];
-                for (int i = 0; i < m_InitScriptLines.Count; i++)
+                if (m_singStdConfigPanel == null)
                 {
-                    TabLines[i] = m_InitScriptLines[i];
+                    m_singStdConfigPanel = new ScreenPropertiesPanel();
                 }
-                return TabLines;
-            }
-            set
-            {
-                m_InitScriptLines.Clear();
-                for (int i = 0; i < value.Length; i++)
-                {
-                    m_InitScriptLines.Add(value[i]);
-                }
-
+                return m_singStdConfigPanel;
             }
         }
 
@@ -153,15 +136,6 @@ namespace CommonLib
         /// <summary>
         /// obtient ou assigne l'executer de l'écran
         /// </summary>
-#if !QUICK_MOTOR
-        public ScriptExecuter Executer
-        {
-            get
-            {
-                return m_Executer;
-            }
-        }
-#else
         public QuickExecuter Executer
         {
             get
@@ -169,7 +143,6 @@ namespace CommonLib
                 return m_Executer;
             }
         }
-#endif
 
         /// <summary>
         /// valide uniquement dans SmartCommand
@@ -182,6 +155,29 @@ namespace CommonLib
                 return m_DynamicPanel;
             }
         }
+
+        public Size ScreenSize
+        {
+            get { return m_screenSize; }
+            set { m_screenSize = value; }
+        }
+
+        public Point ScreenPosition
+        {
+            get { return m_screenPosition; }
+            set { m_screenPosition = value; }
+        }
+
+        public bool StyleVisibleInTaskBar
+        {
+            get { return m_bShowInTaskBar; }
+            set { m_bShowInTaskBar = value; }
+        }
+        public bool StyleShowTitleBar
+        {
+            get { return m_bShowTitleBar; }
+            set { m_bShowTitleBar = value; }
+        }
         #endregion
 
         #region ReadIn / WriteOut
@@ -192,7 +188,7 @@ namespace CommonLib
         /// <param name="Node">Noeud Xml de l'objet</param>
         /// <param name="TypeApp">type d'application courante</param>
         /// <returns>true si la lecture s'est bien passé</returns>
-        public override bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
+        public override bool ReadIn(XmlNode Node, BTDoc document)
         {
             System.Diagnostics.Debug.Assert(false);
             return false;
@@ -205,9 +201,9 @@ namespace CommonLib
         /// <param name="TypeApp">type d'application courante</param>
         /// <param name="GestDLL">Getsionnaire des DLL plugin</param>
         /// <returns>true si la lecture s'est bien passé</returns>
-        public bool ReadIn(XmlNode Node, TYPE_APP TypeApp, DllControlGest GestDLL)
+        public bool ReadIn(XmlNode Node, BTDoc document, DllControlGest GestDLL)
         {
-            if (!base.ReadIn(Node, TypeApp))
+            if (!base.ReadIn(Node, document))
                 return false;
             // on prend d'abord le text
             XmlNode TitleAttrib = Node.Attributes.GetNamedItem(XML_CF_ATTRIB.Text.ToString());
@@ -237,7 +233,7 @@ namespace CommonLib
                             // ceci ne peux pas être fait de la même manière en mode Config ou en mode Command
                             // dans le cas ou on est en mode config, on crée des objet BTControl
                             // qui utiliseront un intercative control dans le designer
-                            if (TypeApp == TYPE_APP.SMART_CONFIG)
+                            if (document.TypeApp == TYPE_APP.SMART_CONFIG)
                             {
 
                                 // on parcour la liste des control
@@ -246,18 +242,18 @@ namespace CommonLib
                                     XmlNode NodeControl = ChildNode.ChildNodes[j];
                                     if (NodeControl.Name == XML_CF_TAG.Control.ToString())
                                     {
-                                        BTControl Control = new BTControl();
-                                        if (!Control.ReadIn(NodeControl, TypeApp))
+                                        BTControl Control = new BTControl(m_Document);
+                                        if (!Control.ReadIn(NodeControl, document))
                                             return false;
 
                                         m_GestControl.AddObj(Control);
                                     }
                                     else if (NodeControl.Name == XML_CF_TAG.SpecificControl.ToString())
                                     {
-                                        BTControl Control = SpecificControlParser.ParseAndCreateSpecificControl(NodeControl);
+                                        BTControl Control = SpecificControlParser.ParseAndCreateSpecificControl(NodeControl, m_Document);
                                         if (Control != null)
                                         {
-                                            if (!Control.ReadIn(NodeControl, TypeApp))
+                                            if (!Control.ReadIn(NodeControl, document))
                                                 return false;
                                             m_GestControl.AddObj(Control);
                                         }
@@ -267,10 +263,10 @@ namespace CommonLib
                                         uint DllID= SpecificControlParser.ParseDllID(NodeControl);
                                         if (GestDLL[DllID] != null)
                                         {
-                                            BTControl Control = GestDLL[DllID].CreateBTControl();
+                                            BTControl Control = GestDLL[DllID].CreateBTControl(m_Document);
                                             if (Control != null)
                                             {
-                                                if (!Control.ReadIn(NodeControl, TypeApp))
+                                                if (!Control.ReadIn(NodeControl, document))
                                                     return false;
                                                 m_GestControl.AddObj(Control);
                                             }
@@ -303,9 +299,9 @@ namespace CommonLib
                                 }
                             }
                             // sinon on effectue une lecture spéciale mode Command
-                            else if (TypeApp == TYPE_APP.SMART_COMMAND)
+                            else if (document.TypeApp == TYPE_APP.SMART_COMMAND)
                             {
-                                if (!ReadControlForCommandMode(ChildNode, GestDLL))
+                                if (!ReadControlForCommandMode(ChildNode, document, GestDLL))
                                     return false;
                             }
                             else
@@ -316,33 +312,40 @@ namespace CommonLib
                     //on lit le script d'event
                     case XML_CF_TAG.EventScript:
                         {
+                            List<string> listLines = new List<string>();
                             for (int j = 0; j < ChildNode.ChildNodes.Count; j++)
                             {
                                 if (ChildNode.ChildNodes[j].Name == XML_CF_TAG.Line.ToString()
                                     && ChildNode.ChildNodes[j].FirstChild != null)
                                 {
-                                    m_ScriptLines.Add(ChildNode.ChildNodes[j].FirstChild.Value);
+                                    listLines.Add(ChildNode.ChildNodes[j].FirstChild.Value);
                                 }
                             }
+                            m_ScriptContainer["EvtScreen"] = listLines.ToArray();
                         }
                         break;
                     // on lit le script d'init
                     case XML_CF_TAG.InitScript:
                         {
+                            List<string> listLines = new List<string>();
                             for (int j = 0; j < ChildNode.ChildNodes.Count; j++)
                             {
                                 if (ChildNode.ChildNodes[j].Name == XML_CF_TAG.Line.ToString()
                                     && ChildNode.ChildNodes[j].FirstChild != null)
                                 {
-                                    m_InitScriptLines.Add(ChildNode.ChildNodes[j].FirstChild.Value);
+                                    listLines.Add(ChildNode.ChildNodes[j].FirstChild.Value);
                                 }
                             }
+                            m_ScriptContainer["InitScreen"] = listLines.ToArray();
                         }
                         break;
                     // on lit le chemin de l'image de background
                     case XML_CF_TAG.ImagePath:
                         if (ChildNode.FirstChild != null)
                             this.m_strBackPictureFile = ChildNode.FirstChild.Value;
+                        break;
+                    case XML_CF_TAG.ScreenAttribs:
+                        ReadInVisualStyleAttributes(ChildNode);
                         break;
                     default:
                         break;
@@ -362,7 +365,7 @@ namespace CommonLib
         /// <param name="Node">Noeud Xml de l'objet</param>
         /// <param name="GestDLL">Getsionnaire des DLL plugin</param>
         /// <returns>true si la lecture s'est bien passé</returns>
-        private bool ReadControlForCommandMode(XmlNode Node, DllControlGest GestDll)
+        private bool ReadControlForCommandMode(XmlNode Node, BTDoc document, DllControlGest GestDll)
         {
             // En mode Commande on doit crée des objets pouvant afficher des vrais controls du framework
             // ceci est fait grace aux objets "baseControl" et dérivés
@@ -390,28 +393,28 @@ namespace CommonLib
                     switch (TypeId)
                     {
                         case CONTROL_TYPE.BUTTON:
-                            NewControl = new ButtonControl();
-                            NewControl.ReadIn(ChildNode, TYPE_APP.SMART_COMMAND);
+                            NewControl = new ButtonControl(m_Document);
+                            NewControl.ReadIn(ChildNode, document);
                             break;
                         case CONTROL_TYPE.CHECK:
-                            NewControl = new CheckControl();
-                            NewControl.ReadIn(ChildNode, TYPE_APP.SMART_COMMAND);
+                            NewControl = new CheckControl(m_Document);
+                            NewControl.ReadIn(ChildNode, document);
                             break;
                         case CONTROL_TYPE.COMBO:
-                            NewControl = new ComboControl();
-                            NewControl.ReadIn(ChildNode, TYPE_APP.SMART_COMMAND);
+                            NewControl = new ComboControl(m_Document);
+                            NewControl.ReadIn(ChildNode, document);
                             break;
                         case CONTROL_TYPE.SLIDER:
-                            NewControl = new SliderControl();
-                            NewControl.ReadIn(ChildNode, TYPE_APP.SMART_COMMAND);
+                            NewControl = new SliderControl(m_Document);
+                            NewControl.ReadIn(ChildNode, document);
                             break;
                         case CONTROL_TYPE.STATIC:
-                            NewControl = new StaticControl();
-                            NewControl.ReadIn(ChildNode, TYPE_APP.SMART_COMMAND);
+                            NewControl = new StaticControl(m_Document);
+                            NewControl.ReadIn(ChildNode, document);
                             break;
                         case CONTROL_TYPE.UP_DOWN:
-                            NewControl = new UpDownControl();
-                            NewControl.ReadIn(ChildNode, TYPE_APP.SMART_COMMAND);
+                            NewControl = new UpDownControl(m_Document);
+                            NewControl.ReadIn(ChildNode, document);
                             break;
                         case CONTROL_TYPE.SPECIFIC:
                             System.Diagnostics.Debug.Assert(false);
@@ -435,12 +438,12 @@ namespace CommonLib
                     switch (ControlType)
                     {
                         case SPECIFIC_TYPE.FILLED_RECT:
-                            NewControl = new FilledRectControl();
-                            NewControl.ReadIn(ChildNode, TYPE_APP.SMART_COMMAND);
+                            NewControl = new FilledRectControl(m_Document);
+                            NewControl.ReadIn(ChildNode, document);
                             break;
                         case SPECIFIC_TYPE.FILLED_ELLIPSE:
-                            NewControl = new FilledEllipseControl();
-                            NewControl.ReadIn(ChildNode, TYPE_APP.SMART_COMMAND);
+                            NewControl = new FilledEllipseControl(m_Document);
+                            NewControl.ReadIn(ChildNode, document);
                             break;
                         case SPECIFIC_TYPE.NULL:
                         default:
@@ -456,8 +459,8 @@ namespace CommonLib
                 else if (ChildNode.Name == XML_CF_TAG.DllControl.ToString())
                 {
                     uint DllID = SpecificControlParser.ParseDllID(ChildNode);
-                    BTControl NewControl = GestDll[DllID].CreateCommandBTControl();
-                    NewControl.ReadIn(ChildNode, TYPE_APP.SMART_COMMAND);
+                    BTControl NewControl = GestDll[DllID].CreateCommandBTControl(m_Document);
+                    NewControl.ReadIn(ChildNode, document);
                     if (NewControl != null)
                     {
                         NewControl.EventAddLogEvent += new AddLogEventDelegate(this.AddLogEvent);
@@ -474,15 +477,41 @@ namespace CommonLib
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ScreenAttrNode"></param>
+        /// <returns></returns>
+        private bool ReadInVisualStyleAttributes(XmlNode ScreenAttrNode)
+        {
+            XmlNode AttrSize = ScreenAttrNode.Attributes.GetNamedItem(XML_CF_ATTRIB.size.ToString());
+            XmlNode AttrPos = ScreenAttrNode.Attributes.GetNamedItem(XML_CF_ATTRIB.Pos.ToString());
+            XmlNode AttrShowInTaskBar = ScreenAttrNode.Attributes.GetNamedItem("ShowInTaskBar");
+            XmlNode AttrShowTitleBar = ScreenAttrNode.Attributes.GetNamedItem("ShowTitleBar");
+            if (AttrSize != null
+                && AttrPos != null
+                && AttrShowInTaskBar != null
+                && AttrShowTitleBar != null)
+            {
+                string[] TabStrPos = AttrPos.Value.Split(',');
+                string[] TabStrSize = AttrSize.Value.Split(',');
+                this.ScreenPosition = new Point(int.Parse(TabStrPos[0]), int.Parse(TabStrPos[1]));
+                this.ScreenSize = new Size(int.Parse(TabStrSize[0]), int.Parse(TabStrSize[1]));
+                m_bShowInTaskBar = bool.Parse(AttrShowInTaskBar.Value);
+                m_bShowTitleBar = bool.Parse(AttrShowTitleBar.Value);
+            }
+            return true;
+        }
+
+        /// <summary>
         /// écrit les données de l'objet dans le fichier XML
         /// </summary>
         /// <param name="XmlDoc">Document XML courant</param>
         /// <param name="Node">Noeud parent du controle dans le document</param>
         /// <returns>true si l'écriture s'est déroulée avec succès</returns>
-        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
+        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node, BTDoc document)
         {
             // on écrit les attributs de l'écran
-            base.WriteOut(XmlDoc, Node);
+            base.WriteOut(XmlDoc, Node, document);
             XmlAttribute TitleAttrib = XmlDoc.CreateAttribute(XML_CF_ATTRIB.Text.ToString());
             TitleAttrib.Value = this.Title;
             Node.Attributes.Append(TitleAttrib);
@@ -496,30 +525,49 @@ namespace CommonLib
             for (int i = 0; i < this.m_GestControl.Count; i++)
             {
                 BTControl dt = (BTControl)m_GestControl[i];
-                dt.WriteOut(XmlDoc, XmlControlList);
+                dt.WriteOut(XmlDoc, XmlControlList, document);
             }
             // on écrit les scripts
-            for (int i = 0; i < m_InitScriptLines.Count; i++)
+            for (int i = 0; i < m_ScriptContainer["InitScreen"].Length; i++)
             {
-                XmlNode NodeLine = XmlDoc.CreateElement(XML_CF_TAG.Line.ToString());
-                XmlNode NodeText = XmlDoc.CreateTextNode(m_InitScriptLines[i]);
-                NodeLine.AppendChild(NodeText);
-                XmlInitScript.AppendChild(NodeLine);
+                if (!string.IsNullOrEmpty(m_ScriptContainer["InitScreen"][i]))
+                {
+                    XmlNode NodeLine = XmlDoc.CreateElement(XML_CF_TAG.Line.ToString());
+                    XmlNode NodeText = XmlDoc.CreateTextNode(m_ScriptContainer["InitScreen"][i]);
+                    NodeLine.AppendChild(NodeText);
+                    XmlInitScript.AppendChild(NodeLine);
+                }
             }
-            for (int i = 0; i < m_ScriptLines.Count; i++)
+            for (int i = 0; i < m_ScriptContainer["EvtScreen"].Length; i++)
             {
-                XmlNode NodeLine = XmlDoc.CreateElement(XML_CF_TAG.Line.ToString());
-                XmlNode NodeText = XmlDoc.CreateTextNode(m_ScriptLines[i]);
-                NodeLine.AppendChild(NodeText);
-                XmlEventScript.AppendChild(NodeLine);
+                if (!string.IsNullOrEmpty(m_ScriptContainer["EvtScreen"][i]))
+                {
+                    XmlNode NodeLine = XmlDoc.CreateElement(XML_CF_TAG.Line.ToString());
+                    XmlNode NodeText = XmlDoc.CreateTextNode(m_ScriptContainer["EvtScreen"][i]);
+                    NodeLine.AppendChild(NodeText);
+                    XmlEventScript.AppendChild(NodeLine);
+                }
             }
             // et le chemin du de l'image de fond
             XmlNode NodeImage = XmlDoc.CreateElement(XML_CF_TAG.ImagePath.ToString());
-            string strTemp = PathTranslator.AbsolutePathToRelative(m_strBackPictureFile);
-            strTemp = PathTranslator.LinuxVsWindowsPathStore(strTemp);
-            XmlNode NodeTextImage = XmlDoc.CreateTextNode(strTemp);
+            XmlNode NodeTextImage = XmlDoc.CreateTextNode(m_strBackPictureFile);
             NodeImage.AppendChild(NodeTextImage);
             Node.AppendChild(NodeImage);
+
+            XmlNode NodeScreenAttr = XmlDoc.CreateElement(XML_CF_TAG.ScreenAttribs.ToString());
+            XmlAttribute AttrSize = XmlDoc.CreateAttribute(XML_CF_ATTRIB.size.ToString());
+            XmlAttribute AttrPos = XmlDoc.CreateAttribute(XML_CF_ATTRIB.Pos.ToString());
+            XmlAttribute AttrShowInTaskBar = XmlDoc.CreateAttribute("ShowInTaskBar");
+            XmlAttribute AttrShowTitleBar = XmlDoc.CreateAttribute("ShowTitleBar");
+            Node.AppendChild(NodeScreenAttr);
+            NodeScreenAttr.Attributes.Append(AttrSize);
+            NodeScreenAttr.Attributes.Append(AttrPos);
+            NodeScreenAttr.Attributes.Append(AttrShowInTaskBar);
+            NodeScreenAttr.Attributes.Append(AttrShowTitleBar);
+            AttrPos.Value = string.Format("{0},{1}", m_screenPosition.X, m_screenPosition.Y);
+            AttrSize.Value = string.Format("{0},{1}", m_screenSize.Width, m_screenSize.Height);
+            AttrShowInTaskBar.Value = m_bShowInTaskBar.ToString();
+            AttrShowTitleBar.Value = m_bShowTitleBar.ToString();
             return true;
         }
 
@@ -556,21 +604,25 @@ namespace CommonLib
                 // du refresh pour les objet dessiné sur le panel
                 this.m_DynamicPanel.MyInitializeComponent(m_ListControls);
                 // on ajuste la taille du dynamic Panel
-                m_DynamicPanel.Size = new Size(pt.X + 10, pt.Y + 10);
-                string strImageFullPath = PathTranslator.RelativePathToAbsolute(BackPictureFile);
+                m_DynamicPanel.Size = new Size(pt.X, pt.Y);
+                string strImageFullPath = Doc.PathTr.RelativePathToAbsolute(BackPictureFile);
                 strImageFullPath = PathTranslator.LinuxVsWindowsPathUse(strImageFullPath);
                 try
                 {
                     // si il y a une image, on la charge
-                    Bitmap imgBack = new Bitmap(strImageFullPath);
-                    imgBack.MakeTransparent(Cste.TransparencyColor);
-                    // ets i besoin on réajuste la taille du panel
-                    if (imgBack.Width > m_DynamicPanel.Width)
-                        m_DynamicPanel.Width = imgBack.Width;
-                    if (imgBack.Height > m_DynamicPanel.Height)
-                        m_DynamicPanel.Height = imgBack.Height;
+                    if (!string.IsNullOrEmpty(strImageFullPath))
+                    {
+                        PathTranslator.CheckFileExistOrThrow(strImageFullPath);
+                        Bitmap imgBack = new Bitmap(strImageFullPath);
+                        imgBack.MakeTransparent(Cste.TransparencyColor);
+                        // ets i besoin on réajuste la taille du panel
+                        if (imgBack.Width > m_DynamicPanel.Width)
+                            m_DynamicPanel.Width = imgBack.Width;
+                        if (imgBack.Height > m_DynamicPanel.Height)
+                            m_DynamicPanel.Height = imgBack.Height;
 
-                    m_DynamicPanel.BackgroundImage = imgBack;
+                        m_DynamicPanel.BackgroundImage = imgBack;
+                    }
                 }
                 catch (Exception)
                 {
@@ -589,6 +641,15 @@ namespace CommonLib
 
         #endregion
 
+        public override string GetToolTipText()
+        {
+            string returnedText = base.GetToolTipText();
+            returnedText += Lang.LangSys.C("Title : ") + this.Title + "\n";
+            returnedText += "\n";
+            return returnedText;
+        }
+
+
         #region Gestion des AppMessages
         /// <summary>
         /// effectue les opération nécessaire lors de la récéption d'un message
@@ -602,8 +663,7 @@ namespace CommonLib
             if (TypeApp == TYPE_APP.SMART_CONFIG)
             {
                 m_GestControl.TraiteMessage(Mess, obj, TypeApp);
-                ScriptTraiteMessage(this, Mess, m_InitScriptLines, obj);
-                ScriptTraiteMessage(this, Mess, m_ScriptLines, obj);
+                ScriptTraiteMessage(this, Mess, this.m_ScriptContainer, obj);
             }
             else
             {
@@ -612,13 +672,11 @@ namespace CommonLib
                 {
                     ExecuteInitScript();
                 }
-#if QUICK_MOTOR
                 else if (Mess==MESSAGE.MESS_PRE_PARSE)
                 {
-                    this.m_iQuickScriptID = m_Executer.PreParseScript((IScriptable)this);
-                    this.m_iQuickScriptIDIni = m_Executer.PreParseScript((IInitScriptable)this);
+                    this.m_iQuickScriptID = m_Executer.PreParseScript(this.m_ScriptContainer["EvtScreen"]);
+                    this.m_iQuickScriptIDIni = m_Executer.PreParseScript(this.m_ScriptContainer["InitScreen"]);
                 }
-#endif
                 for (int i = 0; i < m_ListControls.Count; i++)
                 {
                     m_ListControls[i].TraiteMessage(Mess, obj, TypeApp);
@@ -632,13 +690,9 @@ namespace CommonLib
         /// </summary>
         public void ControlEvent()
         {
-            if (m_ScriptLines.Count != 0)
+            if (m_ScriptContainer["EvtScreen"].Length != 0)
             {
-#if !QUICK_MOTOR
-                m_Executer.ExecuteScript(this.ScriptLines);
-#else
                 m_Executer.ExecuteScript(this.m_iQuickScriptID);
-#endif
             }
         }
 
@@ -647,13 +701,9 @@ namespace CommonLib
         /// </summary>
         protected void ExecuteInitScript()
         {
-            if (m_InitScriptLines.Count != 0)
+            if (m_ScriptContainer["InitScreen"].Length != 0)
             {
-#if !QUICK_MOTOR
-                m_Executer.ExecuteScript(this.InitScriptLines);
-#else
                 m_Executer.ExecuteScript(this.m_iQuickScriptIDIni);
-#endif
             }
         }
 
@@ -691,5 +741,31 @@ namespace CommonLib
         }
         #endregion
 
+        public void ExecuteShow()
+        {
+            if (m_DynamicPanel != null)
+            {
+                if (!m_DynamicPanel.InvokeRequired)
+                    m_DynamicPanel.Parent.Visible = true;
+                else
+                {
+                    NoArgSimpleDelegate AsyncCall = new NoArgSimpleDelegate(this.ExecuteShow);
+                    m_DynamicPanel.Invoke(AsyncCall);
+                }
+            }
+        }
+        public void ExecuteHide()
+        {
+            if (m_DynamicPanel != null)
+            {
+                if (!m_DynamicPanel.InvokeRequired)
+                    m_DynamicPanel.Parent.Visible = false;
+                else
+                {
+                    NoArgSimpleDelegate AsyncCall = new NoArgSimpleDelegate(this.ExecuteHide);
+                    m_DynamicPanel.Invoke(AsyncCall);
+                }
+            }
+        }
     }
 }

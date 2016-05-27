@@ -60,18 +60,18 @@ namespace FormatedDisplay
             }
         }
 
-        public BTControl CreateBTControl()
+        public BTControl CreateBTControl(BTDoc document)
         {
-            return new BTDllFormatedDisplayControl();
+            return new BTDllFormatedDisplayControl(document);
         }
 
-        public BTControl CreateBTControl(InteractiveControl iCtrl)
+        public BTControl CreateBTControl(BTDoc document, InteractiveControl iCtrl)
         {
-            return new BTDllFormatedDisplayControl(iCtrl);
+            return new BTDllFormatedDisplayControl(document, iCtrl);
         }
-        public BTControl CreateCommandBTControl()
+        public BTControl CreateCommandBTControl(BTDoc document)
         {
-            return new FormatedDisplayCmdControl();
+            return new FormatedDisplayCmdControl(document);
         }
 
         public InteractiveControl CreateInteractiveControl()

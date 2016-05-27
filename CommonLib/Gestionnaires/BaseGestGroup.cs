@@ -10,7 +10,7 @@ using System.Xml;
 namespace CommonLib
 {
     // classe spécialisée dans la gestion des objets par groupes
-    public class BaseGestGroup : BaseGest
+    public abstract class BaseGestGroup : BaseGest
     {
         #region classe group représentant les données d'un groupe
         public class Group
@@ -71,7 +71,7 @@ namespace CommonLib
             /// <param name="Node">Noeud Xml de l'objet</param>
             /// <param name="TypeApp">type d'application courante</param>
             /// <returns>true si la lecture s'est bien passé</returns>
-            public bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
+            public bool WriteOut(XmlDocument XmlDoc, XmlNode Node, BTDoc document)
             {
                 XmlNode XmlGroup = XmlDoc.CreateElement(XML_CF_TAG.Group.ToString());
                 XmlAttribute Name = XmlDoc.CreateAttribute(XML_CF_ATTRIB.strNom.ToString());
@@ -217,9 +217,9 @@ namespace CommonLib
         // Description: Lit les données de l'objet a partir de son noeud XML
         // Return: /
         //*****************************************************************************************************
-        public override bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
+        public override bool ReadIn(XmlNode Node, BTDoc document)
         {
-            return ReadGestGroup(Node, TypeApp);
+            return ReadGestGroup(Node, document.TypeApp);
         }
 
         //*****************************************************************************************************
@@ -284,14 +284,14 @@ namespace CommonLib
         // Description: ecrit les données de l'objet a partir de son noeud XML
         // Return: /
         //*****************************************************************************************************
-        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
+        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node, BTDoc document)
         {
-            base.WriteOut(XmlDoc, Node);
+            base.WriteOut(XmlDoc, Node, document);
             XmlNode GroupSection = XmlDoc.CreateElement(XML_CF_TAG.GroupSection.ToString());
             Node.AppendChild(GroupSection);
             for (int i =0; i< m_ListGroup.Count; i++)
             {
-                m_ListGroup[i].WriteOut(XmlDoc, GroupSection);
+                m_ListGroup[i].WriteOut(XmlDoc, GroupSection, document);
             }
             return true;
         }
@@ -585,10 +585,13 @@ namespace CommonLib
         #endregion
 
         #region Fonction "utilitaires"
-        //*****************************************************************************************************
-        // Description: 
-        // Return: /
-        //*****************************************************************************************************
+        public BaseObject AddNewObject(BTDoc document, string groupeSymbol)
+        {
+            BaseObject obj = AddNewObject(document);
+            this.AddObjectToGroup(groupeSymbol, obj);
+            return obj;
+        }
+
         /// <summary>
         /// renvoie le prochain nom disponible pour un nom de groupe
         /// </summary>

@@ -11,13 +11,14 @@ namespace CommonLib
     {
         #region données membres
         bool m_bIsCommOpenned = false;
+        string m_commParam = "NA";
         #endregion
 
-        #region Events
-        public event CommOpenedStateChange OnCommStateChange;
-        #endregion
 
         #region cosntructeur
+        /// <summary>
+        /// 
+        /// </summary>
         public VirtualComm()
         {
             m_bDataAvailable = true;
@@ -59,8 +60,6 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// renvoie les données reçues par le port série
-        /// (renvoie null si aucune donnée n'a été reçu au moment de l'appel a cette fonction
         /// NE PAS UTILISER DANS LA COMM VIRTUELLE
         /// </summary>
         /// <param name="NumberOfByte">nombre d'octet de la trame à extraire</param>
@@ -106,8 +105,7 @@ namespace CommonLib
         public override bool OpenComm()
         {
             m_bIsCommOpenned = true;
-            if (OnCommStateChange != null)
-                OnCommStateChange();
+            NotifyComStateChange();
             return true;
         }
 
@@ -118,8 +116,7 @@ namespace CommonLib
         public override bool CloseComm()
         {
             m_bIsCommOpenned = false;
-            if (OnCommStateChange != null)
-                OnCommStateChange();
+            NotifyComStateChange();
             return true;
         }
 
@@ -132,5 +129,11 @@ namespace CommonLib
             return m_bIsCommOpenned;
         }
         #endregion
+
+        public string ComParam
+        {
+            get { return m_commParam; }
+            set { }
+        }
     }
 }

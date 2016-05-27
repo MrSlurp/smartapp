@@ -58,11 +58,14 @@ namespace CtrlGraph
         // ajouter ici les données membres des propriété
         string[] ListDataSymbol = new string[NB_CURVE];
         string[] ListDataAlias = new string[NB_CURVE];
+        int[] ListDataDivisor = new int[NB_CURVE];
         Color[] ListCurveColor = new Color[NB_CURVE];
 
         SAVE_PERIOD m_SavePeriod= SAVE_PERIOD.SAVE_1_h;
         LOG_PERIOD m_LoggingPeriod = LOG_PERIOD.LOG_1_min;
         #endregion
+
+        public DllCtrlGraphProp(ItemScriptsConainter scriptContainter) : base(scriptContainter) { }
 
         #region attributs
         public string GraphTitle
@@ -142,6 +145,16 @@ namespace CtrlGraph
             return ListCurveColor[index];
         }
 
+        public int GetDataDivisor(int index)
+        {
+
+            return ListDataDivisor[index];
+        }
+        public void SetDataDivisor(int index, int value)
+        {
+            ListDataDivisor[index] = value;
+        }
+
         public void SetSymbol(int index, string Symbol)
         {
             ListDataSymbol[index] = Symbol;
@@ -159,7 +172,7 @@ namespace CtrlGraph
         #endregion
 
         #region ReadIn / WriteOut
-        public override bool ReadIn(XmlNode Node)
+        public override bool ReadIn(XmlNode Node, BTDoc document)
         {
             int NodeGraphItemCount = 0;
             if (Node.FirstChild != null)
@@ -172,9 +185,12 @@ namespace CtrlGraph
                         XmlNode AttrSymbol = Node.ChildNodes[ch].Attributes.GetNamedItem(XML_CF_ATTRIB.strSymbol.ToString());
                         XmlNode AttrText = Node.ChildNodes[ch].Attributes.GetNamedItem(XML_CF_ATTRIB.Text.ToString());
                         XmlNode AttrColor = Node.ChildNodes[ch].Attributes.GetNamedItem(XML_CF_ATTRIB.bkColor.ToString());
+                        XmlNode AttrDivisor = Node.ChildNodes[ch].Attributes.GetNamedItem("Divisor");
                         ListDataSymbol[NodeGraphItemCount] = AttrSymbol.Value;
                         ListDataAlias[NodeGraphItemCount] = AttrText.Value;
                         ListCurveColor[NodeGraphItemCount] = ColorTranslate.StringToColor(AttrColor.Value);
+                        if (AttrDivisor != null)
+                            ListDataDivisor[NodeGraphItemCount] = int.Parse(AttrDivisor.Value);
 
                         NodeGraphItemCount++;
                         // on reprend à 0 si les items ne sont pas dans le bon ordre
@@ -203,7 +219,7 @@ namespace CtrlGraph
             return true;
         }
 
-        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
+        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node, BTDoc document)
         {
             for (int i = 0; i < NB_CURVE; i++)
             {
@@ -212,12 +228,15 @@ namespace CtrlGraph
                 XmlAttribute AttrSymbol = XmlDoc.CreateAttribute(XML_CF_ATTRIB.strSymbol.ToString());
                 XmlAttribute AttrText = XmlDoc.CreateAttribute(XML_CF_ATTRIB.Text.ToString());
                 XmlAttribute AttrColor = XmlDoc.CreateAttribute(XML_CF_ATTRIB.bkColor.ToString());
+                XmlAttribute AttrDivisor = XmlDoc.CreateAttribute("Divisor");
                 AttrSymbol.Value = ListDataSymbol[i];
                 AttrText.Value = ListDataAlias[i];
                 AttrColor.Value = ColorTranslate.ColorToString(ListCurveColor[i]);
+                AttrDivisor.Value = ListDataDivisor[i].ToString();
                 CurvPropNode.Attributes.Append(AttrSymbol);
                 CurvPropNode.Attributes.Append(AttrText);
                 CurvPropNode.Attributes.Append(AttrColor);
+                CurvPropNode.Attributes.Append(AttrDivisor);
                 Node.AppendChild(CurvPropNode);
             }
             XmlNode Titles = XmlDoc.CreateElement(NODE_TITLE_ITEM);
@@ -250,24 +269,26 @@ namespace CtrlGraph
         /// 
         /// </summary>
         /// <param name="SrcSpecificProp"></param>
-        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance)
+        public override void CopyParametersFrom(SpecificControlProp SrcSpecificProp, bool bFromOtherInstance, BTDoc document)
         {
-            if (!bFromOtherInstance)
+            if (SrcSpecificProp is DllCtrlGraphProp)
             {
-                if (SrcSpecificProp.GetType() == typeof(DllCtrlGraphProp))
+                DllCtrlGraphProp specProps = SrcSpecificProp as DllCtrlGraphProp;
+                for (int i = 0; i < NB_CURVE; i++)
                 {
-                    for (int i = 0; i < NB_CURVE; i++)
+                    ListDataSymbol[i] = BTControl.CheckAndDoAssociateDataCopy(document, specProps.ListDataSymbol[i]);
+                    if (!string.IsNullOrEmpty(ListDataSymbol[i]))
                     {
-                        ListDataSymbol[i] = ((DllCtrlGraphProp)SrcSpecificProp).ListDataSymbol[i];
-                        ListDataAlias[i] = ((DllCtrlGraphProp)SrcSpecificProp).ListDataAlias[i];
-                        ListCurveColor[i] = ((DllCtrlGraphProp)SrcSpecificProp).ListCurveColor[i];
+                        ListDataAlias[i] = specProps.ListDataAlias[i];
+                        ListCurveColor[i] = specProps.ListCurveColor[i];
+                        ListDataDivisor[i] = specProps.ListDataDivisor[i];
                     }
-                    m_SavePeriod = ((DllCtrlGraphProp)SrcSpecificProp).m_SavePeriod;
-                    m_LoggingPeriod = ((DllCtrlGraphProp)SrcSpecificProp).m_LoggingPeriod;
-                    strGraphTitle = ((DllCtrlGraphProp)SrcSpecificProp).strGraphTitle;
-                    strXAxisTitle = ((DllCtrlGraphProp)SrcSpecificProp).strXAxisTitle;
-                    strYAxisTitle = ((DllCtrlGraphProp)SrcSpecificProp).strYAxisTitle;
                 }
+                m_SavePeriod = specProps.m_SavePeriod;
+                m_LoggingPeriod = specProps.m_LoggingPeriod;
+                strGraphTitle = specProps.strGraphTitle;
+                strXAxisTitle = specProps.strXAxisTitle;
+                strYAxisTitle = specProps.strYAxisTitle;
             }
         }
         #endregion
@@ -276,51 +297,13 @@ namespace CtrlGraph
         {
             if (TypeApp == TYPE_APP.SMART_CONFIG)
             {
-                switch (Mess)
+                for (int i = 0; i < DllCtrlGraphProp.NB_CURVE; i++)
                 {
-                    case MESSAGE.MESS_ASK_ITEM_DELETE:
-                        if (((MessAskDelete)obj).TypeOfItem == typeof(Data))
-                        {
-                            MessAskDelete MessParam = (MessAskDelete)obj;
-                            for (int i = 0; i < DllCtrlGraphProp.NB_CURVE; i++)
-                            {
-                                if (ListDataSymbol[i] == MessParam.WantDeletetItemSymbol)
-                                {
-                                    string strMess = string.Format(DllEntryClass.LangSys.C("Graphic {0} will lost data"), PropOwner.Symbol);
-                                    MessParam.ListStrReturns.Add(strMess);
-                                }
-                            }
-                        }
-                        break;
-                    case MESSAGE.MESS_ITEM_DELETED:
-                        if (((MessDeleted)obj).TypeOfItem == typeof(Data))
-                        {
-                            MessDeleted MessParam = (MessDeleted)obj;
-                            for (int i = 0; i < DllCtrlGraphProp.NB_CURVE; i++)
-                            {
-                                if (ListDataSymbol[i] == MessParam.DeletetedItemSymbol)
-                                {
-                                    ListDataSymbol[i] = string.Empty;
-                                }
-                            }
-                        }
-                        break;
-                    case MESSAGE.MESS_ITEM_RENAMED:
-                        if (((MessItemRenamed)obj).TypeOfItem == typeof(Data))
-                        {
-                            MessItemRenamed MessParam = (MessItemRenamed)obj;
-                            for (int i = 0; i < DllCtrlGraphProp.NB_CURVE; i++)
-                            {
-                                if (ListDataSymbol[i] == MessParam.OldItemSymbol)
-                                {
-                                    ListDataSymbol[i] = MessParam.NewItemSymbol;
-                                }
-                            }
-                        }
-                        break;
-                    default:
-                        break;
+                    BTControl.TraiteMessageDataDelete(Mess, obj, ListDataSymbol[i], PropOwner, DllEntryClass.LangSys.C("Graphic {0} will lost data"));
+                    ListDataSymbol[i] = BTControl.TraiteMessageDataDeleted(Mess, obj, ListDataSymbol[i] );
+                    ListDataSymbol[i] = BTControl.TraiteMessageDataRenamed(Mess, obj, ListDataSymbol[i]);
                 }
+
             }
         }
     }

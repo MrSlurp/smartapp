@@ -18,6 +18,13 @@ namespace CommonLib
     public class GestScreen : BaseGest
     {
         #region fonctions utilitaires
+        public override BaseObject AddNewObject(BTDoc document)
+        {
+            BTScreen dat = new BTScreen(document);
+            dat.Symbol = GetNextDefaultSymbol();
+            this.AddObj(dat);
+            return dat;
+        }
         /// <summary>
         /// renvoie le prochain symbol libre pour une nouvelle donnée
         /// </summary>
@@ -43,7 +50,7 @@ namespace CommonLib
         /// <param name="Node"></param>
         /// <param name="TypeApp"></param>
         /// <returns></returns>
-        public override bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
+        public override bool ReadIn(XmlNode Node, BTDoc document)
         {
             System.Diagnostics.Debug.Assert(false);
             return false;
@@ -56,7 +63,7 @@ namespace CommonLib
         /// <param name="TypeApp">type d'application courante</param>
         /// <param name="GestDLL">Getsionnaire des DLL plugin</param>
         /// <returns>true si la lecture s'est bien passé</returns>
-        public bool ReadIn(XmlNode Node, TYPE_APP TypeApp, DllControlGest GestDLL)
+        public bool ReadIn(XmlNode Node, BTDoc document, DllControlGest GestDLL)
         {
             for (int i = 0; i < Node.ChildNodes.Count; i++)
             {
@@ -64,10 +71,10 @@ namespace CommonLib
                 if (ChildNode.Name != XML_CF_TAG.Screen.ToString())
                     continue;
                 
-                BTScreen NewScreen = new BTScreen();
+                BTScreen NewScreen = new BTScreen(document);
                 if (NewScreen != null)
                 {
-                    if (!NewScreen.ReadIn(ChildNode, TypeApp, GestDLL))
+                    if (!NewScreen.ReadIn(ChildNode, document, GestDLL))
                         return false;
 
                     this.AddObj(NewScreen);
@@ -82,16 +89,16 @@ namespace CommonLib
         /// <param name="Node">Noeud Xml de l'objet</param>
         /// <param name="TypeApp">type d'application courante</param>
         /// <returns>true si la lecture s'est bien passé</returns>
-        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
+        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node, BTDoc document)
         {
             for (int i = 0; i < this.m_ListObject.Count; i++)
             {
                 BTScreen dt = (BTScreen)m_ListObject[i];
                 XmlNode XmlScreen = XmlDoc.CreateElement(XML_CF_TAG.Screen.ToString());
-                dt.WriteOut(XmlDoc, XmlScreen);
+                dt.WriteOut(XmlDoc, XmlScreen, document);
                 Node.AppendChild(XmlScreen);
             }
-            base.WriteOut(XmlDoc, Node);
+            base.WriteOut(XmlDoc, Node, document);
             return true;
         }
         #endregion

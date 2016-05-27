@@ -11,24 +11,29 @@ namespace CommonLib
     {
         #region Déclaration des données de la classe
         // script executé par le timer
-        private StringCollection m_ScriptLines = new StringCollection();
+        protected ItemScriptsConainter m_ScriptContainer = new ItemScriptsConainter();
         // période du timer
         int m_iPeriod = 1000;
 
         private bool m_bAutoStart = true;
+
         #endregion
 
         #region donnée spécifiques aux fonctionement en mode Command
         // objet Timer utilisé en mode Command
-        Timer m_Timer = new Timer();
+        System.Timers.Timer m_Timer = new System.Timers.Timer();
         bool m_bTimerEnabled = false;
         // executer de script du document
-#if !QUICK_MOTOR
-        protected ScriptExecuter m_Executer = null;
-#else
         protected QuickExecuter m_Executer = null;
-#endif
+
+        private static Control m_singStdConfigPanel;
+
         #endregion
+
+        public BTTimer()
+        {
+            m_ScriptContainer["TimerScript"] = new string[1];
+        }
 
         #region propriétées de la classe
         /// <summary>
@@ -47,27 +52,13 @@ namespace CommonLib
         }
 
         /// <summary>
-        /// obtient ou assigne le script executé par le timer
+        /// obtient ou assigne le script du controle
         /// </summary>
-        public string[] ScriptLines
+        public ItemScriptsConainter ItemScripts
         {
             get
             {
-                string[] TabLines = new string[m_ScriptLines.Count];
-                for (int i = 0; i < m_ScriptLines.Count; i++)
-                {
-                    TabLines[i] = m_ScriptLines[i];
-                }
-                return TabLines;
-            }
-            set
-            {
-                m_ScriptLines.Clear();
-                for (int i = 0; i < value.Length; i++)
-                {
-                    m_ScriptLines.Add(value[i]);
-                }
-
+                return m_ScriptContainer;
             }
         }
 
@@ -89,15 +80,6 @@ namespace CommonLib
         /// <summary>
         /// obtient ou assigne l'executer de l'écran
         /// </summary>
-#if !QUICK_MOTOR
-        public ScriptExecuter Executer
-        {
-            get
-            {
-                return m_Executer;
-            }
-        }
-#else
         public QuickExecuter Executer
         {
             get
@@ -105,7 +87,19 @@ namespace CommonLib
                 return m_Executer;
             }
         }
-#endif
+
+        public override Control StdConfigPanel
+        {
+            get
+            {
+                if (m_singStdConfigPanel == null)
+                {
+                    m_singStdConfigPanel = new TimerPropertiesPanel();
+                }
+                return m_singStdConfigPanel;
+            }
+        }
+
         #endregion
 
         #region ReadIn / WriteOut
@@ -115,9 +109,9 @@ namespace CommonLib
         /// <param name="Node">Noeud Xml de l'objet</param>
         /// <param name="TypeApp">type d'application courante</param>
         /// <returns>true si la lecture s'est bien passé</returns>
-        public override bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
+        public override bool ReadIn(XmlNode Node, BTDoc document)
         {
-            bool bRet = base.ReadIn(Node, TypeApp);
+            bool bRet = base.ReadIn(Node, document);
             // on lit l'attribut
             XmlNode PeriodAttrib = Node.Attributes.GetNamedItem(XML_CF_ATTRIB.Period.ToString());
             if (PeriodAttrib == null)
@@ -126,14 +120,16 @@ namespace CommonLib
             // et le script
             m_iPeriod = int.Parse(PeriodAttrib.Value);
 
+            List<string> listScriptLines = new List<string>();
             for (int i = 0; i < Node.ChildNodes.Count; i++)
             {
                 if (Node.ChildNodes[i].Name == XML_CF_TAG.Line.ToString()
                         && Node.ChildNodes[i].FirstChild != null)
                 {
-                    m_ScriptLines.Add(Node.ChildNodes[i].FirstChild.Value);
+                    listScriptLines.Add(Node.ChildNodes[i].FirstChild.Value);
                 }
             }
+            m_ScriptContainer["TimerScript"] = listScriptLines.ToArray();
             XmlNode AutoStartAttrib = Node.Attributes.GetNamedItem(XML_CF_ATTRIB.AutoStart.ToString());
             if (AutoStartAttrib != null)
                 m_bAutoStart = bool.Parse(AutoStartAttrib.Value);
@@ -147,9 +143,9 @@ namespace CommonLib
         /// <param name="XmlDoc">Document XML courant</param>
         /// <param name="Node">Noeud parent du controle dans le document</param>
         /// <returns>true si l'écriture s'est déroulée avec succès</returns>
-        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
+        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node, BTDoc document)
         {
-            base.WriteOut(XmlDoc, Node);
+            base.WriteOut(XmlDoc, Node, document);
             // on écrit la période
             XmlAttribute AttrPeriod = XmlDoc.CreateAttribute(XML_CF_ATTRIB.Period.ToString());
             XmlAttribute AutoStartAttrib = XmlDoc.CreateAttribute(XML_CF_ATTRIB.AutoStart.ToString());
@@ -158,12 +154,15 @@ namespace CommonLib
             Node.Attributes.Append(AttrPeriod);
             Node.Attributes.Append(AutoStartAttrib);
             // et le script
-            for (int i = 0; i < m_ScriptLines.Count; i++)
+            for (int i = 0; i < m_ScriptContainer["TimerScript"].Length; i++)
             {
-                XmlNode NodeLine = XmlDoc.CreateElement(XML_CF_TAG.Line.ToString());
-                XmlNode NodeText = XmlDoc.CreateTextNode(m_ScriptLines[i]);
-                NodeLine.AppendChild(NodeText);
-                Node.AppendChild(NodeLine);
+                if (!string.IsNullOrEmpty(m_ScriptContainer["TimerScript"][i]))
+                {
+                    XmlNode NodeLine = XmlDoc.CreateElement(XML_CF_TAG.Line.ToString());
+                    XmlNode NodeText = XmlDoc.CreateTextNode(m_ScriptContainer["TimerScript"][i]);
+                    NodeLine.AppendChild(NodeText);
+                    Node.AppendChild(NodeLine);
+                }
             }
             return true;
         }
@@ -179,7 +178,7 @@ namespace CommonLib
             // initialisation de l'objet Timer
             this.m_Executer = Doc.Executer;
             m_Timer.Interval = this.m_iPeriod;
-            m_Timer.Tick += new EventHandler(OnTimerTick);
+            m_Timer.Elapsed += new System.Timers.ElapsedEventHandler(OnTimerTick);
             return true;
         }
 
@@ -197,7 +196,7 @@ namespace CommonLib
             // en mode config, on execute les différents traitements sur les scripts
             if (TypeApp == TYPE_APP.SMART_CONFIG)
             {
-                ScriptTraiteMessage(this, Mess, m_ScriptLines, obj);
+                ScriptTraiteMessage(this, Mess, m_ScriptContainer, obj);
             }
             else
             {
@@ -211,12 +210,10 @@ namespace CommonLib
                     case MESSAGE.MESS_CMD_STOP:
                         this.StopTimer();
                         break;
-#if QUICK_MOTOR
                     case MESSAGE.MESS_PRE_PARSE:
-                        if (this.ScriptLines.Length != 0)
-                            this.m_iQuickScriptID = m_Executer.PreParseScript((IScriptable)this);    
+                        if (this.ItemScripts["TimerScript"].Length != 0)
+                            this.m_iQuickScriptID = m_Executer.PreParseScript(this.m_ScriptContainer["TimerScript"]);    
                         break;
-#endif
                     default:
                         break;
                 }
@@ -250,23 +247,28 @@ namespace CommonLib
         /// </summary>
         /// <param name="sender">timer ayant levé l'évènement</param>
         /// <param name="e">argument de l'event</param>
-        private void OnTimerTick(object sender, EventArgs e)
+        private void OnTimerTick(object sender, System.Timers.ElapsedEventArgs e)
         {
             if (m_bTimerEnabled)
             {
                 m_Timer.Stop();
 
                 CommonLib.PerfChrono theChrono = new PerfChrono();
-#if !QUICK_MOTOR
-                m_Executer.ExecuteScript(this.ScriptLines);
-#else
-                m_Executer.ExecuteScript(this.m_iQuickScriptID);
-#endif
-                
+                if (this.ItemScripts["TimerScript"].Length != 0)
+                    m_Executer.ExecuteScript(this.m_iQuickScriptID);
                 theChrono.EndMeasure("InstanceName = " + this.Symbol);
                 m_Timer.Start();
             }
         }
         #endregion
+
+        public override string GetToolTipText()
+        {
+            string returnedText = base.GetToolTipText();
+            returnedText += Lang.LangSys.C("Period : ") + this.Period + "ms\n";
+            returnedText += Lang.LangSys.C("Auto start : ") + (this.AutoStart ? Lang.LangSys.C("Yes") : Lang.LangSys.C("No")) + "\n";
+            returnedText += "\n";
+            return returnedText;
+        }
     }
 }

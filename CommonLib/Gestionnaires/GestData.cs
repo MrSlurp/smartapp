@@ -35,14 +35,14 @@ namespace CommonLib
         /// <param name="Node">Noeud Xml de l'objet</param>
         /// <param name="TypeApp">type d'application courante</param>
         /// <returns>true si la lecture s'est bien passé</returns>
-        public override bool ReadIn(XmlNode Node, TYPE_APP TypeApp)
+        public override bool ReadIn(XmlNode Node, BTDoc document)
         {
             // relecture des données
-            if (!ReadForGestData(Node, TypeApp))
+            if (!ReadForGestData(Node, document))
                 return false;
 
             // relecture des groupes
-            if (!base.ReadIn(Node, TypeApp))
+            if (!base.ReadIn(Node, document))
                 return false;
 
             return true;
@@ -54,7 +54,7 @@ namespace CommonLib
         /// <param name="Node">Noeud Xml de l'objet</param>
         /// <param name="TypeApp">type d'application courante</param>
         /// <returns>true si la lecture s'est bien passé</returns>
-        private bool ReadForGestData(XmlNode Node, TYPE_APP TypeApp)
+        private bool ReadForGestData(XmlNode Node, BTDoc document)
         {
             for (int i = 0; i < Node.ChildNodes.Count; i++)
             {
@@ -65,7 +65,7 @@ namespace CommonLib
                 Data NewData = new Data();
                 if (NewData != null)
                 {
-                    if (!NewData.ReadIn(ChildNode, TypeApp))
+                    if (!NewData.ReadIn(ChildNode, document))
                         return false;
                     NewData.UpdateUserVisibility();
                     this.AddObj(NewData);
@@ -80,22 +80,29 @@ namespace CommonLib
         /// <param name="XmlDoc">Document XML courant</param>
         /// <param name="Node">Noeud parent du controle dans le document</param>
         /// <returns>true si l'écriture s'est déroulée avec succès</returns>
-        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node)
+        public override bool WriteOut(XmlDocument XmlDoc, XmlNode Node, BTDoc document)
         {
             for (int i = 0; i < this.m_ListObject.Count; i++)
             {
                 Data dt = (Data)m_ListObject[i];
 
                 XmlNode XmlData = XmlDoc.CreateElement(XML_CF_TAG.Data.ToString());
-                dt.WriteOut(XmlDoc, XmlData);
+                dt.WriteOut(XmlDoc, XmlData, document);
                 Node.AppendChild(XmlData);
             }
-            base.WriteOut(XmlDoc, Node);
+            base.WriteOut(XmlDoc, Node, document);
             return true;
         }
         #endregion
 
         #region fonction "utilitaires"
+        public override BaseObject AddNewObject(BTDoc document)
+        {
+            Data dat = new Data(GetNextDefaultSymbol(), 0, DATA_SIZE.DATA_SIZE_16B, false);
+            this.AddObj(dat);
+            return dat;
+        }
+
         /// <summary>
         /// renvoie le prochain symbol libre pour une nouvelle donnée
         /// </summary>
@@ -214,6 +221,68 @@ namespace CommonLib
                             System.Diagnostics.Debug.Assert(false);
                             break;
                     }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="GestTr"></param>
+        /// <param name="Tr"></param>
+        /// <param name="ctrlDataType"></param>
+        /// <param name="ctrlDataSize"></param>
+        public void UpdateControlDataForCurrentFrame(Trame Tr, string ctrlDataType, int ctrlDataSize)
+        {
+            //Liste des données de control nécessaires
+            string NeededCtrlData = string.Empty;
+            // liste des trames ayant besoin d'une donnée de controls
+            Trame TrameNeedCtrlData = null;
+            // on crée une liste syncronisée des noms des 
+            // données de control nécessaire et des trames correspondantes
+                // si la trame possède une donnée de control
+            if (ctrlDataType != CTRLDATA_TYPE.NONE.ToString())
+            {
+                // et si il n'existe pas déja une donnée de control pour cette trame
+                if (GetFromSymbol(Tr.Symbol + Cste.STR_SUFFIX_CTRLDATA) == null)
+                {
+                    string strNeeded = Tr.Symbol + Cste.STR_SUFFIX_CTRLDATA;
+                    // alors on enregistre le nom de la donnée nécessaire
+                    NeededCtrlData = strNeeded;
+                    // et la trame qui en a besoin
+                    TrameNeedCtrlData = Tr;
+                }
+            }
+
+            // on crée les données de control manquantes
+            if (TrameNeedCtrlData != null)
+            {
+                Data NewData = new Data();
+                NewData.Symbol = TrameNeedCtrlData.Symbol + Cste.STR_SUFFIX_CTRLDATA;
+                NewData.SizeAndSign = ctrlDataSize;
+                this.AddObj(NewData);
+
+                switch ((DATA_SIZE)NewData.SizeAndSign)
+                {
+                    case DATA_SIZE.DATA_SIZE_8B:
+                        NewData.Minimum = 0;
+                        NewData.Maximum = 255;
+                        break;
+                    case DATA_SIZE.DATA_SIZE_16B:
+                        NewData.Minimum = -32768;
+                        NewData.Maximum = 32767;
+                        break;
+                    case DATA_SIZE.DATA_SIZE_16BU:
+                        NewData.Minimum = 0;
+                        NewData.Maximum = 0xFFFF;
+                        break;
+                    case DATA_SIZE.DATA_SIZE_32B:
+                        NewData.Minimum = int.MinValue;
+                        NewData.Maximum = int.MaxValue;
+                        break;
+                    default:
+                        System.Diagnostics.Debug.Assert(false);
+                        break;
                 }
             }
         }

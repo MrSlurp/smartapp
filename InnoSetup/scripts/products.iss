@@ -113,7 +113,7 @@ begin
 	end;
 end;
 
-function PrepareToInstall: String;
+function PrepareProductToInstall: String;
 var
 	i: Integer;
 	s: string;
