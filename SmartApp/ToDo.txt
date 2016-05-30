@@ -1,9 +1,8 @@
 /*********************************************/
 				SmartConfig
 /*********************************************/
-Configurer si les écrans d'une document s'ouvrent dans une fenêtre, ou en tant que fenêtre
+-
  /*********************************************/
 				SmartCommand
 /*********************************************/
-Faire que SmartCmd se mette au premier plan aprs le chargement d'un document.
-coder si les écrans d'une document s'ouvrent dans une fenêtre, ou en tant que fenêtre
+-
